@@ -1,0 +1,60 @@
+<div class="mg-4 max-w-sm overflow-hidden rounded" [formGroup]="parent">
+  <span>{{ label }}</span>
+  <div>
+    <div class="relative">
+      <button
+        type="button"
+        class="bg-app-color-300 hover:bg-app-color-600 w-full rounded p-2 text-white"
+        (click)="showOptions = !showOptions"
+      >
+        <span class="float-left">Mostra</span>
+
+        <svg
+          class="float-right my-1 h-4 fill-current text-white"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 129 129"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          enable-background="new 0 0 129 129"
+        >
+          <g>
+            <path
+              d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"
+            />
+          </g>
+        </svg>
+      </button>
+      <div
+        class="pin-t pin-l relative my-2 rounded shadow-md"
+        *ngIf="showOptions"
+      >
+        <input
+          #inputField
+          type="text"
+          class="my-1 w-96 rounded"
+          placeholder="Mario Rossi"
+          (keyup)="filterItems(inputField.value)"
+        />
+
+        <select
+          [id]="name"
+          [name]="name"
+          [formControlName]="name"
+          multiple
+          class="focus:ring-app-color-500 focus:border-app-colo block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm"
+        >
+          <option
+            #dropdownOption
+            id="dropdown-option-{{ i }}"
+            (mousedown)="onMouseDown($event, option.value)"
+            *ngFor="let option of filteredOptions; let i = index"
+            [value]="option.value"
+            class="block cursor-pointer rounded bg-white p-2 text-black hover:bg-gray-100"
+          >
+            {{ option.name }} {{ dropdownOption.selected ? "✔" : "" }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>

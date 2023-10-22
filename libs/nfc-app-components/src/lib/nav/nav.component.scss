@@ -11,3 +11,7 @@ ul {
     @apply menu-title text-secondary tracking-wider font-normal uppercase;
   }
 }
+
+svg {
+  @apply w-8 h-8;
+}

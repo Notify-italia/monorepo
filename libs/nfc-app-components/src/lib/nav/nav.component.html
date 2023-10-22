@@ -52,15 +52,19 @@
           <a
             [routerLink]="item.path"
             routerLinkActive="btn-active"
-            class="flex space-x-2 "
+            class="flex space-x-2"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="w-6 h-6 text-primary"
+              class="text-primary"
             >
-              <path *ngFor="let p of item.icon" [attr.d]="p" />
+              <path
+                *ngFor="let p of item.icon"
+                fill-rule="evenodd"
+                [attr.d]="p"
+              />
             </svg>
 
             <span>{{ item.label }}</span>
@@ -80,7 +84,6 @@
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="w-6 h-6"
           >
             <path *ngFor="let p of item.icon" [attr.d]="p" />
           </svg>

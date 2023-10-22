@@ -1,0 +1,97 @@
+<form
+  class="flex flex-col items-center space-y-4 divide-y divide-secondary/50 bg-gray-700/20 p-4 rounded-xl"
+  [formGroup]="form"
+>
+  <!-- AVATAR -->
+  <div class="flex space-x-2 items-center">
+    <div class="avatar">
+      <div class="w-20 rounded-xl">
+        <img
+          src="https://images.unsplash.com/photo-1614023342667-6f060e9d1e04?auto=format&fit=crop&q=80&w=1471&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        />
+      </div>
+    </div>
+    <div>
+      <div class="form-control w-full max-w-xs">
+        <label class="label">
+          <span class="label-text">Avatar</span>
+        </label>
+        <input
+          type="file"
+          class="file-input file-input-bordered w-full max-w-xs"
+        />
+        <label class="label"> </label>
+      </div>
+    </div>
+  </div>
+  <div class="w-full">
+    <div class="field">
+      <notify-tailwind-input
+        [parent]="form"
+        name="bio"
+        label="Bio"
+        placeholder="Inserisci una breve descrizione di te"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-input>
+    </div>
+    <!-- NOME -->
+    <div class="field">
+      <notify-tailwind-input
+        [parent]="form"
+        name="name"
+        label="Nome"
+        placeholder="Mario"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-input>
+    </div>
+    <!-- COGNOME -->
+    <div class="field">
+      <notify-tailwind-input
+        [parent]="form"
+        name="surname"
+        label="Cognome"
+        placeholder="Rossi"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-input>
+    </div>
+  </div>
+  <div class="w-full">
+    <!-- EMAIL -->
+    <div class="field">
+      <notify-tailwind-input
+        [parent]="form"
+        name="email"
+        label="Email"
+        placeholder="email@example.com"
+        mask="A*@A*.SSS"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-input>
+    </div>
+    <!-- TELEFONO -->
+    <div class="field">
+      <notify-tailwind-input
+        [parent]="form"
+        name="phone"
+        label="Telefono"
+        placeholder="3331234567"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-input>
+    </div>
+    <!-- LINKEDIN -->
+    <div class="field">
+      <notify-tailwind-input
+        [parent]="form"
+        name="linkedin"
+        label="LinkedIn"
+        placeholder="https://www.linkedin.com/in/mario-rossi/"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-input>
+    </div>
+  </div>
+  <div class="field flex justify-between space-x-2" data-theme="notifytheme">
+    <button class="btn btn-wide btn-secondary" (click)="this.form.reset()">
+      Annulla modifiche
+    </button>
+    <button class="btn btn-wide btn-primary">Salva</button>
+  </div>
+</form>

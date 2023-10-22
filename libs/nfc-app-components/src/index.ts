@@ -1,1 +1,4 @@
 export * from './lib/nav/nav.component';
+export * from './lib/profile-form/profile-form.component';
+export * from './lib/profile-view/profile-view.component';
+export * from './lib/tailwind-forms/tailwind-forms.module';

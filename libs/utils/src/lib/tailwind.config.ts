@@ -3,6 +3,7 @@ const tailwindConfig = {
     extend: {
       fontFamily: {
         montserratAlt1: ['Montserrat-Alt1', 'bold'],
+        roboto: ['Roboto', 'sans-serif'],
       },
       colors: {
         primary: {
@@ -37,6 +38,20 @@ const tailwindConfig = {
     },
   },
   plugins: [require('daisyui')],
+  daisyui: {
+    themes: [],
+  },
 };
+
+tailwindConfig.daisyui.themes.push('dark', {
+  notifytheme: {
+    primary: tailwindConfig.theme.extend.colors.primary.DEFAULT,
+    'primary-focus': tailwindConfig.theme.extend.colors.primary[600],
+    'primary-content': '#ffffff',
+    secondary: tailwindConfig.theme.extend.colors.secondary.DEFAULT,
+    'secondary-focus': tailwindConfig.theme.extend.colors.secondary[700],
+    'secondary-content': '#191E24',
+  },
+});
 
 export { tailwindConfig };
