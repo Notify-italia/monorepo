@@ -17,7 +17,7 @@
         <div class="avatar">
           <div class="w-48 rounded-full">
             <img
-              src="https://images.unsplash.com/photo-1614023342667-6f060e9d1e04?auto=format&fit=crop&q=80&w=1471&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src="https://www.heymind.org.uk/wp-content/uploads/2022/04/avatar-placeholder.png"
             />
           </div>
         </div>
@@ -29,10 +29,12 @@
           <span>{{ data?.name || 'Nome' }}</span>
           <span>{{ data?.surname || 'Cognome' }}</span>
         </div>
-        <p class="text-sm italic">
+        <p class="text-sm italic" *ngIf="data?.bio">
           {{ data?.bio || '' }}
         </p>
       </div>
+
+      <div class="divider"></div>
 
       <div class="section section-horizontal">
         <button

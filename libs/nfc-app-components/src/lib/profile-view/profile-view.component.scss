@@ -1,5 +1,5 @@
 .section {
-  @apply flex flex-col items-center py-2 space-y-2;
+  @apply flex flex-col items-center py-1 space-y-2;
 
   &.section-bordered {
     @apply border-b border-primary/40;
