@@ -15,4 +15,9 @@ export class ProfileViewComponent {
       name: string;
     };
   };
+  @Input() mockup = false;
+
+  public cleanPhoneNumber(phoneNumber: string): string {
+    return phoneNumber.replace(/[^0-9]/g, '');
+  }
 }

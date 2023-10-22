@@ -1,5 +1,5 @@
 <form
-  class="flex flex-col items-center space-y-4 divide-y divide-secondary/50 bg-gray-700/20 p-4 rounded-xl"
+  class="flex flex-col items-center space-y-4 bg-gray-700/20 p-4 rounded-xl"
   [formGroup]="form"
 >
   <!-- AVATAR -->
@@ -24,7 +24,11 @@
       </div>
     </div>
   </div>
+
+  <div class="divider">Anagrafica</div>
+
   <div class="w-full">
+    <!-- BIO -->
     <div class="field">
       <notify-tailwind-input
         [parent]="form"
@@ -55,6 +59,9 @@
       ></notify-tailwind-input>
     </div>
   </div>
+
+  <div class="divider">Contatti</div>
+
   <div class="w-full">
     <!-- EMAIL -->
     <div class="field">
@@ -87,6 +94,38 @@
       ></notify-tailwind-input>
     </div>
   </div>
+
+  <div class="divider">Opzioni</div>
+
+  <div class="field">
+    <notify-tailwind-checkbox
+      [parent]="form"
+      name="isPublic"
+      label="Permetti chiamate"
+      [validationErrors]="validationErrors"
+    ></notify-tailwind-checkbox>
+    <notify-tailwind-checkbox
+      [parent]="form"
+      name="isPublic"
+      label="Whatsapp"
+      [validationErrors]="validationErrors"
+    ></notify-tailwind-checkbox>
+    <notify-tailwind-checkbox
+      [parent]="form"
+      name="isPublic"
+      label="E-Mail"
+      [validationErrors]="validationErrors"
+    ></notify-tailwind-checkbox>
+    <notify-tailwind-checkbox
+      [parent]="form"
+      name="isPublic"
+      label="LinkedIn"
+      [validationErrors]="validationErrors"
+    ></notify-tailwind-checkbox>
+  </div>
+
+  <div class="divider"></div>
+
   <div class="field flex justify-around space-x-2" data-theme="notifytheme">
     <button class="btn btn-secondary w-48" (click)="this.form.reset()">
       Annulla modifiche

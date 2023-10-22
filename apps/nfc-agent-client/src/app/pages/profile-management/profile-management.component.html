@@ -1,20 +1,25 @@
-<div class="flex flex-col w-full space-y-4">
-  <div class="py-4 border-b w-full my-4 border-primary/50">
+<div class="flex flex-col w-full space-y-4 items-center">
+  <div class="pt-4 w-full">
     <span class="text-4xl"> Modifica profilo </span>
+    <div class="divider"></div>
   </div>
 
-  <div class="flex flex-col px-5 space-y-4">
+  <div class="flex flex-col px-5 space-y-4 lg:max-w-4xl">
     <div>
       <notify-share-profile></notify-share-profile>
     </div>
-    <div class="lg:flex justify-around lg:space-x-2 space-y-4 lg:space-y-0">
+    <div
+      class="lg:flex justify-around lg:space-x-4 space-y-4 lg:space-y-0 items-center"
+    >
       <notify-profile-form
         (value)="formValue = $event"
         class="w-full"
       ></notify-profile-form>
+
       <notify-profile-view
         [data]="formValue"
-        class="w-[45rem]"
+        [mockup]="true"
+        class="max-w-[560px] w-[560px] h-[700px]"
       ></notify-profile-view>
     </div>
   </div>
