@@ -1,1 +1,86 @@
-<p>profile-view works!</p>
+<div
+  class="bg-gray-700/20 w-full p-4 rounded-xl flex flex-col items-center h-full"
+  [class.opacity-50]="!data"
+>
+  <div class="section section-bordered">
+    <div class="avatar">
+      <div class="w-48 rounded-full">
+        <img
+          src="https://images.unsplash.com/photo-1614023342667-6f060e9d1e04?auto=format&fit=crop&q=80&w=1471&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="space-x-1">
+      <span class="text-xl">{{ data?.name || 'Nome' }}</span>
+      <span class="text-xl">{{ data?.surname || 'Cognome' }}</span>
+    </div>
+    <p class="text-sm italic">
+      {{ data?.bio || '' }}
+    </p>
+  </div>
+
+  <div class="section section-horizontal">
+    <button
+      data-theme="notifytheme"
+      [disabled]="!data?.phoneNumber"
+      class="btn btn-primary btn-outline btn-square"
+    >
+      <a href="tel:{{ data?.phoneNumber }}" class="button-redirect">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </a>
+    </button>
+    <button
+      data-theme="notifytheme"
+      [disabled]="!data?.email"
+      class="btn btn-primary btn-outline btn-square"
+    >
+      <a href="mailto:{{ data?.email }}" class="buttton-redirect">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"
+          />
+          <path
+            d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"
+          />
+        </svg>
+      </a>
+    </button>
+    <button
+      data-theme="notifytheme"
+      [disabled]="!data?.linkedIn"
+      class="btn btn-primary btn-outline btn-square"
+    >
+      <a [href]="data?.linkedIn" target="_blank" class="button-redirect">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 310 310"
+          class="w-6 h-6"
+          xmlns:v="https://vecta.io/nano"
+        >
+          <path
+            d="M72.16 99.73H9.927a5 5 0 0 0-5 5v199.928a5 5 0 0 0 5 5H72.16a5 5 0 0 0 5-5V104.73a5 5 0 0 0-5-5zM41.066.341C18.422.341 0 18.743 0 41.362 0 63.991 18.422 82.4 41.066 82.4c22.626 0 41.033-18.41 41.033-41.038C82.1 18.743 63.692.341 41.066.341zm189.388 94.42c-24.995 0-43.472 10.745-54.679 22.954V104.73a5 5 0 0 0-5-5h-59.599a5 5 0 0 0-5 5v199.928a5 5 0 0 0 5 5h62.097a5 5 0 0 0 5-5V205.74c0-33.333 9.054-46.319 32.29-46.319 25.306 0 27.317 20.818 27.317 48.034v97.204a5 5 0 0 0 5 5H305a5 5 0 0 0 5-5V194.995c0-49.565-9.451-100.234-79.546-100.234z"
+          />
+        </svg>
+      </a>
+    </button>
+  </div>
+</div>

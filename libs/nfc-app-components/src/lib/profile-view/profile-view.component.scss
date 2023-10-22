@@ -1,0 +1,15 @@
+.section {
+  @apply flex flex-col items-center py-2 space-y-2;
+
+  &.section-bordered {
+    @apply border-b border-primary/40;
+  }
+
+  &.section-horizontal {
+    @apply flex-row space-x-5 space-y-0;
+  }
+}
+
+.button-redirect {
+  @apply h-full w-full flex justify-center items-center;
+}

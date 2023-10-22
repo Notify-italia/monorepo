@@ -1,11 +1,21 @@
-<div class="flex flex-col w-full">
+<div class="flex flex-col w-full space-y-4">
   <div class="py-4 border-b w-full my-4 border-primary/50">
     <span class="text-4xl"> Modifica profilo </span>
   </div>
 
-  <div class="px-5 lg:flex justify-around lg:space-x-2">
-    <notify-profile-form></notify-profile-form>
-    <notify-profile-view></notify-profile-view>
+  <div class="flex flex-col px-5 space-y-4">
+    <div>
+      <notify-share-profile></notify-share-profile>
+    </div>
+    <div class="lg:flex justify-around lg:space-x-2 space-y-4 lg:space-y-0">
+      <notify-profile-form
+        (value)="formValue = $event"
+        class="w-full"
+      ></notify-profile-form>
+      <notify-profile-view
+        [data]="formValue"
+        class="w-[45rem]"
+      ></notify-profile-view>
+    </div>
   </div>
-  <p>profile-management works!</p>
 </div>

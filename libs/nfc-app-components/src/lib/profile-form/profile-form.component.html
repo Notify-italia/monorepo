@@ -63,7 +63,6 @@
         name="email"
         label="Email"
         placeholder="email@example.com"
-        mask="A*@A*.SSS"
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
     </div>
@@ -71,7 +70,7 @@
     <div class="field">
       <notify-tailwind-input
         [parent]="form"
-        name="phone"
+        name="phoneNumber"
         label="Telefono"
         placeholder="3331234567"
         [validationErrors]="validationErrors"
@@ -81,17 +80,17 @@
     <div class="field">
       <notify-tailwind-input
         [parent]="form"
-        name="linkedin"
+        name="linkedIn"
         label="LinkedIn"
         placeholder="https://www.linkedin.com/in/mario-rossi/"
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
     </div>
   </div>
-  <div class="field flex justify-between space-x-2" data-theme="notifytheme">
-    <button class="btn btn-wide btn-secondary" (click)="this.form.reset()">
+  <div class="field flex justify-around space-x-2" data-theme="notifytheme">
+    <button class="btn btn-secondary w-48" (click)="this.form.reset()">
       Annulla modifiche
     </button>
-    <button class="btn btn-wide btn-primary">Salva</button>
+    <button class="btn btn-primary w-48">Salva</button>
   </div>
 </form>
