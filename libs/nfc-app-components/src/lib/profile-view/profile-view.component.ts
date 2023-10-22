@@ -20,4 +20,45 @@ export class ProfileViewComponent {
   public cleanPhoneNumber(phoneNumber: string): string {
     return phoneNumber.replace(/[^0-9]/g, '');
   }
+
+  public saveContact(): void {
+    const d = this.data;
+
+    if (!d) {
+      return;
+    }
+
+    /**
+     * TODO: Implement vCard generation
+     * {
+    name: string | null;
+    surname: string | null;
+    email: string | null;
+    phoneNumber: string | null;
+    linkedIn: string | null;
+    bio: string | null;
+}> & {
+    company?: {
+        ...;
+    } | undefined;
+}
+     */
+    const vcard = `BEGIN:VCARD
+VERSION:3.0
+N:${d.surname};${d.name};
+FN:${d.name} ${d.surname}
+ORG:${d.company?.name}
+
+TEL;TYPE=work,voice;VALUE=uri:${this.cleanPhoneNumber(d.phoneNumber || '')}
+EMAIL:${d.email}
+END:VCARD`;
+
+    const a = document.createElement('a');
+    a.setAttribute(
+      'href',
+      'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard)
+    );
+    a.setAttribute('download', 'contact.vcf');
+    a.click();
+  }
 }
