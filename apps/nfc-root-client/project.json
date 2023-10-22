@@ -1,0 +1,81 @@
+{
+  "name": "nfc-root-client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "notify",
+  "sourceRoot": "apps/nfc-root-client/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/nfc-root-client",
+        "index": "apps/nfc-root-client/src/index.html",
+        "main": "apps/nfc-root-client/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/nfc-root-client/tsconfig.app.json",
+        "assets": [
+          "apps/nfc-root-client/src/favicon.ico",
+          "apps/nfc-root-client/src/assets"
+        ],
+        "styles": ["apps/nfc-root-client/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "nfc-root-client:build:production"
+        },
+        "development": {
+          "browserTarget": "nfc-root-client:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "nfc-root-client:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/nfc-root-client/**/*.ts",
+          "apps/nfc-root-client/**/*.html"
+        ]
+      }
+    }
+  }
+}

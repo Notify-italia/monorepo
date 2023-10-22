@@ -1,0 +1,81 @@
+{
+  "name": "nfc-agent-client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "notify",
+  "sourceRoot": "apps/nfc-agent-client/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/nfc-agent-client",
+        "index": "apps/nfc-agent-client/src/index.html",
+        "main": "apps/nfc-agent-client/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/nfc-agent-client/tsconfig.app.json",
+        "assets": [
+          "apps/nfc-agent-client/src/favicon.ico",
+          "apps/nfc-agent-client/src/assets"
+        ],
+        "styles": ["apps/nfc-agent-client/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "nfc-agent-client:build:production"
+        },
+        "development": {
+          "browserTarget": "nfc-agent-client:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "nfc-agent-client:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/nfc-agent-client/**/*.ts",
+          "apps/nfc-agent-client/**/*.html"
+        ]
+      }
+    }
+  }
+}
