@@ -1,0 +1,38 @@
+{
+  "name": "nfc-app-components",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/nfc-app-components/src",
+  "prefix": "notify",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:ng-packagr-lite",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/nfc-app-components/ng-package.json",
+        "tailwindConfig": "libs/nfc-app-components/tailwind.config.js"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/nfc-app-components/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/nfc-app-components/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/nfc-app-components/**/*.ts",
+          "libs/nfc-app-components/**/*.html",
+          "libs/nfc-app-components/package.json"
+        ]
+      }
+    }
+  }
+}
