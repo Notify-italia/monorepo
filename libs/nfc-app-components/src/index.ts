@@ -1,1 +1,1 @@
-export * from './lib/nfc-app-components/nfc-app-components.component';
+export * from './lib/nav/nav.component';

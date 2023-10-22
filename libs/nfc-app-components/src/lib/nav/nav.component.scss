@@ -1,0 +1,13 @@
+@import url(https://db.onlinewebfonts.com/c/4571c7793d017d574972bcdf28fbe154?family=Montserrat-Alt1);
+
+.title-gradient {
+  @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+}
+
+ul {
+  @apply menu p-4 w-80 text-base-content;
+
+  & > li {
+    @apply menu-title text-secondary;
+  }
+}

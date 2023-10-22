@@ -16,7 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@notify/nfc-app-components": ["libs/nfc-app-components/src/index.ts"],
-      "@notify/nfc-app-services": ["libs/nfc-app-services/src/index.ts"]
+      "@notify/nfc-app-services": ["libs/nfc-app-services/src/index.ts"],
+      "@notify/nfc-interfaces": ["libs/nfc-interfaces/src/index.ts"],
+      "@notify/tailwind-config": ["tailwind.config.global.js"],
+      "@notify/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
