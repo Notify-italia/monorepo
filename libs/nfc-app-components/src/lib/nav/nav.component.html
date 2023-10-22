@@ -1,8 +1,8 @@
-<div class="drawer border-b border-secondary/20 p-1">
-  <div class="navbar">
+<div class="drawer border-b border-secondary/20 drawer-open">
+  <div class="navbar p-0">
     <div class="flex">
       <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-      <label class="btn btn-square btn-ghost" for="my-drawer">
+      <label class="btn btn-square btn-ghost lg:hidden" for="my-drawer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -18,66 +18,76 @@
         </svg>
       </label>
 
-      <div class="drawer-side">
-        <label
-          for="my-drawer"
-          aria-label="close sidebar"
-          class="drawer-overlay"
-        ></label>
+      <div class="drawer-content hidden lg:block">
+        <!-- DESKTOP SIDEBAR -->
+        <ng-container [ngTemplateOutlet]="SidebarContent"></ng-container>
+      </div>
 
-        <div class="flex flex-col justify-between h-screen bg-base-200">
-          <div class="flex flex-col">
-            <div class="items-center text-xl text-center p-4">
-              <span
-                class="font-montserratAlt1 text-5xl tracking-widest title-gradient"
-                >NOTIFY</span
-              >
-            </div>
-            <ul>
-              <!-- Sidebar content here -->
-              <li *ngFor="let item of topItems">
-                <a
-                  [routerLink]="item.path"
-                  routerLinkActive="btn-active"
-                  class="flex space-x-2"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    class="w-6 h-6 text-primary"
-                  >
-                    <path *ngFor="let p of item.icon" [attr.d]="p" />
-                  </svg>
-
-                  <span>{{ item.label }}</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <ul>
-            <!-- Sidebar content here -->
-            <li *ngFor="let item of bottomItems">
-              <a
-                [routerLink]="item.path"
-                routerLinkActive="btn-active"
-                class="flex space-x-2 {{ item.style }}"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="w-6 h-6"
-                >
-                  <path *ngFor="let p of item.icon" [attr.d]="p" />
-                </svg>
-
-                <span>{{ item.label }}</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+      <div class="drawer-side lg:hidden">
+        <!-- MOBILE SIDEBAR -->
+        <ng-container [ngTemplateOutlet]="SidebarContent"></ng-container>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #SidebarContent>
+  <label
+    for="my-drawer"
+    aria-label="close sidebar"
+    class="drawer-overlay"
+  ></label>
+
+  <div class="flex flex-col justify-between bg-base-200 h-[99.85vh]">
+    <div class="flex flex-col">
+      <div class="items-center text-center p-4 pt-10">
+        <span
+          class="font-montserratAlt1 tracking-widest title-gradient text-6xl"
+          >NOTIFY</span
+        >
+      </div>
+      <ul>
+        <!-- Sidebar content here -->
+        <li *ngFor="let item of topItems">
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="btn-active"
+            class="flex space-x-2 uppercase tracking-wider font-normal"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6 text-primary"
+            >
+              <path *ngFor="let p of item.icon" [attr.d]="p" />
+            </svg>
+
+            <span>{{ item.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <ul>
+      <!-- Sidebar content here -->
+      <li *ngFor="let item of bottomItems">
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="btn-active"
+          class="flex space-x-2 {{ item.style }}"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            <path *ngFor="let p of item.icon" [attr.d]="p" />
+          </svg>
+
+          <span>{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</ng-template>
