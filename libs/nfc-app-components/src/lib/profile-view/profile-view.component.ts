@@ -28,27 +28,12 @@ export class ProfileViewComponent {
       return;
     }
 
-    /**
-     * TODO: Implement vCard generation
-     * {
-    name: string | null;
-    surname: string | null;
-    email: string | null;
-    phoneNumber: string | null;
-    linkedIn: string | null;
-    bio: string | null;
-}> & {
-    company?: {
-        ...;
-    } | undefined;
-}
-     */
+    //TODO aggiungi avatar e sito web alla vcard
     const vcard = `BEGIN:VCARD
 VERSION:3.0
 N:${d.surname};${d.name};
 FN:${d.name} ${d.surname}
 ORG:${d.company?.name}
-
 TEL;TYPE=work,voice;VALUE=uri:${this.cleanPhoneNumber(d.phoneNumber || '')}
 EMAIL:${d.email}
 END:VCARD`;
