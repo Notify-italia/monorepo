@@ -10,7 +10,7 @@
     [class.rounded-xl]="!mockup"
   >
     <div
-      class="w-full p-4 flex flex-col justify-around items-center h-full"
+      class="w-full p-4 flex flex-col justify-center space-y-5 items-center h-full"
       [class.opacity-50]="!data"
     >
       <div class="section">
@@ -29,7 +29,7 @@
           <span>{{ data?.name || 'Nome' }}</span>
           <span>{{ data?.surname || 'Cognome' }}</span>
         </div>
-        <p class="text-sm italic" *ngIf="data?.bio">
+        <p class="text-sm italic text-center" *ngIf="data?.bio">
           {{ data?.bio || '' }}
         </p>
       </div>

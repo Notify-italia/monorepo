@@ -114,10 +114,26 @@
 
   <div class="divider"></div>
 
-  <div class="field flex justify-around space-x-2" data-theme="notifytheme">
-    <button class="btn btn-secondary w-6/12" (click)="this.form.reset()">
+  <div class="field flex justify-around space-x-2">
+    <button
+      class="btn btn-secondary w-6/12"
+      (click)="this.form.reset()"
+      data-theme="notifytheme"
+    >
       Annulla
     </button>
-    <button class="btn btn-primary w-6/12">Salva</button>
+    <div class="w-6/12">
+      <button class="btn btn-primary w-full" data-theme="notifytheme">
+        Salva
+      </button>
+      <!-- TODO evento keyboard -->
+      <div class="text-center my-2 kbd-xs opacity-50 hidden lg:block">
+        <kbd class="kbd">ctrl</kbd>
+        +
+        <kbd class="kbd">shift</kbd>
+        +
+        <kbd class="kbd">S</kbd>
+      </div>
+    </div>
   </div>
 </form>
