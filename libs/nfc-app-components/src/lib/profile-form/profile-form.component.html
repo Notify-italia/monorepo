@@ -16,16 +16,6 @@
   <div class="divider">Anagrafica</div>
 
   <div class="w-full">
-    <!-- BIO -->
-    <div class="field">
-      <notify-tailwind-input
-        [parent]="form"
-        name="bio"
-        label="Bio"
-        placeholder="Inserisci una breve descrizione di te"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-input>
-    </div>
     <!-- NOME -->
     <div class="field">
       <notify-tailwind-input
@@ -43,6 +33,16 @@
         name="surname"
         label="Cognome"
         placeholder="Rossi"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-input>
+    </div>
+    <!-- BIO -->
+    <div class="field">
+      <notify-tailwind-input
+        [parent]="form"
+        name="bio"
+        label="Bio"
+        placeholder="Inserisci una breve descrizione di te"
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
     </div>
@@ -115,9 +115,9 @@
   <div class="divider"></div>
 
   <div class="field flex justify-around space-x-2" data-theme="notifytheme">
-    <button class="btn btn-secondary w-48" (click)="this.form.reset()">
-      Annulla modifiche
+    <button class="btn btn-secondary w-6/12" (click)="this.form.reset()">
+      Annulla
     </button>
-    <button class="btn btn-primary w-48">Salva</button>
+    <button class="btn btn-primary w-6/12">Salva</button>
   </div>
 </form>
