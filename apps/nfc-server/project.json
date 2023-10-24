@@ -1,0 +1,63 @@
+{
+  "name": "nfc-server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/nfc-server/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/nfc-server",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "apps/nfc-server/src/main.ts",
+        "tsConfig": "apps/nfc-server/tsconfig.app.json",
+        "assets": ["apps/nfc-server/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "nfc-server:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "nfc-server:build:development"
+        },
+        "production": {
+          "buildTarget": "nfc-server:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/nfc-server/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
