@@ -20,7 +20,8 @@
       "@notify/nfc-interfaces": ["libs/nfc-interfaces/src/index.ts"],
       "@notify/tailwind-config": ["tailwind.config.global.js"],
       "@notify/utils": ["libs/utils/src/index.ts"]
-    }
+    },
+    "types": ["bun-types"]
   },
   "exclude": ["node_modules", "tmp"]
 }
