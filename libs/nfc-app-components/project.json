@@ -8,7 +8,9 @@
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
-      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/dist/{projectRoot}"
+      ],
       "options": {
         "project": "libs/nfc-app-components/ng-package.json",
         "tailwindConfig": "libs/nfc-app-components/tailwind.config.js"
@@ -25,7 +27,9 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
         "lintFilePatterns": [
           "libs/nfc-app-components/**/*.ts",

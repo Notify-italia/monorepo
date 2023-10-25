@@ -33,8 +33,13 @@
       </svg>
     </button>
   </div>
-  <div class="tooltip" data-tip="Scrivi su NFC">
-    <button class="btn btn-circle">
+  <div
+    class="tooltip"
+    [attr.data-tip]="
+      nfcEnabled ? 'Scrivi su NFC' : 'Disponibile solo su Android'
+    "
+  >
+    <button class="btn btn-circle" [disabled]="!nfcEnabled">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 380 380"

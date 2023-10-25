@@ -17,6 +17,9 @@ export class ProfileViewComponent {
   };
   @Input() mockup = false;
 
+  public placeholderAvatarProvider =
+    'https://www.heymind.org.uk/wp-content/uploads/2022/04/avatar-placeholder.png';
+
   public cleanPhoneNumber(phoneNumber: string): string {
     return phoneNumber.replace(/[^0-9]/g, '');
   }

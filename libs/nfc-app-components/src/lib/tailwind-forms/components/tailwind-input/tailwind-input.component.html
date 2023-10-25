@@ -8,7 +8,6 @@
   </label>
   <div class="relative mt-1">
     <input
-      data-theme="notifytheme"
       #inputRef
       [id]="name"
       [name]="name"
@@ -21,6 +20,7 @@
       [thousandSeparator]="thousandSeparator"
       [patterns]="patterns"
       class="input input-bordered w-full"
+      [class.input-error]="showValidationErrors"
     />
 
     <div

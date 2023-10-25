@@ -16,6 +16,7 @@ export class ShareProfileComponent implements OnInit {
     _id: string;
   };
 
+  public nfcEnabled = /android/i.test(navigator.userAgent.toLowerCase());
   private _publicUrl = 'https://app.notify.it/profile/';
 
   constructor(private _lightbox: Lightbox, private _toastr: ToastrService) {}
@@ -32,13 +33,13 @@ export class ShareProfileComponent implements OnInit {
   public async openLightbox() {
     const qr = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(
       this._publicUrl
-    )}`;
+    )}.png`;
 
     this._lightbox.open(
       [
         {
           src: qr,
-          caption: '',
+          caption: 'notify-qrcode',
           thumb: qr,
         },
       ],
