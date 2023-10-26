@@ -1,1 +1,1 @@
-"node /node_modules/nx/default serve nfc-agent-client"
+"node ./node_modules/nx/bin serve nfc-agent-client"
