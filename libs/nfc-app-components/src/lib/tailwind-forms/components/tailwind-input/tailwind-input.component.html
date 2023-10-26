@@ -1,4 +1,4 @@
-<div [formGroup]="parent" class="mb-4">
+<div [formGroup]="parent" class="w-full relative">
   <label
     [for]="name"
     id="input-label"
@@ -91,7 +91,7 @@
   </div>
 
   <p
-    class="mt-2 text-sm text-red-600"
+    class="text-sm text-red-600 absolute -bottom-6 ml-1"
     [id]="name + '-error'"
     *ngIf="showValidationErrors"
   >

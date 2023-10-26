@@ -4,10 +4,13 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
+  OnInit,
   Output,
 } from '@angular/core';
 import { NgxDropzoneChangeEvent, NgxDropzoneModule } from 'ngx-dropzone';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'notify-upload',
@@ -16,7 +19,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss'],
 })
-export class UploadComponent implements OnChanges {
+export class UploadComponent implements OnChanges, OnDestroy, OnInit {
   @Input() disabled = false;
   @Input() acceptedFiles = '*';
 
@@ -24,12 +27,18 @@ export class UploadComponent implements OnChanges {
   uploadLabel = `Fai click per caricare un file, oppure trascinalo in questo riquadro`;
   @Input() file: File | null = null;
 
+  @Input() removeFile$ = new Observable<void>();
+
   public blob?: string | ArrayBuffer | null;
+
+  private _destroy$ = new Subject<void>();
 
   @Output() fileChanged = new EventEmitter<{
     file: File | null;
     blob: string | ArrayBuffer | null;
   }>();
+
+  constructor(private _toastr: ToastrService) {}
 
   ngOnChanges() {
     if (!this.file) {
@@ -38,7 +47,19 @@ export class UploadComponent implements OnChanges {
     }
   }
 
-  constructor(private _toastr: ToastrService) {}
+  ngOnInit() {
+    this.removeFile$
+      .pipe(
+        takeUntil(this._destroy$),
+        tap(() => this.handleRemoveFile())
+      )
+      .subscribe();
+  }
+
+  ngOnDestroy() {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
 
   public async onSelectFile(event: NgxDropzoneChangeEvent) {
     if (event.rejectedFiles.length) {
@@ -60,7 +81,7 @@ export class UploadComponent implements OnChanges {
     });
   }
 
-  public onRemoveFile() {
+  public handleRemoveFile() {
     this.file = null;
     this.blob = null;
 

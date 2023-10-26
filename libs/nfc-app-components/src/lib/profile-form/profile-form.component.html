@@ -1,8 +1,8 @@
 <form
-  class="flex flex-col items-center space-y-4 bg-gray-700/20 p-4 rounded-xl"
+  class="flex flex-col items-center space-y-4 bg-gray-700/20 p-4 rounded-xl w-full"
   [formGroup]="form"
 >
-  <div class="w-full">
+  <div class="section">
     <!-- NOME -->
     <div class="field">
       <notify-tailwind-input
@@ -40,13 +40,15 @@
 
   <notify-upload
     class="w-full"
+    uploadLabel="Fai click per caricare un'immagine o trascinala all'interno del riquadro"
     [acceptedFiles]="'image/*'"
     (fileChanged)="setUploadedFile($event.blob)"
+    [removeFile$]="removeAvatar$"
   ></notify-upload>
 
   <div class="divider">Contatti</div>
 
-  <div class="w-full">
+  <div class="section">
     <!-- EMAIL -->
     <div class="field">
       <notify-tailwind-input
@@ -67,6 +69,29 @@
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
     </div>
+  </div>
+
+  <div class="divider">Visibilità</div>
+
+  <div class="section">
+    <notify-tailwind-checkbox
+      [parent]="form"
+      name="phoneCallEnabled"
+      label="Permetti chiamate"
+      [validationErrors]="validationErrors"
+    ></notify-tailwind-checkbox>
+    <notify-tailwind-checkbox
+      [parent]="form"
+      name="whatsappEnabled"
+      label="Whatsapp"
+      [validationErrors]="validationErrors"
+    ></notify-tailwind-checkbox>
+    <notify-tailwind-checkbox
+      [parent]="form"
+      name="emailEnabled"
+      label="E-Mail"
+      [validationErrors]="validationErrors"
+    ></notify-tailwind-checkbox>
   </div>
 
   <div class="divider">Servizi esterni</div>
@@ -91,9 +116,9 @@
       <span>aggiungi</span>
     </button>
     <div *ngFor="let item of cf.controls" class="flex items-center space-x-2">
-      <!-- TODO fix aggiornamento svg icona -->
+      <!-- TODO fix widening del form quando viene renderizzato un oggetto -->
       <notify-icon-selector
-        class="mt-2"
+        class="items-end mt-6"
         (icon)="item.controls['iconName'].setValue($event.name)"
       ></notify-icon-selector>
       <notify-tailwind-input
@@ -105,7 +130,7 @@
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
       <button
-        class="btn btn-error my-auto mb-[1.225rem] btn-outline"
+        class="btn btn-error my-auto btn-outline"
         (click)="removeCustomField(item)"
       >
         <svg
@@ -124,35 +149,12 @@
     </div>
   </div>
 
-  <div class="divider">Visibilità</div>
-
-  <div class="field">
-    <notify-tailwind-checkbox
-      [parent]="form"
-      name="phoneCallEnabled"
-      label="Permetti chiamate"
-      [validationErrors]="validationErrors"
-    ></notify-tailwind-checkbox>
-    <notify-tailwind-checkbox
-      [parent]="form"
-      name="whatsappEnabled"
-      label="Whatsapp"
-      [validationErrors]="validationErrors"
-    ></notify-tailwind-checkbox>
-    <notify-tailwind-checkbox
-      [parent]="form"
-      name="emailEnabled"
-      label="E-Mail"
-      [validationErrors]="validationErrors"
-    ></notify-tailwind-checkbox>
-  </div>
-
   <div class="divider"></div>
 
   <div class="field flex justify-around space-x-2">
     <button
       class="btn btn-secondary w-6/12"
-      (click)="this.form.reset()"
+      (click)="resetForm()"
       data-theme="notifytheme"
     >
       Annulla

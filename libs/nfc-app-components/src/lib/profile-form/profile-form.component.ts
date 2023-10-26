@@ -51,28 +51,13 @@ type ProfileForm = FormGroup<{
 export class ProfileFormComponent implements OnInit {
   @Output() public value = new EventEmitter<ProfileForm['value']>();
 
-  public isMacos = navigator.userAgent.toLowerCase().includes('mac os');
+  public removeAvatar$ = new Subject<void>();
   private _destroy$ = new Subject<void>();
 
-  public form: ProfileForm = new FormGroup({
-    avatar: new FormControl('', []),
-    name: new FormControl('', [Validators.required]),
-    surname: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.email]),
-    phoneNumber: new FormControl('', [
-      Validators.pattern(/^3\d{2}[.\s]?\d{6,7}$/),
-    ]),
-    linkedIn: new FormControl('', [
-      Validators.pattern(
-        /^https:\/\/www\.linkedin\.com\/in\/[a-zA-Z0-9_-]{5,30}\/?$/
-      ),
-    ]),
-    bio: new FormControl('', []),
-    whatsappEnabled: new FormControl(true, []),
-    phoneCallEnabled: new FormControl(true, []),
-    emailEnabled: new FormControl(true, []),
-    customFields: new FormArray([] as FormGroup[]),
-  });
+  public isMacos = navigator.userAgent.toLowerCase().includes('mac os');
+
+  public form: ProfileForm;
+  private _formInitialValue: ProfileForm['value'];
 
   public validationErrors = {
     required: ' ',
@@ -80,7 +65,10 @@ export class ProfileFormComponent implements OnInit {
     pattern: 'Valore non valido',
   };
 
-  constructor(private _toastr: ToastrService) {}
+  constructor(private _toastr: ToastrService) {
+    this.form = this._buildForm();
+    this._formInitialValue = this.form.value;
+  }
 
   public ngOnInit(): void {
     this.form.valueChanges
@@ -95,8 +83,6 @@ export class ProfileFormComponent implements OnInit {
 
   public setUploadedFile(file: string | ArrayBuffer | null) {
     this.form.controls.avatar.setValue(file as string);
-
-    console.log(this.form.controls.avatar.value);
   }
 
   public addCustomField() {
@@ -117,7 +103,36 @@ export class ProfileFormComponent implements OnInit {
     this.form.controls.customFields.removeAt(index);
   }
 
+  public resetForm() {
+    this.form.controls.customFields = this._buildForm().controls.customFields;
+    this.form.reset(this._formInitialValue);
+    this.removeAvatar$.next();
+  }
+
+  private _buildForm(): ProfileForm {
+    return new FormGroup({
+      avatar: new FormControl('', []),
+      name: new FormControl('', [Validators.required]),
+      surname: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.email]),
+      phoneNumber: new FormControl('', [
+        Validators.pattern(/^3\d{2}[.\s]?\d{6,7}$/),
+      ]),
+      linkedIn: new FormControl('', [
+        Validators.pattern(
+          /^https:\/\/www\.linkedin\.com\/in\/[a-zA-Z0-9_-]{5,30}\/?$/
+        ),
+      ]),
+      bio: new FormControl('', []),
+      whatsappEnabled: new FormControl(true, []),
+      phoneCallEnabled: new FormControl(true, []),
+      emailEnabled: new FormControl(true, []),
+      customFields: new FormArray([] as FormGroup[]),
+    });
+  }
+
   //TODO testare su windows
+  @HostListener('window:keydown.ctrl.shift.s', ['$event'])
   @HostListener('window:keydown.Control.shift.s', ['$event'])
   public submit(e?: KeyboardEvent) {
     e?.preventDefault();
