@@ -1,7 +1,11 @@
 <div class="group/icons w-fit" #SelectContainer>
   <div class="flex flex-col items-center space-y-1">
     <button (click)="hideSelector = false">
-      <svg [attr.data-src]="genIconUrl(currentIcon)" fill="currentColor"></svg>
+      <svg
+        [attr.data-src]="genIconUrl(currentIcon)"
+        fill="currentColor"
+        *ngIf="MANUAL_REFRESH"
+      ></svg>
     </button>
     <label class="text-xs truncate w-12 text-center">
       {{ currentIcon.expanded }}

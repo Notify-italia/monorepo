@@ -24,6 +24,12 @@ export class IconSelectorComponent implements OnInit {
     score: 10,
   };
 
+  /**
+   * Variabile per gestire l'update dell'svg quando viene cambiata la currentIcon
+   * (per qualche motivo non viene aggiornato automaticamente)
+   */
+  public MANUAL_REFRESH = true;
+
   public ngOnInit() {
     this._loadScript();
     this.icon.emit(this.currentIcon);
@@ -37,6 +43,16 @@ export class IconSelectorComponent implements OnInit {
     this.currentIcon = icon;
     this.icon.emit(this.currentIcon);
     this.hideSelector = true;
+
+    this._manualRefresh();
+  }
+
+  private _manualRefresh() {
+    this.MANUAL_REFRESH = false;
+
+    setTimeout(() => {
+      this.MANUAL_REFRESH = true;
+    }, 1);
   }
 
   private _loadScript() {
