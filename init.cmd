@@ -1,0 +1,1 @@
+"./node_modules/nx/default serve nfc-agent-client"

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { TailwindFormsModule } from './tailwind-forms/tailwind-forms.module';
+import { TailwindFormsModule } from '../tailwind-forms/tailwind-forms.module';
 
 @Component({
   selector: 'notify-icon-selector',
@@ -11,6 +11,8 @@ import { TailwindFormsModule } from './tailwind-forms/tailwind-forms.module';
 })
 export class IconSelectorComponent implements OnInit {
   @Output() public icon = new EventEmitter<(typeof AVAILABLE_ICONS)[0]>();
+
+  public hideSelector = false;
 
   public availableIcons = AVAILABLE_ICONS;
 
@@ -34,6 +36,7 @@ export class IconSelectorComponent implements OnInit {
   public setIcon(icon: (typeof AVAILABLE_ICONS)[0]) {
     this.currentIcon = icon;
     this.icon.emit(this.currentIcon);
+    this.hideSelector = true;
   }
 
   private _loadScript() {

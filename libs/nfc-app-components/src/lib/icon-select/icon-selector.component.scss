@@ -2,6 +2,10 @@ svg {
   @apply w-8 h-8;
 }
 
+.icon-item {
+  @apply h-12 w-12;
+}
+
 button {
   @apply btn  btn-square btn-ghost bg-base-300;
 }

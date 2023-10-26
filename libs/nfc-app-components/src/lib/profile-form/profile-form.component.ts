@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil, tap } from 'rxjs';
-import { IconSelectorComponent } from '../icon-selector.component';
+import { IconSelectorComponent } from '../icon-select/icon-selector.component';
 import { TailwindFormsModule } from '../tailwind-forms/tailwind-forms.module';
 import { UploadComponent } from '../upload/upload.component';
 

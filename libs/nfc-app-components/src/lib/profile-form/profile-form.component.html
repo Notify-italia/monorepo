@@ -69,7 +69,7 @@
     </div>
   </div>
 
-  <div class="divider">Siti esterni</div>
+  <div class="divider">Servizi esterni</div>
 
   <div class="field space-y-2" *ngIf="form.controls.customFields as cf">
     <button class="btn w-full" (click)="addCustomField()">
@@ -99,8 +99,8 @@
       <notify-tailwind-input
         [parent]="item"
         name="value"
-        label=" "
         class="w-full"
+        label=" "
         placeholder="https://www.linkedin.com/in/mario-rossi-123456789/"
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
