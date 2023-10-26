@@ -6,7 +6,7 @@
   }
 
   &.section-horizontal {
-    @apply flex-row space-x-5 space-y-0;
+    @apply flex-row space-x-5 space-y-0 w-full justify-around;
   }
 }
 

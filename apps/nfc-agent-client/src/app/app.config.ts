@@ -5,6 +5,7 @@ import {
   withEnabledBlockingInitialNavigation,
 } from '@angular/router';
 import { provideTailwindToasts } from '@notify/nfc-app-components';
+import { SvgboxService } from '@notify/nfc-app-services';
 import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -12,5 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     provideAnimations(),
     provideTailwindToasts(),
+    SvgboxService,
   ],
 };

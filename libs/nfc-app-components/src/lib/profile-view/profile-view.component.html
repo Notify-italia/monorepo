@@ -5,12 +5,12 @@
 >
   <div class="phone-camera" *ngIf="mockup"></div>
   <div
-    class="bg-gradient-to-b from-primary-800 to-secondary-900 h-full py-10"
+    class="bg-gradient-to-b from-primary-800 to-secondary-900 h-full"
     [class.display]="mockup"
-    [class.rounded-xl]="!mockup"
+    [class.py-10]="mockup"
   >
     <div
-      class="w-full p-4 flex flex-col justify-center space-y-5 items-center h-full"
+      class="w-full p-4 flex flex-col space-y-5 items-center h-full overflow-y-auto overflow-x-hidden"
       [class.opacity-50]="!data"
     >
       <div class="section">
@@ -39,6 +39,7 @@
 
       <div class="divider"></div>
 
+      <!-- STATIC LINKS -->
       <div class="section section-horizontal">
         <button
           *ngIf="data?.phoneCallEnabled ?? true"
@@ -107,6 +108,22 @@
           </a>
         </button>
       </div>
+
+      <div class="divider"></div>
+
+      <div class="grid grid-cols-4 gap-4">
+        <button
+          *ngFor="let item of data?.customFields"
+          class="btn btn-secondary btn-outline btn-square"
+        >
+          <a [href]="item.value" target="_blank" class="buttton-redirect">
+            <notify-svg-box-icon
+              [iconName]="item.iconName"
+            ></notify-svg-box-icon>
+          </a>
+        </button>
+      </div>
+
       <div>
         <button
           class="btn btn-wide btn-primary"

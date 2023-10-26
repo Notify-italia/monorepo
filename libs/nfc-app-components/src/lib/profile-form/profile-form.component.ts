@@ -71,6 +71,7 @@ export class ProfileFormComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    //emette il valore del form ad ogni cambiamento
     this.form.valueChanges
       .pipe(
         takeUntil(this._destroy$),
@@ -79,6 +80,10 @@ export class ProfileFormComponent implements OnInit {
         })
       )
       .subscribe();
+
+    for (let i = 0; i < 5; i++) {
+      this.addCustomField();
+    }
   }
 
   public setUploadedFile(file: string | ArrayBuffer | null) {

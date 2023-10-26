@@ -1,1 +1,1 @@
-export * from './lib/nfc-app-services.module';
+export * from './lib/svgbox.service';

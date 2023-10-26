@@ -1,11 +1,7 @@
 <div class="group/icons w-fit" #SelectContainer>
   <div class="flex flex-col items-center space-y-1">
     <button (click)="hideSelector = false">
-      <svg
-        [attr.data-src]="genIconUrl(currentIcon)"
-        fill="currentColor"
-        *ngIf="MANUAL_REFRESH"
-      ></svg>
+      <notify-svg-box-icon [icon]="currentIcon"></notify-svg-box-icon>
     </button>
     <label class="text-xs truncate w-12 text-center">
       {{ currentIcon.expanded }}
@@ -29,11 +25,7 @@
           class="flex flex-col smooth hover:scale-125"
           (click)="setIcon(item)"
         >
-          <svg
-            [attr.data-src]="genIconUrl(item)"
-            fill="currentColor"
-            class="icon-item p-1"
-          ></svg>
+          <notify-svg-box-icon [icon]="item"></notify-svg-box-icon>
         </button>
         <label class="text-xs truncate w-16 text-center">
           {{ item.expanded }}

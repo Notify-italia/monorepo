@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ProfileFormComponent } from '../profile-form/profile-form.component';
+import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 
 @Component({
   selector: 'notify-profile-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SvgBoxIconComponent],
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss'],
 })
