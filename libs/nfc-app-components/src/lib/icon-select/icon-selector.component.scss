@@ -2,6 +2,10 @@
   @apply h-12 w-12;
 }
 
-button {
-  @apply btn  btn-square btn-ghost bg-base-300;
+.icon-button {
+  @apply btn btn-square btn-ghost bg-base-300 flex flex-col  hover:scale-110;
+}
+
+.selector-container {
+  @apply fixed w-screen h-screen top-0 backdrop-blur left-0 z-[999] flex flex-col justify-center items-center backdrop-brightness-50 rounded-xl;
 }
