@@ -15,8 +15,9 @@ export class IconSelectorComponent implements OnInit {
   @Output() public icon = new EventEmitter<SvgBoxIcon>();
 
   public hideSelector = false;
-
   public availableIcons = this._svgBox.availableIcons;
+
+  public MANUAL_REFRESH = true;
 
   public currentIcon: SvgBoxIcon = {
     expanded: 'Question',
@@ -36,5 +37,15 @@ export class IconSelectorComponent implements OnInit {
     this.currentIcon = icon;
     this.icon.emit(this.currentIcon);
     this.hideSelector = true;
+
+    this._refresh();
+  }
+
+  private _refresh() {
+    this.MANUAL_REFRESH = false;
+
+    setTimeout(() => {
+      this.MANUAL_REFRESH = true;
+    }, 1);
   }
 }
