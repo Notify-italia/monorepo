@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "demo": "node ./node_modules/nx/bin/nx serve nfc-agent-client --open --host 0.0.0.0 --port 80 "
+    "server-demo": "node ./node_modules/nx/bin/nx serve nfc-api --host 0.0.0.0",
+    "agent-demo": "node ./node_modules/nx/bin/nx serve nfc-agent-client --open --host 0.0.0.0 --port 80 "
   },
   "private": true,
   "dependencies": {

@@ -1,5 +1,1 @@
-
-git status
-git pull
-
-npm run demo
+start /bin/loader
