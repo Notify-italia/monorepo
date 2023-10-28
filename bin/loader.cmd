@@ -7,5 +7,4 @@ if %update%==y (
     call update-deps.cmd
 )
 
-start ./server.cmd
-start ./agent.cmd
+start agent.cmd

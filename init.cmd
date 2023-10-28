@@ -1,1 +1,2 @@
-call ./bin/loader.cmd
+cd ./bin
+call ./loader.cmd
