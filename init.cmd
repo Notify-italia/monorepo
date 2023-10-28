@@ -1,1 +1,1 @@
-start ./bin/loader.cmd
+call ./bin/loader.cmd
