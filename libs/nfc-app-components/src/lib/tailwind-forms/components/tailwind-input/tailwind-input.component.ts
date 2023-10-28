@@ -78,6 +78,10 @@ export class TailwindInputComponent
     return (this.inputRef.nativeElement.type = 'text');
   }
 
+  public clearInputValue() {
+    this.parent.get(this.name)?.setValue('');
+  }
+
   get hasErrors() {
     return this.parent.get(this.name)?.errors;
   }
