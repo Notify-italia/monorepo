@@ -13,6 +13,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { itPhoneNumberValidators } from '@notify/nfc-app-services';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { IconSelectorComponent } from '../icon-select/icon-selector.component';
@@ -63,6 +64,7 @@ export class ProfileFormComponent implements OnInit {
     required: ' ',
     email: 'Email non valida',
     pattern: 'Valore non valido',
+    itPhoneNumber: 'Numero di telefono non valido',
   };
 
   constructor(private _toastr: ToastrService) {
@@ -93,7 +95,9 @@ export class ProfileFormComponent implements OnInit {
         //url validator
         value: new FormControl('', [
           Validators.required,
-          Validators.pattern(/https?:\/\/[^\s]+/),
+          Validators.pattern(
+            /^(?:(?:https?|ftp):\/\/)?(?:www\.)?[^\s/$.?#]+\.[^\s]*$/
+          ),
         ]),
       })
     );
@@ -116,9 +120,7 @@ export class ProfileFormComponent implements OnInit {
       name: new FormControl('', [Validators.required]),
       surname: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.email]),
-      phoneNumber: new FormControl('', [
-        Validators.pattern(/^3\d{2}[.\s]?\d{6,7}$/),
-      ]),
+      phoneNumber: new FormControl('', [itPhoneNumberValidators]),
       linkedIn: new FormControl('', [
         Validators.pattern(
           /^https:\/\/www\.linkedin\.com\/in\/[a-zA-Z0-9_-]{5,30}\/?$/
