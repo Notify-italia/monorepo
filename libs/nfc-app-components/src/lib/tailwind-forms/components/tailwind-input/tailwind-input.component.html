@@ -26,6 +26,7 @@
     <div class="action" *ngIf="!showToggleEye">
       <button
         data-theme="notifytheme"
+        [disabled]="!inputRef.value"
         (click)="clearInputValue()"
         class="btn btn-outline btn-circle btn-xs hover:btn-primary"
       >
