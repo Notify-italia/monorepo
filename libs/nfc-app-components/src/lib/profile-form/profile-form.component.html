@@ -1,6 +1,7 @@
 <form
   class="flex flex-col items-center space-y-4 bg-gray-700/20 p-4 rounded-xl w-full"
   [formGroup]="form"
+  (submit)="submit()"
 >
   <div class="section">
     <!-- NOME -->
@@ -127,7 +128,7 @@
         name="value"
         class="w-full"
         label=" "
-        placeholder="https://www.linkedin.com/in/mario-rossi-123456789/"
+        placeholder="Inserisci un link"
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
       <!-- RIMUOVI SERVIZIO -->
