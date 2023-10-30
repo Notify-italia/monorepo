@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { ProfileFormComponent } from '../profile-form/profile-form.component';
+import { INotifyProfile } from '@notify/nfc-interfaces';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 
 @Component({
@@ -11,11 +11,7 @@ import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
   styleUrls: ['./profile-view.component.scss'],
 })
 export class ProfileViewComponent {
-  @Input() data?: ProfileFormComponent['form']['value'] & {
-    company?: {
-      name: string;
-    };
-  };
+  @Input() data?: INotifyProfile;
   @Input() mockup = false;
 
   public placeholderAvatarProvider =
@@ -37,7 +33,7 @@ export class ProfileViewComponent {
 VERSION:3.0
 N:${d.surname};${d.name};
 FN:${d.name} ${d.surname}
-ORG:${d.company?.name}
+ORG:${d.company?.name || d.name}
 TEL;TYPE=work,voice;VALUE=uri:${this.cleanPhoneNumber(d.phoneNumber || '')}
 EMAIL:${d.email}
 END:VCARD`;

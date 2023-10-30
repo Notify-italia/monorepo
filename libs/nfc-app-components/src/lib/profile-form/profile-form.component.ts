@@ -14,6 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { itPhoneNumberValidators } from '@notify/nfc-app-services';
+import { INotifyProfile } from '@notify/nfc-interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { IconSelectorComponent } from '../icon-select/icon-selector.component';
@@ -23,7 +24,7 @@ import { UploadComponent } from '../upload/upload.component';
 //TODO generare schema sul backend e usare quello
 //TODO campi custom
 type ProfileForm = FormGroup<{
-  name: FormControl<string | null>;
+  name: FormControl<INotifyProfile['name'] | null>;
   surname: FormControl<string | null>;
   email: FormControl<string | null>;
   phoneNumber: FormControl<string | null>;
