@@ -3,6 +3,7 @@ import {
   AGENT_VALIDATION_MESSAGES,
   AgentModel,
 } from 'apps/nfc-api/src/models/model.agent';
+import { BadRequestError } from 'apps/nfc-api/src/services/errors/errors';
 import { Request, Router } from 'express';
 import { body } from 'express-validator';
 
@@ -25,9 +26,11 @@ router.post(
   async (req: Request<{ email: string; password: string }>, res) => {
     const { email, password } = req.body;
 
-    const agent = await AgentModel.build({ email, password });
+    const agent = await AgentModel.build({ email, password }).catch((err) => {
+      throw new BadRequestError('Email in uso');
+    });
 
-    await agent.save();
+    await agent?.save();
 
     //todo invia email di conferma
 
