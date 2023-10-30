@@ -1,5 +1,5 @@
 import { connect } from 'mongoose';
-import { wLog } from '../../main';
+import { wLog } from '../main';
 
 import { genericErrorHandler } from './errors/errors/generic-error-handler';
 import { declareEnvs } from './service.envs';
