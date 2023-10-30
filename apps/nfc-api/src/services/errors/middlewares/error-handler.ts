@@ -1,3 +1,4 @@
+import { wLog } from 'apps/nfc-api/src/main';
 import { NextFunction, Request, Response } from 'express';
 import { CustomError } from '../errors/custom-error';
 
@@ -25,6 +26,6 @@ export const errorHandler = (
   // perché potrebbe essere un qualunque errore generato dalla nostra app, quindi in questo
   // caso restituisco uno statusCode 400 ed un messaggio di errore generico
 
-  console.log(err);
+  wLog(err.message, 'error');
   return res.status(400).send({ errors: [{ message: 'Errore non gestito' }] });
 };

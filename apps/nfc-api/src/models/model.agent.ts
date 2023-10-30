@@ -1,5 +1,6 @@
 import { ModifyDeep } from '@notify/nfc-app-services';
 import { INotifyAgent } from '@notify/nfc-interfaces';
+import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
   Document,
   HydratedDocument,
@@ -9,7 +10,7 @@ import mongoose, {
   model,
 } from 'mongoose';
 import { Password } from '../services/service.password';
-import { ProfileDocument } from './model.profile';
+import { ProfileModel } from './model.profile';
 
 /**
  * tipo per facilitare la tipizzazione dei parametri in input delle varie funzioni che hanno bisogno di un oggetto installazione modificabile
@@ -21,7 +22,7 @@ export type AgentDocument = Document<unknown, unknown, Agent> &
   }>;
 
 export const AGENT_VALIDATION_MESSAGES: {
-  [key in keyof Partial<Agent>]: string;
+  [key in keyof Partial<Agent>]: ErrorMessage;
 } = {
   _id: "L'id del sollecito deve essere un valido id mongoDB",
   email: 'Inserire una email valida',
@@ -37,14 +38,14 @@ export interface Agent
     {
       _id: Types.ObjectId;
       createdAt: Date;
-      profile: Schema.Types.ObjectId | ProfileDocument;
+      profile: Types.ObjectId;
     }
   > {}
 
 // 2. Crea un'interfaccia che rappresenti i metodi statici del Model
 //    nb: serve solo se ci sono metodi statici!
 interface AgentModel extends Model<Agent> {
-  build(doc: Partial<Agent>): HydratedDocument<Agent>;
+  build(doc: Partial<Agent>): Promise<HydratedDocument<Agent>>;
 }
 
 // 3. Crea uno Schema corrispondente all'interfaccia del documento definita al punto 1
@@ -66,7 +67,7 @@ const OrdineSchema = new Schema<Agent, Agent>(
       default: true,
     },
     profile: {
-      type: String,
+      type: Schema.Types.ObjectId,
       required: true,
       ref: 'Profile',
     },
@@ -87,7 +88,9 @@ OrdineSchema.statics.build = async (doc: Partial<Agent>) => {
   const agent = new AgentModel(doc);
   agent.password = await Password.toHash(agent.password);
 
-  //TODO crea profilo
+  const profile = await ProfileModel.build({ email: agent.email }).save();
+
+  agent.profile = profile._id;
 
   return agent;
 };

@@ -62,53 +62,41 @@ const OrdineSchema = new Schema<Profile, Profile>(
   {
     name: {
       type: String,
-      required: [true, PROFILE_VALIDATION_MESSAGES.name as string],
+      default: null,
     },
     surname: {
       type: String,
-      required: [true, PROFILE_VALIDATION_MESSAGES.surname as string],
+      default: null,
     },
     email: {
       type: String,
-      required: [true, PROFILE_VALIDATION_MESSAGES.email as string],
+      default: null,
       unique: true,
     },
     phoneNumber: {
       type: String,
-      required: [true, PROFILE_VALIDATION_MESSAGES.phoneNumber as string],
+      default: null,
     },
     bio: {
       type: String,
-      required: [true, PROFILE_VALIDATION_MESSAGES.bio as string],
+      default: null,
     },
     avatar: {
       type: String,
-      required: [true, PROFILE_VALIDATION_MESSAGES.avatar as string],
+      default: null,
     },
     config: {
       whatsappEnabled: {
         type: Boolean,
-        required: [
-          true,
-          (PROFILE_VALIDATION_MESSAGES.config as { [key: string]: string })
-            .whatsappEnabled,
-        ],
+        default: true,
       },
       phoneCallEnabled: {
         type: Boolean,
-        required: [
-          true,
-          (PROFILE_VALIDATION_MESSAGES.config as { [key: string]: string })
-            .phoneCallEnabled,
-        ],
+        default: true,
       },
       emailEnabled: {
         type: Boolean,
-        required: [
-          true,
-          (PROFILE_VALIDATION_MESSAGES.config as { [key: string]: string })
-            .emailEnabled,
-        ],
+        default: true,
       },
     },
     customFields: {
@@ -136,14 +124,14 @@ const OrdineSchema = new Schema<Profile, Profile>(
               ).value,
             ],
           },
-          company: {
-            type: Schema.Types.ObjectId || undefined,
-            required: false,
-            ref: 'Profile',
-          },
         },
       ],
       required: true,
+    },
+    company: {
+      type: Schema.Types.ObjectId || undefined,
+      required: false,
+      ref: 'Profile',
     },
   },
   {
@@ -158,7 +146,7 @@ OrdineSchema.pre('save', async function (done) {
 });
 
 // 5. Aggiungi un metodo statico build per creare il nuovo Model
-OrdineSchema.statics.build = async (doc: Partial<Profile>) => {
+OrdineSchema.statics.build = (doc: Partial<Profile>) => {
   const Profile = new ProfileModel(doc);
 
   return Profile;

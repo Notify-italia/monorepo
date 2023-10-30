@@ -14,14 +14,11 @@ export const connectToDatabase = async () => {
   wLog(
     `MongoDB Connected
   
-  Available collections:
-  ${(await connection.connection.db.collections()).join(', ')}
-
-  Available models:
-  ${Object.keys(connection.models).join(', ')}
-
-    
-  `,
-    'info'
+Available collections:
+${(await connection.connection.db.collections())
+  .map((i) => i.collectionName)
+  .join('\n')}
+`,
+    'success'
   );
 };
