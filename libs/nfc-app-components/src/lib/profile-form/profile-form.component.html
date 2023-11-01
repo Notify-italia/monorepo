@@ -99,7 +99,7 @@
   <div class="divider">Servizi esterni</div>
 
   <div class="field space-y-2" *ngIf="form.controls.customFields as cf">
-    <button class="btn w-full" (click)="addCustomField()">
+    <button class="btn w-full" type="button" (click)="addCustomField()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -134,6 +134,7 @@
       <!-- RIMUOVI SERVIZIO -->
       <div class="mt-1">
         <button
+          type="button"
           class="btn btn-error my-auto btn-outline"
           (click)="removeCustomField(item)"
         >
@@ -158,6 +159,7 @@
 
   <div class="field flex justify-around space-x-2">
     <button
+      type="button"
       class="btn btn-secondary w-6/12"
       (click)="resetForm()"
       data-theme="notifytheme"
@@ -165,7 +167,11 @@
       Annulla
     </button>
     <div class="w-6/12">
-      <button class="btn btn-primary w-full" data-theme="notifytheme">
+      <button
+        class="btn btn-primary w-full"
+        type="submit"
+        data-theme="notifytheme"
+      >
         Salva
       </button>
 

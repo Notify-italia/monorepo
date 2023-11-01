@@ -5,6 +5,7 @@ import {
   ProfileViewComponent,
   ShareProfileComponent,
 } from '@notify/nfc-app-components';
+import { INotifyProfile } from '@notify/nfc-interfaces';
 
 @Component({
   selector: 'notify-profile-management',
@@ -19,5 +20,5 @@ import {
   styleUrls: ['./profile-management.component.scss'],
 })
 export class ProfileManagementComponent {
-  formValue?: ProfileFormComponent['form']['value'];
+  formValue?: INotifyProfile;
 }

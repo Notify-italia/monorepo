@@ -1,12 +1,12 @@
 export interface INotifyProfile<T = EnumNotifyProfileType> {
   _id: string;
   createdAt: string;
-  name: string;
+  name: string | null;
   surname: T extends EnumNotifyProfileType.agent ? string : null;
-  email: string;
-  phoneNumber: string;
-  bio: string;
-  avatar: string;
+  email: string | null;
+  phoneNumber: string | null;
+  bio: string | null;
+  avatar: string | null;
   config: {
     whatsappEnabled: boolean;
     phoneCallEnabled: boolean;
@@ -14,7 +14,7 @@ export interface INotifyProfile<T = EnumNotifyProfileType> {
   };
   customFields: { iconName: string; value: string }[];
   type: T;
-  company: T extends EnumNotifyProfileType.agent ? INotifyProfile : undefined;
+  company: INotifyProfile | null;
 }
 
 export enum EnumNotifyProfileType {

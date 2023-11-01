@@ -21,6 +21,10 @@ export class ProfileViewComponent {
     return phoneNumber.replace(/[^0-9]/g, '');
   }
 
+  public prepareUrl(url: string): string {
+    return url.startsWith('http') ? url : `https://${url}`;
+  }
+
   public saveContact(): void {
     const d = this.data;
 

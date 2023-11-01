@@ -42,7 +42,7 @@
       <!-- STATIC LINKS -->
       <div class="section section-horizontal">
         <button
-          *ngIf="data?.phoneCallEnabled ?? true"
+          *ngIf="data?.config?.phoneCallEnabled ?? true"
           [disabled]="!data?.phoneNumber"
           class="btn btn-secondary btn-outline btn-square"
         >
@@ -62,7 +62,7 @@
           </a>
         </button>
         <button
-          *ngIf="data?.whatsappEnabled ?? true"
+          *ngIf="data?.config?.whatsappEnabled ?? true"
           [disabled]="!data?.phoneNumber"
           class="btn btn-secondary btn-outline btn-square"
         >
@@ -87,7 +87,7 @@
           </a>
         </button>
         <button
-          *ngIf="data?.emailEnabled ?? true"
+          *ngIf="data?.config?.emailEnabled ?? true"
           [disabled]="!data?.email"
           class="btn btn-secondary btn-outline btn-square"
         >
@@ -115,9 +115,14 @@
         <button
           *ngFor="let item of data?.customFields"
           [disabled]="!item.value"
+          type="button"
           class="btn btn-secondary btn-outline btn-square"
         >
-          <a [href]="item.value" target="_blank" class="buttton-redirect">
+          <a
+            [href]="prepareUrl(item.value)"
+            target="_blank"
+            class="buttton-redirect"
+          >
             <notify-svg-box-icon
               [iconName]="item.iconName"
             ></notify-svg-box-icon>

@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   HostListener,
+  Input,
   OnInit,
   Output,
 } from '@angular/core';
@@ -14,7 +15,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { itPhoneNumberValidators } from '@notify/nfc-app-services';
-import { INotifyProfile } from '@notify/nfc-interfaces';
+import { EnumNotifyProfileType, INotifyProfile } from '@notify/nfc-interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { IconSelectorComponent } from '../icon-select/icon-selector.component';
@@ -24,11 +25,10 @@ import { UploadComponent } from '../upload/upload.component';
 //TODO generare schema sul backend e usare quello
 //TODO campi custom
 type ProfileForm = FormGroup<{
-  name: FormControl<INotifyProfile['name'] | null>;
+  name: FormControl<INotifyProfile['name']>;
   surname: FormControl<string | null>;
   email: FormControl<string | null>;
   phoneNumber: FormControl<string | null>;
-  linkedIn: FormControl<string | null>;
   bio: FormControl<string | null>;
   avatar: FormControl<string | null>;
   whatsappEnabled: FormControl<boolean | null>;
@@ -51,7 +51,8 @@ type ProfileForm = FormGroup<{
   styleUrls: ['./profile-form.component.scss'],
 })
 export class ProfileFormComponent implements OnInit {
-  @Output() public value = new EventEmitter<ProfileForm['value']>();
+  @Input() public profile!: INotifyProfile;
+  @Output() public value = new EventEmitter<INotifyProfile>();
 
   public removeAvatar$ = new Subject<void>();
   private _destroy$ = new Subject<void>();
@@ -79,7 +80,7 @@ export class ProfileFormComponent implements OnInit {
       .pipe(
         takeUntil(this._destroy$),
         tap((value) => {
-          this.value.emit(value);
+          this.value.emit(this._mapFormToProfile(value));
         })
       )
       .subscribe();
@@ -122,17 +123,45 @@ export class ProfileFormComponent implements OnInit {
       surname: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.email]),
       phoneNumber: new FormControl('', [itPhoneNumberValidators]),
-      linkedIn: new FormControl('', [
-        Validators.pattern(
-          /^https:\/\/www\.linkedin\.com\/in\/[a-zA-Z0-9_-]{5,30}\/?$/
-        ),
-      ]),
       bio: new FormControl('', []),
       whatsappEnabled: new FormControl(true, []),
       phoneCallEnabled: new FormControl(true, []),
       emailEnabled: new FormControl(true, []),
       customFields: new FormArray([] as FormGroup[]),
     });
+  }
+
+  private _mapFormToProfile(form: ProfileForm['value']): INotifyProfile {
+    let p: Partial<INotifyProfile> = this.profile;
+
+    if (!p) {
+      p = {
+        _id: '',
+        createdAt: new Date().toISOString(),
+        type: EnumNotifyProfileType.agent,
+        company: null,
+      };
+    }
+
+    return {
+      ...this.profile,
+      name: form.name || '',
+      surname: form.surname || '',
+      email: form.email || '',
+      phoneNumber: form.phoneNumber || '',
+      bio: form.bio || '',
+      avatar: form.avatar || '',
+      config: {
+        whatsappEnabled: !!form.whatsappEnabled,
+        phoneCallEnabled: !!form.phoneCallEnabled,
+        emailEnabled: !!form.emailEnabled,
+      },
+      customFields:
+        form.customFields?.map((item) => ({
+          iconName: item.iconName,
+          value: item.value,
+        })) || [],
+    };
   }
 
   //TODO testare su windows
