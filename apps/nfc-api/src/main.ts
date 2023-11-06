@@ -9,8 +9,10 @@ export const wLog = (...args: Parameters<typeof Logging>) => {
   Logging(...args);
 };
 
+wLog(`Starting with Bun version ${Bun.version}`, 'start');
+
 connectToDatabase();
 
 app.listen(Bun.env.PORT || 3000, () => {
-  console.log(`running on port http://localhost:${Bun.env.PORT}`);
+  wLog(`listening on port http://localhost:${Bun.env.PORT}`, 'info');
 });
