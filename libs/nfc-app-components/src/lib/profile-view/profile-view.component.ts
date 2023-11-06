@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { INotifyProfile } from '@notify/nfc-interfaces';
+import { EnumNotifyProfileType, INotifyProfile } from '@notify/nfc-interfaces';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 
 @Component({
@@ -13,6 +13,8 @@ import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 export class ProfileViewComponent {
   @Input() data?: INotifyProfile;
   @Input() mockup = false;
+
+  public enumProfileTypes = EnumNotifyProfileType;
 
   public placeholderAvatarProvider =
     'https://www.heymind.org.uk/wp-content/uploads/2022/04/avatar-placeholder.png';

@@ -29,8 +29,12 @@
       <div class="section">
         <div class="space-x-1 text-2xl font-bold text-center">
           <span>{{ data?.name || 'Nome' }}</span>
-          <span>{{ data?.surname || 'Cognome' }}</span>
-          <div class="text-xs font-normal italic">@CompanyPlaceholder</div>
+          <span *ngIf="data?.type === enumProfileTypes.agent">{{
+            data?.surname || 'Cognome'
+          }}</span>
+          <div class="text-xs font-normal italic">
+            {{ data?.company?.name || '' }}
+          </div>
         </div>
         <p class="text-sm italic text-center" *ngIf="data?.bio">
           {{ data?.bio || '' }}
