@@ -72,7 +72,6 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
     email: {
       type: String,
       default: null,
-      unique: true,
     },
     phoneNumber: {
       type: String,

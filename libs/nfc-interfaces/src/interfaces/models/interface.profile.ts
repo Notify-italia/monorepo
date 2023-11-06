@@ -14,6 +14,7 @@ export interface INotifyProfile<T = EnumNotifyProfileType> {
   };
   customFields: { iconName: string; value: string }[];
   type: T;
+  company: T extends EnumNotifyProfileType.agent ? INotifyProfile : null;
 }
 
 export enum EnumNotifyProfileType {

@@ -32,7 +32,7 @@ router.post(
 
       const agent = await AgentModel.build(
         { email, password },
-        //TODO associa l'agent alla company
+        //TODO associa l'agent alla company attraverso il valore nel token
         '' as unknown as Types.ObjectId
       ).catch((err) => {
         wLog(err, 'error');

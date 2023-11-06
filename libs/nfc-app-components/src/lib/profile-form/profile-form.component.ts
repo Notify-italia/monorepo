@@ -139,7 +139,6 @@ export class ProfileFormComponent implements OnInit {
         _id: '',
         createdAt: new Date().toISOString(),
         type: EnumNotifyProfileType.agent,
-        company: null,
       };
     }
 

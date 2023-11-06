@@ -70,7 +70,7 @@ const CompanySchema = new Schema<Company, CompanyModel>(
     },
     license: {
       type: Schema.Types.ObjectId,
-      required: true,
+      required: false,
       ref: 'License',
     },
   },
@@ -110,6 +110,6 @@ CompanySchema.statics.build = async (doc: Partial<Company>) => {
 
 // 6. Esporta il Model creato con la funzione model di mongoose
 export const CompanyModel = model<Company, CompanyModel>(
-  'Agent',
+  'Company',
   CompanySchema
 );
