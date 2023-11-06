@@ -1,6 +1,8 @@
 import { validateRequest } from 'apps/nfc-api/src/middlewares/middleware.validate-request';
 import { AGENT_VALIDATION_MESSAGES } from 'apps/nfc-api/src/models/model.agent';
 import { errorHandledRequest } from 'apps/nfc-api/src/services/errors/middlewares/bun.error-handler';
+import { EnumTargetDb } from 'apps/nfc-api/src/services/service.db';
+import { signIn } from 'apps/nfc-api/src/services/users/service.signin';
 import { Request, Router } from 'express';
 import { body } from 'express-validator';
 
@@ -22,7 +24,11 @@ router.post(
   validateRequest,
   errorHandledRequest(
     async (req: Request<{ email: string; password: string }>, res) => {
-      res.status(201).send('ok');
+      const { email, password } = req.body;
+
+      const user = await signIn({ email, password }, EnumTargetDb.Agent);
+
+      res.status(200).send(user);
     }
   )
 );

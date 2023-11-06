@@ -46,6 +46,7 @@ export interface Profile
     {
       _id: Types.ObjectId;
       createdAt: Date;
+      updatedAt: Date;
     }
   > {}
 
@@ -58,7 +59,7 @@ interface ProfileModel extends Model<Profile> {
 // 3. Crea uno Schema corrispondente all'interfaccia del documento definita al punto 1
 //    nb: l'interfaccia del documento avrà anche _id e __v, che non devono essere
 //        aggiunte nel Schema!
-const OrdineSchema = new Schema<Profile, Profile>(
+const OrdineSchema = new Schema<Profile, ProfileModel>(
   {
     name: {
       type: String,
@@ -128,14 +129,14 @@ const OrdineSchema = new Schema<Profile, Profile>(
       ],
       required: true,
     },
-    company: {
-      type: Schema.Types.ObjectId || undefined,
-      required: false,
-      ref: 'Profile',
-    },
   },
   {
     timestamps: true,
+    toJSON: {
+      transform: function (doc, ret) {
+        delete ret.__v;
+      },
+    },
   }
 );
 // Quando ci sono riferimenti ad ID di altri documenti, usa `Schema.Types.ObjectId`

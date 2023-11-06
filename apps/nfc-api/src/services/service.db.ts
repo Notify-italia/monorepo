@@ -35,7 +35,7 @@ ${(await connection.connection.db.collections())
   );
 };
 
-export const queryDb = async <T extends Agent, FindOne extends boolean>(
+export const genericQuery = async <T extends Agent, FindOne extends boolean>(
   targetDb: EnumTargetDb,
   query: FilterQuery<T>,
   findOne = false

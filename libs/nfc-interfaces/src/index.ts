@@ -1,3 +1,4 @@
-export * from './interfaces/interface.agent';
 export * from './interfaces/interface.error';
-export * from './interfaces/interface.profile';
+export * from './interfaces/models/interface.agent';
+export * from './interfaces/models/interface.company';
+export * from './interfaces/models/interface.profile';

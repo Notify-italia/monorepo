@@ -14,7 +14,6 @@ export interface INotifyProfile<T = EnumNotifyProfileType> {
   };
   customFields: { iconName: string; value: string }[];
   type: T;
-  company: INotifyProfile | null;
 }
 
 export enum EnumNotifyProfileType {
