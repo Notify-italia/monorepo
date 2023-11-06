@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { Agent } from '../../models/model.agent';
 import { BadRequestError } from '../errors/errors';
-import { EnumTargetDb, genericQuery } from '../service.db';
+import { AccountTypes, EnumTargetDb, genericQuery } from '../service.db';
 import { Password } from '../service.password';
 
 /**
@@ -22,20 +22,24 @@ export const signIn = async (
   },
   targetDb: EnumTargetDb
 ) => {
-  const user = await genericQuery<Agent, true>(
+  //queries the database for a user with the provided email
+  const user = await genericQuery<true>(
     targetDb,
     { email: provided.email },
     true
   );
 
   if (!user) {
+    //if the user is not found, it will throw an error
     return throwError();
   }
 
   if (!(await _comparePassword(user.password, provided.password))) {
+    //if the password does not match, it will throw an error
     return throwError();
   }
 
+  //if the authentication is successful, it will return the user object with a signed token
   return { ...user.toObject(), token: _signToken(user) };
 };
 
@@ -60,10 +64,10 @@ const _comparePassword = async (source: string, provided: string) => {
  * @returns a JSON Web Token (JWT) that is signed with the user's ID, email, and password, using the
  * JWT_KEY from the environment variables.
  */
-const _signToken = (user: Agent) => {
+const _signToken = (user: AccountTypes) => {
   return jwt.sign(
     {
-      id: user._id,
+      _id: user._id,
       email: user.email,
       password: user.password,
     },
