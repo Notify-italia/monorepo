@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { EnumNotifyProfileType, INotifyProfile } from '@notify/nfc-interfaces';
+import { format } from 'date-fns';
+import { interval, map, startWith } from 'rxjs';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 
 @Component({
@@ -13,6 +15,11 @@ import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 export class ProfileViewComponent {
   @Input() data?: INotifyProfile;
   @Input() mockup = false;
+
+  public currentTime$ = interval(1000).pipe(
+    startWith(0),
+    map(() => format(new Date(), 'HH:mm'))
+  );
 
   public enumProfileTypes = EnumNotifyProfileType;
 
