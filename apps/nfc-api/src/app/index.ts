@@ -1,8 +1,7 @@
 //boilerplate for an express app
 import express from 'express';
-import { api } from './routes';
-
 import { logRequest } from './middlewares/middleware.logs';
+import { api } from './routes';
 import { NotFoundError } from './services/errors/errors';
 import { errorHandler } from './services/errors/middlewares';
 
