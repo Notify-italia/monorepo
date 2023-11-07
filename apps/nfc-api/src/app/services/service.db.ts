@@ -1,5 +1,5 @@
 import { Document, FilterQuery, Model, connect } from 'mongoose';
-import { wLog } from '../main';
+import { wLog } from '../../main';
 
 import { AgentDocument, AgentModel } from '../models/model.agent';
 import { CompanyDocument, CompanyModel } from '../models/model.company';

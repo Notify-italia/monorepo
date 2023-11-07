@@ -1,12 +1,12 @@
-import { wLog } from 'apps/nfc-api/src/main';
-import { validateRequest } from 'apps/nfc-api/src/middlewares/middleware.validate-request';
+import { validateRequest } from 'apps/nfc-api/src/app/middlewares/middleware.validate-request';
 import {
   COMPANY_VALIDATION_MESSAGES,
   CompanyModel,
-} from 'apps/nfc-api/src/models/model.company';
-import { BadRequestError } from 'apps/nfc-api/src/services/errors/errors';
-import { errorHandledRequest } from 'apps/nfc-api/src/services/errors/middlewares/bun.error-handler';
-import { userSignInValidation } from 'apps/nfc-api/src/services/users/service.validation';
+} from 'apps/nfc-api/src/app/models/model.company';
+import { BadRequestError } from 'apps/nfc-api/src/app/services/errors/errors';
+import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { userSignInValidation } from 'apps/nfc-api/src/app/services/users/service.validation';
+import { wLog } from 'apps/nfc-api/src/main';
 import { Request, Router } from 'express';
 
 //boilderplate for a post request to create an agent

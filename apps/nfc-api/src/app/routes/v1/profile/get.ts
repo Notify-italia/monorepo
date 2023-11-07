@@ -1,15 +1,11 @@
-import { validateRequest } from 'apps/nfc-api/src/middlewares/middleware.validate-request';
-import {
-  AGENT_VALIDATION_MESSAGES,
-  AgentModel,
-} from 'apps/nfc-api/src/models/model.agent';
-import { CompanyDocument } from 'apps/nfc-api/src/models/model.company';
-import { ProfileModel } from 'apps/nfc-api/src/models/model.profile';
-import { BadRequestError } from 'apps/nfc-api/src/services/errors/errors';
-import { errorHandledRequest } from 'apps/nfc-api/src/services/errors/middlewares/bun.error-handler';
+import { validateRequest } from 'apps/nfc-api/src/app/middlewares/middleware.validate-request';
+import { AGENT_VALIDATION_MESSAGES } from 'apps/nfc-api/src/app/models/model.agent';
+import { ProfileModel } from 'apps/nfc-api/src/app/models/model.profile';
+import { BadRequestError } from 'apps/nfc-api/src/app/services/errors/errors';
+import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { companyProfile } from 'apps/nfc-api/src/app/services/service.profile';
 import { Request, Router } from 'express';
 import { query } from 'express-validator';
-import { Types } from 'mongoose';
 
 //boilderplate for a post request to create an agent
 const router = Router();
@@ -40,28 +36,3 @@ router.get(
 );
 
 export { router as getProfileRouter };
-
-/**
- * The function `companyProfile` retrieves the profile of a company associated with an agent, given the
- * agent's profile ID.
- * @param profileId - The `profileId` parameter is the unique identifier of a profile. It is used to
- * find an agent in the database whose profile matches the given `profileId`.
- * @returns The function `companyProfile` returns the `profile` property of the `company` object.
- */
-const companyProfile = async (profileId: Types.ObjectId) => {
-  const agent = await AgentModel.findOne({ profile: profileId })
-    .populate({
-      path: 'company',
-      populate: {
-        path: 'profile',
-        model: 'Profile',
-      },
-    })
-    .lean();
-
-  if (!agent) {
-    return undefined;
-  }
-
-  return (agent.company as unknown as CompanyDocument).profile;
-};

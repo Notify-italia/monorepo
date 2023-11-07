@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { Agent } from '../../models/model.agent';
 import { BadRequestError } from '../errors/errors';
 import { AccountTypes, EnumTargetDb, genericQuery } from '../service.db';
-import { Password } from '../service.password';
+import { Password } from './service.password';
 
 /**
  * The SigninService function takes in user authentication credentials and a target database, queries

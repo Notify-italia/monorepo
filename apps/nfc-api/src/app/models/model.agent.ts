@@ -1,5 +1,5 @@
 import { ModifyDeep } from '@notify/nfc-app-services';
-import { EnumNotifyProfileType, INotifyCompany } from '@notify/nfc-interfaces';
+import { EnumNotifyProfileType, INotifyAgent } from '@notify/nfc-interfaces';
 import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
   Document,
@@ -9,69 +9,77 @@ import mongoose, {
   Types,
   model,
 } from 'mongoose';
-import { Password } from '../services/service.password';
+import { Password } from '../services/users/service.password';
 import { ProfileModel } from './model.profile';
 
 /**
  * tipo per facilitare la tipizzazione dei parametri in input delle varie funzioni che hanno bisogno di un oggetto installazione modificabile
  */
-export type CompanyDocument = Document<unknown, unknown, Company> &
-  Company &
+export type AgentDocument = Document<unknown, unknown, Agent> &
+  Agent &
   Required<{
     _id: mongoose.Types.ObjectId;
   }>;
 
-export const COMPANY_VALIDATION_MESSAGES: {
-  [key in keyof Partial<Company>]: ErrorMessage;
+export const AGENT_VALIDATION_MESSAGES: {
+  [key in keyof Partial<Agent>]: ErrorMessage;
 } = {
   _id: "L'id del sollecito deve essere un valido id mongoDB",
   email: 'Inserire una email valida',
   password: 'Inserire una password valida',
+  enabled: 'Inserire un valore booleano',
   profile: 'Inserire un profilo valido',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
-export interface Company
+export interface Agent
   extends ModifyDeep<
-    INotifyCompany,
+    INotifyAgent,
     {
       _id: Types.ObjectId;
       createdAt: Date;
       updatedAt: Date;
       profile: Types.ObjectId;
-      license: Types.ObjectId;
+      company: Types.ObjectId;
     }
   > {}
 
 // 2. Crea un'interfaccia che rappresenti i metodi statici del Model
 //    nb: serve solo se ci sono metodi statici!
-interface CompanyModel extends Model<Company> {
-  build(doc: Partial<Company>): Promise<HydratedDocument<Company>>;
+interface AgentModel extends Model<Agent> {
+  build(
+    doc: Partial<Agent>,
+    company: Types.ObjectId
+  ): Promise<HydratedDocument<Agent>>;
 }
 
 // 3. Crea uno Schema corrispondente all'interfaccia del documento definita al punto 1
 //    nb: l'interfaccia del documento avrà anche _id e __v, che non devono essere
 //        aggiunte nel Schema!
-const CompanySchema = new Schema<Company, CompanyModel>(
+const AgentSchema = new Schema<Agent, AgentModel>(
   {
     email: {
       type: String,
-      required: [true, COMPANY_VALIDATION_MESSAGES.email as string],
+      required: [true, AGENT_VALIDATION_MESSAGES.email as string],
       unique: true,
     },
     password: {
       type: String,
-      required: [true, COMPANY_VALIDATION_MESSAGES.password as string],
+      required: [true, AGENT_VALIDATION_MESSAGES.password as string],
+    },
+    enabled: {
+      type: Boolean,
+      default: true,
     },
     profile: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'Profile',
     },
-    license: {
+    company: {
       type: Schema.Types.ObjectId,
-      required: false,
-      ref: 'License',
+      required: true,
+      ref: 'Company',
     },
   },
   {
@@ -87,29 +95,32 @@ const CompanySchema = new Schema<Company, CompanyModel>(
 // Quando ci sono riferimenti ad ID di altri documenti, usa `Schema.Types.ObjectId`
 
 // 4. Aggiungi qui, se ci sono, gli hook da eseguire prima o dopo una operazione di CRUD (create, read, update, delete)
-CompanySchema.pre('save', async function (done) {
+AgentSchema.pre('save', async function (done) {
   done();
 });
 
 // 5. Aggiungi un metodo statico build per creare il nuovo Model
-CompanySchema.statics.build = async (doc: Partial<Company>) => {
-  const company = new CompanyModel(doc);
-  company.password = await Password.toHash(company.password);
+AgentSchema.statics.build = async (
+  doc: Partial<Agent>,
+  company: Types.ObjectId
+) => {
+  const agent = new AgentModel(doc);
+  agent.password = await Password.toHash(agent.password);
 
-  //creates a profile for the company
+  //creates a profile for the agent
   const profile = await ProfileModel.build({
-    email: company.email,
-    type: EnumNotifyProfileType.company,
+    email: agent.email,
+    type: EnumNotifyProfileType.agent,
   }).save();
 
-  //assigns the profile id to the company
-  company.profile = profile._id;
+  //assigns the profile id to the agent
+  agent.profile = profile._id;
 
-  return company;
+  //assigns the company id to the agent
+  agent.company = company;
+
+  return agent;
 };
 
 // 6. Esporta il Model creato con la funzione model di mongoose
-export const CompanyModel = model<Company, CompanyModel>(
-  'Company',
-  CompanySchema
-);
+export const AgentModel = model<Agent, AgentModel>('Agent', AgentSchema);

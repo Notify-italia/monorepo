@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { wLog } from '../main';
+import { wLog } from '../../main';
 
 export const logRequest = (req: Request, res: Response, next: NextFunction) => {
   const route = `${req.method} ${req.path}`;

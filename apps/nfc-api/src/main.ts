@@ -1,6 +1,6 @@
 import { LogManager, log as Logging } from '@notify/nfc-app-services';
 import app from './app';
-import { connectToDatabase } from './services/service.db';
+import { connectToDatabase } from './app/services/service.db';
 
 const logManager = LogManager.init([], 100);
 

@@ -2,9 +2,9 @@
 import express from 'express';
 import { api } from './routes';
 
-import { logRequest } from '../middlewares/middleware.logs';
-import { NotFoundError } from '../services/errors/errors';
-import { errorHandler } from '../services/errors/middlewares';
+import { logRequest } from './middlewares/middleware.logs';
+import { NotFoundError } from './services/errors/errors';
+import { errorHandler } from './services/errors/middlewares';
 
 const app = express();
 
