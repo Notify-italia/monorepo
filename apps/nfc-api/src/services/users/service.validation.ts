@@ -3,7 +3,7 @@ import { AGENT_VALIDATION_MESSAGES } from '../../models/model.agent';
 import { COMPANY_VALIDATION_MESSAGES } from '../../models/model.company';
 
 export const userSignInValidation = (
-  vMessagesProvider:
+  messagesProvider:
     | typeof COMPANY_VALIDATION_MESSAGES
     | typeof AGENT_VALIDATION_MESSAGES
 ) => {
@@ -12,9 +12,9 @@ export const userSignInValidation = (
       .trim()
       .toLowerCase()
       .isEmail()
-      .withMessage(vMessagesProvider['email'] as string),
+      .withMessage(messagesProvider['email'] as string),
     body('password')
       .isLength({ min: 6 })
-      .withMessage(vMessagesProvider['password'] as string),
+      .withMessage(messagesProvider['password'] as string),
   ];
 };
