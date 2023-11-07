@@ -16,7 +16,8 @@
         "outputPath": "dist/nfc-api",
         "tsConfig": "apps/nfc-api/tsconfig.app.json",
         "smol": false,
-        "bun": true
+        "bun": true,
+        "target": "node"
       }
     },
     "serve": {
