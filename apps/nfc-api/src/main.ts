@@ -1,4 +1,4 @@
-import { LogManager, log as Logging } from '@notify/nfc-app-services';
+import { LogManager, log as Logging } from '@notify/nfc-api-services';
 import app from './app';
 import { connectToDatabase } from './app/services/service.db';
 

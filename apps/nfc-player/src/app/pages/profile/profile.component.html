@@ -1,0 +1,3 @@
+<div class="h-screen w-screen" *ngIf="profile$ | async as p">
+  <notify-profile-view [data]="p"></notify-profile-view>
+</div>

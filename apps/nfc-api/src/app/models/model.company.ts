@@ -1,4 +1,4 @@
-import { ModifyDeep } from '@notify/nfc-app-services';
+import { ModifyDeep } from '@notify/nfc-api-services';
 import { EnumNotifyProfileType, INotifyCompany } from '@notify/nfc-interfaces';
 import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {

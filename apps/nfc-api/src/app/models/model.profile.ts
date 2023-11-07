@@ -1,5 +1,5 @@
-import { ModifyDeep } from '@notify/nfc-app-services';
-import { INotifyProfile } from '@notify/nfc-interfaces';
+import { ModifyDeep } from '@notify/nfc-api-services';
+import { EnumNotifyProfileType, INotifyProfile } from '@notify/nfc-interfaces';
 import mongoose, {
   Document,
   HydratedDocument,
@@ -19,7 +19,7 @@ export type ProfileDocument = Document<unknown, unknown, Profile> &
   }>;
 
 export const PROFILE_VALIDATION_MESSAGES: {
-  [key in keyof Partial<Profile>]: string | { [key: string]: string };
+  [key in keyof Partial<INotifyProfile>]: string | { [key: string]: string };
 } = {
   _id: "L'id del profilo deve essere un valido id mongoDB",
   name: 'Inserire un nome valido',
@@ -98,6 +98,11 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
         type: Boolean,
         default: true,
       },
+    },
+    type: {
+      type: String,
+      enum: Object.values(EnumNotifyProfileType),
+      required: true,
     },
     customFields: {
       type: [

@@ -1,4 +1,5 @@
 //boilerplate for an express app
+import cors from 'cors';
 import express from 'express';
 import { logRequest } from './middlewares/middleware.logs';
 import { api } from './routes';
@@ -11,6 +12,12 @@ app.use(express.json());
 
 app.use(logRequest);
 
+app.use(
+  cors({
+    origin: '*',
+  })
+);
+
 app.use('/api', api);
 
 // Deve sempre essere in fondo a tutte le altre routes perché serve a mostrare un errore qualora
@@ -19,7 +26,6 @@ app.all('*', () => {
   throw new NotFoundError();
 });
 
-//TODO fix error stack
 // È un middleware creato ad hoc per gestire gli errori che possono generarsi e per restituirli
 // sempre nel solito formato al client
 app.use(errorHandler);
