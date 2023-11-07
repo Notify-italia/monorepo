@@ -1,4 +1,3 @@
 export interface AppError {
-  message: string;
-  statusCode: number;
+  error: { message: string; statusCode: number };
 }

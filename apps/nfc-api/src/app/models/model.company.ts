@@ -1,5 +1,5 @@
 import { ModifyDeep } from '@notify/nfc-api-services';
-import { EnumNotifyProfileType, INotifyCompany } from '@notify/nfc-interfaces';
+import { EnumNotifyAccountType, INotifyCompany } from '@notify/nfc-interfaces';
 import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
   Document,
@@ -99,7 +99,7 @@ CompanySchema.statics.build = async (doc: Partial<Company>) => {
   //creates a profile for the company
   const profile = await ProfileModel.build({
     email: company.email,
-    type: EnumNotifyProfileType.company,
+    type: EnumNotifyAccountType.company,
   }).save();
 
   //assigns the profile id to the company

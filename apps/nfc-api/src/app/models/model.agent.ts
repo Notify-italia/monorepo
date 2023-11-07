@@ -1,5 +1,5 @@
 import { ModifyDeep } from '@notify/nfc-api-services';
-import { EnumNotifyProfileType, INotifyAgent } from '@notify/nfc-interfaces';
+import { EnumNotifyAccountType, INotifyAgent } from '@notify/nfc-interfaces';
 import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
   Document,
@@ -110,7 +110,7 @@ AgentSchema.statics.build = async (
   //creates a profile for the agent
   const profile = await ProfileModel.build({
     email: agent.email,
-    type: EnumNotifyProfileType.agent,
+    type: EnumNotifyAccountType.agent,
   }).save();
 
   //assigns the profile id to the agent

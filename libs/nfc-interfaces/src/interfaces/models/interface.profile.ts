@@ -1,10 +1,12 @@
+import { EnumNotifyAccountType } from '../interface.user';
+
 export interface INotifyProfile<
-  T extends EnumNotifyProfileType = EnumNotifyProfileType
+  T extends EnumNotifyAccountType = EnumNotifyAccountType
 > {
   _id: string;
   createdAt: string;
   name: string | null;
-  surname: T extends EnumNotifyProfileType.agent ? string : null;
+  surname: T extends EnumNotifyAccountType.agent ? string : null;
   email: string | null;
   phoneNumber: string | null;
   bio: string | null;
@@ -15,13 +17,8 @@ export interface INotifyProfile<
     emailEnabled: boolean;
   };
   customFields: { iconName: string; value: string }[];
-  type: EnumNotifyProfileType;
-  company: T extends EnumNotifyProfileType.agent
-    ? INotifyProfile<EnumNotifyProfileType.company>
+  type: EnumNotifyAccountType;
+  company: T extends EnumNotifyAccountType.agent
+    ? INotifyProfile<EnumNotifyAccountType.company>
     : null;
-}
-
-export enum EnumNotifyProfileType {
-  agent = 'agent',
-  company = 'company',
 }

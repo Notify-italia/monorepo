@@ -11,7 +11,7 @@ export const errorHandledRequest = <T>(
     } catch (err) {
       wLog(String(err), 'error');
 
-      res.status(500).send(errorMessage || err);
+      res.status(400).send(errorMessage || err);
     }
   };
 };

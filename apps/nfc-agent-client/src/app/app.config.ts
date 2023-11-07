@@ -6,7 +6,7 @@ import {
   withEnabledBlockingInitialNavigation,
 } from '@angular/router';
 import { provideTailwindToasts } from '@notify/nfc-app-components';
-import { ApiService, SvgboxService } from '@notify/nfc-app-services';
+import { ApiService, HttpService } from '@notify/nfc-app-services';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
@@ -16,13 +16,14 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideTailwindToasts(),
     provideHttpClient(),
-    SvgboxService,
+
     {
-      provide: ApiService,
+      provide: HttpService,
       deps: [HttpClient],
       useFactory: (http: HttpClient) => {
-        return new ApiService(environment.apiUrl, http);
+        return new HttpService(environment.apiUrl, http);
       },
     },
+    ApiService,
   ],
 };

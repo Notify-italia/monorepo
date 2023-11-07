@@ -6,10 +6,10 @@ import {
   ShareProfileComponent,
 } from '@notify/nfc-app-components';
 import { ApiService } from '@notify/nfc-app-services';
-import { EnumNotifyProfileType, INotifyProfile } from '@notify/nfc-interfaces';
+import { EnumNotifyAccountType, INotifyProfile } from '@notify/nfc-interfaces';
 import { Observable, Subject, tap } from 'rxjs';
 
-type IProfile = INotifyProfile<EnumNotifyProfileType.agent>;
+type IProfile = INotifyProfile<EnumNotifyAccountType.agent>;
 
 @Component({
   selector: 'notify-profile-management',

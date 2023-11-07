@@ -1,5 +1,5 @@
 import { ModifyDeep } from '@notify/nfc-api-services';
-import { EnumNotifyProfileType, INotifyProfile } from '@notify/nfc-interfaces';
+import { EnumNotifyAccountType, INotifyProfile } from '@notify/nfc-interfaces';
 import mongoose, {
   Document,
   HydratedDocument,
@@ -101,7 +101,7 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
     },
     type: {
       type: String,
-      enum: Object.values(EnumNotifyProfileType),
+      enum: Object.values(EnumNotifyAccountType),
       required: true,
     },
     customFields: {
