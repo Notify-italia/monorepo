@@ -1,5 +1,5 @@
 # Install WSL
-wsl --install
+wsl --install Ubuntu
 
 # Open WSL and install npm
 wsl
