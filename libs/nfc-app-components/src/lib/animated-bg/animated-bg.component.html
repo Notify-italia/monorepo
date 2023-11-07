@@ -1,0 +1,34 @@
+<div class="area fixed pointer-events-none">
+  <ul class="circles">
+    <li
+      class="bg-gray-300"
+      *ngFor="let item of listItems; let i = index"
+      [ngStyle]="{
+        left: item.left,
+        'animation-delay': item.delay,
+    }"
+    >
+      <div class="relative flex flex-col justify-center h-full">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="slide-logo"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          xmlns:v="https://vecta.io/nano"
+          [ngStyle]="{
+          
+            'animation-delay': item.delay,
+        }"
+        >
+          <path
+            d="M5 8l5 8m8.722 4.5a17 17 0 0 0 0-17M14.392 18a12 12 0 0 0 0-12"
+          />
+          <path d="M9.928 16a8 8 0 0 0 0-8m-4.856 8a8 8 0 0 1 0-8" />
+        </svg>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -25,6 +25,7 @@ export class TailwindInputComponent
   @Input() type: 'text' | 'email' | 'password' | 'number' = 'text';
   @Input() helpText!: string;
   @Input() showToggleEye = false;
+  @Input() showClearInput = true;
   @Input() placeholder = '';
   @Input() validationErrors!: { [key: string]: string };
   @Input() disableAutocomplete = false;

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AppTitleComponent } from '../app-title/app-title.component';
 
 export interface NavItem {
   label: string;
@@ -12,7 +13,7 @@ export interface NavItem {
 @Component({
   selector: 'notify-nav',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, AppTitleComponent],
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
 })
