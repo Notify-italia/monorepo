@@ -1,5 +1,5 @@
 export interface INotifyProfile<
-  T extends EnumNotifyProfileType = EnumNotifyProfileType.agent
+  T extends EnumNotifyProfileType = EnumNotifyProfileType
 > {
   _id: string;
   createdAt: string;

@@ -8,7 +8,6 @@ const regex = {
 export function itPhoneNumberValidators(
   control: AbstractControl<string>
 ): { [key: string]: boolean } | null {
-  console.log(control);
   if (!control.dirty || !control.value) {
     return null;
   }

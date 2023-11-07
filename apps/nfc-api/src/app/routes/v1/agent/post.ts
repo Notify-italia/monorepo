@@ -8,7 +8,7 @@ import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middle
 import { userSignInValidation } from 'apps/nfc-api/src/app/services/users/service.validation';
 import { wLog } from 'apps/nfc-api/src/main';
 import { Request, Router } from 'express';
-import { Types } from 'mongoose';
+import mongoose from 'mongoose';
 
 //boilderplate for a post request to create an agent
 const router = Router();
@@ -24,7 +24,7 @@ router.post(
       const agent = await AgentModel.build(
         { email, password },
         //TODO associa l'agent alla company attraverso il valore nel token
-        '' as unknown as Types.ObjectId
+        new mongoose.Types.ObjectId('654a5512717b1776dd72c4dc')
       ).catch((err) => {
         wLog(err, 'error');
         throw new BadRequestError('Email già in uso');

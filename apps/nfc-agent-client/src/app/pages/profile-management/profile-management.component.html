@@ -4,7 +4,10 @@
     <div class="divider"></div>
   </div>
 
-  <div class="flex flex-col pb-5 lg:px-5 space-y-4 w-full">
+  <div
+    class="flex flex-col pb-5 lg:px-5 space-y-4 w-full"
+    *ngIf="profile$ | async as profile"
+  >
     <div>
       <notify-share-profile></notify-share-profile>
     </div>
@@ -12,12 +15,13 @@
       class="lg:flex justify-around lg:space-x-4 space-y-4 lg:space-y-0 items-start"
     >
       <notify-profile-form
-        (value)="formValue = $event"
+        [profile]="profile"
+        (value)="updateSubject($event)"
         class="w-full"
       ></notify-profile-form>
 
       <notify-profile-view
-        [data]="formValue"
+        [data]="profile"
         [mockup]="true"
         class="max-w-[560px] w-[560px] h-[700px] hidden lg:block"
       ></notify-profile-view>

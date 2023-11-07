@@ -15,7 +15,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { itPhoneNumberValidators } from '@notify/nfc-app-services';
-import { EnumNotifyProfileType, INotifyProfile } from '@notify/nfc-interfaces';
+import { INotifyProfile } from '@notify/nfc-interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { IconSelectorComponent } from '../icon-select/icon-selector.component';
@@ -59,8 +59,8 @@ export class ProfileFormComponent implements OnInit {
 
   public isMacos = navigator.userAgent.toLowerCase().includes('mac os');
 
-  public form: ProfileForm;
-  private _formInitialValue: ProfileForm['value'];
+  public form: ProfileForm = new FormGroup({}) as unknown as ProfileForm;
+  private _formInitialValue: ProfileForm['value'] = {} as ProfileForm['value'];
 
   public validationErrors = {
     required: ' ',
@@ -69,12 +69,11 @@ export class ProfileFormComponent implements OnInit {
     itPhoneNumber: 'Numero di telefono non valido',
   };
 
-  constructor(private _toastr: ToastrService) {
-    this.form = this._buildForm();
-    this._formInitialValue = this.form.value;
-  }
+  constructor(private _toastr: ToastrService) {}
 
   public ngOnInit(): void {
+    this.form = this._buildForm();
+
     //emette il valore del form ad ogni cambiamento
     this.form.valueChanges
       .pipe(
@@ -90,12 +89,12 @@ export class ProfileFormComponent implements OnInit {
     this.form.controls.avatar.setValue(file as string);
   }
 
-  public addCustomField() {
+  public addCustomField(data?: INotifyProfile['customFields'][0]) {
     this.form.controls.customFields.push(
       new FormGroup({
-        iconName: new FormControl('', [Validators.required]),
+        iconName: new FormControl(data?.iconName || '', [Validators.required]),
         //url validator
-        value: new FormControl('', [
+        value: new FormControl(data?.value || '', [
           Validators.required,
           Validators.pattern(
             /^(?:(?:https?|ftp):\/\/)?(?:www\.)?[^\s/$.?#]+\.[^\s]*$/
@@ -117,39 +116,50 @@ export class ProfileFormComponent implements OnInit {
   }
 
   private _buildForm(): ProfileForm {
-    return new FormGroup({
-      avatar: new FormControl('', []),
-      name: new FormControl('', [Validators.required]),
-      surname: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.email]),
-      phoneNumber: new FormControl('', [itPhoneNumberValidators]),
-      bio: new FormControl('', []),
-      whatsappEnabled: new FormControl(true, []),
-      phoneCallEnabled: new FormControl(true, []),
-      emailEnabled: new FormControl(true, []),
+    const f = new FormGroup({
+      avatar: new FormControl(this.profile.avatar || '', []),
+      name: new FormControl(this.profile.name || '', [Validators.required]),
+      surname: new FormControl(this.profile?.surname || '', [
+        Validators.required,
+      ]),
+      email: new FormControl(this.profile.email || '', [Validators.email]),
+      phoneNumber: new FormControl(this.profile.phoneNumber || '', [
+        itPhoneNumberValidators,
+      ]),
+      bio: new FormControl(this.profile.bio || '', []),
+      whatsappEnabled: new FormControl(
+        this.profile.config.whatsappEnabled ?? true,
+        []
+      ),
+      phoneCallEnabled: new FormControl(
+        this.profile.config.phoneCallEnabled ?? true,
+        []
+      ),
+      emailEnabled: new FormControl(
+        this.profile.config.emailEnabled ?? true,
+        []
+      ),
       customFields: new FormArray([] as FormGroup[]),
     });
+
+    this.profile.customFields?.map((item) => {
+      this.addCustomField(item);
+    });
+
+    this._formInitialValue = this.form.value;
+
+    return f;
   }
 
   private _mapFormToProfile(form: ProfileForm['value']): INotifyProfile {
-    let p: Partial<INotifyProfile> = this.profile;
-
-    if (!p) {
-      p = {
-        _id: '',
-        createdAt: new Date().toISOString(),
-        type: EnumNotifyProfileType.agent,
-      };
-    }
-
     return {
       ...this.profile,
-      name: form.name || '',
-      surname: form.surname || '',
-      email: form.email || '',
-      phoneNumber: form.phoneNumber || '',
-      bio: form.bio || '',
-      avatar: form.avatar || '',
+      name: form.name || null,
+      surname: form.surname || null,
+      email: form.email || null,
+      phoneNumber: form.phoneNumber || null,
+      bio: form.bio || null,
+      avatar: form.avatar || null,
       config: {
         whatsappEnabled: !!form.whatsappEnabled,
         phoneCallEnabled: !!form.phoneCallEnabled,
