@@ -57,11 +57,11 @@
     >
       <div class="section">
         <div class="avatar">
-          <div class="w-48 rounded-full">
-            <img
-              *ngIf="data?.avatar || placeholderAvatarProvider as avatar"
-              [src]="avatar"
-            />
+          <div
+            class="w-48 rounded-full"
+            *ngIf="data?.avatar || placeholderAvatarProvider as avatar"
+          >
+            <img [src]="avatar" />
           </div>
         </div>
       </div>

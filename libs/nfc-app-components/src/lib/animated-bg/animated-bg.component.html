@@ -1,11 +1,14 @@
-<div class="area fixed pointer-events-none">
+<div class="area fixed pointer-events-none top-0">
   <ul class="circles">
     <li
-      class="bg-gray-300"
+      class="bg-gradient-to-br from-primary to-secondary/50"
       *ngFor="let item of listItems; let i = index"
+      [style.filter]="'blur(' + item.blur + 'px)'"
       [ngStyle]="{
         left: item.left,
+        scale: item.scale,
         'animation-delay': item.delay,
+        
     }"
     >
       <div class="relative flex flex-col justify-center h-full">
@@ -19,7 +22,7 @@
           stroke-linecap="round"
           xmlns:v="https://vecta.io/nano"
           [ngStyle]="{
-          
+            
             'animation-delay': item.delay,
         }"
         >
