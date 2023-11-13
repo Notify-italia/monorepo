@@ -4,8 +4,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withRouterConfig } from '@angular/router';
 import { provideTailwindToasts } from '@notify/nfc-app-components';
 import {
-  ApiService,
   HttpService,
+  ProfileService,
   UtilsService,
 } from '@notify/nfc-app-services';
 import { environment } from '../environments/environment';
@@ -30,6 +30,6 @@ export const appConfig: ApplicationConfig = {
         return new HttpService(environment.apiUrl, http);
       },
     },
-    ApiService,
+    ProfileService,
   ],
 };

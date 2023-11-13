@@ -6,7 +6,8 @@ import {
   ProfileViewComponent,
   ShareProfileComponent,
 } from '@notify/nfc-app-components';
-import { ApiService } from '@notify/nfc-app-services';
+
+import { ProfileService } from '@notify/nfc-app-services';
 import {
   AppError,
   EnumNotifyAccountType,
@@ -37,11 +38,11 @@ export class ProfileManagementComponent {
   public profile$: Observable<IProfile> = this._profileSubject$;
 
   constructor(
-    private _apiService: ApiService,
+    private _profileService: ProfileService,
     private _toastr: ToastrService,
     private _router: Router
   ) {
-    this._apiService
+    this._profileService
       .getProfile('654a5542d872f43ae3e0aaa1')
       .pipe(
         tap((profile) => {
@@ -52,7 +53,7 @@ export class ProfileManagementComponent {
   }
 
   public publicProfileUrl(profile: IProfile) {
-    return this._apiService.getPublicProfileUrl(
+    return this._profileService.getPublicProfileUrl(
       environment.publicUrl,
       profile._id
     );
@@ -74,7 +75,7 @@ export class ProfileManagementComponent {
 
   public saveProfile(profile: IProfile) {
     //TODO, rimuovere "profile._id" se è presente l'autenticazione tramite token
-    this._apiService
+    this._profileService
       .patchProfile(profile, profile._id)
       .pipe(
         tap((profile) => {

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProfileViewComponent } from '@notify/nfc-app-components';
-import { ApiService } from '@notify/nfc-app-services';
+import { ProfileService } from '@notify/nfc-app-services';
 import { INotifyProfile } from '@notify/nfc-interfaces';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -21,9 +21,9 @@ export class ProfileComponent {
 
   constructor(
     private _activatedRoute: ActivatedRoute,
-    private _apiService: ApiService
+    private _profileService: ProfileService
   ) {
-    this.profile$ = this._apiService.getProfile(
+    this.profile$ = this._profileService.getProfile(
       this._activatedRoute.snapshot.queryParamMap.get('p') as string
     );
   }

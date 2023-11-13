@@ -7,7 +7,7 @@
     <div
       class="max-w-sm w-full shadow-md rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden"
       [ngClass]="{
-        'bg-green-50': toastPackage.toastType === 'toast-success',
+        'bg-green-200': toastPackage.toastType === 'toast-success',
         'bg-red-50': toastPackage.toastType === 'toast-error',
         'bg-yellow-50': toastPackage.toastType === 'toast-warning',
         'bg-blue-50': toastPackage.toastType === 'toast-info'
@@ -24,7 +24,7 @@
               <div
                 class="overflow-hidden h-2 mb-4 text-xs flex rounded"
                 [ngClass]="{
-                  'bg-green-300': toastPackage.toastType === 'toast-success',
+                  'bg-green-500': toastPackage.toastType === 'toast-success',
                   'bg-red-300': toastPackage.toastType === 'toast-error',
                   'bg-yellow-300': toastPackage.toastType === 'toast-warning',
                   'bg-blue-300': toastPackage.toastType === 'toast-info'

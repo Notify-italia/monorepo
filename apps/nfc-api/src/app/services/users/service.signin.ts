@@ -40,7 +40,7 @@ export const signIn = async (
   }
 
   //if the authentication is successful, it will return the user object with a signed token
-  return { ...user.toObject(), token: _signToken(user) };
+  return { ...user.toObject(), token: _signToken(user), userType: targetDb };
 };
 
 /**

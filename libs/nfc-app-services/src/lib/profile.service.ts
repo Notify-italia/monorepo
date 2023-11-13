@@ -3,7 +3,7 @@ import { INotifyProfile } from '@notify/nfc-interfaces';
 import { HttpService } from './http.service';
 
 @Injectable()
-export class ApiService {
+export class ProfileService {
   constructor(private http: HttpService) {}
 
   public getPublicProfileUrl(publicUrl: string, id: string) {

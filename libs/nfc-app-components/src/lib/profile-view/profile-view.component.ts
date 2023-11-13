@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { ApiService } from '@notify/nfc-app-services';
+import { ProfileService } from '@notify/nfc-app-services';
 import { EnumNotifyAccountType, INotifyProfile } from '@notify/nfc-interfaces';
 import { format } from 'date-fns';
 import { interval, map, startWith } from 'rxjs';
@@ -28,7 +28,7 @@ export class ProfileViewComponent {
   public placeholderAvatarProvider =
     'https://www.heymind.org.uk/wp-content/uploads/2022/04/avatar-placeholder.png';
 
-  constructor(private _apiService: ApiService) {}
+  constructor(private _profileService: ProfileService) {}
 
   public cleanPhoneNumber(phoneNumber: string): string {
     return phoneNumber.replace(/[^0-9]/g, '');
@@ -55,7 +55,7 @@ FN:${d.name} ${d.surname}
 ORG:${d.company?.name || d.name}
 TEL;TYPE=work,voice;VALUE=uri:${this.cleanPhoneNumber(d.phoneNumber || '')}
 PHOTO;ENCODING=b:${d.avatar?.split(',')[1]}
-item2.URL;type=pref:${this._apiService.getPublicProfileUrl(
+item2.URL;type=pref:${this._profileService.getPublicProfileUrl(
       this.publicUrl,
       d._id
     )}

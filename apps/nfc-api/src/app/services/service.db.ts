@@ -35,7 +35,6 @@ export type QueryDbReturnType<T, FindOne> = FindOne extends true
 export enum EnumTargetDb {
   Agent = 'agent',
   Company = 'company',
-  User = 'user',
 }
 
 const { MONGO_URI } = declareEnvs(['MONGO_URI']);

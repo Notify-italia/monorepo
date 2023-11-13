@@ -1,9 +1,5 @@
 <div [formGroup]="parent" class="w-full relative">
-  <label
-    [for]="name"
-    id="input-label"
-    class="block text-sm font-medium text-gray-700 dark:text-white"
-  >
+  <label [for]="name" id="input-label" class="block text-sm font-medium">
     {{ label | titlecase }}
   </label>
   <div class="relative mt-1">
@@ -19,7 +15,7 @@
       [suffix]="suffix"
       [thousandSeparator]="thousandSeparator"
       [patterns]="patterns"
-      class="input input-bordered w-full"
+      class="input input-bordered w-full text-secondary"
       [class.input-error]="showValidationErrors"
     />
 

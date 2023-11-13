@@ -4,7 +4,7 @@ import {
   provideRouter,
   withEnabledBlockingInitialNavigation,
 } from '@angular/router';
-import { ApiService, HttpService } from '@notify/nfc-app-services';
+import { HttpService, ProfileService } from '@notify/nfc-app-services';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
@@ -19,6 +19,6 @@ export const appConfig: ApplicationConfig = {
         return new HttpService(environment.apiUrl, http);
       },
     },
-    ApiService,
+    ProfileService,
   ],
 };

@@ -22,7 +22,7 @@ export class ShareProfileComponent {
 
   public async copyToClipboard() {
     await navigator.clipboard.writeText(this.publicProfileUrl);
-    this._toastr.success('URL Copiato');
+    this._toastr.info('URL Copiato');
   }
 
   public async openLightbox() {
