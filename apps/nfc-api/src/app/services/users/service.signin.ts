@@ -1,15 +1,16 @@
+import { EnumNotifyUserType, INotifyUser } from '@notify/nfc-interfaces';
 import jwt from 'jsonwebtoken';
 import { Agent } from '../../models/model.agent';
 import { BadRequestError } from '../errors/errors';
-import { AccountTypes, EnumTargetDb, genericQuery } from '../service.db';
 import { Password } from './service.password';
+import { UserDocTypes, genericUserQuery } from './service.query';
 
 /**
  * The SigninService function takes in user authentication credentials and a target database, queries
  * the database for a user with the provided email, compares the provided password with the user's
  * stored password, and returns the user if authentication is successful.
  * @param provided - The `auth` parameter is an object that contains the provided email and password.
- * @param {EnumTargetDb} targetDb - The `targetDb` parameter is an enumeration (`EnumTargetDb`) that
+ * @param {EnumNotifyUserType} userType - The `userType` parameter is an enumeration (`EnumUserType`) that
  * specifies the target database where the query will be executed. It is used to determine which
  * database to query for the user's information.
  * @returns the user object if the authentication is successful. If the user is not found or the
@@ -20,11 +21,11 @@ export const signIn = async (
     email: string;
     password: string;
   },
-  targetDb: EnumTargetDb
-) => {
+  userType: EnumNotifyUserType
+): Promise<INotifyUser> => {
   //queries the database for a user with the provided email
-  const user = await genericQuery<true>(
-    targetDb,
+  const user = await genericUserQuery<true>(
+    userType,
     { email: provided.email },
     true
   );
@@ -40,7 +41,7 @@ export const signIn = async (
   }
 
   //if the authentication is successful, it will return the user object with a signed token
-  return { ...user.toObject(), token: _signToken(user), userType: targetDb };
+  return { ...user.toObject(), token: _signToken(user), userType };
 };
 
 /**
@@ -64,7 +65,7 @@ const _comparePassword = async (source: string, provided: string) => {
  * @returns a JSON Web Token (JWT) that is signed with the user's ID, email, and password, using the
  * JWT_KEY from the environment variables.
  */
-const _signToken = (user: AccountTypes) => {
+const _signToken = (user: UserDocTypes) => {
   return jwt.sign(
     {
       _id: user._id,

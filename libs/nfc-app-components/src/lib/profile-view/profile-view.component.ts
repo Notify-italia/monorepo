@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ProfileService } from '@notify/nfc-app-services';
-import { EnumNotifyAccountType, INotifyProfile } from '@notify/nfc-interfaces';
+import { EnumNotifyUserType, INotifyProfile } from '@notify/nfc-interfaces';
 import { format } from 'date-fns';
 import { interval, map, startWith } from 'rxjs';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
@@ -23,7 +23,7 @@ export class ProfileViewComponent {
     map(() => format(new Date(), 'HH:mm'))
   );
 
-  public enumProfileTypes = EnumNotifyAccountType;
+  public enumProfileTypes = EnumNotifyUserType;
 
   public placeholderAvatarProvider =
     'https://www.heymind.org.uk/wp-content/uploads/2022/04/avatar-placeholder.png';

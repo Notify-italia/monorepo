@@ -1,17 +1,24 @@
 import { INotifyAgent } from './models/interface.agent';
 import { INotifyCompany } from './models/interface.company';
 
+export interface INotifyUser extends INotifyAgent, INotifyCompany {
+  iat: number;
+  exp: number;
+  userType: EnumNotifyUserType;
+  token?: string;
+}
+
 export interface INotifyAuth {
   email: string;
   password: string;
 }
 
-export interface INotifyAcount {
-  [EnumNotifyAccountType.agent]: INotifyAgent;
-  [EnumNotifyAccountType.company]: INotifyCompany;
+export interface INotifyAccount {
+  [EnumNotifyUserType.Agent]: INotifyAgent;
+  [EnumNotifyUserType.Company]: INotifyCompany;
 }
 
-export enum EnumNotifyAccountType {
-  agent = 'agent',
-  company = 'company',
+export enum EnumNotifyUserType {
+  Agent = 'agent',
+  Company = 'company',
 }

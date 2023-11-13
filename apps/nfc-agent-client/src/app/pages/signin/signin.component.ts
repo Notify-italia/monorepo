@@ -4,7 +4,7 @@ import { AuthComponent } from '@notify/nfc-app-components';
 import { AuthService } from '@notify/nfc-app-services';
 import {
   AppError,
-  EnumNotifyAccountType,
+  EnumNotifyUserType,
   INotifyAuth,
 } from '@notify/nfc-interfaces';
 import { ToastrService } from 'ngx-toastr';
@@ -32,7 +32,7 @@ export class SigninComponent {
     this.loading = true;
 
     this._auth
-      .signIn(data, EnumNotifyAccountType.agent)
+      .signIn(data, EnumNotifyUserType.Agent)
       .pipe(
         tap((r) => {
           this.loading = false;

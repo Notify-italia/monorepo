@@ -10,14 +10,14 @@ import {
 import { ProfileService } from '@notify/nfc-app-services';
 import {
   AppError,
-  EnumNotifyAccountType,
+  EnumNotifyUserType,
   INotifyProfile,
 } from '@notify/nfc-interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, catchError, tap } from 'rxjs';
 import { environment } from '../../../../src/environments/environment';
 
-type IProfile = INotifyProfile<EnumNotifyAccountType.agent>;
+type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
 
 @Component({
   selector: 'notify-profile-management',
