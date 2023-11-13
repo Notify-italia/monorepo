@@ -1,4 +1,3 @@
-import { validateRequest } from 'apps/nfc-api/src/app/middlewares/middleware.validate-request';
 import { AGENT_VALIDATION_MESSAGES } from 'apps/nfc-api/src/app/models/model.agent';
 import { ProfileModel } from 'apps/nfc-api/src/app/models/model.profile';
 import { BadRequestError } from 'apps/nfc-api/src/app/services/errors/errors';
@@ -15,7 +14,6 @@ router.get(
   query('id')
     .isMongoId()
     .withMessage(AGENT_VALIDATION_MESSAGES._id as string),
-  validateRequest,
   errorHandledRequest(
     async (req: Request<{ email: string; password: string }>, res) => {
       const { id } = req.query;

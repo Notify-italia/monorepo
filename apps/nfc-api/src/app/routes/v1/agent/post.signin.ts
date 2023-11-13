@@ -1,5 +1,4 @@
 import { EnumNotifyUserType } from '@notify/nfc-interfaces';
-import { validateRequest } from 'apps/nfc-api/src/app/middlewares/middleware.validate-request';
 import { AGENT_VALIDATION_MESSAGES } from 'apps/nfc-api/src/app/models/model.agent';
 import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
 
@@ -13,7 +12,7 @@ const router = Router();
 router.post(
   '/',
   ...userSignInValidation(AGENT_VALIDATION_MESSAGES),
-  validateRequest,
+
   errorHandledRequest(
     async (req: Request<{ email: string; password: string }>, res) => {
       const { email, password } = req.body;

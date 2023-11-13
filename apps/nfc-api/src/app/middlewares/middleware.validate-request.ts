@@ -2,6 +2,14 @@ import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import { RequestValidationError } from '../services/errors/errors';
 
+export const validateRequest = <T>(
+  req: Request<T>,
+  res: Response,
+  next: NextFunction
+) => {
+  return _validateRequest(req, res, next);
+};
+
 // Per come funzionano i middleware in Express, si veda:
 // http://expressjs.com/en/guide/using-middleware.html#using-middleware
 
@@ -10,8 +18,8 @@ import { RequestValidationError } from '../services/errors/errors';
 //  body('description').notEmpty(),
 //  body('priority').notEmpty().withMessage('Please Enter priority'),
 //  validateRequest,
-export const validateRequest = (
-  req: Request,
+export const _validateRequest = <T>(
+  req: Request<T>,
   res: Response,
   next: NextFunction
 ) => {
@@ -22,11 +30,11 @@ export const validateRequest = (
   // si veda: https://express-validator.github.io/docs/
 
   // Estraggo quindi gli errori
-  const errors = validationResult(req);
+  const errors = validationResult(req as Request);
 
   // Se ci sono errori (quindi se l'array errors non è vuoto)
   if (!errors.isEmpty()) {
-    console.log(errors.array());
+    console.log('validation error', errors.array());
     // Lancio un errore di tipo RequestValidationError passando l'array di errori
     throw new RequestValidationError(errors.array());
   }

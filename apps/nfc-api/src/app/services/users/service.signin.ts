@@ -45,6 +45,23 @@ export const signIn = async (
 };
 
 /**
+ * The function refreshToken takes a user object and returns a new token along with the user's
+ * information.
+ * @param {INotifyUser} u - INotifyUser - an interface representing a user object with properties like
+ * userType and _id.
+ * @returns an object that includes the user data, a token, and the user type.
+ */
+export const refreshToken = async (u: INotifyUser) => {
+  const user = await genericUserQuery<true>(u.userType, { _id: u._id }, true);
+
+  if (!user) {
+    return new BadRequestError('Credenziali errate');
+  }
+
+  return { ...user.toObject(), token: _signToken(user), userType: u.userType };
+};
+
+/**
  * The function compares a provided password with a source password using the Password.compare method.
  * @param {string} source - The `source` parameter is a string that represents the original password
  * that needs to be compared.
@@ -72,7 +89,10 @@ const _signToken = (user: UserDocTypes) => {
       email: user.email,
       password: user.password,
     },
-    Bun.env.JWT_KEY!
+    Bun.env.JWT_KEY!,
+    {
+      expiresIn: '1d',
+    }
   );
 };
 

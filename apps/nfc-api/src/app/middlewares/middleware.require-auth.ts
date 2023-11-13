@@ -18,7 +18,7 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Express {
     interface Request {
-      currentUser?: INotifyUser;
+      currentUser: INotifyUser;
     }
   }
 }
@@ -40,8 +40,8 @@ const verifyJwt = (
   });
 };
 
-export const requireAuth = async (
-  req: Request,
+export const requireAuth = async <T>(
+  req: Request<T>,
   res: Response,
   next: NextFunction
 ) => {

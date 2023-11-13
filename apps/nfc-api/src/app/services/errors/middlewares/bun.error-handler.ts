@@ -1,21 +1,26 @@
 import { wLog } from 'apps/nfc-api/src/main';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
+import { requireAuth } from '../../../middlewares/middleware.require-auth';
+import { validateRequest } from '../../../middlewares/middleware.validate-request';
 //express middleware
 export const errorHandledRequest = <T>(
   func: (req: Request<T>, res: Response) => Promise<void>,
-  errorMessage?: string
+  config?: { errorMessage?: string; requireAuth?: boolean }
 ) => {
-  return async (req: Request<T>, res: Response) => {
-    try {
-      await func(req, res);
-    } catch (err) {
-      wLog(String(err), 'error');
+  //if requireAuth is true, then we need to check for the token
+  const reqAuth = config?.requireAuth ? [_ehReq(requireAuth)] : [];
 
-      const toSend = { errors: [{ message: errorMessage || String(err) }] };
+  return [validateRequest, ...reqAuth, _ehReq(func)];
+};
 
-      console.log(toSend);
-
-      res.status(400).send(toSend);
-    }
+const _ehReq = <T>(
+  func: (req: Request<T>, res: Response, next: NextFunction) => Promise<void>,
+  config?: { errorMessage?: string; requireAuth?: boolean }
+) => {
+  return async (req: Request<T>, res: Response, next: NextFunction) => {
+    await func(req, res, next).catch((err) => {
+      wLog(err, 'error');
+      res.status(400).send({ message: config?.errorMessage || err.message });
+    });
   };
 };

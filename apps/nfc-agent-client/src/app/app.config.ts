@@ -10,6 +10,7 @@ import {
   ProfileService,
   UtilsService,
 } from '@notify/nfc-app-services';
+import { EnumNotifyUserType } from '@notify/nfc-interfaces';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
@@ -40,16 +41,19 @@ export const appConfig: ApplicationConfig = {
     {
       provide: HttpService,
       deps: [HttpClient],
-      useFactory: (http: HttpClient) => {
-        return new HttpService(environment.apiUrl, http);
-      },
+      useFactory: (http: HttpClient) =>
+        new HttpService(environment.apiUrl, http),
     },
     {
       provide: AuthService,
       deps: [HttpService, JwtHelperService],
-      useFactory: (http: HttpService, jwt: JwtHelperService) => {
-        return new AuthService(environment.jwtTokenKey, http, jwt);
-      },
+      useFactory: (http: HttpService, jwt: JwtHelperService) =>
+        new AuthService(
+          environment.jwtTokenKey,
+          EnumNotifyUserType.Agent,
+          http,
+          jwt
+        ),
     },
   ],
 };
