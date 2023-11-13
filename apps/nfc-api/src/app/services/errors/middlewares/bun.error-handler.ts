@@ -11,7 +11,9 @@ export const errorHandledRequest = <T>(
     } catch (err) {
       wLog(String(err), 'error');
 
-      const toSend = (err as any).errors || [{ message: errorMessage || err }];
+      const toSend = { errors: [{ message: errorMessage || String(err) }] };
+
+      console.log(toSend);
 
       res.status(400).send(toSend);
     }

@@ -51,6 +51,7 @@
         (click)="togglePasswordVisibility()"
         class="hover:brightness-75 smooth disabled:brightness-50"
         [disabled]="!inputRef.value"
+        type="button"
       >
         <svg
           *ngIf="inputRef.type === 'password'"

@@ -1,15 +1,21 @@
 import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withRouterConfig } from '@angular/router';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { provideTailwindToasts } from '@notify/nfc-app-components';
 import {
+  AuthService,
   HttpService,
   ProfileService,
   UtilsService,
 } from '@notify/nfc-app-services';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
+
+export function tokenGetter() {
+  return localStorage.getItem(environment.jwtTokenKey);
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,7 +28,15 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideTailwindToasts(),
     provideHttpClient(),
+    importProvidersFrom(
+      JwtModule.forRoot({
+        config: {
+          tokenGetter: tokenGetter,
+        },
+      })
+    ),
     UtilsService,
+    ProfileService,
     {
       provide: HttpService,
       deps: [HttpClient],
@@ -30,6 +44,12 @@ export const appConfig: ApplicationConfig = {
         return new HttpService(environment.apiUrl, http);
       },
     },
-    ProfileService,
+    {
+      provide: AuthService,
+      deps: [HttpService, JwtHelperService],
+      useFactory: (http: HttpService, jwt: JwtHelperService) => {
+        return new AuthService(environment.jwtTokenKey, http, jwt);
+      },
+    },
   ],
 };

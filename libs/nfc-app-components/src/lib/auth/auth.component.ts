@@ -33,7 +33,7 @@ export class AuthComponent {
   @Output() formSubmitted = new EventEmitter<INotifyAuth>();
 
   public validationErrors = {
-    required: 'Questo campo è richiesto',
+    required: ' ',
     email: 'Inserisci un indirizzo email valido',
     minlength: 'La password deve essere di almeno 6 caratteri',
   };

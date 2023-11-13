@@ -14,7 +14,6 @@ import { catchError, tap } from 'rxjs';
   selector: 'notify-signin',
   standalone: true,
   imports: [CommonModule, AuthComponent],
-  providers: [AuthService],
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss'],
 })
@@ -34,11 +33,9 @@ export class SigninComponent {
     this._auth
       .signIn(data, EnumNotifyUserType.Agent)
       .pipe(
-        tap((r) => {
+        tap(() => {
           this.loading = false;
-          console.log(r);
-
-          //TODO salva token in local storage e reindirizza
+          location.reload();
         }),
         catchError((e: AppError) => {
           this.loading = false;

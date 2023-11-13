@@ -22,7 +22,7 @@
       "@notify/tailwind-config": ["tailwind.config.global.js"],
       "@notify/utils": ["libs/utils/src/index.ts"]
     },
-    "types": ["bun-types", ]
+    "types": ["bun-types"]
   },
   "exclude": ["node_modules", "tmp"]
 }
