@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://exposed-api.vps.golden-italia.it',
+  apiUrl: 'https://nfc-api.vps.notify.it/api',
+  publicUrl: 'https://app.notify.it',
 };

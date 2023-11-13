@@ -157,12 +157,12 @@
 
       <div class="divider"></div>
 
-      <div class="grid grid-cols-4 gap-4">
+      <div class="flex flex-wrap justify-evenly w-full">
         <button
           *ngFor="let item of data?.customFields"
           [disabled]="!item.value"
           type="button"
-          class="btn btn-secondary btn-outline btn-square"
+          class="btn btn-secondary btn-outline btn-square m-2"
         >
           <a
             [href]="prepareUrl(item.value)"

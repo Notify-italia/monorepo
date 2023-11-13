@@ -42,7 +42,7 @@ export class SigninComponent {
         }),
         catchError((e: AppError) => {
           this.loading = false;
-          this._toastr.error(e.error.message);
+          this._toastr.error(e.error.errors[0].message);
           throw e;
         })
       )

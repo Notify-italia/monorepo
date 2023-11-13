@@ -1,4 +1,3 @@
-import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { INotifyProfile } from '@notify/nfc-interfaces';
 import { HttpService } from './http.service';
@@ -7,10 +6,19 @@ import { HttpService } from './http.service';
 export class ApiService {
   constructor(private http: HttpService) {}
 
-  public getProfile(id: string) {
-    return this.http.get<INotifyProfile>(
+  public getPublicProfileUrl(publicUrl: string, id: string) {
+    return `${publicUrl}/profile?p=${id}`;
+  }
+
+  public patchProfile(body: INotifyProfile, id?: string) {
+    return this.http.patch<INotifyProfile, INotifyProfile>(
       `/v1/profile`,
-      new HttpParams({ fromObject: { id } })
+      body,
+      id ? { id } : undefined
     );
+  }
+
+  public getProfile(id: string) {
+    return this.http.get<INotifyProfile>(`/v1/profile`, { id });
   }
 }

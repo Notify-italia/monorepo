@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SvgBoxIcon, SvgboxService } from '@notify/nfc-app-services';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 import { TailwindFormsModule } from '../tailwind-forms/tailwind-forms.module';
@@ -12,7 +12,8 @@ import { TailwindFormsModule } from '../tailwind-forms/tailwind-forms.module';
   styleUrls: ['./icon-selector.component.scss'],
 })
 export class IconSelectorComponent implements OnInit {
-  @Output() public icon = new EventEmitter<SvgBoxIcon>();
+  @Input() public icon?: SvgBoxIcon['name'];
+  @Output() public iconValue = new EventEmitter<SvgBoxIcon>();
 
   public hideSelector = false;
   public availableIcons = this._svgBox.availableIcons;
@@ -30,12 +31,20 @@ export class IconSelectorComponent implements OnInit {
   constructor(private _svgBox: SvgboxService) {}
 
   public ngOnInit() {
-    this.icon.emit(this.currentIcon);
+    if (this.icon) {
+      //if the icon is passed as input, we hide the selector and set the current icon
+      this.hideSelector = true;
+      this.currentIcon = this.availableIcons.find(
+        (icon) => icon.name === this.icon
+      ) as SvgBoxIcon;
+    }
+
+    this.iconValue.emit(this.currentIcon);
   }
 
   public setIcon(icon: SvgBoxIcon) {
     this.currentIcon = icon;
-    this.icon.emit(this.currentIcon);
+    this.iconValue.emit(this.currentIcon);
     this.hideSelector = true;
 
     this._refresh();

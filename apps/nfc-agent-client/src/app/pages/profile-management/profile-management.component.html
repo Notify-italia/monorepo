@@ -1,4 +1,4 @@
-<div class="flex flex-col w-full space-y-4 items-center">
+<div class="w-full space-y-4">
   <div class="pt-4 w-full">
     <span class="text-4xl font-medium text-secondary"> Modifica profilo </span>
     <div class="divider"></div>
@@ -9,22 +9,29 @@
     *ngIf="profile$ | async as profile"
   >
     <div>
-      <notify-share-profile></notify-share-profile>
+      <notify-share-profile
+        [profile]="profile"
+        [publicProfileUrl]="publicProfileUrl(profile)"
+      ></notify-share-profile>
     </div>
     <div
-      class="lg:flex justify-around lg:space-x-4 space-y-4 lg:space-y-0 items-start"
+      class="lg:flex justify-around lg:space-x-4 space-y-4 lg:space-y-0 items-start w-full"
     >
       <notify-profile-form
         [profile]="profile"
-        (value)="updateSubject($event)"
-        class="w-full"
+        (value)="updateProfileSubject($event)"
+        (submitForm)="saveProfile(profile)"
+        (reloadForm)="reloadForm()"
+        class="w-full 2xl:w-6/12"
       ></notify-profile-form>
 
-      <notify-profile-view
-        [data]="profile"
-        [mockup]="true"
-        class="max-w-[560px] w-[560px] h-[700px] hidden lg:block"
-      ></notify-profile-view>
+      <div class="w-6/12 p-2 flex justify-center relative">
+        <notify-profile-view
+          [data]="profile"
+          [mockup]="true"
+          class="w-[375px] h-[780px] hidden lg:block absolute scale-75 2xl:scale-100 top-10"
+        ></notify-profile-view>
+      </div>
     </div>
   </div>
 </div>

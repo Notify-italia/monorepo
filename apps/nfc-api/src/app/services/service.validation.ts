@@ -1,6 +1,6 @@
 import { body } from 'express-validator';
-import { AGENT_VALIDATION_MESSAGES } from '../../models/model.agent';
-import { COMPANY_VALIDATION_MESSAGES } from '../../models/model.company';
+import { AGENT_VALIDATION_MESSAGES } from '../models/model.agent';
+import { COMPANY_VALIDATION_MESSAGES } from '../models/model.company';
 
 export const userSignInValidation = (
   messagesProvider:

@@ -3,7 +3,7 @@ import { AGENT_VALIDATION_MESSAGES } from 'apps/nfc-api/src/app/models/model.age
 import { ProfileModel } from 'apps/nfc-api/src/app/models/model.profile';
 import { BadRequestError } from 'apps/nfc-api/src/app/services/errors/errors';
 import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
-import { companyProfile } from 'apps/nfc-api/src/app/services/service.profile';
+import { getCompanyProfile } from 'apps/nfc-api/src/app/services/service.profile';
 import { Request, Router } from 'express';
 import { query } from 'express-validator';
 
@@ -29,7 +29,7 @@ router.get(
       res.status(200).send({
         ...profile,
         __v: undefined,
-        company: await companyProfile(profile._id),
+        company: await getCompanyProfile(profile._id),
       });
     }
   )

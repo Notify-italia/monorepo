@@ -8,15 +8,21 @@ export class HttpService {
     private http: HttpClient
   ) {}
 
-  public patch<R, T>(url: string, body: R, headers?: Record<string, string>) {
-    return this.http.patch<T>(`${this.apiUrl}${url}`, body, { headers });
+  public patch<R, T>(url: string, body: R, params?: Record<string, string>) {
+    return this.http.patch<T>(`${this.apiUrl}${url}`, body, {
+      params: new HttpParams({ fromObject: params }),
+    });
   }
 
-  public post<R, T>(url: string, body: R, headers?: Record<string, string>) {
-    return this.http.post<T>(`${this.apiUrl}${url}`, body, { headers });
+  public post<R, T>(url: string, body: R, params?: Record<string, string>) {
+    return this.http.post<T>(`${this.apiUrl}${url}`, body, {
+      params: new HttpParams({ fromObject: params }),
+    });
   }
 
-  public get<T>(url: string, httpParams?: HttpParams) {
-    return this.http.get<T>(`${this.apiUrl}${url}`, { params: httpParams });
+  public get<T>(url: string, params?: Record<string, string>) {
+    return this.http.get<T>(`${this.apiUrl}${url}`, {
+      params: new HttpParams({ fromObject: params }),
+    });
   }
 }

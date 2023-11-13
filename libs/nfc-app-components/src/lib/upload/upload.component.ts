@@ -29,19 +29,18 @@ export class UploadComponent implements OnChanges, OnDestroy, OnInit {
 
   @Input() removeFile$ = new Observable<void>();
 
-  public blob?: string | ArrayBuffer | null;
-
-  private _destroy$ = new Subject<void>();
-
   @Output() fileChanged = new EventEmitter<{
     file: File | null;
     blob: string | ArrayBuffer | null;
   }>();
 
+  public blob?: string | ArrayBuffer | null;
+  private _destroy$ = new Subject<void>();
+
   constructor(private _toastr: ToastrService) {}
 
   ngOnChanges() {
-    if (!this.file) {
+    if (!this.file?.size) {
       this.blob = null;
       this.file = null;
     }
@@ -75,6 +74,7 @@ export class UploadComponent implements OnChanges, OnDestroy, OnInit {
     const srcBlob = await this._arrayBufferToBase64(buffer);
     this.blob = srcBlob;
 
+    //TODO implementa Compressorjs per ridurre la dimensione del file
     this.fileChanged.emit({
       file: this.file,
       blob: this.blob,

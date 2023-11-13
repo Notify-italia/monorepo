@@ -14,16 +14,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { itPhoneNumberValidators } from '@notify/nfc-app-services';
+import {
+  UtilsService,
+  itPhoneNumberValidators,
+} from '@notify/nfc-app-services';
 import { INotifyProfile } from '@notify/nfc-interfaces';
-import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { IconSelectorComponent } from '../icon-select/icon-selector.component';
 import { TailwindFormsModule } from '../tailwind-forms/tailwind-forms.module';
 import { UploadComponent } from '../upload/upload.component';
 
-//TODO generare schema sul backend e usare quello
-//TODO campi custom
 type ProfileForm = FormGroup<{
   name: FormControl<INotifyProfile['name']>;
   surname: FormControl<string | null>;
@@ -54,13 +54,17 @@ export class ProfileFormComponent implements OnInit {
   @Input() public profile!: INotifyProfile;
   @Output() public value = new EventEmitter<INotifyProfile>();
 
+  @Output() public submitForm = new EventEmitter<void>();
+  @Output() public reloadForm = new EventEmitter<void>();
+
   public removeAvatar$ = new Subject<void>();
   private _destroy$ = new Subject<void>();
 
   public isMacos = navigator.userAgent.toLowerCase().includes('mac os');
 
   public form: ProfileForm = new FormGroup({}) as unknown as ProfileForm;
-  private _formInitialValue: ProfileForm['value'] = {} as ProfileForm['value'];
+
+  public avatarFile = new File([], '');
 
   public validationErrors = {
     required: ' ',
@@ -69,7 +73,7 @@ export class ProfileFormComponent implements OnInit {
     itPhoneNumber: 'Numero di telefono non valido',
   };
 
-  constructor(private _toastr: ToastrService) {}
+  constructor(private _utils: UtilsService) {}
 
   public ngOnInit(): void {
     this.form = this._buildForm();
@@ -89,30 +93,13 @@ export class ProfileFormComponent implements OnInit {
     this.form.controls.avatar.setValue(file as string);
   }
 
-  public addCustomField(data?: INotifyProfile['customFields'][0]) {
-    this.form.controls.customFields.push(
-      new FormGroup({
-        iconName: new FormControl(data?.iconName || '', [Validators.required]),
-        //url validator
-        value: new FormControl(data?.value || '', [
-          Validators.required,
-          Validators.pattern(
-            /^(?:(?:https?|ftp):\/\/)?(?:www\.)?[^\s/$.?#]+\.[^\s]*$/
-          ),
-        ]),
-      })
-    );
-  }
-
   public removeCustomField(item: FormGroup) {
     const index = this.form.controls.customFields.value.indexOf(item);
     this.form.controls.customFields.removeAt(index);
   }
 
   public resetForm() {
-    this.form.controls.customFields = this._buildForm().controls.customFields;
-    this.form.reset(this._formInitialValue);
-    this.removeAvatar$.next();
+    this.reloadForm.emit();
   }
 
   private _buildForm(): ProfileForm {
@@ -142,13 +129,39 @@ export class ProfileFormComponent implements OnInit {
       customFields: new FormArray([] as FormGroup[]),
     });
 
-    this.profile.customFields?.map((item) => {
-      this.addCustomField(item);
+    this.profile.customFields?.forEach((item) => {
+      this.addCustomField(item, f.controls.customFields as FormArray);
     });
 
-    this._formInitialValue = this.form.value;
+    if (f.controls.avatar.value) {
+      this.avatarFile = new File(
+        this._utils.stringToArrayBuffer(f.controls.avatar.value),
+        '',
+        {
+          type: 'image/png',
+        }
+      );
+    }
 
     return f;
+  }
+
+  public addCustomField(
+    data?: INotifyProfile['customFields'][0],
+    fa?: FormArray
+  ) {
+    (fa || this.form.controls.customFields).push(
+      new FormGroup({
+        iconName: new FormControl(data?.iconName || '', [Validators.required]),
+        //url validator
+        value: new FormControl(data?.value || '', [
+          Validators.required,
+          Validators.pattern(
+            /^(?:(?:https?|ftp):\/\/)?(?:www\.)?[^\s/$.?#]+\.[^\s]*$/
+          ),
+        ]),
+      })
+    );
   }
 
   private _mapFormToProfile(form: ProfileForm['value']): INotifyProfile {
@@ -178,6 +191,11 @@ export class ProfileFormComponent implements OnInit {
   @HostListener('window:keydown.Control.shift.s', ['$event'])
   public submit(e?: KeyboardEvent) {
     e?.preventDefault();
-    this._toastr.success('Profilo aggiornato');
+
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.submitForm.emit();
   }
 }

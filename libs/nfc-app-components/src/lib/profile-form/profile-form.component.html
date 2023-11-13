@@ -43,6 +43,7 @@
       class="w-full"
       uploadLabel="Fai click per caricare un'immagine o trascinala all'interno del riquadro"
       [acceptedFiles]="'image/*'"
+      [file]="avatarFile"
       (fileChanged)="setUploadedFile($event.blob)"
       [removeFile$]="removeAvatar$"
     ></notify-upload>
@@ -121,7 +122,8 @@
       <!-- TODO fix widening del form quando viene renderizzato un oggetto -->
       <notify-icon-selector
         class="items-end mt-6"
-        (icon)="item.controls['iconName'].setValue($event.name)"
+        [icon]="item.controls['iconName'].value"
+        (iconValue)="item.controls['iconName'].setValue($event.name)"
       ></notify-icon-selector>
       <notify-tailwind-input
         [parent]="item"
@@ -168,6 +170,7 @@
     </button>
     <div class="w-6/12">
       <button
+        [disabled]="form.invalid"
         class="btn btn-primary w-full"
         type="submit"
         data-theme="notifytheme"

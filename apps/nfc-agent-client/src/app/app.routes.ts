@@ -5,7 +5,7 @@ export const appRoutes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: '/pages/profile',
+    redirectTo: '/pages',
   },
   {
     path: 'signin',
