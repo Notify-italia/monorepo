@@ -1,4 +1,3 @@
-import { validateRequest } from 'apps/nfc-api/src/app/middlewares/middleware.validate-request';
 import {
   COMPANY_VALIDATION_MESSAGES,
   CompanyModel,
@@ -15,7 +14,6 @@ const router = Router();
 router.post(
   '/',
   ...userSignInValidation(COMPANY_VALIDATION_MESSAGES),
-  validateRequest,
   errorHandledRequest(
     async (req: Request<{ email: string; password: string }>, res) => {
       const { email, password } = req.body;

@@ -1,5 +1,4 @@
 import { generateExpressValidation } from '@notify/utils';
-import { validateRequest } from 'apps/nfc-api/src/app/middlewares/middleware.validate-request';
 import {
   PROFILE_VALIDATION_MESSAGES,
   ProfileModel,
@@ -22,7 +21,6 @@ router.patch(
     'name',
     'surname',
   ]),
-  validateRequest,
   errorHandledRequest(
     async (req: Request<{ email: string; password: string }>, res) => {
       const { id } = req.query;
