@@ -16,7 +16,7 @@ export const appConfig: ApplicationConfig = {
       provide: HttpService,
       deps: [HttpClient],
       useFactory: (http: HttpClient) => {
-        return new HttpService(environment.apiUrl, http);
+        return new HttpService(environment.apiUrl, '', http);
       },
     },
     ProfileService,

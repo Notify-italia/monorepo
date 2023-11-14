@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { Agent } from '../../models/model.agent';
 import { BadRequestError } from '../errors/errors';
 import { Password } from './service.password';
-import { UserDocTypes, genericUserQuery } from './service.query';
+import { genericUserQuery } from './service.query';
 
 /**
  * The SigninService function takes in user authentication credentials and a target database, queries
@@ -41,7 +41,11 @@ export const signIn = async (
   }
 
   //if the authentication is successful, it will return the user object with a signed token
-  return { ...user.toObject(), token: _signToken(user), userType };
+  return {
+    ...user.toObject(),
+    token: _signToken({ ...user.toObject(), userType }),
+    userType,
+  };
 };
 
 /**
@@ -58,7 +62,11 @@ export const refreshToken = async (u: INotifyUser) => {
     return new BadRequestError('Credenziali errate');
   }
 
-  return { ...user.toObject(), token: _signToken(user), userType: u.userType };
+  return {
+    ...user.toObject(),
+    token: _signToken({ ...user.toObject(), userType: u.userType }),
+    userType: u.userType,
+  };
 };
 
 /**
@@ -82,18 +90,10 @@ const _comparePassword = async (source: string, provided: string) => {
  * @returns a JSON Web Token (JWT) that is signed with the user's ID, email, and password, using the
  * JWT_KEY from the environment variables.
  */
-const _signToken = (user: UserDocTypes) => {
-  return jwt.sign(
-    {
-      _id: user._id,
-      email: user.email,
-      password: user.password,
-    },
-    Bun.env.JWT_KEY!,
-    {
-      expiresIn: '1d',
-    }
-  );
+const _signToken = (user: INotifyUser) => {
+  return jwt.sign(user, Bun.env.JWT_KEY!, {
+    expiresIn: '1d',
+  });
 };
 
 const throwError = () => {

@@ -15,7 +15,7 @@ import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
 export function tokenGetter() {
-  return localStorage.getItem(environment.jwtTokenKey);
+  return localStorage.getItem(environment.jwtTokenKey) || '';
 }
 
 export const appConfig: ApplicationConfig = {
@@ -42,7 +42,7 @@ export const appConfig: ApplicationConfig = {
       provide: HttpService,
       deps: [HttpClient],
       useFactory: (http: HttpClient) =>
-        new HttpService(environment.apiUrl, http),
+        new HttpService(environment.apiUrl, environment.jwtTokenKey, http),
     },
     {
       provide: AuthService,

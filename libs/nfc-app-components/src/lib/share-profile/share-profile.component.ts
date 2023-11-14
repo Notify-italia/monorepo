@@ -26,9 +26,9 @@ export class ShareProfileComponent {
   }
 
   public async openLightbox() {
-    const qr = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${encodeURIComponent(
+    const qr = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&format=svg&data=${encodeURIComponent(
       this.publicProfileUrl
-    )}.png`;
+    )}`;
 
     this._lightbox.open(
       [

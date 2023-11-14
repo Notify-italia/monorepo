@@ -9,8 +9,6 @@ router.post(
   '/',
   errorHandledRequest(
     async (req: Request<{ email: string; password: string }>, res) => {
-      console.log(req.currentUser);
-
       res.status(200).send(await refreshToken(req.currentUser));
     },
     {

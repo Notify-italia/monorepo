@@ -20,6 +20,10 @@ export class AuthService {
     return localStorage.getItem(this._tokenPath) || '';
   }
 
+  public get user() {
+    return this.currentUser$.value;
+  }
+
   constructor(
     @Inject('tokenPath') private _tokenPath: string,
     @Inject('userType') private _userType: EnumNotifyUserType,

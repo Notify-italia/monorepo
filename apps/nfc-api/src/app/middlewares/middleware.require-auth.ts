@@ -53,6 +53,7 @@ export const requireAuth = async <T>(
 
   const payload = (await verifyJwt(token, JWT_KEY).catch((error) => {
     if (error && error.name === 'TokenExpiredError') {
+      wLog(error.message, 'error');
       throw new TokenExpiredError();
     }
 
@@ -62,7 +63,11 @@ export const requireAuth = async <T>(
 
   req.currentUser = payload;
 
-  if (!req.currentUser || !req.currentUser.enabled) {
+  //TODO controlla correttamente la licenza
+  if (
+    !req.currentUser ||
+    (!req.currentUser.enabled && !(req.currentUser.license as any).enabled)
+  ) {
     throw new NotAuthorizedError();
   }
 

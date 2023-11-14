@@ -7,7 +7,7 @@ import {
   ShareProfileComponent,
 } from '@notify/nfc-app-components';
 
-import { ProfileService } from '@notify/nfc-app-services';
+import { AuthService, ProfileService } from '@notify/nfc-app-services';
 import {
   AppError,
   EnumNotifyUserType,
@@ -34,16 +34,16 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
 export class ProfileManagementComponent {
   private _profileSubject$ = new Subject<IProfile>();
 
-  //TODO ottieni profilo dal token
   public profile$: Observable<IProfile> = this._profileSubject$;
 
   constructor(
     private _profileService: ProfileService,
     private _toastr: ToastrService,
-    private _router: Router
+    private _router: Router,
+    private _authService: AuthService
   ) {
     this._profileService
-      .getProfile('654a5542d872f43ae3e0aaa1')
+      .getProfile(this._authService.user?.profile || '')
       .pipe(
         tap((profile) => {
           this._profileSubject$.next(profile);
@@ -74,16 +74,14 @@ export class ProfileManagementComponent {
   }
 
   public saveProfile(profile: IProfile) {
-    //TODO, rimuovere "profile._id" se è presente l'autenticazione tramite token
     this._profileService
-      .patchProfile(profile, profile._id)
+      .patchProfile(profile, this._authService.user?.profile || '')
       .pipe(
         tap((profile) => {
           this._toastr.success('Profilo aggiornato', 'Successo');
           this._profileSubject$.next(profile);
         }),
         catchError(async (err: AppError) => {
-          console.log(err);
           this._toastr.error(
             err?.error?.errors?.[0]?.message || 'Si è verificato un errore',
             'Errore'

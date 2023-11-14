@@ -1,6 +1,8 @@
+import { EnumNotifyUserType, INotifyProfile } from '@notify/nfc-interfaces';
 import { generateExpressValidation } from '@notify/utils';
 import {
   PROFILE_VALIDATION_MESSAGES,
+  ProfileDocument,
   ProfileModel,
 } from 'apps/nfc-api/src/app/models/model.profile';
 import { BadRequestError } from 'apps/nfc-api/src/app/services/errors/errors';
@@ -27,41 +29,62 @@ router.patch(
 
       const body = req.body;
 
-      if (!id) {
-        //TODO modifica sempre il profilo dell'utente loggato se il profilo è agente o è company e sta modificando il profilo azeindale
+      if (
+        req.currentUser.userType === EnumNotifyUserType.Agent ||
+        (req.currentUser.userType === EnumNotifyUserType.Company && !id)
+      ) {
+        //if the user is an agent or a company and is trying to edit his own profile we get the profile directly form the logged in user
+        //this ensures that the user can't edit other profiles
+        const profile = (await ProfileModel.findById(
+          req.currentUser.profile
+        )) as ProfileDocument;
+
+        await _editProfile(profile, body);
+
         res.status(200).send({
-          ...body,
+          ...profile.toObject(),
           __v: undefined,
-          company: await getCompanyProfile(body._id),
+          company: await getCompanyProfile(profile._id),
         });
+
         return;
       }
 
       //TODO controlla se il profilo che sta venendo modificato è di proprietà della company
-      const profile = await ProfileModel.findById(id);
+      const profile = (await ProfileModel.findById(id)) as ProfileDocument;
 
-      if (!profile) {
-        throw new BadRequestError('Profilo non trovato');
-      }
-
-      profile.name = body.name || profile.name;
-      profile.surname = body.surname || profile.surname;
-      profile.email = body.email;
-      profile.phoneNumber = body.phoneNumber;
-      profile.bio = body.bio;
-      profile.avatar = body.avatar;
-      profile.config = body.config;
-      profile.customFields = body.customFields;
-
-      await profile.save();
+      await _editProfile(profile, body);
 
       res.status(200).send({
         ...profile.toObject(),
         __v: undefined,
         company: await getCompanyProfile(profile._id),
       });
-    }
+    },
+    { requireAuth: true }
   )
 );
 
 export { router as patchProfileRouter };
+
+const _editProfile = async (
+  source: ProfileDocument | null,
+  toEdit: INotifyProfile
+) => {
+  if (!source) {
+    throw new BadRequestError('Profilo non trovato');
+  }
+
+  source.name = toEdit.name || source.name;
+  source.surname = toEdit.surname || source.surname;
+  source.email = toEdit.email;
+  source.phoneNumber = toEdit.phoneNumber;
+  source.bio = toEdit.bio;
+  source.avatar = toEdit.avatar;
+  source.config = toEdit.config;
+  source.customFields = toEdit.customFields;
+
+  await source.save();
+
+  return source;
+};
