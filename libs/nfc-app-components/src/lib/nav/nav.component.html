@@ -82,7 +82,11 @@
             viewBox="0 0 24 24"
             fill="currentColor"
           >
-            <path *ngFor="let p of item.icon" [attr.d]="p" />
+            <path
+              *ngFor="let p of item.icon"
+              [attr.d]="p"
+              fill-rule="evenodd"
+            />
           </svg>
 
           <span>{{ item.label }}</span>
