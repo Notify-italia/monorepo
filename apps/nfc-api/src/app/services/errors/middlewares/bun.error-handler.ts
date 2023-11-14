@@ -23,7 +23,7 @@ const _ehReq = <T>(
       wLog(err.message, 'error');
       res
         .status(err.statusCode || 400)
-        .send({ message: config?.errorMessage || err.message });
+        .send({ errors: [{ message: config?.errorMessage || String(err) }] });
     });
   };
 };
