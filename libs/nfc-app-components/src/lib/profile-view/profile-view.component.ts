@@ -4,12 +4,13 @@ import { ProfileService } from '@notify/nfc-app-services';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/nfc-interfaces';
 import { format } from 'date-fns';
 import { interval, map, startWith } from 'rxjs';
+import { AnimatedBgComponent } from '../animated-bg/animated-bg.component';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 
 @Component({
   selector: 'notify-profile-view',
   standalone: true,
-  imports: [CommonModule, SvgBoxIconComponent],
+  imports: [CommonModule, SvgBoxIconComponent, AnimatedBgComponent],
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss'],
 })

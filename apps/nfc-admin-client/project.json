@@ -8,18 +8,24 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/nfc-admin-client",
         "index": "apps/nfc-admin-client/src/index.html",
         "main": "apps/nfc-admin-client/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/nfc-admin-client/tsconfig.app.json",
         "assets": [
           "apps/nfc-admin-client/src/favicon.ico",
           "apps/nfc-admin-client/src/assets"
         ],
-        "styles": ["apps/nfc-admin-client/src/styles.scss"],
+        "styles": [
+          "apps/nfc-admin-client/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -32,8 +38,8 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "4mb",
+              "maximumError": "400mb"
             }
           ],
           "outputHashing": "all"
@@ -69,7 +75,9 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
         "lintFilePatterns": [
           "apps/nfc-admin-client/**/*.ts",

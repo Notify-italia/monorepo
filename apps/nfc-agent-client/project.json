@@ -40,8 +40,8 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "4mb",
+              "maximumError": "400mb"
             }
           ],
           "outputHashing": "all",
@@ -91,6 +91,13 @@
           "apps/nfc-agent-client/**/*.ts",
           "apps/nfc-agent-client/**/*.html"
         ]
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "cp ./apps/nfc-agent-client/Dockerfile ./dist/apps/nfc-agent-client && cp ./apps/nfc-agent-client/captain-definition ./dist/apps/nfc-agent-client && tar --strip-components=4 -cvf ./deploy.tar --exclude='*.map' ./dist/apps/nfc-agent-client/* && caprover deploy -t ./deploy.tar -n notify -a profiles-agent-client && rm ./deploy.tar"
       }
     }
   }

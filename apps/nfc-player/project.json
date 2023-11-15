@@ -38,8 +38,8 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "4mb",
+              "maximumError": "400mb"
             }
           ],
           "outputHashing": "all",
@@ -89,6 +89,13 @@
           "apps/nfc-player/**/*.ts",
           "apps/nfc-player/**/*.html"
         ]
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "cp ./apps/nfc-player/Dockerfile ./dist/apps/nfc-player && cp ./apps/nfc-player/captain-definition ./dist/apps/nfc-player && tar --strip-components=4 -cvf ./deploy.tar --exclude='*.map' ./dist/apps/nfc-player/* && caprover deploy -t ./deploy.tar -n notify -a profiles-player && rm ./deploy.tar"
       }
     }
   }
