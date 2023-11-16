@@ -20,8 +20,8 @@ import {
 } from '@notify/nfc-app-services';
 import { INotifyProfile } from '@notify/nfc-interfaces';
 import { Subject, takeUntil, tap } from 'rxjs';
+import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
 import { IconSelectorComponent } from '../icon-select/icon-selector.component';
-import { TailwindFormsModule } from '../tailwind-forms/tailwind-forms.module';
 import { UploadComponent } from '../upload/upload.component';
 
 type ProfileForm = FormGroup<{

@@ -1,5 +1,5 @@
 {
-  "name": "@notify/nfc-app-components",
+  "name": "@notify/ngx-components",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^16.2.0",

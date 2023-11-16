@@ -7,9 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { INotifyAuth } from '@notify/nfc-interfaces';
+import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
 import { AnimatedBgComponent } from '../animated-bg/animated-bg.component';
 import { AppTitleComponent } from '../app-title/app-title.component';
-import { TailwindFormsModule } from '../tailwind-forms/tailwind-forms.module';
 
 @Component({
   selector: 'notify-auth',

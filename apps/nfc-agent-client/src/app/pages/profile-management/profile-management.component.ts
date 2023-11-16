@@ -5,7 +5,7 @@ import {
   ProfileFormComponent,
   ProfileViewComponent,
   ShareProfileComponent,
-} from '@notify/nfc-app-components';
+} from '@notify/ngx-components';
 
 import { AuthService, ProfileService } from '@notify/nfc-app-services';
 import {

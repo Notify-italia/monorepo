@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { ProfileViewComponent } from '@notify/nfc-app-components';
+import { ProfileViewComponent } from '@notify/ngx-components';
 import { ProfileService } from '@notify/nfc-app-services';
 import { INotifyProfile } from '@notify/nfc-interfaces';
 import { Observable, tap } from 'rxjs';

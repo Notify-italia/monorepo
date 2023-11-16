@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NavComponent } from '@notify/nfc-app-components';
+import { NavComponent } from '@notify/ngx-components';
 
 @Component({
   standalone: true,

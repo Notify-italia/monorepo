@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AuthComponent } from '@notify/nfc-app-components';
+import { AuthComponent } from '@notify/ngx-components';
 import { AuthService } from '@notify/nfc-app-services';
 import { AppError, INotifyAuth } from '@notify/nfc-interfaces';
 import { ToastrService } from 'ngx-toastr';

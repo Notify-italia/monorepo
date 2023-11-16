@@ -10,8 +10,8 @@ import {
   map,
   startWith,
 } from 'rxjs';
+import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
-import { TailwindFormsModule } from '../tailwind-forms/tailwind-forms.module';
 
 @Component({
   selector: 'notify-icon-selector',

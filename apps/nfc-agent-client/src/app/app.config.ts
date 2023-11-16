@@ -3,7 +3,7 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withRouterConfig } from '@angular/router';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
-import { provideTailwindToasts } from '@notify/nfc-app-components';
+import { provideTailwindToasts } from '@notify/ngx-components';
 import {
   AuthService,
   HttpService,
