@@ -3,6 +3,7 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withRouterConfig } from '@angular/router';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { EnumNotifyUserType } from '@notify/interfaces';
 import {
   AuthService,
   HttpService,
@@ -10,7 +11,6 @@ import {
   UtilsService,
 } from '@notify/nfc-app-services';
 import { provideTailwindToasts } from '@notify/ngx-components';
-import { EnumNotifyUserType } from '@notify/notify-interfaces';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 

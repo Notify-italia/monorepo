@@ -1,4 +1,4 @@
-import { EnumNotifyUserType } from '@notify/notify-interfaces';
+import { EnumNotifyUserType } from '@notify/interfaces';
 import { Request, Router } from 'express';
 import { COMPANY_VALIDATION_MESSAGES } from '../../../models/model.company';
 import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';

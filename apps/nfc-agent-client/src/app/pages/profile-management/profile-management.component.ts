@@ -7,12 +7,12 @@ import {
   ShareProfileComponent,
 } from '@notify/ngx-components';
 
-import { AuthService, ProfileService } from '@notify/nfc-app-services';
 import {
   AppError,
   EnumNotifyUserType,
   INotifyProfile,
-} from '@notify/notify-interfaces';
+} from '@notify/interfaces';
+import { AuthService, ProfileService } from '@notify/nfc-app-services';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, catchError, tap } from 'rxjs';
 import { environment } from '../../../../src/environments/environment';

@@ -1,4 +1,4 @@
-import { EnumNotifyUserType } from '@notify/notify-interfaces';
+import { EnumNotifyUserType } from '@notify/interfaces';
 import { AGENT_VALIDATION_MESSAGES } from '../../../models/model.agent';
 import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
 

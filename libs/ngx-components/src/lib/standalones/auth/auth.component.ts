@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { INotifyAuth } from 'libs/notify-interfaces/src';
+import { INotifyAuth } from 'libs/interfaces/src';
 import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
 import { AnimatedBgComponent } from '../animated-bg/animated-bg.component';
 import { AppTitleComponent } from '../app-title/app-title.component';

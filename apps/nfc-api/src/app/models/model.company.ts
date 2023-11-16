@@ -1,5 +1,5 @@
 import { ModifyDeep } from '@notify/api-shared';
-import { EnumNotifyUserType, INotifyCompany } from '@notify/notify-interfaces';
+import { EnumNotifyUserType, INotifyCompany } from '@notify/interfaces';
 import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
   Document,

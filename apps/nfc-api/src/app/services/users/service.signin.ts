@@ -1,4 +1,4 @@
-import { EnumNotifyUserType, INotifyUser } from '@notify/notify-interfaces';
+import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
 import jwt from 'jsonwebtoken';
 import { Agent } from '../../models/model.agent';
 import { BadRequestError } from '../errors/errors';

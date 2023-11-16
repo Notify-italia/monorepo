@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ProfileService } from '@notify/nfc-app-services';
 import { format } from 'date-fns';
-import { EnumNotifyUserType, INotifyProfile } from 'libs/notify-interfaces/src';
+import { EnumNotifyUserType, INotifyProfile } from 'libs/interfaces/src';
 import { interval, map, startWith } from 'rxjs';
 import { AnimatedBgComponent } from '../../animated-bg/animated-bg.component';
 import { AvatarComponent } from '../../avatar/avatar.component';

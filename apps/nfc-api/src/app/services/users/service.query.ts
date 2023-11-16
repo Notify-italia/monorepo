@@ -1,4 +1,4 @@
-import { EnumNotifyUserType } from '@notify/notify-interfaces';
+import { EnumNotifyUserType } from '@notify/interfaces';
 import { Document, FilterQuery, Model } from 'mongoose';
 import { AgentDocument, AgentModel } from '../../models/model.agent';
 import { CompanyDocument, CompanyModel } from '../../models/model.company';

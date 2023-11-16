@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { INotifyProfile } from '@notify/interfaces';
 import { ProfileService } from '@notify/nfc-app-services';
 import { ProfileViewComponent } from '@notify/ngx-components';
-import { INotifyProfile } from '@notify/notify-interfaces';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 

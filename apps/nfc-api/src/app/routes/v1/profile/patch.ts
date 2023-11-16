@@ -1,5 +1,5 @@
 import { generateExpressValidation } from '@notify/api-shared';
-import { EnumNotifyUserType, INotifyProfile } from '@notify/notify-interfaces';
+import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
 import { Request, Router } from 'express';
 import { query } from 'express-validator';
 import {
