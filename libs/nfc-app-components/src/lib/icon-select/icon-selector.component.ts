@@ -1,13 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SvgBoxIcon, SvgboxService } from '@notify/nfc-app-services';
+import {
+  BehaviorSubject,
+  Observable,
+  combineLatest,
+  debounceTime,
+  map,
+  startWith,
+} from 'rxjs';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 import { TailwindFormsModule } from '../tailwind-forms/tailwind-forms.module';
 
 @Component({
   selector: 'notify-icon-selector',
   standalone: true,
-  imports: [CommonModule, TailwindFormsModule, SvgBoxIconComponent],
+  imports: [
+    CommonModule,
+    TailwindFormsModule,
+    SvgBoxIconComponent,
+    ReactiveFormsModule,
+  ],
   templateUrl: './icon-selector.component.html',
   styleUrls: ['./icon-selector.component.scss'],
 })
@@ -16,9 +30,13 @@ export class IconSelectorComponent implements OnInit {
   @Output() public iconValue = new EventEmitter<SvgBoxIcon>();
 
   public hideSelector = false;
-  public availableIcons = this._svgBox.availableIcons;
-
   public MANUAL_REFRESH = true;
+
+  public searchValue = new FormControl('');
+  public availableIcons$ = new BehaviorSubject<SvgBoxIcon[]>(
+    this._svgBox.availableIcons
+  );
+  public filteredIcons$ = new Observable<SvgBoxIcon[]>();
 
   public currentIcon: SvgBoxIcon = {
     expanded: 'Question',
@@ -28,13 +46,15 @@ export class IconSelectorComponent implements OnInit {
     score: 10,
   };
 
-  constructor(private _svgBox: SvgboxService) {}
+  constructor(private _svgBox: SvgboxService) {
+    this._searchFilter();
+  }
 
   public ngOnInit() {
     if (this.icon) {
       //if the icon is passed as input, we hide the selector and set the current icon
       this.hideSelector = true;
-      this.currentIcon = this.availableIcons.find(
+      this.currentIcon = this.availableIcons$.value.find(
         (icon) => icon.name === this.icon
       ) as SvgBoxIcon;
     }
@@ -56,5 +76,27 @@ export class IconSelectorComponent implements OnInit {
     setTimeout(() => {
       this.MANUAL_REFRESH = true;
     }, 1);
+  }
+
+  private _searchFilter() {
+    const searchValue$ = this.searchValue.valueChanges.pipe(
+      debounceTime(500),
+      startWith('')
+    );
+
+    this.filteredIcons$ = combineLatest([
+      this.availableIcons$,
+      searchValue$,
+    ]).pipe(
+      map(([icons, searchValue]) => {
+        if (!searchValue) {
+          return icons;
+        }
+
+        return icons.filter((icon) => {
+          return icon.name.toLowerCase().includes(searchValue?.toLowerCase());
+        });
+      })
+    );
   }
 }

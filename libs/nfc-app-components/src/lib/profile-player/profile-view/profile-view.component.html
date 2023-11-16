@@ -119,12 +119,8 @@
         class="flex flex-wrap justify-evenly w-full module module-blur"
         *ngIf="data?.customFields?.length"
       >
-        <button
-          *ngFor="let item of data?.customFields"
-          [disabled]="!item.value"
-          type="button"
-          class="button-icon m-3"
-        >
+        @for (item of data?.customFields; track item.value) {
+        <button [disabled]="!item.value" type="button" class="button-icon m-3">
           <a
             [href]="prepareUrl(item.value)"
             target="_blank"
@@ -135,6 +131,7 @@
             ></notify-svg-box-icon>
           </a>
         </button>
+        }
       </div>
 
       <div class="fixed bottom-5 right-5 z-[999]" *ngIf="data && !mockup">

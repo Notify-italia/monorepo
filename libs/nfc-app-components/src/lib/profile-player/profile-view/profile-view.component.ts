@@ -24,7 +24,7 @@ import { ProfileStaticLinksComponent } from '../profile-static-links/profile-sta
 })
 export class ProfileViewComponent {
   @Input() data?: INotifyProfile;
-  @Input() publicUrl = 'http://localhost:4200';
+  @Input({ required: true }) publicUrl = 'http://localhost:4200';
   @Input() mockup = false;
 
   public currentTime$ = interval(1000).pipe(

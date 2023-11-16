@@ -51,7 +51,7 @@ type ProfileForm = FormGroup<{
   styleUrls: ['./profile-form.component.scss'],
 })
 export class ProfileFormComponent implements OnInit {
-  @Input() public profile!: INotifyProfile;
+  @Input({ required: true }) public profile!: INotifyProfile;
   @Output() public value = new EventEmitter<INotifyProfile>();
 
   @Output() public submitForm = new EventEmitter<void>();

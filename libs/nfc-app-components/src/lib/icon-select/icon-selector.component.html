@@ -10,11 +10,22 @@
       {{ currentIcon.expanded }}
     </label>
   </div>
-  <div *ngIf="!hideSelector" class="selector-container">
+
+  @if(!hideSelector) {
+  <div class="selector-container">
     <div
       class="flex justify-between font-bold text-3xl tracking-wider my-4 items-center w-11/12 lg:w-6/12"
     >
-      <p>Servizio</p>
+      <div class="flex space-x-4">
+        <p class="my-auto">Servizio</p>
+        <input
+          type="text"
+          [formControl]="searchValue"
+          placeholder="es. LinkedIn"
+          class="input input-bordered w-full max-w-xs"
+        />
+      </div>
+
       <button class="btn btn-circle btn-ghost" (click)="hideSelector = true">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -35,10 +46,8 @@
     <div
       class="p-1 rounded-xl w-11/12 lg:w-6/12 flex-wrap justify-around m-1 h-3/6 overflow-y-auto flex transition-all"
     >
-      <div
-        *ngFor="let item of availableIcons"
-        class="flex flex-col items-center m-4 space-y-1"
-      >
+      @for (item of filteredIcons$ | async; track $index) {
+      <div class="flex flex-col items-center m-4 space-y-1">
         <button class="icon-button smooth" (click)="setIcon(item)">
           <notify-svg-box-icon [icon]="item"></notify-svg-box-icon>
         </button>
@@ -46,6 +55,8 @@
           {{ item.expanded }}
         </label>
       </div>
+      }
     </div>
   </div>
+  }
 </div>
