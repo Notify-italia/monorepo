@@ -6,6 +6,7 @@ export interface SvgBoxIcon {
   tags: string[];
   set: string;
   score: number;
+  prefix?: string;
 }
 
 @Injectable({
@@ -33,7 +34,7 @@ export class SvgboxService {
   }
 }
 
-const AVAILABLE_ICONS = [
+const AVAILABLE_ICONS: SvgBoxIcon[] = [
   {
     expanded: 'Applepay',
     name: 'applepay',
@@ -48,6 +49,7 @@ const AVAILABLE_ICONS = [
     tags: [],
     set: 'social',
     score: 12.5,
+    prefix: 'apps.apple.com/it/app/',
   },
 
   {
@@ -56,6 +58,7 @@ const AVAILABLE_ICONS = [
     tags: [],
     set: 'social',
     score: 1,
+    prefix: 'www.deviantart.com/',
   },
 
   {
@@ -64,6 +67,7 @@ const AVAILABLE_ICONS = [
     tags: [],
     set: 'social',
     score: 14.285714285714286,
+    prefix: 'discord.gg/',
   },
   {
     expanded: 'Dribbble',
@@ -79,8 +83,22 @@ const AVAILABLE_ICONS = [
     set: 'social',
     score: 20,
   },
-  { expanded: 'Ebay', name: 'ebay', tags: [], set: 'social', score: 1 },
-  { expanded: 'Etsy', name: 'etsy', tags: [], set: 'social', score: 25 },
+  {
+    expanded: 'Ebay',
+    name: 'ebay',
+    tags: [],
+    set: 'social',
+    score: 1,
+    prefix: 'www.ebay.it/usr/',
+  },
+  {
+    expanded: 'Etsy',
+    name: 'etsy',
+    tags: [],
+    set: 'social',
+    score: 25,
+    prefix: 'www.etsy.com/it/shop/',
+  },
   {
     expanded: 'Facebook',
     name: 'facebook',
@@ -95,7 +113,14 @@ const AVAILABLE_ICONS = [
     set: 'social',
     score: 1,
   },
-  { expanded: 'Github', name: 'github', tags: [], set: 'social', score: 1 },
+  {
+    expanded: 'Github',
+    name: 'github',
+    tags: [],
+    set: 'social',
+    score: 1,
+    prefix: 'github.com/',
+  },
   {
     expanded: 'Glassdoor',
     name: 'glassdoor',
@@ -146,6 +171,7 @@ const AVAILABLE_ICONS = [
     tags: [],
     set: 'social',
     score: 9.090909090909092,
+    prefix: 'kickstarter.com/projects/',
   },
   { expanded: 'Line', name: 'line', tags: [], set: 'social', score: 1 },
   {
@@ -154,6 +180,7 @@ const AVAILABLE_ICONS = [
     tags: [],
     set: 'social',
     score: 1,
+    prefix: 'linkedin.com/in/',
   },
   {
     expanded: 'Map',
