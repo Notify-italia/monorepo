@@ -10,10 +10,10 @@ export type ModifyDeep<A, B extends DeepPartialAny<A>> = {
     : B[K]; //    └─ key only exists in B 🠆 use B as the final type (new type)
 };
 
-type AnyObject = Record<string, any>;
+type AnyObject = Record<string, unknown>;
 
 // This type is here only for some intellisense for the overrides object
 type DeepPartialAny<T> = {
   /** Makes each property optional and turns each leaf property into any, allowing for type overrides by narrowing any. */
-  [P in keyof T]?: T[P] extends AnyObject ? DeepPartialAny<T[P]> : any;
+  [P in keyof T]?: T[P] extends AnyObject ? DeepPartialAny<T[P]> : unknown;
 };

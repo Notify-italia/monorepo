@@ -1,4 +1,4 @@
-import { ModifyDeep } from '@notify/nfc-api-services';
+import { ModifyDeep } from '@notify/api-shared';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/notify-interfaces';
 import mongoose, {
   Document,

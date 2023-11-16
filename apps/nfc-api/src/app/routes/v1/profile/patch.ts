@@ -1,4 +1,4 @@
-import { generateExpressValidation } from '@notify/nfc-api-services';
+import { generateExpressValidation } from '@notify/api-shared';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/notify-interfaces';
 import { Request, Router } from 'express';
 import { query } from 'express-validator';

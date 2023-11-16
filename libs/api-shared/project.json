@@ -1,14 +1,18 @@
 {
-  "name": "nfc-api-services",
+  "name": "api-shared",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/nfc-api-services/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nx-bun/nx:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "entrypoints": ["libs/nfc-api-services/src/index.ts"],
+        "entrypoints": [
+          "libs/nfc-api-services/src/index.ts"
+        ],
         "outputPath": "dist/nfc-api-services",
         "tsConfig": "libs/nfc-api-services/tsconfig.lib.json",
         "smol": false,
@@ -17,7 +21,9 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
         "lintFilePatterns": [
           "libs/nfc-api-services/**/*.ts",

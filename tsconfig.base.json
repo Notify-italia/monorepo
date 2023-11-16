@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@notify/nfc-api-services": ["libs/nfc-api-services/src/index.ts"],
+      "@notify/api-shared": ["libs/api-shared/src/index.ts"],
       "@notify/ngx-components": ["libs/ngx-components/src/index.ts"],
       "@notify/nfc-app-services": ["libs/nfc-app-services/src/index.ts"],
       "@notify/notify-interfaces": ["libs/notify-interfaces/src/index.ts"],
