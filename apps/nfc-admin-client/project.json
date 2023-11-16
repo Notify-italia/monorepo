@@ -8,24 +8,18 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/nfc-admin-client",
         "index": "apps/nfc-admin-client/src/index.html",
         "main": "apps/nfc-admin-client/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/nfc-admin-client/tsconfig.app.json",
         "assets": [
           "apps/nfc-admin-client/src/favicon.ico",
           "apps/nfc-admin-client/src/assets"
         ],
-        "styles": [
-          "apps/nfc-admin-client/src/styles.scss"
-        ],
+        "styles": ["apps/nfc-admin-client/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -59,10 +53,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "nfc-admin-client:build:production"
+          "buildTarget": "nfc-admin-client:build:production"
         },
         "development": {
-          "browserTarget": "nfc-admin-client:build:development"
+          "buildTarget": "nfc-admin-client:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -70,14 +64,12 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "nfc-admin-client:build"
+        "buildTarget": "nfc-admin-client:build"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
           "apps/nfc-admin-client/**/*.ts",

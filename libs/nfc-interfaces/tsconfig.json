@@ -4,6 +4,8 @@
     "module": "commonjs",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "composite": true,
+    "declaration": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },

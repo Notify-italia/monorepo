@@ -6,13 +6,9 @@
   "targets": {
     "build": {
       "executor": "@nx-bun/nx:build",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "entrypoints": [
-          "apps/nfc-api/src/main.ts"
-        ],
+        "entrypoints": ["apps/nfc-api/src/main.ts"],
         "outputPath": "dist/nfc-api",
         "tsConfig": "apps/nfc-api/tsconfig.app.json",
         "smol": false,

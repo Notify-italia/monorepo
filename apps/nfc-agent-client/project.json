@@ -8,21 +8,14 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "extractCss": true,
       "options": {
-        "allowedCommonJsDependencies": [
-          "qrcode",
-          "file-saver"
-        ],
+        "allowedCommonJsDependencies": ["qrcode", "file-saver"],
         "outputPath": "dist/apps/nfc-agent-client",
         "index": "apps/nfc-agent-client/src/index.html",
         "main": "apps/nfc-agent-client/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/nfc-agent-client/tsconfig.app.json",
         "assets": [
           "apps/nfc-agent-client/src/favicon.ico",
@@ -71,10 +64,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "nfc-agent-client:build:production"
+          "buildTarget": "nfc-agent-client:build:production"
         },
         "development": {
-          "browserTarget": "nfc-agent-client:build:development"
+          "buildTarget": "nfc-agent-client:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -82,14 +75,12 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "nfc-agent-client:build"
+        "buildTarget": "nfc-agent-client:build"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
           "apps/nfc-agent-client/**/*.ts",
