@@ -4,7 +4,7 @@ import {
   EnumNotifyUserType,
   INotifyAuth,
   INotifyUser,
-} from '@notify/nfc-interfaces';
+} from 'libs/notify-interfaces/src';
 import { BehaviorSubject, tap } from 'rxjs';
 import { HttpService } from './http.service';
 

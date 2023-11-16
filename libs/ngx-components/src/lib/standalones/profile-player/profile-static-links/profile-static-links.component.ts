@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ProfileService } from '@notify/nfc-app-services';
-import { INotifyProfile } from '@notify/nfc-interfaces';
+import { INotifyProfile } from 'libs/notify-interfaces/src';
 
 @Component({
   selector: 'notify-profile-static-links',

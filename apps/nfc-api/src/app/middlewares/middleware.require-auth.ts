@@ -1,4 +1,4 @@
-import { INotifyUser } from '@notify/nfc-interfaces';
+import { INotifyUser } from '@notify/notify-interfaces';
 import { NextFunction, Request, Response } from 'express';
 import { JwtPayload, verify as JwtVerify, VerifyErrors } from 'jsonwebtoken';
 import { wLog } from '../../main';

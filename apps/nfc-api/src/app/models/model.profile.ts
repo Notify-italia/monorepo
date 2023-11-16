@@ -1,5 +1,5 @@
 import { ModifyDeep } from '@notify/nfc-api-services';
-import { EnumNotifyUserType, INotifyProfile } from '@notify/nfc-interfaces';
+import { EnumNotifyUserType, INotifyProfile } from '@notify/notify-interfaces';
 import mongoose, {
   Document,
   HydratedDocument,

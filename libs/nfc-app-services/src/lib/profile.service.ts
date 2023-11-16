@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { INotifyProfile } from '@notify/nfc-interfaces';
+import { INotifyProfile } from 'libs/notify-interfaces/src';
 import { HttpService } from './http.service';
 
 @Injectable()

@@ -1,5 +1,5 @@
 {
-  "name": "nfc-app-components",
+  "name": "ngx-components",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/nfc-app-components/src",
   "prefix": "notify",

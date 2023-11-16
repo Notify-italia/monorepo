@@ -12,7 +12,7 @@ import {
   AppError,
   EnumNotifyUserType,
   INotifyProfile,
-} from '@notify/nfc-interfaces';
+} from '@notify/notify-interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, catchError, tap } from 'rxjs';
 import { environment } from '../../../../src/environments/environment';
