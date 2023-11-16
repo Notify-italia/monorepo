@@ -3,13 +3,13 @@
   "compilerOptions": {
     "rootDir": ".",
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
+    "target": "es2022",
+    "module": "ES2022",
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
@@ -21,7 +21,10 @@
       "@notify/nfc-interfaces": ["libs/nfc-interfaces/src/index.ts"],
       "@notify/utils": ["libs/utils/src/index.ts"]
     },
-    "types": ["bun-types"]
+    "types": ["bun-types"],
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
   },
   "exclude": ["node_modules", "tmp"]
 }

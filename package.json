@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "server-demo": "node ./node_modules/nx/bin/nx serve nfc-api --host 0.0.0.0",
-    "agent-demo": "node ./node_modules/nx/bin/nx serve nfc-agent-client --open --host 0.0.0.0 --port 80 "
+    "deploy-agent-client": "nx build nfc-agent-client --prod && nx deploy nfc-agent-client",
+    "deploy-api": "bun build --target=bun ./apps/nfc-api/src/main.ts --outdir ./dist/apps/nfc-api && nx deploy nfc-api"
   },
   "private": true,
   "dependencies": {

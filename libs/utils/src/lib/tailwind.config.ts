@@ -53,7 +53,7 @@ const tailwindConfig = {
   },
   plugins: [require('daisyui')],
   daisyui: {
-    themes: [],
+    themes: <unknown[]>[],
   },
 };
 

@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://172.20.10.2:3100/api',
-  publicUrl: 'http://172.20.10.2:4200',
+  apiUrl: 'https://notify-api.vps.notifygroup.it/api',
+  publicUrl: 'https://notify-api.vps.notifygroup.it:4200',
   jwtTokenKey: 'dev.agent.token',
 };

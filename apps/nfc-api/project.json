@@ -6,13 +6,20 @@
   "targets": {
     "build": {
       "executor": "@nx-bun/nx:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
-        "entrypoints": ["apps/nfc-api/src/main.ts"],
+        "entrypoints": [
+          "apps/nfc-api/src/main.ts"
+        ],
         "outputPath": "dist/nfc-api",
         "tsConfig": "apps/nfc-api/tsconfig.app.json",
-        "smol": false,
-        "bun": true
+        "smol": true,
+        "bun": true,
+        "minify": true,
+        "complie": true,
+        "target": "bun"
       }
     },
     "serve": {
@@ -34,6 +41,13 @@
         "bail": true,
         "tsConfig": "apps/nfc-api/tsconfig.json",
         "bun": true
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "cp ./apps/nfc-api/Dockerfile ./dist/apps/nfc-api && cp ./apps/nfc-api/captain-definition ./dist/apps/nfc-api && tar --strip-components=4 -cvf ./deploy.tar --exclude='*.map' ./dist/apps/nfc-api/* && caprover deploy -t ./deploy.tar -n notify -a notify-api && rm ./deploy.tar"
       }
     }
   }

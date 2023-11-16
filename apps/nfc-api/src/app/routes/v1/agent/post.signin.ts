@@ -12,7 +12,6 @@ const router = Router();
 router.post(
   '/',
   ...userSignInValidation(AGENT_VALIDATION_MESSAGES),
-
   errorHandledRequest(
     async (req: Request<{ email: string; password: string }>, res) => {
       const { email, password } = req.body;
