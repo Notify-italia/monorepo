@@ -4,15 +4,23 @@ import { ProfileService } from '@notify/nfc-app-services';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/nfc-interfaces';
 import { format } from 'date-fns';
 import { interval, map, startWith } from 'rxjs';
-import { AnimatedBgComponent } from '../animated-bg/animated-bg.component';
-import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
+import { AnimatedBgComponent } from '../../animated-bg/animated-bg.component';
+import { AvatarComponent } from '../../avatar/avatar.component';
+import { SvgBoxIconComponent } from '../../svg-box-icon/svg-box-icon.component';
+import { ProfileStaticLinksComponent } from '../profile-static-links/profile-static-links.component';
 
 @Component({
   selector: 'notify-profile-view',
   standalone: true,
-  imports: [CommonModule, SvgBoxIconComponent, AnimatedBgComponent],
+  imports: [
+    CommonModule,
+    SvgBoxIconComponent,
+    AnimatedBgComponent,
+    AvatarComponent,
+    ProfileStaticLinksComponent,
+  ],
   templateUrl: './profile-view.component.html',
-  styleUrls: ['./profile-view.component.scss'],
+  styleUrls: ['./profile-view.component.scss', '../styles.profile.scss'],
 })
 export class ProfileViewComponent {
   @Input() data?: INotifyProfile;
@@ -26,14 +34,7 @@ export class ProfileViewComponent {
 
   public enumProfileTypes = EnumNotifyUserType;
 
-  public placeholderAvatarProvider =
-    'https://www.heymind.org.uk/wp-content/uploads/2022/04/avatar-placeholder.png';
-
   constructor(private _profileService: ProfileService) {}
-
-  public cleanPhoneNumber(phoneNumber: string): string {
-    return phoneNumber.replace(/[^0-9]/g, '');
-  }
 
   public prepareUrl(url: string): string {
     return url?.startsWith('http') ? url : `https://${url}`;
@@ -54,7 +55,9 @@ VERSION:3.0
 N:${d.surname};${d.name};
 FN:${d.name} ${d.surname}
 ORG:${d.company?.name || d.name}
-TEL;TYPE=work,voice;VALUE=uri:${this.cleanPhoneNumber(d.phoneNumber || '')}
+TEL;TYPE=work,voice;VALUE=uri:${this._profileService.cleanPhoneNumber(
+      d.phoneNumber || ''
+    )}
 PHOTO;ENCODING=b:${d.avatar?.split(',')[1]}
 item2.URL;type=pref:${this._profileService.getPublicProfileUrl(
       this.publicUrl,

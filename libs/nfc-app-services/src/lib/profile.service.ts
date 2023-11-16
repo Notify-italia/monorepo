@@ -6,6 +6,10 @@ import { HttpService } from './http.service';
 export class ProfileService {
   constructor(private http: HttpService) {}
 
+  public cleanPhoneNumber(phoneNumber: string): string {
+    return phoneNumber.replace(/[^0-9]/g, '');
+  }
+
   public getPublicProfileUrl(publicUrl: string, id: string) {
     return `${publicUrl}/profile?p=${id}`;
   }

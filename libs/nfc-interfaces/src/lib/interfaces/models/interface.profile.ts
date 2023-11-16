@@ -1,5 +1,6 @@
 import { EnumNotifyUserType } from '../interface.user';
 
+//TODO gestisci ruolo agente
 export interface INotifyProfile<
   T extends EnumNotifyUserType = EnumNotifyUserType
 > {
