@@ -14,11 +14,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { INotifyProfile } from '@notify/interfaces';
 import {
   UtilsService,
   itPhoneNumberValidators,
 } from '@notify/nfc-app-services';
-import { INotifyProfile } from 'libs/interfaces/src';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
 import { IconSelectorComponent } from '../icon-select/icon-selector.component';

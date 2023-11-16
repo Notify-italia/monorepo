@@ -1,3 +1,3 @@
-# nfc-app-components
+# ngx-components
 
 This library was generated with [Nx](https://nx.dev).

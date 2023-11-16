@@ -1,10 +1,11 @@
 import { Inject, Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+
 import {
   EnumNotifyUserType,
   INotifyAuth,
   INotifyUser,
-} from 'libs/interfaces/src';
+} from '@notify/interfaces';
 import { BehaviorSubject, tap } from 'rxjs';
 import { HttpService } from './http.service';
 

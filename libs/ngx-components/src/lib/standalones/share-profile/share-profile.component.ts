@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { QRCodeModule } from 'angularx-qrcode';
-import { INotifyProfile } from 'libs/interfaces/src';
+
+import { INotifyProfile } from '@notify/interfaces';
 import { Lightbox, LightboxModule } from 'ngx-lightbox';
 import { ToastrService } from 'ngx-toastr';
 import { NfcWriteComponent } from '../nfc-write/nfc-write.component';

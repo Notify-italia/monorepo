@@ -1,7 +1,7 @@
 {
-  "name": "notify-interfaces",
+  "name": "interfaces",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/nfc-interfaces/src",
+  "sourceRoot": "libs/interfaces/src",
   "projectType": "library",
   "targets": {
     "build": {
@@ -10,11 +10,11 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/libs/nfc-interfaces",
-        "main": "libs/nfc-interfaces/src/index.ts",
-        "tsConfig": "libs/nfc-interfaces/tsconfig.lib.json",
+        "outputPath": "dist/libs/interfaces",
+        "main": "libs/interfaces/src/index.ts",
+        "tsConfig": "libs/interfaces/tsconfig.lib.json",
         "assets": [
-          "libs/nfc-interfaces/*.md"
+          "libs/interfaces/*.md"
         ]
       }
     },
@@ -25,7 +25,7 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "libs/nfc-interfaces/**/*.ts"
+          "libs/interfaces/**/*.ts"
         ]
       }
     },
@@ -35,7 +35,7 @@
         "{workspaceRoot}/coverage/{projectRoot}"
       ],
       "options": {
-        "jestConfig": "libs/nfc-interfaces/jest.config.ts"
+        "jestConfig": "libs/interfaces/jest.config.ts"
       }
     }
   },

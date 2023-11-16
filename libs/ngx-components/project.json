@@ -1,7 +1,7 @@
 {
   "name": "ngx-components",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/nfc-app-components/src",
+  "sourceRoot": "libs/ngx-components/src",
   "prefix": "notify",
   "tags": [],
   "projectType": "library",
@@ -12,15 +12,15 @@
         "{workspaceRoot}/dist/{projectRoot}"
       ],
       "options": {
-        "project": "libs/nfc-app-components/ng-package.json",
-        "tailwindConfig": "libs/nfc-app-components/tailwind.config.js"
+        "project": "libs/ngx-components/ng-package.json",
+        "tailwindConfig": "libs/ngx-components/tailwind.config.js"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/nfc-app-components/tsconfig.lib.prod.json"
+          "tsConfig": "libs/ngx-components/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "libs/nfc-app-components/tsconfig.lib.json"
+          "tsConfig": "libs/ngx-components/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"
@@ -32,9 +32,9 @@
       ],
       "options": {
         "lintFilePatterns": [
-          "libs/nfc-app-components/**/*.ts",
-          "libs/nfc-app-components/**/*.html",
-          "libs/nfc-app-components/package.json"
+          "libs/ngx-components/**/*.ts",
+          "libs/ngx-components/**/*.html",
+          "libs/ngx-components/package.json"
         ]
       }
     }
