@@ -3,7 +3,7 @@
   class="relative"
   [ngClass]="{
     'h-full w-full  border-primary-600  mockup-phone': mockup,
-    'h-screen w-screen': !mockup
+    'min-h-screen w-screen': !mockup
   }"
 >
   <div class="flex justify-between relative text-secondary" *ngIf="mockup">
@@ -54,7 +54,7 @@
     class="main-container"
     [ngClass]="{
       'display pt-10 h-full': mockup,
-      'h-max': !mockup
+      'h-max min-h-screen': !mockup
     }"
   >
     <div
@@ -62,7 +62,7 @@
       [class.opacity-50]="!data"
       [ngClass]="{
         'h-full py-5': mockup,
-        'h-full lg:h-screen': !mockup
+        'h-full min-h-screen': !mockup
       }"
     >
       <!-- REVIEW -->
