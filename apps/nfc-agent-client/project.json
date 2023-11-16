@@ -13,6 +13,10 @@
       ],
       "extractCss": true,
       "options": {
+        "allowedCommonJsDependencies": [
+          "qrcode",
+          "file-saver"
+        ],
         "outputPath": "dist/apps/nfc-agent-client",
         "index": "apps/nfc-agent-client/src/index.html",
         "main": "apps/nfc-agent-client/src/main.ts",

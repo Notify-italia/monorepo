@@ -17,7 +17,6 @@
     "@angular/platform-browser-dynamic": "~16.2.0",
     "@angular/router": "~16.2.0",
     "@auth0/angular-jwt": "^5.2.0",
-    "@nrwl/nx-cloud": "^16.5.2",
     "@nx-bun/nx": "^1.1.0",
     "@nx/angular": "17.0.1",
     "angularx-qrcode": "^16.0.2",

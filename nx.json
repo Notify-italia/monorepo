@@ -49,11 +49,6 @@
     ],
     "sharedGlobals": []
   },
-  "pluginsConfig": {
-    "@nx/js": {
-      "analyzeSourceFiles": false
-    }
-  },
   "generators": {
     "@nx/angular:application": {
       "style": "scss",
@@ -72,13 +67,5 @@
   "nxCloudAccessToken": "NTBjMTY4MDgtYjcxYy00ZDgyLTlkODYtYzgxMTFiOGVhNWM2fHJlYWQtd3JpdGU=",
   "affected": {
     "defaultBase": "main"
-  },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "accessToken": "ZTIwNWI2ZTgtZGM2OC00OTEyLWI5MzUtZGIzMTcxZDFjYzNkfHJlYWQtd3JpdGU="
-      }
-    }
   }
 }
