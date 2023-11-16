@@ -3,7 +3,7 @@
   class="w-full h-full border-primary"
   [class.mockup-phone]="mockup"
 >
-  <div class="flex justify-between relative text-secondary/20" *ngIf="mockup">
+  <div class="flex justify-between relative text-secondary" *ngIf="mockup">
     <div class="absolute top-[0.6rem] left-8 font-medium my-auto">
       {{ currentTime$ | async }}
     </div>
@@ -16,7 +16,7 @@
         viewBox="0 0 24 24"
         fill="currentColor"
       >
-        <path d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M0 0h24v24H0z" fill="none" st></path>
         <path d="M17 4h3v16h-3zM5 14h3v6H5zm6-5h3v11h-3z"></path>
       </svg>
       <!-- WIFI -->
@@ -26,7 +26,7 @@
         fill="currentColor"
         class="w-4 h-4 my-auto"
       >
-        <path d="M0 0h24v24H0z" fill="none"></path>
+        <path d="M0 0h24v24H0z" fill="none" st></path>
         <path
           d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3a4.237 4.237 0 00-6 0zm-4-4l2 2a7.074 7.074 0 0110 0l2-2C15.14 9.14 8.87 9.14 5 13z"
         ></path>
@@ -48,7 +48,7 @@
   </div>
 
   <div
-    class="bg-gradient-to-tr from-complimentary-600/10 to-complimentary-800 h-full relative"
+    class="bg-gradient-to-tr from-complimentary-300/10 to-complimentary-800 h-full relative"
     [class.display]="mockup"
     [class.py-10]="mockup"
   >
@@ -56,7 +56,7 @@
       class="w-full flex flex-col space-y-5 items-center h-full overflow-y-auto overflow-x-hidden"
       [class.opacity-50]="!data"
     >
-      <div class="section">
+      <div class="section mt-5">
         <!-- TODO animazione di flip tra avatar agente e avatar azienda simil instagram con gli avatar -->
         <div class="avatar">
           <div
@@ -202,7 +202,11 @@
       </div>
     </div>
     <div
-      class="p-2 py-6 w-full border-t border-complimentary-800 backdrop-brightness-75 text-xs text-justify"
-    ></div>
+      class="w-full border-t border-complimentary-800 backdrop-brightness-75 text-xs text-center whitespace-nowrap py-4 px-6 text-secondary/20"
+    >
+      <div class="flex justify-end">
+        <div>Provided by <span class="font-bold">Notify</span></div>
+      </div>
+    </div>
   </div>
 </div>

@@ -8,18 +8,29 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/nfc-player",
         "index": "apps/nfc-player/src/index.html",
         "main": "apps/nfc-player/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/nfc-player/tsconfig.app.json",
         "assets": [
           "apps/nfc-player/src/favicon.ico",
-          "apps/nfc-player/src/assets"
+          "apps/nfc-player/src/assets",
+          {
+            "input": "libs/utils/assets",
+            "glob": "*",
+            "output": "assets"
+          }
         ],
-        "styles": ["apps/nfc-player/src/styles.scss"],
+        "styles": [
+          "apps/nfc-player/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -75,7 +86,9 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
         "lintFilePatterns": [
           "apps/nfc-player/**/*.ts",

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "deploy-player": "nx build nfc-player --prod && nx deploy nfc-player",
     "deploy-agent-client": "nx build nfc-agent-client --prod && nx deploy nfc-agent-client",
     "deploy-api": "bun build --target=bun ./apps/nfc-api/src/main.ts --outdir ./dist/apps/nfc-api && nx deploy nfc-api"
   },
