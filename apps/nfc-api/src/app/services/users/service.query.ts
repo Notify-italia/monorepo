@@ -1,6 +1,5 @@
-import { Document, FilterQuery, Model } from 'mongoose';
-
 import { EnumNotifyUserType } from '@notify/nfc-interfaces';
+import { Document, FilterQuery, Model } from 'mongoose';
 import { AgentDocument, AgentModel } from '../../models/model.agent';
 import { CompanyDocument, CompanyModel } from '../../models/model.company';
 import { BadRequestError } from '../errors/errors';

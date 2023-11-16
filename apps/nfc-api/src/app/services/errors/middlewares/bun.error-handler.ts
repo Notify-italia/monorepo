@@ -1,5 +1,5 @@
-import { wLog } from 'apps/nfc-api/src/main';
 import { NextFunction, Request, Response } from 'express';
+import { wLog } from '../../../../main';
 import { requireAuth } from '../../../middlewares/middleware.require-auth';
 import { validateRequest } from '../../../middlewares/middleware.validate-request';
 import { CustomError } from '../errors';

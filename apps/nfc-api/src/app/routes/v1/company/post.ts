@@ -1,12 +1,12 @@
+import { Request, Router } from 'express';
+import { wLog } from '../../../../main';
 import {
   COMPANY_VALIDATION_MESSAGES,
   CompanyModel,
-} from 'apps/nfc-api/src/app/models/model.company';
-import { BadRequestError } from 'apps/nfc-api/src/app/services/errors/errors';
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
-import { userSignInValidation } from 'apps/nfc-api/src/app/services/service.validation';
-import { wLog } from 'apps/nfc-api/src/main';
-import { Request, Router } from 'express';
+} from '../../../models/model.company';
+import { BadRequestError } from '../../../services/errors/errors';
+import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { userSignInValidation } from '../../../services/service.validation';
 
 //boilderplate for a post request to create an agent
 const router = Router();

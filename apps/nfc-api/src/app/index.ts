@@ -4,7 +4,7 @@ import express from 'express';
 import { logRequest } from './middlewares/middleware.logs';
 import { api } from './routes';
 import { NotFoundError } from './services/errors/errors';
-import { errorHandler } from './services/errors/middlewares';
+import { errorHandler } from './services/errors/middlewares/error-handler';
 
 const app = express();
 

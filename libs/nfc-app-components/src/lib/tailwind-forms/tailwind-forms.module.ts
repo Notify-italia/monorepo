@@ -53,3 +53,17 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
   providers: [TailwindFormsService, provideNgxMask()],
 })
 export class TailwindFormsModule {}
+
+//directly exporting all exported components of the ngModule to include them automatically the lib's index.ts
+export {
+  HighlightSearchPipe,
+  TailwindCheckboxComponent,
+  TailwindDatepickerComponent,
+  TailwindDropdownComponent,
+  TailwindInputComponent,
+  TailwindRadioListDescriptionPanelComponent,
+  TailwindSelectComponent,
+  TailwindSelectMultipleComponent,
+  TailwindSubmitButtonComponent,
+  TailwindTimepickerComponent,
+};

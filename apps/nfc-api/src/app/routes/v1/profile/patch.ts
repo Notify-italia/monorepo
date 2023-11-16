@@ -1,15 +1,15 @@
 import { EnumNotifyUserType, INotifyProfile } from '@notify/nfc-interfaces';
 import { generateExpressValidation } from '@notify/utils';
+import { Request, Router } from 'express';
+import { query } from 'express-validator';
 import {
   PROFILE_VALIDATION_MESSAGES,
   ProfileDocument,
   ProfileModel,
-} from 'apps/nfc-api/src/app/models/model.profile';
-import { BadRequestError } from 'apps/nfc-api/src/app/services/errors/errors';
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
-import { getCompanyProfile } from 'apps/nfc-api/src/app/services/service.profile';
-import { Request, Router } from 'express';
-import { query } from 'express-validator';
+} from '../../../models/model.profile';
+import { BadRequestError } from '../../../services/errors/errors';
+import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { getCompanyProfile } from '../../../services/service.profile';
 
 const router = Router();
 

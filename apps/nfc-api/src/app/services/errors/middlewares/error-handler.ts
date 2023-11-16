@@ -1,5 +1,5 @@
-import { wLog } from 'apps/nfc-api/src/main';
 import { NextFunction, Request, Response } from 'express';
+import { wLog } from '../../../../main';
 import { CustomError } from '../errors/custom-error';
 
 // Per come funzionano i middleware in Express, si veda:

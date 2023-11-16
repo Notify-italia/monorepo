@@ -17,7 +17,7 @@
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/nfc-app-components/tsconfig.lib.prod.json",
+          "tsConfig": "libs/nfc-app-components/tsconfig.lib.prod.json"
         },
         "development": {
           "tsConfig": "libs/nfc-app-components/tsconfig.lib.json"

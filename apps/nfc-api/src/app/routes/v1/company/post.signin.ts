@@ -1,9 +1,9 @@
 import { EnumNotifyUserType } from '@notify/nfc-interfaces';
-import { COMPANY_VALIDATION_MESSAGES } from 'apps/nfc-api/src/app/models/model.company';
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
-import { userSignInValidation } from 'apps/nfc-api/src/app/services/service.validation';
-import { signIn } from 'apps/nfc-api/src/app/services/users/service.signin';
 import { Request, Router } from 'express';
+import { COMPANY_VALIDATION_MESSAGES } from '../../../models/model.company';
+import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { userSignInValidation } from '../../../services/service.validation';
+import { signIn } from '../../../services/users/service.signin';
 
 const router = Router();
 

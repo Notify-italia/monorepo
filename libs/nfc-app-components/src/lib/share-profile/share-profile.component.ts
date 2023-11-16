@@ -4,7 +4,7 @@ import { INotifyProfile } from '@notify/nfc-interfaces';
 import { QRCodeModule } from 'angularx-qrcode';
 import { Lightbox, LightboxModule } from 'ngx-lightbox';
 import { ToastrService } from 'ngx-toastr';
-import { NfcWriteComponent } from '../nfc-write.component';
+import { NfcWriteComponent } from '../nfc-write/nfc-write.component';
 @Component({
   selector: 'notify-share-profile',
   standalone: true,

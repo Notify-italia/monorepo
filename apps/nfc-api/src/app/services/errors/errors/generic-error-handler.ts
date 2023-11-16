@@ -1,6 +1,6 @@
 //aggiungere funzione che manda email di conferma operazione all'email che ha richiesto il servizio.
 
-import { wLog } from 'apps/nfc-api/src/main';
+import { wLog } from '../../../../main';
 import { BadRequestError } from './bad-request-error';
 
 export const genericErrorHandler = async (error: Error, inviaMail = true) => {

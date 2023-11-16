@@ -1,6 +1,6 @@
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
-import { refreshToken } from 'apps/nfc-api/src/app/services/users/service.signin';
 import { Request, Router } from 'express';
+import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { refreshToken } from '../../../services/users/service.signin';
 
 //boilderplate for a post request to create an agent
 const router = Router();
