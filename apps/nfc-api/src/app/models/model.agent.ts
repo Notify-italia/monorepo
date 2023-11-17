@@ -40,7 +40,7 @@ export interface Agent
       createdAt: Date;
       updatedAt: Date;
       profile: Types.ObjectId;
-      company: Types.ObjectId;
+      owner: Types.ObjectId;
     }
   > {}
 
@@ -76,7 +76,7 @@ const AgentSchema = new Schema<Agent, AgentModel>(
       required: true,
       ref: 'Profile',
     },
-    company: {
+    owner: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'Company',
@@ -106,18 +106,15 @@ AgentSchema.statics.build = async (
 ) => {
   const agent = new AgentModel(doc);
   agent.password = await Password.toHash(agent.password);
+  //assigns the company id to the agent
+  agent.owner = company;
 
   //creates a profile for the agent
-  const profile = await ProfileModel.build({
+  await ProfileModel.build({
     email: agent.email,
     type: EnumNotifyUserType.Agent,
+    owner: agent._id,
   }).save();
-
-  //assigns the profile id to the agent
-  agent.profile = profile._id;
-
-  //assigns the company id to the agent
-  agent.company = company;
 
   return agent;
 };

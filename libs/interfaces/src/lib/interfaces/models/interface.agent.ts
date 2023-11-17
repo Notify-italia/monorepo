@@ -1,5 +1,4 @@
 import { INotifyCompany } from './interface.company';
-import { INotifyProfile } from './interface.profile';
 
 export interface INotifyAgent {
   _id: string;
@@ -8,8 +7,7 @@ export interface INotifyAgent {
   enabled: boolean;
   email: string;
   password: string;
-  profile: INotifyProfile['_id'];
-  company: INotifyCompany['_id'];
+  owner: INotifyCompany['_id'];
 
   //Outside of the schema
   token?: string;

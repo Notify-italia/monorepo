@@ -9,7 +9,7 @@ import {
 } from '../../../models/model.profile';
 import { BadRequestError } from '../../../services/errors/errors';
 import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
-import { getCompanyProfile } from '../../../services/service.profile';
+import { getAgentOwnerProfile } from '../../../services/service.profile';
 
 const router = Router();
 
@@ -44,7 +44,7 @@ router.patch(
         res.status(200).send({
           ...profile.toObject(),
           __v: undefined,
-          company: await getCompanyProfile(profile._id),
+          company: await getAgentOwnerProfile(profile._id),
         });
 
         return;
@@ -58,7 +58,7 @@ router.patch(
       res.status(200).send({
         ...profile.toObject(),
         __v: undefined,
-        company: await getCompanyProfile(profile._id),
+        company: await getAgentOwnerProfile(profile._id),
       });
     },
     { requireAuth: true }

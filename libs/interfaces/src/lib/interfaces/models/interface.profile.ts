@@ -1,10 +1,11 @@
-import { EnumNotifyUserType } from '../interface.user';
+import { EnumNotifyUserType, INotifyAccounts } from '../interface.user';
 
 //TODO gestisci ruolo agente
 export interface INotifyProfile<
   T extends EnumNotifyUserType = EnumNotifyUserType
 > {
   _id: string;
+  owner: INotifyAccounts[T];
   createdAt: string;
   name: string | null;
   surname: T extends EnumNotifyUserType.Agent ? string : null;

@@ -47,6 +47,7 @@ export interface Profile
       _id: Types.ObjectId;
       createdAt: Date;
       updatedAt: Date;
+      owner: Types.ObjectId;
     }
   > {}
 
@@ -104,6 +105,10 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
       enum: Object.values(EnumNotifyUserType),
       required: true,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
     customFields: {
       type: [
         {
@@ -143,7 +148,6 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
     },
   }
 );
-// Quando ci sono riferimenti ad ID di altri documenti, usa `Schema.Types.ObjectId`
 
 // 4. Aggiungi qui, se ci sono, gli hook da eseguire prima o dopo una operazione di CRUD (create, read, update, delete)
 OrdineSchema.pre('save', async function (done) {

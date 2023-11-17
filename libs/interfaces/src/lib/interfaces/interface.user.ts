@@ -13,7 +13,7 @@ export interface INotifyAuth {
   password: string;
 }
 
-export interface INotifyAccount {
+export interface INotifyAccounts {
   [EnumNotifyUserType.Agent]: INotifyAgent;
   [EnumNotifyUserType.Company]: INotifyCompany;
 }

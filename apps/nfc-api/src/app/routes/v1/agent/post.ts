@@ -1,5 +1,6 @@
+import { EnumNotifyUserType } from '@notify/interfaces';
 import { Request, Router } from 'express';
-import mongoose from 'mongoose';
+import { Types } from 'mongoose';
 import { wLog } from '../../../../main';
 import {
   AGENT_VALIDATION_MESSAGES,
@@ -22,7 +23,7 @@ router.post(
       const agent = await AgentModel.build(
         { email, password },
         //TODO associa l'agent alla company attraverso il valore nel token
-        new mongoose.Types.ObjectId('654a5512717b1776dd72c4dc')
+        new Types.ObjectId(req.currentUser?._id)
       ).catch((err) => {
         wLog(err, 'error');
         throw new BadRequestError('Email già in uso');
@@ -33,7 +34,8 @@ router.post(
       //todo invia email di conferma
 
       res.status(201).send(agent);
-    }
+    },
+    { requireAuth: true, permittedRoles: [EnumNotifyUserType.Company] }
   )
 );
 

@@ -97,13 +97,11 @@ CompanySchema.statics.build = async (doc: Partial<Company>) => {
   company.password = await Password.toHash(company.password);
 
   //creates a profile for the company
-  const profile = await ProfileModel.build({
+  await ProfileModel.build({
     email: company.email,
     type: EnumNotifyUserType.Company,
+    owner: company._id,
   }).save();
-
-  //assigns the profile id to the company
-  company.profile = profile._id;
 
   return company;
 };

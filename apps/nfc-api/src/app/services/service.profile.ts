@@ -9,10 +9,10 @@ import { CompanyDocument } from '../models/model.company';
  * find an agent in the database whose profile matches the given `profileId`.
  * @returns The function `companyProfile` returns the `profile` property of the `company` object.
  */
-export const getCompanyProfile = async (profileId: Types.ObjectId) => {
+export const getAgentOwnerProfile = async (profileId: Types.ObjectId) => {
   const agent = await AgentModel.findOne({ profile: profileId })
     .populate({
-      path: 'company',
+      path: 'owner',
       populate: {
         path: 'profile',
         model: 'Profile',
@@ -24,5 +24,5 @@ export const getCompanyProfile = async (profileId: Types.ObjectId) => {
     return undefined;
   }
 
-  return (agent.company as unknown as CompanyDocument).profile;
+  return (agent.owner as unknown as CompanyDocument).profile;
 };
