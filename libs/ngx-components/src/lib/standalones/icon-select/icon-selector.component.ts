@@ -89,7 +89,7 @@ export class IconSelectorComponent implements OnInit {
       searchValue$,
     ]).pipe(
       map(([icons, searchValue]) => {
-        if (!searchValue) {
+        if (!searchValue || searchValue?.length < 3) {
           return icons;
         }
 

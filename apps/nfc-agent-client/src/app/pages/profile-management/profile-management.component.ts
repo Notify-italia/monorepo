@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import {
   ProfileFormComponent,
   ProfileViewComponent,
@@ -12,7 +11,7 @@ import {
   EnumNotifyUserType,
   INotifyProfile,
 } from '@notify/interfaces';
-import { AuthService, ProfileService } from '@notify/nfc-app-services';
+import { ProfileService } from '@notify/nfc-app-services';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, catchError, tap } from 'rxjs';
 import { environment } from '../../../../src/environments/environment';
@@ -38,9 +37,7 @@ export class ProfileManagementComponent {
 
   constructor(
     private _profileService: ProfileService,
-    private _toastr: ToastrService,
-    private _router: Router,
-    private _authService: AuthService
+    private _toastr: ToastrService
   ) {
     this._getProfile();
   }
@@ -57,7 +54,8 @@ export class ProfileManagementComponent {
   }
 
   public reloadForm() {
-    this._getProfile();
+    //TODO trovare un modo più elegante per ricaricare il form
+    location.reload();
   }
 
   public saveProfile(profile: IProfile) {
