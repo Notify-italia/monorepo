@@ -1,0 +1,24 @@
+import {
+  EnvironmentInjector,
+  Injectable,
+  ViewContainerRef,
+} from '@angular/core';
+import { INotifyProfile } from '@notify/interfaces';
+import { FeedbackComponent } from '../standalones/profile-player/feedback/feedback.component';
+
+@Injectable()
+export class FeedbackFactory {
+  constructor(
+    private injector: EnvironmentInjector,
+    public vcr: ViewContainerRef
+  ) {}
+
+  public show(config: { profile: INotifyProfile }) {
+    const ref = this.vcr.createComponent(FeedbackComponent);
+
+    ref.setInput('profile', config.profile);
+    ref.setInput('cf', ref);
+
+    return ref;
+  }
+}

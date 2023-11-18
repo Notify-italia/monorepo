@@ -4,6 +4,7 @@ import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
 import { ProfileService } from '@notify/nfc-app-services';
 import { format } from 'date-fns';
 import { interval, map, startWith } from 'rxjs';
+import { FeedbackFactory } from '../../../factories';
 import { AnimatedBgComponent } from '../../animated-bg/animated-bg.component';
 import { AvatarComponent } from '../../avatar/avatar.component';
 import { SvgBoxIconComponent } from '../../svg-box-icon/svg-box-icon.component';
@@ -19,6 +20,7 @@ import { ProfileStaticLinksComponent } from '../profile-static-links/profile-sta
     AvatarComponent,
     ProfileStaticLinksComponent,
   ],
+  providers: [FeedbackFactory],
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss', '../styles.profile.scss'],
 })
@@ -34,16 +36,25 @@ export class ProfileViewComponent {
 
   public enumProfileTypes = EnumNotifyUserType;
 
-  constructor(private _profileService: ProfileService) {}
+  constructor(
+    private _profileService: ProfileService,
+    private _feedbackFactory: FeedbackFactory
+  ) {}
 
   public prepareUrl(url: string): string {
     return url?.startsWith('http') ? url : `https://${url}`;
   }
 
+  public showFeedback(): void {
+    if (!this.data) {
+      return;
+    }
+
+    this._feedbackFactory.show({ profile: this.data });
+  }
+
   public saveContact(): void {
     const d = this.data;
-
-    console.log('saveContact', d);
 
     if (!d) {
       console.log('no data');

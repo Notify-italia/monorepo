@@ -67,7 +67,11 @@
     >
       <!-- REVIEW -->
       <div class="flex justify-center p-2 mt-4">
-        <button class="btn btn-wide btn-secondary" [disabled]="mockup">
+        <button
+          class="btn btn-wide btn-secondary"
+          [disabled]="mockup"
+          (click)="showFeedback()"
+        >
           <div class="flex text-center items-center text-sm space-x-2">
             <svg
               class="w-6 h-6"
