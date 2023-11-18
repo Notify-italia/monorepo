@@ -1,6 +1,6 @@
 {
   "name": "@notify/source",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "license": "MIT",
   "scripts": {
     "deploy-player": "nx build nfc-player --prod && nx deploy nfc-player",
