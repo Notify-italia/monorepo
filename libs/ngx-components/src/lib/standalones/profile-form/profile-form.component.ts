@@ -4,6 +4,7 @@ import {
   EventEmitter,
   HostListener,
   Input,
+  OnChanges,
   OnInit,
   Output,
 } from '@angular/core';
@@ -50,7 +51,7 @@ type ProfileForm = FormGroup<{
   templateUrl: './profile-form.component.html',
   styleUrls: ['./profile-form.component.scss'],
 })
-export class ProfileFormComponent implements OnInit {
+export class ProfileFormComponent implements OnInit, OnChanges {
   @Input({ required: true }) public profile!: INotifyProfile;
   @Output() public value = new EventEmitter<INotifyProfile>();
 
@@ -87,6 +88,10 @@ export class ProfileFormComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  public ngOnChanges() {
+    this.form = this._buildForm();
   }
 
   public setUploadedFile(file: string | ArrayBuffer | null) {

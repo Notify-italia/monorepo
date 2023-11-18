@@ -42,21 +42,7 @@ export class ProfileManagementComponent {
     private _router: Router,
     private _authService: AuthService
   ) {
-    this._profileService
-      .getProfile<EnumNotifyUserType.Agent>()
-      .pipe(
-        tap((profile) => {
-          this._profileSubject$.next(profile);
-        }),
-        catchError(async (err: AppError) => {
-          this._toastr.error(
-            err?.error?.errors?.[0]?.message || 'Si è verificato un errore',
-            'Errore'
-          );
-          return err;
-        })
-      )
-      .subscribe();
+    this._getProfile();
   }
 
   public publicProfileUrl(profile: IProfile) {
@@ -71,13 +57,7 @@ export class ProfileManagementComponent {
   }
 
   public reloadForm() {
-    //get the current route
-    const currentRoute = this._router.url;
-
-    //navigate to the same page
-    this._router.navigate(['/'], { skipLocationChange: true }).then(() => {
-      this._router.navigate([currentRoute]);
-    });
+    this._getProfile();
   }
 
   public saveProfile(profile: IProfile) {
@@ -86,6 +66,24 @@ export class ProfileManagementComponent {
       .pipe(
         tap((profile) => {
           this._toastr.success('Profilo aggiornato', 'Successo');
+          this._profileSubject$.next(profile);
+        }),
+        catchError(async (err: AppError) => {
+          this._toastr.error(
+            err?.error?.errors?.[0]?.message || 'Si è verificato un errore',
+            'Errore'
+          );
+          return err;
+        })
+      )
+      .subscribe();
+  }
+
+  private _getProfile() {
+    this._profileService
+      .getProfile<EnumNotifyUserType.Agent>()
+      .pipe(
+        tap((profile) => {
           this._profileSubject$.next(profile);
         }),
         catchError(async (err: AppError) => {

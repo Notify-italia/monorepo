@@ -119,7 +119,6 @@
       <span>aggiungi</span>
     </button>
     <div *ngFor="let item of cf.controls" class="flex items-center space-x-2">
-      <!-- TODO fix widening del form quando viene renderizzato un oggetto -->
       <notify-icon-selector
         class="items-end mt-6"
         [icon]="item.controls['iconName'].value"
@@ -161,7 +160,7 @@
 
   <div class="field flex justify-around space-x-2">
     <button
-      type="reset"
+      type="button"
       class="btn btn-secondary w-6/12"
       (click)="resetForm()"
       data-theme="notifytheme"
