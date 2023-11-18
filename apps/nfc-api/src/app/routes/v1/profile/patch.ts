@@ -35,9 +35,9 @@ router.patch(
       ) {
         //if the user is an agent or a company and is trying to edit his own profile we get the profile directly form the logged in user
         //this ensures that the user can't edit other profiles
-        const profile = (await ProfileModel.findById(
-          req.currentUser.profile
-        )) as ProfileDocument;
+        const profile = (await ProfileModel.findOne({
+          owner: req.currentUser._id,
+        })) as ProfileDocument;
 
         await _editProfile(profile, body);
 
@@ -61,7 +61,11 @@ router.patch(
         company: await getAgentOwnerProfile(profile._id),
       });
     },
-    { requireAuth: true }
+    {
+      requireAuth: {
+        requireLicense: false,
+      },
+    }
   )
 );
 

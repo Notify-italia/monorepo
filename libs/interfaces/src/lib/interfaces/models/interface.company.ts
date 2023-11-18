@@ -1,13 +1,13 @@
-import { INotifyProfile } from './interface.profile';
+import { INotifyLicense } from './interface.license';
 
 export interface INotifyCompany {
   _id: string;
   createdAt: string;
   updatedAt: string;
-  license: string; //INotifyLicense['_id'];
+  license: INotifyLicense['_id'];
   email: string;
   password: string;
-  profile: INotifyProfile['_id'];
+  allowedUsers: number;
 
   //Outside of the schema
   token?: string;

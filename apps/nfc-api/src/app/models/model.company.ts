@@ -24,10 +24,9 @@ export type CompanyDocument = Document<unknown, unknown, Company> &
 export const COMPANY_VALIDATION_MESSAGES: {
   [key in keyof Partial<Company>]: ErrorMessage;
 } = {
-  _id: "L'id del sollecito deve essere un valido id mongoDB",
+  _id: "L'id dell'azienda non è valido",
   email: 'Inserire una email valida',
   password: 'Inserire una password valida',
-  profile: 'Inserire un profilo valido',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
@@ -38,7 +37,6 @@ export interface Company
       _id: Types.ObjectId;
       createdAt: Date;
       updatedAt: Date;
-      profile: Types.ObjectId;
       license: Types.ObjectId;
     }
   > {}
@@ -63,14 +61,9 @@ const CompanySchema = new Schema<Company, CompanyModel>(
       type: String,
       required: [true, COMPANY_VALIDATION_MESSAGES.password as string],
     },
-    profile: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      ref: 'Profile',
-    },
     license: {
       type: Schema.Types.ObjectId,
-      required: false,
+      default: null,
       ref: 'License',
     },
   },

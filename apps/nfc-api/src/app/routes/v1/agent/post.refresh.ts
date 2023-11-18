@@ -12,7 +12,9 @@ router.post(
       res.status(200).send(await refreshToken(req.currentUser));
     },
     {
-      requireAuth: true,
+      requireAuth: {
+        requireLicense: false,
+      },
     }
   )
 );

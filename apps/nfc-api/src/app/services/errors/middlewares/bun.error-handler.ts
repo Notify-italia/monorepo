@@ -10,12 +10,16 @@ export const errorHandledRequest = <T>(
   func: (req: Request<T>, res: Response) => Promise<void>,
   config?: {
     errorMessage?: string;
-    requireAuth?: boolean;
+    requireAuth?: {
+      requireLicense?: boolean;
+    };
     permittedRoles?: EnumNotifyUserType[];
   }
 ) => {
   //if requireAuth is true, then we need to check for the token
-  const _reqAuth = config?.requireAuth ? [_ehReq(requireAuth)] : [];
+  const _reqAuth = config?.requireAuth
+    ? [_ehReq(requireAuth(config.requireAuth.requireLicense))]
+    : [];
 
   const _permRoles = config?.permittedRoles?.length
     ? [_ehReq(permittedRoles(config.permittedRoles))]
@@ -35,9 +39,9 @@ const _ehReq = <T>(
   return async (req: Request<T>, res: Response, next: NextFunction) => {
     await func(req, res, next)?.catch((err: CustomError) => {
       wLog(err.message, 'error');
-      res
-        .status(err.statusCode || 400)
-        .send({ errors: [{ message: config?.errorMessage || String(err) }] });
+      res.status(err.statusCode || 400).send({
+        errors: [{ message: config?.errorMessage || String(err.message) }],
+      });
     });
   };
 };

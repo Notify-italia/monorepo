@@ -1,4 +1,8 @@
-import { INotifyUser } from '@notify/interfaces';
+import {
+  EnumNotifyUserType,
+  INotifyCompany,
+  INotifyUser,
+} from '@notify/interfaces';
 import { NextFunction, Request, Response } from 'express';
 import { JwtPayload, verify as JwtVerify, VerifyErrors } from 'jsonwebtoken';
 import { wLog } from '../../main';
@@ -8,6 +12,7 @@ import {
   TokenExpiredError,
 } from '../services/errors/errors';
 import { declareEnvs } from '../services/service.envs';
+import { LicenseManager } from '../services/service.license';
 
 const { JWT_KEY } = declareEnvs(['JWT_KEY']);
 
@@ -40,14 +45,30 @@ const verifyJwt = (
   });
 };
 
-export const requireAuth = async <T>(
-  req: Request<T>,
-  res: Response,
-  next: NextFunction
-) => {
+export const requireAuth = <T>(requireLicense = false) => {
+  return async (req: Request<T>, res: Response, next: NextFunction) => {
+    if (!requireLicense) {
+      return _requireAuth(req).then(() => next());
+    }
+
+    const isActive =
+      (await _requireAuth(req)) && (await _hasActiveLicense(req.currentUser));
+
+    wLog(`User has active license: ${isActive}`, 'info');
+
+    if (!isActive) {
+      throw new NotAuthorizedError();
+    }
+
+    next();
+  };
+};
+
+const _requireAuth = async <T>(req: Request<T>) => {
   const token = req.header('Authorization')?.replace('Bearer ', '') || '';
 
   if (!JWT_KEY) {
+    wLog('JWT_KEY not found', 'error');
     throw new RequiredEnvVariableError('JWT_KEY');
   }
 
@@ -63,13 +84,36 @@ export const requireAuth = async <T>(
 
   req.currentUser = payload;
 
-  //TODO controlla correttamente la licenza
-  if (
-    !req.currentUser ||
-    (!req.currentUser.enabled && !(req.currentUser.license as any).enabled)
-  ) {
+  if (!_isAllowed(req.currentUser)) {
     throw new NotAuthorizedError();
   }
 
-  next();
+  return true;
+};
+
+const _isAllowed = (user: INotifyUser): boolean => {
+  if (!user) {
+    return false;
+  }
+
+  if (user.userType === EnumNotifyUserType.Agent) {
+    return user.enabled;
+  }
+
+  wLog('User is not an agent', 'warning');
+
+  return true;
+};
+
+const _hasActiveLicense = async (user: INotifyCompany): Promise<boolean> => {
+  if (!user.license) {
+    wLog('User has no license', 'warning');
+    return false;
+  }
+
+  const lm = await LicenseManager.findWithId(user.license);
+
+  console.log(lm.license);
+
+  return lm.license.enabled && new Date(lm.license.expirationDate) > new Date();
 };

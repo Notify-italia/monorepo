@@ -28,7 +28,6 @@ export const AGENT_VALIDATION_MESSAGES: {
   email: 'Inserire una email valida',
   password: 'Inserire una password valida',
   enabled: 'Inserire un valore booleano',
-  profile: 'Inserire un profilo valido',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
@@ -39,7 +38,6 @@ export interface Agent
       _id: Types.ObjectId;
       createdAt: Date;
       updatedAt: Date;
-      profile: Types.ObjectId;
       owner: Types.ObjectId;
     }
   > {}
@@ -70,11 +68,6 @@ const AgentSchema = new Schema<Agent, AgentModel>(
     enabled: {
       type: Boolean,
       default: true,
-    },
-    profile: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      ref: 'Profile',
     },
     owner: {
       type: Schema.Types.ObjectId,

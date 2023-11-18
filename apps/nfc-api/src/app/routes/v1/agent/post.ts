@@ -35,7 +35,12 @@ router.post(
 
       res.status(201).send(agent);
     },
-    { requireAuth: true, permittedRoles: [EnumNotifyUserType.Company] }
+    {
+      requireAuth: {
+        requireLicense: true,
+      },
+      permittedRoles: [EnumNotifyUserType.Company],
+    }
   )
 );
 
