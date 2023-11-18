@@ -43,10 +43,17 @@ export class ProfileManagementComponent {
     private _authService: AuthService
   ) {
     this._profileService
-      .getProfile(this._authService.user?.profile || '')
+      .getProfile<EnumNotifyUserType.Agent>()
       .pipe(
         tap((profile) => {
           this._profileSubject$.next(profile);
+        }),
+        catchError(async (err: AppError) => {
+          this._toastr.error(
+            err?.error?.errors?.[0]?.message || 'Si è verificato un errore',
+            'Errore'
+          );
+          return err;
         })
       )
       .subscribe();
@@ -59,8 +66,8 @@ export class ProfileManagementComponent {
     );
   }
 
-  public updateProfileSubject(profile: IProfile) {
-    this._profileSubject$.next(profile);
+  public updateProfileSubject(profile: INotifyProfile) {
+    this._profileSubject$.next(profile as IProfile);
   }
 
   public reloadForm() {
@@ -75,7 +82,7 @@ export class ProfileManagementComponent {
 
   public saveProfile(profile: IProfile) {
     this._profileService
-      .patchProfile(profile, this._authService.user?.profile || '')
+      .patchProfile<EnumNotifyUserType.Agent>(profile)
       .pipe(
         tap((profile) => {
           this._toastr.success('Profilo aggiornato', 'Successo');

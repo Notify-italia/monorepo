@@ -6,11 +6,7 @@ import {
 import { NextFunction, Request, Response } from 'express';
 import { JwtPayload, verify as JwtVerify, VerifyErrors } from 'jsonwebtoken';
 import { wLog } from '../../main';
-import {
-  NotAuthorizedError,
-  RequiredEnvVariableError,
-  TokenExpiredError,
-} from '../services/errors/errors';
+import { NotAuthorizedError } from '../services/errors/errors';
 import { declareEnvs } from '../services/service.envs';
 import { LicenseManager } from '../services/service.license';
 
@@ -64,25 +60,29 @@ export const requireAuth = <T>(requireLicense = false) => {
   };
 };
 
-const _requireAuth = async <T>(req: Request<T>) => {
+export const injectAuth = async <T>(req: Request<T>) => {
   const token = req.header('Authorization')?.replace('Bearer ', '') || '';
-
-  if (!JWT_KEY) {
-    wLog('JWT_KEY not found', 'error');
-    throw new RequiredEnvVariableError('JWT_KEY');
-  }
-
   const payload = (await verifyJwt(token, JWT_KEY).catch((error) => {
     if (error && error.name === 'TokenExpiredError') {
       wLog(error.message, 'error');
-      throw new TokenExpiredError();
+      return null;
     }
 
     wLog(error.message, 'error');
-    throw new NotAuthorizedError();
+    return null;
   })) as INotifyUser;
 
   req.currentUser = payload;
+
+  return payload;
+};
+
+const _requireAuth = async <T>(req: Request<T>) => {
+  const payload = await injectAuth(req);
+
+  if (!payload) {
+    throw new NotAuthorizedError();
+  }
 
   if (!_isAllowed(req.currentUser)) {
     throw new NotAuthorizedError();
@@ -112,8 +112,6 @@ const _hasActiveLicense = async (user: INotifyCompany): Promise<boolean> => {
   }
 
   const lm = await LicenseManager.findWithId(user.license);
-
-  console.log(lm.license);
 
   return lm.license.enabled && new Date(lm.license.expirationDate) > new Date();
 };

@@ -21,7 +21,7 @@ export type ProfileDocument = Document<unknown, unknown, Profile> &
 export const PROFILE_VALIDATION_MESSAGES: {
   [key in keyof Partial<INotifyProfile>]: string | { [key: string]: string };
 } = {
-  _id: "L'id del profilo deve essere un valido id mongoDB",
+  _id: "L'id del profilo non è valido",
   name: 'Inserire un nome valido',
   surname: 'Inserire un cognome valido',
   email: 'Inserire una email valida',

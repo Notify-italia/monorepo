@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { INotifyProfile } from '@notify/interfaces';
+import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
 import { HttpService } from './http.service';
 
 @Injectable()
@@ -15,15 +15,21 @@ export class ProfileService {
     return `${publicUrl}/profile?p=${id}`;
   }
 
-  public patchProfile(body: INotifyProfile, id?: string) {
-    return this.http.patch<INotifyProfile, INotifyProfile>(
+  public patchProfile<T extends EnumNotifyUserType>(
+    body: INotifyProfile,
+    id?: string
+  ) {
+    return this.http.patch<INotifyProfile, INotifyProfile<T>>(
       `/v1/profile`,
       body,
       id ? { id } : undefined
     );
   }
 
-  public getProfile(id: string) {
-    return this.http.get<INotifyProfile>(`/v1/profile`, { id });
+  public getProfile<T extends EnumNotifyUserType>(id?: string) {
+    return this.http.get<INotifyProfile<T>>(
+      `/v1/profile`,
+      id ? { id } : undefined
+    );
   }
 }

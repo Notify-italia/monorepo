@@ -5,6 +5,7 @@ export interface INotifyUser extends INotifyAgent, INotifyCompany {
   iat: number;
   exp: number;
   userType: EnumNotifyUserType;
+  profile?: string;
   token?: string;
 }
 

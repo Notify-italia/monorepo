@@ -109,8 +109,8 @@
         class="w-[80%]"
       ></notify-profile-static-links>
 
-      <div class="section module module-blur">
-        <p class="text-sm italic text-center" *ngIf="data?.bio">
+      <div class="section module module-blur" *ngIf="data?.bio">
+        <p class="text-sm italic text-center">
           {{ data?.bio || '' }}
         </p>
       </div>
