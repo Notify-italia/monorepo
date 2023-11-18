@@ -1,12 +1,11 @@
+import { MongodbDocument } from '../interface.mongodb';
 import { EnumNotifyUserType, INotifyAccounts } from '../interface.user';
 
 //TODO gestisci ruolo agente
 export interface INotifyProfile<
   T extends EnumNotifyUserType = EnumNotifyUserType
-> {
-  _id: string;
+> extends MongodbDocument {
   owner: INotifyAccounts[T];
-  createdAt: string;
   name: string | null;
   surname: T extends EnumNotifyUserType.Agent ? string : null;
   email: string | null;

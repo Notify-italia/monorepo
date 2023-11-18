@@ -1,9 +1,7 @@
+import { MongodbDocument } from '../interface.mongodb';
 import { INotifyCompany } from './interface.company';
 
-export interface INotifyAgent {
-  _id: string;
-  createdAt: string; //*statico\
-  updatedAt: string; //*statico\
+export interface INotifyAgent extends MongodbDocument {
   enabled: boolean;
   email: string;
   password: string;
