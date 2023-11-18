@@ -7,7 +7,7 @@ import {
 import { BadRequestError } from 'apps/nfc-api/src/app/services/errors/errors';
 import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
 import { getAgentOwnerProfile } from 'apps/nfc-api/src/app/services/service.profile';
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 import { query } from 'express-validator';
 import { injectAuth } from '../../../middlewares/middleware.require-auth';
 
@@ -25,38 +25,45 @@ router.get(
     await injectAuth(req);
 
     if (req.currentUser?.userType === EnumNotifyUserType.Agent) {
-      //if the user is logged in as an agent, return the agent's profile without checking query params
-      const profile = await ProfileModel.findOne({
-        owner: req.currentUser._id,
-      }).lean();
-
-      if (!profile) {
-        throw new BadRequestError(PROFILE_VALIDATION_MESSAGES._id as string);
-      }
-
-      res.status(200).send({
-        ...profile,
-        __v: undefined,
-        company: await getAgentOwnerProfile(profile._id),
-      });
-
-      return;
+      return await _agentFlow(req, res);
     }
 
-    const { id } = req.query;
-
-    const profile = await ProfileModel.findById(id).lean();
-
-    if (!profile) {
-      throw new BadRequestError('Profilo non trovato');
-    }
-
-    res.status(200).send({
-      ...profile,
-      __v: undefined,
-      company: await getAgentOwnerProfile(profile._id),
-    });
+    return await _profilePlayerFlow(req, res);
   })
 );
 
 export { router as getProfileRouter };
+
+const _profilePlayerFlow = async <T>(req: Request<T>, res: Response) => {
+  const { id } = req.query;
+
+  const profile = await ProfileModel.findById(id).lean();
+
+  if (!profile) {
+    throw new BadRequestError('Profilo non trovato');
+  }
+
+  res.status(200).send({
+    ...profile,
+    __v: undefined,
+    company: await getAgentOwnerProfile(profile._id),
+  });
+};
+
+const _agentFlow = async <T>(req: Request<T>, res: Response) => {
+  const profile = await ProfileModel.findOne({
+    owner: req.currentUser._id,
+  }).lean();
+
+  if (!profile) {
+    throw new BadRequestError(PROFILE_VALIDATION_MESSAGES._id as string);
+  }
+
+  res.status(200).send({
+    ...profile,
+    __v: undefined,
+    company: await getAgentOwnerProfile(profile._id),
+  });
+
+  return;
+};
