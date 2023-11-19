@@ -50,8 +50,6 @@ export const requireAuth = <T>(requireLicense = false) => {
     const isActive =
       (await _requireAuth(req)) && (await _hasActiveLicense(req.currentUser));
 
-    wLog(`User has active license: ${isActive}`, 'info');
-
     if (!isActive) {
       throw new NotAuthorizedError();
     }
@@ -61,7 +59,13 @@ export const requireAuth = <T>(requireLicense = false) => {
 };
 
 export const injectAuth = async <T>(req: Request<T>) => {
-  const token = req.header('Authorization')?.replace('Bearer ', '') || '';
+  const token = req.header('Authorization')?.replace('Bearer ', '') || null;
+
+  if (!token || token === 'null') {
+    //a check for 'token === null' is needed because of the way the token is passed in the header
+    return null;
+  }
+
   const payload = (await verifyJwt(token, JWT_KEY).catch((error) => {
     if (error && error.name === 'TokenExpiredError') {
       wLog(error.message, 'error');
