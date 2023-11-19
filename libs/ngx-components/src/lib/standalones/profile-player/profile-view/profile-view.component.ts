@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
+import {
+  EnumNotifyUserType,
+  INotifyFeedback,
+  INotifyProfile,
+} from '@notify/interfaces';
 import { FeedbackService, ProfileService } from '@notify/nfc-app-services';
 import { format } from 'date-fns';
 import { interval, map, startWith } from 'rxjs';
@@ -9,6 +13,7 @@ import { AnimatedBgComponent } from '../../animated-bg/animated-bg.component';
 import { AvatarComponent } from '../../avatar/avatar.component';
 import { SvgBoxIconComponent } from '../../svg-box-icon/svg-box-icon.component';
 import { ProfileStaticLinksComponent } from '../profile-static-links/profile-static-links.component';
+import { RatingComponent } from '../rating/rating.component';
 
 @Component({
   selector: 'notify-profile-view',
@@ -19,6 +24,7 @@ import { ProfileStaticLinksComponent } from '../profile-static-links/profile-sta
     AnimatedBgComponent,
     AvatarComponent,
     ProfileStaticLinksComponent,
+    RatingComponent,
   ],
   providers: [FeedbackFactory, FeedbackService],
   templateUrl: './profile-view.component.html',
@@ -43,17 +49,15 @@ export class ProfileViewComponent {
     private _feedbackService: FeedbackService
   ) {}
 
-  public feedbackGiven(): boolean {
+  public feedbackGiven(): INotifyFeedback | null {
     if (!this.data?._id) {
-      return false;
+      return null;
     }
 
     const fb = this._feedbackService.getFeedbackFromLocalStorage(
-      this.data?._id,
+      this.data?.owner,
       this.feedbackKey
     );
-
-    console.log('feedback', fb);
 
     return fb;
   }

@@ -2,7 +2,7 @@
   *ngIf="profile"
   class="fixed w-screen h-screen p-2 backdrop-blur-xl backdrop-brightness-50 z-[999] top-0 flex justify-center"
 >
-  <div class="h-[50%] w-[90%] my-4 animate__fadeInDown animate__animated">
+  <div class="h-[60%] w-[90%] my-4 animate__fadeInDown animate__animated">
     <div class="my-1 w-full flex justify-end">
       <button
         class="btn btn-secondary btn-circle btn-ghost"
@@ -27,7 +27,7 @@
       class="bg-base-100 rounded-xl p-2 w-full h-full flex justify-center border border-primary"
     >
       <div class="hero-content text-center h-full w-full">
-        <div class="h-full flex flex-col justify-around w-full">
+        <div class="h-full flex flex-col justify-around w-full space-y-2">
           <div>
             <h1 class="text-2xl lg:text-5xl font-bold">Lascia un feedback</h1>
             <p class="text-xs lg:text-xl">
@@ -37,9 +37,22 @@
           <div class="flex justify-center">
             <notify-rating
               [currentValue]="rating"
-              [items]="availableRatings"
               (valueChanged)="rating = $event"
             ></notify-rating>
+          </div>
+          <div>
+            <div class="form-control text-xs">
+              <label class="label">
+                <span class="label-text">Commento</span>
+              </label>
+              <textarea
+                class="textarea textarea-bordered h-24"
+                [(ngModel)]="comment"
+                placeholder="Inserisci un commento riguardo alla tua esperienza con {{
+                  profile.name
+                }}"
+              ></textarea>
+            </div>
           </div>
           <div class="flex flex-col space-y-2">
             <button
@@ -47,7 +60,7 @@
               data-theme="notifytheme"
               (click)="sendFeedback()"
               [class.pointer-events-none]="loading"
-              [disabled]="!rating"
+              [disabled]="isSendDisabled()"
             >
               @if(!loading) { Invia } @else {
               <span class="loading loading-spinner loading-lg"></span>

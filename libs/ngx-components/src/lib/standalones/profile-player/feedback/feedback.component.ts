@@ -24,14 +24,6 @@ export class FeedbackComponent implements OnInit {
   public comment = '';
   public loading = false;
 
-  public availableRatings = [
-    { value: 1 },
-    { value: 2 },
-    { value: 3 },
-    { value: 4 },
-    { value: 5 },
-  ];
-
   constructor(
     private _feedbackService: FeedbackService,
     private _toastr: ToastrService
@@ -71,5 +63,9 @@ export class FeedbackComponent implements OnInit {
   public close() {
     enableBodyScroll(document.body);
     this.cf.destroy();
+  }
+
+  public isSendDisabled() {
+    return !this.rating || (this.rating < 3 && !this.comment.length);
   }
 }

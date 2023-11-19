@@ -22,7 +22,7 @@ export class FeedbackService {
     feedbackKey: string
   ) {
     return JSON.parse(localStorage.getItem(feedbackKey) || '[]').find(
-      (feedback: INotifyFeedback) => feedback._id === id
+      (feedback: INotifyFeedback) => feedback.owner === id
     );
   }
 
