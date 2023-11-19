@@ -30,7 +30,7 @@
         ],
         "styles": [
           "apps/nfc-player/src/styles.scss",
-          "node_modules/animate.css/animate.min.css"
+          "libs/utils/src/lib/global.scss"
         ],
         "scripts": []
       },
