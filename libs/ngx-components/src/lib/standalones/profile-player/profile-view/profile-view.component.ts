@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
-import { ProfileService } from '@notify/nfc-app-services';
+import { FeedbackService, ProfileService } from '@notify/nfc-app-services';
 import { format } from 'date-fns';
 import { interval, map, startWith } from 'rxjs';
 import { FeedbackFactory } from '../../../factories';
@@ -20,7 +20,7 @@ import { ProfileStaticLinksComponent } from '../profile-static-links/profile-sta
     AvatarComponent,
     ProfileStaticLinksComponent,
   ],
-  providers: [FeedbackFactory],
+  providers: [FeedbackFactory, FeedbackService],
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss', '../styles.profile.scss'],
 })
@@ -28,6 +28,7 @@ export class ProfileViewComponent {
   @Input() data?: INotifyProfile;
   @Input({ required: true }) publicUrl = 'http://localhost:4200';
   @Input() mockup = false;
+  @Input() feedbackKey = 'feedback';
 
   public currentTime$ = interval(1000).pipe(
     startWith(0),
@@ -38,8 +39,24 @@ export class ProfileViewComponent {
 
   constructor(
     private _profileService: ProfileService,
-    private _feedbackFactory: FeedbackFactory
+    private _feedbackFactory: FeedbackFactory,
+    private _feedbackService: FeedbackService
   ) {}
+
+  public feedbackGiven(): boolean {
+    if (!this.data?._id) {
+      return false;
+    }
+
+    const fb = this._feedbackService.getFeedbackFromLocalStorage(
+      this.data?._id,
+      this.feedbackKey
+    );
+
+    console.log('feedback', fb);
+
+    return fb;
+  }
 
   public prepareUrl(url: string): string {
     return url?.startsWith('http') ? url : `https://${url}`;
@@ -50,7 +67,10 @@ export class ProfileViewComponent {
       return;
     }
 
-    this._feedbackFactory.show({ profile: this.data });
+    this._feedbackFactory.show({
+      profile: this.data,
+      feedbackKey: this.feedbackKey,
+    });
   }
 
   public saveContact(): void {

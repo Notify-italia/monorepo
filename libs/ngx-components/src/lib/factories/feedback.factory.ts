@@ -13,11 +13,12 @@ export class FeedbackFactory {
     public vcr: ViewContainerRef
   ) {}
 
-  public show(config: { profile: INotifyProfile }) {
+  public show(config: { profile: INotifyProfile; feedbackKey: string }) {
     const ref = this.vcr.createComponent(FeedbackComponent);
 
     ref.setInput('profile', config.profile);
     ref.setInput('cf', ref);
+    ref.setInput('feedbackKey', config.feedbackKey);
 
     return ref;
   }

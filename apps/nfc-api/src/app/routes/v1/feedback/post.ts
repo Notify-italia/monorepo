@@ -8,7 +8,7 @@ import { errorHandledRequest } from '../../../services/errors/middlewares/bun.er
 
 const router = Router();
 
-router.patch(
+router.post(
   '/',
   body('owner')
     .isMongoId()

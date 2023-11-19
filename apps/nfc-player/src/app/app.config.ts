@@ -6,6 +6,7 @@ import {
   withEnabledBlockingInitialNavigation,
 } from '@angular/router';
 import { HttpService, ProfileService } from '@notify/nfc-app-services';
+import { provideTailwindToasts } from '@notify/ngx-components';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
@@ -14,6 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     provideHttpClient(),
     provideAnimations(),
+    provideTailwindToasts(),
     {
       provide: HttpService,
       deps: [HttpClient],

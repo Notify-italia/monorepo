@@ -1,4 +1,8 @@
 <div class="h-screen w-screen" *ngIf="profile$ | async as p">
   <!-- TODO flip tra profilo agente e profilo azineda tramite gesture -->
-  <notify-profile-view [data]="p" [publicUrl]="publicUrl"></notify-profile-view>
+  <notify-profile-view
+    [data]="p"
+    [publicUrl]="publicUrl"
+    [feedbackKey]="feedbackKey"
+  ></notify-profile-view>
 </div>

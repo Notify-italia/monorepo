@@ -1,0 +1,18 @@
+<div class="rating rating-lg space-x-2">
+  <input
+    type="radio"
+    name="rating-10"
+    class="rating-hidden"
+    [checked]="currentValue === 0"
+  />
+
+  @for (item of items; track currentValue) {
+  <input
+    type="radio"
+    name="rating-8"
+    class="mask mask-star-2 bg-yellow-500"
+    [checked]="currentValue === item.value"
+    (change)="setRating(item.value)"
+  />
+  }
+</div>

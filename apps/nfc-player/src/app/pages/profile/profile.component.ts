@@ -19,6 +19,7 @@ export class ProfileComponent {
   public profile$: Observable<INotifyProfile>;
 
   public publicUrl = environment.publicUrl;
+  public feedbackKey = environment.feedbackKey;
 
   constructor(
     private _activatedRoute: ActivatedRoute,

@@ -35,32 +35,23 @@
             </p>
           </div>
           <div class="flex justify-center">
-            <div class="rating rating-lg space-x-2">
-              <input
-                type="radio"
-                name="rating-10"
-                class="rating-hidden"
-                [checked]="rating === 0"
-              />
-
-              @for (item of availableRatings; track rating) {
-              <input
-                type="radio"
-                name="rating-8"
-                class="mask mask-star-2 bg-yellow-500"
-                [checked]="rating === item.value"
-                (change)="setRating(item.value)"
-              />
-              }
-            </div>
+            <notify-rating
+              [currentValue]="rating"
+              [items]="availableRatings"
+              (valueChanged)="rating = $event"
+            ></notify-rating>
           </div>
           <div class="flex flex-col space-y-2">
             <button
               class="btn btn-primary"
               data-theme="notifytheme"
+              (click)="sendFeedback()"
+              [class.pointer-events-none]="loading"
               [disabled]="!rating"
             >
-              Invia
+              @if(!loading) { Invia } @else {
+              <span class="loading loading-spinner loading-lg"></span>
+              }
             </button>
             <p class="text-xs lg:text-xl">
               Il feedback inviato sarà usato per migliorare la tua esperienza e
