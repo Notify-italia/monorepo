@@ -90,12 +90,17 @@
             <p class="normal-case">Lascia un feedback</p>
 
             }
-            <notify-rating
-              *ngIf="feedbackGiven() as fb"
-              [currentValue]="fb.rating"
-              colorClass="bg-secondary"
-              sizeClass="sm"
-            ></notify-rating>
+
+            <div *ngIf="feedbackGiven() as fb" class="m-1">
+              <p class="normal-case text-xs text-secondary/50">
+                Feedback lasciato
+              </p>
+              <notify-rating
+                [currentValue]="fb.rating"
+                colorClass="bg-secondary"
+                sizeClass="sm"
+              ></notify-rating>
+            </div>
           </div>
         </button>
       </div>

@@ -66,6 +66,6 @@ export class FeedbackComponent implements OnInit {
   }
 
   public isSendDisabled() {
-    return !this.rating || (this.rating < 3 && !this.comment.length);
+    return !this.rating || (this.rating < 4 && !this.comment.length);
   }
 }
