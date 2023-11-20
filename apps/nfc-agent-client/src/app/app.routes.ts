@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { authGuard, signInGuard } from '@notify/nfc-app-services';
+import { PageNotFoundComponent } from '@notify/ngx-components';
 import { HomeComponent } from './pages/home/home.component';
 
 export const appRoutes: Route[] = [
@@ -40,5 +41,14 @@ export const appRoutes: Route[] = [
           ).then((m) => m.ProfileManagementComponent),
       },
     ],
+  },
+  {
+    path: '**',
+    redirectTo: '404',
+    pathMatch: 'full',
+  },
+  {
+    path: '404',
+    component: PageNotFoundComponent,
   },
 ];
