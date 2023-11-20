@@ -6,3 +6,7 @@
 .smooth {
   @apply transition-all duration-300 ease-in-out;
 }
+
+.box {
+  @apply bg-gray-700/20;
+}
