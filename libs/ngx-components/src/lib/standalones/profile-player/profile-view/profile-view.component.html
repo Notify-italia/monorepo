@@ -6,7 +6,7 @@
     'min-h-screen w-screen': !mockup
   }"
 >
-  <div class="flex justify-between relative text-secondary" *ngIf="mockup">
+  <div class="flex justify-between relative text-gray-50" *ngIf="mockup">
     <div class="absolute top-[0.6rem] left-8 font-medium my-auto">
       {{ currentTime$ | async }}
     </div>
@@ -68,7 +68,8 @@
       <!-- REVIEW -->
       <div class="flex justify-center p-2 mt-4">
         <button
-          class="btn btn-wide btn-secondary"
+          type="button"
+          class="btn btn-wide btn-accent"
           [disabled]="mockup || feedbackGiven()"
           (click)="showFeedback()"
         >
@@ -92,9 +93,7 @@
             }
 
             <div *ngIf="feedbackGiven() as fb" class="m-1">
-              <p class="normal-case text-xs text-secondary/50">
-                Feedback lasciato
-              </p>
+              <p class="normal-case text-xs text-gray/50">Feedback lasciato</p>
               <notify-rating
                 [currentValue]="fb.rating"
                 colorClass="bg-secondary"

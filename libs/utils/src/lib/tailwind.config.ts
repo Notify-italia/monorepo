@@ -65,6 +65,10 @@ tailwindConfig.daisyui.themes.push('dark', {
     secondary: tailwindConfig.theme.extend.colors.secondary.DEFAULT,
     'secondary-focus': tailwindConfig.theme.extend.colors.secondary[700],
     'secondary-content': '#191E24',
+    //use white: '#ffffff' as the accent,
+    accent: '#ffffff',
+    'accent-focus': '#ffffff',
+    'accent-content': '#000000',
   },
 });
 

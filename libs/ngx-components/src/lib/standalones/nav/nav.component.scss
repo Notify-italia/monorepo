@@ -2,7 +2,7 @@ ul {
   @apply menu p-4 w-80 text-base-content;
 
   & > li {
-    @apply menu-title text-secondary tracking-wider font-normal uppercase;
+    @apply menu-title text-gray-50 tracking-wider font-normal uppercase;
   }
 }
 
