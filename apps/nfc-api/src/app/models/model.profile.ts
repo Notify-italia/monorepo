@@ -47,7 +47,7 @@ export interface Profile
       _id: Types.ObjectId;
       createdAt: Date;
       updatedAt: Date;
-      owner: Schema.Types.ObjectId;
+      owner: Types.ObjectId;
     }
   > {}
 

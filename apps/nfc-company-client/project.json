@@ -22,10 +22,16 @@
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/nfc-company-client/src/favicon.ico",
-          "apps/nfc-company-client/src/assets"
+          "apps/nfc-company-client/src/assets",
+          {
+            "input": "libs/utils/assets",
+            "glob": "*",
+            "output": "assets"
+          }
         ],
         "styles": [
-          "apps/nfc-company-client/src/styles.scss"
+          "apps/nfc-company-client/src/styles.scss",
+          "libs/utils/src/lib/global.scss"
         ],
         "scripts": []
       },

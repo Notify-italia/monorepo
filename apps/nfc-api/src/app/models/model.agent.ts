@@ -47,7 +47,10 @@ export interface Agent
 interface AgentModel extends Model<Agent> {
   build(
     doc: Partial<Agent>,
-    company: Types.ObjectId
+    company: Types.ObjectId,
+    profileData: {
+      role: string;
+    }
   ): Promise<HydratedDocument<Agent>>;
 }
 
@@ -95,10 +98,13 @@ AgentSchema.pre('save', async function (done) {
 // 5. Aggiungi un metodo statico build per creare il nuovo Model
 AgentSchema.statics.build = async (
   doc: Partial<Agent>,
-  company: Types.ObjectId
+  company: Types.ObjectId,
+  profileData: {
+    role: string;
+  }
 ) => {
   const agent = new AgentModel(doc);
-  agent.password = await Password.toHash(agent.password);
+  agent.password = await Password.toHash(doc.password as string);
   //assigns the company id to the agent
   agent.owner = company;
 
@@ -107,6 +113,7 @@ AgentSchema.statics.build = async (
     email: agent.email,
     type: EnumNotifyUserType.Agent,
     owner: agent._id,
+    ...profileData,
   }).save();
 
   return agent;

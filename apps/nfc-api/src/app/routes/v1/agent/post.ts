@@ -18,12 +18,12 @@ router.post(
   ...userSignInValidation(AGENT_VALIDATION_MESSAGES),
   errorHandledRequest(
     async (req: Request<{ email: string; password: string }>, res) => {
-      const { email, password } = req.body;
+      const { email, password, role } = req.body;
 
       const agent = await AgentModel.build(
         { email, password },
-        //TODO associa l'agent alla company attraverso il valore nel token
-        new Types.ObjectId(req.currentUser?._id)
+        new Types.ObjectId(req.currentUser?._id),
+        { role }
       ).catch((err) => {
         wLog(err, 'error');
         throw new BadRequestError('Email già in uso');

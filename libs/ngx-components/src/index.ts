@@ -6,6 +6,7 @@ export * from './lib/standalones/app-title/app-title.component';
 export * from './lib/standalones/auth/auth.component';
 export * from './lib/standalones/nav/nav.component';
 export * from './lib/standalones/nfc-write/nfc-write.component';
+export * from './lib/standalones/page-header/page-header.component';
 export * from './lib/standalones/page-not-found/page-not-found.component';
 export * from './lib/standalones/profile-form/profile-form.component';
 export * from './lib/standalones/profile-player/feedback/feedback.component';

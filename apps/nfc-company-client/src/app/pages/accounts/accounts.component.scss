@@ -1,0 +1,27 @@
+.action-btn {
+  @apply btn btn-circle btn-sm;
+
+  &.action-primary {
+    @apply btn-primary;
+  }
+
+  &.action-secondary {
+    @apply btn-secondary;
+  }
+
+  &.action-success {
+    @apply btn-success;
+  }
+
+  &.action-info {
+    @apply btn-info;
+  }
+
+  &.action-warning {
+    @apply btn-warning;
+  }
+
+  &.action-error {
+    @apply btn-error;
+  }
+}

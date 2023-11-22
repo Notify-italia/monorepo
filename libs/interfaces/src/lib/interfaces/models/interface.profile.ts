@@ -11,6 +11,7 @@ export interface INotifyProfile<
   email: string | null;
   phoneNumber: string | null;
   bio: string | null;
+  role: string | null;
   avatar: string | null;
   config: {
     whatsappEnabled: boolean;
@@ -19,7 +20,5 @@ export interface INotifyProfile<
   };
   customFields: { iconName: string; value: string }[];
   type: EnumNotifyUserType;
-  company: T extends EnumNotifyUserType.Agent
-    ? INotifyProfile<EnumNotifyUserType.Company>
-    : null;
+  company?: INotifyProfile<EnumNotifyUserType.Company>;
 }

@@ -25,7 +25,13 @@ export const appRoutes: Route[] = [
         pathMatch: 'full',
         redirectTo: 'profile',
       },
-
+      {
+        path: 'accounts',
+        loadComponent: () =>
+          import('./pages/accounts/accounts.component').then(
+            (m) => m.AccountsComponent
+          ),
+      },
       {
         path: 'signout',
         loadComponent: () =>

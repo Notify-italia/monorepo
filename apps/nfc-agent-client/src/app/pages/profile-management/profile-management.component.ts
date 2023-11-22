@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
+  PageHeaderComponent,
   ProfileFormComponent,
   ProfileViewComponent,
   ShareProfileComponent,
@@ -26,6 +27,7 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
     ProfileFormComponent,
     ProfileViewComponent,
     ShareProfileComponent,
+    PageHeaderComponent,
   ],
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],

@@ -104,8 +104,6 @@ const _isAllowed = (user: INotifyUser): boolean => {
     return user.enabled;
   }
 
-  wLog('User is not an agent', 'warning');
-
   return true;
 };
 
