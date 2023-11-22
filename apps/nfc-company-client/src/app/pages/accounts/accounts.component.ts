@@ -62,7 +62,7 @@ export class AccountsComponent {
     },
     {
       _id: '1',
-      email: 'rossim@gmail.com',
+      email: 'giacomob@gmail.com',
       owner: '1',
       enabled: true,
       createdAt: new Date(),
