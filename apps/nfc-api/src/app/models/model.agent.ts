@@ -85,10 +85,25 @@ const AgentSchema = new Schema<Agent, AgentModel>(
         delete ret.password;
         delete ret.__v;
       },
+      virtuals: true,
+    },
+    toJSON: {
+      transform(doc, ret) {
+        delete ret.password;
+        delete ret.__v;
+      },
+      virtuals: true,
     },
   }
 );
 // Quando ci sono riferimenti ad ID di altri documenti, usa `Schema.Types.ObjectId`
+
+AgentSchema.virtual('profile', {
+  ref: 'Profile',
+  localField: '_id',
+  foreignField: 'owner',
+  justOne: true,
+});
 
 // 4. Aggiungi qui, se ci sono, gli hook da eseguire prima o dopo una operazione di CRUD (create, read, update, delete)
 AgentSchema.pre('save', async function (done) {

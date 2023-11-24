@@ -13,7 +13,7 @@ router.post(
     },
     {
       requireAuth: {
-        requireLicense: false,
+        requireLicense: true,
       },
     }
   )

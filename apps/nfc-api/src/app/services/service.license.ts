@@ -32,7 +32,19 @@ export class LicenseManager {
     await company.save();
   }
 
-  public static async findWithId(id: string): Promise<LicenseManager> {
+  public static async load(options: { publicKey?: string; id?: string }) {
+    if (options.id) {
+      return await this._findWithId(options.id);
+    }
+
+    if (options.publicKey) {
+      return await this._find(options.publicKey);
+    }
+
+    throw new BadRequestError(LICENSE_VALIDATION_MESSAGES.publicKey as string);
+  }
+
+  private static async _findWithId(id: string): Promise<LicenseManager> {
     const license = await LicenseModel.findById(id);
 
     if (!license || !license.enabled) {
@@ -44,7 +56,7 @@ export class LicenseManager {
     return new LicenseManager(license);
   }
 
-  public static async find(publicKey: string): Promise<LicenseManager> {
+  private static async _find(publicKey: string): Promise<LicenseManager> {
     const license = await LicenseModel.findOne({ publicKey });
 
     if (!license || !license.enabled) {

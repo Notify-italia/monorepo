@@ -1,11 +1,8 @@
-import {
-  EnumNotifyUserType,
-  INotifyCompany,
-  INotifyUser,
-} from '@notify/interfaces';
+import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
 import { NextFunction, Request, Response } from 'express';
 import { JwtPayload, verify as JwtVerify, VerifyErrors } from 'jsonwebtoken';
 import { wLog } from '../../main';
+import { CompanyModel } from '../models/model.company';
 import { NotAuthorizedError } from '../services/errors/errors';
 import { declareEnvs } from '../services/service.envs';
 import { LicenseManager } from '../services/service.license';
@@ -107,13 +104,33 @@ const _isAllowed = (user: INotifyUser): boolean => {
   return true;
 };
 
-const _hasActiveLicense = async (user: INotifyCompany): Promise<boolean> => {
-  if (!user.license) {
-    wLog('User has no license', 'warning');
+const _hasActiveLicense = async (user: INotifyUser): Promise<boolean> => {
+  console.log('user', user.license);
+  //obtains the current license directly from the user (assuming it's a company) or through _getAgentLicense
+  const lm = await LicenseManager.load({ id: user.license }).catch(
+    async (err) => {
+      wLog(err.message, 'error');
+      await _getAgentLicense(user);
+    }
+  );
+
+  if (!lm) {
     return false;
   }
 
-  const lm = await LicenseManager.findWithId(user.license);
-
   return lm.license.enabled && new Date(lm.license.expirationDate) > new Date();
+};
+
+/**
+ * Obtains the license of the agent's company
+ */
+const _getAgentLicense = async (user: INotifyUser) => {
+  const company = await CompanyModel.findById(user.owner);
+
+  if (!company) {
+    wLog('User has no company', 'warning');
+    return null;
+  }
+
+  return LicenseManager.load({ id: company.license.toString() });
 };

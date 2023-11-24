@@ -1,6 +1,6 @@
+import { INotifyCompany, INotifyProfile } from '@notify/interfaces';
 import { Types } from 'mongoose';
 import { AgentModel } from '../models/model.agent';
-import { CompanyDocument } from '../models/model.company';
 
 /**
  * The function `companyProfile` retrieves the profile of a company associated with an agent, given the
@@ -24,5 +24,7 @@ export const getAgentOwnerProfile = async (profileId: Types.ObjectId) => {
     return undefined;
   }
 
-  return (agent.owner as unknown as CompanyDocument).profile;
+  return (
+    agent.owner as unknown as INotifyCompany & { profile: INotifyProfile }
+  ).profile;
 };

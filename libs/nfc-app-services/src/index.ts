@@ -1,3 +1,4 @@
+export * from './lib/agent.service';
 export * from './lib/auth.service';
 export * from './lib/feedback.service';
 export * from './lib/guards/auth.guard';

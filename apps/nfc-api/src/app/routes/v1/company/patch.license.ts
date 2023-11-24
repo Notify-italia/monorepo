@@ -18,7 +18,7 @@ router.patch(
     async (req, res) => {
       const { publicKey } = req.body;
 
-      const license = await LicenseManager.find(publicKey);
+      const license = await LicenseManager.load({ publicKey });
 
       await license.assign(new Types.ObjectId(req.currentUser._id));
 
