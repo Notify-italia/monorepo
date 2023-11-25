@@ -19,6 +19,7 @@ export class HomeComponent {
       ],
     },
     {
+      disabled: true,
       label: 'Note',
       path: '/pages/notes',
       icon: [
@@ -27,6 +28,7 @@ export class HomeComponent {
       ],
     },
     {
+      disabled: true,
       label: 'Colleghi',
       path: '/pages/peers',
       icon: [
@@ -34,6 +36,7 @@ export class HomeComponent {
       ],
     },
     {
+      disabled: true,
       label: 'Impostazioni',
       path: '/pages/settings',
       icon: [

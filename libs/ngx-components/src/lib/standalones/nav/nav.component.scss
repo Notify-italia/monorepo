@@ -2,10 +2,14 @@ ul {
   @apply menu p-4 w-80 text-base-content;
 
   & > li {
-    @apply menu-title text-gray-50 tracking-wider font-normal uppercase;
+    @apply menu-title text-gray-50 tracking-wider font-medium uppercase;
   }
 }
 
 svg {
   @apply w-8 h-8;
+}
+
+.nav-disabled {
+  @apply opacity-25 cursor-not-allowed pointer-events-none;
 }

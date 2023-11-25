@@ -8,6 +8,7 @@ export interface NavItem {
   path: string;
   style?: string;
   icon: string[];
+  disabled?: boolean;
 }
 
 @Component({

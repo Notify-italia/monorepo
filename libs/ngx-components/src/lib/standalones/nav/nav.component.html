@@ -45,7 +45,7 @@
       <notify-app-title class="p-4 pt-10"></notify-app-title>
       <ul>
         <!-- Sidebar content here -->
-        <li *ngFor="let item of topItems">
+        <li *ngFor="let item of topItems" [class.nav-disabled]="item.disabled">
           <a
             [routerLink]="item.path"
             routerLinkActive="btn-active"
