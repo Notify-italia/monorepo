@@ -1,8 +1,9 @@
 import { MongodbDocument } from '../interface.mongodb';
 import { INotifyLicense } from './interface.license';
 
-export interface INotifyCompany extends MongodbDocument {
-  license: INotifyLicense['_id'];
+export interface INotifyCompany<populated extends true | false = false>
+  extends MongodbDocument {
+  license: populated extends true ? INotifyLicense : INotifyLicense['_id'];
   email: string;
   password?: string;
 

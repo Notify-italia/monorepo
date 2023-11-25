@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { AppError, INotifyAgent, INotifyLicense } from '@notify/interfaces';
+import { AppError, INotifyAgent, INotifyCompany } from '@notify/interfaces';
 import { AgentService, AuthService } from '@notify/nfc-app-services';
 import { PageHeaderComponent } from '@notify/ngx-components';
 import { ToastrService } from 'ngx-toastr';
@@ -20,8 +20,9 @@ export class AccountsComponent implements OnInit {
   public profiles$: Observable<INotifyAgent[]> = this.profilesSubject$;
 
   public get maxAgents(): number {
-    return (this._authService.user?.license as unknown as INotifyLicense)
-      .allowedAgents;
+    const user = this._authService.user as unknown as INotifyCompany<true>;
+
+    return user.license.allowedAgents;
   }
 
   constructor(
