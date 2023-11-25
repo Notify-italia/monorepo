@@ -16,6 +16,7 @@
       >
         @for(btn of buttons; track btn.disabled; let i = $index) {
         <button
+          (click)="onButtonClicked(btn)"
           [disabled]="btn.disabled"
           class="btn"
           type="button"
@@ -23,7 +24,21 @@
           [class.btn-primary]="i === 0"
           [class.btn-accent]="i > 0"
         >
-          {{ btn.label }}
+          @if (btn.icon; as i) {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            @for (path of i; track path) {
+            <path fill-rule="evenodd" [attr.d]="path" clip-rule="evenodd" />
+            }
+          </svg>
+
+          }
+
+          <span> {{ btn.label }}</span>
         </button>
         }
       </div>

@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 export interface INotifyHeaderButton {
   label: string;
   disabled?: boolean;
   eventName: string;
+  icon?: string[];
 }
 
 @Component({
@@ -18,4 +19,12 @@ export class PageHeaderComponent {
   @Input({ required: true }) title = 'Placeholder Title';
   @Input() subtitle = '';
   @Input() buttons: INotifyHeaderButton[] = [];
+
+  @Output() buttonClicked = new EventEmitter<
+    INotifyHeaderButton['eventName']
+  >();
+
+  onButtonClicked(button: INotifyHeaderButton): void {
+    this.buttonClicked.emit(button.eventName);
+  }
 }
