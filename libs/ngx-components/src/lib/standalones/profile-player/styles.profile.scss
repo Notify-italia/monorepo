@@ -15,7 +15,7 @@
 }
 
 .main-container {
-  @apply bg-gradient-to-tr from-complimentary-300/20 to-complimentary-600 overflow-y-visible;
+  @apply bg-gradient-to-tr from-complimentary-500 to-complimentary-600 overflow-y-visible;
 
   & > .main-child {
     @apply w-full flex flex-col space-y-5 items-center;
