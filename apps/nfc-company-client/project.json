@@ -7,14 +7,14 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
+      "executor": "@angular-devkit/build-angular:browser",
       "outputs": [
         "{options.outputPath}"
       ],
       "options": {
         "outputPath": "dist/apps/nfc-company-client",
         "index": "apps/nfc-company-client/src/index.html",
-        "browser": "apps/nfc-company-client/src/main.ts",
+        "main": "apps/nfc-company-client/src/main.ts",
         "polyfills": [
           "zone.js"
         ],
@@ -45,15 +45,15 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "4mb",
+              "maximumError": "400mb"
             }
           ],
           "outputHashing": "all",
           "fileReplacements": [
             {
-              "replace": "apps/nfc-agent-client/src/environments/environment.ts",
-              "with": "apps/nfc-agent-client/src/environments/environment.prod.ts"
+              "replace": "apps/nfc-company-client/src/environments/environment.ts",
+              "with": "apps/nfc-company-client/src/environments/environment.prod.ts"
             }
           ]
         },
@@ -93,6 +93,13 @@
           "apps/nfc-company-client/**/*.ts",
           "apps/nfc-company-client/**/*.html"
         ]
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "cp ./apps/nfc-company-client/Dockerfile ./dist/apps/nfc-company-client && cp ./apps/nfc-company-client/captain-definition ./dist/apps/nfc-company-client && tar --strip-components=4 -cvf ./deploy.tar --exclude='*.map' ./dist/apps/nfc-company-client/* && caprover deploy -t ./deploy.tar -n notify -a company-client && rm ./deploy.tar"
       }
     }
   }

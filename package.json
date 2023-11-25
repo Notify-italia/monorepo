@@ -5,8 +5,9 @@
   "scripts": {
     "deploy-player": "nx build nfc-player --prod && nx deploy nfc-player",
     "deploy-agent-client": "nx build nfc-agent-client --prod && nx deploy nfc-agent-client",
+    "deploy-company-client": "nx build nfc-company-client --prod && nx deploy nfc-company-client",
     "deploy-api": "bun build --target=bun ./apps/nfc-api/src/main.ts --outdir ./dist/apps/nfc-api && nx deploy nfc-api",
-    "deploy-version": "npm run deploy-player && npm run deploy-agent-client && npm run deploy-api"
+    "deploy-version": "npm run deploy-player && npm run deploy-agent-client && npm run deploy-api && npm run deploy-company-client"
   },
   "private": true,
   "dependencies": {
