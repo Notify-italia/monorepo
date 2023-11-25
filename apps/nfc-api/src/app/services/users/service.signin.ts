@@ -21,7 +21,8 @@ export const signIn = async (
     email: string;
     password: string;
   },
-  userType: EnumNotifyUserType
+  userType: EnumNotifyUserType,
+  populate = ''
 ): Promise<INotifyUser> => {
   //queries the database for a user with the provided email
   const user = await genericUserQuery<true>(
@@ -32,12 +33,16 @@ export const signIn = async (
 
   if (!user) {
     //if the user is not found, it will throw an error
-    return throwError();
+    return _throwError();
   }
 
-  if (!(await _comparePassword(user.password, provided.password))) {
+  if (!(await _comparePassword(user.password as string, provided.password))) {
     //if the password does not match, it will throw an error
-    return throwError();
+    return _throwError();
+  }
+
+  if (populate?.length) {
+    await user.populate(populate);
   }
 
   //if the authentication is successful, it will return the user object with a signed token
@@ -55,11 +60,15 @@ export const signIn = async (
  * userType and _id.
  * @returns an object that includes the user data, a token, and the user type.
  */
-export const refreshToken = async (u: INotifyUser) => {
+export const refreshToken = async (u: INotifyUser, populate = '') => {
   const user = await genericUserQuery<true>(u.userType, { _id: u._id }, true);
 
   if (!user) {
     return new BadRequestError('Credenziali errate');
+  }
+
+  if (populate?.length) {
+    await user.populate(populate);
   }
 
   return {
@@ -96,6 +105,6 @@ const _signToken = (user: INotifyUser) => {
   });
 };
 
-const throwError = () => {
+const _throwError = () => {
   throw new BadRequestError('Credenziali errate');
 };

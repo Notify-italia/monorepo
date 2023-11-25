@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { AppError, INotifyAgent } from '@notify/interfaces';
-import { AgentService } from '@notify/nfc-app-services';
+import { AppError, INotifyAgent, INotifyLicense } from '@notify/interfaces';
+import { AgentService, AuthService } from '@notify/nfc-app-services';
 import { PageHeaderComponent } from '@notify/ngx-components';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, catchError, tap } from 'rxjs';
@@ -19,9 +19,15 @@ export class AccountsComponent implements OnInit {
   public profilesSubject$ = new Subject<INotifyAgent[]>();
   public profiles$: Observable<INotifyAgent[]> = this.profilesSubject$;
 
+  public get maxAgents(): number {
+    return (this._authService.user?.license as unknown as INotifyLicense)
+      .allowedAgents;
+  }
+
   constructor(
     private _agentService: AgentService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _authService: AuthService
   ) {}
 
   ngOnInit(): void {

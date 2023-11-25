@@ -9,7 +9,7 @@ router.post(
   '/',
   errorHandledRequest(
     async (req: Request<{ email: string; password: string }>, res) => {
-      res.status(200).send(await refreshToken(req.currentUser));
+      res.status(200).send(await refreshToken(req.currentUser, 'license'));
     },
     {
       requireAuth: {

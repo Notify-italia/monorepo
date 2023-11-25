@@ -4,5 +4,7 @@ export interface INotifyLicense extends MongodbDocument {
   expirationDate: Date;
   enabled: boolean;
   publicKey: string;
-  //createdBy: Types.ObjectId;
+  allowedAgents: number;
+  //TODO gestire le features
+  features: string[];
 }

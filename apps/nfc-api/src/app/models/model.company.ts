@@ -70,6 +70,14 @@ const CompanySchema = new Schema<Company, CompanyModel>(
   {
     timestamps: true,
     toObject: {
+      virtuals: true,
+      transform(doc, ret) {
+        delete ret.password;
+        delete ret.__v;
+      },
+    },
+    toJSON: {
+      virtuals: true,
       transform(doc, ret) {
         delete ret.password;
         delete ret.__v;
@@ -87,7 +95,7 @@ CompanySchema.pre('save', async function (done) {
 // 5. Aggiungi un metodo statico build per creare il nuovo Model
 CompanySchema.statics.build = async (doc: Partial<Company>) => {
   const company = new CompanyModel(doc);
-  company.password = await Password.toHash(company.password);
+  company.password = await Password.toHash(company.password as string);
 
   //creates a profile for the company
   await ProfileModel.build({

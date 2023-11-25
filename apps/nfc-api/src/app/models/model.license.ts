@@ -62,6 +62,10 @@ const LicenseSchema = new Schema<License, LicenseModel>(
       type: String,
       required: [true, LICENSE_VALIDATION_MESSAGES.publicKey as string],
     },
+    allowedAgents: {
+      type: Number,
+      default: 1,
+    },
   },
   {
     timestamps: true,

@@ -14,12 +14,13 @@ router.post(
     async (req: Request<{ email: string; password: string }>, res) => {
       const { email, password } = req.body;
 
-      const user = await signIn(
+      const signedInUser = await signIn(
         { email, password },
-        EnumNotifyUserType.Company
+        EnumNotifyUserType.Company,
+        'license'
       );
 
-      res.status(200).send(user);
+      res.status(200).send(signedInUser);
     }
   )
 );

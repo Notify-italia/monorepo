@@ -105,7 +105,6 @@ const _isAllowed = (user: INotifyUser): boolean => {
 };
 
 const _hasActiveLicense = async (user: INotifyUser): Promise<boolean> => {
-  console.log('user', user.license);
   //obtains the current license directly from the user (assuming it's a company) or through _getAgentLicense
   const lm = await LicenseManager.load({ id: user.license }).catch(
     async (err) => {
