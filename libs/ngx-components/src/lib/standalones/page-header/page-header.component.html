@@ -1,4 +1,32 @@
-<div class="pt-4 w-full">
-  <span class="text-4xl text-gray-50 font-bold">{{ title }} </span>
-  <div class="divider"></div>
-</div>
+<header class="w-full bg-gray-900/90 rounded-xl">
+  <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <div class="text-center sm:text-left">
+        <h1 class="text-2xl font-bold text-white sm:text-3xl">
+          {{ title }}
+        </h1>
+
+        <p class="mt-1.5 text-sm text-gray-400">
+          {{ subtitle }}
+        </p>
+      </div>
+
+      <div
+        class="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row-reverse sm:items-center"
+      >
+        @for(btn of buttons; track btn.disabled; let i = $index) {
+        <button
+          [disabled]="btn.disabled"
+          class="btn"
+          type="button"
+          data-theme="notifytheme"
+          [class.btn-primary]="i === 0"
+          [class.btn-accent]="i > 0"
+        >
+          {{ btn.label }}
+        </button>
+        }
+      </div>
+    </div>
+  </div>
+</header>

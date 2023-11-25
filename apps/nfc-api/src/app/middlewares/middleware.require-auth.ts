@@ -109,7 +109,7 @@ const _hasActiveLicense = async (user: INotifyUser): Promise<boolean> => {
   const lm = await LicenseManager.load({ id: user.license }).catch(
     async (err) => {
       wLog(err.message, 'error');
-      await _getAgentLicense(user);
+      return await _getAgentLicense(user);
     }
   );
 
@@ -131,5 +131,5 @@ const _getAgentLicense = async (user: INotifyUser) => {
     return null;
   }
 
-  return LicenseManager.load({ id: company.license.toString() });
+  return LicenseManager.load({ id: String(company.license) });
 };
