@@ -1,27 +1,27 @@
 .action-btn {
-  @apply btn btn-circle btn-sm;
+  @apply btn btn-circle btn-sm btn-ghost;
 
   &.action-primary {
-    @apply btn-primary;
+    @apply text-primary;
   }
 
   &.action-secondary {
-    @apply btn-secondary;
+    @apply text-secondary;
   }
 
   &.action-success {
-    @apply btn-success;
+    @apply text-success;
   }
 
   &.action-info {
-    @apply btn-info;
+    @apply text-info;
   }
 
   &.action-warning {
-    @apply btn-warning;
+    @apply text-warning;
   }
 
   &.action-error {
-    @apply btn-error;
+    @apply text-error;
   }
 }

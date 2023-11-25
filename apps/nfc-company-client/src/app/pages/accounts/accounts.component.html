@@ -62,14 +62,21 @@
                 </div>
               </td>
               <td>
-                <div class="flex justify-center">
-                  <span class="badge badge-ghost badge-sm px-4 py-3 w-full">{{
-                    user.profile?.role
-                  }}</span>
-                </div>
+                <span
+                  data-theme="notifytheme"
+                  class="badge badge-primary badge-sm px-4 py-3 w-fit whitespace-nowrap"
+                  >{{ user.profile?.role }}</span
+                >
               </td>
-              <td>{{ user.createdAt | date : 'dd/MM/yyyy HH:mm' }}</td>
-              <th class="lg:space-x-4">
+              <td>
+                <span
+                  class="badge badge-ghost badge-sm px-4 py-3 whitespace-nowrap"
+                  data-theme="notifytheme"
+                >
+                  {{ user.createdAt | date : 'dd/MM/yyyy HH:mm' }}
+                </span>
+              </td>
+              <th class="lg:space-x-4 whitespace-nowrap">
                 <!-- INSPECT PROFILE -->
                 <button
                   class="action-btn action-primary"
