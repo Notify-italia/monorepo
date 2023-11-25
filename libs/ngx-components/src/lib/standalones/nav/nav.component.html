@@ -1,6 +1,4 @@
-<div
-  class="drawer border-b border-secondary/20 drawer-open z-[999] shadow-xl shadow-primary-700/20"
->
+<div class="drawer border-b border-secondary/20 drawer-open z-[999] shadow-lg">
   <div class="navbar p-0">
     <div class="flex">
       <input id="my-drawer" type="checkbox" class="drawer-toggle" />
@@ -40,12 +38,13 @@
     class="drawer-overlay"
   ></label>
 
-  <div class="flex flex-col justify-between h-[99.85vh] bg-base-100/70">
+  <div class="flex flex-col justify-between h-[99.85vh] bg-primary/5">
     <div class="flex flex-col">
       <notify-app-title class="p-4 pt-10"></notify-app-title>
       <ul>
         <!-- Sidebar content here -->
-        <li *ngFor="let item of topItems" [class.nav-disabled]="item.disabled">
+        @for (item of topItems; track item.path) {
+        <li [class.nav-disabled]="item.disabled">
           <a
             [routerLink]="item.path"
             routerLinkActive="btn-active"
@@ -57,21 +56,21 @@
               fill="currentColor"
               class="text-primary"
             >
-              <path
-                *ngFor="let p of item.icon"
-                fill-rule="evenodd"
-                [attr.d]="p"
-              />
+              @for (p of item.icon; track p) {
+              <path fill-rule="evenodd" [attr.d]="p" />
+              }
             </svg>
 
             <span>{{ item.label }}</span>
           </a>
         </li>
+        }
       </ul>
     </div>
     <ul>
       <!-- Sidebar content here -->
-      <li *ngFor="let item of bottomItems">
+      @for(item of bottomItems; track item.path) {
+      <li>
         <a
           [routerLink]="item.path"
           routerLinkActive="btn-active"
@@ -92,6 +91,7 @@
           <span>{{ item.label }}</span>
         </a>
       </li>
+      }
     </ul>
   </div>
 </ng-template>

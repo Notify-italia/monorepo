@@ -25,3 +25,15 @@
     @apply btn-error;
   }
 }
+
+.main-container {
+  @apply flex flex-col pb-5 lg:px-5 space-y-4 w-full;
+
+  & > div:first-child {
+    @apply flex justify-end;
+  }
+
+  & > div:nth-child(2) {
+    @apply w-full h-full p-4;
+  }
+}
