@@ -87,6 +87,13 @@ const CompanySchema = new Schema<Company, CompanyModel>(
 );
 // Quando ci sono riferimenti ad ID di altri documenti, usa `Schema.Types.ObjectId`
 
+CompanySchema.virtual('profile', {
+  ref: 'Profile',
+  localField: '_id',
+  foreignField: 'owner',
+  justOne: true,
+});
+
 // 4. Aggiungi qui, se ci sono, gli hook da eseguire prima o dopo una operazione di CRUD (create, read, update, delete)
 CompanySchema.pre('save', async function (done) {
   done();

@@ -46,7 +46,7 @@ const _profilePlayerFlow = async <T>(req: Request<T>, res: Response) => {
   res.status(200).send({
     ...profile,
     __v: undefined,
-    company: await getAgentOwnerProfile(profile._id),
+    company: await getAgentOwnerProfile(profile.owner),
   });
 };
 

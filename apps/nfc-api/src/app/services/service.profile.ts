@@ -1,5 +1,6 @@
 import { INotifyCompany, INotifyProfile } from '@notify/interfaces';
 import { Types } from 'mongoose';
+import { wLog } from '../../main';
 import { AgentModel } from '../models/model.agent';
 
 /**
@@ -9,8 +10,8 @@ import { AgentModel } from '../models/model.agent';
  * find an agent in the database whose profile matches the given `profileId`.
  * @returns The function `companyProfile` returns the `profile` property of the `company` object.
  */
-export const getAgentOwnerProfile = async (profileId: Types.ObjectId) => {
-  const agent = await AgentModel.findOne({ profile: profileId })
+export const getAgentOwnerProfile = async (agentId: Types.ObjectId) => {
+  const agent = await AgentModel.findById(agentId)
     .populate({
       path: 'owner',
       populate: {
@@ -21,8 +22,11 @@ export const getAgentOwnerProfile = async (profileId: Types.ObjectId) => {
     .lean();
 
   if (!agent) {
+    wLog('Agent not found', 'warning');
     return undefined;
   }
+
+  console.log(agent.owner);
 
   return (
     agent.owner as unknown as INotifyCompany & { profile: INotifyProfile }

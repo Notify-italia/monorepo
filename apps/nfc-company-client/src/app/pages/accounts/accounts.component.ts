@@ -24,8 +24,8 @@ import { environment } from '../../../environments/environment';
 export class AccountsComponent implements OnInit {
   public placeholderAvatar =
     'https://www.heymind.org.uk/wp-content/uploads/2022/04/avatar-placeholder.png';
-  public profilesSubject$ = new Subject<INotifyAgent[]>();
-  public profiles$: Observable<INotifyAgent[]> = this.profilesSubject$;
+  public agentsSubject$ = new Subject<INotifyAgent[]>();
+  public agents$: Observable<INotifyAgent[]> = this.agentsSubject$;
 
   public get maxAgents(): number {
     const user = this._authService.user as unknown as INotifyCompany<true>;
@@ -59,7 +59,7 @@ export class AccountsComponent implements OnInit {
   public getAgents() {
     return this._agentService.getAgents().pipe(
       tap((agents) => {
-        this.profilesSubject$.next(agents);
+        this.agentsSubject$.next(agents);
       }),
       catchError((error: AppError) => {
         this._toastr.error(error.error.errors[0].message, 'Errore');
