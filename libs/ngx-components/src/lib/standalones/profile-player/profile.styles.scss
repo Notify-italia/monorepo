@@ -1,3 +1,7 @@
+.backdrop {
+  @apply fixed w-screen h-screen  backdrop-blur-xl backdrop-brightness-50 z-[999] top-0 left-0 flex justify-center items-center;
+}
+
 .section {
   @apply flex flex-col items-center  space-y-1;
 

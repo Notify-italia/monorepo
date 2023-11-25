@@ -69,10 +69,12 @@
                 </div>
               </td>
               <td>{{ user.createdAt | date : 'dd/MM/yyyy HH:mm' }}</td>
-              <th class="space-x-4">
+              <th class="lg:space-x-4">
+                <!-- INSPECT PROFILE -->
                 <button
                   class="action-btn action-primary"
                   data-theme="notifytheme"
+                  (click)="inspectProfile(user.profile)"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -87,6 +89,7 @@
                     />
                   </svg>
                 </button>
+                <!-- EDIT USER -->
                 <button
                   class="action-btn action-secondary"
                   data-theme="notifytheme"
@@ -102,6 +105,7 @@
                     />
                   </svg>
                 </button>
+                <!-- DELETE USER -->
                 <button
                   class="action-btn action-error"
                   data-theme="notifytheme"

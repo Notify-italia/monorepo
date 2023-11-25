@@ -13,7 +13,7 @@ import { RatingComponent } from '../rating/rating.component';
   imports: [CommonModule, FormsModule, RatingComponent],
   providers: [FeedbackService],
   templateUrl: './feedback.component.html',
-  styleUrls: ['./feedback.component.scss'],
+  styleUrls: ['./feedback.component.scss', '../profile.styles.scss'],
 })
 export class FeedbackComponent implements OnInit {
   @Input({ required: true }) cf!: ComponentRef<FeedbackComponent>;

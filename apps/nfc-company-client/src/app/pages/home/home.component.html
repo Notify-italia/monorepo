@@ -1,9 +1,11 @@
 <div class="flex flex-col lg:flex-row font-roboto min-h-screen overflow-hidden">
   <notify-nav [topItems]="nav" [bottomItems]="bottomNav"></notify-nav>
 
-  <div
-    class="p-2 h-full lg:max-h-screen lg:w-screen overflow-y-auto overflow-x-hidden"
-  >
-    <router-outlet class="w-full"></router-outlet>
+  <div class="flex justify-center w-full lg:my-4">
+    <div
+      class="p-2 h-full lg:max-h-screen lg:w-10/12 overflow-y-auto overflow-x-hidden"
+    >
+      <router-outlet class="w-full"></router-outlet>
+    </div>
   </div>
 </div>

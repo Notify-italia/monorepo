@@ -28,7 +28,7 @@ import { RatingComponent } from '../rating/rating.component';
   ],
   providers: [FeedbackFactory, FeedbackService],
   templateUrl: './profile-view.component.html',
-  styleUrls: ['./profile-view.component.scss', '../styles.profile.scss'],
+  styleUrls: ['./profile-view.component.scss', '../profile.styles.scss'],
 })
 export class ProfileViewComponent {
   @Input() data?: INotifyProfile;

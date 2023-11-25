@@ -10,7 +10,7 @@ import { ProfileService } from '@notify/nfc-app-services';
   templateUrl: './profile-static-links.component.html',
   styleUrls: [
     './profile-static-links.component.scss',
-    '../styles.profile.scss',
+    '../profile.styles.scss',
   ],
 })
 export class ProfileStaticLinksComponent {

@@ -2,14 +2,17 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AppError, INotifyAgent, INotifyCompany } from '@notify/interfaces';
 import { AgentService, AuthService } from '@notify/nfc-app-services';
-import { PageHeaderComponent } from '@notify/ngx-components';
+import {
+  PageHeaderComponent,
+  ProfilePlayerFactory,
+} from '@notify/ngx-components';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, catchError, tap } from 'rxjs';
 
 @Component({
   standalone: true,
   imports: [CommonModule, PageHeaderComponent],
-  providers: [AgentService],
+  providers: [AgentService, ProfilePlayerFactory],
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.scss'],
 })
@@ -28,7 +31,8 @@ export class AccountsComponent implements OnInit {
   constructor(
     private _agentService: AgentService,
     private _toastr: ToastrService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _profilePlayer: ProfilePlayerFactory
   ) {}
 
   ngOnInit(): void {
@@ -45,5 +49,12 @@ export class AccountsComponent implements OnInit {
         return [];
       })
     );
+  }
+
+  public inspectProfile(profile: INotifyAgent['profile']) {
+    if (!profile) {
+      return;
+    }
+    this._profilePlayer.show({ profile });
   }
 }

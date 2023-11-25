@@ -14,8 +14,9 @@ import { NfcWriteComponent } from '../nfc-write/nfc-write.component';
   styleUrls: ['./share-profile.component.scss'],
 })
 export class ShareProfileComponent {
-  @Input() public profile?: INotifyProfile;
-  @Input() public publicProfileUrl = 'http://localhost:4200/profile';
+  @Input({ required: true }) public profile!: INotifyProfile;
+  @Input({ required: true }) public publicProfileUrl =
+    'http://localhost:4200/profile';
 
   public nfcEnabled = /android/i.test(navigator.userAgent.toLowerCase());
 
