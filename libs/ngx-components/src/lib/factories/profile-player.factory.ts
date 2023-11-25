@@ -7,11 +7,12 @@ import { FullscreenMockupComponent } from '../standalones/profile-player/fullscr
 export class ProfilePlayerFactory {
   constructor(public vcr: ViewContainerRef) {}
 
-  public show(config: { profile: INotifyProfile }) {
+  public show(config: { profile: INotifyProfile; playerUrl: string }) {
     const ref = this.vcr.createComponent(FullscreenMockupComponent);
 
     ref.setInput('cf', ref);
     ref.setInput('data', config.profile);
+    ref.setInput('playerUrl', config.playerUrl);
 
     return ref;
   }

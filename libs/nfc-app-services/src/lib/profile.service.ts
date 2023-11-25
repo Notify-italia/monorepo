@@ -11,7 +11,7 @@ export class ProfileService {
     return phoneNumber.replace(/[^0-9]/g, '');
   }
 
-  public getPublicProfileUrl(publicUrl: string, id: string) {
+  public genPlayerUrl(publicUrl: string, id: string) {
     return `${publicUrl}/profile?p=${id}`;
   }
 

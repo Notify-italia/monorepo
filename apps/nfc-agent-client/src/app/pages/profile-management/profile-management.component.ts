@@ -44,7 +44,7 @@ export class ProfileManagementComponent {
     this._getProfile();
   }
 
-  public publicProfileUrl(profile: IProfile) {
+  public playerUrl(profile: IProfile) {
     return this._profileService.getPublicProfileUrl(
       environment.publicUrl,
       profile._id

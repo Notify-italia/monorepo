@@ -94,10 +94,7 @@ TEL;TYPE=work,voice;VALUE=uri:${this._profileService.cleanPhoneNumber(
       d.phoneNumber || ''
     )}
 PHOTO;ENCODING=b:${d.avatar?.split(',')[1]}
-item2.URL;type=pref:${this._profileService.getPublicProfileUrl(
-      this.publicUrl,
-      d._id
-    )}
+item2.URL;type=pref:${this._profileService.genPlayerUrl(this.publicUrl, d._id)}
 EMAIL:${d.email}
 END:VCARD`;
 

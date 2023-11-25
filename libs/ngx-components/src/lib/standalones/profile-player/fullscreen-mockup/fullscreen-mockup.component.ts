@@ -13,6 +13,7 @@ import { ProfileViewComponent } from '../profile-view/profile-view.component';
 })
 export class FullscreenMockupComponent {
   @Input({ required: true }) data!: INotifyProfile;
+  @Input({ required: true }) playerUrl!: string;
   @Input() cf!: ComponentRef<FullscreenMockupComponent>;
 
   constructor() {}

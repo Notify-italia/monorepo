@@ -15,21 +15,20 @@ import { NfcWriteComponent } from '../nfc-write/nfc-write.component';
 })
 export class ShareProfileComponent {
   @Input({ required: true }) public profile!: INotifyProfile;
-  @Input({ required: true }) public publicProfileUrl =
-    'http://localhost:4200/profile';
+  @Input({ required: true }) public playerUrl = 'http://localhost:4200/profile';
 
   public nfcEnabled = /android/i.test(navigator.userAgent.toLowerCase());
 
   constructor(private _lightbox: Lightbox, private _toastr: ToastrService) {}
 
   public async copyToClipboard() {
-    await navigator.clipboard.writeText(this.publicProfileUrl);
+    await navigator.clipboard.writeText(this.playerUrl);
     this._toastr.info('URL Copiato');
   }
 
   public async openLightbox() {
     const qr = `https://api.qrserver.com/v1/create-qr-code/?format=svg&size=500x500&data=${encodeURIComponent(
-      this.publicProfileUrl
+      this.playerUrl
     )}`;
 
     this._lightbox.open(
