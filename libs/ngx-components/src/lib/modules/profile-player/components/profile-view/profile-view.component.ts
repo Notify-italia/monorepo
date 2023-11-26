@@ -7,11 +7,11 @@ import {
 } from '@notify/interfaces';
 import { FeedbackService, ProfileService } from '@notify/nfc-app-services';
 import { format } from 'date-fns';
+import { AnimatedBgComponent } from 'libs/ngx-components/src/lib/standalones/animated-bg/animated-bg.component';
+import { AvatarComponent } from 'libs/ngx-components/src/lib/standalones/avatar/avatar.component';
+import { SvgBoxIconComponent } from 'libs/ngx-components/src/lib/standalones/svg-box-icon/svg-box-icon.component';
 import { interval, map, startWith } from 'rxjs';
-import { FeedbackFactory } from '../../../factories';
-import { AnimatedBgComponent } from '../../animated-bg/animated-bg.component';
-import { AvatarComponent } from '../../avatar/avatar.component';
-import { SvgBoxIconComponent } from '../../svg-box-icon/svg-box-icon.component';
+import { FeedbackFactory } from '../../factories';
 import { ProfileStaticLinksComponent } from '../profile-static-links/profile-static-links.component';
 import { RatingComponent } from '../rating/rating.component';
 

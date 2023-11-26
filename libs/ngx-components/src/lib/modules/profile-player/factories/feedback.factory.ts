@@ -1,6 +1,6 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
-import { FeedbackComponent } from '../standalones/profile-player/feedback/feedback.component';
+import { FeedbackComponent } from '../components/feedback/feedback.component';
 
 @Injectable()
 export class FeedbackFactory {

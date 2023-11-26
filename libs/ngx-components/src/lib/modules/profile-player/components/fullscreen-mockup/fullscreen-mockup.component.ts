@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ComponentRef, Input } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
-import { ShareProfileComponent } from '../../share-profile/share-profile.component';
+import { ShareProfileComponent } from '@notify/ngx-components';
 import { ProfileViewComponent } from '../profile-view/profile-view.component';
 
 @Component({

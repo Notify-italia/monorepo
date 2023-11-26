@@ -1,7 +1,6 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
-
 import { INotifyProfile } from '@notify/interfaces';
-import { FullscreenMockupComponent } from '../standalones/profile-player/fullscreen-mockup/fullscreen-mockup.component';
+import { FullscreenMockupComponent } from '../components/fullscreen-mockup/fullscreen-mockup.component';
 
 @Injectable()
 export class ProfilePlayerFactory {

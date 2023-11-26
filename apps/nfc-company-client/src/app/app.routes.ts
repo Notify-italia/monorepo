@@ -33,6 +33,13 @@ export const appRoutes: Route[] = [
           ),
       },
       {
+        path: 'license',
+        loadComponent: () =>
+          import('./pages/license/license.component').then(
+            (m) => m.LicenseComponent
+          ),
+      },
+      {
         path: 'signout',
         loadComponent: () =>
           import('./pages/signout/signout.component').then(

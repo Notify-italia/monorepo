@@ -1,0 +1,11 @@
+li {
+  @apply space-x-2;
+}
+
+.stat-title {
+  @apply font-bold;
+}
+
+.spacing {
+  @apply space-y-4 2xl:space-y-0 2xl:space-x-4;
+}

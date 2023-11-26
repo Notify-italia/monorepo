@@ -36,7 +36,6 @@ export class HomeComponent {
       ],
     },
     {
-      disabled: true,
       label: 'Licenza',
       path: '/pages/license',
       icon: [
