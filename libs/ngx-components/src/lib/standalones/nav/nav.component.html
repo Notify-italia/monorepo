@@ -1,13 +1,15 @@
-<div class="drawer border-b border-secondary/20 drawer-open z-[999] shadow-lg">
-  <div class="navbar p-0">
-    <div class="flex">
+<div
+  class="drawer drawer-open z-[999] shadow-xl fixed lg:static bg-primary/5 lg:bg-transparent backdrop-blur-xl backdrop-brightness-50 lg:backdrop-blur-0 lg:backdrop-brightness-100"
+>
+  <div class="navbar p-0 h-10 lg:h-full">
+    <div class="flex items-center">
       <input id="my-drawer" type="checkbox" class="drawer-toggle" />
       <label class="btn btn-square btn-ghost lg:hidden mx-2" for="my-drawer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          class="inline-block w-10 h-10 stroke-current"
+          class="inline-block w-8 h-8 lg:w-10 lg:h-10 stroke-current"
         >
           <path
             stroke-linecap="round"
@@ -17,8 +19,8 @@
           ></path>
         </svg>
       </label>
-
-      <div class="drawer-content hidden lg:block">
+      <notify-app-title class="lg:hidden w-32"></notify-app-title>
+      <div class="drawer-content hidden lg:block h-screen my-auto">
         <!-- DESKTOP SIDEBAR -->
         <ng-container [ngTemplateOutlet]="SidebarContent"></ng-container>
       </div>
@@ -30,6 +32,7 @@
     </div>
   </div>
 </div>
+<div class="h-14 lg:hidden"></div>
 
 <ng-template #SidebarContent>
   <label
@@ -38,9 +41,11 @@
     class="drawer-overlay"
   ></label>
 
-  <div class="flex flex-col justify-between h-[99.85vh] bg-primary/5">
+  <div class="flex flex-col justify-between bg-base-100 lg:bg-primary/5 h-full">
     <div class="flex flex-col">
-      <notify-app-title class="p-4 pt-10"></notify-app-title>
+      <notify-app-title
+        class="p-4 py-2 lg:pt-10 hidden lg:block"
+      ></notify-app-title>
       <ul>
         <!-- Sidebar content here -->
         @for (item of topItems; track item.path) {

@@ -15,17 +15,32 @@
     ]"
   ></notify-page-header>
   <div class="flex justify-center w-full">
-    <div class="flex flex-col pb-5 lg:px-5 space-y-2 w-full 2xl:w-10/12">
-      <!-- TODO SEARCH -->
-      <div class="form-control w-full">
+    <div class="flex flex-col space-y-4 w-full 2xl:w-10/12">
+      <!-- TODO SEARCH e incapsulamento dell'input -->
+      <div class="form-control box px-4 py-2">
         <label class="label">
           <span class="label-text">Cerca</span>
         </label>
-        <input
-          type="text"
-          placeholder="Mario Rossi"
-          class="input input-bordered w-full"
-        />
+        <div class="flex">
+          <svg
+            class="pointer-events-none absolute z-10 my-3.5 ms-4 stroke-current opacity-60 text-base-content h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            ></path>
+          </svg>
+          <input
+            type="text"
+            placeholder="Mario Rossi"
+            class="input input-bordered w-full pl-14"
+          />
+        </div>
         <label class="label">
           <label class="label-text"></label>
           <div class="flex justify-end">
