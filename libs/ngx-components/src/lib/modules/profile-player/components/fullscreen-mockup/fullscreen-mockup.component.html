@@ -22,7 +22,7 @@
         </button>
       </div>
 
-      <div>
+      <div *ngIf="playerUrl">
         <notify-share-profile
           [profile]="data"
           [playerUrl]="playerUrl"

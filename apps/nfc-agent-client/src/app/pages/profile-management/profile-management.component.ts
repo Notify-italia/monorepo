@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import {
   PageHeaderComponent,
   ProfileFormComponent,
+  ProfilePlayerFactory,
   ProfileViewComponent,
   ShareProfileComponent,
 } from '@notify/ngx-components';
@@ -29,6 +30,7 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
     ShareProfileComponent,
     PageHeaderComponent,
   ],
+  providers: [ProfilePlayerFactory],
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
 })
@@ -40,7 +42,8 @@ export class ProfileManagementComponent {
 
   constructor(
     private _profileService: ProfileService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _playerFactroy: ProfilePlayerFactory
   ) {
     this._getProfile();
   }
@@ -59,6 +62,10 @@ export class ProfileManagementComponent {
   public reloadForm() {
     //TODO trovare un modo più elegante per ricaricare il form
     location.reload();
+  }
+
+  public previewProfile(profile: INotifyProfile) {
+    this._playerFactroy.show({ profile });
   }
 
   public saveProfile(profile: IProfile) {

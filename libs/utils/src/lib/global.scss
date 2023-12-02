@@ -11,6 +11,14 @@
   @apply bg-gray-700/20 rounded-xl;
 }
 
+.floating-button {
+  @apply btn btn-circle btn-ghost btn-primary backdrop-blur backdrop-brightness-50 text-gray-50 flex flex-col justify-center items-center w-16 h-16 shadow-lg shadow-primary/40;
+
+  & > svg {
+    @apply w-full h-full p-3;
+  }
+}
+
 .slide-in-left {
   -webkit-animation: slide-in-left 0.5s cubic-bezier(0.19, 1, 0.22, 1) both;
   animation: slide-in-left 0.5s cubic-bezier(0.19, 1, 0.22, 1) both;
