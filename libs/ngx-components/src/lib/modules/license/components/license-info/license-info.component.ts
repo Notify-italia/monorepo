@@ -37,12 +37,9 @@ export class LicenseInfoComponent {
       return 0;
     }
 
-    const { expirationDate, createdAt } = this.license;
+    const { expirationDate } = this.license;
 
-    let diffDays = differenceInDays(
-      new Date(expirationDate),
-      new Date(createdAt)
-    );
+    let diffDays = differenceInDays(new Date(expirationDate), new Date());
 
     if (diffDays < 0) {
       diffDays = 0;

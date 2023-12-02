@@ -105,7 +105,7 @@
     <div class="text-sm w-full flex justify-around items-center">
       <!-- ALLOWED ACCOUNTS -->
       <div class="stat w-fit">
-        <div class="stat-figure text-orange-600">
+        <div class="stat-figure">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -117,7 +117,7 @@
             />
           </svg>
         </div>
-        <div class="stat-value text-orange-600">
+        <div class="stat-value">
           {{ license?.allowedAgents }}
         </div>
         <div class="stat-title">Accounts</div>
@@ -128,7 +128,11 @@
       <div class="stat w-fit">
         <div
           class="stat-figure"
-          [ngClass]="isExpired ? 'text-error' : 'text-success'"
+          [ngClass]="{
+            'text-warning': remainingDays < 30 && !isExpired,
+            'text-success': !isExpired,
+            'text-error': isExpired,
+          }"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -145,7 +149,11 @@
         </div>
         <div
           class="stat-value"
-          [ngClass]="isExpired ? 'text-error' : 'text-success'"
+          [ngClass]="{
+            'text-warning': remainingDays < 30 && !isExpired,
+            'text-success': !isExpired,
+            'text-error': isExpired,
+          }"
         >
           {{ remainingDays || 0 }}
         </div>
