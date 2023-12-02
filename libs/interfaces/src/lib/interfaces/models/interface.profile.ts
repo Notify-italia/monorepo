@@ -1,7 +1,6 @@
 import { MongodbDocument } from '../interface.mongodb';
 import { EnumNotifyUserType, INotifyUser } from '../interface.user';
 
-//TODO gestisci ruolo agente
 export interface INotifyProfile<
   T extends EnumNotifyUserType = EnumNotifyUserType
 > extends MongodbDocument {
