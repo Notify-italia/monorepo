@@ -34,8 +34,9 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
 })
 export class ProfileManagementComponent {
   private _profileSubject$ = new Subject<IProfile>();
-
   public profile$: Observable<IProfile> = this._profileSubject$;
+
+  public loading = false;
 
   constructor(
     private _profileService: ProfileService,
@@ -61,18 +62,21 @@ export class ProfileManagementComponent {
   }
 
   public saveProfile(profile: IProfile) {
+    this.loading = true;
     this._profileService
       .patchProfile<EnumNotifyUserType.Agent>(profile)
       .pipe(
         tap((profile) => {
           this._toastr.success('Profilo aggiornato', 'Successo');
           this._profileSubject$.next(profile);
+          this.loading = false;
         }),
         catchError(async (err: AppError) => {
           this._toastr.error(
             err?.error?.errors?.[0]?.message || 'Si è verificato un errore',
             'Errore'
           );
+          this.loading = false;
           return err;
         })
       )

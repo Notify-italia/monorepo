@@ -52,8 +52,9 @@ type ProfileForm = FormGroup<{
 })
 export class ProfileFormComponent implements OnInit {
   @Input({ required: true }) public profile!: INotifyProfile;
-  @Output() public value = new EventEmitter<INotifyProfile>();
+  @Input() public loading = false;
 
+  @Output() public value = new EventEmitter<INotifyProfile>();
   @Output() public submitForm = new EventEmitter<void>();
   @Output() public reloadForm = new EventEmitter<void>();
 

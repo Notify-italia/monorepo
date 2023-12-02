@@ -163,14 +163,15 @@
       Annulla
     </button>
     <div class="w-6/12">
-      <!-- TODO mostra spinner e disabilita se in caricamento -->
       <button
         [disabled]="form.invalid"
+        [class.pointer-events-none]="loading"
         class="btn btn-primary w-full"
         type="submit"
         data-theme="notifytheme"
       >
-        Salva
+        <span class="loading loading-spinner" *ngIf="loading"></span>
+        <span class="my-auto" *ngIf="!loading"> Salva </span>
       </button>
 
       <div class="text-center my-2 kbd-xs opacity-50 hidden lg:block">
