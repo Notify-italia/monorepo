@@ -72,7 +72,7 @@ export class AccountsComponent implements OnInit {
     if (!profile) {
       return;
     }
-    this._profileFactory.show({
+    this._profileFactory.createPlayer({
       profile,
       playerUrl: this._getPlayerUrl(profile),
     });
