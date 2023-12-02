@@ -6,7 +6,7 @@ import { FullscreenMockupComponent } from '../components/fullscreen-mockup/fulls
 export class ProfilePlayerFactory {
   constructor(public vcr: ViewContainerRef) {}
 
-  public show(config: { profile: INotifyProfile; playerUrl?: string }) {
+  public createPlayer(config: { profile: INotifyProfile; playerUrl?: string }) {
     const ref = this.vcr.createComponent(FullscreenMockupComponent);
 
     ref.setInput('cf', ref);

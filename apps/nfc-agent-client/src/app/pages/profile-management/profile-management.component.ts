@@ -65,7 +65,7 @@ export class ProfileManagementComponent {
   }
 
   public previewProfile(profile: INotifyProfile) {
-    this._playerFactroy.show({ profile });
+    this._playerFactroy.createPlayer({ profile });
   }
 
   public saveProfile(profile: IProfile) {
