@@ -1,4 +1,4 @@
 //add a background color to ngx-dropzone component using angular's ng-deep
 ngx-dropzone ::ng-deep {
-  @apply bg-base-200;
+  @apply text-gray-50 bg-base-200/50 backdrop-brightness-105;
 }
