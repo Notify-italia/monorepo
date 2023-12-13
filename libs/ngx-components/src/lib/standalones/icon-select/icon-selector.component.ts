@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SvgBoxIcon, SvgboxService } from '@notify/nfc-app-services';
 import {
@@ -28,6 +37,8 @@ import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 export class IconSelectorComponent implements OnInit {
   @Input() public icon?: SvgBoxIcon['name'];
   @Output() public iconValue = new EventEmitter<SvgBoxIcon>();
+
+  @ViewChildren('card') public cards?: QueryList<ElementRef>;
 
   public hideSelector = false;
   public MANUAL_REFRESH = true;
@@ -60,6 +71,16 @@ export class IconSelectorComponent implements OnInit {
     }
 
     this.iconValue.emit(this.currentIcon);
+  }
+
+  public onMouseMove(event: MouseEvent) {
+    this.cards?.forEach((card) => {
+      const rect = card.nativeElement.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      card.nativeElement.style.setProperty('--xPos', `${x}px`);
+      card.nativeElement.style.setProperty('--yPos', `${y}px`);
+    });
   }
 
   public setIcon(icon: SvgBoxIcon) {

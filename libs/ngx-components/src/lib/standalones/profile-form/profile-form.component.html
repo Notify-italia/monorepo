@@ -100,7 +100,11 @@
   <div class="divider">Integrazioni</div>
 
   <div class="field space-y-2" *ngIf="form.controls.customFields as cf">
-    <button class="btn w-full" type="button" (click)="addCustomField()">
+    <button
+      class="btn w-full text-white/80"
+      type="button"
+      (click)="addCustomField()"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

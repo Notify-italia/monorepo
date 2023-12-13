@@ -5,7 +5,65 @@
 .icon-button {
   @apply btn btn-square btn-ghost bg-base-300 flex flex-col  hover:scale-110;
 }
-
 .selector-container {
-  @apply fixed w-screen h-screen top-0 backdrop-blur left-0 z-[999] flex flex-col justify-center items-center backdrop-brightness-50 rounded-xl;
+  @apply fixed w-screen h-screen top-0 backdrop-blur left-0 z-[999]  items-center backdrop-brightness-50 rounded-xl;
+}
+
+.cards {
+  display: grid;
+  gap: 0.4rem;
+  padding: 32px;
+
+  @apply grid-cols-4 lg:grid-cols-6;
+}
+
+.cards:hover .card {
+  background: radial-gradient(
+    800px circle at var(--xPos) var(--yPos),
+    rgba(0, 255, 241, 0.4),
+    transparent 15%
+  );
+}
+
+.card {
+  background: radial-gradient(
+    400px circle at 0 0,
+    rgba(0, 255, 242, 0),
+    transparent 0%
+  );
+  transition: 0.15s;
+
+  @apply relative flex justify-center items-center rounded-lg;
+}
+
+.cards .card:hover::before {
+  opacity: 1;
+}
+
+.card::before {
+  content: '';
+  border-radius: inherit;
+  background: radial-gradient(
+    500px circle at var(--xPos) var(--yPos),
+    rgba(0, 255, 241, 0.1),
+    transparent 35%
+  );
+
+  @apply absolute top-0 left-0 right-0 bottom-0 rounded-lg opacity-0 transition-all ease-in-out;
+}
+
+.card-content {
+  @apply p-5 flex flex-col justify-center items-center gap-4 bg-base-300/90 rounded-lg transition-all w-full h-full;
+  height: calc(100% - 2px);
+  width: calc(100% - 2px);
+  border-radius: inherit;
+}
+
+.card :is(label, notify-svg-box-icon) {
+  opacity: 0.45;
+  transition: 0.3s;
+}
+
+.card:hover :is(label, notify-svg-box-icon) {
+  opacity: 1;
 }
