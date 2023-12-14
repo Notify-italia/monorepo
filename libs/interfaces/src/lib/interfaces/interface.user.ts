@@ -8,6 +8,8 @@ export interface INotifyUser extends INotifyAgent, INotifyCompany {
   token?: string;
 }
 
+export interface INotifyAccount extends INotifyAgent, INotifyCompany {}
+
 export interface INotifyAuth {
   email: string;
   password: string;

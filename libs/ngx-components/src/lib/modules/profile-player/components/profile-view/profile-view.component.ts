@@ -71,7 +71,7 @@ export class ProfileViewComponent {
       return;
     }
 
-    this._feedbackFactory.show({
+    this._feedbackFactory.createFeedback({
       profile: this.data,
       feedbackKey: this.feedbackKey,
     });

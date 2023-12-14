@@ -6,7 +6,10 @@ import { FeedbackComponent } from '../components/feedback/feedback.component';
 export class FeedbackFactory {
   constructor(public vcr: ViewContainerRef) {}
 
-  public show(config: { profile: INotifyProfile; feedbackKey: string }) {
+  public createFeedback(config: {
+    profile: INotifyProfile;
+    feedbackKey: string;
+  }) {
     const ref = this.vcr.createComponent(FeedbackComponent);
 
     ref.setInput('profile', config.profile);

@@ -3,6 +3,10 @@
 @import 'animate.css/animate.min.css';
 @import 'ngx-lightbox/lightbox.css';
 
+.popup-backdrop {
+  @apply fixed w-screen h-screen  backdrop-blur-xl backdrop-brightness-50 z-[999] top-0 left-0 flex justify-center items-center;
+}
+
 .smooth {
   @apply transition-all duration-300 ease-in-out;
 }
@@ -17,6 +21,10 @@
   & > svg {
     @apply w-full h-full p-3;
   }
+}
+
+.input-style {
+  @apply text-gray-50 bg-base-100/50 backdrop-brightness-105;
 }
 
 .slide-in-left {

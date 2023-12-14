@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { AppError, INotifyAgent, INotifyCompany } from '@notify/interfaces';
+import {
+  AppError,
+  EnumNotifyUserType,
+  INotifyAgent,
+  INotifyCompany,
+} from '@notify/interfaces';
 import {
   AgentService,
   AuthService,
@@ -9,6 +14,7 @@ import {
 import {
   PageHeaderComponent,
   ProfilePlayerFactory,
+  UserFormFactory,
 } from '@notify/ngx-components';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, catchError, tap } from 'rxjs';
@@ -17,7 +23,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   standalone: true,
   imports: [CommonModule, PageHeaderComponent],
-  providers: [AgentService, ProfilePlayerFactory],
+  providers: [AgentService, ProfilePlayerFactory, UserFormFactory],
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.scss'],
 })
@@ -38,22 +44,12 @@ export class AccountsComponent implements OnInit {
     private _toastr: ToastrService,
     private _authService: AuthService,
     private _profileService: ProfileService,
-    private _profileFactory: ProfilePlayerFactory
+    private _profileFactory: ProfilePlayerFactory,
+    private _userFormFactory: UserFormFactory
   ) {}
 
   ngOnInit(): void {
     this.getAgents().subscribe();
-  }
-
-  private _getPlayerUrl(profile: INotifyAgent['profile']) {
-    if (!profile) {
-      return '';
-    }
-
-    return this._profileService.genPlayerUrl(
-      environment.publicUrl,
-      profile._id
-    );
   }
 
   public getAgents() {
@@ -76,5 +72,20 @@ export class AccountsComponent implements OnInit {
       profile,
       playerUrl: this._getPlayerUrl(profile),
     });
+  }
+
+  public showUserForm(user?: INotifyAgent) {
+    this._userFormFactory.createForm<EnumNotifyUserType.Agent>(user);
+  }
+
+  private _getPlayerUrl(profile: INotifyAgent['profile']) {
+    if (!profile) {
+      return '';
+    }
+
+    return this._profileService.genPlayerUrl(
+      environment.publicUrl,
+      profile._id
+    );
   }
 }

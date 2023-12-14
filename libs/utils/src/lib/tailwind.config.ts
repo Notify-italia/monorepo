@@ -69,6 +69,7 @@ tailwindConfig.daisyui.themes.push('dark', {
     accent: '#ffffff',
     'accent-focus': '#ffffff',
     'accent-content': '#000000',
+    neutral: tailwindConfig.theme.extend.colors.complimentary.DEFAULT,
   },
 });
 
