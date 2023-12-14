@@ -86,6 +86,10 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
       type: String,
       default: null,
     },
+    role: {
+      type: String,
+      default: null,
+    },
     config: {
       whatsappEnabled: {
         type: Boolean,
@@ -156,9 +160,7 @@ OrdineSchema.pre('save', async function (done) {
 
 // 5. Aggiungi un metodo statico build per creare il nuovo Model
 OrdineSchema.statics.build = (doc: Partial<Profile>) => {
-  const Profile = new ProfileModel(doc);
-
-  return Profile;
+  return new ProfileModel(doc);
 };
 
 // 6. Esporta il Model creato con la funzione model di mongoose

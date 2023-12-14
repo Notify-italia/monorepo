@@ -12,3 +12,7 @@ export interface INotifyAgent extends MongodbDocument {
   token?: string;
   profile?: INotifyProfile;
 }
+
+export interface INotifyPartialAgent extends Partial<INotifyAgent> {
+  role: string;
+}

@@ -1,12 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, ComponentRef, Input } from '@angular/core';
+import {
+  Component,
+  ComponentRef,
+  HostListener,
+  Input,
+  OnInit,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { INotifyAccount } from '@notify/interfaces';
+import { INotifyAccount, INotifyPartialAgent } from '@notify/interfaces';
+import { Subject } from 'rxjs';
 import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
 
 @Component({
@@ -15,31 +22,52 @@ import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
 })
-export class UserFormComponent {
+export class UserFormComponent implements OnInit {
   @Input({ required: true }) public cf!: ComponentRef<UserFormComponent>;
   @Input() public loading = false;
   @Input() public user: INotifyAccount | null = null;
 
-  public form: FormGroup;
+  public submitted = new Subject<INotifyPartialAgent>();
+
+  public form!: FormGroup;
+  public destroyed$ = new Subject<void>();
 
   public validationErrors = {
-    required: 'Email is required',
-    email: 'Email is invalid',
+    required: 'Campo obbligatorio',
+    email: 'Campo non valido',
   };
 
-  constructor() {
+  constructor() {}
+
+  ngOnInit(): void {
+    this.cf.onDestroy(() => {
+      this.destroyed$.next();
+      this.destroyed$.complete();
+    });
+
+    const _pwValidators = this.user ? [] : [Validators.required];
+
     this.form = new FormGroup({
-      enabled: new FormControl<boolean>(true),
+      enabled: new FormControl<boolean>(this.user?.enabled ?? true, []),
       email: new FormControl<string>(this.user?.email || '', [
         Validators.email,
         Validators.required,
       ]),
-      password: new FormControl<string>('', [Validators.required]),
+      password: new FormControl<string>('', _pwValidators),
       role: new FormControl<string>(this.user?.profile?.role || '', []),
     });
   }
 
+  @HostListener('document:keydown.escape')
   close() {
     this.cf.destroy();
+  }
+
+  submit() {
+    if (!this.form.valid) {
+      return;
+    }
+
+    this.submitted.next(this.form.value);
   }
 }

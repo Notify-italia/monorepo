@@ -12,6 +12,6 @@ export class UserFormFactory {
     ref.setInput('cf', ref);
     ref.setInput('user', user);
 
-    return ref;
+    return ref.instance;
   }
 }

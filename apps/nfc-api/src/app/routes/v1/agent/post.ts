@@ -18,10 +18,12 @@ router.post(
   ...userSignInValidation(AGENT_VALIDATION_MESSAGES),
   errorHandledRequest(
     async (req: Request<{ email: string; password: string }>, res) => {
-      const { email, password, role } = req.body;
+      const { email, password, role, enabled } = req.body;
+
+      console.log('req.body', req.body);
 
       const agent = await AgentModel.build(
-        { email, password },
+        { email, password, enabled },
         new Types.ObjectId(req.currentUser?._id),
         { role }
       ).catch((err) => {

@@ -17,7 +17,14 @@ import {
   UserFormFactory,
 } from '@notify/ngx-components';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Subject, catchError, tap } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  catchError,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -74,8 +81,37 @@ export class AccountsComponent implements OnInit {
     });
   }
 
-  public showUserForm(user?: INotifyAgent) {
-    this._userFormFactory.createForm<EnumNotifyUserType.Agent>(user);
+  public showUserForm(agent?: INotifyAgent) {
+    const ref =
+      this._userFormFactory.createForm<EnumNotifyUserType.Agent>(agent);
+
+    ref.submitted
+      .pipe(
+        takeUntil(ref.destroyed$),
+        switchMap((_a) => {
+          ref.loading = true;
+
+          if (agent) {
+            return this._agentService.patch(agent._id, _a);
+          }
+
+          return this._agentService.signUp(_a);
+        }),
+        switchMap(() => {
+          this._toastr.success('Utente salvato!', 'Successo');
+          ref.loading = false;
+          ref.close();
+          return this.getAgents();
+        }),
+
+        catchError((error: AppError, c) => {
+          this._toastr.error(error.error.errors[0].message, 'Errore');
+          ref.loading = false;
+
+          return c;
+        })
+      )
+      .subscribe();
   }
 
   private _getPlayerUrl(profile: INotifyAgent['profile']) {
