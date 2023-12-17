@@ -95,7 +95,10 @@ export class ProfileFormComponent implements OnInit {
   }
 
   public removeCustomField(item: FormGroup) {
-    const index = this.form.controls.customFields.value.indexOf(item);
+    const index = this.form.controls.customFields.value.indexOf(item.value);
+
+    console.log(index);
+
     this.form.controls.customFields.removeAt(index);
   }
 
