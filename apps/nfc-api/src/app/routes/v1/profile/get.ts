@@ -39,14 +39,27 @@ const _profilePlayerFlow = async <T>(req: Request<T>, res: Response) => {
 
   const profile = await ProfileModel.findById(id).lean();
 
-  if (!profile) {
-    throw new BadRequestError('Profilo non trovato');
+  if (profile) {
+    res.status(200).send({
+      ...profile,
+      __v: undefined,
+      company: await getAgentOwnerProfile(profile.owner),
+    });
+    return;
+  }
+
+  const ownProfile = await ProfileModel.findOne({
+    owner: req.currentUser._id,
+  }).lean();
+
+  if (!ownProfile) {
+    throw new BadRequestError(PROFILE_VALIDATION_MESSAGES._id as string);
   }
 
   res.status(200).send({
-    ...profile,
+    ...ownProfile,
     __v: undefined,
-    company: await getAgentOwnerProfile(profile.owner),
+    company: await getAgentOwnerProfile(ownProfile.owner),
   });
 };
 

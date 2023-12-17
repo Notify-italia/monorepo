@@ -21,6 +21,7 @@ import {
   Observable,
   Subject,
   catchError,
+  combineLatest,
   switchMap,
   takeUntil,
   tap,
@@ -60,9 +61,21 @@ export class AccountsComponent implements OnInit {
   }
 
   public getAgents() {
-    return this._agentService.getAgents().pipe(
-      tap((agents) => {
-        this.agentsSubject$.next(agents);
+    return combineLatest([
+      this._agentService.getAgents(),
+      this._profileService.getProfile(),
+    ]).pipe(
+      tap(([agents, profile]) => {
+        const populatedAgents = agents.map((agent) => {
+          if (!agent.profile) {
+            return agent;
+          }
+
+          agent.profile.company = profile;
+          return agent;
+        });
+
+        this.agentsSubject$.next(populatedAgents);
       }),
       catchError((error: AppError) => {
         this._toastr.error(error.error.errors[0].message, 'Errore');
