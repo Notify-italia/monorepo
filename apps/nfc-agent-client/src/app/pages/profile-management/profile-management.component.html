@@ -8,7 +8,7 @@
     class="flex flex-col pb-5 lg:px-5 space-y-4 w-full"
     *ngIf="profile$ | async as profile"
   >
-    <div class="fixed bottom-5 right-5">
+    <div class="fixed bottom-5 right-5 lg:hidden z-50">
       <button class="floating-button" (click)="previewProfile(profile)">
         <svg
           xmlns="http://www.w3.org/2000/svg"

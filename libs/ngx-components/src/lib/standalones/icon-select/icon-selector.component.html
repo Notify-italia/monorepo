@@ -18,11 +18,11 @@
   >
     <div class="flex flex-col justify-center items-center h-full w-full">
       <div
-        class="flex justify-between font-bold text-xl lg:text-3xl tracking-wider my-4 items-center w-11/12 lg:w-7/12"
+        class="flex justify-between font-bold text-xl lg:text-3xl tracking-wider my-4 items-center w-11/12 lg:w-5/12"
       >
-        <div class="flex space-x-4">
+        <div class="flex flex-col space-y-4 w-full">
           <p class="my-auto">Servizio</p>
-          <span class="relative">
+          <span class="relative w-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -40,34 +40,22 @@
               type="text"
               [formControl]="searchValue"
               placeholder="LinkedIn"
-              class="input input-bordered w-full bg-base-100/30 backdrop-brightness-105 pl-10 placeholder-secondary-50/20"
+              class="input input-style w-full pl-10 placeholder-secondary-50/20"
             />
           </span>
         </div>
-
-        <button class="btn btn-circle btn-ghost" (click)="hideSelector = true">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-10 h-10"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
       </div>
 
       <div class="h-4/6 lg:h-3/6 overflow-y-auto">
         <div class="cards">
           @for (item of filteredIcons$ | async; track item.name) {
 
-          <button class="card" (click)="setIcon(item)" #card>
+          <button
+            class="card"
+            (click)="setIcon(item)"
+            #card
+            [ngClass]="{ ' brightness-150': item.name === currentIcon.name }"
+          >
             <div class="card-content">
               <notify-svg-box-icon [icon]="item"></notify-svg-box-icon>
               <label class="text-sm truncate w-20 text-center">

@@ -11,7 +11,7 @@ import { AgentModel } from '../models/model.agent';
  * @returns The function `companyProfile` returns the `profile` property of the `company` object.
  */
 export const getAgentOwnerProfile = async (agentId: Types.ObjectId) => {
-  const agent = await AgentModel.findById(agentId)
+  const agent = await AgentModel.findOne({ _id: agentId })
     .populate({
       path: 'owner',
       populate: {
@@ -25,8 +25,6 @@ export const getAgentOwnerProfile = async (agentId: Types.ObjectId) => {
     wLog('Agent not found', 'warning');
     return undefined;
   }
-
-  console.log(agent.owner);
 
   return (
     agent.owner as unknown as INotifyCompany & { profile: INotifyProfile }
