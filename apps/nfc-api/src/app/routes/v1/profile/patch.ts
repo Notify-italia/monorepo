@@ -44,7 +44,7 @@ router.patch(
         res.status(200).send({
           ...profile.toObject(),
           __v: undefined,
-          company: await getAgentOwnerProfile(profile._id),
+          company: await getAgentOwnerProfile(profile.owner),
         });
 
         return;
@@ -58,7 +58,7 @@ router.patch(
       res.status(200).send({
         ...profile.toObject(),
         __v: undefined,
-        company: await getAgentOwnerProfile(profile._id),
+        company: await getAgentOwnerProfile(profile.owner),
       });
     },
     {
