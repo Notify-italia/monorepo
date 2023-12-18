@@ -24,11 +24,14 @@ router.get(
     //injecting the authorization manually to avoid throwing an error if the user is not logged in
     await injectAuth(req);
 
-    if (req.currentUser?.userType === EnumNotifyUserType.Agent) {
-      return await _agentFlow(req, res);
+    switch (req.currentUser?.userType) {
+      case EnumNotifyUserType.Agent:
+        return await _agentFlow(req, res);
+      case EnumNotifyUserType.Company:
+        return await _companyFlow(req, res);
+      default:
+        return await _profilePlayerFlow(req, res);
     }
-
-    return await _profilePlayerFlow(req, res);
   })
 );
 
@@ -47,20 +50,6 @@ const _profilePlayerFlow = async <T>(req: Request<T>, res: Response) => {
     });
     return;
   }
-
-  const ownProfile = await ProfileModel.findOne({
-    owner: req.currentUser._id,
-  }).lean();
-
-  if (!ownProfile) {
-    throw new BadRequestError(PROFILE_VALIDATION_MESSAGES._id as string);
-  }
-
-  res.status(200).send({
-    ...ownProfile,
-    __v: undefined,
-    company: await getAgentOwnerProfile(ownProfile.owner),
-  });
 };
 
 const _agentFlow = async <T>(req: Request<T>, res: Response) => {
@@ -79,4 +68,19 @@ const _agentFlow = async <T>(req: Request<T>, res: Response) => {
   });
 
   return;
+};
+
+const _companyFlow = async <T>(req: Request<T>, res: Response) => {
+  const profile = await ProfileModel.findOne({
+    owner: req.currentUser._id,
+  }).lean();
+
+  if (!profile) {
+    throw new BadRequestError(PROFILE_VALIDATION_MESSAGES._id as string);
+  }
+
+  res.status(200).send({
+    ...profile,
+    __v: undefined,
+  });
 };
