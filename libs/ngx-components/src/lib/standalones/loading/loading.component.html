@@ -1,0 +1,11 @@
+<div
+  class="w-full h-full flex flex-col justify-center items-center"
+  *ngIf="rotationDegrees$ | async as d"
+>
+  <notify-app-title
+    [compact]="true"
+    class="w-24 h-24 smooth"
+    [ngStyle]="{ transform: 'rotate(' + d + 'deg)' }"
+  >
+  </notify-app-title>
+</div>

@@ -12,6 +12,7 @@ import {
   ProfileService,
 } from '@notify/nfc-app-services';
 import {
+  LoadingComponent,
   PageHeaderComponent,
   ProfilePlayerFactory,
   UserFormFactory,
@@ -30,7 +31,7 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, PageHeaderComponent],
+  imports: [CommonModule, PageHeaderComponent, LoadingComponent],
   providers: [AgentService, ProfilePlayerFactory, UserFormFactory],
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.scss'],
@@ -40,6 +41,8 @@ export class AccountsComponent implements OnInit {
     'https://www.heymind.org.uk/wp-content/uploads/2022/04/avatar-placeholder.png';
   public agentsSubject$ = new Subject<INotifyAgent[]>();
   public agents$: Observable<INotifyAgent[]> = this.agentsSubject$;
+
+  public agents: number | null = null;
 
   public get maxAgents(): number {
     const user = this._authService.user as unknown as INotifyCompany<true>;
@@ -74,6 +77,8 @@ export class AccountsComponent implements OnInit {
           agent.profile.company = profile;
           return agent;
         });
+
+        this.agents = populatedAgents.length;
 
         this.agentsSubject$.next(populatedAgents);
       }),

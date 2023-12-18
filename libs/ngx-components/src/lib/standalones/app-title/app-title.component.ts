@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'notify-app-title',
@@ -8,4 +8,6 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app-title.component.html',
   styleUrls: ['./app-title.component.scss'],
 })
-export class AppTitleComponent {}
+export class AppTitleComponent {
+  @Input() compact = false;
+}
