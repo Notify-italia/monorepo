@@ -1,4 +1,4 @@
-<div class="w-full space-y-4">
+<div class="page-layout">
   <notify-page-header
     title="Utenti"
     subtitle="Crea e gestisci gli accounts dei tuoi dipendenti."
@@ -24,8 +24,8 @@
     (buttonClicked)="showUserForm()"
   ></notify-page-header>
   @if (agents$ | async; as p) {
-  <div class="flex justify-center w-full">
-    <div class="flex flex-col space-y-4 w-full 2xl:w-10/12">
+  <div>
+    <div>
       <!-- TODO SEARCH e incapsulamento dell'input -->
       <div class="form-control box p-4">
         <label class="label">
