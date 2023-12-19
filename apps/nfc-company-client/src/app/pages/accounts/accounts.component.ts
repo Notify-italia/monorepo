@@ -115,11 +115,11 @@ export class AccountsComponent implements OnInit {
 
           return this._agentService.signUp(_a);
         }),
-        switchMap(() => {
+        switchMap(() => this.getAgents()),
+        tap(() => {
           this._toastr.success('Utente salvato!', 'Successo');
           ref.loading = false;
           ref.close();
-          return this.getAgents();
         }),
 
         catchError((error: AppError, c) => {

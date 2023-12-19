@@ -19,8 +19,11 @@ export class AgentService {
 
   public patch(id: string, agent: INotifyPartialAgent) {
     return this.http.patch<INotifyPartialAgent, INotifyAgent>(
-      `/v1/agent/${id}`,
-      agent
+      `/v1/agent`,
+      agent,
+      {
+        id,
+      }
     );
   }
 }

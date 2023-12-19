@@ -1,23 +1,28 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
 import { Router } from 'express';
-import { body } from 'express-validator';
-import { Types } from 'mongoose';
-import { wLog } from '../../../../main';
+import { body, query } from 'express-validator';
 import {
   AGENT_VALIDATION_MESSAGES,
   AgentModel,
 } from '../../../models/model.agent';
-import { PROFILE_VALIDATION_MESSAGES } from '../../../models/model.profile';
+import {
+  PROFILE_VALIDATION_MESSAGES,
+  ProfileModel,
+} from '../../../models/model.profile';
 import { BadRequestError } from '../../../services/errors/errors';
 import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
 import { userSignInValidation } from '../../../services/service.validation';
+import { Password } from '../../../services/users/service.password';
 
 //boilderplate for a post request to create an agent
 const router = Router();
 
-router.post(
+router.patch(
   '/',
-  ...userSignInValidation(AGENT_VALIDATION_MESSAGES),
+  ...userSignInValidation(AGENT_VALIDATION_MESSAGES, false),
+  query('id')
+    .isMongoId()
+    .withMessage(AGENT_VALIDATION_MESSAGES._id as string),
   body('role')
     .isString()
     .withMessage(PROFILE_VALIDATION_MESSAGES.role as string),
@@ -26,22 +31,26 @@ router.post(
     .withMessage(AGENT_VALIDATION_MESSAGES.enabled as string),
   errorHandledRequest(
     async (req, res) => {
+      const { id } = req.query;
       const { email, password, role, enabled } = req.body;
 
-      console.log('req.body', req.body);
+      const agent = await AgentModel.findById(id);
 
-      const agent = await AgentModel.build(
-        { email, password, enabled },
-        new Types.ObjectId(req.currentUser?._id),
-        { role }
-      ).catch((err) => {
-        wLog(err, 'error');
-        throw new BadRequestError('Email già in uso');
-      });
+      if (!agent) {
+        throw new BadRequestError('Agent not found');
+      }
 
-      await agent?.save();
+      agent.email = email;
+      agent.password = password
+        ? await Password.toHash(password)
+        : agent.password;
+      agent.enabled = enabled ?? agent.enabled;
 
-      //todo invia email di conferma
+      if (role) {
+        await ProfileModel.updateOne({ owner: agent._id }, { role });
+      }
+
+      await agent.save();
 
       res.status(201).send(agent);
     },
@@ -54,4 +63,4 @@ router.post(
   )
 );
 
-export { router as postAgentRouter };
+export { router as patchAgentRouter };

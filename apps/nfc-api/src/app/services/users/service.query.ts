@@ -1,4 +1,4 @@
-import { EnumNotifyUserType } from '@notify/interfaces';
+import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
 import { Document, FilterQuery, Model } from 'mongoose';
 import { AgentDocument, AgentModel } from '../../models/model.agent';
 import { CompanyDocument, CompanyModel } from '../../models/model.company';
@@ -33,19 +33,17 @@ export const genericUserQuery = async <
   FindOne extends boolean,
   T extends UserDocTypes | undefined = undefined
 >(
-  targetDb: string,
-  query: FilterQuery<T | UserDocType<typeof targetDb>>,
+  userType: EnumNotifyUserType,
+  query: FilterQuery<T | UserDocType<typeof userType>>,
   findOne = false
 ) => {
-  type _ReturnType = Promise<
-    QueryDbReturnType<T | UserDocType<typeof targetDb>, FindOne>
-  >;
+  type _ReturnType = Promise<QueryDbReturnType<INotifyUser, FindOne>>;
 
   //Obtains the model from the target database
-  const model = _getModel(targetDb);
+  const model = _getModel(userType);
 
   if (!model) {
-    throw new BadRequestError(`Model ${targetDb} not found`);
+    throw new BadRequestError(`Model ${userType} not found`);
   }
 
   if (!findOne) {
@@ -54,7 +52,7 @@ export const genericUserQuery = async <
   }
 
   //If findOne is true, it will return a single document
-  return model.findOne(query) as unknown as _ReturnType;
+  return model.findOne(query);
 };
 
 const _getModel = (targetDb: string): Model<any> | undefined => {

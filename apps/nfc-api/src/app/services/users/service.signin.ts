@@ -1,4 +1,5 @@
 import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
+import { wLog } from 'apps/nfc-api/src/main';
 import jwt from 'jsonwebtoken';
 import { Agent } from '../../models/model.agent';
 import { BadRequestError } from '../errors/errors';
@@ -32,16 +33,24 @@ export const signIn = async (
   );
 
   if (!user) {
+    wLog('utente non trovato', 'error');
     //if the user is not found, it will throw an error
     return _throwError();
   }
 
   if (!(await _comparePassword(user.password as string, provided.password))) {
+    wLog('password non corrispondente', 'error');
     //if the password does not match, it will throw an error
     return _throwError();
   }
 
+  if (userType === EnumNotifyUserType.Agent && !user.enabled) {
+    wLog('utente non attivo', 'error');
+    return _throwError();
+  }
+
   if (populate?.length) {
+    wLog('populating', 'info');
     await user.populate(populate);
   }
 
