@@ -30,9 +30,7 @@ export class AuthService {
     @Inject('userType') private _userType: EnumNotifyUserType,
     private _http: HttpService,
     private _jwt: JwtHelperService
-  ) {
-    this.refreshToken()?.subscribe();
-  }
+  ) {}
 
   /**
    * The function `signIn` sends a POST request to the server with authentication data and assigns the

@@ -1,5 +1,9 @@
 import { HttpClient, provideHttpClient } from '@angular/common/http';
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  ApplicationConfig,
+  importProvidersFrom,
+} from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withRouterConfig } from '@angular/router';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
@@ -55,5 +59,15 @@ export const appConfig: ApplicationConfig = {
           jwt
         ),
     },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [AuthService],
+      multi: true,
+    },
   ],
 };
+
+function initializeApp(auth: AuthService) {
+  return () => auth.refreshToken();
+}
