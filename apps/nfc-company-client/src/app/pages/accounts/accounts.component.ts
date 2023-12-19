@@ -28,17 +28,21 @@ import {
   tap,
 } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { AccountsRowComponent } from '../../components/accounts-row/accounts-row.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, PageHeaderComponent, LoadingComponent],
+  imports: [
+    CommonModule,
+    PageHeaderComponent,
+    LoadingComponent,
+    AccountsRowComponent,
+  ],
   providers: [AgentService, ProfilePlayerFactory, UserFormFactory],
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.scss'],
 })
 export class AccountsComponent implements OnInit {
-  public placeholderAvatar =
-    'https://www.heymind.org.uk/wp-content/uploads/2022/04/avatar-placeholder.png';
   public agentsSubject$ = new Subject<INotifyAgent[]>();
   public agents$: Observable<INotifyAgent[]> = this.agentsSubject$;
 
