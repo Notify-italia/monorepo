@@ -28,7 +28,7 @@ router.post(
     async (req, res) => {
       const { email, password, role, enabled } = req.body;
 
-      console.log('req.body', req.body);
+      //TODO check se la company può ancora creare agenti
 
       const agent = await AgentModel.build(
         { email, password, enabled },
@@ -41,7 +41,7 @@ router.post(
 
       await agent?.save();
 
-      //todo invia email di conferma
+      //TODO send email to agent
 
       res.status(201).send(agent);
     },

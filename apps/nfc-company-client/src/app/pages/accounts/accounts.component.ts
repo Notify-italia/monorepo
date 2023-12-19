@@ -93,9 +93,13 @@ export class AccountsComponent implements OnInit {
     if (!profile) {
       return;
     }
+
     this._profileFactory.createPlayer({
       profile,
-      playerUrl: this._getPlayerUrl(profile),
+      playerUrl: this._profileService.genPlayerUrl(
+        environment.publicUrl,
+        profile._id
+      ),
     });
   }
 
@@ -130,16 +134,5 @@ export class AccountsComponent implements OnInit {
         })
       )
       .subscribe();
-  }
-
-  private _getPlayerUrl(profile: INotifyAgent['profile']) {
-    if (!profile) {
-      return '';
-    }
-
-    return this._profileService.genPlayerUrl(
-      environment.publicUrl,
-      profile._id
-    );
   }
 }

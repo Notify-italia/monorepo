@@ -54,7 +54,10 @@ export class UserFormComponent implements OnInit {
         Validators.required,
       ]),
       password: new FormControl<string>('', _pwValidators),
-      role: new FormControl<string>(this.user?.profile?.role || '', []),
+      role: new FormControl<string>(
+        this.user?.profile?.role || '',
+        Validators.required
+      ),
     });
   }
 
