@@ -1,6 +1,6 @@
 <div class="popup-backdrop">
   <div
-    class="w-[90%] lg:w-[50%] 2xl:w-[40%] animate__fadeInDown animate__animated"
+    class="w-[90%] lg:w-[50%] 2xl:w-[40%] animate__fadeInDown animate__animated animate__fast"
   >
     <div class="my-1 w-full flex justify-end">
       <button
@@ -48,6 +48,7 @@
           [helpText]="user ? 'Lascia vuoto per non modificare la password' : ''"
         >
         </notify-tailwind-input>
+        <!-- TODO select con possibilità di aggiungere campi dinamicamente -->
         <notify-tailwind-input
           name="role"
           label="Ruolo"
