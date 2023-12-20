@@ -1,11 +1,14 @@
-<div class="container" *ngIf="isWriting$ | async as writing">
+<div class="container" *ngIf="progress$ | async as progress" (click)="close()">
   <div>
     <div
-      class="rounded-xl p-4 py-10 bg-base-100 w-[60%] flex flex-col items-center"
+      (click)="$event.stopPropagation()"
+      class="rounded-xl px-4 py-10 bg-base-100 w-80 lg:w-[60%] flex flex-col items-center slide-in-blurred-top"
     >
-      <ng-container
-        [ngTemplateOutlet]="writing.status ? Writing : Scanning"
-      ></ng-container>
+      @switch ( progress.status ) { @case ('scanning') {
+      <ng-container [ngTemplateOutlet]="Scanning"></ng-container>
+      } @case ('found') {
+      <ng-container [ngTemplateOutlet]="Found"></ng-container>
+      } }
     </div>
   </div>
 </div>
@@ -17,6 +20,19 @@
   <div class="text-center mt-4">
     <h1 class="text-2xl font-bold">Sto scrivendo</h1>
     <p class="text-base-content">Non rimuovere la tessera</p>
+  </div>
+</ng-template>
+
+<ng-template #Found>
+  <div class="nfc-animation">
+    <span class="loading loading-ball w-full"></span>
+  </div>
+  <div class="text-center mt-4">
+    <h1 class="text-2xl font-bold">Tessera trovata</h1>
+    <p class="text-base-content">Vuoi sovrascrivere il profilo?</p>
+    <button data-theme="notifytheme" class="btn btn-primary mt-4 w-full">
+      Sovrascrivi
+    </button>
   </div>
 </ng-template>
 
