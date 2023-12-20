@@ -7,7 +7,10 @@
     "deploy-agent-client": "nx build nfc-agent-client --prod && nx deploy nfc-agent-client",
     "deploy-company-client": "nx build nfc-company-client --prod && nx deploy nfc-company-client",
     "deploy-api": "bun build --target=bun ./apps/nfc-api/src/main.ts --outdir ./dist/apps/nfc-api && nx deploy nfc-api",
-    "deploy-version": "npm run deploy-player && npm run deploy-agent-client && npm run deploy-api && npm run deploy-company-client"
+    "deploy-version": "npm run deploy-player && npm run deploy-agent-client && npm run deploy-api && npm run deploy-company-client",
+    "cap-ios": "nx run nfc-agent-client:cap:open-ios",
+    "cap-android": "nx run nfc-agent-client:cap:open-android",
+    "cap-sync": "nx run nfc-agent-client:cap:sync"
   },
   "private": true,
   "dependencies": {
