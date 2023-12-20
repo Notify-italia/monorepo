@@ -8,6 +8,10 @@ const config: CapacitorConfig = {
   },
   android: {
     path: 'app/android',
+    buildOptions: {
+      keystorePath: './notify.keystore',
+      keystoreAlias: 'notify',
+    },
   },
   webDir: '../../dist/apps/nfc-agent-client',
 };

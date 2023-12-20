@@ -114,19 +114,27 @@
           "cwd": "apps/nfc-agent-client"
         },
         "open-ios": {
-          "command": "npx cap open ios",
+          "command": "npx cap open ios ",
           "cwd": "apps/nfc-agent-client"
         },
         "open-android": {
           "command": "npx cap open android",
           "cwd": "apps/nfc-agent-client"
         },
+        "build-ios": {
+          "command": "npx cap build ios",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "build-android": {
+          "command": "npx cap build android",
+          "cwd": "apps/nfc-agent-client"
+        },
         "run-ios": {
-          "command": "npx cap run ios --livereload --external",
+          "command": "npx cap run ios",
           "cwd": "apps/nfc-agent-client"
         },
         "run-android": {
-          "command": "npx cap run android --livereload --external",
+          "command": "npx cap run android ",
           "cwd": "apps/nfc-agent-client"
         }
       },
