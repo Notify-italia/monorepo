@@ -3,13 +3,16 @@ import { Component, Input } from '@angular/core';
 import { QRCodeModule } from 'angularx-qrcode';
 
 import { INotifyProfile } from '@notify/interfaces';
+import { CapacitorService } from '@notify/nfc-app-services';
 import { Lightbox, LightboxModule } from 'ngx-lightbox';
 import { ToastrService } from 'ngx-toastr';
-import { NfcWriteComponent } from '../nfc-write/nfc-write.component';
+import { NfcWriteFactory } from '../../modules/nfc';
+import { NfcWriteComponent } from '../../modules/nfc/components/nfc-write/nfc-write.component';
 @Component({
   selector: 'notify-share-profile',
   standalone: true,
   imports: [CommonModule, QRCodeModule, LightboxModule, NfcWriteComponent],
+  providers: [NfcWriteFactory],
   templateUrl: './share-profile.component.html',
   styleUrls: ['./share-profile.component.scss'],
 })
@@ -17,9 +20,12 @@ export class ShareProfileComponent {
   @Input({ required: true }) public profile!: INotifyProfile;
   @Input({ required: true }) public playerUrl = 'http://localhost:4200/profile';
 
-  public nfcEnabled = /android/i.test(navigator.userAgent.toLowerCase());
-
-  constructor(private _lightbox: Lightbox, private _toastr: ToastrService) {}
+  constructor(
+    private _lightbox: Lightbox,
+    private _toastr: ToastrService,
+    private _nfcFactory: NfcWriteFactory,
+    public capacitor: CapacitorService
+  ) {}
 
   public async copyToClipboard() {
     await navigator.clipboard.writeText(this.playerUrl);
@@ -47,5 +53,9 @@ export class ShareProfileComponent {
         fitImageInViewPort: true,
       }
     );
+  }
+
+  public async writeNfc() {
+    this._nfcFactory.create({ value: this.playerUrl });
   }
 }

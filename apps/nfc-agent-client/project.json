@@ -102,6 +102,44 @@
         ]
       }
     },
+    "cap": {
+      "executor": "nx:run-commands",
+      "configurations": {
+        "any": {
+          "command": "npx cap {args.command}",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "sync": {
+          "command": "npx cap sync",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "open-ios": {
+          "command": "npx cap open ios ",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "open-android": {
+          "command": "npx cap open android",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "build-ios": {
+          "command": "npx cap build ios",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "build-android": {
+          "command": "npx cap build android",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "run-ios": {
+          "command": "npx cap run ios",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "run-android": {
+          "command": "npx cap run android ",
+          "cwd": "apps/nfc-agent-client"
+        }
+      },
+      "defaultConfiguration": "any"
+    },
     "deploy": {
       "executor": "nx:run-commands",
       "outputs": [],

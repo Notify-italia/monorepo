@@ -1,5 +1,6 @@
 export * from './lib/factories';
 export * from './lib/modules/license';
+export * from './lib/modules/nfc/components/nfc-write/nfc-write.component';
 export * from './lib/modules/profile-player';
 export * from './lib/modules/tailwind-forms/tailwind-forms.module';
 export * from './lib/modules/tailwind-toasts/components/tailwind-toast/tailwind-toast.component';
@@ -9,7 +10,6 @@ export * from './lib/standalones/app-title/app-title.component';
 export * from './lib/standalones/auth/auth.component';
 export * from './lib/standalones/loading/loading.component';
 export * from './lib/standalones/nav/nav.component';
-export * from './lib/standalones/nfc-write/nfc-write.component';
 export * from './lib/standalones/page-header/page-header.component';
 export * from './lib/standalones/page-not-found/page-not-found.component';
 export * from './lib/standalones/profile-form/profile-form.component';

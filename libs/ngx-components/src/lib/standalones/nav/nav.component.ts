@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CapacitorService } from '@notify/nfc-app-services';
 import { AppTitleComponent } from '../app-title/app-title.component';
 
 export interface NavItem {
@@ -15,6 +16,7 @@ export interface NavItem {
   selector: 'notify-nav',
   standalone: true,
   imports: [CommonModule, RouterModule, AppTitleComponent],
+  providers: [CapacitorService],
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
 })
@@ -58,4 +60,6 @@ export class NavComponent {
       ],
     },
   ];
+
+  constructor(public capacitor: CapacitorService) {}
 }
