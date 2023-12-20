@@ -110,11 +110,7 @@
           "cwd": "apps/nfc-agent-client"
         },
         "sync": {
-          "commands": [
-            "nx run nfc-agent-client:build:production",
-            "npx cap sync"
-          ],
-          "parallel": false,
+          "command": "npx cap sync",
           "cwd": "apps/nfc-agent-client"
         },
         "open-ios": {
@@ -126,11 +122,11 @@
           "cwd": "apps/nfc-agent-client"
         },
         "run-ios": {
-          "command": "npx cap run ios",
+          "command": "npx cap run ios --livereload --external",
           "cwd": "apps/nfc-agent-client"
         },
         "run-android": {
-          "command": "npx cap run android",
+          "command": "npx cap run android --livereload --external",
           "cwd": "apps/nfc-agent-client"
         }
       },

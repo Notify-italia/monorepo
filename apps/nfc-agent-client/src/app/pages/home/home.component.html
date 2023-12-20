@@ -3,6 +3,9 @@
 
   <div
     class="p-2 h-full lg:max-h-screen lg:w-screen overflow-y-auto overflow-x-hidden my-5 lg:my-0"
+    [ngClass]="{
+    'mt-safe': capacitor.isNative,
+    }"
   >
     <router-outlet class="w-full"></router-outlet>
   </div>

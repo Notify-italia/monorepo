@@ -10,7 +10,7 @@
     "deploy-version": "npm run deploy-player && npm run deploy-agent-client && npm run deploy-api && npm run deploy-company-client",
     "cap-ios": "nx run nfc-agent-client:cap:open-ios",
     "cap-android": "nx run nfc-agent-client:cap:open-android",
-    "cap-sync": "nx run nfc-agent-client:cap:sync"
+    "cap-sync": "nx build nfc-agent-client --prod && nx run nfc-agent-client:cap:sync"
   },
   "private": true,
   "dependencies": {
@@ -43,14 +43,11 @@
     "ngx-mask": "^16.3.9",
     "ngx-toastr": "^17.0.2",
     "rxjs": "~7.8.0",
+    "tailwindcss-safe-area": "^0.4.1",
     "tslib": "^2.3.0",
     "zone.js": "0.14.2"
   },
   "devDependencies": {
-    "@capacitor/android": "^5.6.0",
-    "@capacitor/cli": "^5.6.0",
-    "@capacitor/core": "^5.6.0",
-    "@capacitor/ios": "^5.6.0",
     "@angular-devkit/build-angular": "^17.0.7",
     "@angular-devkit/core": "17.0.1",
     "@angular-devkit/schematics": "17.0.1",
@@ -60,6 +57,10 @@
     "@angular/cli": "~17.0.0",
     "@angular/compiler-cli": "17.0.3",
     "@angular/language-service": "17.0.3",
+    "@capacitor/android": "^5.6.0",
+    "@capacitor/cli": "^5.6.0",
+    "@capacitor/core": "^5.6.0",
+    "@capacitor/ios": "^5.6.0",
     "@nrwl/angular": "17.1.2",
     "@nrwl/node": "17.1.2",
     "@nx/esbuild": "17.1.2",

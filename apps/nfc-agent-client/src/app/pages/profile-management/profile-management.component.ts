@@ -14,7 +14,7 @@ import {
   EnumNotifyUserType,
   INotifyProfile,
 } from '@notify/interfaces';
-import { ProfileService } from '@notify/nfc-app-services';
+import { CapacitorService, ProfileService } from '@notify/nfc-app-services';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, catchError, tap } from 'rxjs';
 import { environment } from '../../../../src/environments/environment';
@@ -32,7 +32,7 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
     PageHeaderComponent,
     LoadingComponent,
   ],
-  providers: [ProfilePlayerFactory],
+  providers: [ProfilePlayerFactory, CapacitorService],
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
 })

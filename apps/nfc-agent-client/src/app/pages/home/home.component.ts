@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CapacitorService } from '@notify/nfc-app-services';
 import { NavComponent, NavItem } from '@notify/ngx-components';
 
 @Component({
   standalone: true,
   imports: [CommonModule, NavComponent, RouterModule],
+  providers: [CapacitorService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
@@ -65,4 +67,6 @@ export class HomeComponent {
       ],
     },
   ];
+
+  constructor(public capacitor: CapacitorService) {}
 }

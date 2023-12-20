@@ -51,7 +51,7 @@ const tailwindConfig = {
       },
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [require('daisyui'), require('tailwindcss-safe-area')],
   daisyui: {
     themes: <unknown[]>[],
   },

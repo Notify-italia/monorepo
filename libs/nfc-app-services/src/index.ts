@@ -1,5 +1,6 @@
 export * from './lib/agent.service';
 export * from './lib/auth.service';
+export * from './lib/capacitor.service';
 export * from './lib/feedback.service';
 export * from './lib/guards/auth.guard';
 export * from './lib/guards/redirect.guard';
