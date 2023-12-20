@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">NfcAgentClient</string>
+    <string name="title_activity_main">NfcAgentClient</string>
+    <string name="package_name">org.notify.agent.client</string>
+    <string name="custom_url_scheme">org.notify.agent.client</string>
+</resources>

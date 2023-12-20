@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "17.0.3",
     "@angular/router": "17.0.3",
     "@auth0/angular-jwt": "^5.2.0",
+    "@ionic/angular": "^7.6.2",
     "@nx-bun/nx": "^1.2.0",
     "@nx/angular": "17.1.2",
     "@nx/devkit": "^17.1.2",
@@ -43,6 +44,10 @@
     "zone.js": "0.14.2"
   },
   "devDependencies": {
+    "@capacitor/android": "^5.6.0",
+    "@capacitor/cli": "^5.6.0",
+    "@capacitor/core": "^5.6.0",
+    "@capacitor/ios": "^5.6.0",
     "@angular-devkit/build-angular": "^17.0.7",
     "@angular-devkit/core": "17.0.1",
     "@angular-devkit/schematics": "17.0.1",
