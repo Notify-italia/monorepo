@@ -26,4 +26,10 @@ export class AgentService {
       }
     );
   }
+
+  public delete(id: string) {
+    return this.http.delete(`/v1/agent`, {
+      id,
+    });
+  }
 }

@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 import { INotifyAccount, INotifyPartialAgent } from '@notify/interfaces';
 import { Subject } from 'rxjs';
-import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
+import { TailwindFormsModule } from '../../tailwind-forms/tailwind-forms.module';
 
 @Component({
   standalone: true,

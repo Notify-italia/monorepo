@@ -6,13 +6,13 @@ import { INotifyProfile } from '@notify/interfaces';
 import { CapacitorService } from '@notify/nfc-app-services';
 import { Lightbox, LightboxModule } from 'ngx-lightbox';
 import { ToastrService } from 'ngx-toastr';
-import { NfcWriteFactory } from '../../modules/nfc';
-import { NfcWriteComponent } from '../../modules/nfc/components/nfc-write/nfc-write.component';
+import { NfcWriteFactory } from '../../modules/modals/nfc';
+import { NfcWriteComponent } from '../../modules/modals/nfc/components/nfc-write/nfc-write.component';
 @Component({
   selector: 'notify-share-profile',
   standalone: true,
   imports: [CommonModule, QRCodeModule, LightboxModule, NfcWriteComponent],
-  providers: [NfcWriteFactory],
+  providers: [NfcWriteFactory, CapacitorService],
   templateUrl: './share-profile.component.html',
   styleUrls: ['./share-profile.component.scss'],
 })

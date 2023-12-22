@@ -76,7 +76,7 @@ export class ProfileManagementComponent {
       .patchProfile<EnumNotifyUserType.Agent>(profile)
       .pipe(
         tap((profile) => {
-          this._toastr.success('Profilo aggiornato', 'Successo');
+          this._toastr.success('Profilo aggiornato', 'OK');
           this._profileSubject$.next(profile);
           this.loading = false;
         }),

@@ -23,7 +23,7 @@ export const appRoutes: Route[] = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'profile',
+        redirectTo: 'accounts',
       },
       {
         path: 'accounts',

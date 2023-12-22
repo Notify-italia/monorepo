@@ -15,6 +15,7 @@ export class AccountsRowComponent {
 
   @Output() public inspectProfile = new EventEmitter<void>();
   @Output() public showUserForm = new EventEmitter<void>();
+  @Output() public deleteUser = new EventEmitter<void>();
 
   public placeholderAvatar =
     'https://www.heymind.org.uk/wp-content/uploads/2022/04/avatar-placeholder.png';

@@ -12,6 +12,7 @@ import {
   ProfileService,
 } from '@notify/nfc-app-services';
 import {
+  ConfirmModalFactory,
   LoadingComponent,
   PageHeaderComponent,
   ProfilePlayerFactory,
@@ -38,7 +39,12 @@ import { AccountsRowComponent } from '../../components/accounts-row/accounts-row
     LoadingComponent,
     AccountsRowComponent,
   ],
-  providers: [AgentService, ProfilePlayerFactory, UserFormFactory],
+  providers: [
+    AgentService,
+    ProfilePlayerFactory,
+    UserFormFactory,
+    ConfirmModalFactory,
+  ],
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.scss'],
 })
@@ -60,7 +66,8 @@ export class AccountsComponent implements OnInit {
     private _authService: AuthService,
     private _profileService: ProfileService,
     private _profileFactory: ProfilePlayerFactory,
-    private _userFormFactory: UserFormFactory
+    private _userFormFactory: UserFormFactory,
+    private _confirmModalFactory: ConfirmModalFactory
   ) {}
 
   ngOnInit(): void {
@@ -107,6 +114,42 @@ export class AccountsComponent implements OnInit {
     });
   }
 
+  public deleteUser(agent: INotifyAgent) {
+    const ref = this._confirmModalFactory.create({
+      title: 'Elimina utente',
+      description:
+        'Sei sicuro di voler eliminare questo utente? Questa azione è irreversibile.',
+      confirmText: 'Elimina',
+      cancelText: 'Annulla',
+      value: agent._id,
+      confirmClass: 'btn btn-error !text-white w-28',
+    });
+
+    ref.instance.submitted
+      .pipe(
+        takeUntil(ref.instance.destroyed$),
+        switchMap((id) => {
+          if (!id) {
+            return [];
+          }
+          ref.instance.loading = true;
+          return this._agentService.delete(id as string);
+        }),
+        switchMap(() => this.getAgents()),
+        tap(() => {
+          ref.destroy();
+          this._toastr.success('Utente eliminato!', 'OK');
+        }),
+        catchError((error: AppError) => {
+          console.error(error);
+          ref.instance.loading = false;
+          this._toastr.error(error.error.errors[0].message, 'Errore');
+          return [];
+        })
+      )
+      .subscribe();
+  }
+
   public showUserForm(agent?: INotifyAgent) {
     const ref =
       this._userFormFactory.createForm<EnumNotifyUserType.Agent>(agent);
@@ -125,7 +168,7 @@ export class AccountsComponent implements OnInit {
         }),
         switchMap(() => this.getAgents()),
         tap(() => {
-          this._toastr.success('Utente salvato!', 'Successo');
+          this._toastr.success('Utente salvato!', 'OK');
           ref.loading = false;
           ref.close();
         }),

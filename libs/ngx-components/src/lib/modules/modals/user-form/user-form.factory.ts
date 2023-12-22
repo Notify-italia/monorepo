@@ -1,6 +1,6 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { EnumNotifyUserType, INotifyAccounts } from '@notify/interfaces';
-import { UserFormComponent } from '../standalones/user-form/user-form.component';
+import { UserFormComponent } from './user-form.component';
 
 @Injectable()
 export class UserFormFactory {

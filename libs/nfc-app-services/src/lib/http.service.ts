@@ -32,6 +32,12 @@ export class HttpService {
       .pipe(this._unauthorized());
   }
 
+  public delete<T>(url: string, params?: Record<string, string>) {
+    return this.http
+      .delete<T>(`${this.apiUrl}${url}`, this._genHeaders(params))
+      .pipe(this._unauthorized());
+  }
+
   private _genHeaders(params?: Record<string, string>) {
     return {
       params: new HttpParams({ fromObject: params }),

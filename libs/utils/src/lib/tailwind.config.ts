@@ -70,6 +70,9 @@ tailwindConfig.daisyui.themes.push('dark', {
     'accent-focus': '#ffffff',
     'accent-content': '#000000',
     neutral: tailwindConfig.theme.extend.colors.complimentary.DEFAULT,
+    'neutral-focus': tailwindConfig.theme.extend.colors.complimentary[600],
+    error: '#F44336',
+    'error-focus': '#E53E3E',
   },
 });
 
