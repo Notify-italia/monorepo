@@ -15,7 +15,7 @@
       ></notify-tailwind-input>
     </div>
     <!-- COGNOME -->
-    <div class="field" *ngIf="profile?.type === enumNotifyUserType.Agent">
+    <div class="field" *ngIf="isAgent">
       <notify-tailwind-input
         [parent]="form"
         name="surname"

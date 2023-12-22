@@ -77,6 +77,10 @@ export class ProfileFormComponent implements OnInit {
     itPhoneNumber: 'Numero di telefono non valido',
   };
 
+  public get isAgent() {
+    return this.profile.type === EnumNotifyUserType.Agent;
+  }
+
   constructor(
     private _utils: UtilsService,
     public capacitor: CapacitorService
