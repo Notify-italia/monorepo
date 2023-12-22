@@ -13,7 +13,6 @@ import { TailwindToastComponent } from './components/tailwind-toast/tailwind-toa
       toastClass: '',
     }),
   ],
-  exports: [TailwindToastComponent],
 })
 export class TailwindToastsModule {}
 

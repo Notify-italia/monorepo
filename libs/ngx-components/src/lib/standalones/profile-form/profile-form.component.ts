@@ -16,6 +16,7 @@ import {
 } from '@angular/forms';
 import { INotifyProfile } from '@notify/interfaces';
 import {
+  CapacitorService,
   UtilsService,
   itPhoneNumberValidators,
 } from '@notify/nfc-app-services';
@@ -62,9 +63,10 @@ export class ProfileFormComponent implements OnInit {
   private _destroy$ = new Subject<void>();
 
   public isMacos = navigator.userAgent.toLowerCase().includes('mac os');
+  public desktopMessage = `Fai click per caricare un'immagine o trascinala all'interno del riquadro`;
+  public mobileMessage = `Tocca per caricare un'immagine`;
 
   public form: ProfileForm = new FormGroup({}) as unknown as ProfileForm;
-
   public avatarFile = new File([], '');
 
   public validationErrors = {
@@ -74,7 +76,10 @@ export class ProfileFormComponent implements OnInit {
     itPhoneNumber: 'Numero di telefono non valido',
   };
 
-  constructor(private _utils: UtilsService) {}
+  constructor(
+    private _utils: UtilsService,
+    public capacitor: CapacitorService
+  ) {}
 
   public ngOnInit(): void {
     this.form = this._buildForm();

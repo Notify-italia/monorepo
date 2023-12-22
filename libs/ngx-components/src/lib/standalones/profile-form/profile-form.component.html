@@ -41,7 +41,7 @@
   <div class="section">
     <notify-upload
       class="w-full"
-      uploadLabel="Fai click per caricare un'immagine o trascinala all'interno del riquadro"
+      [uploadLabel]="capacitor.isNative ? mobileMessage : desktopMessage"
       [acceptedFiles]="'image/*'"
       [file]="avatarFile"
       (fileChanged)="setUploadedFile($event.blob)"
