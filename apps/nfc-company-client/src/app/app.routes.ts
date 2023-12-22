@@ -40,6 +40,13 @@ export const appRoutes: Route[] = [
           ),
       },
       {
+        path: 'profile',
+        loadComponent: () =>
+          import(
+            './pages/profile-management/profile-management.component'
+          ).then((m) => m.ProfileManagementComponent),
+      },
+      {
         path: 'signout',
         loadComponent: () =>
           import('./pages/signout/signout.component').then(

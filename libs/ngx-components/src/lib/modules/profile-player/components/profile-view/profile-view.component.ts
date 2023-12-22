@@ -41,7 +41,9 @@ export class ProfileViewComponent {
     map(() => format(new Date(), 'HH:mm'))
   );
 
-  public enumProfileTypes = EnumNotifyUserType;
+  public get isAgent(): boolean {
+    return this.data?.type === EnumNotifyUserType.Agent;
+  }
 
   constructor(
     private _profileService: ProfileService,

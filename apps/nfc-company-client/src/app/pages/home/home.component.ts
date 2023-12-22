@@ -19,7 +19,6 @@ export class HomeComponent {
       ],
     },
     {
-      disabled: true,
       label: 'Profilo Aziendale',
       path: '/pages/profile',
       icon: [

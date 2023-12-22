@@ -14,7 +14,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { INotifyProfile } from '@notify/interfaces';
+import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
 import {
   CapacitorService,
   UtilsService,
@@ -65,6 +65,7 @@ export class ProfileFormComponent implements OnInit {
   public isMacos = navigator.userAgent.toLowerCase().includes('mac os');
   public desktopMessage = `Fai click per caricare un'immagine o trascinala all'interno del riquadro`;
   public mobileMessage = `Tocca per caricare un'immagine`;
+  public enumNotifyUserType = EnumNotifyUserType;
 
   public form: ProfileForm = new FormGroup({}) as unknown as ProfileForm;
   public avatarFile = new File([], '');
@@ -102,8 +103,6 @@ export class ProfileFormComponent implements OnInit {
   public removeCustomField(item: FormGroup) {
     const index = this.form.controls.customFields.value.indexOf(item.value);
 
-    console.log(index);
-
     this.form.controls.customFields.removeAt(index);
   }
 
@@ -112,12 +111,15 @@ export class ProfileFormComponent implements OnInit {
   }
 
   private _buildForm(): ProfileForm {
+    const _requiredWhenAgent =
+      this.profile?.type === EnumNotifyUserType.Agent
+        ? [Validators.required]
+        : [];
+
     const f = new FormGroup({
       avatar: new FormControl(this.profile.avatar || '', []),
       name: new FormControl(this.profile.name || '', [Validators.required]),
-      surname: new FormControl(this.profile?.surname || '', [
-        Validators.required,
-      ]),
+      surname: new FormControl(this.profile?.surname || '', _requiredWhenAgent),
       email: new FormControl(this.profile.email || '', [Validators.email]),
       phoneNumber: new FormControl(this.profile.phoneNumber || '', [
         itPhoneNumberValidators,

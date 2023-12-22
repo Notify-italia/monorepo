@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ComponentRef, Input } from '@angular/core';
+import { Component, ComponentRef, HostListener, Input } from '@angular/core';
 import { Subject } from 'rxjs';
 
 export interface IConfirmModalConfig {
@@ -27,6 +27,7 @@ export class ConfirmComponent {
 
   public destroyed$ = new Subject<void>();
 
+  @HostListener('document:keydown.escape', ['$event'])
   public close() {
     this.submitted.next(null);
     this.cf.destroy();

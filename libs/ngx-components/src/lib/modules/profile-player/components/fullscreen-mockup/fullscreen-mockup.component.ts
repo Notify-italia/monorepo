@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ComponentRef, Input } from '@angular/core';
+import { Component, ComponentRef, HostListener, Input } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
 
 import { ShareProfileComponent } from '../../../../standalones/share-profile/share-profile.component';
@@ -19,6 +19,7 @@ export class FullscreenMockupComponent {
 
   constructor() {}
 
+  @HostListener('document:keydown.escape', ['$event'])
   public close() {
     this.cf.destroy();
   }

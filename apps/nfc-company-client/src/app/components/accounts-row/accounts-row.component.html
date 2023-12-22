@@ -5,14 +5,8 @@
 </td>
 <td>
   <div class="flex items-center gap-3">
-    <div class="avatar">
-      <div class="mask mask-circle w-14 h-14">
-        <img
-          *ngIf="user.profile?.avatar || placeholderAvatar as src"
-          [src]="src"
-          alt="Avatar Tailwind CSS Component"
-        />
-      </div>
+    <div class="w-14 h-14">
+      <notify-avatar [src]="user.profile?.avatar" size="14"></notify-avatar>
     </div>
     <div>
       <div class="font-bold">

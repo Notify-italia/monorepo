@@ -106,18 +106,20 @@
 
       <div class="section w-48 h-48">
         <!-- TODO animazione di flip tra avatar agente e avatar azienda simil instagram con gli avatar -->
-        <notify-avatar [src]="data?.avatar" size="48"></notify-avatar>
+        <notify-avatar
+          [src]="data?.avatar"
+          size="48"
+          [mask]="isAgent ? 'circle' : 'squircle'"
+        ></notify-avatar>
       </div>
 
       <div class="section">
         <div class="title">
           <span>{{ data?.name || 'Nome' }}</span>
-          <span *ngIf="data?.type === enumProfileTypes.Agent">{{
-            data?.surname || 'Cognome'
-          }}</span>
+          <span *ngIf="isAgent">{{ data?.surname || 'Cognome' }}</span>
         </div>
 
-        <div class="text-sm italic text-center">
+        <div class="text-sm italic text-center" *ngIf="isAgent">
           {{ data?.role }} ► {{ data?.company?.name || '' }}
         </div>
       </div>
@@ -153,7 +155,10 @@
         }
       </div>
 
-      <div class="fixed bottom-5 right-5 z-[999]" *ngIf="data && !mockup">
+      <div
+        class="fixed bottom-5 right-5 z-[999]"
+        *ngIf="data && !mockup && isAgent"
+      >
         <button class="floating-button" (click)="saveContact()">
           <svg
             xmlns="http://www.w3.org/2000/svg"

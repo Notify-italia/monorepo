@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { INotifyAgent } from '@notify/interfaces';
+import { AvatarComponent } from '@notify/ngx-components';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[notify-accounts-row]',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AvatarComponent],
   templateUrl: './accounts-row.component.html',
   styleUrls: ['./accounts-row.component.scss'],
 })
