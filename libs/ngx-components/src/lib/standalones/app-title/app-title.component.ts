@@ -10,4 +10,5 @@ import { Component, Input } from '@angular/core';
 })
 export class AppTitleComponent {
   @Input() compact = false;
+  @Input() subtitle = '';
 }

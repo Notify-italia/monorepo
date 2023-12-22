@@ -21,6 +21,7 @@ export interface NavItem {
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent {
+  @Input({ required: true }) subtitle = '';
   @Input() bottomItems: NavItem[] = [
     {
       label: 'Log out',
@@ -31,7 +32,7 @@ export class NavComponent {
       ],
     },
   ];
-  @Input() topItems: NavItem[] = [
+  @Input({ required: true }) topItems: NavItem[] = [
     {
       label: 'Home',
       path: '/home',

@@ -27,6 +27,7 @@ import { AppTitleComponent } from '../app-title/app-title.component';
 export class AuthComponent {
   @Input() public config = {
     submitLabel: 'Entra',
+    pageSubtitle: '',
     pageTitle: "Effettua l'accesso",
   };
   @Input() public loading = false;
