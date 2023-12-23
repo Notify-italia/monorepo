@@ -1,10 +1,15 @@
-<div class="items-center text-center flex flex-col justify-center">
+<div
+  class="items-center text-center flex flex-col justify-center relative w-[{{
+    widthRem
+  }}rem]  scale-{{ scale }}"
+>
   <img
     src="/assets/logo-{{ compact ? 'compact' : 'extended' }}.png"
     alt=""
-    class="w-full max-w-[14rem]"
+    class="w-full"
   />
-  <span class="text-lg tracking-wider font-medium text-center w-full">{{
-    subtitle
-  }}</span>
+  <span
+    class="text-lg tracking-widest text-left w-full absolute top-[3.2rem] left-20"
+    >{{ subtitle }}</span
+  >
 </div>
