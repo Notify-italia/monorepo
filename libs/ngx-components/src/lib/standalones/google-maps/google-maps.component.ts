@@ -4,7 +4,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
-  selector: 'notify-google-map',
+  selector: 'notify-google-maps',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './google-maps.component.html',
