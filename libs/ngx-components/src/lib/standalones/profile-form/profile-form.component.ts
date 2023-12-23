@@ -134,8 +134,6 @@ export class ProfileFormComponent implements OnInit {
   private _buildForm(): ProfileForm {
     const _requiredWhenAgent = this.isAgent ? [Validators.required] : [];
 
-    const _requiredWhenCompany = this.isCompany ? [Validators.required] : [];
-
     const f = new FormGroup({
       avatar: new FormControl(this.profile.avatar || '', []),
       name: new FormControl(this.profile.name || '', [Validators.required]),
@@ -162,10 +160,7 @@ export class ProfileFormComponent implements OnInit {
         this.profile.config.avatarMask || defaultAvatarMask(this.profile.type),
         []
       ),
-      address: new FormControl(
-        this.profile.address || '',
-        _requiredWhenCompany
-      ),
+      address: new FormControl(this.profile.address || ''),
     });
 
     this.profile.customFields?.forEach((item) => {

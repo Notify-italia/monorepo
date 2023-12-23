@@ -139,11 +139,7 @@
       </div>
 
       <div class="section w-full" *ngIf="data?.address as p">
-        <notify-google-maps
-          [origin]="p"
-          [destination]="p"
-          class="!w-[90%]"
-        ></notify-google-maps>
+        <notify-google-maps [address]="p" class="!w-[90%]"></notify-google-maps>
       </div>
 
       <div
