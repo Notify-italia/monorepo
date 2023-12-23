@@ -131,10 +131,15 @@
         class="w-[80%]"
       ></notify-profile-static-links>
 
+      <!-- BIO -->
       <div class="section module module-blur" *ngIf="data?.bio">
         <p class="text-sm italic text-center">
           {{ data?.bio || '' }}
         </p>
+      </div>
+
+      <div class="section module module-blur" *ngIf="data?.address as p">
+        <notify-google-map [origin]="p" [destination]="p"></notify-google-map>
       </div>
 
       <div

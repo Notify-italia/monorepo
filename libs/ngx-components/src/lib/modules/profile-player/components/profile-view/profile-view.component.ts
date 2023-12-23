@@ -10,6 +10,7 @@ import { format } from 'date-fns';
 import { interval, map, startWith } from 'rxjs';
 import { AnimatedBgComponent } from '../../../../standalones/animated-bg/animated-bg.component';
 import { AvatarComponent } from '../../../../standalones/avatar/avatar.component';
+import { GoogleMapsComponent } from '../../../../standalones/google-maps/google-maps.component';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
 import { FeedbackFactory } from '../../factories';
 import { ProfileStaticLinksComponent } from '../profile-static-links/profile-static-links.component';
@@ -25,6 +26,7 @@ import { RatingComponent } from '../rating/rating.component';
     AvatarComponent,
     ProfileStaticLinksComponent,
     RatingComponent,
+    GoogleMapsComponent,
   ],
   providers: [FeedbackFactory, FeedbackService],
   templateUrl: './profile-view.component.html',

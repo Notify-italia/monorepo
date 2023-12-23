@@ -117,6 +117,10 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
       type: Schema.Types.ObjectId,
       required: true,
     },
+    address: {
+      type: Schema.Types.String,
+      default: null,
+    },
     customFields: {
       type: [
         {

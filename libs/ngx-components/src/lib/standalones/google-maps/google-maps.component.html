@@ -1,0 +1,10 @@
+<div class="h-full w-full" *ngIf="location$ | async as l">
+  <iframe
+    [class]="mapClass"
+    loading="lazy"
+    allowfullscreen
+    referrerpolicy="no-referrer-when-downgrade"
+    [src]="l"
+  >
+  </iframe>
+</div>

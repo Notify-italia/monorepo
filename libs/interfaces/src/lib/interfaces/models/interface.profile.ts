@@ -12,7 +12,7 @@ export interface INotifyProfile<
   bio: string | null;
   role: string | null;
   avatar: string | null;
-  location: string | null;
+  address: string | null;
   config: {
     avatarMask: DaisyUIAvatarMasks | null;
     whatsappEnabled: boolean;

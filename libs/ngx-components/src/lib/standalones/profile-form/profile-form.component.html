@@ -83,6 +83,17 @@
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
     </div>
+
+    <!-- INDIRIZZO -->
+    <div class="field" *ngIf="isCompany">
+      <notify-tailwind-input
+        [parent]="form"
+        name="address"
+        label="Indirizzo"
+        placeholder="Via Lorenzo Ciulli 40, Prato, Italia"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-input>
+    </div>
   </div>
 
   <div class="divider">Principali</div>

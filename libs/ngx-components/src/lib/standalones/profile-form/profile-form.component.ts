@@ -43,7 +43,7 @@ type ProfileForm = FormGroup<{
   emailEnabled: FormControl<boolean | null>;
   customFields: FormArray<FormGroup>;
   avatarMask: FormControl<DaisyUIAvatarMasks | null>;
-  location: FormControl<string | null>;
+  address: FormControl<string | null>;
 }>;
 
 @Component({
@@ -93,6 +93,10 @@ export class ProfileFormComponent implements OnInit {
     return this.profile.type === EnumNotifyUserType.Agent;
   }
 
+  public get isCompany() {
+    return this.profile.type === EnumNotifyUserType.Company;
+  }
+
   constructor(
     private _utils: UtilsService,
     public capacitor: CapacitorService
@@ -128,10 +132,9 @@ export class ProfileFormComponent implements OnInit {
   }
 
   private _buildForm(): ProfileForm {
-    const _requiredWhenAgent =
-      this.profile?.type === EnumNotifyUserType.Agent
-        ? [Validators.required]
-        : [];
+    const _requiredWhenAgent = this.isAgent ? [Validators.required] : [];
+
+    const _requiredWhenCompany = this.isCompany ? [Validators.required] : [];
 
     const f = new FormGroup({
       avatar: new FormControl(this.profile.avatar || '', []),
@@ -159,9 +162,9 @@ export class ProfileFormComponent implements OnInit {
         this.profile.config.avatarMask || defaultAvatarMask(this.profile.type),
         []
       ),
-      location: new FormControl(
-        this.profile.location || '',
-        _requiredWhenAgent
+      address: new FormControl(
+        this.profile.address || '',
+        _requiredWhenCompany
       ),
     });
 
@@ -215,6 +218,7 @@ export class ProfileFormComponent implements OnInit {
         phoneCallEnabled: !!form.phoneCallEnabled,
         emailEnabled: !!form.emailEnabled,
       },
+      address: form.address || null,
       customFields:
         form.customFields?.map((item) => ({
           iconName: item.iconName,

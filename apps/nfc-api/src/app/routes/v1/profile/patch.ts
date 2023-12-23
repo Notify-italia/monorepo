@@ -79,14 +79,12 @@ const _editProfile = async (
     throw new BadRequestError('Profilo non trovato');
   }
 
-  source.name = toEdit.name || source.name;
-  source.surname = toEdit.surname || source.surname;
-  source.email = toEdit.email;
-  source.phoneNumber = toEdit.phoneNumber;
-  source.bio = toEdit.bio;
-  source.avatar = toEdit.avatar;
-  source.config = toEdit.config;
-  source.customFields = toEdit.customFields;
+  toEdit._id === undefined;
+  toEdit.updatedAt === undefined;
+  toEdit.createdAt === undefined;
+  toEdit.type === undefined;
+
+  source.set(toEdit);
 
   await source.save();
 

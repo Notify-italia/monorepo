@@ -97,7 +97,6 @@ export class ProfileManagementComponent {
       .getProfile<EnumNotifyUserType.Agent>()
       .pipe(
         tap((profile) => {
-          console.log(profile);
           this._profileSubject$.next(profile);
         }),
         catchError(async (err: AppError) => {
