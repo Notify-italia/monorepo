@@ -110,7 +110,7 @@
         <notify-avatar
           [src]="data?.avatar"
           size="48"
-          [mask]="isAgent ? 'circle' : 'squircle'"
+          [mask]="data?.config?.avatarMask || (isAgent ? 'circle' : 'squircle')"
         ></notify-avatar>
       </div>
 

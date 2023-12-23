@@ -109,6 +109,12 @@ CompanySchema.statics.build = async (doc: Partial<Company>) => {
     email: company.email,
     type: EnumNotifyUserType.Company,
     owner: company._id,
+    config: {
+      avatarMask: 'squircle',
+      whatsappEnabled: false,
+      phoneCallEnabled: true,
+      emailEnabled: true,
+    },
   }).save();
 
   return company;

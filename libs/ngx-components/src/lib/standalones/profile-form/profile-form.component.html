@@ -47,6 +47,17 @@
       (fileChanged)="setUploadedFile($event.blob)"
       [removeFile$]="removeAvatar$"
     ></notify-upload>
+
+    <div class="field">
+      <notify-tailwind-select
+        [parent]="form"
+        name="avatarMask"
+        label="Maschera"
+        placeholder="default"
+        [options]="avatarMaskOptions"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-select>
+    </div>
   </div>
 
   <div class="divider">Contatti</div>

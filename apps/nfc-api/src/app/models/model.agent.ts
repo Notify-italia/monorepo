@@ -128,6 +128,12 @@ AgentSchema.statics.build = async (
     email: agent.email,
     type: EnumNotifyUserType.Agent,
     owner: agent._id,
+    config: {
+      avatarMask: 'circle',
+      whatsappEnabled: true,
+      phoneCallEnabled: true,
+      emailEnabled: true,
+    },
     ...profileData,
   }).save();
 

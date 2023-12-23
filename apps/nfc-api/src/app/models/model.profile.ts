@@ -103,6 +103,10 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
         type: Boolean,
         default: true,
       },
+      avatarMask: {
+        type: String,
+        default: null,
+      },
     },
     type: {
       type: String,

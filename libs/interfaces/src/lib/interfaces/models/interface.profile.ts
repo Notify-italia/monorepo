@@ -12,7 +12,9 @@ export interface INotifyProfile<
   bio: string | null;
   role: string | null;
   avatar: string | null;
+  location: string | null;
   config: {
+    avatarMask: DaisyUIAvatarMasks | null;
     whatsappEnabled: boolean;
     phoneCallEnabled: boolean;
     emailEnabled: boolean;
@@ -21,3 +23,40 @@ export interface INotifyProfile<
   type: EnumNotifyUserType;
   company?: INotifyProfile<EnumNotifyUserType.Company>;
 }
+
+export const daisyUIAvatarMaks = [
+  'circle',
+  'square',
+  'squircle',
+  'heart',
+  'hexagon',
+  'hexagon-2',
+  'decagon',
+  'pentagon',
+  'diamond',
+  'parallelogram',
+  'parallelogram-2',
+  'parallelogram-3',
+  'parallelogram-4',
+  'star',
+  'star-2',
+  'triangle',
+  'triangle-2',
+  'triangle-3',
+  'triangle-4',
+  'half-1',
+  'half-2',
+] as const;
+
+export type DaisyUIAvatarMasks = (typeof daisyUIAvatarMaks)[number];
+
+export const defaultAvatarMask = (type: EnumNotifyUserType) => {
+  switch (type) {
+    case EnumNotifyUserType.Agent:
+      return 'circle';
+    case EnumNotifyUserType.Company:
+      return 'squircle';
+    default:
+      return 'circle';
+  }
+};

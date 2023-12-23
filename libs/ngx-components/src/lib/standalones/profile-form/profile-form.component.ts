@@ -14,7 +14,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
+import {
+  DaisyUIAvatarMasks,
+  EnumNotifyUserType,
+  INotifyProfile,
+  daisyUIAvatarMaks,
+  defaultAvatarMask,
+} from '@notify/interfaces';
 import {
   CapacitorService,
   UtilsService,
@@ -36,6 +42,8 @@ type ProfileForm = FormGroup<{
   phoneCallEnabled: FormControl<boolean | null>;
   emailEnabled: FormControl<boolean | null>;
   customFields: FormArray<FormGroup>;
+  avatarMask: FormControl<DaisyUIAvatarMasks | null>;
+  location: FormControl<string | null>;
 }>;
 
 @Component({
@@ -69,6 +77,10 @@ export class ProfileFormComponent implements OnInit {
 
   public form: ProfileForm = new FormGroup({}) as unknown as ProfileForm;
   public avatarFile = new File([], '');
+  public avatarMaskOptions = daisyUIAvatarMaks.map((item) => ({
+    name: item,
+    value: item,
+  }));
 
   public validationErrors = {
     required: ' ',
@@ -94,6 +106,7 @@ export class ProfileFormComponent implements OnInit {
       .pipe(
         takeUntil(this._destroy$),
         tap((value) => {
+          console.log(`form`, value);
           this.value.emit(this._mapFormToProfile(value));
         })
       )
@@ -142,6 +155,14 @@ export class ProfileFormComponent implements OnInit {
         []
       ),
       customFields: new FormArray([] as FormGroup[]),
+      avatarMask: new FormControl<DaisyUIAvatarMasks>(
+        this.profile.config.avatarMask || defaultAvatarMask(this.profile.type),
+        []
+      ),
+      location: new FormControl(
+        this.profile.location || '',
+        _requiredWhenAgent
+      ),
     });
 
     this.profile.customFields?.forEach((item) => {
@@ -189,6 +210,7 @@ export class ProfileFormComponent implements OnInit {
       bio: form.bio || null,
       avatar: form.avatar || null,
       config: {
+        avatarMask: form.avatarMask || defaultAvatarMask(this.profile.type),
         whatsappEnabled: !!form.whatsappEnabled,
         phoneCallEnabled: !!form.phoneCallEnabled,
         emailEnabled: !!form.emailEnabled,
