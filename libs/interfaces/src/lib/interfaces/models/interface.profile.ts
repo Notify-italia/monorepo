@@ -44,9 +44,31 @@ export const daisyUIAvatarMaks = [
   'triangle-2',
   'triangle-3',
   'triangle-4',
-  'half-1',
-  'half-2',
 ] as const;
+
+export const daisyUIAvatarMaksIT: {
+  [key in DaisyUIAvatarMasks]: string;
+} = {
+  circle: 'circolare',
+  square: 'quadrato',
+  squircle: 'squircle',
+  heart: 'cuore',
+  hexagon: 'esagono',
+  'hexagon-2': 'esagono-2',
+  decagon: 'decagono',
+  pentagon: 'pentagono',
+  diamond: 'diamante',
+  parallelogram: 'parallelogramma',
+  'parallelogram-2': 'parallelogramma-2',
+  'parallelogram-3': 'parallelogramma-3',
+  'parallelogram-4': 'parallelogramma-4',
+  star: 'stella',
+  'star-2': 'stella-2',
+  triangle: 'triangolo',
+  'triangle-2': 'triangolo-2',
+  'triangle-3': 'triangolo-3',
+  'triangle-4': 'triangolo-4',
+};
 
 export type DaisyUIAvatarMasks = (typeof daisyUIAvatarMaks)[number];
 

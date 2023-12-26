@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -19,6 +19,7 @@ import {
   EnumNotifyUserType,
   INotifyProfile,
   daisyUIAvatarMaks,
+  daisyUIAvatarMaksIT,
   defaultAvatarMask,
 } from '@notify/interfaces';
 import {
@@ -78,7 +79,7 @@ export class ProfileFormComponent implements OnInit {
   public form: ProfileForm = new FormGroup({}) as unknown as ProfileForm;
   public avatarFile = new File([], '');
   public avatarMaskOptions = daisyUIAvatarMaks.map((item) => ({
-    name: item,
+    name: new TitleCasePipe().transform(daisyUIAvatarMaksIT[item]),
     value: item,
   }));
 
