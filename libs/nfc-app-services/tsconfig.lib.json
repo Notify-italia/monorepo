@@ -8,5 +8,5 @@
     "types": []
   },
   "exclude": ["src/**/*.spec.ts", "jest.config.ts", "src/**/*.test.ts"],
-  "include": ["src/**/*.ts", "../../apps/nfc-api/src/app/services/service.envs.ts", "../nfc-api-services/src/lib/service.typescript.ts", "../nfc-api-services/src/lib/service.logs.ts"]
+  "include": ["src/**/*.ts", "src/**/*.js"]
 }
