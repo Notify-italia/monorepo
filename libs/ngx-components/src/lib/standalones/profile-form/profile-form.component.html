@@ -60,6 +60,42 @@
     </div>
   </div>
 
+  <div class="divider">Indirizzo</div>
+
+  <div class="section">
+    <!-- INDIRIZZO -->
+    @if (isCompany) {
+    <div class="field flex w-full !space-y-0 space-x-2">
+      <notify-tailwind-input
+        [parent]="form"
+        name="street"
+        label="Via/Piazza"
+        class="w-5/12"
+        placeholder="Via Lorenzo Ciulli"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-input>
+
+      <notify-tailwind-input
+        [parent]="form"
+        name="number"
+        label="civico"
+        class="w-2/12"
+        placeholder="40"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-input>
+
+      <notify-tailwind-input
+        [parent]="form"
+        name="city"
+        label="Città"
+        placeholder="Prato"
+        class="w-5/12"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-input>
+    </div>
+    }
+  </div>
+
   <div class="divider">Contatti</div>
 
   <div class="section">
@@ -83,54 +119,42 @@
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
     </div>
-
-    <!-- INDIRIZZO -->
-    <div class="field" *ngIf="isCompany">
-      <notify-tailwind-input
-        [parent]="form"
-        name="address"
-        label="Indirizzo"
-        placeholder="Via Lorenzo Ciulli 40, Prato, Italia"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-input>
-    </div>
-  </div>
-
-  <div class="divider">Recensione</div>
-
-  <div class="section">
-    <notify-tailwind-input
-      [parent]="form"
-      name="reviewRedirect"
-      label="Reindirizzamento recensioni"
-      placeholder="https://g.page/la-tua-azienda/review?rc"
-      [validationErrors]="validationErrors"
-      class="w-full"
-    >
-    </notify-tailwind-input>
   </div>
 
   <div class="divider">Servizi Principali</div>
 
   <div class="section">
-    <notify-tailwind-checkbox
-      [parent]="form"
-      name="phoneCallEnabled"
-      label="Permetti chiamate"
-      [validationErrors]="validationErrors"
-    ></notify-tailwind-checkbox>
-    <notify-tailwind-checkbox
-      [parent]="form"
-      name="whatsappEnabled"
-      label="Whatsapp"
-      [validationErrors]="validationErrors"
-    ></notify-tailwind-checkbox>
-    <notify-tailwind-checkbox
-      [parent]="form"
-      name="emailEnabled"
-      label="E-Mail"
-      [validationErrors]="validationErrors"
-    ></notify-tailwind-checkbox>
+    <div class="field">
+      <notify-tailwind-input
+        [parent]="form"
+        name="reviewRedirect"
+        label="Reindirizzamento recensioni"
+        placeholder="https://g.page/la-tua-azienda/review?rc"
+        [validationErrors]="validationErrors"
+        class="w-full"
+      >
+      </notify-tailwind-input>
+    </div>
+    <div class="field">
+      <notify-tailwind-checkbox
+        [parent]="form"
+        name="phoneCallEnabled"
+        label="Permetti chiamate"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-checkbox>
+      <notify-tailwind-checkbox
+        [parent]="form"
+        name="whatsappEnabled"
+        label="Whatsapp"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-checkbox>
+      <notify-tailwind-checkbox
+        [parent]="form"
+        name="emailEnabled"
+        label="E-Mail"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-checkbox>
+    </div>
   </div>
 
   <div class="divider">Integrazioni</div>

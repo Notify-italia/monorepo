@@ -44,7 +44,9 @@ type ProfileForm = FormGroup<{
   emailEnabled: FormControl<boolean | null>;
   customFields: FormArray<FormGroup>;
   avatarMask: FormControl<DaisyUIAvatarMasks | null>;
-  address: FormControl<string | null>;
+  street: FormControl<INotifyProfile['address']['street']>;
+  city: FormControl<INotifyProfile['address']['city']>;
+  number: FormControl<INotifyProfile['address']['number']>;
   reviewRedirect: FormControl<INotifyProfile['reviewRedirect']>;
 }>;
 
@@ -163,7 +165,9 @@ export class ProfileFormComponent implements OnInit {
         []
       ),
       reviewRedirect: new FormControl(this.profile.reviewRedirect || '', []),
-      address: new FormControl(this.profile.address || ''),
+      street: new FormControl(this.profile.address?.street || ''),
+      city: new FormControl(this.profile.address?.city || ''),
+      number: new FormControl(this.profile.address?.number || ''),
     });
 
     this.profile.customFields?.forEach((item) => {
@@ -216,7 +220,11 @@ export class ProfileFormComponent implements OnInit {
         phoneCallEnabled: !!form.phoneCallEnabled,
         emailEnabled: !!form.emailEnabled,
       },
-      address: form.address || null,
+      address: {
+        street: form.street || null,
+        city: form.city || null,
+        number: form.number || null,
+      },
       reviewRedirect: form.reviewRedirect || null,
       customFields:
         form.customFields?.map((item) => ({

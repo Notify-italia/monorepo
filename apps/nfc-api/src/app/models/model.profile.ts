@@ -118,8 +118,18 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
       required: true,
     },
     address: {
-      type: Schema.Types.String,
-      default: null,
+      street: {
+        type: String,
+        default: null,
+      },
+      city: {
+        type: String,
+        default: null,
+      },
+      number: {
+        type: String,
+        default: null,
+      },
     },
     reviewRedirect: {
       type: Schema.Types.String,

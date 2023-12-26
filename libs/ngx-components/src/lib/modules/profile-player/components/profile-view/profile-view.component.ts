@@ -115,6 +115,16 @@ END:VCARD`;
     a.click();
   }
 
+  public buildCompanyLocation(): string {
+    const d = this.data?.address;
+
+    if (!d) {
+      return '';
+    }
+
+    return `${d.street} ${d.number}, ${d.city}`;
+  }
+
   public redirectToReview(): void {
     if (!this.data?.reviewRedirect) {
       return;

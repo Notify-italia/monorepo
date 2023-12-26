@@ -159,7 +159,7 @@
         {{ b }}
       </div>
 
-      <div class="section w-full" *ngIf="data?.address as p">
+      <div class="section w-full" *ngIf="buildCompanyLocation() as p">
         <div class="module module-blur !py-2 text-center my-1.5 text-sm">
           {{ p | titlecase }}
         </div>

@@ -12,7 +12,11 @@ export interface INotifyProfile<
   bio: string | null;
   role: string | null;
   avatar: string | null;
-  address: string | null;
+  address: {
+    street: string | null;
+    city: string | null;
+    number: string | null;
+  };
   reviewRedirect: T extends EnumNotifyUserType.Company ? string : null;
   config: {
     avatarMask: DaisyUIAvatarMasks | null;
