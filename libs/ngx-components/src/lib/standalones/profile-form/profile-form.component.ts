@@ -45,6 +45,7 @@ type ProfileForm = FormGroup<{
   customFields: FormArray<FormGroup>;
   avatarMask: FormControl<DaisyUIAvatarMasks | null>;
   address: FormControl<string | null>;
+  reviewRedirect: FormControl<INotifyProfile['reviewRedirect']>;
 }>;
 
 @Component({
@@ -161,6 +162,7 @@ export class ProfileFormComponent implements OnInit {
         this.profile.config.avatarMask || defaultAvatarMask(this.profile.type),
         []
       ),
+      reviewRedirect: new FormControl(this.profile.reviewRedirect || '', []),
       address: new FormControl(this.profile.address || ''),
     });
 
@@ -215,6 +217,7 @@ export class ProfileFormComponent implements OnInit {
         emailEnabled: !!form.emailEnabled,
       },
       address: form.address || null,
+      reviewRedirect: form.reviewRedirect || null,
       customFields:
         form.customFields?.map((item) => ({
           iconName: item.iconName,

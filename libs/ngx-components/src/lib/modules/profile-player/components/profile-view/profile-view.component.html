@@ -65,51 +65,71 @@
         'h-full min-h-screen': !mockup
       }"
     >
-      <!-- REVIEW -->
-      <div class="flex justify-center p-2 mt-4">
+      <div class="flex justify-center mt-4">
+        <!-- FEEDBACK -->
+        @if (isAgent) {
         <button
           type="button"
           class="btn btn-wide btn-accent"
           [disabled]="mockup || feedbackGiven()"
           (click)="showFeedback()"
         >
-          <div
-            class="flex justify-around text-center items-center text-sm space-x-2"
+          @if (!feedbackGiven()) {
+          <svg
+            class="w-6 h-6"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
           >
-            @if (!feedbackGiven()) {
-            <svg
-              class="w-6 h-6"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M12.672.668a.75.75 0 00-1.345 0L8.27 6.865l-6.838.994a.75.75 0 00-.416 1.279l4.948 4.823-1.168 6.811a.75.75 0 001.088.791L12 18.347l6.117 3.216a.75.75 0 001.088-.79l-1.168-6.812 4.948-4.823a.75.75 0 00-.416-1.28l-6.838-.993L12.672.668z"
-              ></path>
-            </svg>
-            <p class="normal-case">Lascia un feedback</p>
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path
+              d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"
+            ></path>
+          </svg>
+          <p class="normal-case">Lascia un feedback</p>
+          }
 
-            }
-
-            <div *ngIf="feedbackGiven() as fb" class="m-1">
-              <p class="normal-case text-xs text-gray/50">Feedback lasciato</p>
-              <notify-rating
-                [currentValue]="fb.rating"
-                colorClass="bg-primary"
-                sizeClass="sm"
-              ></notify-rating>
-            </div>
+          <div *ngIf="feedbackGiven() as fb" class="m-1 space-y-1">
+            <p class="normal-case text-xs text-gray/50">Feedback lasciato</p>
+            <notify-rating
+              [currentValue]="fb.rating"
+              colorClass="bg-primary"
+              sizeClass="sm"
+            ></notify-rating>
           </div>
         </button>
+        } @else {
+        <button
+          type="button"
+          class="btn btn-wide btn-accent"
+          [disabled]="mockup || !data?.reviewRedirect"
+          (click)="redirectToReview()"
+        >
+          <svg
+            class="w-6 h-6"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M0 0h24v24H0zm15.35 6.41l-1.77-1.77c-.2-.2-.51-.2-.71 0L6 11.53V14h2.47l6.88-6.88c.2-.19.2-.51 0-.71z"
+              fill="none"
+            ></path>
+            <path
+              d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 14v-2.47l6.88-6.88c.2-.2.51-.2.71 0l1.77 1.77c.2.2.2.51 0 .71L8.47 14H6zm12 0h-7.5l2-2H18v2z"
+            ></path>
+          </svg>
+          <p class="normal-case">Lascia una recensione</p>
+        </button>
+        }
       </div>
 
-      <div class="section w-48 h-48">
+      <div class="section w-fit h-fit">
         <!-- TODO animazione di flip tra avatar agente e avatar azienda simil instagram con gli avatar -->
 
         <notify-avatar
           [src]="data?.avatar"
-          size="48"
+          size="40"
           [mask]="data?.config?.avatarMask || (isAgent ? 'circle' : 'squircle')"
         ></notify-avatar>
       </div>
@@ -132,13 +152,17 @@
       ></notify-profile-static-links>
 
       <!-- BIO -->
-      <div class="section module module-blur" *ngIf="data?.bio">
-        <p class="text-sm italic text-center">
-          {{ data?.bio || '' }}
-        </p>
+      <div
+        class="section module module-blur text-sm italic text-center !px-2"
+        *ngIf="data?.bio as b"
+      >
+        {{ b }}
       </div>
 
       <div class="section w-full" *ngIf="data?.address as p">
+        <div class="module module-blur !py-2 text-center my-1.5 text-sm">
+          {{ p | titlecase }}
+        </div>
         <notify-google-maps [address]="p" class="!w-[90%]"></notify-google-maps>
       </div>
 

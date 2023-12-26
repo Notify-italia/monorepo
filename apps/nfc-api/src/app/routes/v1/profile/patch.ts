@@ -84,6 +84,8 @@ const _editProfile = async (
   toEdit.createdAt === undefined;
   toEdit.type === undefined;
 
+  console.log(`toEdit`, toEdit);
+
   source.set(toEdit);
 
   await source.save();

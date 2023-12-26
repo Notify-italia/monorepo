@@ -121,6 +121,10 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
       type: Schema.Types.String,
       default: null,
     },
+    reviewRedirect: {
+      type: Schema.Types.String,
+      default: null,
+    },
     customFields: {
       type: [
         {

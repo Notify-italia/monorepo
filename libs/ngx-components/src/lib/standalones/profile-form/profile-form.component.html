@@ -96,7 +96,21 @@
     </div>
   </div>
 
-  <div class="divider">Principali</div>
+  <div class="divider">Recensione</div>
+
+  <div class="section">
+    <notify-tailwind-input
+      [parent]="form"
+      name="reviewRedirect"
+      label="Reindirizzamento recensioni"
+      placeholder="https://g.page/la-tua-azienda/review?rc"
+      [validationErrors]="validationErrors"
+      class="w-full"
+    >
+    </notify-tailwind-input>
+  </div>
+
+  <div class="divider">Servizi Principali</div>
 
   <div class="section">
     <notify-tailwind-checkbox

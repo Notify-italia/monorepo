@@ -1,8 +1,4 @@
 <div class="h-full w-full relative" *ngIf="location$ | async as l">
-  <span
-    class="tooltip tooltip-open tooltip-bottom w-full top-[5.4rem] tooltip-warning ml-[0.09rem] md:ml-0 pointer-events-none font-medium"
-    [attr.data-tip]="address"
-  ></span>
   <iframe
     [class]="mapClass"
     loading="lazy"

@@ -13,6 +13,7 @@ export interface INotifyProfile<
   role: string | null;
   avatar: string | null;
   address: string | null;
+  reviewRedirect: T extends EnumNotifyUserType.Company ? string : null;
   config: {
     avatarMask: DaisyUIAvatarMasks | null;
     whatsappEnabled: boolean;

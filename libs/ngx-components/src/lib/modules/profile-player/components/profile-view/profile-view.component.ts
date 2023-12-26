@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   EnumNotifyUserType,
   INotifyFeedback,
@@ -50,7 +51,8 @@ export class ProfileViewComponent {
   constructor(
     private _profileService: ProfileService,
     private _feedbackFactory: FeedbackFactory,
-    private _feedbackService: FeedbackService
+    private _feedbackService: FeedbackService,
+    private _router: Router
   ) {}
 
   public feedbackGiven(): INotifyFeedback | null {
@@ -111,5 +113,13 @@ END:VCARD`;
     );
     a.setAttribute('download', 'contact.vcf');
     a.click();
+  }
+
+  public redirectToReview(): void {
+    if (!this.data?.reviewRedirect) {
+      return;
+    }
+
+    window.open(this.data.reviewRedirect, '_blank');
   }
 }
