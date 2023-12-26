@@ -118,7 +118,7 @@ END:VCARD`;
   public buildCompanyLocation(): string {
     const d = this.data?.address;
 
-    if (!d) {
+    if (!d || this.isAgent) {
       return '';
     }
 

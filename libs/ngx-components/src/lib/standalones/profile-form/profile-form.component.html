@@ -60,11 +60,10 @@
     </div>
   </div>
 
+  <!-- INDIRIZZO -->
+  @if (isCompany) {
   <div class="divider">Indirizzo</div>
-
   <div class="section">
-    <!-- INDIRIZZO -->
-    @if (isCompany) {
     <div class="field flex w-full !space-y-0 space-x-2">
       <notify-tailwind-input
         [parent]="form"
@@ -93,8 +92,8 @@
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
     </div>
-    }
   </div>
+  }
 
   <div class="divider">Contatti</div>
 
