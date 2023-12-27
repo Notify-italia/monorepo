@@ -44,10 +44,10 @@ type ProfileForm = FormGroup<{
   emailEnabled: FormControl<boolean | null>;
   customFields: FormArray<FormGroup>;
   avatarMask: FormControl<DaisyUIAvatarMasks | null>;
-  street: FormControl<INotifyProfile['address']['street']>;
-  city: FormControl<INotifyProfile['address']['city']>;
-  number: FormControl<INotifyProfile['address']['number']>;
-  reviewRedirect: FormControl<INotifyProfile['reviewRedirect']>;
+  street: FormControl<string | null>;
+  city: FormControl<string | null>;
+  number: FormControl<string | null>;
+  reviewRedirect: FormControl<string | null>;
 }>;
 
 @Component({
@@ -206,6 +206,14 @@ export class ProfileFormComponent implements OnInit {
   }
 
   private _mapFormToProfile(form: ProfileForm['value']): INotifyProfile {
+    const address = this.isAgent
+      ? null
+      : {
+          street: form.street || null,
+          city: form.city || null,
+          number: form.number || null,
+        };
+
     return {
       ...this.profile,
       name: form.name || null,
@@ -220,11 +228,7 @@ export class ProfileFormComponent implements OnInit {
         phoneCallEnabled: !!form.phoneCallEnabled,
         emailEnabled: !!form.emailEnabled,
       },
-      address: {
-        street: form.street || null,
-        city: form.city || null,
-        number: form.number || null,
-      },
+      address,
       reviewRedirect: form.reviewRedirect || null,
       customFields:
         form.customFields?.map((item) => ({

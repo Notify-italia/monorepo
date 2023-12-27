@@ -11,9 +11,9 @@ export class ProfileService {
     return phoneNumber.replace(/[^0-9]/g, '');
   }
 
-  public buildCompanyLocation(d?: INotifyProfile['address']): string {
+  public buildCompanyLocation(d?: INotifyProfile['address']) {
     if (!d) {
-      return '';
+      return null;
     }
 
     return `${d.street} ${d.number}, ${d.city}`;
