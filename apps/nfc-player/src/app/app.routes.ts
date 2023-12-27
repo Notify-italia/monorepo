@@ -15,5 +15,8 @@ export const appRoutes: Route[] = [
   {
     path: '404',
     component: PageNotFoundComponent,
+    data: {
+      noHomeRedirect: true,
+    },
   },
 ];

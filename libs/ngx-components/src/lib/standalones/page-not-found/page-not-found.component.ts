@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { AnimatedBgComponent } from '../animated-bg/animated-bg.component';
 import { AppTitleComponent } from '../app-title/app-title.component';
 
@@ -11,4 +11,9 @@ import { AppTitleComponent } from '../app-title/app-title.component';
   templateUrl: './page-not-found.component.html',
   styleUrls: ['./page-not-found.component.scss'],
 })
-export class PageNotFoundComponent {}
+export class PageNotFoundComponent {
+  public noHomeRedirect =
+    this._activatedRoute.snapshot.data?.['noHomeRedirect'] ?? false;
+
+  constructor(private _activatedRoute: ActivatedRoute) {}
+}
