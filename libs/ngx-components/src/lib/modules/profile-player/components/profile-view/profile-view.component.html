@@ -124,14 +124,24 @@
         }
       </div>
 
-      <div class="section w-fit h-fit">
-        <!-- TODO animazione di flip tra avatar agente e avatar azienda simil instagram con gli avatar -->
-
+      <div class="section w-fit h-fit relative">
         <notify-avatar
           [src]="data?.avatar"
           size="40"
           [mask]="data?.config?.avatarMask || (isAgent ? 'circle' : 'squircle')"
         ></notify-avatar>
+
+        <button
+          *ngIf="isAgent"
+          (click)="companyAvatarClick.emit()"
+          class="!absolute bottom-0 right-0 -mr-4 scale-125"
+        >
+          <notify-avatar
+            size="14"
+            [src]="data?.company?.avatar"
+            [mask]="data?.company?.config?.avatarMask || 'circle'"
+          ></notify-avatar>
+        </button>
       </div>
 
       <div class="section">
@@ -141,7 +151,7 @@
         </div>
 
         <div class="text-sm italic text-center" *ngIf="isAgent">
-          {{ data?.role }} ► {{ data?.company?.name || '' }}
+          {{ data?.role }}
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   EnumNotifyUserType,
   INotifyFeedback,
@@ -38,6 +38,8 @@ export class ProfileViewComponent {
   @Input() mockup = false;
   @Input() feedbackKey = 'feedback';
   @Input() showFooter = true;
+
+  @Output() companyAvatarClick = new EventEmitter<void>();
 
   public currentTime$ = interval(1000).pipe(
     startWith(0),

@@ -4,14 +4,24 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
 import { GesturesDirective, ProfileService } from '@notify/nfc-app-services';
-import { ProfileViewComponent } from '@notify/ngx-components';
+import {
+  LoadingComponent,
+  ProfileViewComponent,
+  SwipeAvailableComponent,
+} from '@notify/ngx-components';
 import { Observable, catchError, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'notify-profile',
   standalone: true,
-  imports: [CommonModule, ProfileViewComponent, GesturesDirective],
+  imports: [
+    CommonModule,
+    ProfileViewComponent,
+    GesturesDirective,
+    SwipeAvailableComponent,
+    LoadingComponent,
+  ],
   providers: [],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
@@ -114,6 +124,36 @@ export class ProfileComponent {
       this._thresholds.minScale +
       (this._thresholds.maxScale - this._thresholds.minScale) *
         (Math.abs($event) / 100);
+  }
+
+  public forceShowCompanyProfile(): void {
+    this.companyIsVisible = true;
+
+    this.profileScale = this._thresholds.minScale;
+
+    if (this.companyProfileX <= this._thresholds.minTranslate) {
+      return;
+    }
+
+    setTimeout(() => {
+      this.companyProfileX -= 2;
+      this.forceShowCompanyProfile();
+    }, 1);
+  }
+
+  public forceHideCompanyProfile(): void {
+    this.companyIsVisible = false;
+
+    this.profileScale = this._thresholds.maxScale;
+
+    if (this.companyProfileX >= this._thresholds.maxTranslate) {
+      return;
+    }
+
+    setTimeout(() => {
+      this.companyProfileX += 2;
+      this.forceHideCompanyProfile();
+    }, 1);
   }
 
   public saveContact(d: INotifyProfile): void {
