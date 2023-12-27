@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import {
   EnumNotifyUserType,
   INotifyFeedback,
@@ -38,6 +37,7 @@ export class ProfileViewComponent {
   @Input({ required: true }) publicUrl = 'http://localhost:4200';
   @Input() mockup = false;
   @Input() feedbackKey = 'feedback';
+  @Input() showFooter = true;
 
   public currentTime$ = interval(1000).pipe(
     startWith(0),
@@ -49,10 +49,9 @@ export class ProfileViewComponent {
   }
 
   constructor(
-    private _profileService: ProfileService,
+    public profileService: ProfileService,
     private _feedbackFactory: FeedbackFactory,
-    private _feedbackService: FeedbackService,
-    private _router: Router
+    private _feedbackService: FeedbackService
   ) {}
 
   public feedbackGiven(): INotifyFeedback | null {
@@ -81,48 +80,6 @@ export class ProfileViewComponent {
       profile: this.data,
       feedbackKey: this.feedbackKey,
     });
-  }
-
-  public saveContact(): void {
-    const d = this.data;
-
-    if (!d) {
-      console.log('no data');
-      return;
-    }
-
-    const vcard = `BEGIN:VCARD
-VERSION:3.0
-N:${d.surname};${d.name};
-FN:${d.name} ${d.surname}
-ORG:${d.company?.name || d.name}
-TEL;TYPE=work,voice;VALUE=uri:${this._profileService.cleanPhoneNumber(
-      d.phoneNumber || ''
-    )}
-PHOTO;ENCODING=b:${d.avatar?.split(',')[1]}
-item2.URL;type=pref:${this._profileService.genPlayerUrl(this.publicUrl, d._id)},
-ADR;TYPE=work:;;${d?.company?.address}
-EMAIL:${d.email}
-END:VCARD`;
-
-    //saving the file by creating an anchor tag and simulating a click on it
-    const a = document.createElement('a');
-    a.setAttribute(
-      'href',
-      'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard)
-    );
-    a.setAttribute('download', 'contact.vcf');
-    a.click();
-  }
-
-  public buildCompanyLocation(): string {
-    const d = this.data?.address;
-
-    if (!d || this.isAgent) {
-      return '';
-    }
-
-    return `${d.street} ${d.number}, ${d.city}`;
   }
 
   public redirectToReview(): void {

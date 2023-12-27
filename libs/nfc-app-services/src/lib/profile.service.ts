@@ -11,6 +11,14 @@ export class ProfileService {
     return phoneNumber.replace(/[^0-9]/g, '');
   }
 
+  public buildCompanyLocation(d?: INotifyProfile['address']): string {
+    if (!d) {
+      return '';
+    }
+
+    return `${d.street} ${d.number}, ${d.city}`;
+  }
+
   public genPlayerUrl(publicUrl: string, id: string) {
     return `${publicUrl}/profile?p=${id}`;
   }
