@@ -42,14 +42,15 @@ const _profilePlayerFlow = async <T>(req: Request<T>, res: Response) => {
 
   const profile = await ProfileModel.findById(id).lean();
 
-  if (profile) {
-    res.status(200).send({
-      ...profile,
-      __v: undefined,
-      company: await getAgentOwnerProfile(profile.owner),
-    });
-    return;
+  if (!profile) {
+    throw new BadRequestError(PROFILE_VALIDATION_MESSAGES._id as string);
   }
+  res.status(200).send({
+    ...profile,
+    __v: undefined,
+    company: await getAgentOwnerProfile(profile.owner),
+  });
+  return;
 };
 
 const _agentFlow = async <T>(req: Request<T>, res: Response) => {

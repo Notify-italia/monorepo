@@ -8,6 +8,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import Compressor from 'compressorjs';
 import { NgxDropzoneChangeEvent, NgxDropzoneModule } from 'ngx-dropzone';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
@@ -68,13 +69,14 @@ export class UploadComponent implements OnChanges, OnDestroy, OnInit {
 
     const file = event.addedFiles[0];
 
-    this.file = file;
+    this.file = await this._compressImage(file);
 
     const buffer = await file.arrayBuffer();
     const srcBlob = await this._arrayBufferToBase64(buffer);
     this.blob = srcBlob;
 
     //TODO implementa Compressorjs per ridurre la dimensione del file
+
     this.fileChanged.emit({
       file: this.file,
       blob: this.blob,
@@ -102,6 +104,22 @@ export class UploadComponent implements OnChanges, OnDestroy, OnInit {
       reader.onloadend = () => {
         return resolve(reader.result);
       };
+    });
+
+    return result;
+  }
+
+  private async _compressImage(file: File) {
+    const result = new Promise<File>((resolve) => {
+      new Compressor(file, {
+        quality: 0.6,
+        success: (result) => {
+          return resolve(result as File);
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
     });
 
     return result;

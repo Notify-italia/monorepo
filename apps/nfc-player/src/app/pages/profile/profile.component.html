@@ -1,5 +1,8 @@
 @if (profile$ | async; as p) {
-<notify-swipe-available></notify-swipe-available>
+<notify-swipe-available
+  title="Gesture disponibile"
+  subtitle="Fai swipe da sinistra verso destra per passare al profilo aziendale"
+></notify-swipe-available>
 <div class="fixed bottom-5 right-5 z-[999]" *ngIf="isAgent(p)">
   <button class="floating-button" (click)="saveContact(p)">
     <svg

@@ -169,6 +169,7 @@
         {{ b }}
       </div>
 
+      @if (!isAgent) {
       <div
         class="section w-full"
         *ngIf="profileService.buildCompanyLocation(data?.address) as p"
@@ -197,7 +198,9 @@
         </button>
         }
       </div>
+      }
     </div>
+
     <div class="footer" *ngIf="!mockup && showFooter">
       <div class="flex justify-between w-full">
         <div>Provided by <span class="font-bold">Notify</span></div>

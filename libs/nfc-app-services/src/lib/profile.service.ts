@@ -12,7 +12,7 @@ export class ProfileService {
   }
 
   public buildCompanyLocation(d?: INotifyProfile['address']) {
-    if (!d) {
+    if (!d || !d.street || !d.number || !d.city) {
       return null;
     }
 

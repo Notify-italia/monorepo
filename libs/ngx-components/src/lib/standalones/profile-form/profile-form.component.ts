@@ -113,10 +113,7 @@ export class ProfileFormComponent implements OnInit {
     this.form.valueChanges
       .pipe(
         takeUntil(this._destroy$),
-        tap((value) => {
-          console.log(`form`, value);
-          this.value.emit(this._mapFormToProfile(value));
-        })
+        tap((value) => this.value.emit(this._mapFormToProfile(value)))
       )
       .subscribe();
   }
