@@ -1,5 +1,5 @@
 .section {
-  @apply flex flex-col items-center space-y-1;
+  @apply flex flex-col items-center;
 
   &.section-bordered {
     @apply border-b border-primary/40;
@@ -11,7 +11,7 @@
 }
 
 .button-redirect {
-  @apply h-full w-full flex justify-center items-center;
+  @apply h-full w-full flex items-center justify-center;
 }
 
 .main-container {
@@ -40,12 +40,16 @@
   &.module-blur {
     @apply bg-transparent backdrop-blur backdrop-brightness-75;
   }
+
+  &.module-clear {
+    @apply bg-transparent;
+  }
 }
 
 .title {
-  @apply text-3xl font-bold text-center tracking-wider space-x-2;
+  @apply text-3xl font-bold text-center tracking-wider space-x-2 text-white;
 }
 
 .button-icon {
-  @apply btn btn-primary bg-primary-600/30  btn-square;
+  @apply btn btn-ghost;
 }

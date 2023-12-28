@@ -182,19 +182,30 @@
       }
 
       <div
-        class="flex flex-wrap justify-evenly w-full module module-blur"
-        *ngIf="data?.customFields?.length"
+        class="flex flex-wrap w-full section !flex-row module !p-0 module-clear justify-evenly"
+        [ngClass]="{
+          'module-blur': cfLength >= 3
+        }"
+        *ngIf="data?.customFields?.length as cfLength"
       >
         @for (item of data?.customFields; track item.value) {
         <button [disabled]="!item.value" type="button" class="button-icon m-3">
           <a
             [href]="prepareUrl(item.value)"
             target="_blank"
-            class="buttton-redirect"
+            class="button-redirect"
+            [ngClass]="{
+              '!justify-start space-x-3': cfLength < 3,
+              
+            }"
           >
             <notify-svg-box-icon
               [iconName]="item.iconName"
             ></notify-svg-box-icon>
+
+            <span *ngIf="cfLength < 3" class="tracking-wider">{{
+              item.iconName | titlecase
+            }}</span>
           </a>
         </button>
         }
