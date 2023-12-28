@@ -169,18 +169,6 @@
         {{ b }}
       </div>
 
-      @if (!isAgent) {
-      <div
-        class="section w-full"
-        *ngIf="profileService.buildCompanyLocation(data?.address) as p"
-      >
-        <div class="module module-blur !py-2 text-center my-1.5 text-sm">
-          {{ p | titlecase }}
-        </div>
-        <notify-google-maps [address]="p" class="!w-[90%]"></notify-google-maps>
-      </div>
-      }
-
       <div
         class="flex flex-wrap w-full section !flex-row module !p-0 module-clear justify-evenly"
         [ngClass]="{
@@ -210,6 +198,18 @@
         </button>
         }
       </div>
+
+      @if (!isAgent) {
+      <div
+        class="section w-full"
+        *ngIf="profileService.buildCompanyLocation(data?.address) as p"
+      >
+        <div class="module module-blur !py-2 text-center my-1.5 text-sm">
+          {{ p | titlecase }}
+        </div>
+        <notify-google-maps [address]="p" class="!w-[90%]"></notify-google-maps>
+      </div>
+      }
     </div>
 
     <div class="footer" *ngIf="!mockup && showFooter">
