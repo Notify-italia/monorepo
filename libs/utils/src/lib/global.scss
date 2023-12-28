@@ -28,7 +28,11 @@
 }
 
 .floating-button {
-  @apply btn btn-circle btn-ghost btn-primary backdrop-blur backdrop-brightness-50 text-gray-50 flex flex-col justify-center items-center w-16 h-16 shadow-lg shadow-primary/40;
+  @apply btn btn-circle btn-ghost  backdrop-blur backdrop-brightness-75 text-gray-50 flex flex-col justify-center items-center w-16 h-16 shadow-lg;
+
+  &.fb-small {
+    @apply w-12 h-12;
+  }
 
   & > svg {
     @apply w-full h-full p-3;

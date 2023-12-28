@@ -3,6 +3,8 @@
   title="Gesture disponibile"
   subtitle="Fai swipe da sinistra verso destra per passare al profilo aziendale"
 ></notify-swipe-available>
+
+<!-- SAVE CONTACT -->
 <div class="fixed bottom-5 right-5 z-[999]" *ngIf="isAgent(p)">
   <button class="floating-button" (click)="saveContact(p)">
     <svg
@@ -17,6 +19,31 @@
     </svg>
   </button>
 </div>
+
+<!-- FORCE CLOSE COMPANY -->
+<div
+  class="fixed bottom-7 right-24 z-[999] pointer-events-none smooth opacity-0"
+  [ngClass]="{
+    'opacity-100 pointer-events-auto': companyIsVisible
+  }"
+>
+  <button class="floating-button fb-small" (click)="forceHideCompanyProfile()">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+      />
+    </svg>
+  </button>
+</div>
+
 <div
   class="h-full w-full bg-black relative overflow-x-hidden overflow-y-clip"
   notifyGestures
@@ -43,26 +70,6 @@
     class="absolute top-0 left-0 smooth z-50 !ease-linear !duration-100"
     [ngStyle]="{ transform: 'translateX(' + companyProfileX + '%)' }"
   >
-    <button
-      class="fixed top-2 left-2 p-2 z-20 text-white btn btn-ghost hidden lg:flex"
-      (click)="forceHideCompanyProfile()"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-8 h-8"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
-        />
-      </svg>
-      <span>Indietro</span>
-    </button>
     <notify-profile-view
       [data]="p?.company"
       [publicUrl]="publicUrl"
