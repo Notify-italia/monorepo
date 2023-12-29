@@ -1,5 +1,6 @@
 @if (profile$ | async; as p) {
 <notify-swipe-available
+  *ngIf="isAgent(p)"
   title="Gesture disponibile"
   subtitle="Fai swipe da sinistra verso destra per passare al profilo aziendale"
 ></notify-swipe-available>
@@ -44,12 +45,38 @@
   </button>
 </div>
 
+@if (isAgent(p)) {
 <div
-  class="h-full w-full bg-black relative overflow-x-hidden overflow-y-clip"
+  class="content-container"
   notifyGestures
-  (horizontalSwipe)="handleHorizontalSwipe($event)"
+  (horizontalSwipe)="handleHorizontalSwipe($event, p)"
   (touchEnd)="handleTouchEnd()"
 >
+  <ng-container
+    [ngTemplateOutlet]="playerContent"
+    [ngTemplateOutletContext]="{
+      profile: p
+    }"
+  ></ng-container>
+</div>
+} @else {
+<!-- if the profile belongs to a company then we don't need notifyGestures -->
+<div class="content-container">
+  <ng-container
+    [ngTemplateOutlet]="playerContent"
+    [ngTemplateOutletContext]="{
+      profile: p
+    }"
+  ></ng-container>
+</div>
+} } @else {
+<!-- shows the loading component when no data is available yet -->
+<div class="h-[100vh]">
+  <notify-loading></notify-loading>
+</div>
+}
+
+<ng-template #playerContent let-p="profile">
   <div
     class="smooth h-full w-full !ease-linear !duration-100"
     [ngStyle]="{
@@ -75,9 +102,4 @@
       [publicUrl]="publicUrl"
     ></notify-profile-view>
   </div>
-</div>
-} @else {
-<div class="h-[100vh]">
-  <notify-loading></notify-loading>
-</div>
-}
+</ng-template>

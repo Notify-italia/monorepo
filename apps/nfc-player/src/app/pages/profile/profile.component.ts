@@ -69,7 +69,11 @@ export class ProfileComponent {
     return profile.type === EnumNotifyUserType.Agent;
   }
 
-  public handleHorizontalSwipe($event: number) {
+  public handleHorizontalSwipe($event: number, profile: INotifyProfile) {
+    if (!this.isAgent(profile)) {
+      return;
+    }
+
     let normalizedValue = 100 + $event;
 
     if (this.companyIsVisible) {

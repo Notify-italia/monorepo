@@ -5,25 +5,28 @@
 >
   <div class="section">
     <!-- NOME -->
-    <div class="field">
+    <div class="field flex w-full !space-y-0 space-x-2">
       <notify-tailwind-input
         [parent]="form"
         name="name"
         label="Nome*"
         placeholder="Mario"
         [validationErrors]="validationErrors"
+        class="w-full"
       ></notify-tailwind-input>
+      <!-- COGNOME -->
+      <div class="field" *ngIf="isAgent">
+        <notify-tailwind-input
+          [parent]="form"
+          name="surname"
+          label="Cognome*"
+          placeholder="Rossi"
+          [validationErrors]="validationErrors"
+          class="w-full"
+        ></notify-tailwind-input>
+      </div>
     </div>
-    <!-- COGNOME -->
-    <div class="field" *ngIf="isAgent">
-      <notify-tailwind-input
-        [parent]="form"
-        name="surname"
-        label="Cognome*"
-        placeholder="Rossi"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-input>
-    </div>
+
     <!-- BIO -->
     <div class="field">
       <notify-tailwind-input
