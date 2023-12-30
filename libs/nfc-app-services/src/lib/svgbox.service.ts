@@ -119,7 +119,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     tags: [],
     set: 'social',
     score: 1,
-    prefix: 'github.com/',
+    prefix: 'https://github.com/',
   },
   {
     expanded: 'Glassdoor',
@@ -128,7 +128,14 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     set: 'social',
     score: 11.11111111111111,
   },
-  { expanded: 'Gmail', name: 'gmail', tags: [], set: 'social', score: 1 },
+  {
+    expanded: 'Gmail',
+    name: 'gmail',
+    tags: [],
+    set: 'social',
+    score: 1,
+    prefix: 'mailto:',
+  },
   { expanded: 'Google', name: 'google', tags: [], set: 'social', score: 1 },
   {
     expanded: 'Googlecalendar',
@@ -164,6 +171,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     tags: [],
     set: 'social',
     score: 11.11111111111111,
+    prefix: 'https://instagram.com/',
   },
   {
     expanded: 'Kickstarter',

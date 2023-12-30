@@ -124,7 +124,7 @@
         }
       </div>
 
-      <div class="section w-full h-fit !flex-row justify-around space-x-4 px-2">
+      <div class="section w-full h-fit !flex-row justify-around space-x-5 px-2">
         <notify-avatar
           class="w-4/12"
           [avatarConfig]="{
@@ -141,27 +141,33 @@
                 }
               : undefined
           "
+          (subAvatarClick)="subAvatarClick.emit()"
         ></notify-avatar>
-        <div class="h-full w-7/12 mt-2">
+        <div class="h-full w-7/12">
           <div class="title">
             <!-- NAME ( and surname) -->
             <span>{{ data?.name || 'Nome' }}</span>
             <span *ngIf="isAgent">{{ data?.surname || 'Cognome' }}</span>
           </div>
           <!-- ROLE -->
-          <div class="text-sm italic w-full text-start" *ngIf="isAgent">
+          <div
+            class="text-sm italic w-full text-start text-gray-300"
+            *ngIf="isAgent"
+          >
             {{ data?.role }}
           </div>
           <!-- BIO -->
           <div class="text-xs w-full mt-2" *ngIf="data?.bio as b">
             {{ b }}
           </div>
-          <!-- STATIC LINKS -->
-          <notify-profile-static-links
-            [data]="data"
-          ></notify-profile-static-links>
         </div>
       </div>
+
+      <!-- STATIC LINKS -->
+      <notify-profile-static-links
+        [data]="data"
+        class="w-10/12"
+      ></notify-profile-static-links>
 
       <div
         class="flex w-full section !flex-row module !p-0 module-clear justify-evenly flex-nowrap"
@@ -173,7 +179,7 @@
         @for (item of data?.customFields; track item.value) {
         <button [disabled]="!item.value" type="button" class="button-icon m-3">
           <a
-            [href]="prepareUrl(item.value)"
+            [href]="prepareUrl(item.value, item.iconName)"
             target="_blank"
             class="button-redirect"
             [ngClass]="{

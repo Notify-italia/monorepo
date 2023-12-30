@@ -192,12 +192,7 @@ export class ProfileFormComponent implements OnInit {
       new FormGroup({
         iconName: new FormControl(data?.iconName || '', [Validators.required]),
         //url validator
-        value: new FormControl(data?.value || '', [
-          Validators.required,
-          Validators.pattern(
-            /^(?:(?:https?|ftp):\/\/)?(?:www\.)?[^\s/$.?#]+\.[^\s]*$/
-          ),
-        ]),
+        value: new FormControl(data?.value || '', [Validators.required]),
       })
     );
   }
@@ -228,10 +223,12 @@ export class ProfileFormComponent implements OnInit {
       address,
       reviewRedirect: form.reviewRedirect || null,
       customFields:
-        form.customFields?.map((item) => ({
-          iconName: item.iconName,
-          value: item.value,
-        })) || [],
+        form.customFields?.map((item) => {
+          return {
+            iconName: item.iconName,
+            value: item.value,
+          };
+        }) || [],
     };
   }
 

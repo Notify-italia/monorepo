@@ -5,7 +5,11 @@ import {
   INotifyFeedback,
   INotifyProfile,
 } from '@notify/interfaces';
-import { FeedbackService, ProfileService } from '@notify/nfc-app-services';
+import {
+  FeedbackService,
+  ProfileService,
+  SvgboxService,
+} from '@notify/nfc-app-services';
 import { format } from 'date-fns';
 import { interval, map, startWith } from 'rxjs';
 import { AnimatedBgComponent } from '../../../../standalones/animated-bg/animated-bg.component';
@@ -28,7 +32,7 @@ import { RatingComponent } from '../rating/rating.component';
     RatingComponent,
     GoogleMapsComponent,
   ],
-  providers: [FeedbackFactory, FeedbackService],
+  providers: [FeedbackFactory, FeedbackService, SvgboxService],
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss', '../profile.styles.scss'],
 })
@@ -39,7 +43,7 @@ export class ProfileViewComponent {
   @Input() feedbackKey = 'feedback';
   @Input() showFooter = true;
 
-  @Output() companyAvatarClick = new EventEmitter<void>();
+  @Output() subAvatarClick = new EventEmitter<void>();
 
   public currentTime$ = interval(1000).pipe(
     startWith(0),
@@ -53,7 +57,8 @@ export class ProfileViewComponent {
   constructor(
     public profileService: ProfileService,
     private _feedbackFactory: FeedbackFactory,
-    private _feedbackService: FeedbackService
+    private _feedbackService: FeedbackService,
+    private _svgBoxService: SvgboxService
   ) {}
 
   public feedbackGiven(): INotifyFeedback | null {
@@ -69,8 +74,16 @@ export class ProfileViewComponent {
     return fb;
   }
 
-  public prepareUrl(url: string): string {
-    return url?.startsWith('http') ? url : `https://${url}`;
+  public prepareUrl(url: string, icon: string): string {
+    const selectedIcon = this._svgBoxService.availableIcons.find(
+      (i) => i.name === icon
+    );
+
+    if (!selectedIcon) {
+      return url;
+    }
+
+    return `${selectedIcon.prefix || ''}${url}`;
   }
 
   public showFeedback(): void {
