@@ -18,7 +18,7 @@
   @apply bg-gradient-to-tr from-complimentary-500 to-complimentary-600 overflow-y-visible;
 
   & > .main-child {
-    @apply w-full flex flex-col space-y-3 items-center;
+    @apply w-full flex flex-col space-y-3 items-center justify-around;
   }
 }
 
@@ -47,7 +47,7 @@
 }
 
 .title {
-  @apply text-3xl font-bold text-center tracking-wider space-x-2 text-white;
+  @apply text-lg font-bold text-start tracking-wider space-x-[0.15rem] text-white whitespace-nowrap;
 }
 
 .button-icon {

@@ -6,7 +6,13 @@
 <td>
   <div class="flex items-center gap-3">
     <div class="w-14 h-14">
-      <notify-avatar [src]="user.profile?.avatar" size="14"></notify-avatar>
+      <notify-avatar
+        [avatarConfig]="{
+          src: user.profile?.avatar || '',
+          size: '14',
+          mask: 'circle'
+        }"
+      ></notify-avatar>
     </div>
     <div>
       <div class="font-bold">

@@ -124,55 +124,49 @@
         }
       </div>
 
-      <div class="section w-fit h-fit relative">
+      <div class="section w-full h-fit !flex-row justify-around space-x-4 px-2">
         <notify-avatar
-          [src]="data?.avatar"
-          size="40"
-          [mask]="data?.config?.avatarMask || (isAgent ? 'circle' : 'squircle')"
+          class="w-4/12"
+          [avatarConfig]="{
+            src: data?.avatar || '',
+            size: '40',
+            mask: data?.config?.avatarMask || 'circle'
+          }"
+          [subAvatarConfig]="
+            isAgent
+              ? {
+                  src: data?.company?.avatar || '',
+                  size: '12',
+                  mask: data?.company?.config?.avatarMask || 'squircle'
+                }
+              : undefined
+          "
         ></notify-avatar>
-
-        <button
-          *ngIf="isAgent"
-          (click)="companyAvatarClick.emit()"
-          class="!absolute bottom-0 right-0 -mr-4 scale-125"
-        >
-          <notify-avatar
-            size="14"
-            [src]="data?.company?.avatar"
-            [mask]="data?.company?.config?.avatarMask || 'circle'"
-          ></notify-avatar>
-        </button>
-      </div>
-
-      <div class="section">
-        <div class="title">
-          <span>{{ data?.name || 'Nome' }}</span>
-          <span *ngIf="isAgent">{{ data?.surname || 'Cognome' }}</span>
-        </div>
-
-        <div class="text-sm italic text-center" *ngIf="isAgent">
-          {{ data?.role }}
+        <div class="h-full w-7/12 mt-2">
+          <div class="title">
+            <!-- NAME ( and surname) -->
+            <span>{{ data?.name || 'Nome' }}</span>
+            <span *ngIf="isAgent">{{ data?.surname || 'Cognome' }}</span>
+          </div>
+          <!-- ROLE -->
+          <div class="text-sm italic w-full text-start" *ngIf="isAgent">
+            {{ data?.role }}
+          </div>
+          <!-- BIO -->
+          <div class="text-xs w-full mt-2" *ngIf="data?.bio as b">
+            {{ b }}
+          </div>
+          <!-- STATIC LINKS -->
+          <notify-profile-static-links
+            [data]="data"
+          ></notify-profile-static-links>
         </div>
       </div>
 
-      <!-- STATIC LINKS -->
-      <notify-profile-static-links
-        [data]="data"
-        class="w-[80%]"
-      ></notify-profile-static-links>
-
-      <!-- BIO -->
       <div
-        class="section module module-blur text-sm italic text-center !px-2"
-        *ngIf="data?.bio as b"
-      >
-        {{ b }}
-      </div>
-
-      <div
-        class="flex flex-wrap w-full section !flex-row module !p-0 module-clear justify-evenly"
+        class="flex w-full section !flex-row module !p-0 module-clear justify-evenly flex-nowrap"
         [ngClass]="{
-          'module-blur': cfLength >= 3
+          'module-blur flex-wrap': cfLength >= 3
         }"
         *ngIf="data?.customFields?.length as cfLength"
       >
