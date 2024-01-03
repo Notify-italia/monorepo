@@ -25,7 +25,7 @@ router.get(
       }
 
       //TODO gestire meglio questa chiamata a livello di pulizia del codice
-      const owner = req.currentUser._id || req.currentUser.owner;
+      const owner = req.currentUser.owner || req.currentUser._id;
       res
         .status(200)
         .send(await AgentModel.find({ owner }).populate('profile').lean());

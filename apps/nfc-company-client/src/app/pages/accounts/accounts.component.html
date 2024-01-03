@@ -24,82 +24,21 @@
     (buttonClicked)="showUserForm()"
   ></notify-page-header>
   @if (agents$ | async; as p) {
-  <div>
-    <div>
-      <!-- TODO SEARCH e incapsulamento dell'input -->
-      <div class="form-control box p-4">
-        <label class="label">
-          <span class="label-text">Cerca</span>
-        </label>
-        <div class="relative">
-          <svg
-            class="pointer-events-none absolute z-10 my-3.5 ms-4 stroke-current opacity-60 text-base-content h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            ></path>
-          </svg>
-          <input
-            type="text"
-            placeholder="Mario Rossi"
-            class="input input-bordered w-full pl-14 input-style"
-          />
-        </div>
-        <label class="label">
-          <label class="label-text"></label>
-          <div class="flex justify-end">
-            <span class="badge badge-warning badge-sm" data-theme="notifytheme">
-              {{ p.length }}/{{ maxAgents }} Utenti creati
-            </span>
-          </div>
-        </label>
-      </div>
-
-      <!-- TODO FILTERS -->
-
-      <!-- TABLE -->
-      <div class="box w-full h-full p-4">
-        <div class="overflow-x-auto">
-          <table class="table w-full">
-            <!-- head -->
-            <thead>
-              <tr>
-                <th>
-                  <label>
-                    <input type="checkbox" class="checkbox" />
-                  </label>
-                </th>
-                <th>Nome</th>
-                <th>Ruolo</th>
-                <th>Aggiunto il</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- row 1 -->
-              @for (user of p; track user._id) {
-              <tr
-                notify-accounts-row
-                class="w-full"
-                [user]="user"
-                (inspectProfile)="inspectProfile(user.profile)"
-                (showUserForm)="showUserForm(user)"
-                (deleteUser)="deleteUser(user)"
-              ></tr>
-              }
-            </tbody>
-            <!-- foot -->
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
+  <notify-accounts-table
+    [users]="p"
+    [maxAgents]="maxAgents"
+    (inspectProfile)="inspectProfile($event)"
+    (showUserForm)="showUserForm($event)"
+    (deleteUser)="deleteUser($event)"
+    [config]="{
+      allowInspect: true,
+      allowEdit: true,
+      allowDelete: true,
+      displayLeftAccounts: true,
+      
+      
+    }"
+  ></notify-accounts-table>
   } @else {
   <div class="h-[40vh] md:h-[60vh]">
     <notify-loading></notify-loading>

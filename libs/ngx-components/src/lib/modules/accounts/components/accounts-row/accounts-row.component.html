@@ -1,9 +1,9 @@
-<td>
+<td *ngIf="!isRowDisabled('select-item')">
   <label>
     <input type="checkbox" class="checkbox" />
   </label>
 </td>
-<td>
+<td *ngIf="!isRowDisabled('name')">
   <div class="flex items-center gap-3">
     <div class="w-14 h-14">
       <notify-avatar
@@ -22,14 +22,14 @@
     </div>
   </div>
 </td>
-<td>
+<td *ngIf="!isRowDisabled('role')">
   <span
     data-theme="notifytheme"
     class="badge badge-ghost border-none bg-transparent backdrop-brightness-150 badge-sm px-4 py-3 w-36 whitespace-nowrap"
     >{{ user.profile?.role }}</span
   >
 </td>
-<td>
+<td *ngIf="!isRowDisabled('createdAt')">
   <span
     class="badge badge-ghost bg-transparent backdrop-brightness-125 badge-sm px-4 py-3 whitespace-nowrap my-auto border-none"
     data-theme="notifytheme"
@@ -41,6 +41,7 @@
   <div class="space-x-4 py-2 px-4 rounded-2xl backdrop-brightness-110 w-fit">
     <!-- INSPECT PROFILE -->
     <button
+      *ngIf="config.allowInspect"
       class="action-btn action-primary"
       data-theme="notifytheme"
       (click)="inspectProfile.emit()"
@@ -60,6 +61,7 @@
     </button>
     <!-- EDIT USER -->
     <button
+      *ngIf="config.allowEdit"
       class="action-btn action-secondary"
       data-theme="notifytheme"
       (click)="showUserForm.emit()"
@@ -77,6 +79,7 @@
     </button>
     <!-- DELETE USER -->
     <button
+      *ngIf="config.allowDelete"
       class="action-btn action-error"
       data-theme="notifytheme"
       (click)="deleteUser.emit()"

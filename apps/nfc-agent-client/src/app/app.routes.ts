@@ -40,6 +40,13 @@ export const appRoutes: Route[] = [
             './pages/profile-management/profile-management.component'
           ).then((m) => m.ProfileManagementComponent),
       },
+      {
+        path: 'colleagues',
+        loadComponent: () =>
+          import('./pages/colleagues/colleagues.component').then(
+            (m) => m.ColleaguesComponent
+          ),
+      },
     ],
   },
   {

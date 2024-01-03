@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { INotifyAgent } from '@notify/interfaces';
-import { AvatarComponent } from '@notify/ngx-components';
+import { AvatarComponent } from '../../../../standalones/avatar/avatar.component';
+import {
+  IAccountsTableConfig,
+  IAccountsTableRow,
+} from '../accounts-table/accounts-table.component';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -13,6 +17,13 @@ import { AvatarComponent } from '@notify/ngx-components';
 })
 export class AccountsRowComponent {
   @Input({ required: true }) public user!: INotifyAgent;
+  @Input() public config: IAccountsTableConfig = {
+    allowDelete: true,
+    allowEdit: true,
+    allowInspect: true,
+    displayLeftAccounts: true,
+    disabledRows: [],
+  };
 
   @Output() public inspectProfile = new EventEmitter<void>();
   @Output() public showUserForm = new EventEmitter<void>();
@@ -20,4 +31,8 @@ export class AccountsRowComponent {
 
   public placeholderAvatar =
     'https://www.heymind.org.uk/wp-content/uploads/2022/04/avatar-placeholder.png';
+
+  public isRowDisabled(row: IAccountsTableRow): boolean {
+    return this.config.disabledRows?.includes(row) || false;
+  }
 }

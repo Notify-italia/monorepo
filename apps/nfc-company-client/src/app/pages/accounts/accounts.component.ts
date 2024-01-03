@@ -12,6 +12,7 @@ import {
   ProfileService,
 } from '@notify/nfc-app-services';
 import {
+  AccountsTableComponent,
   ConfirmModalFactory,
   LoadingComponent,
   PageHeaderComponent,
@@ -29,7 +30,6 @@ import {
   tap,
 } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AccountsRowComponent } from '../../components/accounts-row/accounts-row.component';
 
 @Component({
   standalone: true,
@@ -37,7 +37,7 @@ import { AccountsRowComponent } from '../../components/accounts-row/accounts-row
     CommonModule,
     PageHeaderComponent,
     LoadingComponent,
-    AccountsRowComponent,
+    AccountsTableComponent,
   ],
   providers: [
     AgentService,
