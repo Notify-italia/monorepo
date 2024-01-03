@@ -49,7 +49,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     tags: [],
     set: 'social',
     score: 12.5,
-    prefix: 'apps.apple.com/it/app/',
+    prefix: 'https://apps.apple.com/it/app/',
   },
 
   {
@@ -58,7 +58,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     tags: [],
     set: 'social',
     score: 1,
-    prefix: 'www.deviantart.com/',
+    prefix: 'https://deviantart.com/',
   },
 
   {
@@ -89,7 +89,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     tags: [],
     set: 'social',
     score: 1,
-    prefix: 'www.ebay.it/usr/',
+    prefix: 'https://ebay.it/usr/',
   },
   {
     expanded: 'Etsy',
@@ -97,7 +97,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     tags: [],
     set: 'social',
     score: 25,
-    prefix: 'www.etsy.com/it/shop/',
+    prefix: 'https://etsy.com/it/shop/',
   },
   {
     expanded: 'Facebook',
