@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AgentService } from '@notify/nfc-app-services';
+import { INotifyAgent } from '@notify/interfaces';
+import { AgentService, ProfileService } from '@notify/nfc-app-services';
 import {
   AccountsTableComponent,
   LoadingComponent,
   PageHeaderComponent,
   ProfilePlayerFactory,
 } from '@notify/ngx-components';
+import { environment } from '../../../environments/environment';
 
 @Component({
   standalone: true,
@@ -16,7 +18,7 @@ import {
     AccountsTableComponent,
     LoadingComponent,
   ],
-  providers: [AgentService, ProfilePlayerFactory],
+  providers: [AgentService, ProfilePlayerFactory, ProfileService],
   templateUrl: './colleagues.component.html',
   styleUrls: ['./colleagues.component.scss'],
 })
@@ -25,6 +27,21 @@ export class ColleaguesComponent {
 
   constructor(
     private _agentService: AgentService,
-    public profilePlayerFactory: ProfilePlayerFactory
+    private _profileFactory: ProfilePlayerFactory,
+    private _profileService: ProfileService
   ) {}
+
+  public inspectProfile(profile: INotifyAgent['profile']) {
+    if (!profile) {
+      return;
+    }
+
+    this._profileFactory.createPlayer({
+      profile,
+      playerUrl: this._profileService.genPlayerUrl(
+        environment.publicUrl,
+        profile._id
+      ),
+    });
+  }
 }
