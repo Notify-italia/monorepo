@@ -8,7 +8,12 @@
       'mt-safe': capacitor.isNative,
     }"
     >
-      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+      <input
+        id="my-drawer"
+        type="checkbox"
+        class="drawer-toggle"
+        #DrawerController
+      />
       <label class="btn btn-square btn-ghost lg:hidden mx-2" for="my-drawer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +79,7 @@
             [routerLink]="item.path"
             routerLinkActive="btn-active pointer-events-none border-l-4 border-primary-600 shadow-md  rounded"
             class="flex space-x-2 smooth smooth-slow"
-            (click)="sidebarItem.blur()"
+            (click)="sidebarItem.blur(); DrawerController.click()"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
