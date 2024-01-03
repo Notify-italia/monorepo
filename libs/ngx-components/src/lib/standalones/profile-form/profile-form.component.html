@@ -190,20 +190,23 @@
         class="items-end mt-6"
         [icon]="item.controls['iconName'].value"
         (iconValue)="item.controls['iconName'].setValue($event.name)"
+        #IconSelector
       ></notify-icon-selector>
       <notify-tailwind-input
         [parent]="item"
         name="value"
         class="w-full"
         label=" "
-        placeholder="Inserisci un link"
+        [placeholder]="
+          IconSelector?.currentIcon?.placeholder || 'Inserisci un link'
+        "
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
       <!-- RIMUOVI SERVIZIO -->
       <div class="mt-1">
         <button
           type="button"
-          class="btn btn-error my-auto btn-outline"
+          class="btn btn-error my-auto"
           (click)="removeCustomField(item)"
         >
           <svg

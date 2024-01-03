@@ -7,6 +7,7 @@ export interface SvgBoxIcon {
   set: string;
   score: number;
   prefix?: string;
+  placeholder?: string;
 }
 
 @Injectable({
@@ -105,6 +106,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     tags: [],
     set: 'social',
     score: 1,
+    placeholder: 'https://facebook.com/people/...',
   },
   {
     expanded: 'Freelancer',
@@ -120,6 +122,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     set: 'social',
     score: 1,
     prefix: 'https://github.com/',
+    placeholder: 'Il tuo nome utente Github',
   },
   {
     expanded: 'Glassdoor',
@@ -172,6 +175,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     set: 'social',
     score: 11.11111111111111,
     prefix: 'https://instagram.com/',
+    placeholder: 'Il tuo nome utente, senza "@"',
   },
   {
     expanded: 'Kickstarter',
@@ -188,7 +192,8 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     tags: [],
     set: 'social',
     score: 1,
-    prefix: 'https://linkedin.com/in/',
+
+    placeholder: 'https://linkedin.com/in/...',
   },
   {
     expanded: 'Map',
