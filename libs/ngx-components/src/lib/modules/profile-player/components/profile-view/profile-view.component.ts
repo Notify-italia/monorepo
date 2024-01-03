@@ -41,7 +41,6 @@ export class ProfileViewComponent {
   @Input({ required: true }) publicUrl = 'http://localhost:4200';
   @Input() mockup = false;
   @Input() feedbackKey = 'feedback';
-  @Input() showFooter = true;
 
   @Output() subAvatarClick = new EventEmitter<void>();
 

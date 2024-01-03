@@ -1,84 +1,102 @@
-@if (profile$ | async; as p) {
-<notify-swipe-available
-  *ngIf="isAgent(p)"
-  title="Gesture disponibile"
-  subtitle="Fai swipe da sinistra verso destra per passare al profilo aziendale"
-></notify-swipe-available>
-
-<!-- SAVE CONTACT -->
-<div class="fixed bottom-5 right-5 z-[999]" *ngIf="isAgent(p)">
-  <button class="floating-button" (click)="saveContact(p)">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-    >
-      <path d="M0 0h24v24H0z" fill="none"></path>
-      <path
-        d="M17 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
-      ></path>
-    </svg>
-  </button>
-</div>
-
-<!-- FORCE CLOSE COMPANY -->
 <div
-  class="fixed bottom-7 right-24 z-[999] pointer-events-none smooth opacity-0"
-  [ngClass]="{
-    'opacity-100 pointer-events-auto': companyIsVisible
-  }"
+  class="bg-black lg:bg-base-200 min-h-screen w-full flex flex-col justify-center items-center relative"
 >
-  <button class="floating-button fb-small" (click)="forceHideCompanyProfile()">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
-      />
-    </svg>
-  </button>
-</div>
+  @if (profile$ | async; as p) {
+  <notify-swipe-available
+    *ngIf="isAgent(p)"
+    title="Gesture disponibile"
+    subtitle="Fai swipe da sinistra verso destra per passare al profilo aziendale"
+  ></notify-swipe-available>
 
-@if (isAgent(p)) {
-<div
-  class="content-container"
-  notifyGestures
-  (horizontalSwipe)="handleHorizontalSwipe($event, p)"
-  (touchEnd)="handleTouchEnd()"
->
-  <ng-container
-    [ngTemplateOutlet]="playerContent"
-    [ngTemplateOutletContext]="{
-      profile: p
-    }"
-  ></ng-container>
-</div>
-} @else {
-<!-- if the profile belongs to a company then we don't need notifyGestures -->
-<div class="content-container">
-  <ng-container
-    [ngTemplateOutlet]="playerContent"
-    [ngTemplateOutletContext]="{
-      profile: p
-    }"
-  ></ng-container>
-</div>
-} } @else {
-<!-- shows the loading component when no data is available yet -->
-<div class="h-[100vh]">
-  <notify-loading></notify-loading>
-</div>
-}
+  <!-- TODO componentizza save contact e force close company -->
+  <!-- SAVE CONTACT -->
+  <div class="fixed bottom-5 right-5 z-[999]" *ngIf="isAgent(p)">
+    <button class="floating-button" (click)="saveContact(p)">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path d="M0 0h24v24H0z" fill="none"></path>
+        <path
+          d="M17 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
+        ></path>
+      </svg>
+      <span class="hidden lg:block"> Scarica contatto </span>
+    </button>
+  </div>
 
-<ng-template #playerContent let-p="profile">
+  <!-- FORCE CLOSE COMPANY -->
   <div
-    class="smooth h-full w-full !ease-linear !duration-100"
+    class="fixed bottom-7 right-24 z-[999] pointer-events-none smooth opacity-0"
+    [ngClass]="{
+      'opacity-100 pointer-events-auto': companyIsVisible
+    }"
+  >
+    <button
+      class="floating-button fb-small"
+      (click)="forceHideCompanyProfile()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+        />
+      </svg>
+    </button>
+  </div>
+
+  @if (isAgent(p)) {
+  <div
+    class="content-container"
+    notifyGestures
+    (horizontalSwipe)="handleHorizontalSwipe($event, p)"
+    (touchEnd)="handleTouchEnd()"
+  >
+    <ng-container
+      [ngTemplateOutlet]="playerContent"
+      [ngTemplateOutletContext]="{
+        profile: p
+      }"
+    ></ng-container>
+  </div>
+  } @else {
+  <!-- if the profile belongs to a company then we don't need notifyGestures -->
+  <div class="content-container">
+    <ng-container
+      [ngTemplateOutlet]="playerContent"
+      [ngTemplateOutletContext]="{
+        profile: p
+      }"
+    ></ng-container>
+  </div>
+
+  }
+
+  <div class="footer">
+    <div class="flex justify-between w-full">
+      <div>Provided by <span class="font-bold">Notify</span></div>
+    </div>
+  </div>
+
+  } @else {
+  <!-- shows the loading component when no data is available yet -->
+  <div class="h-[100vh]">
+    <notify-loading></notify-loading>
+  </div>
+  }
+</div>
+<ng-template #playerContent let-p="profile">
+  <!-- MAIN PLAYER -->
+  <div
+    class="smooth h-full w-full !ease-linear !duration-100 player-responsive"
     [ngStyle]="{
       transform: 'translate(0%, 0%) scale(' + profileScale + ')',
       filter: 'blur(' + (100 - profileScale * 100) + 'px)'
@@ -91,12 +109,39 @@
       (subAvatarClick)="forceShowCompanyProfile()"
     ></notify-profile-view>
   </div>
-  <!--  -->
+
+  <!-- MOBILE COMPANY PLAYER -->
   <div
     *ngIf="p?.company"
-    class="absolute top-0 left-0 smooth z-50 !ease-linear !duration-100"
-    [ngStyle]="{ transform: 'translateX(' + companyProfileX + '%)' }"
+    class="absolute top-0 left-0 smooth z-50 w-full !ease-linear !duration-100 player-responsive lg:hidden"
+    [ngStyle]="{ transform: 'translateX(' + companyProfileX + 'vw)' }"
   >
+    <notify-profile-view
+      [data]="p?.company"
+      [publicUrl]="publicUrl"
+    ></notify-profile-view>
+  </div>
+
+  <!-- DESKTOP RELATIONSHIP ICON -->
+  <div class="flex-col justify-center hidden lg:flex">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-12 h-12"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
+      />
+    </svg>
+  </div>
+
+  <!-- DESKTOP COMPANY PLAYER -->
+  <div *ngIf="p?.company" class="player-responsive hidden lg:block">
     <notify-profile-view
       [data]="p?.company"
       [publicUrl]="publicUrl"

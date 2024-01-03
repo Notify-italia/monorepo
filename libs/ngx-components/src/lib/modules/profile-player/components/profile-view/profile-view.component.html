@@ -1,12 +1,13 @@
 <div
-  data-theme="notifytheme"
   class="relative"
   [ngClass]="{
-    'h-full w-full  mockup-phone': mockup,
-    'min-h-screen w-screen ': !mockup
+    'h-full w-full mockup-phone': mockup,
+    'min-h-screen w-full ': !mockup
   }"
 >
-  <div class="flex justify-between relative text-gray-50" *ngIf="mockup">
+  @if (mockup) {
+  <!-- MOCKUP MASK -->
+  <div class="flex justify-between relative text-gray-50">
     <div class="absolute top-[0.6rem] left-8 font-medium my-auto">
       {{ currentTime$ | async }}
     </div>
@@ -49,12 +50,13 @@
       </svg>
     </div>
   </div>
+  }
 
   <div
     class="main-container"
     [ngClass]="{
       'display pt-10 h-full': mockup,
-      'h-max min-h-screen ': !mockup
+      
     }"
   >
     <div
@@ -62,7 +64,7 @@
       [class.opacity-50]="!data"
       [ngClass]="{
         'h-full py-5': mockup,
-        'h-full min-h-screen': !mockup
+        'h-full  min-h-screen  w-screen': !mockup
       }"
     >
       <div class="flex justify-center mt-4">
@@ -71,10 +73,20 @@
         <button
           type="button"
           class="btn btn-wide btn-accent"
+          data-theme="notifytheme"
           [disabled]="mockup || feedbackGiven()"
           (click)="showFeedback()"
         >
-          @if (!feedbackGiven()) {
+          @if (feedbackGiven(); as fb) {
+          <div *ngIf="feedbackGiven() as fb" class="space-y-1">
+            <p class="normal-case text-xs text-gray/50">Feedback lasciato</p>
+            <notify-rating
+              [currentValue]="fb.rating"
+              colorClass="bg-yellow-300"
+              sizeClass="sm"
+            ></notify-rating>
+          </div>
+          } @else {
           <svg
             class="w-6 h-6"
             xmlns="http://www.w3.org/2000/svg"
@@ -88,19 +100,11 @@
           </svg>
           <p class="normal-case">Lascia un feedback</p>
           }
-
-          <div *ngIf="feedbackGiven() as fb" class="m-1 space-y-1">
-            <p class="normal-case text-xs text-gray/50">Feedback lasciato</p>
-            <notify-rating
-              [currentValue]="fb.rating"
-              colorClass="bg-primary"
-              sizeClass="sm"
-            ></notify-rating>
-          </div>
         </button>
         } @else {
         <button
           type="button"
+          data-theme="notifytheme"
           class="btn btn-wide btn-accent"
           [disabled]="mockup || !data?.reviewRedirect"
           (click)="redirectToReview()"
@@ -137,7 +141,8 @@
               ? {
                   src: data?.company?.avatar || '',
                   size: '12',
-                  mask: data?.company?.config?.avatarMask || 'squircle'
+                  mask: data?.company?.config?.avatarMask || 'squircle',
+                  
                 }
               : undefined
           "
@@ -210,12 +215,6 @@
         <notify-google-maps [address]="p" class="!w-[90%]"></notify-google-maps>
       </div>
       }
-    </div>
-
-    <div class="footer" *ngIf="!mockup && showFooter">
-      <div class="flex justify-between w-full">
-        <div>Provided by <span class="font-bold">Notify</span></div>
-      </div>
     </div>
   </div>
 </div>

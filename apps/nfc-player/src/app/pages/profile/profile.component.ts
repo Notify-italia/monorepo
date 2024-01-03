@@ -31,10 +31,6 @@ export class ProfileComponent {
   public publicUrl = environment.publicUrl;
   public feedbackKey = environment.feedbackKey;
 
-  public profileScale = 1;
-  public companyProfileX = 100;
-  public companyIsVisible = false;
-
   private _thresholds = {
     minScale: 0.9,
     maxScale: 1,
@@ -43,6 +39,10 @@ export class ProfileComponent {
     //the higher the number, the less the user has to swipe to show/hide the company profile
     horizontalSwipe: 70,
   };
+
+  public profileScale = this._thresholds.maxScale;
+  public companyProfileX = this._thresholds.maxTranslate;
+  public companyIsVisible = false;
 
   constructor(
     private _activatedRoute: ActivatedRoute,

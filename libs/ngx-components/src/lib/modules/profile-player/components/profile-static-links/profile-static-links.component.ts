@@ -18,6 +18,20 @@ export class ProfileStaticLinksComponent {
 
   constructor(private _profileService: ProfileService) {}
 
+  public get isVisible(): boolean {
+    const config = this.data?.config;
+
+    if (!config) {
+      return false;
+    }
+
+    return (
+      config?.emailEnabled ||
+      config?.phoneCallEnabled ||
+      config?.whatsappEnabled
+    );
+  }
+
   public cleanPhoneNumber(phoneNumber: string): string {
     return this._profileService.cleanPhoneNumber(phoneNumber);
   }
