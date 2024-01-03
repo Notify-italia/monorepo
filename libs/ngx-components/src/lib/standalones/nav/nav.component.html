@@ -61,27 +61,32 @@
       </div>
 
       <div class="divider px-4 hidden lg:flex lg:mt-8"></div>
+
+      <span class="w-full text-start px-4 mt-2 font-light text-sm"
+        >Menu Principale</span
+      >
       <ul>
         <!-- Sidebar content here -->
         @for (item of topItems; track item.path) {
         <li [class.nav-disabled]="item.disabled">
           <a
+            #sidebarItem
             [routerLink]="item.path"
-            routerLinkActive="btn-active"
-            class="flex space-x-2"
+            routerLinkActive="btn-active pointer-events-none border-l-4 border-primary-600 shadow-md  rounded"
+            class="flex space-x-2 smooth smooth-slow"
+            (click)="sidebarItem.blur()"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="text-primary"
             >
               @for (p of item.icon; track p) {
               <path fill-rule="evenodd" [attr.d]="p" />
               }
             </svg>
 
-            <span>{{ item.label }}</span>
+            <span>{{ item.label | titlecase }}</span>
           </a>
         </li>
         }
