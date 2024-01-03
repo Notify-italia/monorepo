@@ -171,7 +171,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     tags: [],
     set: 'social',
     score: 9.090909090909092,
-    prefix: 'kickstarter.com/projects/',
+    prefix: 'https://kickstarter.com/projects/',
   },
   { expanded: 'Line', name: 'line', tags: [], set: 'social', score: 1 },
   {
@@ -180,7 +180,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     tags: [],
     set: 'social',
     score: 1,
-    prefix: 'linkedin.com/in/',
+    prefix: 'https://linkedin.com/in/',
   },
   {
     expanded: 'Map',
