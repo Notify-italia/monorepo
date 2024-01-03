@@ -48,6 +48,7 @@ type ProfileForm = FormGroup<{
   city: FormControl<string | null>;
   number: FormControl<string | null>;
   reviewRedirect: FormControl<string | null>;
+  smsEnabled: FormControl<boolean | null>;
 }>;
 
 @Component({
@@ -165,6 +166,7 @@ export class ProfileFormComponent implements OnInit {
       street: new FormControl(this.profile.address?.street || ''),
       city: new FormControl(this.profile.address?.city || ''),
       number: new FormControl(this.profile.address?.number || ''),
+      smsEnabled: new FormControl(this.profile.config.smsEnabled ?? true, []),
     });
 
     this.profile.customFields?.forEach((item) => {
@@ -219,6 +221,7 @@ export class ProfileFormComponent implements OnInit {
         whatsappEnabled: !!form.whatsappEnabled,
         phoneCallEnabled: !!form.phoneCallEnabled,
         emailEnabled: !!form.emailEnabled,
+        smsEnabled: !!form.smsEnabled,
       },
       address,
       reviewRedirect: form.reviewRedirect || null,

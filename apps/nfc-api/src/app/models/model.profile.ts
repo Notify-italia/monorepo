@@ -107,6 +107,10 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
         type: String,
         default: null,
       },
+      smsEnabled: {
+        type: Boolean,
+        default: true,
+      },
     },
     type: {
       type: String,

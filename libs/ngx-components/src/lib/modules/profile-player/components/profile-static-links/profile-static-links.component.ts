@@ -28,7 +28,8 @@ export class ProfileStaticLinksComponent {
     return (
       config?.emailEnabled ||
       config?.phoneCallEnabled ||
-      config?.whatsappEnabled
+      config?.whatsappEnabled ||
+      config?.smsEnabled
     );
   }
 

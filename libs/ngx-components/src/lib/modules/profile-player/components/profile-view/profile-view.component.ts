@@ -86,7 +86,7 @@ export class ProfileViewComponent {
   }
 
   public showFeedback(): void {
-    if (!this.data) {
+    if (!this.data || this.feedbackGiven() || this.mockup) {
       return;
     }
 

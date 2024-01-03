@@ -25,6 +25,7 @@ export interface INotifyProfile<
     whatsappEnabled: boolean;
     phoneCallEnabled: boolean;
     emailEnabled: boolean;
+    smsEnabled: boolean;
   };
   customFields: { iconName: string; value: string }[];
   type: EnumNotifyUserType;

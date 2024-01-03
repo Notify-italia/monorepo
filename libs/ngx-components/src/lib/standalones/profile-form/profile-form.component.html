@@ -141,7 +141,13 @@
       <notify-tailwind-checkbox
         [parent]="form"
         name="phoneCallEnabled"
-        label="Permetti chiamate"
+        label="Telefonate"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-checkbox>
+      <notify-tailwind-checkbox
+        [parent]="form"
+        name="smsEnabled"
+        label="SMS"
         [validationErrors]="validationErrors"
       ></notify-tailwind-checkbox>
       <notify-tailwind-checkbox
