@@ -1,3 +1,4 @@
+import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
 import {
   AGENT_VALIDATION_MESSAGES,
   AgentModel,
@@ -24,11 +25,12 @@ router.get(
         return;
       }
 
-      //TODO gestire meglio questa chiamata a livello di pulizia del codice
-      const owner = req.currentUser.owner || req.currentUser._id;
-      res
-        .status(200)
-        .send(await AgentModel.find({ owner }).populate('profile').lean());
+      if (req.currentUser.userType === EnumNotifyUserType.Agent) {
+        res.status(200).send(await _agentFlow(req.currentUser));
+        return;
+      }
+
+      res.status(200).send(await _companyFlow(req.currentUser));
     },
     {
       requireAuth: {
@@ -39,3 +41,20 @@ router.get(
 );
 
 export { router as getAgentRouter };
+
+const _agentFlow = (currentUser: INotifyUser) => {
+  return AgentModel.find({
+    owner: currentUser.owner,
+    enabled: true,
+  })
+    .populate('profile')
+    .lean();
+};
+
+const _companyFlow = (currentUser: INotifyUser) => {
+  return AgentModel.find({
+    owner: currentUser._id,
+  })
+    .populate('profile')
+    .lean();
+};
