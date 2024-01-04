@@ -8,16 +8,12 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/nfc-company-client",
         "index": "apps/nfc-company-client/src/index.html",
         "main": "apps/nfc-company-client/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/nfc-company-client/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -85,15 +81,7 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
-      "options": {
-        "lintFilePatterns": [
-          "apps/nfc-company-client/**/*.ts",
-          "apps/nfc-company-client/**/*.html"
-        ]
-      }
+      "outputs": ["{options.outputFile}"]
     },
     "deploy": {
       "executor": "nx:run-commands",

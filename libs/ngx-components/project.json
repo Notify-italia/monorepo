@@ -8,9 +8,7 @@
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
-      "outputs": [
-        "{workspaceRoot}/dist/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
         "project": "libs/ngx-components/ng-package.json",
         "tailwindConfig": "libs/ngx-components/tailwind.config.js"
@@ -27,16 +25,7 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
-      "options": {
-        "lintFilePatterns": [
-          "libs/ngx-components/**/*.ts",
-          "libs/ngx-components/**/*.html",
-          "libs/ngx-components/package.json"
-        ]
-      }
+      "outputs": ["{options.outputFile}"]
     }
   }
 }

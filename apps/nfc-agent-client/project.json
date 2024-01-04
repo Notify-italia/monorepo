@@ -15,7 +15,8 @@
       "options": {
         "allowedCommonJsDependencies": [
           "qrcode",
-          "file-saver"
+          "file-saver",
+          "compressorjs"
         ],
         "outputPath": "dist/apps/nfc-agent-client",
         "index": "apps/nfc-agent-client/src/index.html",
@@ -94,13 +95,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": [
         "{options.outputFile}"
-      ],
-      "options": {
-        "lintFilePatterns": [
-          "apps/nfc-agent-client/**/*.ts",
-          "apps/nfc-agent-client/**/*.html"
-        ]
-      }
+      ]
     },
     "cap": {
       "executor": "nx:run-commands",

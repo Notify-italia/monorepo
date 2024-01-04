@@ -4,15 +4,16 @@ import { QRCodeModule } from 'angularx-qrcode';
 
 import { INotifyProfile } from '@notify/interfaces';
 import { CapacitorService } from '@notify/nfc-app-services';
-import { Lightbox, LightboxModule } from 'ngx-lightbox';
+
 import { ToastrService } from 'ngx-toastr';
+import { QrcodeFactory } from '../../modules/modals';
 import { NfcWriteFactory } from '../../modules/modals/nfc';
 import { NfcWriteComponent } from '../../modules/modals/nfc/components/nfc-write/nfc-write.component';
 @Component({
   selector: 'notify-share-profile',
   standalone: true,
-  imports: [CommonModule, QRCodeModule, LightboxModule, NfcWriteComponent],
-  providers: [NfcWriteFactory, CapacitorService],
+  imports: [CommonModule, QRCodeModule, NfcWriteComponent],
+  providers: [NfcWriteFactory, CapacitorService, QrcodeFactory],
   templateUrl: './share-profile.component.html',
   styleUrls: ['./share-profile.component.scss'],
 })
@@ -21,9 +22,9 @@ export class ShareProfileComponent {
   @Input({ required: true }) public playerUrl = 'http://localhost:4200/profile';
 
   constructor(
-    private _lightbox: Lightbox,
     private _toastr: ToastrService,
     private _nfcFactory: NfcWriteFactory,
+    private _qrcode: QrcodeFactory,
     public capacitor: CapacitorService
   ) {}
 
@@ -33,26 +34,12 @@ export class ShareProfileComponent {
   }
 
   public async openLightbox() {
-    const qr = `https://api.qrserver.com/v1/create-qr-code/?format=svg&size=500x500&data=${encodeURIComponent(
-      this.playerUrl
-    )}`;
-
-    this._lightbox.open(
-      [
-        {
-          src: qr,
-          caption: 'notify-qrcode',
-          thumb: qr,
-        },
-      ],
-      0,
-      {
-        disableScrolling: true,
-        centerVertically: true,
-        showDownloadButton: true,
-        fitImageInViewPort: true,
-      }
-    );
+    this._qrcode.create({
+      data: encodeURIComponent(this.playerUrl),
+      size: 350,
+      title: 'Condividi Profilo',
+      filename: this.profile.name || 'qrcode',
+    });
   }
 
   public async writeNfc() {
