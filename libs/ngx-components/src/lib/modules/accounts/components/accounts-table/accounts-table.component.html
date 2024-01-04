@@ -53,16 +53,20 @@
                 <th *ngIf="!isRowDisabled('name')">Nome</th>
                 <th *ngIf="!isRowDisabled('role')">Ruolo</th>
                 <th *ngIf="!isRowDisabled('createdAt')">Aggiunto il</th>
-                <th>Azioni</th>
+                <th *ngIf="!isRowDisabled('actions')">Azioni</th>
               </tr>
             </thead>
             <tbody>
               <!-- row 1 -->
               @for (user of p; track user._id) {
               <tr
+                (click)="config.clickableRow ? rowClicked.emit(user) : null"
                 notify-accounts-row
-                class="w-full"
+                class="w-full smooth"
                 [user]="user"
+                [ngClass]="{
+                  'hover:brightness-150 cursor-pointer': config.clickableRow,
+                }"
                 [config]="config"
                 (inspectProfile)="inspectProfile.emit(user.profile)"
                 (showUserForm)="showUserForm.emit(user)"

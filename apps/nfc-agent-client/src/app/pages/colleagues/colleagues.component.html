@@ -9,14 +9,10 @@
     [users]="agents"
     [maxAgents]="null"
     [config]="{
-      allowInspect: true,
-      allowEdit: false,
-      allowDelete: false,
-      displayLeftAccounts: false,
-      disabledRows: ['role', 'createdAt', 'select-item'],
-      
+      disabledRows: ['role', 'createdAt', 'select-item', 'actions'],
+      clickableRow: true
     }"
-    (inspectProfile)="inspectProfile($event)"
+    (rowClicked)="inspectProfile($event.profile)"
   ></notify-accounts-table>
   } @else {
   <div class="h-[40vh] md:h-[60vh]">

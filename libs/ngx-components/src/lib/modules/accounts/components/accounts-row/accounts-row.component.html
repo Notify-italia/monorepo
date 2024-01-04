@@ -37,7 +37,7 @@
     {{ user.createdAt | date : 'dd/MM/yyyy HH:mm' }}
   </span>
 </td>
-<td class="whitespace-nowrap">
+<td class="whitespace-nowrap" *ngIf="!isRowDisabled('actions')">
   <div class="space-x-4 py-2 px-4 rounded-2xl backdrop-brightness-110 w-fit">
     <!-- INSPECT PROFILE -->
     <button
