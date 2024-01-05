@@ -5,4 +5,5 @@ export interface INotifyNote extends MongodbDocument {
   owner: INotifyUser['_id'];
   title: string;
   content: string;
+  customerName: string;
 }

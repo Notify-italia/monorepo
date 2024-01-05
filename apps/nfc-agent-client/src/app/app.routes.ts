@@ -47,6 +47,25 @@ export const appRoutes: Route[] = [
             (m) => m.ColleaguesComponent
           ),
       },
+      {
+        path: 'notes',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./pages/notes/main/notes.component').then(
+                (m) => m.NotesComponent
+              ),
+          },
+          {
+            path: 'add',
+            loadComponent: () =>
+              import('./pages/notes/add-note/add-note.component').then(
+                (m) => m.AddNoteComponent
+              ),
+          },
+        ],
+      },
     ],
   },
   {

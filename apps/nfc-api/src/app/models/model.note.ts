@@ -59,6 +59,9 @@ const NoteSchema = new Schema<Note, NoteModel>(
       type: String,
       required: true,
     },
+    customerName: {
+      type: String,
+    },
     owner: {
       type: Schema.Types.ObjectId,
       required: [true, NOTE_VALIDATION_MESSAGES.owner],
