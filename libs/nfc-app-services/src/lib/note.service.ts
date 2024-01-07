@@ -17,6 +17,10 @@ export class NoteService {
     return this.http.get<INotifyNote>(`/v1/notes`, { id });
   }
 
+  public getNotes() {
+    return this.http.get<INotifyNote[]>(`/v1/notes`);
+  }
+
   public patchNote(id: string, note: INotifyNote) {
     return this.http.patch<INotifyNote, INotifyNote>(`/v1/notes`, note, { id });
   }

@@ -3,18 +3,29 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppError } from '@notify/interfaces';
 import { NoteService } from '@notify/nfc-app-services';
-import { PageHeaderComponent } from '@notify/ngx-components';
+import {
+  LoadingComponent,
+  NotesListComponent,
+  PageHeaderComponent,
+} from '@notify/ngx-components';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, PageHeaderComponent],
+  imports: [
+    CommonModule,
+    PageHeaderComponent,
+    LoadingComponent,
+    NotesListComponent,
+  ],
   providers: [NoteService, ToastrService],
   templateUrl: './notes.component.html',
   styleUrl: './notes.component.scss',
 })
 export class NotesComponent {
+  public notes$ = this._noteService.getNotes();
+
   constructor(
     private _router: Router,
     private _noteService: NoteService,
@@ -42,5 +53,11 @@ export class NotesComponent {
         })
       )
       .subscribe();
+  }
+
+  public editNote(id: string) {
+    this._router.navigate(['/pages/notes/inspect'], {
+      queryParams: { id },
+    });
   }
 }

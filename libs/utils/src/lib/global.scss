@@ -46,6 +46,34 @@
   @apply text-gray-50 bg-base-100/50 backdrop-brightness-105;
 }
 
+.action-btn {
+  @apply btn btn-circle btn-sm btn-ghost;
+
+  &.action-primary {
+    @apply text-primary;
+  }
+
+  &.action-secondary {
+    @apply text-secondary;
+  }
+
+  &.action-success {
+    @apply text-success;
+  }
+
+  &.action-info {
+    @apply text-info;
+  }
+
+  &.action-warning {
+    @apply text-warning;
+  }
+
+  &.action-error {
+    @apply text-error;
+  }
+}
+
 .slide-in-left {
   -webkit-animation: slide-in-left 0.5s cubic-bezier(0.19, 1, 0.22, 1) both;
   animation: slide-in-left 0.5s cubic-bezier(0.19, 1, 0.22, 1) both;

@@ -13,6 +13,7 @@ const router = Router();
 router.get(
   '/',
   query('id')
+    .optional()
     .isMongoId()
     .withMessage(NOTE_VALIDATION_MESSAGES._id as string),
   errorHandledRequest(
