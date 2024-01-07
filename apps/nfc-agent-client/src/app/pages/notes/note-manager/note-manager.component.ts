@@ -2,14 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppError, INotifyNote } from '@notify/interfaces';
-import { NoteService } from '@notify/nfc-app-services';
+import { NoteService, UtilsService } from '@notify/nfc-app-services';
 import {
   LoadingComponent,
   NoteFormComponent,
   PageHeaderComponent,
 } from '@notify/ngx-components';
-import { ToastrService } from 'ngx-toastr';
-import { Observable, Subject, catchError, of, tap } from 'rxjs';
+import { Observable, Subject, catchError, tap } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -19,7 +18,7 @@ import { Observable, Subject, catchError, of, tap } from 'rxjs';
     NoteFormComponent,
     LoadingComponent,
   ],
-  providers: [NoteService],
+  providers: [NoteService, UtilsService],
   templateUrl: './note-manager.component.html',
   styleUrl: './note-manager.component.scss',
 })
@@ -35,7 +34,7 @@ export class NoteManagerComponent implements OnInit {
     private _router: Router,
     private _activeRoute: ActivatedRoute,
     private _noteService: NoteService,
-    private _toastr: ToastrService
+    private _utilsService: UtilsService
   ) {}
 
   handleHeaderAction(eventName: string) {
@@ -55,11 +54,7 @@ export class NoteManagerComponent implements OnInit {
         tap((note) => {
           this.noteSubject$?.next(note);
         }),
-        catchError((err: AppError) => {
-          this._toastr.error(err.error.errors[0].message, 'Errore');
-
-          return of(err);
-        })
+        catchError((err: AppError) => this._utilsService.errorHandler(err))
       )
       .subscribe();
   }
@@ -70,15 +65,10 @@ export class NoteManagerComponent implements OnInit {
       .patchNote(this.id, note)
       .pipe(
         tap((note) => {
-          this.loading = false;
           this.noteSubject$?.next(note);
         }),
-        catchError((err: AppError) => {
-          this.loading = false;
-          this._toastr.error(err.error.errors[0].message, 'Errore');
-
-          return of(err);
-        })
+        catchError((err: AppError) => this._utilsService.errorHandler(err)),
+        tap(() => (this.loading = false))
       )
       .subscribe();
   }

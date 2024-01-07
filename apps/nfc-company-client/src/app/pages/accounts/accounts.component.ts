@@ -10,6 +10,7 @@ import {
   AgentService,
   AuthService,
   ProfileService,
+  UtilsService,
 } from '@notify/nfc-app-services';
 import {
   AccountsTableComponent,
@@ -44,6 +45,7 @@ import { environment } from '../../../environments/environment';
     ProfilePlayerFactory,
     UserFormFactory,
     ConfirmModalFactory,
+    UtilsService,
   ],
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.scss'],
@@ -67,7 +69,8 @@ export class AccountsComponent implements OnInit {
     private _profileService: ProfileService,
     private _profileFactory: ProfilePlayerFactory,
     private _userFormFactory: UserFormFactory,
-    private _confirmModalFactory: ConfirmModalFactory
+    private _confirmModalFactory: ConfirmModalFactory,
+    private _utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
@@ -93,10 +96,7 @@ export class AccountsComponent implements OnInit {
 
         this.agentsSubject$.next(populatedAgents);
       }),
-      catchError((error: AppError) => {
-        this._toastr.error(error.error.errors[0].message, 'Errore');
-        return [];
-      })
+      catchError((error: AppError) => this._utilsService.errorHandler(error))
     );
   }
 
@@ -141,10 +141,8 @@ export class AccountsComponent implements OnInit {
           this._toastr.success('Utente eliminato!', 'OK');
         }),
         catchError((error: AppError) => {
-          console.error(error);
           ref.instance.loading = false;
-          this._toastr.error(error.error.errors[0].message, 'Errore');
-          return [];
+          return this._utilsService.errorHandler(error);
         })
       )
       .subscribe();
@@ -174,11 +172,10 @@ export class AccountsComponent implements OnInit {
         }),
 
         catchError((error: AppError, c) => {
-          this._toastr.error(error.error.errors[0].message, 'Errore');
-          ref.loading = false;
-
+          this._utilsService.errorHandler(error);
           return c;
-        })
+        }),
+        tap(() => (ref.loading = false))
       )
       .subscribe();
   }

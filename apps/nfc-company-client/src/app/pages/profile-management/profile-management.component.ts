@@ -14,7 +14,11 @@ import {
   EnumNotifyUserType,
   INotifyProfile,
 } from '@notify/interfaces';
-import { CapacitorService, ProfileService } from '@notify/nfc-app-services';
+import {
+  CapacitorService,
+  ProfileService,
+  UtilsService,
+} from '@notify/nfc-app-services';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, catchError, tap } from 'rxjs';
 import { environment } from '../../../../src/environments/environment';
@@ -32,7 +36,7 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
     PageHeaderComponent,
     LoadingComponent,
   ],
-  providers: [ProfilePlayerFactory, CapacitorService],
+  providers: [ProfilePlayerFactory, CapacitorService, UtilsService],
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
 })
@@ -44,6 +48,7 @@ export class ProfileManagementComponent {
 
   constructor(
     private _profileService: ProfileService,
+    private _utilsService: UtilsService,
     private _toastr: ToastrService,
     private _playerFactroy: ProfilePlayerFactory
   ) {
@@ -78,16 +83,11 @@ export class ProfileManagementComponent {
         tap((profile) => {
           this._toastr.success('Profilo aggiornato', 'OK');
           this._profileSubject$.next(profile);
-          this.loading = false;
         }),
-        catchError(async (err: AppError) => {
-          this._toastr.error(
-            err?.error?.errors?.[0]?.message || 'Si è verificato un errore',
-            'Errore'
-          );
-          this.loading = false;
-          return err;
-        })
+        catchError(async (err: AppError) =>
+          this._utilsService.errorHandler(err)
+        ),
+        tap(() => (this.loading = false))
       )
       .subscribe();
   }
@@ -99,13 +99,9 @@ export class ProfileManagementComponent {
         tap((profile) => {
           this._profileSubject$.next(profile);
         }),
-        catchError(async (err: AppError) => {
-          this._toastr.error(
-            err?.error?.errors?.[0]?.message || 'Si è verificato un errore',
-            'Errore'
-          );
-          return err;
-        })
+        catchError(async (err: AppError) =>
+          this._utilsService.errorHandler(err)
+        )
       )
       .subscribe();
   }

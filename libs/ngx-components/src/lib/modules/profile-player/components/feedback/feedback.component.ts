@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ComponentRef, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppError, INotifyProfile } from '@notify/interfaces';
-import { FeedbackService } from '@notify/nfc-app-services';
+import { FeedbackService, UtilsService } from '@notify/nfc-app-services';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
@@ -11,7 +11,7 @@ import { RatingComponent } from '../rating/rating.component';
 @Component({
   standalone: true,
   imports: [CommonModule, FormsModule, RatingComponent],
-  providers: [FeedbackService],
+  providers: [FeedbackService, UtilsService],
   templateUrl: './feedback.component.html',
   styleUrls: ['./feedback.component.scss', '../profile.styles.scss'],
 })
@@ -26,7 +26,8 @@ export class FeedbackComponent implements OnInit {
 
   constructor(
     private _feedbackService: FeedbackService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
@@ -50,11 +51,8 @@ export class FeedbackComponent implements OnInit {
           this.close();
         }),
         catchError(async (err: AppError) => {
-          const errorMsg =
-            err?.error?.errors?.[0]?.message || 'Errore di invio feedback';
-
-          this._toastr.error(errorMsg, 'Errore');
           this.loading = false;
+          return this._utilsService.errorHandler(err);
         })
       )
       .subscribe();

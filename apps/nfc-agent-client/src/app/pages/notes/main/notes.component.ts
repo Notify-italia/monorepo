@@ -2,13 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppError } from '@notify/interfaces';
-import { NoteService } from '@notify/nfc-app-services';
+import { NoteService, UtilsService } from '@notify/nfc-app-services';
 import {
   LoadingComponent,
   NotesListComponent,
   PageHeaderComponent,
 } from '@notify/ngx-components';
-import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
 
 @Component({
@@ -19,7 +18,7 @@ import { catchError, tap } from 'rxjs';
     LoadingComponent,
     NotesListComponent,
   ],
-  providers: [NoteService, ToastrService],
+  providers: [NoteService, UtilsService],
   templateUrl: './notes.component.html',
   styleUrl: './notes.component.scss',
 })
@@ -29,7 +28,8 @@ export class NotesComponent {
   constructor(
     private _router: Router,
     private _noteService: NoteService,
-    private _toastrService: ToastrService
+
+    private _utilsService: UtilsService
   ) {}
 
   handleHeaderAction(eventName: string) {
@@ -47,10 +47,9 @@ export class NotesComponent {
             queryParams: { id: note._id },
           });
         }),
-        catchError(async (err: AppError) => {
-          this._toastrService.error(err.error.errors[0].message, 'Error');
-          return err;
-        })
+        catchError(async (err: AppError) =>
+          this._utilsService.errorHandler(err)
+        )
       )
       .subscribe();
   }
