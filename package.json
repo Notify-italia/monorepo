@@ -24,6 +24,7 @@
     "@angular/router": "17.0.3",
     "@auth0/angular-jwt": "^5.2.0",
     "@capacitor-community/screen-brightness": "^5.0.0",
+    "@capacitor/filesystem": "^5.2.0",
     "@ionic/angular": "^7.6.2",
     "@nx-bun/nx": "^1.2.0",
     "@nx/angular": "17.2.8",

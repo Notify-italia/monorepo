@@ -4,6 +4,7 @@ import {
   ScreenBrightness,
 } from '@capacitor-community/screen-brightness';
 import { Capacitor } from '@capacitor/core';
+import { Directory, Filesystem } from '@capacitor/filesystem';
 
 @Injectable()
 export class CapacitorService {
@@ -30,6 +31,15 @@ export class CapacitorService {
     await ScreenBrightness.setBrightness({ brightness }).catch((error) =>
       console.error(`Error setting brightness: ${error}`)
     );
+  }
+
+  public async saveImage(config: { filename: string; data: string }) {
+    await Filesystem.writeFile({
+      path: config.filename,
+      data: config.data,
+      directory: Directory.Data,
+      recursive: true,
+    });
   }
 
   constructor() {}

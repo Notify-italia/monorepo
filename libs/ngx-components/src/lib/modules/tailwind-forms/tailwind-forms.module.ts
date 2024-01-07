@@ -63,6 +63,7 @@ export class TailwindFormsModule {}
 export {
   HighlightSearchPipe,
   TailwindCheckboxComponent,
+  TailwindColorPickerComponent,
   TailwindDatepickerComponent,
   TailwindDropdownComponent,
   TailwindInputComponent,

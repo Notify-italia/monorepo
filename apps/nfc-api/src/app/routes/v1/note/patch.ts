@@ -41,9 +41,9 @@ router.patch(
         throw new BadRequestError('Nota non trovata');
       }
 
-      note.title = title || note?.title;
-      note.content = content || note?.content;
-      note.color = color || note?.color;
+      note.title = title;
+      note.content = content;
+      note.color = color;
 
       await note.save();
 

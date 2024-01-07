@@ -52,6 +52,15 @@ export class QrcodeComponent implements OnInit {
       .querySelector('canvas')
       .toDataURL('image/png');
 
+    if (this._capacitorService.isNative) {
+      this._capacitorService.saveImage({
+        filename: this.filename,
+        data: parentElement,
+      });
+
+      return;
+    }
+
     // converts base 64 encoded image to blobData
     const blobData = this.convertBase64ToBlob(parentElement);
 
