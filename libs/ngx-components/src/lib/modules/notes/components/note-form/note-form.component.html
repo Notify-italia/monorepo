@@ -8,20 +8,21 @@
       [parent]="form"
       name="color"
       label=" "
+      class="brightness-75"
     ></notify-tailwind-color-picker>
     <input
       type="text"
-      placeholder="Titolo della nota..."
+      placeholder="Titolo..."
       formControlName="title"
       [maxlength]="100"
     />
   </div>
 
-  <div class="divider"></div>
+  <div class="divider !my-1 lg:!my-3"></div>
 
   <textarea
     #Textarea
-    placeholder="Contenuto della nota..."
+    placeholder="Contenuto..."
     [rows]="maxRows(Textarea)"
     resize="none"
     formControlName="content"
