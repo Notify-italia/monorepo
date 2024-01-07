@@ -6,6 +6,7 @@ export interface INotifyHeaderButton {
   disabled?: boolean;
   eventName: string;
   icon?: string[];
+  buttonColor?: string;
 }
 
 @Component({

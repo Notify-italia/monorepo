@@ -73,6 +73,8 @@ tailwindConfig.daisyui.themes.push('dark', {
     'neutral-focus': tailwindConfig.theme.extend.colors.complimentary[600],
     error: '#F44336',
     'error-focus': '#E53E3E',
+    warning: '#ff9800',
+    'warning-focus': '#F29D49',
   },
 });
 

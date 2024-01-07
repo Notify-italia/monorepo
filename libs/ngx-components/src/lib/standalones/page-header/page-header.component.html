@@ -18,7 +18,7 @@
         <button
           (click)="onButtonClicked(btn)"
           [disabled]="btn.disabled"
-          class="btn"
+          class="btn btn-{{ btn.buttonColor || 'primary' }} "
           type="button"
           data-theme="notifytheme"
           [class.btn-primary]="i === 0"
