@@ -138,6 +138,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     set: 'social',
     score: 1,
     prefix: 'mailto:',
+    placeholder: 'Inserisci un indirizzo email',
   },
   { expanded: 'Google', name: 'google', tags: [], set: 'social', score: 1 },
   {

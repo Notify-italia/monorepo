@@ -103,10 +103,11 @@
         </button>
         } @else {
         <button
+          *ngIf="data?.reviewRedirect"
           type="button"
           data-theme="notifytheme"
           class="btn btn-wide btn-accent"
-          [disabled]="mockup || !data?.reviewRedirect"
+          [disabled]="mockup"
           (click)="redirectToReview()"
         >
           <svg
