@@ -1,0 +1,28 @@
+<form
+  *ngIf="form"
+  [formGroup]="form"
+  class="bg-base-100/50 w-full h-full flex flex-col justify-center items-center p-4 rounded-lg shadow-lg brightness-125"
+>
+  <div class="flex w-full items-center space-x-2">
+    <notify-tailwind-color-picker
+      [parent]="form"
+      name="color"
+      label=" "
+    ></notify-tailwind-color-picker>
+    <input
+      type="text"
+      placeholder="Titolo della nota..."
+      formControlName="title"
+    />
+  </div>
+
+  <div class="divider"></div>
+
+  <textarea
+    #Textarea
+    placeholder="Contenuto della nota..."
+    [rows]="maxRows(Textarea)"
+    resize="none"
+    formControlName="content"
+  ></textarea>
+</form>

@@ -7,6 +7,7 @@ export * from './lib/guards/auth.guard';
 export * from './lib/guards/redirect.guard';
 export * from './lib/guards/signin.guard';
 export * from './lib/http.service';
+export * from './lib/note.service';
 export * from './lib/profile.service';
 export * from './lib/svgbox.service';
 export * from './lib/utils.service';

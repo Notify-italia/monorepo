@@ -22,10 +22,11 @@ export type NoteDocument = Document<unknown, unknown, Note> &
 export const NOTE_VALIDATION_MESSAGES: {
   [key in keyof Partial<Note>]: ErrorMessage;
 } = {
-  _id: "L'id della licenza non è valido",
+  _id: "L'id della nota non è valido",
   owner: 'Utente non valido',
   title: 'Titolo non valido',
   content: 'Contenuto non valido',
+  color: 'Colore non valido',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
@@ -53,18 +54,19 @@ const NoteSchema = new Schema<Note, NoteModel>(
   {
     title: {
       type: String,
-      required: true,
+      default: '',
     },
     content: {
       type: String,
-      required: true,
-    },
-    customerName: {
-      type: String,
+      default: '',
     },
     owner: {
       type: Schema.Types.ObjectId,
       required: [true, NOTE_VALIDATION_MESSAGES.owner],
+    },
+    color: {
+      type: String,
+      default: '',
     },
   },
   {

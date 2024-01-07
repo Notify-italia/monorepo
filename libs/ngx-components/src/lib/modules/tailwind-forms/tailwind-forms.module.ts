@@ -2,8 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ColorPickerModule } from 'ngx-color-picker';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { TailwindCheckboxComponent } from './components/tailwind-checkbox/tailwind-checkbox.component';
+import { TailwindColorPickerComponent } from './components/tailwind-color-picker/tailwind-color-picker.component';
 import { TailwindDatepickerComponent } from './components/tailwind-datepicker/tailwind-datepicker.component';
 import { TailwindDropdownComponent } from './components/tailwind-dropdown/tailwind-dropdown.component';
 import { TailwindInputComponent } from './components/tailwind-input/tailwind-input.component';
@@ -29,6 +31,7 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     TailwindSelectMultipleComponent,
     TailwindToggleButtonComponent,
     HighlightSearchPipe,
+    TailwindColorPickerComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +40,7 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     RouterModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    ColorPickerModule,
   ],
   exports: [
     TailwindInputComponent,
@@ -49,6 +53,7 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     TailwindCheckboxComponent,
     TailwindSelectMultipleComponent,
     HighlightSearchPipe,
+    TailwindColorPickerComponent,
   ],
   providers: [TailwindFormsService, provideNgxMask()],
 })

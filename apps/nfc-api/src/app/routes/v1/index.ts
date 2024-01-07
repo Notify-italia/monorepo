@@ -11,6 +11,6 @@ router.use('/company', companyRouter);
 router.use('/agent', agentRouter);
 router.use('/profile', profileRouter);
 router.use('/feedback', feedbackRouter);
-router.use('/feedback', noteRouter);
+router.use('/notes', noteRouter);
 
 export { router as ApiV1 };

@@ -1,6 +1,7 @@
 export * from './lib/modules/accounts';
 export * from './lib/modules/license';
 export * from './lib/modules/modals';
+export * from './lib/modules/notes';
 export * from './lib/modules/profile-player';
 export * from './lib/modules/tailwind-forms/tailwind-forms.module';
 export * from './lib/modules/tailwind-toasts/tailwind-toasts.module';

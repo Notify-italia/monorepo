@@ -58,10 +58,10 @@ export const appRoutes: Route[] = [
               ),
           },
           {
-            path: 'add',
+            path: 'inspect',
             loadComponent: () =>
-              import('./pages/notes/add-note/add-note.component').then(
-                (m) => m.AddNoteComponent
+              import('./pages/notes/note-manager/note-manager.component').then(
+                (m) => m.NoteManagerComponent
               ),
           },
         ],

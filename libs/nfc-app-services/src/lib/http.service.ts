@@ -20,9 +20,13 @@ export class HttpService {
       .pipe(this._unauthorized());
   }
 
-  public post<R, T>(url: string, body: R, params?: Record<string, string>) {
+  public post<Request, Resposnse>(
+    url: string,
+    body: Request,
+    params?: Record<string, string>
+  ) {
     return this.http
-      .post<T>(`${this.apiUrl}${url}`, body, this._genHeaders(params))
+      .post<Resposnse>(`${this.apiUrl}${url}`, body, this._genHeaders(params))
       .pipe(this._unauthorized());
   }
 

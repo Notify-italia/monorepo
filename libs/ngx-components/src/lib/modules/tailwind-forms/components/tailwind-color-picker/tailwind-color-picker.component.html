@@ -1,0 +1,63 @@
+<div [formGroup]="parent" class="flex space-x-2 my-auto">
+  <div class="relative">
+    <input
+      [(colorPicker)]="color"
+      (colorPickerChange)="handleColorPickerChange()"
+      [style.background]="color"
+      [style.color]="color"
+      #inputRef
+      cpPosition="right"
+      (colorPickerOpen)="colorPickerOpen = true"
+      (colorPickerClose)="colorPickerOpen = false"
+      [id]="name"
+      [cpEyeDropper]="true"
+      [name]="name"
+      [formControlName]="name"
+      [ngClass]="{ 'scale-90 ring-2': colorPickerOpen }"
+      class="transition-all hover:scale-90 focus:ring-2 focus:ring-app-main-color-300 focus:border-app-main-color-500 block p-2 appearance-none border shadow-sm focus:outline-none sm:text-sm rounded-full w-8 h-8 cursor-pointer"
+      [ngClass]="{
+        'border-red-300 focus:ring-red-500': showValidationErrors
+      }"
+    />
+
+    <div
+      *ngIf="showValidationErrors"
+      class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
+    >
+      <svg
+        class="h-5 w-5 text-red-500"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </div>
+  </div>
+  <div class="flex flex-col justify-center">
+    <label
+      [for]="name"
+      id="input-label"
+      class="block text-sm font-medium text-gray-700"
+    >
+      {{ label | titlecase }}
+    </label>
+  </div>
+
+  <p
+    class="mt-2 text-sm text-red-600"
+    [id]="name + '-error'"
+    *ngIf="showValidationErrors"
+  >
+    {{ validationErrorMessage }}
+  </p>
+
+  <p class="mt-2 text-sm text-gray-500" *ngIf="helpText">
+    {{ helpText }}
+  </p>
+</div>
