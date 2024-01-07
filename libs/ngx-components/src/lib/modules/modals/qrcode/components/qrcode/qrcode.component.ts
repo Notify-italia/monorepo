@@ -9,6 +9,7 @@ import {
 import { GetBrightnessReturnValue } from '@capacitor-community/screen-brightness';
 import { CapacitorService } from '@notify/nfc-app-services';
 import { QRCodeComponent, QRCodeModule } from 'angularx-qrcode';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   standalone: true,
@@ -32,7 +33,10 @@ export class QrcodeComponent implements OnInit {
     )}`;
   }
 
-  constructor(private _capacitorService: CapacitorService) {}
+  constructor(
+    private _capacitorService: CapacitorService,
+    private _toastr: ToastrService
+  ) {}
 
   async ngOnInit() {
     this._storedBrightness = await this._capacitorService.brightness;
@@ -52,20 +56,25 @@ export class QrcodeComponent implements OnInit {
       .querySelector('canvas')
       .toDataURL('image/png');
 
-    if (this._capacitorService.isNative) {
-      this._capacitorService.saveImage({
-        filename: this.filename,
-        data: parentElement,
-      });
-
-      return;
-    }
-
     // converts base 64 encoded image to blobData
     const blobData = this.convertBase64ToBlob(parentElement);
 
     const blob = new Blob([blobData], { type: 'image/png' });
     const url = window.URL.createObjectURL(blob);
+
+    if (this._capacitorService.isNative) {
+      this._capacitorService
+        .saveImage({
+          filename: `${this.filename}.png`,
+          data: parentElement,
+        })
+        .then(() => {
+          this._toastr.info('Immagine salvata nella galleria');
+        });
+
+      return;
+    }
+
     // window.open(url);
     const link = document.createElement('a');
     link.href = url;

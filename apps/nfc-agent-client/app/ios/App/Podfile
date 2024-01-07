@@ -19,6 +19,7 @@ target 'App' do
   # Add your Pods here
   pod 'CapacitorFilesystem', :path => '../../../../../node_modules/@capacitor/filesystem'
   pod 'CapacitorCommunityScreenBrightness', :path => '../../../../../node_modules/@capacitor-community/screen-brightness'
+  pod 'CapacitorCommunityMedia', :path => '../../../../../node_modules/@capacitor-community/media'
 end
 
 post_install do |installer|

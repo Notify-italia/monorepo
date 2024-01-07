@@ -1,21 +1,34 @@
 PODS:
   - Capacitor (5.6.0):
     - CapacitorCordova
+  - CapacitorCommunityMedia (5.4.0):
+    - Capacitor
+    - SDWebImage
   - CapacitorCommunityScreenBrightness (5.0.0):
     - Capacitor
   - CapacitorCordova (5.6.0)
   - CapacitorFilesystem (5.2.0):
     - Capacitor
+  - SDWebImage (5.18.8):
+    - SDWebImage/Core (= 5.18.8)
+  - SDWebImage/Core (5.18.8)
 
 DEPENDENCIES:
   - "Capacitor (from `../../../../../node_modules/@capacitor/ios`)"
+  - "CapacitorCommunityMedia (from `../../../../../node_modules/@capacitor-community/media`)"
   - "CapacitorCommunityScreenBrightness (from `../../../../../node_modules/@capacitor-community/screen-brightness`)"
   - "CapacitorCordova (from `../../../../../node_modules/@capacitor/ios`)"
   - "CapacitorFilesystem (from `../../../../../node_modules/@capacitor/filesystem`)"
 
+SPEC REPOS:
+  trunk:
+    - SDWebImage
+
 EXTERNAL SOURCES:
   Capacitor:
     :path: "../../../../../node_modules/@capacitor/ios"
+  CapacitorCommunityMedia:
+    :path: "../../../../../node_modules/@capacitor-community/media"
   CapacitorCommunityScreenBrightness:
     :path: "../../../../../node_modules/@capacitor-community/screen-brightness"
   CapacitorCordova:
@@ -25,10 +38,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Capacitor: ebfc16cdb8116d04c101686b080342872da42d43
+  CapacitorCommunityMedia: dd6d8dde68498d6f19d29e0f4684e5bcfd59fd51
   CapacitorCommunityScreenBrightness: b2d9c6fffee6b684994cd69f727f2090e2f05c6d
   CapacitorCordova: 931b48fcdbc9bc985fc2f16cec9f77c794a27729
   CapacitorFilesystem: 02f9a9053b96e1881ba1fc98d846869413c195c2
+  SDWebImage: a81bbb3ba4ea5f810f4069c68727cb118467a04a
 
-PODFILE CHECKSUM: dbdef6a8489c890c477d5271eb1a102e5f006353
+PODFILE CHECKSUM: af05713dbd941c45e5b902e6bbf569b951280571
 
 COCOAPODS: 1.11.3
