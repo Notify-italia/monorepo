@@ -5,7 +5,7 @@ import { AppError, INotifyNote } from '@notify/interfaces';
 import { NoteService, UtilsService } from '@notify/nfc-app-services';
 import {
   LoadingComponent,
-  NoteFormComponent,
+  NoteDetailComponent,
   PageHeaderComponent,
 } from '@notify/ngx-components';
 import { Observable, Subject, catchError, tap } from 'rxjs';
@@ -15,8 +15,8 @@ import { Observable, Subject, catchError, tap } from 'rxjs';
   imports: [
     CommonModule,
     PageHeaderComponent,
-    NoteFormComponent,
     LoadingComponent,
+    NoteDetailComponent,
   ],
   providers: [NoteService, UtilsService],
   templateUrl: './note-manager.component.html',
@@ -37,10 +37,8 @@ export class NoteManagerComponent implements OnInit {
     private _utilsService: UtilsService
   ) {}
 
-  handleHeaderAction(eventName: string) {
-    if (eventName === 'back') {
-      this._router.navigate(['/pages/notes']);
-    }
+  goBack() {
+    this._router.navigate(['/pages/notes']);
   }
 
   ngOnInit() {

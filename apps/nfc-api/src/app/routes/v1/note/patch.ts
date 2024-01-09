@@ -15,39 +15,37 @@ router.patch(
   query('id')
     .isMongoId()
     .withMessage(NOTE_VALIDATION_MESSAGES._id as string),
-  body('title')
+  body('note')
+    .exists()
+    .isObject()
+    .contains('title')
+    .withMessage(NOTE_VALIDATION_MESSAGES.title as string)
+    .contains('color')
+    .withMessage(NOTE_VALIDATION_MESSAGES.color as string)
     .optional()
-    .isString()
-    .withMessage(NOTE_VALIDATION_MESSAGES.title as string),
-  body('content')
-    .optional()
-    .isString()
-    .withMessage(NOTE_VALIDATION_MESSAGES.content as string),
-  body('color')
-    .optional()
-    .isString()
-    .withMessage(NOTE_VALIDATION_MESSAGES.color as string),
+    .contains('items')
+    .withMessage(NOTE_VALIDATION_MESSAGES.items as string)
+    .withMessage('Nota non valida'),
+
   errorHandledRequest(
     async (req, res) => {
-      const { title, content, color } = req.body;
+      const { note } = req.body;
       const { id } = req.query;
 
-      const note = await NoteModel.findOne({
+      const foundNote = await NoteModel.findOne({
         _id: id,
         owner: req.currentUser._id,
       });
 
-      if (!note) {
+      if (!foundNote) {
         throw new BadRequestError('Nota non trovata');
       }
 
-      note.title = title;
-      note.content = content;
-      note.color = color;
+      foundNote.set(note);
 
-      await note.save();
+      await foundNote.save();
 
-      res.status(201).send(note);
+      res.status(201).send(foundNote);
     },
     {
       requireAuth: {

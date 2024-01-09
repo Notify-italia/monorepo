@@ -4,12 +4,13 @@ import { INotifyUser } from '../interface.user';
 export interface INotifyNote extends MongodbDocument {
   owners: INotifyUser['_id'][];
   title: string;
-  content: string;
   color: string;
   watchers: INotifyUser['_id'][];
-  files: {
-    name: string;
-    content: string;
-    type: string;
-  }[];
+  items: INotifyNoteItem[];
+}
+
+export interface INotifyNoteItem {
+  type: 'text' | 'todo' | 'files' | 'link';
+  value: unknown;
+  config: Record<string, unknown>;
 }

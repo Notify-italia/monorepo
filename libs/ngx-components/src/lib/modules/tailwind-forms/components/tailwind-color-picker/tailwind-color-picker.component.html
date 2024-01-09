@@ -1,63 +1,29 @@
 <div [formGroup]="parent" class="flex space-x-2 my-auto">
-  <div class="relative">
-    <input
-      [(colorPicker)]="color"
-      (colorPickerChange)="handleColorPickerChange()"
-      [style.background]="color"
-      [style.color]="color"
-      #inputRef
-      cpPosition="right"
-      (colorPickerOpen)="colorPickerOpen = true"
-      (colorPickerClose)="colorPickerOpen = false"
-      [id]="name"
-      [cpEyeDropper]="true"
-      [name]="name"
-      [formControlName]="name"
-      [ngClass]="{ 'scale-90 ring-2': colorPickerOpen }"
-      class="transition-all hover:scale-90 focus:ring-2 focus:ring-primary-300 focus:border-app-main-color-500 block p-2 appearance-none shadow-sm focus:outline-none sm:text-sm rounded-full w-8 h-8 cursor-pointer"
-      [ngClass]="{
-        'border-red-300 focus:ring-red-500': showValidationErrors
+  <div class="relative group/colorPicker w-full">
+    <button
+      class="current-color group-focus-within/colorPicker:border-2 group-focus-within/colorPicker:scale-90"
+      [ngStyle]="{
+        'background-color': color || defaultColor
       }"
-    />
+      [ngClass]="{
+        'border-2 border-red-500': hasErrors && touched
+      }"
+    ></button>
 
     <div
-      *ngIf="showValidationErrors"
-      class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
+      class="absolute -translate-y-10 opacity-0 pointer-events-none group-focus-within/colorPicker:translate-y-0 group-focus-within/colorPicker:opacity-100 group-focus-within/colorPicker:pointer-events-auto py-2 px-4 rounded-lg bg-white border my-2 smooth max-w-96 overflow-auto"
     >
-      <svg
-        class="h-5 w-5 text-red-500"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        aria-hidden="true"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-          clip-rule="evenodd"
-        />
-      </svg>
+      <div class="flex w-full space-x-1">
+        @for (color of colors; track color) {
+        <button
+          class="current-color !w-6 !h-6 border border-slate-500 flex-shrink-0"
+          [ngStyle]="{
+            'background-color': color
+          }"
+          (click)="parent.get(name)?.setValue(color)"
+        ></button>
+        }
+      </div>
     </div>
   </div>
-  <div class="flex flex-col justify-center">
-    <label
-      [for]="name"
-      id="input-label"
-      class="block text-sm font-medium text-gray-700"
-    >
-      {{ label | titlecase }}
-    </label>
-  </div>
-
-  <p
-    class="mt-2 text-sm text-red-600"
-    [id]="name + '-error'"
-    *ngIf="showValidationErrors"
-  >
-    {{ validationErrorMessage }}
-  </p>
-
-  <p class="mt-2 text-sm text-gray-500" *ngIf="helpText">
-    {{ helpText }}
-  </p>
 </div>

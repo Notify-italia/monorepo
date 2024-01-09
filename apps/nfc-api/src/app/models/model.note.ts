@@ -25,8 +25,8 @@ export const NOTE_VALIDATION_MESSAGES: {
   _id: "L'id della nota non è valido",
   owner: 'Utente non valido',
   title: 'Titolo non valido',
-  content: 'Contenuto non valido',
   color: 'Colore non valido',
+  items: 'Lista non valida',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
@@ -56,7 +56,7 @@ const NoteSchema = new Schema<Note, NoteModel>(
       type: String,
       default: '',
     },
-    content: {
+    color: {
       type: String,
       default: '',
     },
@@ -64,10 +64,17 @@ const NoteSchema = new Schema<Note, NoteModel>(
       type: Schema.Types.ObjectId,
       required: [true, NOTE_VALIDATION_MESSAGES.owner],
     },
-    color: {
-      type: String,
-      default: '',
-    },
+    items: [
+      {
+        value: {
+          default: null,
+        },
+        type: {
+          type: String,
+          default: '',
+        },
+      },
+    ],
   },
   {
     timestamps: true,

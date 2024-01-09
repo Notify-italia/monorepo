@@ -1,0 +1,15 @@
+<form class="note-module" *ngIf="form" [formGroup]="form">
+  <div class="flex w-full items-center space-x-2">
+    <notify-tailwind-color-picker
+      [parent]="form"
+      name="color"
+      label=" "
+    ></notify-tailwind-color-picker>
+    <input
+      type="text"
+      placeholder="Titolo..."
+      formControlName="title"
+      [maxlength]="100"
+    />
+  </div>
+</form>
