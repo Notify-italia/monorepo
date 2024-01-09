@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { INotifyNote } from '@notify/interfaces';
 import { NoteHeaderComponent } from '../note-header/note-header.component';
+import { NoteMenuComponent } from '../note-menu/note-menu.component';
 
 @Component({
   selector: 'notify-note-detail',
   standalone: true,
-  imports: [CommonModule, NoteHeaderComponent],
+  imports: [CommonModule, NoteHeaderComponent, NoteMenuComponent],
   templateUrl: './note-detail.component.html',
   styleUrl: './note-detail.component.scss',
 })

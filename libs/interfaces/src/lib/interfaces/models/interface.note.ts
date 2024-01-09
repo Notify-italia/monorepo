@@ -10,7 +10,14 @@ export interface INotifyNote extends MongodbDocument {
 }
 
 export interface INotifyNoteItem {
-  type: 'text' | 'todo' | 'files' | 'link';
+  type: EnumNotifyNoteItemType;
   value: unknown;
   config: Record<string, unknown>;
+}
+
+export enum EnumNotifyNoteItemType {
+  Text = 'text',
+  Todo = 'todo',
+  Files = 'files',
+  Link = 'link',
 }

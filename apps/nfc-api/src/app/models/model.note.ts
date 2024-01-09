@@ -67,6 +67,7 @@ const NoteSchema = new Schema<Note, NoteModel>(
     items: [
       {
         value: {
+          type: Schema.Types.Mixed,
           default: null,
         },
         type: {

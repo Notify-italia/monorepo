@@ -1,4 +1,7 @@
 <div class="flex flex-col justify-center w-full h-full">
+  <div class="h-20 flex flex-col justify-start w-full">
+    <notify-note-menu class="flex justify-center"></notify-note-menu>
+  </div>
   <notify-note-header
     [note]="note"
     (formValue)="headerChanged($event)"

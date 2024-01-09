@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 
 export interface SvgBoxIcon {
-  expanded: string;
+  expanded?: string;
   name: string;
-  tags: string[];
+  tags?: string[];
   set: string;
-  score: number;
+  score?: number;
   prefix?: string;
   placeholder?: string;
 }
