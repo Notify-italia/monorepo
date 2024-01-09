@@ -1,5 +1,5 @@
 <div class="fixed bottom-0 right-0 scale-[0.4] opacity-50" *ngIf="loading">
-  <notify-loading [interval]="10"></notify-loading>
+  <notify-loading [interval]="40"></notify-loading>
 </div>
 
 <div class="page-layout">
@@ -13,7 +13,8 @@
     <div>
       <div>
         <button
-          class="btn bg-gray-900/50 btn-circle w-32 space-x-2"
+          type="button"
+          class="btn btn-circle w-32 space-x-2 bg-complimentary-400/10 border-none"
           (click)="goBack()"
         >
           <svg

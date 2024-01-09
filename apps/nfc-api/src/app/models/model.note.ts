@@ -47,6 +47,22 @@ interface NoteModel extends Model<Note> {
   build(doc: Partial<Note>): Promise<HydratedDocument<Note>>;
 }
 
+const _itemsSchema = new Schema(
+  {
+    value: {
+      type: Schema.Types.Mixed,
+      default: null,
+    },
+    type: {
+      type: String,
+      default: '',
+    },
+  },
+  {
+    _id: false,
+  }
+);
+
 // 3. Crea uno Schema corrispondente all'interfaccia del documento definita al punto 1
 //    nb: l'interfaccia del documento avrà anche _id e __v, che non devono essere
 //        aggiunte nel Schema!
@@ -64,23 +80,19 @@ const NoteSchema = new Schema<Note, NoteModel>(
       type: Schema.Types.ObjectId,
       required: [true, NOTE_VALIDATION_MESSAGES.owner],
     },
-    items: [
-      {
-        value: {
-          type: Schema.Types.Mixed,
-          default: null,
-        },
-        type: {
-          type: String,
-          default: '',
-        },
-      },
-    ],
+    items: [_itemsSchema],
   },
   {
     timestamps: true,
+    toJSON: {
+      transform: (doc, ret) => {
+        delete ret.__v;
+        return ret;
+      },
+    },
   }
 );
+
 // Quando ci sono riferimenti ad ID di altri documenti, usa `Schema.Types.ObjectId`
 
 // 4. Aggiungi qui, se ci sono, gli hook da eseguire prima o dopo una operazione di CRUD (create, read, update, delete)

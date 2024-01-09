@@ -15,17 +15,7 @@ router.patch(
   query('id')
     .isMongoId()
     .withMessage(NOTE_VALIDATION_MESSAGES._id as string),
-  body('note')
-    .exists()
-    .isObject()
-    .contains('title')
-    .withMessage(NOTE_VALIDATION_MESSAGES.title as string)
-    .contains('color')
-    .withMessage(NOTE_VALIDATION_MESSAGES.color as string)
-    .optional()
-    .contains('items')
-    .withMessage(NOTE_VALIDATION_MESSAGES.items as string)
-    .withMessage('Nota non valida'),
+  body('note').exists().isObject().withMessage('Nota non valida'),
 
   errorHandledRequest(
     async (req, res) => {
@@ -42,7 +32,6 @@ router.patch(
       }
 
       foundNote.set(note);
-
       await foundNote.save();
 
       res.status(201).send(foundNote);

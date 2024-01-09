@@ -1,9 +1,22 @@
-<div class="flex flex-col justify-center w-full h-full">
-  <div class="h-20 flex flex-col justify-start w-full">
-    <notify-note-menu class="flex justify-center"></notify-note-menu>
-  </div>
+<div class="flex flex-col justify-center w-full h-full space-y-4">
+  <notify-note-menu
+    class="flex justify-center z-50"
+    (itemClick)="addItem($event)"
+  ></notify-note-menu>
+
   <notify-note-header
-    [note]="note"
-    (formValue)="headerChanged($event)"
+    [note]="currentNote"
+    (formValue)="headerChanged($any($event))"
   ></notify-note-header>
+
+  @for (item of currentNote.items; track i; let i = $index) {
+  <notify-note-text-item
+    *ngIf="item.type === EnumNotifyNoteItemType.Text"
+    [item]="item"
+    (deleteNoteItem)="deleteItem(i)"
+    (formValue)="itemChanged($event, i)"
+  ></notify-note-text-item>
+  }
+
+  <div class="h-14"></div>
 </div>

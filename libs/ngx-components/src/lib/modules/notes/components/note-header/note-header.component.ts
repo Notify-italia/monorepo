@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -14,8 +7,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { INotifyNote } from '@notify/interfaces';
-import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
+import { NoteItemBase } from '../../note-item.base';
 
 @Component({
   selector: 'notify-note-header',
@@ -29,30 +22,15 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
   templateUrl: './note-header.component.html',
   styleUrls: ['./note-header.component.scss', '../../notes.styles.scss'],
 })
-export class NoteHeaderComponent implements OnInit, OnDestroy {
+export class NoteHeaderComponent extends NoteItemBase {
   @Input({ required: true }) note!: INotifyNote;
-  @Output() formValue = new EventEmitter<{ title: string; color: string }>();
 
-  public form?: FormGroup;
-
-  private destroy$ = new Subject<void>();
-  constructor() {}
-
-  ngOnInit() {
-    this.form = new FormGroup({
-      title: new FormControl(this.note.title),
-      color: new FormControl(this.note.color),
-    });
-
-    this.form.valueChanges
-      .pipe(takeUntil(this.destroy$), debounceTime(500))
-      .subscribe((value) => {
-        this.formValue.emit(value);
-      });
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
+  override componentReady() {
+    this.initForm(
+      new FormGroup({
+        title: new FormControl(this.note.title),
+        color: new FormControl(this.note.color),
+      })
+    );
   }
 }

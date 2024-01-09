@@ -22,6 +22,10 @@ export class NoteService {
   }
 
   public patchNote(id: string, note: INotifyNote) {
-    return this.http.patch<INotifyNote, INotifyNote>(`/v1/notes`, note, { id });
+    return this.http.patch<{ note: INotifyNote }, INotifyNote>(
+      `/v1/notes`,
+      { note },
+      { id }
+    );
   }
 }

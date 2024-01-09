@@ -1,6 +1,13 @@
 import { MongodbDocument } from '../interface.mongodb';
 import { INotifyUser } from '../interface.user';
 
+export type INotifyNoteItemValue =
+  | INotifyNoteItemText
+  | INotifyNoteItemTodo
+  | INotifyNoteItemFiles
+  | INotifyNoteItemLink
+  | INotifyNoteHeader;
+
 export interface INotifyNote extends MongodbDocument {
   owners: INotifyUser['_id'][];
   title: string;
@@ -11,8 +18,7 @@ export interface INotifyNote extends MongodbDocument {
 
 export interface INotifyNoteItem {
   type: EnumNotifyNoteItemType;
-  value: unknown;
-  config: Record<string, unknown>;
+  value: INotifyNoteItemValue | null;
 }
 
 export enum EnumNotifyNoteItemType {
@@ -20,4 +26,32 @@ export enum EnumNotifyNoteItemType {
   Todo = 'todo',
   Files = 'files',
   Link = 'link',
+}
+
+export interface INotifyNoteHeader {
+  title: string;
+  color: string;
+}
+
+export interface INotifyNoteItemTodo {
+  title: string;
+  done: boolean;
+}
+
+export interface INotifyNoteItemFiles {
+  files: INotifyNoteItemFile[];
+}
+
+export interface INotifyNoteItemFile {
+  name: string;
+  url: string;
+}
+
+export interface INotifyNoteItemLink {
+  title: string;
+  url: string;
+}
+
+export interface INotifyNoteItemText {
+  content: string;
 }

@@ -138,10 +138,9 @@
 }
 
 .button-click-animation {
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
+  &:active,
   &:focus {
-    animation: buttonClick 0.5s ease;
+    animation: buttonClick 0.5s ease-in-out;
   }
 }
 

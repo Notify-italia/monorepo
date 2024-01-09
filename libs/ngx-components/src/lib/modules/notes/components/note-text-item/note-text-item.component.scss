@@ -1,0 +1,43 @@
+::ng-deep ngx-editor {
+  .NgxEditor {
+    @apply bg-transparent text-gray-200 border-none;
+  }
+}
+
+::ng-deep ngx-editor-menu {
+  .NgxEditor__MenuBar {
+    @apply bg-transparent flex-nowrap overflow-visible;
+  }
+
+  .NgxEditor__MenuItem {
+    &:hover {
+      @apply brightness-150 bg-transparent cursor-pointer;
+    }
+  }
+
+  .NgxEditor__Dropdown {
+    &:hover {
+      @apply bg-transparent cursor-pointer;
+    }
+
+    .NgxEditor__Dropdown--DropdownMenu {
+      @apply bg-transparent backdrop-blur-md;
+    }
+  }
+
+  .NgxEditor__Dropdown--Item {
+    &:hover {
+      @apply brightness-150 text-black;
+    }
+  }
+
+  .NgxEditor__Dropdown--Selected,
+  .NgxEditor__Dropdown--Active,
+  .NgxEditor__Dropdown--Open {
+    @apply pointer-events-none rounded-md hover:bg-transparent;
+  }
+
+  .NgxEditor__Popup {
+    @apply bg-transparent;
+  }
+}
