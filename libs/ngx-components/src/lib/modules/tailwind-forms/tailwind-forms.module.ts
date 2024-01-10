@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { RemoveFocusDirective } from '@notify/nfc-app-services';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { TailwindCheckboxComponent } from './components/tailwind-checkbox/tailwind-checkbox.component';
@@ -32,6 +33,7 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     TailwindToggleButtonComponent,
     HighlightSearchPipe,
     TailwindColorPickerComponent,
+    RemoveFocusDirective,
   ],
   imports: [
     CommonModule,

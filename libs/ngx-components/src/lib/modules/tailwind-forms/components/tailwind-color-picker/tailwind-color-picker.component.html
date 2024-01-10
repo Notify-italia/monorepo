@@ -2,6 +2,7 @@
   <div class="relative group/colorPicker w-full" tabindex="0">
     <button
       tabindex="0"
+      type="button"
       class="current-color group-focus-within/colorPicker:border-2 group-focus-within/colorPicker:scale-90"
       [ngStyle]="{
         'background-color': color || defaultColor
@@ -13,11 +14,13 @@
 
     <div
       tabindex="0"
-      class="absolute -translate-y-10 opacity-0 pointer-events-none group-focus-within/colorPicker:translate-y-0 group-focus-within/colorPicker:opacity-100 group-focus-within/colorPicker:pointer-events-auto py-2 px-4 rounded-lg bg-white border my-2 smooth max-w-96 overflow-auto"
+      class="absolute -translate-y-10 opacity-0 pointer-events-none group-focus-within/colorPicker:translate-y-0 group-focus-within/colorPicker:opacity-100 group-focus-within/colorPicker:pointer-events-auto py-2 px-4 rounded-lg bg-white border my-2 smooth max-w-80 lg:max-w-96 overflow-auto"
     >
       <div class="flex w-full space-x-2">
         @for (color of colors; track color) {
         <button
+          remove-focus
+          type="button"
           class="current-color !w-6 !h-6 border border-slate-500 flex-shrink-0"
           [ngStyle]="{
             'background-color': color
