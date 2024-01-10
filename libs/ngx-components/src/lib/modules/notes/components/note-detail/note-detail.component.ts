@@ -6,7 +6,9 @@ import {
   INotifyNoteHeader,
   INotifyNoteItemValue,
 } from '@notify/interfaces';
+import { ConfirmModalFactory } from '../../../modals';
 import { NoteHeaderComponent } from '../note-header/note-header.component';
+import { NoteLinkItemComponent } from '../note-link-item/note-link-item.component';
 import { NoteMenuComponent } from '../note-menu/note-menu.component';
 import { NoteTextItemComponent } from '../note-text-item/note-text-item.component';
 
@@ -18,7 +20,9 @@ import { NoteTextItemComponent } from '../note-text-item/note-text-item.componen
     NoteHeaderComponent,
     NoteMenuComponent,
     NoteTextItemComponent,
+    NoteLinkItemComponent,
   ],
+  providers: [ConfirmModalFactory],
   templateUrl: './note-detail.component.html',
   styleUrl: './note-detail.component.scss',
 })
@@ -30,7 +34,7 @@ export class NoteDetailComponent implements OnInit {
   public currentNote!: INotifyNote;
   public EnumNotifyNoteItemType = EnumNotifyNoteItemType;
 
-  constructor() {}
+  constructor(private _confirmModal: ConfirmModalFactory) {}
 
   ngOnInit() {
     this.currentNote = this.note;
@@ -59,7 +63,24 @@ export class NoteDetailComponent implements OnInit {
   }
 
   public deleteItem(index: number) {
-    this.currentNote.items.splice(index, 1);
-    this.noteChanged.emit(this.currentNote);
+    const ref = this._confirmModal.create({
+      title: 'Elimina Oggetto',
+      description: 'Sei sicuro di voler eliminare questo oggetto?',
+      confirmText: 'Elimina',
+      cancelText: 'Annulla',
+      closeOnConfirm: true,
+      confirmClass: 'btn btn-error !text-white',
+      value: true,
+    });
+
+    ref.instance.submitted.subscribe((value) => {
+      console.log(value);
+      if (!value) {
+        return;
+      }
+
+      this.currentNote.items.splice(index, 1);
+      this.noteChanged.emit(this.currentNote);
+    });
   }
 }

@@ -1,12 +1,13 @@
 import {
   Component,
   EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { INotifyNoteItemValue } from '@notify/interfaces';
+import { INotifyNote, INotifyNoteItemValue } from '@notify/interfaces';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { NOTE_DEBOUNCE_TIME } from './note.consts';
 
@@ -15,12 +16,17 @@ import { NOTE_DEBOUNCE_TIME } from './note.consts';
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export class NoteItemBase implements OnInit, OnDestroy {
+  @Input() item!: INotifyNote['items'][0];
+
   @Output() formValue = new EventEmitter<INotifyNoteItemValue>();
   @Output() deleteNoteItem = new EventEmitter<void>();
 
   public form!: FormGroup;
   public destroy$ = new Subject<void>();
 
+  public validationErrors = {
+    required: ' ',
+  };
   constructor() {}
 
   ngOnInit(): void {

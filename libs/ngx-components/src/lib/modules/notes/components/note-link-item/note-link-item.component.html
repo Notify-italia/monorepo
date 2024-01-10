@@ -1,0 +1,86 @@
+<form class="note-module !flex-row" [formGroup]="form">
+  @if (!formVisible) {
+  <a
+    class="main-container"
+    [href]="form.value.url"
+    target="_blank"
+    [class.pointer-events-none]="!form.value.url"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class="w-10 h-10"
+      [class.text-blue-500]="form.value.url?.length"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M19.902 4.098a3.75 3.75 0 0 0-5.304 0l-4.5 4.5a3.75 3.75 0 0 0 1.035 6.037.75.75 0 0 1-.646 1.353 5.25 5.25 0 0 1-1.449-8.45l4.5-4.5a5.25 5.25 0 1 1 7.424 7.424l-1.757 1.757a.75.75 0 1 1-1.06-1.06l1.757-1.757a3.75 3.75 0 0 0 0-5.304Zm-7.389 4.267a.75.75 0 0 1 1-.353 5.25 5.25 0 0 1 1.449 8.45l-4.5 4.5a5.25 5.25 0 1 1-7.424-7.424l1.757-1.757a.75.75 0 1 1 1.06 1.06l-1.757 1.757a3.75 3.75 0 1 0 5.304 5.304l4.5-4.5a3.75 3.75 0 0 0-1.035-6.037.75.75 0 0 1-.354-1Z"
+        clip-rule="evenodd"
+      />
+    </svg>
+
+    <span
+      class="font-bold lg:text-2xl"
+      [class.text-white]="form.value.url?.length"
+      >{{ form.value.title || form.value.url || 'Nessun URL inserito' }}</span
+    >
+  </a>
+  } @else {
+  <form [formGroup]="form" class="main-container">
+    <div class="flex justify-around w-full space-x-2">
+      <notify-tailwind-input
+        [parent]="form"
+        name="title"
+        label="Titolo"
+        placeholder="Inserisci il titolo"
+        class="w-1/2"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-input>
+      <notify-tailwind-input
+        [parent]="form"
+        name="url"
+        label="URL"
+        placeholder="Inserisci l'URL"
+        class="w-1/2"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-input>
+    </div>
+  </form>
+  }
+
+  <div class="flex justify-end w-1/12 my-auto h-full items-end">
+    <button
+      class="btn btn-ghost btn-square -mr-2"
+      (click)="formVisible = !formVisible"
+    >
+      @if (!formVisible) {
+
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+
+      } @else {
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          d="M18 1.5c2.9 0 5.25 2.35 5.25 5.25v3.75a.75.75 0 0 1-1.5 0V6.75a3.75 3.75 0 1 0-7.5 0v3a3 3 0 0 1 3 3v6.75a3 3 0 0 1-3 3H3.75a3 3 0 0 1-3-3v-6.75a3 3 0 0 1 3-3h9v-3c0-2.9 2.35-5.25 5.25-5.25Z"
+        />
+      </svg>
+      }
+    </button>
+  </div>
+</form>

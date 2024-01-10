@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { INotifyNote, INotifyNoteItemText } from '@notify/interfaces';
+import { INotifyNoteItemText } from '@notify/interfaces';
 import { Editor, NgxEditorModule } from 'ngx-editor';
 import { NoteItemBase } from '../../note-item.base';
 
@@ -19,8 +19,6 @@ import { NoteItemBase } from '../../note-item.base';
   styleUrls: ['./note-text-item.component.scss', '../../notes.styles.scss'],
 })
 export class NoteTextItemComponent extends NoteItemBase {
-  @Input({ required: true }) item!: INotifyNote['items'][0];
-
   public editor!: Editor;
 
   override componentReady(): void {
