@@ -7,6 +7,7 @@ import {
   LoadingComponent,
   NoteDetailComponent,
   PageHeaderComponent,
+  SvgBoxIconComponent,
 } from '@notify/ngx-components';
 import { Observable, Subject, catchError, tap } from 'rxjs';
 
@@ -17,6 +18,7 @@ import { Observable, Subject, catchError, tap } from 'rxjs';
     PageHeaderComponent,
     LoadingComponent,
     NoteDetailComponent,
+    SvgBoxIconComponent,
   ],
   providers: [NoteService, UtilsService],
   templateUrl: './note-manager.component.html',
