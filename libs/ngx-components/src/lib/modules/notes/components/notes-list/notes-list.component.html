@@ -13,6 +13,12 @@
         <h1 class="text-lg font-bold truncate w-40 lg:w-96 xl:w-[50rem]">
           {{ note.title || '‎ ' }}
         </h1>
+        <div>
+          <p class="text-sm text-gray-500">
+            {{ note.items.length || 0 }} elementi |
+            {{ note.updatedAt | date : 'short' : '' : 'it' }}
+          </p>
+        </div>
       </div>
     </div>
 

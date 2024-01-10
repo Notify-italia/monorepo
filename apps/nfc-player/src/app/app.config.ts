@@ -1,4 +1,6 @@
+import { registerLocaleData } from '@angular/common';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
+import it from '@angular/common/locales/it';
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
@@ -26,3 +28,5 @@ export const appConfig: ApplicationConfig = {
     ProfileService,
   ],
 };
+
+registerLocaleData(it);

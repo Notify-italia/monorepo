@@ -1,4 +1,6 @@
+import { registerLocaleData } from '@angular/common';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
+import it from '@angular/common/locales/it';
 import {
   APP_INITIALIZER,
   ApplicationConfig,
@@ -71,3 +73,4 @@ export const appConfig: ApplicationConfig = {
 function initializeApp(auth: AuthService) {
   return () => auth.refreshToken();
 }
+registerLocaleData(it);

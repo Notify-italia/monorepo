@@ -7,7 +7,7 @@
   <notify-note-header
     [note]="currentNote"
     (formValue)="headerChanged($any($event))"
-    class="m-2 lg:mx-5"
+    class="m-2 lg:mx-5 z-20"
   ></notify-note-header>
 
   @for (item of currentNote.items; track i; let i = $index) {

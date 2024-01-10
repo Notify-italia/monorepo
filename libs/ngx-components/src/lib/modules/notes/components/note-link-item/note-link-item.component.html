@@ -1,4 +1,4 @@
-<form class="note-module !flex-row" [formGroup]="form">
+<div class="note-module !flex-row">
   @if (!formVisible) {
   <a
     class="main-container"
@@ -28,13 +28,15 @@
   </a>
   } @else {
   <form [formGroup]="form" class="main-container">
-    <div class="flex justify-around w-full space-x-2">
+    <div
+      class="flex flex-col justify-around w-full space-y-2 items-center scale-90 h-full"
+    >
       <notify-tailwind-input
         [parent]="form"
         name="title"
         label="Titolo"
         placeholder="Inserisci il titolo"
-        class="w-1/2"
+        class="w-full"
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
       <notify-tailwind-input
@@ -42,7 +44,7 @@
         name="url"
         label="URL"
         placeholder="Inserisci l'URL"
-        class="w-1/2"
+        class="w-full"
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
     </div>
@@ -83,4 +85,4 @@
       }
     </button>
   </div>
-</form>
+</div>
