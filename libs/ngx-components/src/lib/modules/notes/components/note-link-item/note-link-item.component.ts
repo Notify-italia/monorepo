@@ -26,6 +26,20 @@ import { NoteItemBase } from '../../note-item.base';
 export class NoteLinkItemComponent extends NoteItemBase {
   public formVisible = false;
 
+  public get redirectUrl() {
+    const url = this.form.get('url')?.value;
+
+    if (!url) {
+      return null;
+    }
+
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      return `http://${url}`;
+    }
+
+    return url;
+  }
+
   override componentReady(): void {
     const itemValue = this.item.value as INotifyNoteItemLink;
 

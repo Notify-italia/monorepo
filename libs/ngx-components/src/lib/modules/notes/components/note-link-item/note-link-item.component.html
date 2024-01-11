@@ -2,16 +2,16 @@
   @if (!formVisible) {
   <a
     class="main-container"
-    [href]="form.value.url"
+    [href]="redirectUrl"
     target="_blank"
-    [class.pointer-events-none]="!form.value.url"
+    [class.pointer-events-none]="!redirectUrl"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
       class="w-10 h-10"
-      [class.text-blue-500]="form.value.url?.length"
+      [class.text-blue-500]="redirectUrl"
     >
       <path
         fill-rule="evenodd"
@@ -20,11 +20,9 @@
       />
     </svg>
 
-    <span
-      class="font-bold lg:text-2xl"
-      [class.text-white]="form.value.url?.length"
-      >{{ form.value.title || form.value.url || 'Nessun URL inserito' }}</span
-    >
+    <span class="font-bold lg:text-2xl" [class.text-white]="redirectUrl">{{
+      form.value.title || redirectUrl || 'Nessun URL inserito'
+    }}</span>
   </a>
   } @else {
   <form [formGroup]="form" class="main-container">
