@@ -236,7 +236,7 @@ export class ProfileFormComponent implements OnInit {
   }
 
   //TODO testare su windows
-  @HostListener('window:keydown.ctrl.shift.s', ['$event'])
+  @HostListener('keydown.ctrlKey.backspace', ['$event'])
   @HostListener('window:keydown.Control.shift.s', ['$event'])
   public submit(e?: KeyboardEvent) {
     e?.preventDefault();

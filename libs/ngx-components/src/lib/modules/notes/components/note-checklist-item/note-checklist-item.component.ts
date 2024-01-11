@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import {
   FormArray,
   FormControl,
@@ -28,6 +34,9 @@ import { NoteItemBase } from '../../note-item.base';
   ],
 })
 export class NoteChecklistItemComponent extends NoteItemBase {
+  //viewchildern inputs
+  @ViewChildren('DescriptionInput') inputs!: QueryList<ElementRef>;
+
   override componentReady(): void {
     const itemValue = this.item.value as INotifyNoteItemChecklist;
 
@@ -49,6 +58,7 @@ export class NoteChecklistItemComponent extends NoteItemBase {
     );
   }
 
+  @HostListener('keydown.enter', ['$event'])
   public addItem() {
     (this.form.get('items') as FormArray).push(
       new FormGroup({
@@ -56,9 +66,24 @@ export class NoteChecklistItemComponent extends NoteItemBase {
         checked: new FormControl(false),
       })
     );
+    setTimeout(() => {
+      this._focusLastInput();
+    }, 1);
   }
 
+  //TODO: rimuovi l'ultimo item con la shortcut
+  //hostlistener on (optiom or ctrl) + backspace
+  @HostListener('keydown.Control.backspace', ['$event'])
+  @HostListener('keydown.ctrlKey.backspace', ['$event'])
   public removeItem(index: number) {
-    (this.form.get('items') as FormArray).removeAt(index);
+    if (isNaN(index)) {
+      index = (this.form.get('items') as FormArray).length - 1;
+    }
+    const arr = this.form.get('items') as FormArray;
+    arr.removeAt(index);
+  }
+
+  private _focusLastInput() {
+    this.inputs.last.nativeElement.focus({ preventScroll: false });
   }
 }

@@ -4,12 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppError, INotifyNote } from '@notify/interfaces';
 import { NoteService, UtilsService } from '@notify/nfc-app-services';
 import {
+  ConfirmModalFactory,
   LoadingComponent,
   NoteDetailComponent,
   PageHeaderComponent,
   SvgBoxIconComponent,
 } from '@notify/ngx-components';
-import { Observable, Subject, catchError, tap } from 'rxjs';
+import { Observable, Subject, catchError, switchMap, tap } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -20,7 +21,7 @@ import { Observable, Subject, catchError, tap } from 'rxjs';
     NoteDetailComponent,
     SvgBoxIconComponent,
   ],
-  providers: [NoteService, UtilsService],
+  providers: [NoteService, UtilsService, ConfirmModalFactory],
   templateUrl: './note-manager.component.html',
   styleUrl: './note-manager.component.scss',
 })
@@ -36,7 +37,8 @@ export class NoteManagerComponent implements OnInit {
     private _router: Router,
     private _activeRoute: ActivatedRoute,
     private _noteService: NoteService,
-    private _utilsService: UtilsService
+    private _utilsService: UtilsService,
+    private _confirmModal: ConfirmModalFactory
   ) {}
 
   goBack() {
@@ -69,6 +71,39 @@ export class NoteManagerComponent implements OnInit {
         }),
         catchError((err: AppError) => this._utilsService.errorHandler(err)),
         tap(() => (this.loading = false))
+      )
+      .subscribe();
+  }
+
+  public deleteNote() {
+    const { instance } = this._confirmModal.create({
+      title: 'Elimina Nota',
+      description:
+        'Sei sicuro di voler eliminare questa nota? Questa azione è irreversibile.',
+      confirmText: 'Elimina',
+      cancelText: 'Annulla',
+      confirmClass: this._confirmModal.deleteBtn,
+      value: true,
+    });
+
+    instance.submitted
+      .pipe(
+        switchMap((r) => {
+          if (!r) {
+            return [];
+          }
+
+          this.loading = true;
+          return this._noteService.deleteNote(this.id);
+        }),
+        tap(() => {
+          this.goBack();
+        }),
+        catchError((err: AppError) => this._utilsService.errorHandler(err)),
+        tap(() => {
+          this.loading = false;
+          instance.close();
+        })
       )
       .subscribe();
   }

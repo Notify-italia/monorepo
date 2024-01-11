@@ -29,7 +29,7 @@ export class NoteHeaderComponent extends NoteItemBase {
     this.initForm(
       new FormGroup({
         title: new FormControl(this.note.title),
-        color: new FormControl(this.note.color),
+        color: new FormControl(this.note.color || 'white'),
       })
     );
   }

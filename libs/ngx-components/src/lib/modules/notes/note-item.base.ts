@@ -9,7 +9,8 @@ import {
 import { FormGroup } from '@angular/forms';
 import { INotifyNote, INotifyNoteItemValue } from '@notify/interfaces';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
-import { NOTE_DEBOUNCE_TIME } from './note.consts';
+
+export const NOTE_DEBOUNCE_TIME = 1000;
 
 @Component({
   template: '',
@@ -34,9 +35,7 @@ export class NoteItemBase implements OnInit, OnDestroy {
 
     this.form.valueChanges
       .pipe(takeUntil(this.destroy$), debounceTime(NOTE_DEBOUNCE_TIME))
-      .subscribe((formValue) =>
-        this.formValue.emit(this.publishChanges(formValue))
-      );
+      .subscribe((formValue) => this.formValue.emit(formValue));
 
     return;
   }
@@ -58,9 +57,5 @@ export class NoteItemBase implements OnInit, OnDestroy {
     this.destroy$.complete();
 
     this.componentDestroyed();
-  }
-
-  public publishChanges(f: INotifyNoteItemValue) {
-    return f;
   }
 }

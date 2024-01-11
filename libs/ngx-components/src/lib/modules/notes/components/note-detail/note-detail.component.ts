@@ -71,7 +71,7 @@ export class NoteDetailComponent implements OnInit {
       confirmText: 'Elimina',
       cancelText: 'Annulla',
       closeOnConfirm: true,
-      confirmClass: 'btn btn-error !text-white',
+      confirmClass: this._confirmModal.deleteBtn,
       value: true,
     });
 

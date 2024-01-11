@@ -28,4 +28,8 @@ export class NoteService {
       { id }
     );
   }
+
+  public deleteNote(id: string) {
+    return this.http.delete<INotifyNote>(`/v1/notes`, { id });
+  }
 }

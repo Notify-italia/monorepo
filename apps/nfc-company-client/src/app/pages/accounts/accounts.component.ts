@@ -122,7 +122,7 @@ export class AccountsComponent implements OnInit {
       confirmText: 'Elimina',
       cancelText: 'Annulla',
       value: agent._id,
-      confirmClass: 'btn btn-error !text-white w-28',
+      confirmClass: this._confirmModalFactory.deleteBtn,
     });
 
     ref.instance.submitted

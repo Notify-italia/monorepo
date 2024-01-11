@@ -2,7 +2,7 @@
   @for (note of notes; track note._id) {
   <div
     class="flex justify-between w-full box p-4 min-h-16 hover:brightness-150 smooth cursor-pointer"
-    (click)="editNote.emit(note._id)"
+    (click)="editNote.emit(note._id); $event.stopPropagation()"
   >
     <div class="flex items-center space-x-4">
       <div
@@ -22,12 +22,12 @@
       </div>
     </div>
 
-    <div class="flex items-center">
+    <div class="flex items-center z-10">
       <!-- DELETE NOTE -->
       <button
         class="action-btn action-error"
         data-theme="notifytheme"
-        (click)="deleteNote.emit(note._id)"
+        (click)="deleteNote.emit(note._id); $event.stopPropagation()"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
