@@ -3,7 +3,7 @@ import { INotifyUser } from '../interface.user';
 
 export type INotifyNoteItemValue =
   | INotifyNoteItemText
-  | INotifyNoteItemTodo
+  | INotifyNoteItemChecklist
   | INotifyNoteItemFiles
   | INotifyNoteItemLink
   | INotifyNoteHeader;
@@ -23,7 +23,7 @@ export interface INotifyNoteItem {
 
 export enum EnumNotifyNoteItemType {
   Text = 'text',
-  Todo = 'todo',
+  Checklist = 'checklist',
   Files = 'files',
   Link = 'link',
 }
@@ -33,9 +33,12 @@ export interface INotifyNoteHeader {
   color: string;
 }
 
-export interface INotifyNoteItemTodo {
+export interface INotifyNoteItemChecklist {
   title: string;
-  done: boolean;
+  items: {
+    description: string;
+    checked: boolean;
+  }[];
 }
 
 export interface INotifyNoteItemFiles {

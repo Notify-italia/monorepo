@@ -7,6 +7,7 @@ import {
   INotifyNoteItemValue,
 } from '@notify/interfaces';
 import { ConfirmModalFactory } from '../../../modals';
+import { NoteChecklistItemComponent } from '../note-checklist-item/note-checklist-item.component';
 import { NoteHeaderComponent } from '../note-header/note-header.component';
 import { NoteLinkItemComponent } from '../note-link-item/note-link-item.component';
 import { NoteMenuComponent } from '../note-menu/note-menu.component';
@@ -21,6 +22,7 @@ import { NoteTextItemComponent } from '../note-text-item/note-text-item.componen
     NoteMenuComponent,
     NoteTextItemComponent,
     NoteLinkItemComponent,
+    NoteChecklistItemComponent,
   ],
   providers: [ConfirmModalFactory],
   templateUrl: './note-detail.component.html',

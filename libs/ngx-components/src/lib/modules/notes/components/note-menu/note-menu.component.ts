@@ -28,7 +28,7 @@ export class NoteMenuComponent {
       },
     },
     {
-      type: EnumNotifyNoteItemType.Todo,
+      type: EnumNotifyNoteItemType.Checklist,
       label: 'Checklist',
       icon: {
         set: 'octicons',

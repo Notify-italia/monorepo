@@ -47,6 +47,12 @@
       (deleteNoteItem)="deleteItem(i)"
       (formValue)="itemChanged($event, i)"
     ></notify-note-link-item>
+    <notify-note-checklist-item
+      *ngIf="item.type === EnumNotifyNoteItemType.Checklist"
+      [item]="item"
+      (deleteNoteItem)="deleteItem(i)"
+      (formValue)="itemChanged($event, i)"
+    ></notify-note-checklist-item>
   </div>
   }
 
