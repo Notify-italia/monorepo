@@ -33,7 +33,6 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     TailwindToggleButtonComponent,
     HighlightSearchPipe,
     TailwindColorPickerComponent,
-    RemoveFocusDirective,
   ],
   imports: [
     CommonModule,
@@ -43,6 +42,7 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     NgxMaskDirective,
     NgxMaskPipe,
     ColorPickerModule,
+    RemoveFocusDirective,
   ],
   exports: [
     TailwindInputComponent,
