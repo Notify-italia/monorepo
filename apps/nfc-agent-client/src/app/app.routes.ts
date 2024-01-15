@@ -15,6 +15,7 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./pages/signin/signin.component').then((m) => m.SigninComponent),
   },
+
   {
     path: 'pages',
     component: HomeComponent,

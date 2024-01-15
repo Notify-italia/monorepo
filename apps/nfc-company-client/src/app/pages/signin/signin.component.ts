@@ -20,6 +20,8 @@ export class SigninComponent {
     submitLabel: "Entra nell'app",
     pageSubtitle: 'Dashboard',
     pageTitle: "Effettua l'accesso",
+    signupRoute: '/signup',
+    forgotPasswordRoute: '/forgot-password',
   };
 
   constructor(

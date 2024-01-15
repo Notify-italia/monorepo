@@ -2,26 +2,25 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AppError, INotifyAuth } from '@notify/interfaces';
 import { AuthService, UtilsService } from '@notify/nfc-app-services';
-import { AuthComponent } from '@notify/ngx-components';
+import { AuthComponent, IAuthConfig } from '@notify/ngx-components';
 import { catchError, tap } from 'rxjs';
 
 @Component({
-  selector: 'notify-signin',
+  selector: 'notify-signup',
   standalone: true,
   imports: [CommonModule, AuthComponent],
   providers: [UtilsService],
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.scss'],
+  templateUrl: './signup.component.html',
+  styleUrl: './signup.component.scss',
 })
-export class SigninComponent {
+export class SignupComponent {
   public loading = false;
 
-  public config = {
-    submitLabel: "Entra nell'app",
-    pageSubtitle: 'Dipendenti',
-    pageTitle: "Effettua l'accesso",
-    signupRoute: '',
-    forgotPasswordRoute: '',
+  public config: IAuthConfig = {
+    submitLabel: 'Iscriviti',
+    pageSubtitle: 'Dashboard',
+    pageTitle: 'Crea un nuovo account',
+    isSignup: true,
   };
 
   constructor(
@@ -29,17 +28,17 @@ export class SigninComponent {
     private _utilsService: UtilsService
   ) {}
 
-  public signin(data: INotifyAuth) {
+  public signup(data: INotifyAuth) {
     this.loading = true;
 
     this._auth
       .signIn(data)
       .pipe(
-        tap(() => location.reload()),
-        catchError((err: AppError) => {
-          this.loading = false;
-          return this._utilsService.errorHandler(err);
-        })
+        tap(() => {
+          location.reload();
+        }),
+        catchError((e: AppError) => this._utilsService.errorHandler(e)),
+        tap(() => (this.loading = false))
       )
       .subscribe();
   }

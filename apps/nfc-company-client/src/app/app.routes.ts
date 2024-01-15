@@ -16,6 +16,12 @@ export const appRoutes: Route[] = [
       import('./pages/signin/signin.component').then((m) => m.SigninComponent),
   },
   {
+    path: 'signup',
+    canActivate: [signInGuard],
+    loadComponent: () =>
+      import('./pages/signup/signup.component').then((m) => m.SignupComponent),
+  },
+  {
     path: 'pages',
     component: HomeComponent,
     canActivate: [authGuard],
