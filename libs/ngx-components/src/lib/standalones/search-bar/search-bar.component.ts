@@ -50,7 +50,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const input$ = this.inputControl.valueChanges.pipe(
       startWith(''),
-      map((value) => value.toLowerCase())
+      map((value) => value.toLowerCase().trim())
     );
 
     combineLatest([this.array$, input$])
@@ -62,23 +62,22 @@ export class SearchBarComponent implements OnInit, OnDestroy {
             return array;
           }
 
-          return array.filter((item) =>
-            this.filterableFields.some((field) => {
-              const foundValues = this._utils.deepSearchKey(
-                item as { [key: string]: unknown },
-                field
-              );
-              console.log(foundValues);
-
-              return foundValues.some((v) => {
-                return this._utils.normalizeValue(v).includes(input);
-              });
-            })
-          );
+          return array.filter((item) => this._filterValues(item, input));
         })
       )
-      .subscribe((array) => {
-        this.filteredArray.emit(array);
-      });
+      .subscribe((array) => this.filteredArray.emit(array));
+  }
+
+  private _filterValues(item: unknown, input: string): boolean {
+    return this.filterableFields.some((field) => {
+      const foundValues = this._utils.deepSearchKey(
+        item as { [key: string]: unknown },
+        field
+      );
+
+      return foundValues.some((v) =>
+        this._utils.normalizeValue(v).includes(input)
+      );
+    });
   }
 }
