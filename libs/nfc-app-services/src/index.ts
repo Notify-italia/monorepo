@@ -5,6 +5,7 @@ export * from './lib/directives/gestures.directive';
 export * from './lib/directives/remove-focus.directive';
 export * from './lib/feedback.service';
 export * from './lib/guards/auth.guard';
+export * from './lib/guards/license.guard';
 export * from './lib/guards/redirect.guard';
 export * from './lib/guards/signin.guard';
 export * from './lib/http.service';

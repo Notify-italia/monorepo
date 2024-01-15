@@ -1,12 +1,10 @@
-<div
-  class="box p-4 lg:p-8 flex flex-col justify-around h-full"
-  *ngIf="publicKeySegmented as key"
->
+<div class="box p-4 lg:p-8 flex flex-col justify-around h-full">
   <div
     class="mb-5 flex flex-col-reverse lg:flex-row justify-around items-center spacing"
   >
     <!-- PUBLIC KEY -->
     <div
+      *ngIf="publicKeySegmented as key"
       class="flex flex-col 2xl:flex-row justify-center items-center mt-5 lg:mt-10 w-8/12 spacing"
     >
       <div

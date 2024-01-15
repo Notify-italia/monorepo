@@ -105,7 +105,7 @@
       <ul>
         <!-- Sidebar content here -->
         @for(item of bottomItems; track item.path) {
-        <li>
+        <li [class.nav-disabled]="item.disabled">
           <a
             [routerLink]="item.path"
             routerLinkActive="btn-active"

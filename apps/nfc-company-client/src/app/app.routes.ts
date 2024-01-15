@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { authGuard, signInGuard } from '@notify/nfc-app-services';
+import { authGuard, licenseGuard, signInGuard } from '@notify/nfc-app-services';
 import { PageNotFoundComponent } from '@notify/ngx-components';
 import { HomeComponent } from './pages/home/home.component';
 
@@ -33,6 +33,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'accounts',
+        canActivate: [licenseGuard],
         loadComponent: () =>
           import('./pages/accounts/accounts.component').then(
             (m) => m.AccountsComponent
@@ -47,6 +48,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'profile',
+        canActivate: [licenseGuard],
         loadComponent: () =>
           import(
             './pages/profile-management/profile-management.component'
@@ -54,6 +56,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'signout',
+        canActivate: [licenseGuard],
         loadComponent: () =>
           import('./pages/signout/signout.component').then(
             (m) => m.SignoutComponent

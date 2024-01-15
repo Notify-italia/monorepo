@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '@notify/nfc-app-services';
 import { NavComponent, NavItem } from '@notify/ngx-components';
 
 @Component({
@@ -12,6 +13,7 @@ import { NavComponent, NavItem } from '@notify/ngx-components';
 export class HomeComponent {
   public nav: NavItem[] = [
     {
+      disabled: !this._authService.activeLicense,
       label: 'Utenti',
       path: '/pages/accounts',
       icon: [
@@ -19,6 +21,7 @@ export class HomeComponent {
       ],
     },
     {
+      disabled: !this._authService.activeLicense,
       label: 'Profilo Aziendale',
       path: '/pages/profile',
       icon: [
@@ -65,7 +68,7 @@ export class HomeComponent {
   //TODO pagina di help company
   public bottomNav: NavItem[] = [
     {
-      disabled: true,
+      disabled: !this._authService.activeLicense,
       label: 'Richiedi una feature',
       path: '/pages/features/request',
       style: '',
@@ -82,4 +85,6 @@ export class HomeComponent {
       ],
     },
   ];
+
+  constructor(private _authService: AuthService) {}
 }

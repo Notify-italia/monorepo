@@ -3,20 +3,29 @@
     class="w-full"
     title="Licenza"
     subtitle="Visualizza le informazioni sulla tua licenza"
-    [buttons]="[
+    [buttons]=" this.activeLicense ? [
         {
+          
           label: 'Richiedi Disdetta',
           icon: ['M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z'],
           eventName: 'refresh',
           buttonColor: 'warning',
-        },
-      ]"
+        } ,
+      ] : []"
   ></notify-page-header>
 
+  @if (license) {
   <div class="h-94 w-full xl:w-10/12">
     <notify-license-info
       [license]="license"
       (daysLeft)="daysLeft = $event"
     ></notify-license-info>
   </div>
+  } @else {
+  <notify-no-items
+    class="h-[50vh]"
+    title="Nessuna Licenza Trovata"
+    subtitle="Richiedi una licenza inviando una e-mail a vendite@notify.it"
+  ></notify-no-items>
+  }
 </div>

@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { AppError, INotifyAuth } from '@notify/interfaces';
 import { AuthService, UtilsService } from '@notify/nfc-app-services';
 import { AuthComponent, IAuthConfig } from '@notify/ngx-components';
-import { catchError, tap } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'notify-signup',
   standalone: true,
-  imports: [CommonModule, AuthComponent],
+  imports: [CommonModule, AuthComponent, RouterModule],
   providers: [UtilsService],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
@@ -32,11 +33,11 @@ export class SignupComponent {
     this.loading = true;
 
     this._auth
-      .signIn(data)
+      .signUp(data)
       .pipe(
-        tap(() => {
-          location.reload();
-        }),
+        tap((r) => console.log(r)),
+        switchMap(() => this._auth.signIn(data)),
+        tap(() => location.reload()),
         catchError((e: AppError) => this._utilsService.errorHandler(e)),
         tap(() => (this.loading = false))
       )
