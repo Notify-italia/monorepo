@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppError } from '@notify/interfaces';
-import { format, isValid } from 'date-fns';
+import { format } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
 
@@ -77,19 +77,12 @@ export class UtilsService {
     }
 
     //if the value is an array, stringify it
-    if (Array.isArray(value) || typeof value === 'object') {
-      return JSON.stringify(value);
-    }
-
-    //if the value is a valid object, stringify it
-    if (typeof value === 'object') {
-      return JSON.stringify(value);
-    }
-
-    //if the value is a valid date object, stringify it and format it as dd/MM/yyyy
-    const pDate = new Date(value as string);
-    if (isValid(pDate)) {
-      return format(pDate, 'dd/MM/yyyy');
+    if (
+      (value as string)
+        ?.toUpperCase()
+        .match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/)
+    ) {
+      return format(new Date(value as string), 'dd/MM/yyyy');
     }
 
     return (value as string)?.toLowerCase();
