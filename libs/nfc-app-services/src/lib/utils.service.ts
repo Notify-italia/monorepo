@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppError } from '@notify/interfaces';
+import { format, isValid } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
 
@@ -25,7 +26,7 @@ export class UtilsService {
       error?.error?.errors?.[0]?.message || 'Si è verificato un errore',
       'Errore'
     );
-    return of(null);
+    return of([]);
   }
 
   public deepFindFields(
@@ -50,14 +51,33 @@ export class UtilsService {
       }
       current = current[p];
     }
+
     result.push(current);
     return result;
   }
 
-  private _arrayToObject<T>(array: T[]) {
-    return array.reduce((acc: { [key: number]: unknown }, curr, index) => {
-      acc[index] = curr;
-      return acc;
-    }, {});
+  public normalizeValue(value: unknown) {
+    if (value === null || value === undefined) {
+      return '';
+    }
+
+    //if the value is an array, stringify it
+    if (Array.isArray(value) || typeof value === 'object') {
+      return JSON.stringify(value);
+    }
+
+    //if the value is a valid object, stringify it
+    if (typeof value === 'object') {
+      return JSON.stringify(value);
+    }
+
+    //if the value is a valid date object, stringify it and format it as dd/MM/yyyy
+    const pDate = new Date(value as string);
+    if (isValid(pDate)) {
+      console.log('date is valid');
+      return format(pDate, 'dd/MM/yyyy');
+    }
+
+    return (value as string)?.toLowerCase();
   }
 }

@@ -4,9 +4,8 @@
     subtitle="Mostra i e condividi il profilo dei tuoi colleghi"
   ></notify-page-header>
 
-  @if (colleagues$ | async; as agents) {
   <notify-accounts-table
-    [users]="agents"
+    [users$]="colleagues$"
     [maxAgents]="null"
     [config]="{
       disabledRows: ['role', 'createdAt', 'select-item', 'actions'],
@@ -14,9 +13,4 @@
     }"
     (rowClicked)="inspectProfile($event.profile)"
   ></notify-accounts-table>
-  } @else {
-  <div class="h-[40vh] md:h-[60vh]">
-    <notify-loading></notify-loading>
-  </div>
-  }
 </div>

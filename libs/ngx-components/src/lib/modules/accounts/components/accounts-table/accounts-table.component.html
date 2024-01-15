@@ -12,8 +12,10 @@
             'profile.email',
             'profile.phone',
             'profile.customFields.iconName',
-            'profile.customFields.value'
+            'profile.customFields.value',
+            'createdAt'
           ]"
+          placeholder="Cerca utenti per nome, cognome, email, telefono, ruolo, data di creazione, ecc."
           (filteredArray)="users = $event"
         ></notify-search-bar>
         <label class="label" *ngIf="config?.displayLeftAccounts">

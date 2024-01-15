@@ -63,13 +63,16 @@ export class SearchBarComponent implements OnInit, OnDestroy {
           }
 
           return array.filter((item) =>
-            this.filterableFields.some((field) =>
-              this._utils
-                .deepFindFields(item as { [key: string]: unknown }, field)
-                ?.toString()
-                .toLowerCase()
-                .includes(input)
-            )
+            this.filterableFields.some((field) => {
+              const foundValues = this._utils.deepFindFields(
+                item as { [key: string]: unknown },
+                field
+              );
+
+              return foundValues.some((v) => {
+                return this._utils.normalizeValue(v).includes(input);
+              });
+            })
           );
         })
       )
