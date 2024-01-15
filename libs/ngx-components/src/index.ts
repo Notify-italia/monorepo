@@ -18,3 +18,5 @@ export * from './lib/standalones/profile-form/profile-form.component';
 export * from './lib/standalones/share-profile/share-profile.component';
 export * from './lib/standalones/svg-box-icon/svg-box-icon.component';
 export * from './lib/standalones/swipe-available/swipe-available.component';
+
+export * from './lib/standalones/no-items/no-items.component';

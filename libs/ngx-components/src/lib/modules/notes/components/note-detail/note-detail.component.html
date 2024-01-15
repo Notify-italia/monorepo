@@ -54,6 +54,13 @@
       (formValue)="itemChanged($event, i)"
     ></notify-note-checklist-item>
   </div>
+  } @if (!currentNote.items.length) {
+  <notify-no-items
+    class="h-[30vh] lg:h-[40vh]"
+    title="Nessun Elemento"
+    subtitle="Fai click su uno degli elementi nella Items Bar sottostante per aggiungerne."
+  ></notify-no-items>
+
   }
 
   <div class="h-14"></div>

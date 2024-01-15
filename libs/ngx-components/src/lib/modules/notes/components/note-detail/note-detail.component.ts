@@ -6,6 +6,7 @@ import {
   INotifyNoteHeader,
   INotifyNoteItemValue,
 } from '@notify/interfaces';
+import { NoItemsComponent } from '../../../../standalones/no-items/no-items.component';
 import { ConfirmModalFactory } from '../../../modals';
 import { NoteChecklistItemComponent } from '../note-checklist-item/note-checklist-item.component';
 import { NoteHeaderComponent } from '../note-header/note-header.component';
@@ -23,6 +24,7 @@ import { NoteTextItemComponent } from '../note-text-item/note-text-item.componen
     NoteTextItemComponent,
     NoteLinkItemComponent,
     NoteChecklistItemComponent,
+    NoItemsComponent,
   ],
   providers: [ConfirmModalFactory],
   templateUrl: './note-detail.component.html',

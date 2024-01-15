@@ -50,6 +50,7 @@
           />
         </form>
         <button
+          [disabled]="form.value.items.length === 1"
           class="btn btn-ghost btn-error -mr-2 btn-square text-gray-500"
           (click)="removeItem($index)"
         >
