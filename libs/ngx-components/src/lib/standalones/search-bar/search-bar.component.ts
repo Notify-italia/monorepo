@@ -64,10 +64,11 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
           return array.filter((item) =>
             this.filterableFields.some((field) => {
-              const foundValues = this._utils.deepFindFields(
+              const foundValues = this._utils.deepSearchKey(
                 item as { [key: string]: unknown },
                 field
               );
+              console.log(foundValues);
 
               return foundValues.some((v) => {
                 return this._utils.normalizeValue(v).includes(input);
@@ -77,7 +78,6 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe((array) => {
-        console.log(array);
         this.filteredArray.emit(array);
       });
   }

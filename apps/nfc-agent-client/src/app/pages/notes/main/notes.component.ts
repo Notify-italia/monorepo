@@ -24,8 +24,8 @@ import { Observable, Subject, catchError, switchMap, tap } from 'rxjs';
   styleUrl: './notes.component.scss',
 })
 export class NotesComponent implements OnInit {
-  private _noteSubject$ = new Subject<INotifyNote[] | null>();
-  public notes$: Observable<INotifyNote[] | null> = this._noteSubject$;
+  private _noteSubject$ = new Subject<INotifyNote[]>();
+  public notes$: Observable<INotifyNote[]> = this._noteSubject$;
 
   constructor(
     private _router: Router,
@@ -98,7 +98,7 @@ export class NotesComponent implements OnInit {
           if (!r) {
             return [];
           }
-          this._noteSubject$.next(null);
+          this._noteSubject$.next([]);
           return this._noteService.deleteNote(id);
         }),
         switchMap(() => this.getNotes()),

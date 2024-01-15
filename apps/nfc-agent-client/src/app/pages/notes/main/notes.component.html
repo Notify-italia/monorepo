@@ -13,19 +13,14 @@
     ]"
     (buttonClicked)="handleHeaderAction($event)"
   ></notify-page-header>
-  @if (notes$ | async; as notes) {
+
   <div>
     <div>
       <notify-notes-list
-        [notes]="notes"
+        [notes$]="notes$"
         (editNote)="editNote($event)"
         (deleteNote)="deleteNote($event)"
       ></notify-notes-list>
     </div>
   </div>
-  } @else {
-  <div class="h-[80vh]">
-    <notify-loading></notify-loading>
-  </div>
-  }
 </div>

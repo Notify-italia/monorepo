@@ -29,31 +29,46 @@ export class UtilsService {
     return of([]);
   }
 
-  public deepFindFields(
+  /**
+   *La funzione `deepSearchKey` cerca ricorsivamente i campi in un oggetto in base a un determinato percorso.
+   *@param obj -Un oggetto che contiene coppie chiave-valore, dove le chiavi sono stringhe e i valori
+   *può essere di qualsiasi tipo o un array di qualsiasi tipo.
+   *@param {string} path -Il parametro `path` è una stringa che rappresenta il percorso dei campi
+   *che vuoi trovare nell'oggetto `obj`. Il percorso dovrebbe essere in notazione punto, dove ogni segmento
+   *rappresenta una proprietà nidificata o un indice di array. Ad esempio, se hai un oggetto "obj" con il file
+   *@restituisce un array di valori che corrispondono al percorso specificato nell'oggetto.
+   */
+  public deepSearchKey(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     obj: { [key: string]: any | any[] },
     path: string
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any[] {
-    const paths = path.split('.');
+    const keys = path.split('.');
     let current = obj;
-    const result: unknown[] = [];
+    let result: unknown[] = [];
 
-    for (const p of paths) {
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+
+      if (!current) {
+        return result;
+      }
+
       if (Array.isArray(current)) {
         for (const item of current) {
-          result.push(...this.deepFindFields(item, p));
+          // Pass the rest of the path to the recursive call
+          result = result.concat(
+            this.deepSearchKey(item, keys.slice(i).join('.'))
+          );
         }
         return result;
       }
-      if (current[p] === undefined) {
-        return [];
-      }
-      current = current[p];
+
+      current = current[key];
     }
 
-    result.push(current);
-    return result;
+    return current ? [current] : [];
   }
 
   public normalizeValue(value: unknown) {
@@ -74,7 +89,6 @@ export class UtilsService {
     //if the value is a valid date object, stringify it and format it as dd/MM/yyyy
     const pDate = new Date(value as string);
     if (isValid(pDate)) {
-      console.log('date is valid');
       return format(pDate, 'dd/MM/yyyy');
     }
 

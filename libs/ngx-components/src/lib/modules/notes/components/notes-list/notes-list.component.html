@@ -1,3 +1,18 @@
+<div class="p-4">
+  <notify-search-bar
+    [array$]="notes$"
+    [filterableFields]="[
+      'title',
+      'createdAt',
+      'items.value.content.content.content.text'
+    ]"
+    helpLabel="Cerca utenti"
+    placeholder="Nome, Cognome, Email, N. Telefono, Ruolo, Data di creazione, ecc..."
+    (filteredArray)="notes = $event"
+  ></notify-search-bar>
+
+  <!-- TODO FILTERS -->
+</div>
 <div class="w-full flex flex-col justify-center space-y-4">
   @for (note of notes; track note._id) {
   <div
@@ -44,9 +59,14 @@
       </button>
     </div>
   </div>
-  } @if (!notes.length) {
+  } @if (!notes) {
+  <div class="h-[40vh] md:h-[60vh]">
+    <notify-loading></notify-loading>
+  </div>
+
+  } @else if (notes && !notes.length) {
   <notify-no-items
-    class="h-[80vh]"
+    class="h-[40vh]"
     title="Nessuna Nota"
     subtitle="Usa il pulsante 'Aggiungi' per creare una nuova nota."
   ></notify-no-items>
