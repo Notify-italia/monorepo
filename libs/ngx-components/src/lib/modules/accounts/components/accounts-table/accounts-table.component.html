@@ -1,43 +1,32 @@
-<div *ngIf="users as p" class="page-layout">
+<div class="page-layout">
   <div>
     <div>
-      <!-- TODO SEARCH e incapsulamento dell'input -->
-      <div class="form-control box p-4">
-        <label class="label">
-          <span class="label-text">Cerca</span>
-        </label>
-        <div class="relative">
-          <svg
-            class="pointer-events-none absolute z-10 my-3.5 ms-4 stroke-current opacity-60 text-base-content h-5 w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            ></path>
-          </svg>
-          <input
-            type="text"
-            placeholder="Mario Rossi"
-            class="input input-bordered w-full pl-14 input-style"
-          />
-        </div>
+      <div class="box p-4">
+        <notify-search-bar
+          [array$]="users$"
+          [filterableFields]="[
+            'email',
+            'profile.email',
+            'profile.name',
+            'profile.surname',
+            'profile.email',
+            'profile.phone',
+            'profile.customFields.iconName',
+            'profile.customFields.value'
+          ]"
+          (filteredArray)="users = $event"
+        ></notify-search-bar>
         <label class="label" *ngIf="config?.displayLeftAccounts">
           <label class="label-text"></label>
           <div class="flex justify-end">
             <span class="badge badge-warning badge-sm" data-theme="notifytheme">
-              {{ p.length }}/{{ maxAgents }} Utenti creati
+              {{ users?.length ?? '?' }}/{{ maxAgents }} Utenti creati
             </span>
           </div>
         </label>
+        <!-- TODO FILTERS -->
       </div>
-
-      <!-- TODO FILTERS -->
-
+      @if (users; as p) {
       <!-- TABLE -->
       <div class="box w-full h-full p-4">
         <div class="overflow-x-auto">
@@ -79,6 +68,11 @@
           </table>
         </div>
       </div>
+      } @else {
+      <div class="h-[40vh] md:h-[60vh]">
+        <notify-loading></notify-loading>
+      </div>
+      }
     </div>
   </div>
 </div>

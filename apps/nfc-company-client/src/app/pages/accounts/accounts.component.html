@@ -23,9 +23,9 @@
     ]"
     (buttonClicked)="showUserForm()"
   ></notify-page-header>
-  @if (agents$ | async; as p) {
+
   <notify-accounts-table
-    [users]="p"
+    [users$]="agents$"
     [maxAgents]="maxAgents"
     (inspectProfile)="inspectProfile($event)"
     (showUserForm)="showUserForm($event)"
@@ -39,9 +39,4 @@
       
     }"
   ></notify-accounts-table>
-  } @else {
-  <div class="h-[40vh] md:h-[60vh]">
-    <notify-loading></notify-loading>
-  </div>
-  }
 </div>

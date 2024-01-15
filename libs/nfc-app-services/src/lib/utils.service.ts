@@ -27,4 +27,37 @@ export class UtilsService {
     );
     return of(null);
   }
+
+  public deepFindFields(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    obj: { [key: string]: any | any[] },
+    path: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ): any[] {
+    const paths = path.split('.');
+    let current = obj;
+    const result: unknown[] = [];
+
+    for (const p of paths) {
+      if (Array.isArray(current)) {
+        for (const item of current) {
+          result.push(...this.deepFindFields(item, p));
+        }
+        return result;
+      }
+      if (current[p] === undefined) {
+        return [];
+      }
+      current = current[p];
+    }
+    result.push(current);
+    return result;
+  }
+
+  private _arrayToObject<T>(array: T[]) {
+    return array.reduce((acc: { [key: number]: unknown }, curr, index) => {
+      acc[index] = curr;
+      return acc;
+    }, {});
+  }
 }

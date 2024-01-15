@@ -20,3 +20,5 @@ export * from './lib/standalones/svg-box-icon/svg-box-icon.component';
 export * from './lib/standalones/swipe-available/swipe-available.component';
 
 export * from './lib/standalones/no-items/no-items.component';
+
+export * from './lib/standalones/search-bar/search-bar.component';

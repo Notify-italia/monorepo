@@ -44,5 +44,11 @@
       </button>
     </div>
   </div>
+  } @if (!notes.length) {
+  <notify-no-items
+    class="h-[80vh]"
+    title="Nessuna Nota"
+    subtitle="Usa il pulsante 'Aggiungi' per creare una nuova nota."
+  ></notify-no-items>
   }
 </div>
