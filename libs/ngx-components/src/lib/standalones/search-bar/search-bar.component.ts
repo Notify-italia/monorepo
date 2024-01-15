@@ -29,7 +29,7 @@ import {
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
   @Input() placeholder = 'Elemento da cercare...';
-  @Input() helpLabel = 'Cerca...';
+  @Input() helpLabel = 'Cerca';
   @Input() inputClass = 'input input-bordered w-full pl-14 input-style';
   @Input({ required: true }) array$!: Observable<unknown[]>;
   @Input() filterableFields: string[] = [];

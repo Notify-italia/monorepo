@@ -1,7 +1,7 @@
 <div class="page-layout">
   <div>
     <div>
-      <div class="box p-4">
+      <div class="p-4">
         <notify-search-bar
           [array$]="users$"
           [filterableFields]="[
@@ -13,9 +13,11 @@
             'profile.phone',
             'profile.customFields.iconName',
             'profile.customFields.value',
-            'createdAt'
+            'createdAt',
+            'profile.role'
           ]"
-          placeholder="Cerca utenti per nome, cognome, email, telefono, ruolo, data di creazione, ecc."
+          helpLabel="Cerca utenti"
+          placeholder="Nome, Cognome, Email, N. Telefono, Ruolo, Data di creazione, ecc..."
           (filteredArray)="users = $event"
         ></notify-search-bar>
         <label class="label" *ngIf="config?.displayLeftAccounts">
