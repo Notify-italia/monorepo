@@ -29,7 +29,11 @@ export interface INotifyProfile<
   };
   customFields: { iconName: string; value: string }[];
   type: EnumNotifyUserType;
+  //TODO aggiungi open hours
+  openHours: { start: number; end: number }[];
   company?: INotifyProfile<EnumNotifyUserType.Company>;
+  //TODO gradiente di colori background
+  colors: string[];
 }
 
 export const daisyUIAvatarMaks = [

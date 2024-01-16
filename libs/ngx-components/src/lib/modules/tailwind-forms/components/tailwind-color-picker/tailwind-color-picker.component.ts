@@ -26,30 +26,31 @@ export class TailwindColorPickerComponent
   @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
   //an array colors to be used as default colors
   @Input() colors: string[] = [
-    //white
     '#ffffff',
-
-    //blue
-    '#2CCCE4',
-    '#1677FF',
-
-    //green
-    '#37D67A',
-    '#006600',
-
-    //yellow
-    '#FFCC00',
-    '#ff9300',
-
-    //red
-    '#F47373',
-
-    //pink
-    '#FF7BAC',
-    '#FF00FF',
-
-    //gray
-    '#555555',
+    '#4270d6',
+    '#6ba8ff',
+    '#4d8bf7',
+    '#00b563',
+    '#66d57a',
+    '#00cc00',
+    '#e05154',
+    '#ffb89a',
+    '#d03430',
+    '#ffd20a',
+    '#fdeea9',
+    '#f3f7e4',
+    '#faa600',
+    '#ffea4d',
+    '#ffb300',
+    '#00bfa6',
+    '#64f8b4',
+    '#00a689',
+    '#8c65e2',
+    '#f3dbfe',
+    '#8c65e2',
+    '#7b7f86',
+    '#f1f3f6',
+    '#6a6e73',
   ];
 
   public colorPickerOpen = false;
