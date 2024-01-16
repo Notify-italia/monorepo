@@ -3,7 +3,6 @@
   <button
     *ngIf="data?.config?.phoneCallEnabled ?? true"
     [disabled]="!data?.phoneNumber"
-    class="btn btn-ghost btn-primary btn-circle"
   >
     <a href="tel:{{ data?.phoneNumber }}" class="button-redirect">
       <svg
@@ -22,7 +21,6 @@
   <button
     *ngIf="data?.config?.smsEnabled ?? true"
     [disabled]="!data?.phoneNumber"
-    class="btn btn-ghost btn-primary btn-circle"
   >
     <a href="sms:{{ data?.phoneNumber }}" class="button-redirect">
       <svg
@@ -41,7 +39,6 @@
   <button
     *ngIf="data?.config?.whatsappEnabled ?? true"
     [disabled]="!data?.phoneNumber"
-    class="btn btn-ghost btn-primary btn-circle"
   >
     <a
       href="https://api.whatsapp.com/send?phone={{
@@ -62,11 +59,7 @@
       </svg>
     </a>
   </button>
-  <button
-    *ngIf="data?.config?.emailEnabled ?? true"
-    [disabled]="!data?.email"
-    class="btn btn-ghost btn-primary btn-circle"
-  >
+  <button *ngIf="data?.config?.emailEnabled ?? true" [disabled]="!data?.email">
     <a href="mailto:{{ data?.email }}" class="buttton-redirect">
       <svg
         xmlns="http://www.w3.org/2000/svg"

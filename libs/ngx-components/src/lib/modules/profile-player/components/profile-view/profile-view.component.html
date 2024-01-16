@@ -54,6 +54,9 @@
 
   <div
     class="main-container"
+    [ngStyle]="{
+      background: 'linear-gradient(' + cssGradientStops + ')'
+    }"
     [ngClass]="{
       'display pt-10 h-full': mockup,
       
@@ -157,13 +160,16 @@
           </div>
           <!-- ROLE -->
           <div
-            class="text-sm italic w-full text-start text-gray-300"
+            class="text-sm italic w-full text-start text-gray-300 mix-blend-difference"
             *ngIf="isAgent"
           >
             {{ data?.role }}
           </div>
           <!-- BIO -->
-          <div class="text-xs w-full mt-2" *ngIf="data?.bio as b">
+          <div
+            class="text-xs w-full mt-2 mix-blend-difference text-white"
+            *ngIf="data?.bio as b"
+          >
             {{ b }}
           </div>
         </div>

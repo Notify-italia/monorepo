@@ -9,7 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, startWith, takeUntil } from 'rxjs';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
 
 @Component({
@@ -71,12 +71,15 @@ export class TailwindColorPickerComponent
 
   ngOnInit(): void {
     const formColor = this.parent.controls[this.name].value;
+
+    this.color = this.defaultColor;
+
     if (formColor.length) {
       this.color = formColor;
     }
 
     this.parent.controls[this.name].valueChanges
-      .pipe(takeUntil(this.destroy$))
+      .pipe(startWith(this.color), takeUntil(this.destroy$))
       .subscribe((value) => {
         this.color = value;
       });

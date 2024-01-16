@@ -98,7 +98,7 @@ export class UtilsService {
     return (value as string)?.toLowerCase();
   }
 
-  public populateProtocol(protocol: string, data: string) {
+  public populateWebProtocol(protocol: string, data: string) {
     if (data.includes(protocol)) {
       return data;
     }

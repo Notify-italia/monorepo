@@ -15,6 +15,7 @@ import { ProfileService } from '@notify/nfc-app-services';
 })
 export class ProfileStaticLinksComponent {
   @Input() data?: INotifyProfile;
+  @Input() gradientStops?: string;
 
   constructor(private _profileService: ProfileService) {}
 

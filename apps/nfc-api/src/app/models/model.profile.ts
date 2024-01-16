@@ -168,6 +168,12 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
       ],
       required: true,
     },
+    colors: [
+      {
+        type: String,
+        default: null,
+      },
+    ],
   },
   {
     timestamps: true,

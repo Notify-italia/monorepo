@@ -54,6 +54,14 @@ export class ProfileViewComponent {
     return this.data?.type === EnumNotifyUserType.Agent;
   }
 
+  public get cssGradientStops(): string {
+    if (!this.data?.colors?.length) {
+      return ['#0A2859', '#041127'].join(',');
+    }
+
+    return this.data.colors.join(',');
+  }
+
   constructor(
     public profileService: ProfileService,
     private _feedbackFactory: FeedbackFactory,
@@ -84,7 +92,7 @@ export class ProfileViewComponent {
       return url;
     }
 
-    return this._utils.populateProtocol(
+    return this._utils.populateWebProtocol(
       'https://',
       `${selectedIcon.prefix || ''}${url}`
     );

@@ -1,9 +1,9 @@
-<div [formGroup]="parent" class="flex space-x-2 my-auto 0">
+<div [formGroup]="parent" class="flex space-x-2 my-auto">
   <div class="relative group/colorPicker w-full" tabindex="0">
     <button
       tabindex="0"
       type="button"
-      class="current-color group-focus-within/colorPicker:border-2 group-focus-within/colorPicker:scale-90"
+      class="color-bubble group-focus-within/colorPicker:border-2 group-focus-within/colorPicker:scale-90"
       [ngStyle]="{
         'background-color': color || defaultColor
       }"
@@ -14,14 +14,14 @@
 
     <div
       tabindex="0"
-      class="absolute -translate-y-10 opacity-0 pointer-events-none group-focus-within/colorPicker:translate-y-0 group-focus-within/colorPicker:opacity-100 group-focus-within/colorPicker:pointer-events-auto py-2 px-4 rounded-lg bg-white border my-2 smooth max-w-80 lg:max-w-96 overflow-auto"
+      class="absolute -translate-y-10 opacity-0 pointer-events-none group-focus-within/colorPicker:translate-y-0 group-focus-within/colorPicker:opacity-100 group-focus-within/colorPicker:pointer-events-auto py-2 px-4 rounded-lg bg-white border my-2 smooth max-w-80 lg:max-w-96 overflow-auto z-50"
     >
       <div class="grid grid-cols-6 grid-rows-4 w-44 grid-flow-row">
         @for (color of colors; track color) {
         <button
           remove-focus
           type="button"
-          class="current-color !w-6 !h-6 border border-slate-500 flex-shrink-0 m-2"
+          class="color-bubble !w-6 !h-6 border border-slate-500 flex-shrink-0 m-2"
           [ngStyle]="{
             'background-color': color
           }"

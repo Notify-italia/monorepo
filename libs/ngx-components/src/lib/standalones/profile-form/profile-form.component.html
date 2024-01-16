@@ -63,6 +63,44 @@
     </div>
   </div>
 
+  <div class="divider">Gradiente</div>
+
+  <div class="section">
+    <button notify-add-item (click)="addColor()" class="w-full"></button>
+    @for (colorForm of form.controls.colors.controls; track colorForm) {
+    <div class="flex space-x-2 items-center p-2">
+      <button type="button">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+          />
+        </svg>
+      </button>
+      <div class="flex space-x-2 items-center box p-2 w-full">
+        <notify-tailwind-color-picker
+          [parent]="colorForm"
+          name="value"
+          [validationErrors]="validationErrors"
+        ></notify-tailwind-color-picker>
+        <span class="uppercase font-bold">{{ colorForm.value.value }}</span>
+      </div>
+      <button
+        notify-remove-item-button
+        (click)="removeColor(colorForm)"
+      ></button>
+    </div>
+    }
+  </div>
+
   <!-- INDIRIZZO -->
   @if (isCompany) {
   <div class="divider">Indirizzo</div>
@@ -81,7 +119,7 @@
         [parent]="form"
         name="number"
         label="civico"
-        class="w-2/12"
+        class="w-3/12"
         placeholder="40"
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
@@ -91,7 +129,7 @@
         name="city"
         label="Città"
         placeholder="Prato"
-        class="w-5/12"
+        class="w-4/12"
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
     </div>
@@ -169,29 +207,8 @@
   <div class="divider">Integrazioni</div>
 
   <div class="field space-y-2" *ngIf="form.controls.customFields as cf">
-    <button
-      data-theme="notifytheme"
-      class="btn w-full text-white/80 btn-primary brightness-90"
-      type="button"
-      (click)="addCustomField()"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M12 4.5v15m7.5-7.5h-15"
-        />
-      </svg>
+    <button notify-add-item class="w-full" (click)="addCustomField()"></button>
 
-      <span>aggiungi</span>
-    </button>
     <div *ngFor="let item of cf.controls" class="flex items-center space-x-2">
       <notify-icon-selector
         class="items-end mt-6"
@@ -212,23 +229,9 @@
       <!-- RIMUOVI SERVIZIO -->
       <div class="mt-1">
         <button
-          type="button"
-          class="btn btn-error my-auto"
+          notify-remove-item-button
           (click)="removeCustomField(item)"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </button>
+        ></button>
       </div>
     </div>
   </div>
@@ -243,7 +246,7 @@
       <button
         [disabled]="form.invalid"
         [class.pointer-events-none]="loading"
-        class="btn btn-primary w-full"
+        class="btn btn-primary w-full bg-primary-500/40"
         type="submit"
         data-theme="notifytheme"
       >
