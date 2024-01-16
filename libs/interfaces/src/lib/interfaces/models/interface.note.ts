@@ -26,6 +26,7 @@ export enum EnumNotifyNoteItemType {
   Checklist = 'checklist',
   Files = 'files',
   Link = 'link',
+  AudioRecord = 'audio-record',
 }
 
 export interface INotifyNoteHeader {

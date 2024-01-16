@@ -51,6 +51,14 @@ export class NoteMenuComponent {
         name: 'link',
       },
     },
+    {
+      type: EnumNotifyNoteItemType.AudioRecord,
+      label: 'Audio',
+      icon: {
+        set: 'hero-outline',
+        name: 'microphone',
+      },
+    },
   ];
 
   constructor() {}

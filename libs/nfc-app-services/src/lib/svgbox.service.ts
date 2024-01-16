@@ -197,6 +197,13 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     placeholder: 'https://linkedin.com/in/...',
   },
   {
+    expanded: 'Link',
+    name: 'link',
+    tags: [],
+    set: 'hero-solid',
+    placeholder: 'https://...',
+  },
+  {
     expanded: 'Map',
     name: 'map',
     tags: [],

@@ -54,7 +54,7 @@ export class AccountsComponent implements OnInit {
   public agentsSubject$ = new Subject<INotifyAgent[]>();
   public agents$: Observable<INotifyAgent[]> = this.agentsSubject$;
 
-  public agents: number | null = null;
+  public agents: number = 0;
 
   public get maxAgents(): number {
     const user = this._authService.user as unknown as INotifyCompany<true>;
@@ -92,7 +92,7 @@ export class AccountsComponent implements OnInit {
           return agent;
         });
 
-        this.agents = populatedAgents.length;
+        this.agents = populatedAgents.length || 0;
 
         this.agentsSubject$.next(populatedAgents);
       }),

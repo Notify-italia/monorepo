@@ -77,6 +77,16 @@ export class UtilsService {
     }
 
     //if the value is an array, stringify it
+    if (Array.isArray(value) || typeof value === 'object') {
+      return JSON.stringify(value);
+    }
+
+    //if the value is a valid object, stringify it
+    if (typeof value === 'object') {
+      return JSON.stringify(value);
+    }
+
+    //if the value is an array, stringify it
     if (
       (value as string)
         ?.toUpperCase()
@@ -86,5 +96,13 @@ export class UtilsService {
     }
 
     return (value as string)?.toLowerCase();
+  }
+
+  public populateProtocol(protocol: string, data: string) {
+    if (data.includes(protocol)) {
+      return data;
+    }
+
+    return `${protocol}${data}`;
   }
 }

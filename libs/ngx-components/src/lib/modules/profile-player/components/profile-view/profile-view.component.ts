@@ -9,6 +9,7 @@ import {
   FeedbackService,
   ProfileService,
   SvgboxService,
+  UtilsService,
 } from '@notify/nfc-app-services';
 import { format } from 'date-fns';
 import { interval, map, startWith } from 'rxjs';
@@ -32,7 +33,7 @@ import { RatingComponent } from '../rating/rating.component';
     RatingComponent,
     GoogleMapsComponent,
   ],
-  providers: [FeedbackFactory, FeedbackService, SvgboxService],
+  providers: [FeedbackFactory, FeedbackService, SvgboxService, UtilsService],
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss', '../profile.styles.scss'],
 })
@@ -57,7 +58,8 @@ export class ProfileViewComponent {
     public profileService: ProfileService,
     private _feedbackFactory: FeedbackFactory,
     private _feedbackService: FeedbackService,
-    private _svgBoxService: SvgboxService
+    private _svgBoxService: SvgboxService,
+    private _utils: UtilsService
   ) {}
 
   public feedbackGiven(): INotifyFeedback | null {
@@ -82,7 +84,10 @@ export class ProfileViewComponent {
       return url;
     }
 
-    return `${selectedIcon.prefix || ''}${url}`;
+    return this._utils.populateProtocol(
+      'https://',
+      `${selectedIcon.prefix || ''}${url}`
+    );
   }
 
   public showFeedback(): void {
