@@ -57,8 +57,6 @@ export class ProfileViewComponent {
   }
 
   public get cssGradientStops(): string {
-    console.log(this.data?.colors);
-
     const colors = this.data?.colors.background;
 
     if (!colors?.length) {

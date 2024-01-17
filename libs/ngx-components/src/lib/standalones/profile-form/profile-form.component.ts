@@ -173,11 +173,11 @@ export class ProfileFormComponent implements OnInit {
 
     this.addColor(
       f.controls.backgroundColors as FormArray,
-      this.profile.colors.background[0] || '#ffffff'
+      this.profile.colors?.background?.[0] || '#0A2859'
     );
     this.addColor(
       f.controls.backgroundColors as FormArray,
-      this.profile.colors.background[1] || '#ffffff'
+      this.profile.colors?.background?.[1] || '#041127'
     );
 
     if (f.controls.avatar.value) {
