@@ -75,10 +75,10 @@
         @if (isAgent) {
         <button
           type="button"
-          class="btn btn-wide border-none"
+          class="btn btn-wide border-none disabled:opacity-50"
           [ngStyle]="{ 'background-color': cssElementsColor }"
           data-theme="notifytheme"
-          [disabled]="feedbackGiven()"
+          [disabled]="mockup || feedbackGiven()"
           (click)="showFeedback()"
         >
           @if (feedbackGiven(); as fb) {
@@ -193,7 +193,10 @@
         [color]="cssElementsColor"
       ></notify-profile-static-links>
 
-      <div class="divider mx-5 mix-blend-difference"></div>
+      <div
+        class="divider mx-5 mix-blend-difference"
+        *ngIf="data?.customFields?.length"
+      ></div>
 
       <notify-profile-integrations
         class="w-full"

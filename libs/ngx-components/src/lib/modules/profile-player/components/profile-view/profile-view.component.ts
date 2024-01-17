@@ -57,10 +57,10 @@ export class ProfileViewComponent {
   }
 
   public get cssGradientStops(): string {
-    const colors = this.data?.colors.background;
+    const colors = this.data?.colors?.background;
 
     if (!colors?.length) {
-      return ['white', 'white'].join(',');
+      return ['#0A2859', '#041127'].join(',');
     }
 
     if (colors.length === 1) {
@@ -71,7 +71,7 @@ export class ProfileViewComponent {
   }
 
   public get cssElementsColor(): string {
-    return this.data?.colors.elements || 'white';
+    return this.data?.colors?.elements || '#ffffff';
   }
 
   constructor(

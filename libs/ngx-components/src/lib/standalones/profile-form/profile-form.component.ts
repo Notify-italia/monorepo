@@ -130,6 +130,7 @@ export class ProfileFormComponent implements OnInit {
   }
 
   private _buildForm(): ProfileForm {
+    const pColors = this.profile?.colors;
     const _requiredWhenAgent = this.isAgent ? [Validators.required] : [];
 
     const f = new FormGroup({
@@ -164,7 +165,7 @@ export class ProfileFormComponent implements OnInit {
       number: new FormControl(this.profile.address?.number || ''),
       smsEnabled: new FormControl(this.profile.config.smsEnabled ?? true, []),
       backgroundColors: new FormArray([] as FormGroup[]),
-      elementsColor: new FormControl(this.profile.colors.elements || '#ffffff'),
+      elementsColor: new FormControl(pColors?.elements || '#ffffff'),
     });
 
     this.profile.customFields?.forEach((item) => {
@@ -173,11 +174,11 @@ export class ProfileFormComponent implements OnInit {
 
     this.addColor(
       f.controls.backgroundColors as FormArray,
-      this.profile.colors?.background?.[0] || '#0A2859'
+      pColors?.background?.[0] || '#0A2859'
     );
     this.addColor(
       f.controls.backgroundColors as FormArray,
-      this.profile.colors?.background?.[1] || '#041127'
+      pColors?.background?.[1] || '#041127'
     );
 
     if (f.controls.avatar.value) {

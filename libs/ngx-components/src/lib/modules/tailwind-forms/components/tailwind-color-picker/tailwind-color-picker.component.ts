@@ -25,71 +25,7 @@ export class TailwindColorPickerComponent
   @Input() validationErrors!: { [key: string]: string };
   @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
   //an array colors to be used as default colors
-  @Input() colors: string[] = [
-    // 'red',
-    '#F9B5B5',
-    '#F58F8F',
-    '#F26A6A',
-    '#EF4444',
-    '#E71414',
-    '#B30F0F',
-
-    // 'yewllow',
-    '#FBDCA8',
-    '#FACD81',
-    '#F8BD59',
-    '#F7AE32',
-    '#F59E0B',
-    '#C07C08',
-
-    // 'green',
-    '#79F3CB',
-    '#53F0BC',
-    '#2EEDAE',
-    '#13DF9B',
-    '#10B981',
-    '#0C855D',
-
-    // 'blue',
-    '#D7E6FD',
-    '#B0CDFB',
-    '#89B4FA',
-    '#629BF8',
-    '#3B82F6',
-    '#0B61EE',
-
-    // 'purple',
-    '#DED0FC',
-    '#C2A9FA',
-    '#A783F8',
-    '#8B5CF6',
-    '#6527F3',
-    '#4D0FDB',
-
-    // 'pink',
-    '#FBDCEB',
-    '#F8B7D7',
-    '#F492C2',
-    '#F06DAE',
-    '#EC4899',
-    '#E4187D',
-
-    // 'gray',
-    '#F9F9F9',
-    '#ECECEC',
-    '#E0E0E0',
-    '#C4C4C4',
-    '#A7A7A7',
-    '#8B8B8B',
-
-    // 'black',
-    '#555555',
-    '#444444',
-    '#333333',
-    '#222222',
-    '#111111',
-    '#000000',
-  ];
+  @Input() colors: string[] = availableColors;
 
   public colorPickerOpen = false;
   public color = '';
@@ -155,3 +91,73 @@ export class TailwindColorPickerComponent
     return this.hasErrors && this.touched;
   }
 }
+
+const availableColors = [
+  // 'red',
+  '#F9B5B5',
+  '#F58F8F',
+  '#F26A6A',
+  '#EF4444',
+  '#E71414',
+  '#B30F0F',
+
+  // 'yewllow',
+  '#FBDCA8',
+  '#FACD81',
+  '#F8BD59',
+  '#F7AE32',
+  '#F59E0B',
+  '#C07C08',
+
+  // 'green',
+  '#79F3CB',
+  '#53F0BC',
+  '#2EEDAE',
+  '#13DF9B',
+  '#10B981',
+  '#0C855D',
+
+  // 'blue',
+  '#D7E6FD',
+  '#B0CDFB',
+  '#89B4FA',
+  '#629BF8',
+  '#3B82F6',
+  '#0B61EE',
+
+  // 'purple',
+  '#DED0FC',
+  '#C2A9FA',
+  '#A783F8',
+  '#8B5CF6',
+  '#6527F3',
+  '#4D0FDB',
+
+  // 'pink',
+  '#FBDCEB',
+  '#F8B7D7',
+  '#F492C2',
+  '#F06DAE',
+  '#EC4899',
+  '#E4187D',
+
+  // 'gray',
+  '#F9F9F9',
+  '#ECECEC',
+  '#E0E0E0',
+  '#C4C4C4',
+  '#A7A7A7',
+  '#8B8B8B',
+
+  // 'black',
+  '#555555',
+  '#444444',
+  '#333333',
+  '#222222',
+  '#111111',
+  '#000000',
+
+  //brand
+  '#0A2859',
+  '#041127',
+];
