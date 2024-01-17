@@ -7,7 +7,7 @@ import {
   INotifyLicense,
   INotifyUser,
 } from '@notify/interfaces';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, of, tap } from 'rxjs';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -86,7 +86,13 @@ export class AuthService {
 
     return this._http
       .post<null, INotifyUser>(`/v1/${this._userType}/refresh`, null)
-      .pipe(tap((user) => this._assignToken(user)));
+      .pipe(
+        tap((user) => this._assignToken(user)),
+        catchError(() => {
+          this.signOut();
+          return of(null);
+        })
+      );
   }
 
   /**

@@ -192,6 +192,7 @@ OrdineSchema.pre('save', async function (done) {
 
 // 5. Aggiungi un metodo statico build per creare il nuovo Model
 OrdineSchema.statics.build = (doc: Partial<Profile>) => {
+  doc.colors = doc.colors || ['#0A2859', '#041127'];
   return new ProfileModel(doc);
 };
 

@@ -55,11 +55,19 @@ export class ProfileViewComponent {
   }
 
   public get cssGradientStops(): string {
-    if (!this.data?.colors?.length) {
-      return ['#0A2859', '#041127'].join(',');
+    console.log(this.data?.colors);
+
+    const colors = this.data?.colors;
+
+    if (!colors?.length) {
+      return ['white', 'white'].join(',');
     }
 
-    return this.data.colors.join(',');
+    if (colors.length === 1) {
+      return [colors[0], colors[0]].join(',');
+    }
+
+    return colors.join(',');
   }
 
   constructor(

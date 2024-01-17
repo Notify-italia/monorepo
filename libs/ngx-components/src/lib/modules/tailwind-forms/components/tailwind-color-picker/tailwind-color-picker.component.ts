@@ -51,6 +51,8 @@ export class TailwindColorPickerComponent
     '#7b7f86',
     '#f1f3f6',
     '#6a6e73',
+    '#041127',
+    '#0A2859',
   ];
 
   public colorPickerOpen = false;

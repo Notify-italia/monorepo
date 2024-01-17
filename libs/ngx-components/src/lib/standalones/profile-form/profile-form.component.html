@@ -68,23 +68,7 @@
   <div class="section">
     <button notify-add-item (click)="addColor()" class="w-full"></button>
     @for (colorForm of form.controls.colors.controls; track colorForm) {
-    <div class="flex space-x-2 items-center p-2">
-      <button type="button">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
-          />
-        </svg>
-      </button>
+    <div class="flex space-x-2 items-center">
       <div class="flex space-x-2 items-center box p-2 w-full">
         <notify-tailwind-color-picker
           [parent]="colorForm"
