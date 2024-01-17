@@ -3,5 +3,5 @@ svg {
 }
 
 button {
-  @apply btn btn-ghost btn-primary btn-circle mix-blend-difference;
+  @apply btn btn-ghost btn-circle disabled:opacity-50;
 }

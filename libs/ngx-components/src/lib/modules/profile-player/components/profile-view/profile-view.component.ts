@@ -18,6 +18,7 @@ import { AvatarComponent } from '../../../../standalones/avatar/avatar.component
 import { GoogleMapsComponent } from '../../../../standalones/google-maps/google-maps.component';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
 import { FeedbackFactory } from '../../factories';
+import { ProfileIntegrationsComponent } from '../profile-integrations/profile-integrations.component';
 import { ProfileStaticLinksComponent } from '../profile-static-links/profile-static-links.component';
 import { RatingComponent } from '../rating/rating.component';
 
@@ -32,6 +33,7 @@ import { RatingComponent } from '../rating/rating.component';
     ProfileStaticLinksComponent,
     RatingComponent,
     GoogleMapsComponent,
+    ProfileIntegrationsComponent,
   ],
   providers: [FeedbackFactory, FeedbackService, SvgboxService, UtilsService],
   templateUrl: './profile-view.component.html',
@@ -57,7 +59,7 @@ export class ProfileViewComponent {
   public get cssGradientStops(): string {
     console.log(this.data?.colors);
 
-    const colors = this.data?.colors;
+    const colors = this.data?.colors.background;
 
     if (!colors?.length) {
       return ['white', 'white'].join(',');
@@ -70,12 +72,14 @@ export class ProfileViewComponent {
     return colors.join(',');
   }
 
+  public get cssElementsColor(): string {
+    return this.data?.colors.elements || 'white';
+  }
+
   constructor(
     public profileService: ProfileService,
     private _feedbackFactory: FeedbackFactory,
-    private _feedbackService: FeedbackService,
-    private _svgBoxService: SvgboxService,
-    private _utils: UtilsService
+    private _feedbackService: FeedbackService
   ) {}
 
   public feedbackGiven(): INotifyFeedback | null {
@@ -89,21 +93,6 @@ export class ProfileViewComponent {
     );
 
     return fb;
-  }
-
-  public prepareUrl(url: string, icon: string): string {
-    const selectedIcon = this._svgBoxService.availableIcons.find(
-      (i) => i.name === icon
-    );
-
-    if (!selectedIcon) {
-      return url;
-    }
-
-    return this._utils.populateWebProtocol(
-      'https://',
-      `${selectedIcon.prefix || ''}${url}`
-    );
   }
 
   public showFeedback(): void {
@@ -123,5 +112,19 @@ export class ProfileViewComponent {
     }
 
     window.open(this.data.reviewRedirect, '_blank');
+  }
+
+  public getContrastingColor(color: string, styleProp: string) {
+    //return white or black, depending on the one that contrasts the most with the given color
+
+    const hex = color.replace('#', '');
+    const r = parseInt(hex.substr(0, 2), 16); // Grab the hex representation of red (chars 1-2) and convert to decimal (base 10).
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+
+    const yiq = (r * 299 + g * 587 + b * 114) / 1000; // Calculate the perceptive luminance (aka luma) - human eye favors green color...
+    const value = yiq >= 128 ? 'black' : 'white'; // ... So we'll use that as the benchmark.
+
+    return { [styleProp]: value };
   }
 }

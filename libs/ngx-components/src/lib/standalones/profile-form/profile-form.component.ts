@@ -51,7 +51,8 @@ type ProfileForm = FormGroup<{
   number: FormControl<string | null>;
   reviewRedirect: FormControl<string | null>;
   smsEnabled: FormControl<boolean | null>;
-  colors: FormArray<FormGroup>;
+  backgroundColors: FormArray<FormGroup>;
+  elementsColor: FormControl<string | null>;
 }>;
 
 @Component({
@@ -162,16 +163,22 @@ export class ProfileFormComponent implements OnInit {
       city: new FormControl(this.profile.address?.city || ''),
       number: new FormControl(this.profile.address?.number || ''),
       smsEnabled: new FormControl(this.profile.config.smsEnabled ?? true, []),
-      colors: new FormArray([] as FormGroup[]),
+      backgroundColors: new FormArray([] as FormGroup[]),
+      elementsColor: new FormControl(this.profile.colors.elements || '#ffffff'),
     });
 
     this.profile.customFields?.forEach((item) => {
       this.addCustomField(item, f.controls.customFields as FormArray);
     });
 
-    this.profile.colors?.forEach((item) => {
-      this.addColor(f.controls.colors as FormArray, item);
-    });
+    this.addColor(
+      f.controls.backgroundColors as FormArray,
+      this.profile.colors.background[0] || '#ffffff'
+    );
+    this.addColor(
+      f.controls.backgroundColors as FormArray,
+      this.profile.colors.background[1] || '#ffffff'
+    );
 
     if (f.controls.avatar.value) {
       this.avatarFile = new File(
@@ -199,10 +206,13 @@ export class ProfileFormComponent implements OnInit {
     );
   }
 
-  public addColor(fa?: FormArray, data?: INotifyProfile['colors'][9]) {
-    (fa || this.controls.colors).push(
+  public addColor(
+    fa?: FormArray,
+    data?: INotifyProfile['colors']['background'][0]
+  ) {
+    (fa || this.controls.backgroundColors).push(
       new FormGroup({
-        value: new FormControl(data || '', [Validators.required]),
+        value: new FormControl(data || '#ffffff', [Validators.required]),
       })
     );
   }
@@ -218,9 +228,9 @@ export class ProfileFormComponent implements OnInit {
   }
 
   public removeColor(item: FormGroup) {
-    const index = this.controls.colors.value.indexOf(item.value);
+    const index = this.controls.backgroundColors.value.indexOf(item.value);
 
-    this.controls.colors.removeAt(index);
+    this.controls.backgroundColors.removeAt(index);
   }
 
   public resetForm() {
@@ -260,7 +270,10 @@ export class ProfileFormComponent implements OnInit {
             value: item.value,
           };
         }) || [],
-      colors: form.colors?.map((item) => item.value) || [],
+      colors: {
+        background: form.backgroundColors?.map((item) => item.value) || [],
+        elements: form.elementsColor || '#ffffff',
+      },
     };
   }
 

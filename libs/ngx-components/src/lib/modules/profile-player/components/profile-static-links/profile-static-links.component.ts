@@ -15,7 +15,17 @@ import { ProfileService } from '@notify/nfc-app-services';
 })
 export class ProfileStaticLinksComponent {
   @Input() data?: INotifyProfile;
-  @Input() gradientStops?: string;
+  @Input() color?: string;
+
+  public get iconColor() {
+    return {
+      color: this.color || '#fff',
+    };
+  }
+
+  public get config() {
+    return this.data?.config;
+  }
 
   constructor(private _profileService: ProfileService) {}
 

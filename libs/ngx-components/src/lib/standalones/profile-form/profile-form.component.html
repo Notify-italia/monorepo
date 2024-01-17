@@ -3,6 +3,49 @@
   [formGroup]="form"
   (submit)="submit()"
 >
+  <div class="divider !pt-0">Colori</div>
+
+  <div class="section">
+    <div class="flex space-x-2 items-center">
+      @if (form.controls.backgroundColors.controls; as bgColors) {
+      <div
+        class="flex space-x-2 items-center box p-2 w-full"
+        *ngIf="bgColors[0] as c"
+      >
+        <notify-tailwind-color-picker
+          [parent]="c"
+          name="value"
+          [validationErrors]="validationErrors"
+        ></notify-tailwind-color-picker>
+        <span class="font-bold">Superiore</span>
+      </div>
+      <div
+        class="flex space-x-2 items-center box p-2 w-full"
+        *ngIf="bgColors[1] as c"
+      >
+        <notify-tailwind-color-picker
+          [parent]="c"
+          name="value"
+          [validationErrors]="validationErrors"
+        ></notify-tailwind-color-picker>
+        <span class="font-bold">Inferiore</span>
+      </div>
+
+      <div class="flex space-x-2 items-center box p-2 w-full">
+        <notify-tailwind-color-picker
+          [parent]="form"
+          name="elementsColor"
+          [validationErrors]="validationErrors"
+        ></notify-tailwind-color-picker>
+        <span class="font-bold">Elementi</span>
+      </div>
+
+      }
+    </div>
+  </div>
+
+  <div class="divider">Info</div>
+
   <div class="section">
     <!-- NOME -->
     <div class="field flex w-full !space-y-0 space-x-2">
@@ -61,28 +104,6 @@
         [validationErrors]="validationErrors"
       ></notify-tailwind-select>
     </div>
-  </div>
-
-  <div class="divider">Gradiente</div>
-
-  <div class="section">
-    <button notify-add-item (click)="addColor()" class="w-full"></button>
-    @for (colorForm of form.controls.colors.controls; track colorForm) {
-    <div class="flex space-x-2 items-center">
-      <div class="flex space-x-2 items-center box p-2 w-full">
-        <notify-tailwind-color-picker
-          [parent]="colorForm"
-          name="value"
-          [validationErrors]="validationErrors"
-        ></notify-tailwind-color-picker>
-        <span class="uppercase font-bold">{{ colorForm.value.value }}</span>
-      </div>
-      <button
-        notify-remove-item-button
-        (click)="removeColor(colorForm)"
-      ></button>
-    </div>
-    }
   </div>
 
   <!-- INDIRIZZO -->
@@ -145,7 +166,7 @@
     </div>
   </div>
 
-  <div class="divider">Servizi Principali</div>
+  <div class="divider">Contatti</div>
 
   <div class="section">
     <div class="field" *ngIf="isCompany">
@@ -191,7 +212,12 @@
   <div class="divider">Integrazioni</div>
 
   <div class="field space-y-2" *ngIf="form.controls.customFields as cf">
-    <button notify-add-item class="w-full" (click)="addCustomField()"></button>
+    <button
+      notify-add-item
+      class="w-full"
+      type="button"
+      (click)="addCustomField()"
+    ></button>
 
     <div *ngFor="let item of cf.controls" class="flex items-center space-x-2">
       <notify-icon-selector

@@ -1,0 +1,41 @@
+import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { INotifyProfile } from '@notify/interfaces';
+import { SvgboxService, UtilsService } from '@notify/nfc-app-services';
+import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
+
+@Component({
+  selector: 'notify-profile-integrations',
+  standalone: true,
+  imports: [CommonModule, SvgBoxIconComponent],
+  providers: [SvgboxService, UtilsService],
+  templateUrl: './profile-integrations.component.html',
+  styleUrls: [
+    './profile-integrations.component.scss',
+    '../profile.styles.scss',
+  ],
+})
+export class ProfileIntegrationsComponent {
+  @Input() data?: INotifyProfile['customFields'];
+  @Input() color: INotifyProfile['colors']['elements'] = '#ffffff';
+
+  constructor(
+    private _svgBoxService: SvgboxService,
+    private _utils: UtilsService
+  ) {}
+
+  public prepareUrl(url: string, icon: string): string {
+    const selectedIcon = this._svgBoxService.availableIcons.find(
+      (i) => i.name === icon
+    );
+
+    if (!selectedIcon) {
+      return url;
+    }
+
+    return this._utils.populateWebProtocol(
+      'https://',
+      `${selectedIcon.prefix || ''}${url}`
+    );
+  }
+}
