@@ -1,0 +1,33 @@
+<div
+  class="flex w-full section !flex-row module !p-0 module-clear justify-evenly flex-wrap mx-auto"
+  [ngClass]="{
+    'flex-nowrap': cfLength < 3,
+    'module-blur flex-wrap': cfLength >= 3
+  }"
+  *ngIf="data?.length as cfLength"
+>
+  @for (item of data; track item.value) {
+  <button
+    [disabled]="!item.value"
+    type="button"
+    class="button-icon m-3"
+    [ngStyle]="{ color: color }"
+  >
+    <a
+      [href]="prepareUrl(item.value, item.iconName)"
+      target="_blank"
+      class="button-redirect"
+      [ngClass]="{
+      '!justify-start space-x-3': cfLength < 3,
+      
+    }"
+    >
+      <notify-svg-box-icon [iconName]="item.iconName"></notify-svg-box-icon>
+
+      <span *ngIf="cfLength < 3" class="tracking-wider">{{
+        item.iconName | titlecase
+      }}</span>
+    </a>
+  </button>
+  }
+</div>

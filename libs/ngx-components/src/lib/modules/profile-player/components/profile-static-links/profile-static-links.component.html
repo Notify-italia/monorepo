@@ -1,11 +1,15 @@
+<!-- TODO refactoring tramite loop invce che hardcoded -->
 <!-- STATIC LINKS -->
 <div class="section section-horizontal !justify-around">
   <button
-    *ngIf="data?.config?.phoneCallEnabled ?? true"
+    *ngIf="config?.phoneCallEnabled ?? true"
     [disabled]="!data?.phoneNumber"
-    class="btn btn-ghost btn-primary btn-circle"
   >
-    <a href="tel:{{ data?.phoneNumber }}" class="button-redirect">
+    <a
+      href="tel:{{ data?.phoneNumber }}"
+      class="button-redirect"
+      [ngStyle]="iconColor"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -20,9 +24,9 @@
     </a>
   </button>
   <button
-    *ngIf="data?.config?.smsEnabled ?? true"
+    *ngIf="config?.smsEnabled ?? true"
     [disabled]="!data?.phoneNumber"
-    class="btn btn-ghost btn-primary btn-circle"
+    [ngStyle]="iconColor"
   >
     <a href="sms:{{ data?.phoneNumber }}" class="button-redirect">
       <svg
@@ -39,9 +43,9 @@
     </a>
   </button>
   <button
-    *ngIf="data?.config?.whatsappEnabled ?? true"
+    *ngIf="config?.whatsappEnabled ?? true"
     [disabled]="!data?.phoneNumber"
-    class="btn btn-ghost btn-primary btn-circle"
+    [ngStyle]="iconColor"
   >
     <a
       href="https://api.whatsapp.com/send?phone={{
@@ -63,9 +67,9 @@
     </a>
   </button>
   <button
-    *ngIf="data?.config?.emailEnabled ?? true"
+    *ngIf="config?.emailEnabled ?? true"
     [disabled]="!data?.email"
-    class="btn btn-ghost btn-primary btn-circle"
+    [ngStyle]="iconColor"
   >
     <a href="mailto:{{ data?.email }}" class="buttton-redirect">
       <svg

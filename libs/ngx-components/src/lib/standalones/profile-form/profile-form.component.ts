@@ -31,6 +31,8 @@ import { Subject, takeUntil, tap } from 'rxjs';
 import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
 import { IconSelectorComponent } from '../icon-select/icon-selector.component';
 import { UploadComponent } from '../upload/upload.component';
+import { AddButtonComponent } from './add-button.component';
+import { RemoveItemButtonComponent } from './remove-item-button';
 
 type ProfileForm = FormGroup<{
   name: FormControl<INotifyProfile['name']>;
@@ -49,6 +51,8 @@ type ProfileForm = FormGroup<{
   number: FormControl<string | null>;
   reviewRedirect: FormControl<string | null>;
   smsEnabled: FormControl<boolean | null>;
+  backgroundColors: FormArray<FormGroup>;
+  elementsColor: FormControl<string | null>;
 }>;
 
 @Component({
@@ -60,6 +64,8 @@ type ProfileForm = FormGroup<{
     ReactiveFormsModule,
     UploadComponent,
     IconSelectorComponent,
+    AddButtonComponent,
+    RemoveItemButtonComponent,
   ],
   templateUrl: './profile-form.component.html',
   styleUrls: ['./profile-form.component.scss'],
@@ -102,6 +108,10 @@ export class ProfileFormComponent implements OnInit {
     return this.profile.type === EnumNotifyUserType.Company;
   }
 
+  public get controls() {
+    return this.form.controls;
+  }
+
   constructor(
     private _utils: UtilsService,
     public capacitor: CapacitorService
@@ -117,20 +127,6 @@ export class ProfileFormComponent implements OnInit {
         tap((value) => this.value.emit(this._mapFormToProfile(value)))
       )
       .subscribe();
-  }
-
-  public setUploadedFile(file: string | ArrayBuffer | null) {
-    this.form.controls.avatar.setValue(file as string);
-  }
-
-  public removeCustomField(item: FormGroup) {
-    const index = this.form.controls.customFields.value.indexOf(item.value);
-
-    this.form.controls.customFields.removeAt(index);
-  }
-
-  public resetForm() {
-    this.reloadForm.emit();
   }
 
   private _buildForm(): ProfileForm {
@@ -167,11 +163,22 @@ export class ProfileFormComponent implements OnInit {
       city: new FormControl(this.profile.address?.city || ''),
       number: new FormControl(this.profile.address?.number || ''),
       smsEnabled: new FormControl(this.profile.config.smsEnabled ?? true, []),
+      backgroundColors: new FormArray([] as FormGroup[]),
+      elementsColor: new FormControl(this.profile.colors.elements || '#ffffff'),
     });
 
     this.profile.customFields?.forEach((item) => {
       this.addCustomField(item, f.controls.customFields as FormArray);
     });
+
+    this.addColor(
+      f.controls.backgroundColors as FormArray,
+      this.profile.colors?.background?.[0] || '#0A2859'
+    );
+    this.addColor(
+      f.controls.backgroundColors as FormArray,
+      this.profile.colors?.background?.[1] || '#041127'
+    );
 
     if (f.controls.avatar.value) {
       this.avatarFile = new File(
@@ -190,13 +197,44 @@ export class ProfileFormComponent implements OnInit {
     data?: INotifyProfile['customFields'][0],
     fa?: FormArray
   ) {
-    (fa || this.form.controls.customFields).push(
+    (fa || this.controls.customFields).push(
       new FormGroup({
         iconName: new FormControl(data?.iconName || '', [Validators.required]),
         //url validator
         value: new FormControl(data?.value || '', [Validators.required]),
       })
     );
+  }
+
+  public addColor(
+    fa?: FormArray,
+    data?: INotifyProfile['colors']['background'][0]
+  ) {
+    (fa || this.controls.backgroundColors).push(
+      new FormGroup({
+        value: new FormControl(data || '#ffffff', [Validators.required]),
+      })
+    );
+  }
+
+  public setUploadedFile(file: string | ArrayBuffer | null) {
+    this.controls.avatar.setValue(file as string);
+  }
+
+  public removeCustomField(item: FormGroup) {
+    const index = this.controls.customFields.value.indexOf(item.value);
+
+    this.controls.customFields.removeAt(index);
+  }
+
+  public removeColor(item: FormGroup) {
+    const index = this.controls.backgroundColors.value.indexOf(item.value);
+
+    this.controls.backgroundColors.removeAt(index);
+  }
+
+  public resetForm() {
+    this.reloadForm.emit();
   }
 
   private _mapFormToProfile(form: ProfileForm['value']): INotifyProfile {
@@ -232,6 +270,10 @@ export class ProfileFormComponent implements OnInit {
             value: item.value,
           };
         }) || [],
+      colors: {
+        background: form.backgroundColors?.map((item) => item.value) || [],
+        elements: form.elementsColor || '#ffffff',
+      },
     };
   }
 

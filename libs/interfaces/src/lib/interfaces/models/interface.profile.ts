@@ -32,8 +32,10 @@ export interface INotifyProfile<
   //TODO aggiungi open hours
   openHours: { start: number; end: number }[];
   company?: INotifyProfile<EnumNotifyUserType.Company>;
-  //TODO gradiente di colori background
-  colors: string[];
+  colors: {
+    background: string[];
+    elements: string;
+  };
 }
 
 export const daisyUIAvatarMaks = [

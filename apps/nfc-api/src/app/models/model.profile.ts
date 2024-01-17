@@ -168,6 +168,16 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
       ],
       required: true,
     },
+    colors: {
+      background: {
+        type: [String],
+        default: ['#0A2859', '#041127'],
+      },
+      elements: {
+        type: String,
+        default: '#FFFFFF',
+      },
+    },
   },
   {
     timestamps: true,
@@ -186,6 +196,10 @@ OrdineSchema.pre('save', async function (done) {
 
 // 5. Aggiungi un metodo statico build per creare il nuovo Model
 OrdineSchema.statics.build = (doc: Partial<Profile>) => {
+  doc.colors = doc.colors || {
+    background: ['#0A2859', '#041127'],
+    elements: '#FFFFFF',
+  };
   return new ProfileModel(doc);
 };
 
