@@ -214,7 +214,8 @@ export class AccountsComponent implements OnInit {
   private _removeRole(role: string) {
     const ref = this._confirmModalFactory.create({
       title: 'Elimina ruolo',
-      description: 'Sei sicuro di voler eliminare questo ruolo?',
+      description:
+        'Sei sicuro di voler eliminare questo ruolo? Eliminarlo non comporterà la cancellazione degli utenti a cui è assegnato.',
       confirmText: 'Elimina',
       cancelText: 'Annulla',
       value: role,
@@ -225,7 +226,7 @@ export class AccountsComponent implements OnInit {
       takeUntil(ref.instance.destroyed$),
       switchMap((role) => {
         if (!role) {
-          return of(null);
+          return of(this.company);
         }
 
         const createdRoles = this.company.createdRoles.filter(
@@ -233,13 +234,13 @@ export class AccountsComponent implements OnInit {
         );
 
         ref.instance.loading = true;
-        return this._companyService.patchCompany({ createdRoles });
+        return this._companyService.patchCompany({ createdRoles }).pipe(
+          switchMap(() => this.getAgents()),
+          switchMap(() => this._authService.refreshToken())
+        );
       }),
-      switchMap(() => this.getAgents()),
-      switchMap(() => this._authService.refreshToken()),
       tap(() => {
         ref.destroy();
-        this._toastr.success('Ruolo eliminato!', 'OK');
       }),
       catchError((error: AppError) => {
         ref.instance.loading = false;
