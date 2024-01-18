@@ -21,6 +21,7 @@
 
     <div class="action" *ngIf="!showToggleEye">
       <button
+        tabindex="-1"
         data-theme="notifytheme"
         [disabled]="!inputRef.value"
         (click)="clearInputValue()"

@@ -39,6 +39,7 @@
             class="checkbox h-5 w-5 text-gray-600"
             [class.checkbox-primary]="item.controls['checked'].value"
             formControlName="checked"
+            tabindex="-1"
           />
           <input
             #DescriptionInput
@@ -50,6 +51,7 @@
           />
         </form>
         <button
+          tabindex="-1"
           [disabled]="form.value.items.length === 1"
           class="btn btn-ghost btn-error -mr-2 btn-square text-gray-500"
           (click)="removeItem($index)"
