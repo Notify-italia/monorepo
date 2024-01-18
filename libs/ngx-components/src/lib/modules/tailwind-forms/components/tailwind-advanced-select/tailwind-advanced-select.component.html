@@ -1,0 +1,84 @@
+<div [formGroup]="parent" class="w-full group/advancedSelect">
+  <label [for]="name" class="block text-sm font-medium">
+    {{ label | titlecase }}
+  </label>
+
+  <div class="dropdown w-full">
+    <input
+      class="w-full select items-center flex"
+      role="button"
+      tabindex="0"
+      autocomplete="off"
+      [id]="name"
+      [name]="name"
+      [formControlName]="name"
+      [placeholder]="placeholder"
+      [ngClass]="{
+        'border border-red-500': showValidationErrors
+      }"
+    />
+
+    <ul
+      *ngIf="dropdownVisible"
+      tabindex="0"
+      class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-full my-2"
+    >
+      @for (item of filteredOptions; track item) {
+      <li class="w-full items-center flex justify-between !flex-row">
+        <button type="button" (click)="value = item" class="w-11/12">
+          <span>
+            {{ item }}
+          </span>
+        </button>
+        <button
+          type="button"
+          (click)="removeOption.emit(item)"
+          class="w-1/12 flex justify-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6 mx-auto"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+          </svg>
+        </button>
+      </li>
+      <div class="divider !my-0 mx-2" *ngIf="!$last"></div>
+      }
+    </ul>
+  </div>
+
+  <p
+    class="mt-2 text-sm text-red-600 absolute"
+    [id]="name + '-error'"
+    *ngIf="showValidationErrors"
+  >
+    {{ validationErrorMessage }}
+  </p>
+</div>
+
+<!-- <div class="relative mt-1 w-full">
+    <select
+      [id]="name"
+      [name]="name"
+      [formControlName]="name"
+      class="select select-bordered w-full text-sm input-style"
+      [ngClass]="{
+        'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500':
+          showValidationErrors
+      }"
+    >
+      <option value="">{{ placeholder }}</option>
+      <option
+        *ngFor="let option of options"
+        [selected]="false"
+        [value]="option.value"
+      >
+        {{ option.name }}
+      </option>
+    </select>
+  </div> -->

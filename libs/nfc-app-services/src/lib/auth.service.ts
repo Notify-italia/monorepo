@@ -81,7 +81,7 @@ export class AuthService {
    */
   public refreshToken() {
     if (!this.token) {
-      return;
+      return of(null);
     }
 
     return this._http

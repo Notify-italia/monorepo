@@ -27,6 +27,8 @@ export const COMPANY_VALIDATION_MESSAGES: {
   _id: "L'id dell'azienda non è valido",
   email: 'Inserire una email valida',
   password: 'Inserire una password valida',
+  createdRoles: 'Errore durante la modifica dei ruoli',
+  license: 'Errore durante la modifica della licenza',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
@@ -65,6 +67,10 @@ const CompanySchema = new Schema<Company, CompanyModel>(
       type: Schema.Types.ObjectId,
       default: null,
       ref: 'License',
+    },
+    createdRoles: {
+      type: [String],
+      default: [],
     },
   },
   {
@@ -113,6 +119,7 @@ CompanySchema.statics.build = async (doc: Partial<Company>) => {
       avatarMask: 'squircle',
       whatsappEnabled: false,
       phoneCallEnabled: true,
+      smsEnabled: true,
       emailEnabled: true,
     },
   }).save();

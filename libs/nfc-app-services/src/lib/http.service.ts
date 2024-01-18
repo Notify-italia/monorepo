@@ -14,9 +14,13 @@ export class HttpService {
     private http: HttpClient
   ) {}
 
-  public patch<R, T>(url: string, body: R, params?: Record<string, string>) {
+  public patch<Req, Res>(
+    url: string,
+    body: Req,
+    params?: Record<string, string>
+  ) {
     return this.http
-      .patch<T>(`${this.apiUrl}${url}`, body, this._genHeaders(params))
+      .patch<Res>(`${this.apiUrl}${url}`, body, this._genHeaders(params))
       .pipe(this._unauthorized());
   }
 

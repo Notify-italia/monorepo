@@ -6,6 +6,7 @@ export interface INotifyCompany<populated extends true | false = false>
   license: populated extends true ? INotifyLicense : INotifyLicense['_id'];
   email: string;
   password?: string;
+  createdRoles: string[];
 
   //Outside of the schema
   token?: string;

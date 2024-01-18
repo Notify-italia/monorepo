@@ -6,11 +6,15 @@ import { UserFormComponent } from './user-form.component';
 export class UserFormFactory {
   constructor(public vcr: ViewContainerRef) {}
 
-  public createForm<T extends EnumNotifyUserType>(user?: INotifyAccounts[T]) {
+  public createForm<T extends EnumNotifyUserType>(
+    user?: INotifyAccounts[T],
+    createdRoles?: string[]
+  ) {
     const ref = this.vcr.createComponent(UserFormComponent);
 
     ref.setInput('cf', ref);
     ref.setInput('user', user);
+    ref.setInput('createdRoles', createdRoles);
 
     return ref.instance;
   }

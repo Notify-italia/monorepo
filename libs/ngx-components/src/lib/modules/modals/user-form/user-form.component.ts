@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   ComponentRef,
+  EventEmitter,
   HostListener,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
 import {
   FormControl,
@@ -26,6 +28,9 @@ export class UserFormComponent implements OnInit {
   @Input({ required: true }) public cf!: ComponentRef<UserFormComponent>;
   @Input() public loading = false;
   @Input() public user: INotifyAccount | null = null;
+  @Input() public createdRoles: string[] = [];
+
+  @Output() public removeRole = new EventEmitter<string>();
 
   public submitted = new Subject<INotifyPartialAgent>();
 

@@ -48,15 +48,17 @@
           [helpText]="user ? 'Lascia vuoto per non modificare la password' : ''"
         >
         </notify-tailwind-input>
-        <!-- TODO select con possibilità di aggiungere campi dinamicamente -->
-        <notify-tailwind-input
+        <notify-tailwind-advanced-select
           name="role"
           label="Ruolo"
+          class="w-full"
           [parent]="form"
           placeholder="Sales Manager"
+          [options]="createdRoles"
+          (removeOption)="removeRole.emit($event)"
           [validationErrors]="validationErrors"
-        >
-        </notify-tailwind-input>
+        ></notify-tailwind-advanced-select>
+
         <notify-tailwind-checkbox
           name="enabled"
           label="Attivo"

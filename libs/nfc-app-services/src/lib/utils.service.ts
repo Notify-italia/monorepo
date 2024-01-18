@@ -21,12 +21,12 @@ export class UtilsService {
     return [ab];
   }
 
-  public errorHandler(error: AppError) {
+  public errorHandler<T>(error: AppError, returnValue?: T) {
     this._toastr.error(
       error?.error?.errors?.[0]?.message || 'Si è verificato un errore',
       'Errore'
     );
-    return of([]);
+    return of(returnValue);
   }
 
   /**
