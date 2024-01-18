@@ -75,8 +75,6 @@ export class UploadComponent implements OnChanges, OnDestroy, OnInit {
     const srcBlob = await this._arrayBufferToBase64(buffer);
     this.blob = srcBlob;
 
-    //TODO implementa Compressorjs per ridurre la dimensione del file
-
     this.fileChanged.emit({
       file: this.file,
       blob: this.blob,

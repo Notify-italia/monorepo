@@ -71,10 +71,6 @@ export class NoteChecklistItemComponent extends NoteItemBase {
     }, 1);
   }
 
-  //TODO: rimuovi l'ultimo item con la shortcut
-  //hostlistener on (optiom or ctrl) + backspace
-  @HostListener('keydown.Control.backspace', ['$event'])
-  @HostListener('keydown.ctrlKey.backspace', ['$event'])
   public removeItem(index: number) {
     if (isNaN(index)) {
       index = (this.form.get('items') as FormArray).length - 1;

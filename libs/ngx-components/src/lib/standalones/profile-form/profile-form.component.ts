@@ -1,12 +1,5 @@
 import { CommonModule, TitleCasePipe } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormArray,
   FormControl,
@@ -27,7 +20,7 @@ import {
   UtilsService,
   itPhoneNumberValidators,
 } from '@notify/nfc-app-services';
-import { Subject, takeUntil, tap } from 'rxjs';
+import { Subject, combineLatest, debounceTime, takeUntil, tap } from 'rxjs';
 import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
 import { IconSelectorComponent } from '../icon-select/icon-selector.component';
 import { UploadComponent } from '../upload/upload.component';
@@ -75,8 +68,7 @@ export class ProfileFormComponent implements OnInit {
   @Input() public loading = false;
 
   @Output() public value = new EventEmitter<INotifyProfile>();
-  @Output() public submitForm = new EventEmitter<void>();
-  @Output() public reloadForm = new EventEmitter<void>();
+  @Output() public submitForm = new EventEmitter<INotifyProfile>();
 
   public removeAvatar$ = new Subject<void>();
   private _destroy$ = new Subject<void>();
@@ -87,6 +79,7 @@ export class ProfileFormComponent implements OnInit {
   public enumNotifyUserType = EnumNotifyUserType;
 
   public form: ProfileForm = new FormGroup({}) as unknown as ProfileForm;
+
   public avatarFile = new File([], '');
   public avatarMaskOptions = daisyUIAvatarMaks.map((item) => ({
     name: new TitleCasePipe().transform(daisyUIAvatarMaksIT[item]),
@@ -121,10 +114,21 @@ export class ProfileFormComponent implements OnInit {
     this.form = this._buildForm();
 
     //emette il valore del form ad ogni cambiamento
-    this.form.valueChanges
+    combineLatest([this.form.valueChanges, this.form.statusChanges])
       .pipe(
         takeUntil(this._destroy$),
-        tap((value) => this.value.emit(this._mapFormToProfile(value)))
+        debounceTime(1000),
+        tap(([value]) => {
+          const profile = this._mapFormToProfile(value);
+          this.value.emit(profile);
+
+          console.log('form', this.form.touched);
+
+          if (this.form.invalid) {
+            return;
+          }
+          this.submitForm.emit(profile);
+        })
       )
       .subscribe();
   }
@@ -234,10 +238,6 @@ export class ProfileFormComponent implements OnInit {
     this.controls.backgroundColors.removeAt(index);
   }
 
-  public resetForm() {
-    this.reloadForm.emit();
-  }
-
   private _mapFormToProfile(form: ProfileForm['value']): INotifyProfile {
     const address = this.isAgent
       ? null
@@ -276,18 +276,5 @@ export class ProfileFormComponent implements OnInit {
         elements: form.elementsColor || '#ffffff',
       },
     };
-  }
-
-  //TODO testare su windows
-  @HostListener('keydown.ctrlKey.backspace', ['$event'])
-  @HostListener('window:keydown.Control.shift.s', ['$event'])
-  public submit(e?: KeyboardEvent) {
-    e?.preventDefault();
-
-    if (this.form.invalid) {
-      return;
-    }
-
-    this.submitForm.emit();
   }
 }

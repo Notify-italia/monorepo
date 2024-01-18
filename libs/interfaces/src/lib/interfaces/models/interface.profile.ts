@@ -29,7 +29,7 @@ export interface INotifyProfile<
   };
   customFields: { iconName: string; value: string }[];
   type: EnumNotifyUserType;
-  //TODO aggiungi open hours
+  //TODO aggiungi open hours (solo azienda)
   openHours: { start: number; end: number }[];
   company?: INotifyProfile<EnumNotifyUserType.Company>;
   colors: {

@@ -66,11 +66,6 @@ export class ProfileManagementComponent {
     this._profileSubject$.next(profile as IProfile);
   }
 
-  public reloadForm() {
-    //TODO trovare un modo più elegante per ricaricare il form
-    location.reload();
-  }
-
   public previewProfile(profile: INotifyProfile) {
     this._playerFactroy.createPlayer({ profile });
   }
@@ -80,10 +75,7 @@ export class ProfileManagementComponent {
     this._profileService
       .patchProfile<EnumNotifyUserType.Agent>(profile)
       .pipe(
-        tap((profile) => {
-          this._toastr.success('Profilo aggiornato', 'OK');
-          this._profileSubject$.next(profile);
-        }),
+        tap((profile) => this._profileSubject$.next(profile)),
         catchError(async (err: AppError) =>
           this._utilsService.errorHandler(err)
         ),
