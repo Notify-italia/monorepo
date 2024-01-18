@@ -30,7 +30,11 @@ import { environment } from '../../../environments/environment';
 export class ColleaguesComponent {
   public colleagues$ = this._agentService
     .getAgents()
-    .pipe(catchError((e: AppError) => this._utilsService.errorHandler(e)));
+    .pipe(
+      catchError((e: AppError) =>
+        this._utilsService.errorHandler<INotifyAgent[]>(e, [])
+      )
+    );
 
   constructor(
     private _agentService: AgentService,

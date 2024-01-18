@@ -26,7 +26,7 @@ export class UtilsService {
       error?.error?.errors?.[0]?.message || 'Si è verificato un errore',
       'Errore'
     );
-    return of(returnValue);
+    return of(returnValue || []);
   }
 
   /**
