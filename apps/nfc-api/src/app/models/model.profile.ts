@@ -177,6 +177,10 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
         type: String,
         default: '#FFFFFF',
       },
+      useCompanyColors: {
+        type: Boolean,
+        default: false,
+      },
     },
   },
   {
@@ -199,6 +203,7 @@ OrdineSchema.statics.build = (doc: Partial<Profile>) => {
   doc.colors = doc.colors || {
     background: ['#0A2859', '#041127'],
     elements: '#FFFFFF',
+    useCompanyColors: false,
   };
   return new ProfileModel(doc);
 };

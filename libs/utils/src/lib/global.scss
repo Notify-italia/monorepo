@@ -2,6 +2,10 @@
 @import 'ngx-toastr/toastr';
 @import 'animate.css/animate.min.css';
 
+.iphone-15-pro {
+  @apply w-[393px] h-[852px];
+}
+
 .page-layout {
   @apply w-full space-y-4;
 

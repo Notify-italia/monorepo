@@ -1,12 +1,24 @@
 <form
-  class="flex flex-col items-center space-y-4 box p-4 rounded-xl w-full"
+  class="flex flex-col items-center space-y-4 box p-4 rounded-xl w-full smooth"
   [formGroup]="form"
 >
   <div class="divider !pt-0">Colori</div>
 
   <div class="section">
+    <div class="field" *ngIf="isAgent">
+      <notify-tailwind-checkbox
+        [parent]="form"
+        name="useCompanyColors"
+        label="Sincronizza con {{ profile.company?.name }}"
+        [validationErrors]="validationErrors"
+      ></notify-tailwind-checkbox>
+    </div>
     <div
-      class="flex lg:space-x-2 items-center flex-col lg:flex-row space-y-2 lg:space-y-0"
+      class="flex lg:space-x-2 items-center flex-col lg:flex-row space-y-2 lg:space-y-0 smooth"
+      [ngClass]="{
+        'opacity-50 pointer-events-none scale-90':
+          form.controls.useCompanyColors.value
+      }"
     >
       <!-- TODO incapsulamento -->
       @if (form.controls.backgroundColors.controls; as bgColors) {

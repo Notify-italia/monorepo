@@ -244,7 +244,7 @@ export class AccountsComponent implements OnInit {
       }),
       catchError((error: AppError) => {
         ref.instance.loading = false;
-        return this._utilsService.errorHandler(error, null);
+        return this._utilsService.errorHandler<null>(error, null);
       })
     );
   }

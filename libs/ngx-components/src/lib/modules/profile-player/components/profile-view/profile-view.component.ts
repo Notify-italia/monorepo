@@ -22,6 +22,8 @@ import { ProfileIntegrationsComponent } from '../profile-integrations/profile-in
 import { ProfileStaticLinksComponent } from '../profile-static-links/profile-static-links.component';
 import { RatingComponent } from '../rating/rating.component';
 
+const defaultGradientStops = ['#0A2859', '#041127'];
+
 @Component({
   selector: 'notify-profile-view',
   standalone: true,
@@ -59,8 +61,15 @@ export class ProfileViewComponent {
   public get cssGradientStops(): string {
     const colors = this.data?.colors?.background;
 
+    if (this.data?.colors?.useCompanyColors) {
+      return (
+        this.data.company?.colors?.background.join(',') ||
+        defaultGradientStops.join(',')
+      );
+    }
+
     if (!colors?.length) {
-      return ['#0A2859', '#041127'].join(',');
+      return defaultGradientStops.join(',');
     }
 
     if (colors.length === 1) {
@@ -71,6 +80,10 @@ export class ProfileViewComponent {
   }
 
   public get cssElementsColor(): string {
+    if (this.data?.colors?.useCompanyColors) {
+      return this.data.company?.colors?.elements || '#ffffff';
+    }
+
     return this.data?.colors?.elements || '#ffffff';
   }
 

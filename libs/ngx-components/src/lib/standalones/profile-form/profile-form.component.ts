@@ -46,6 +46,7 @@ type ProfileForm = FormGroup<{
   smsEnabled: FormControl<boolean | null>;
   backgroundColors: FormArray<FormGroup>;
   elementsColor: FormControl<string | null>;
+  useCompanyColors: FormControl<boolean | null>;
 }>;
 
 @Component({
@@ -170,6 +171,7 @@ export class ProfileFormComponent implements OnInit {
       smsEnabled: new FormControl(this.profile.config.smsEnabled ?? true, []),
       backgroundColors: new FormArray([] as FormGroup[]),
       elementsColor: new FormControl(pColors?.elements || '#ffffff'),
+      useCompanyColors: new FormControl(pColors?.useCompanyColors || false, []),
     });
 
     this.profile.customFields?.forEach((item) => {
@@ -274,6 +276,7 @@ export class ProfileFormComponent implements OnInit {
       colors: {
         background: form.backgroundColors?.map((item) => item.value) || [],
         elements: form.elementsColor || '#ffffff',
+        useCompanyColors: !!form.useCompanyColors,
       },
     };
   }

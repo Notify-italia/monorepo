@@ -35,6 +35,7 @@ export interface INotifyProfile<
   colors: {
     background: string[];
     elements: string;
+    useCompanyColors: T extends EnumNotifyUserType.Agent ? boolean : null;
   };
 }
 
