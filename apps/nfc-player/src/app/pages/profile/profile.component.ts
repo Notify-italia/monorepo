@@ -1,9 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
-import { GesturesDirective, ProfileService } from '@notify/nfc-app-services';
+import {
+  GesturesDirective,
+  ProfileService,
+  SocketService,
+} from '@notify/nfc-app-services';
 import {
   LoadingComponent,
   ProfileViewComponent,
@@ -26,7 +30,7 @@ import { environment } from '../../../environments/environment';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnDestroy {
   public profile$: Observable<INotifyProfile>;
   public publicUrl = environment.publicUrl;
   public feedbackKey = environment.feedbackKey;
@@ -48,7 +52,8 @@ export class ProfileComponent {
     private _activatedRoute: ActivatedRoute,
     private _profileService: ProfileService,
     private _titleService: Title,
-    private _router: Router
+    private _router: Router,
+    private _socket: SocketService
   ) {
     this.profile$ = this._profileService
       .getProfile(
@@ -57,12 +62,18 @@ export class ProfileComponent {
       .pipe(
         tap((profile) => {
           this._titleService.setTitle(`${profile.name} - Notify`);
+          this._socket.connect(profile._id);
         }),
         catchError((err) => {
           this._router.navigate(['/404']);
           throw new Error(err);
         })
       );
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  ngOnDestroy() {
+    this._socket.disconnect();
   }
 
   public isAgent(profile: INotifyProfile): boolean {

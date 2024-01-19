@@ -1,0 +1,19 @@
+<notify-page-header
+  title="Invia File"
+  subtitle="Condividi files con i contatti collegati al tuo account"
+></notify-page-header>
+<div class="page-layout" *ngIf="socketConnection$ | async as connection">
+  <div>
+    <div>
+      <pre>{{ connection | json }}</pre>
+
+      <pre>{{ devices$ | async | json }}</pre>
+    </div>
+  </div>
+</div>
+
+@if (loading) {
+<div class="h-[40vh] md:h-[60vh]">
+  <notify-loading></notify-loading>
+</div>
+}

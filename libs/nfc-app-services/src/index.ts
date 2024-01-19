@@ -12,6 +12,7 @@ export * from './lib/guards/signin.guard';
 export * from './lib/http.service';
 export * from './lib/note.service';
 export * from './lib/profile.service';
+export * from './lib/socket.service';
 export * from './lib/svgbox.service';
 export * from './lib/utils.service';
 export * from './lib/validators/validator.it-phone-number';

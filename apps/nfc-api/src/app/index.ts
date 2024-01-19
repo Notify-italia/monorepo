@@ -1,6 +1,7 @@
 //boilerplate for an express app
 import cors from 'cors';
 import express from 'express';
+import http from 'http';
 import { logRequest } from './middlewares/middleware.logs';
 import { api } from './routes';
 import { NotFoundError } from './services/errors/errors';
@@ -30,4 +31,6 @@ app.all('*', () => {
 // sempre nel solito formato al client
 app.use(errorHandler);
 
-export default app;
+const server = http.createServer(app);
+
+export { server };

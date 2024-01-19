@@ -123,8 +123,6 @@ export class ProfileFormComponent implements OnInit {
           const profile = this._mapFormToProfile(value);
           this.value.emit(profile);
 
-          console.log('form', this.form.touched);
-
           if (this.form.invalid) {
             return;
           }

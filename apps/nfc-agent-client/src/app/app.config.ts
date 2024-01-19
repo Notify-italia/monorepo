@@ -14,9 +14,11 @@ import {
   AuthService,
   HttpService,
   ProfileService,
+  SocketService,
   UtilsService,
 } from '@notify/nfc-app-services';
 import { provideTailwindToasts } from '@notify/ngx-components';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
@@ -62,11 +64,18 @@ export const appConfig: ApplicationConfig = {
         ),
     },
     {
+      provide: SocketService,
+      deps: [DeviceDetectorService],
+      useFactory: (detector: DeviceDetectorService) =>
+        new SocketService(environment.socketUrl, detector),
+    },
+    {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
       deps: [AuthService],
       multi: true,
     },
+    DeviceDetectorService,
   ],
 };
 

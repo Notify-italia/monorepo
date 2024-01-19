@@ -49,6 +49,13 @@ export const appRoutes: Route[] = [
           ),
       },
       {
+        path: 'share',
+        loadComponent: () =>
+          import('./pages/share-files/share-files.component').then(
+            (m) => m.ShareFilesComponent
+          ),
+      },
+      {
         path: 'notes',
         children: [
           {

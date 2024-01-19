@@ -21,7 +21,6 @@ export class HomeComponent {
       ],
     },
     {
-      disabled: true,
       label: 'Invia File',
       path: '/pages/share',
       icon: [

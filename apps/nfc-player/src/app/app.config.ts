@@ -7,8 +7,13 @@ import {
   provideRouter,
   withEnabledBlockingInitialNavigation,
 } from '@angular/router';
-import { HttpService, ProfileService } from '@notify/nfc-app-services';
+import {
+  HttpService,
+  ProfileService,
+  SocketService,
+} from '@notify/nfc-app-services';
 import { provideTailwindToasts } from '@notify/ngx-components';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
@@ -25,7 +30,14 @@ export const appConfig: ApplicationConfig = {
         return new HttpService(environment.apiUrl, '', http);
       },
     },
+    {
+      provide: SocketService,
+      deps: [DeviceDetectorService],
+      useFactory: (detector: DeviceDetectorService) =>
+        new SocketService(environment.socketUrl, detector),
+    },
     ProfileService,
+    DeviceDetectorService,
   ],
 };
 

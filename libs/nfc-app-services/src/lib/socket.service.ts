@@ -1,0 +1,115 @@
+import { Inject, Injectable } from '@angular/core';
+import {
+  EnumSOcketIOProfileEvents,
+  EnumSocketIOSystemEvents,
+  ISocketUserInfo,
+} from '@notify/interfaces';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { BehaviorSubject } from 'rxjs';
+import { Socket, io } from 'socket.io-client';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SocketService {
+  public connectedDevices$ = new BehaviorSubject<ISocketUserInfo[]>([]);
+
+  public connection$ = new BehaviorSubject<{
+    status: boolean;
+    userInfo?: ISocketUserInfo;
+    profile?: string;
+    owner?: string;
+  }>({
+    status: false,
+  });
+
+  public user?: ISocketUserInfo;
+
+  private _socket?: Socket;
+
+  public serviceLoeadedAt = Date.now();
+
+  public get connection() {
+    return this.connection$.value;
+  }
+
+  constructor(
+    @Inject('socketUrl') private _socketUrl: string,
+    private _detector: DeviceDetectorService
+  ) {}
+
+  public connect(profile: string, owner = '', userId?: string) {
+    this._populateUserInfo(userId);
+
+    console.log('connecting to socket');
+    this._socket = io(this._socketUrl, {
+      secure: true,
+      extraHeaders: {
+        profile,
+        owner,
+        userinfo: JSON.stringify(this.user),
+        id: this.user?.id || '',
+      },
+    });
+
+    this._socket.connect();
+
+    this._eventsListeners(profile, owner);
+  }
+
+  public disconnect() {
+    if (!this._socket) {
+      return;
+    }
+
+    this._socket.emit(EnumSocketIOSystemEvents.Disconnect, {
+      profile: this.connection$.value.profile,
+      owner: this.connection$.value.owner,
+    });
+    this.connectedDevices$.next([]);
+  }
+
+  private _populateUserInfo(userId?: string) {
+    const _guestId = Math.random().toString(36).substr(2, 9);
+    const info = this._detector.getDeviceInfo();
+
+    this.user = {
+      browser: `${info.browser} ${info.browser_version}`,
+      device: info.device,
+      deviceType: info.deviceType,
+      connectionTimestamp: Date.now(),
+      id: userId || _guestId,
+    };
+  }
+
+  private _eventsListeners(profile: string, owner = '') {
+    if (!this._socket) {
+      return;
+    }
+
+    this._socket.on('connect', () => {
+      this.connection$.next({
+        status: true,
+        profile,
+        owner,
+        userInfo: this.user,
+      });
+    });
+
+    this._socket.on('disconnect', () => {
+      this.connection$.next({
+        status: false,
+      });
+    });
+
+    //connected devices
+    this._socket.on(
+      EnumSOcketIOProfileEvents.ConnectedDevices,
+      (devices: ISocketUserInfo[]) => {
+        this.connectedDevices$.next(
+          devices.filter((device) => device.id !== this.user?.id)
+        );
+      }
+    );
+  }
+}
