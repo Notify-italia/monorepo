@@ -1,4 +1,5 @@
 export * from './lib/modules/accounts';
+export * from './lib/modules/file-sharing';
 export * from './lib/modules/license';
 export * from './lib/modules/modals';
 export * from './lib/modules/notes';
@@ -12,13 +13,11 @@ export * from './lib/standalones/avatar/avatar.component';
 export * from './lib/standalones/google-maps/google-maps.component';
 export * from './lib/standalones/loading/loading.component';
 export * from './lib/standalones/nav/nav.component';
+export * from './lib/standalones/no-items/no-items.component';
 export * from './lib/standalones/page-header/page-header.component';
 export * from './lib/standalones/page-not-found/page-not-found.component';
 export * from './lib/standalones/profile-form/profile-form.component';
+export * from './lib/standalones/search-bar/search-bar.component';
 export * from './lib/standalones/share-profile/share-profile.component';
 export * from './lib/standalones/svg-box-icon/svg-box-icon.component';
 export * from './lib/standalones/swipe-available/swipe-available.component';
-
-export * from './lib/standalones/no-items/no-items.component';
-
-export * from './lib/standalones/search-bar/search-bar.component';

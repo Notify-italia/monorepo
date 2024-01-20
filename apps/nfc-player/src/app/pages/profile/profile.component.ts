@@ -48,6 +48,10 @@ export class ProfileComponent implements OnDestroy {
   public companyProfileX = this._thresholds.maxTranslate;
   public companyIsVisible = false;
 
+  public get socketId(): string {
+    return this._socket.user?.id || '';
+  }
+
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _profileService: ProfileService,

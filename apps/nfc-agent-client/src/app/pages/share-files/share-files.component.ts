@@ -5,27 +5,29 @@ import {
   ProfileService,
   SocketService,
 } from '@notify/nfc-app-services';
-import { LoadingComponent, PageHeaderComponent } from '@notify/ngx-components';
-import { tap } from 'rxjs';
+import {
+  DeviceCardComponent,
+  LoadingComponent,
+  NoItemsComponent,
+  PageHeaderComponent,
+} from '@notify/ngx-components';
 
 @Component({
   selector: 'notify-share-files',
   standalone: true,
-  imports: [CommonModule, PageHeaderComponent, LoadingComponent],
+  imports: [
+    CommonModule,
+    PageHeaderComponent,
+    LoadingComponent,
+    DeviceCardComponent,
+    NoItemsComponent,
+  ],
   providers: [ProfileService],
   templateUrl: './share-files.component.html',
   styleUrl: './share-files.component.scss',
 })
 export class ShareFilesComponent implements OnInit, OnDestroy {
-  public socketConnection$ = this._socket.connection$.pipe(
-    tap((status) => {
-      this.loading = !status;
-    })
-  );
-
-  public devices$ = this._socket.connectedDevices$;
-
-  public loading = false;
+  public devices$ = this._socket.connectedDevices$.pipe();
 
   constructor(
     private _socket: SocketService,

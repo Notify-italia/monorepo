@@ -2,18 +2,24 @@
   title="Invia File"
   subtitle="Condividi files con i contatti collegati al tuo account"
 ></notify-page-header>
-<div class="page-layout" *ngIf="socketConnection$ | async as connection">
-  <div>
-    <div>
-      <pre>{{ connection | json }}</pre>
 
-      <pre>{{ devices$ | async | json }}</pre>
+@if (devices$ | async; as devices) {
+<div class="page-layout">
+  <div>
+    <div *ngIf="devices?.length" class="flex flex-col w-full my-5">
+      @for (item of devices; track item.id) {
+      <notify-device-card [user]="item"></notify-device-card>
+      }
+    </div>
+    <div *ngIf="!devices.length">
+      <div class="h-[40vh] md:h-[60vh]">
+        <notify-no-items
+          title="Nessun dispositivo connesso"
+          subtitle="Collega un dispositivo aprendo il tuo profilo su un altro dispositivo"
+        ></notify-no-items>
+      </div>
     </div>
   </div>
 </div>
 
-@if (loading) {
-<div class="h-[40vh] md:h-[60vh]">
-  <notify-loading></notify-loading>
-</div>
 }

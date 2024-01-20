@@ -75,7 +75,7 @@
         @if (isAgent) {
         <button
           type="button"
-          class="btn btn-wide border-none disabled:opacity-50"
+          class="btn btn-wide border-none"
           [ngStyle]="{ 'background-color': cssElementsColor }"
           data-theme="notifytheme"
           [disabled]="mockup || feedbackGiven()"
@@ -83,12 +83,15 @@
         >
           @if (feedbackGiven(); as fb) {
           <div *ngIf="feedbackGiven() as fb" class="space-y-1">
-            <p class="normal-case text-xs text-gray/50 mix-blend-difference">
+            <p
+              class="normal-case text-xs"
+              [ngStyle]="getContrastingColor(cssElementsColor, 'color')"
+            >
               Feedback lasciato
             </p>
             <notify-rating
               [currentValue]="fb.rating"
-              colorClass="bg-yellow-300"
+              colorClass="bg-[{{data?.colors?.background?.[0]}}]"
               sizeClass="sm"
             ></notify-rating>
           </div>

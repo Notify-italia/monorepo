@@ -20,6 +20,8 @@ const io = new Server(server, {
 const listen = async (callback: Function) => {
   const connections = new SocketsConnectionsManager(io);
 
+  logConnectedDevices(connections);
+
   io.on('connection', async (socket: Socket) => {
     const headers = getHeaders(socket);
 
@@ -51,3 +53,13 @@ const socketIOServer = {
 };
 
 export { socketIOServer };
+
+const logConnectedDevices = async (connections: SocketsConnectionsManager) => {
+  console.log(
+    connections.activeConnections.map((c) => c.sockets.map((s) => s.id))
+  );
+
+  setTimeout(() => {
+    logConnectedDevices(connections);
+  }, 10000);
+};

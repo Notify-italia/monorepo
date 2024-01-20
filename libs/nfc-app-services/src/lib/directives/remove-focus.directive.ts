@@ -9,9 +9,14 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
   selector: '[remove-focus]', // your selectors here!
 })
 export class RemoveFocusDirective {
-  constructor(private elRef: ElementRef) {}
+  constructor(private elRef: ElementRef<HTMLButtonElement>) {}
 
   @HostListener('click') onClick() {
-    this.elRef.nativeElement.blur();
+    if (this.elRef.nativeElement.hasAttribute('focus')) {
+      this.elRef.nativeElement.blur();
+      return;
+    }
+
+    this.elRef.nativeElement.focus();
   }
 }
