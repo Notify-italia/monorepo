@@ -28,6 +28,7 @@
         "assets": [
           "apps/nfc-agent-client/src/favicon.ico",
           "apps/nfc-agent-client/src/assets",
+          "apps/nfc-agent-client/src/favicon",
           {
             "input": "libs/utils/assets",
             "glob": "*",
