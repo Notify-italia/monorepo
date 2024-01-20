@@ -1,0 +1,7 @@
+{
+  "name": "@notify/source",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

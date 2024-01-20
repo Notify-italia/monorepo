@@ -1,7 +1,9 @@
 import { CapacitorConfig } from '@capacitor/cli';
+
+//TODO aggiorna info.plist se cambi qualcosa
 const config: CapacitorConfig = {
   appId: 'org.notify.agent.client',
-  appName: 'Notify',
+  appName: 'Notify Italia',
 
   ios: {
     path: 'app/ios',
@@ -15,6 +17,7 @@ const config: CapacitorConfig = {
       keystoreAliasPassword: 'wqPL46#6$Ium',
     },
   },
+
   webDir: '../../dist/apps/nfc-agent-client',
 };
 
