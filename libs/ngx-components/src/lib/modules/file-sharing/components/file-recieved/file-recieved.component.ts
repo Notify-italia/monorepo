@@ -24,11 +24,12 @@ export class FileRecievedComponent {
       return;
     }
 
-    const blob = new Blob([this.fileData], { type: 'text/plain' });
+    const blob = new Blob([this.fileData]);
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
     link.download = this.fileName || 'file';
     link.click();
+    this.close();
   }
 }

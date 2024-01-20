@@ -37,21 +37,30 @@ export class SocketsConnectionsManager {
       (connection) => connection.room === room
     );
 
-    if (existingRoom) {
-      //if the room exists, push the new user to the list
-      existingRoom.sockets.push(user);
-    } else {
+    if (!existingRoom) {
       //if the room doesn't exist, create it and add the user
       this.activeConnections.push({ sockets: [user], room });
+
+      //emit to room the new list of connected devices
+      this._emitUpdates(room);
+
+      return;
     }
 
+    const userExists = existingRoom.sockets.find((socket) =>
+      this._compare(socket, user)
+    );
+
+    if (userExists) {
+      //if the user already exists, do nothing
+      return;
+    }
+
+    //if the room exists, push the new user to the list
+    existingRoom.sockets.push(user);
+
     //emit to room the new list of connected devices
-    this.io
-      .in(room)
-      .emit(
-        EnumSOcketIOProfileEvents.ConnectedDevices,
-        this._socketsInRoom(room)
-      );
+    this._emitUpdates(room);
   }
 
   public remove(user: ISocketUserInfo) {
@@ -73,12 +82,7 @@ export class SocketsConnectionsManager {
     ].sockets.filter((socket) => !this._compare(socket, user));
 
     //emit to room the new list of connected devices
-    this.io
-      .in(room)
-      .emit(
-        EnumSOcketIOProfileEvents.ConnectedDevices,
-        this._socketsInRoom(room)
-      );
+    this._emitUpdates(room);
   }
 
   private _compare(source: ISocketUserInfo, target: ISocketUserInfo) {
@@ -88,5 +92,14 @@ export class SocketsConnectionsManager {
   private _socketsInRoom(room: string) {
     return this.activeConnections.find((connection) => connection.room === room)
       ?.sockets;
+  }
+
+  private _emitUpdates(room: string) {
+    this.io
+      .in(room)
+      .emit(
+        EnumSOcketIOProfileEvents.ConnectedDevices,
+        this._socketsInRoom(room)
+      );
   }
 }
