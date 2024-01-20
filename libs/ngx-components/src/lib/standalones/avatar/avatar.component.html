@@ -17,11 +17,13 @@
 </div>
 
 <ng-template #AvatarRenderer let-config="config">
-  <img
-    *ngIf="config.src || placeholderAvatarProvider as avatar"
-    [src]="avatar"
-    class=" mask mask-{{ config.mask }} object-cover  w-{{ config.size }} h-{{
-      config.size
-    }} "
-  />
+  <a href="config.src" download="avatar.webp">
+    <img
+      *ngIf="config.src || placeholderAvatarProvider as avatar"
+      [src]="avatar"
+      class=" mask mask-{{ config.mask }} object-cover  w-{{ config.size }} h-{{
+        config.size
+      }} "
+    />
+  </a>
 </ng-template>
