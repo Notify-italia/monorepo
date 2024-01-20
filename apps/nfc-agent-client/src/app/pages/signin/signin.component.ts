@@ -18,7 +18,7 @@ export class SigninComponent {
 
   public config = {
     submitLabel: "Entra nell'app",
-    pageSubtitle: 'Dipendenti',
+    pageSubtitle: '',
     pageTitle: "Effettua l'accesso",
     signupRoute: '',
     forgotPasswordRoute: '',

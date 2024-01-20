@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ISocketUserInfo } from '@notify/interfaces';
 import {
   AuthService,
   ProfileService,
@@ -10,7 +11,9 @@ import {
   LoadingComponent,
   NoItemsComponent,
   PageHeaderComponent,
+  ShareFileModalFactory,
 } from '@notify/ngx-components';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'notify-share-files',
@@ -22,7 +25,7 @@ import {
     DeviceCardComponent,
     NoItemsComponent,
   ],
-  providers: [ProfileService],
+  providers: [ProfileService, ShareFileModalFactory],
   templateUrl: './share-files.component.html',
   styleUrl: './share-files.component.scss',
 })
@@ -32,10 +35,11 @@ export class ShareFilesComponent implements OnInit, OnDestroy {
   constructor(
     private _socket: SocketService,
     private _profileService: ProfileService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _shareFileModal: ShareFileModalFactory
   ) {}
 
-  ngOnInit() {
+  public ngOnInit() {
     this._profileService.getProfile().subscribe((profile) => {
       this._socket.connect(
         profile._id,
@@ -46,7 +50,19 @@ export class ShareFilesComponent implements OnInit, OnDestroy {
   }
 
   @HostListener('window:beforeunload', ['$event'])
-  ngOnDestroy() {
+  public ngOnDestroy() {
     this._socket.disconnect();
+  }
+
+  public openShareFileForm(target: ISocketUserInfo) {
+    const ref = this._shareFileModal.create();
+
+    ref.instance.submitted
+      .pipe(
+        tap(async (file: File) => {
+          this._socket.sendFile(await file.arrayBuffer(), file.name, target.id);
+        })
+      )
+      .subscribe();
   }
 }

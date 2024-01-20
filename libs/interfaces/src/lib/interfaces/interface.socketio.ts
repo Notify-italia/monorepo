@@ -22,4 +22,6 @@ export enum EnumSocketIOSystemEvents {
 
 export enum EnumSOcketIOProfileEvents {
   ConnectedDevices = 'profile:devices',
+  SendFile = 'profile:send-file',
+  RecieveFile = 'profile:recieve-file',
 }

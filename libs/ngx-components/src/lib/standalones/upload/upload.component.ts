@@ -69,7 +69,11 @@ export class UploadComponent implements OnChanges, OnDestroy, OnInit {
 
     const file = event.addedFiles[0];
 
-    this.file = await this._compressImage(file);
+    this.file = file;
+
+    if (this.acceptedFiles === 'image/*') {
+      this.file = await this._compressImage(file);
+    }
 
     const buffer = await this.file.arrayBuffer();
     const srcBlob = await this._arrayBufferToBase64(buffer);

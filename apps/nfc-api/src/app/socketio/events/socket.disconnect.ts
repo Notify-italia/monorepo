@@ -1,11 +1,7 @@
 import { EnumSocketIOSystemEvents, ISocketIo } from '@notify/interfaces';
 import { Socket } from 'socket.io';
 
-import {
-  SocketsConnectionsManager,
-  getHeaders,
-  userRoom,
-} from '../service.socket';
+import { SocketsConnectionsManager, getHeaders } from '../service.socket';
 
 export const socketEventDisconnect = (
   io: ISocketIo,
@@ -13,18 +9,12 @@ export const socketEventDisconnect = (
   connections: SocketsConnectionsManager
 ) => {
   socket.on(EnumSocketIOSystemEvents.Disconnect, () => {
-    const { profile, owner, userinfo } = getHeaders(socket);
-
-    const profileRoom = userRoom(profile as string);
-    socket.leave(profileRoom);
-
-    const ownerRoom = userRoom(owner as string);
-    socket.leave(ownerRoom);
+    const { userinfo } = getHeaders(socket);
 
     socket.disconnect();
 
-    connections.remove(JSON.parse(userinfo as string));
+    connections.remove(JSON.parse(userinfo as unknown as string));
 
-    console.log(`User left ${profileRoom}`);
+    console.log(`User disconnected`);
   });
 };

@@ -6,12 +6,16 @@ import {
 } from '@notify/interfaces';
 import { Socket } from 'socket.io';
 
-export const userRoom = (profile: INotifyProfile['_id']) => {
+export const profileRoom = (profile: INotifyProfile['_id']) => {
   return `profile:${profile}`;
 };
 
 export const ownerRoom = (owner: INotifyProfile['owner']) => {
   return `owner:${owner}`;
+};
+
+export const selfRoom = (id: string) => {
+  return `self:${id}`;
 };
 
 export const getHeaders = (socket: Socket) => {

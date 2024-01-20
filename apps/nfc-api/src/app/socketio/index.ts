@@ -1,10 +1,14 @@
+import { ISocketUserInfo } from '@notify/interfaces';
 import { Server, Socket } from 'socket.io';
 import { server } from '..';
 import { socketEventDisconnect } from './events/socket.disconnect';
+import { socketEventSendFile } from './events/socket.send-file';
 import {
   SocketsConnectionsManager,
   getHeaders,
-  userRoom,
+  ownerRoom,
+  profileRoom,
+  selfRoom,
 } from './service.socket';
 
 const io = new Server(server, {
@@ -20,29 +24,35 @@ const io = new Server(server, {
 const listen = async (callback: Function) => {
   const connections = new SocketsConnectionsManager(io);
 
-  logConnectedDevices(connections);
-
   io.on('connection', async (socket: Socket) => {
     const headers = getHeaders(socket);
 
+    const parsedUser: ISocketUserInfo = JSON.parse(
+      headers.userinfo as unknown as string
+    );
+
     //get the profile room from the given id
-    const profileRoom = userRoom(headers.profile);
+    const _profileRoom = profileRoom(headers.profile);
+
+    //get the self room from the given id
+    const _selfRoom = selfRoom(parsedUser.id);
 
     //join the profile room
-    socket.join(profileRoom);
+    socket.join(_profileRoom);
+
+    //join its own room
+    socket.join(_selfRoom);
 
     if (headers.owner) {
       //if the owner is present, join the owner room
-      const ownerRoom = userRoom(headers.owner);
-      socket.join(ownerRoom);
+      const _ownerRoom = ownerRoom(headers.owner);
+      socket.join(_ownerRoom);
     }
 
-    connections.add(
-      JSON.parse(headers.userinfo as unknown as string),
-      profileRoom
-    );
+    connections.add(parsedUser, _profileRoom);
 
     socketEventDisconnect(io, socket, connections);
+    socketEventSendFile(io, socket);
   });
 
   return callback();
@@ -53,13 +63,3 @@ const socketIOServer = {
 };
 
 export { socketIOServer };
-
-const logConnectedDevices = async (connections: SocketsConnectionsManager) => {
-  console.log(
-    connections.activeConnections.map((c) => c.sockets.map((s) => s.id))
-  );
-
-  setTimeout(() => {
-    logConnectedDevices(connections);
-  }, 10000);
-};

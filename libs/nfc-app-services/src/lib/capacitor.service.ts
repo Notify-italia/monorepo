@@ -11,6 +11,7 @@ export class CapacitorService {
   public isNative = Capacitor.isNativePlatform();
   public isIOS = Capacitor.getPlatform() === 'ios';
   public isAndroid = Capacitor.getPlatform() === 'android';
+  public isDesktop = Capacitor.getPlatform() === 'web';
 
   public get brightness(): Promise<GetBrightnessReturnValue> {
     return new Promise<GetBrightnessReturnValue>((resolve, reject) => {

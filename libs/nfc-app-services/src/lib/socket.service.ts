@@ -68,6 +68,24 @@ export class SocketService {
     this.connectedDevices$.next([]);
   }
 
+  public sendFile(
+    fileData: ArrayBuffer,
+    fileName: string,
+    target: ISocketUserInfo['id']
+  ) {
+    this._socket?.emit(
+      EnumSOcketIOProfileEvents.SendFile,
+      {
+        target,
+        fileData,
+        fileName,
+      },
+      (status: number) => {
+        console.log(status);
+      }
+    );
+  }
+
   private _populateUserInfo(userId?: string) {
     const _guestId = Math.random().toString(36).substr(2, 9);
     const info = this._detector.getDeviceInfo();
@@ -108,6 +126,13 @@ export class SocketService {
         this.connectedDevices$.next(
           devices.filter((device) => device.id !== this.user?.id)
         );
+      }
+    );
+
+    this._socket.on(
+      EnumSOcketIOProfileEvents.RecieveFile,
+      (data: { fileData: Buffer; fileName: string }) => {
+        console.log(data);
       }
     );
   }
