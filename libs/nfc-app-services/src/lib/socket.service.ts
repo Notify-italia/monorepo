@@ -5,7 +5,7 @@ import {
   ISocketUserInfo,
 } from '@notify/interfaces';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Socket, io } from 'socket.io-client';
 
 @Injectable({
@@ -13,6 +13,7 @@ import { Socket, io } from 'socket.io-client';
 })
 export class SocketService {
   public connectedDevices$ = new BehaviorSubject<ISocketUserInfo[]>([]);
+  public fileRecieved$ = new Subject<{ fileData: Buffer; fileName: string }>();
 
   public connection$ = new BehaviorSubject<{
     status: boolean;
@@ -132,7 +133,7 @@ export class SocketService {
     this._socket.on(
       EnumSOcketIOProfileEvents.RecieveFile,
       (data: { fileData: Buffer; fileName: string }) => {
-        console.log(data);
+        this.fileRecieved$.next(data);
       }
     );
   }

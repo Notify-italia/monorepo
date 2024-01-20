@@ -11,7 +11,7 @@ import {
   LoadingComponent,
   NoItemsComponent,
   PageHeaderComponent,
-  ShareFileModalFactory,
+  ShareFileFactory,
 } from '@notify/ngx-components';
 import { tap } from 'rxjs';
 
@@ -25,7 +25,7 @@ import { tap } from 'rxjs';
     DeviceCardComponent,
     NoItemsComponent,
   ],
-  providers: [ProfileService, ShareFileModalFactory],
+  providers: [ProfileService, ShareFileFactory],
   templateUrl: './share-files.component.html',
   styleUrl: './share-files.component.scss',
 })
@@ -36,7 +36,7 @@ export class ShareFilesComponent implements OnInit, OnDestroy {
     private _socket: SocketService,
     private _profileService: ProfileService,
     private _authService: AuthService,
-    private _shareFileModal: ShareFileModalFactory
+    private _shareFileModal: ShareFileFactory
   ) {}
 
   public ngOnInit() {

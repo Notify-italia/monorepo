@@ -6,7 +6,7 @@
     <div class="flex items-center space-x-5">
       <notify-device-icon [deviceType]="user.deviceType"></notify-device-icon>
       <div class="flex flex-col space-y-1">
-        <h1 class="text-lg font-bold truncate">
+        <h1 class="text-lg font-bold truncate text-white">
           {{ user.device }} | {{ user.browser }}
         </h1>
         <div>
@@ -14,7 +14,7 @@
             {{ user.connectionTimestamp | date : 'dd/MM/yyyy HH:mm' }}
           </p>
 
-          <p class="text-xs">
+          <p class="text-xs opacity-75">
             {{ user.id }}
           </p>
         </div>

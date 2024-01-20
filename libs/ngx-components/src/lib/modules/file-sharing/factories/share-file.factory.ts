@@ -2,7 +2,7 @@ import { Injectable, ViewContainerRef } from '@angular/core';
 import { ShareFileModalComponent } from '../components/share-file-modal/share-file-modal.component';
 
 @Injectable()
-export class ShareFileModalFactory {
+export class ShareFileFactory {
   constructor(public vcr: ViewContainerRef) {}
 
   public create() {

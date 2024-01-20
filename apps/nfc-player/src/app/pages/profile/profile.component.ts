@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
@@ -9,6 +9,7 @@ import {
   SocketService,
 } from '@notify/nfc-app-services';
 import {
+  FileRecievedFactory,
   LoadingComponent,
   ProfileViewComponent,
   SwipeAvailableComponent,
@@ -26,11 +27,11 @@ import { environment } from '../../../environments/environment';
     SwipeAvailableComponent,
     LoadingComponent,
   ],
-  providers: [],
+  providers: [FileRecievedFactory],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnDestroy {
+export class ProfileComponent implements OnInit, OnDestroy {
   public profile$: Observable<INotifyProfile>;
   public publicUrl = environment.publicUrl;
   public feedbackKey = environment.feedbackKey;
@@ -57,7 +58,8 @@ export class ProfileComponent implements OnDestroy {
     private _profileService: ProfileService,
     private _titleService: Title,
     private _router: Router,
-    private _socket: SocketService
+    private _socket: SocketService,
+    private _fileRecieved: FileRecievedFactory
   ) {
     this.profile$ = this._profileService
       .getProfile(
@@ -78,6 +80,12 @@ export class ProfileComponent implements OnDestroy {
   @HostListener('window:beforeunload', ['$event'])
   ngOnDestroy() {
     this._socket.disconnect();
+  }
+
+  public ngOnInit() {
+    this._socket.fileRecieved$.subscribe((file) =>
+      this._fileRecieved.create(file)
+    );
   }
 
   public isAgent(profile: INotifyProfile): boolean {

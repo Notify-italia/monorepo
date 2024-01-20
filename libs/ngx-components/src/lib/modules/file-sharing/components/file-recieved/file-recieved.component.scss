@@ -1,0 +1,7 @@
+.file-animation {
+  @apply items-center rounded-full bg-primary p-4  text-center w-40 h-40;
+
+  & > svg {
+    @apply w-full h-full animate-pulse text-white;
+  }
+}
