@@ -4,4 +4,5 @@ export const environment = {
   publicUrl: 'https://profili.notifygroup.it',
   feedbackKey: 'feedback',
   socketUrl: 'https://notify-api.vps.notifygroup.it',
+  socketIdKey: 'prod.socketId',
 };

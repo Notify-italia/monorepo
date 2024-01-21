@@ -8,6 +8,7 @@ export const environment = {
   publicUrl: 'http://localhost:4200',
   socketUrl: 'http://localhost:3100',
   jwtTokenKey: 'dev.agent.token',
+  socketIdKey: 'dev.socketId',
 };
 
 /*

@@ -14,7 +14,7 @@ import {
   ProfileViewComponent,
   SwipeAvailableComponent,
 } from '@notify/ngx-components';
-import { Observable, catchError, tap } from 'rxjs';
+import { Observable, Subject, catchError, takeUntil, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -49,6 +49,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public companyProfileX = this._thresholds.maxTranslate;
   public companyIsVisible = false;
 
+  private _destroy$ = new Subject<void>();
+
   public get socketId(): string {
     return this._socket.user?.id || '';
   }
@@ -80,12 +82,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
   @HostListener('window:beforeunload', ['$event'])
   ngOnDestroy() {
     this._socket.disconnect();
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   public ngOnInit() {
-    this._socket.fileRecieved$.subscribe((file) =>
-      this._fileRecieved.create(file)
-    );
+    this._socket.fileRecieved$
+      .pipe(
+        takeUntil(this._destroy$),
+        tap((file) => {
+          this._fileRecieved.create(file);
+        })
+      )
+      .subscribe();
   }
 
   public isAgent(profile: INotifyProfile): boolean {

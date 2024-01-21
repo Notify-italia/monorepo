@@ -1,9 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import {
-  EnumSOcketIOProfileEvents,
-  EnumSocketIOSystemEvents,
-  ISocketUserInfo,
-} from '@notify/interfaces';
+import { EnumSOcketIOProfileEvents, ISocketUserInfo } from '@notify/interfaces';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Socket, io } from 'socket.io-client';
@@ -34,8 +30,13 @@ export class SocketService {
     return this.connection$.value;
   }
 
+  public get storedId() {
+    return localStorage.getItem(this._socketIdKey);
+  }
+
   constructor(
     @Inject('socketUrl') private _socketUrl: string,
+    @Inject('socketidKey') private _socketIdKey: string,
     private _detector: DeviceDetectorService
   ) {}
 
@@ -62,10 +63,7 @@ export class SocketService {
       return;
     }
 
-    this._socket.emit(EnumSocketIOSystemEvents.Disconnect, {
-      profile: this.connection$.value.profile,
-      owner: this.connection$.value.owner,
-    });
+    this._socket.disconnect();
     this.connectedDevices$.next([]);
   }
 
@@ -91,13 +89,19 @@ export class SocketService {
     const _guestId = Math.random().toString(36).substr(2, 9);
     const info = this._detector.getDeviceInfo();
 
+    const id = this.storedId || userId || _guestId;
+
     this.user = {
       browser: `${info.browser} ${info.browser_version}`,
       device: info.device,
       deviceType: info.deviceType,
       connectionTimestamp: Date.now(),
-      id: userId || _guestId,
+      id,
     };
+
+    if (!this.storedId) {
+      localStorage.setItem(this._socketIdKey, id);
+    }
   }
 
   private _eventsListeners(profile: string, owner = '') {

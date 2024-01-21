@@ -1,4 +1,4 @@
-import { ISocketUserInfo } from '@notify/interfaces';
+import { EnumSocketIOSystemEvents, ISocketUserInfo } from '@notify/interfaces';
 import { Server, Socket } from 'socket.io';
 import { server } from '..';
 import { socketEventDisconnect } from './events/socket.disconnect';
@@ -24,7 +24,7 @@ const io = new Server(server, {
 const listen = async (callback: Function) => {
   const connections = new SocketsConnectionsManager(io);
 
-  io.on('connection', async (socket: Socket) => {
+  io.on(EnumSocketIOSystemEvents.Connection, async (socket: Socket) => {
     const headers = getHeaders(socket);
 
     const parsedUser: ISocketUserInfo = JSON.parse(

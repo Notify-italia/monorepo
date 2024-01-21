@@ -13,6 +13,7 @@ import {
   PageHeaderComponent,
   ShareFileFactory,
 } from '@notify/ngx-components';
+import { ToastrService } from 'ngx-toastr';
 import { tap } from 'rxjs';
 
 @Component({
@@ -36,7 +37,8 @@ export class ShareFilesComponent implements OnInit, OnDestroy {
     private _socket: SocketService,
     private _profileService: ProfileService,
     private _authService: AuthService,
-    private _shareFileModal: ShareFileFactory
+    private _shareFileModal: ShareFileFactory,
+    private _toastrService: ToastrService
   ) {}
 
   public ngOnInit() {
@@ -61,6 +63,10 @@ export class ShareFilesComponent implements OnInit, OnDestroy {
       .pipe(
         tap(async (file: File) => {
           this._socket.sendFile(await file.arrayBuffer(), file.name, target.id);
+          this._toastrService.success(
+            `${target.device} lo riceverà a breve`,
+            'File inviato'
+          );
         })
       )
       .subscribe();

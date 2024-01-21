@@ -34,7 +34,11 @@ export const appConfig: ApplicationConfig = {
       provide: SocketService,
       deps: [DeviceDetectorService],
       useFactory: (detector: DeviceDetectorService) =>
-        new SocketService(environment.socketUrl, detector),
+        new SocketService(
+          environment.socketUrl,
+          environment.socketIdKey,
+          detector
+        ),
     },
     ProfileService,
     DeviceDetectorService,

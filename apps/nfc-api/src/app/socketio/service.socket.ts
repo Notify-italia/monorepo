@@ -47,14 +47,14 @@ export class SocketsConnectionsManager {
       return;
     }
 
-    const userExists = existingRoom.sockets.find((socket) =>
-      this._compare(socket, user)
-    );
+    // const userExists = existingRoom.sockets.find((socket) =>
+    //   this._compare(socket, user)
+    // );
 
-    if (userExists) {
-      //if the user already exists, do nothing
-      return;
-    }
+    // if (userExists) {
+    //   //if the user already exists, do nothing
+    //   return;
+    // }
 
     //if the room exists, push the new user to the list
     existingRoom.sockets.push(user);
@@ -64,22 +64,24 @@ export class SocketsConnectionsManager {
   }
 
   public remove(user: ISocketUserInfo) {
-    const index = this.activeConnections.findIndex((connection) =>
+    const roomIndex = this.activeConnections.findIndex((connection) =>
       connection.sockets.find((socket) => this._compare(socket, user))
     );
 
-    if (index === -1) {
+    if (roomIndex === -1) {
       //if the index isn't found (-1) then there is nothing to remove
       return;
     }
 
     //find the current room of the socket
-    const room = this.activeConnections[index].room;
+    const room = this.activeConnections[roomIndex].room;
+
+    const socketIndex = this.activeConnections[roomIndex].sockets.findIndex(
+      (socket) => this._compare(socket, user)
+    );
 
     //remove socket from list
-    this.activeConnections[index].sockets = this.activeConnections[
-      index
-    ].sockets.filter((socket) => !this._compare(socket, user));
+    this.activeConnections[roomIndex].sockets.splice(socketIndex, 1);
 
     //emit to room the new list of connected devices
     this._emitUpdates(room);
@@ -90,8 +92,15 @@ export class SocketsConnectionsManager {
   }
 
   private _socketsInRoom(room: string) {
-    return this.activeConnections.find((connection) => connection.room === room)
-      ?.sockets;
+    //unicque by id
+    return (
+      this.activeConnections
+        .find((connection) => connection.room === room)
+        ?.sockets.filter(
+          (socket, index, self) =>
+            index === self.findIndex((s) => s.id === socket.id)
+        ) || []
+    );
   }
 
   private _emitUpdates(room: string) {

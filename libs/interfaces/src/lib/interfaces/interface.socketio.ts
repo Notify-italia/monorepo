@@ -17,7 +17,8 @@ export interface ISocketUserInfo {
 }
 
 export enum EnumSocketIOSystemEvents {
-  Disconnect = 'system:disconnect',
+  Connection = 'connection',
+  Disconnect = 'disconnect',
 }
 
 export enum EnumSOcketIOProfileEvents {
