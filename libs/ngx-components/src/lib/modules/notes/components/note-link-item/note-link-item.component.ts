@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { INotifyNoteItemLink } from '@notify/interfaces';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
 import { NoteItemBase } from '../../note-item.base';
@@ -27,17 +28,21 @@ export class NoteLinkItemComponent extends NoteItemBase {
   public formVisible = false;
 
   public get redirectUrl() {
-    const url = this.form.get('url')?.value;
+    let url = this.form.get('url')?.value;
 
     if (!url) {
       return null;
     }
 
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      return `http://${url}`;
+      url = `http://${url}`;
     }
 
-    return url;
+    return this._domSanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  constructor(private _domSanitizer: DomSanitizer) {
+    super();
   }
 
   override componentReady(): void {

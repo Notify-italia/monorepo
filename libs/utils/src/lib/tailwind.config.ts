@@ -5,6 +5,12 @@ const tailwindConfig = {
         montserratAlt1: ['Montserrat-Alt1', 'bold'],
         roboto: ['Roboto', 'sans-serif'],
       },
+      dropShadow: {
+        glow: [
+          '0 0px 20px rgba(255,255, 255, 0.35)',
+          '0 0px 65px rgba(255, 255,255, 0.2)',
+        ],
+      },
       colors: {
         primary: {
           DEFAULT: '#3ABA8F',
