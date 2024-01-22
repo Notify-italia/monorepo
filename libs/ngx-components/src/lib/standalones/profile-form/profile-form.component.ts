@@ -118,7 +118,7 @@ export class ProfileFormComponent implements OnInit {
     combineLatest([this.form.valueChanges, this.form.statusChanges])
       .pipe(
         takeUntil(this._destroy$),
-        debounceTime(1000),
+        debounceTime(500),
         tap(([value]) => {
           const profile = this._mapFormToProfile(value);
           this.value.emit(profile);

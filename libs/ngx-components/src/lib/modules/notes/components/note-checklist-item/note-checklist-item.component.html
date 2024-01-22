@@ -54,12 +54,13 @@
           />
           <input
             #DescriptionInput
-            class="note-title !text-base smooth !font-medium my-auto"
+            class="note-title !text-base smooth !font-medium my-auto disabled:pointer-events-none"
             [ngClass]="{
               'line-through opacity-25 !font-normal':
                 item.controls['checked'].value
             }"
             type="text"
+            [disabled]="item.controls['checked'].value"
             placeholder="Descrizione..."
             formControlName="description"
             [maxlength]="100"

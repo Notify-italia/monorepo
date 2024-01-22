@@ -29,7 +29,7 @@
 
     @if (redirectUrl) {
     <div
-      class="iframe-wrapper w-full h-full pointer-events-none group-hover/linkPadlock:opacity-25 smooth"
+      class="iframe-wrapper w-full h-full opacity-25 lg:opacity-100 pointer-events-none group-hover/linkPadlock:opacity-25 smooth"
     >
       <iframe
         (click)="$event.preventDefault()"
@@ -89,7 +89,7 @@
   }
 
   <div
-    class="flex justify-end w-1/12 my-auto h-full items-end text-gray-300 absolute right-2 -top-2"
+    class="flex justify-end my-auto h-full items-end text-gray-300 absolute right-2 -top-2"
   >
     <button
       class="btn btn-ghost btn-square lg:pointer-events-none lg:group-hover/linkPadlock:pointer-events-auto lg:translate-x-10 group-hover/linkPadlock:translate-x-0 lg:opacity-0 group-hover/linkPadlock:opacity-100 smooth"
