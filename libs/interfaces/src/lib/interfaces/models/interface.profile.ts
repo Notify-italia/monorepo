@@ -1,6 +1,7 @@
 import { MongodbDocument } from '../interface.mongodb';
 import { EnumNotifyUserType, INotifyUser } from '../interface.user';
 
+//TODO refactoring colors, aggiugnere un oggetto page-config (in cui inserire anche avatar mask) e cambiare il nome all'aoggetto config in contactConfig
 export interface INotifyProfile<
   T extends EnumNotifyUserType = EnumNotifyUserType
 > extends MongodbDocument {

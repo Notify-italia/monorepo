@@ -18,6 +18,7 @@ export const NOTE_DEBOUNCE_TIME = 1000;
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export class NoteItemBase implements OnInit, OnDestroy {
   @Input() item!: INotifyNote['items'][0];
+  @Input() note?: INotifyNote;
 
   @Output() formValue = new EventEmitter<INotifyNoteItemValue>();
   @Output() deleteNoteItem = new EventEmitter<void>();

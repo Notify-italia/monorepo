@@ -35,15 +35,30 @@
       <div class="flex justify-between w-full items-center space-y-1">
         <form class="flex items-center space-x-2 w-full" [formGroup]="item">
           <input
+            data-theme="notifytheme"
             type="checkbox"
-            class="checkbox h-5 w-5 text-gray-600"
-            [class.checkbox-primary]="item.controls['checked'].value"
+            class="checkbox h-5 w-5 text-gray-600 !bg-transparent mask mask-squircle smooth"
+            [ngStyle]="
+              item.controls['checked'].value
+                ? {
+                    border: '2px solid ' + note?.color,
+                    color: note?.color,
+                    'background-color': note?.color,
+                    'accent-color': note?.color,
+                    '--chkbg': note?.color,
+                  }
+                : {}
+            "
             formControlName="checked"
             tabindex="-1"
           />
           <input
             #DescriptionInput
-            class="note-title !font-normal !text-base"
+            class="note-title !text-base smooth !font-medium my-auto"
+            [ngClass]="{
+              'line-through opacity-25 !font-normal':
+                item.controls['checked'].value
+            }"
             type="text"
             placeholder="Descrizione..."
             formControlName="description"

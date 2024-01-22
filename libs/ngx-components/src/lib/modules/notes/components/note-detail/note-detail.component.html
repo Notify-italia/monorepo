@@ -11,7 +11,12 @@
   ></notify-note-header>
 
   @for (item of currentNote.items; track i; let i = $index) {
-  <div class="relative m-2 lg:mx-5">
+  <div
+    class="relative m-2 lg:mx-5"
+    [ngStyle]="{
+    color: currentNote.color,
+  }"
+  >
     <div class="absolute right-2 top-[0.6rem] z-20">
       <!-- DELETE NOTE -->
       <button
@@ -44,12 +49,14 @@
     <notify-note-link-item
       *ngIf="item.type === EnumNotifyNoteItemType.Link"
       [item]="item"
+      [note]="currentNote"
       (deleteNoteItem)="deleteItem(i)"
       (formValue)="itemChanged($event, i)"
     ></notify-note-link-item>
     <notify-note-checklist-item
       *ngIf="item.type === EnumNotifyNoteItemType.Checklist"
       [item]="item"
+      [note]="currentNote"
       (deleteNoteItem)="deleteItem(i)"
       (formValue)="itemChanged($event, i)"
     ></notify-note-checklist-item>

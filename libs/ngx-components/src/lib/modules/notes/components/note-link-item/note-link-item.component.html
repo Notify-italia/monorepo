@@ -11,7 +11,7 @@
       viewBox="0 0 24 24"
       fill="currentColor"
       class="w-10 h-10"
-      [class.text-blue-500]="redirectUrl"
+      [ngClass]="{ 'text-gray-300': !redirectUrl }"
     >
       <path
         fill-rule="evenodd"
@@ -49,7 +49,7 @@
   </form>
   }
 
-  <div class="flex justify-end w-1/12 my-auto h-full items-end">
+  <div class="flex justify-end w-1/12 my-auto h-full items-end text-gray-300">
     <button
       class="btn btn-ghost btn-square -mr-1.5"
       (click)="formVisible = !formVisible"

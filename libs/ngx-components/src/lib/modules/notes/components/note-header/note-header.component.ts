@@ -23,7 +23,7 @@ import { NoteItemBase } from '../../note-item.base';
   styleUrls: ['./note-header.component.scss', '../../notes.styles.scss'],
 })
 export class NoteHeaderComponent extends NoteItemBase {
-  @Input({ required: true }) note!: INotifyNote;
+  @Input({ required: true }) override note!: INotifyNote;
 
   override componentReady() {
     this.initForm(
