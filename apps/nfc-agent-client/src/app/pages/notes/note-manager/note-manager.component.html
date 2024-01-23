@@ -12,6 +12,7 @@
   <div>
     <div>
       <div class="flex justify-around w-full">
+        <!-- BACK TO LIST -->
         <button
           [disabled]="loading"
           type="button"
@@ -33,10 +34,12 @@
           </svg>
           <span>Indietro</span>
         </button>
+        <!-- COLLEAGUES -->
         <button
           [disabled]="loading"
           type="button"
           class="utils-button !bg-complimentary-400/30 smooth"
+          (click)="addOwner()"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -48,8 +51,9 @@
             />
           </svg>
 
-          <span>Colleghi</span>
+          <span>Aggiungi Editor</span>
         </button>
+        <!-- DELETE NOTE -->
         <button
           [disabled]="loading"
           (click)="deleteNote()"

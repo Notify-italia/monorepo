@@ -9,11 +9,13 @@
       [formControlName]="name"
       class="select select-bordered w-full text-sm input-style"
       [ngClass]="{
-        'border-red-300 text-red-900 placeholder-red-300 focus:border-red-500 focus:ring-red-500':
-          showValidationErrors
+        'border-red-500 text-red-900 focus:border-red-500 focus:ring-red-500':
+          showValidationErrors,
+
+        '!text-gray-500': !value?.length
       }"
     >
-      <option value="">{{ placeholder }}</option>
+      <option value="" class="">{{ placeholder }}</option>
       <option
         *ngFor="let option of options"
         [selected]="false"
@@ -25,7 +27,7 @@
   </div>
 
   <p
-    class="mt-2 text-sm text-red-600"
+    class="mt-2 text-sm text-red-600 absolute"
     [id]="name + '-error'"
     *ngIf="showValidationErrors"
   >

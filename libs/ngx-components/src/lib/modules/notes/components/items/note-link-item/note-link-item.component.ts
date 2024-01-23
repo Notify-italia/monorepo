@@ -9,8 +9,8 @@ import {
 } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { INotifyNoteItemLink } from '@notify/interfaces';
-import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
-import { NoteItemBase } from '../../note-item.base';
+import { TailwindFormsModule } from '../../../../tailwind-forms/tailwind-forms.module';
+import { NoteItemBase } from '../note-item.base';
 
 @Component({
   selector: 'notify-note-link-item',
@@ -22,7 +22,7 @@ import { NoteItemBase } from '../../note-item.base';
     TailwindFormsModule,
   ],
   templateUrl: './note-link-item.component.html',
-  styleUrls: ['./note-link-item.component.scss', '../../notes.styles.scss'],
+  styleUrls: ['./note-link-item.component.scss', '../../../notes.styles.scss'],
 })
 export class NoteLinkItemComponent extends NoteItemBase {
   public formVisible = false;

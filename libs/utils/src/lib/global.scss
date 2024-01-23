@@ -18,8 +18,16 @@
   }
 }
 
-.popup-backdrop {
+.modal-container {
   @apply fixed w-screen h-screen backdrop-blur-xl backdrop-brightness-50 z-[999] top-0 left-0 flex justify-center items-center;
+
+  & > div {
+    @apply flex flex-col justify-center items-center;
+  }
+
+  & .modal-content {
+    @apply rounded-xl px-4 py-8 bg-base-100 w-[80%] lg:w-full h-fit flex flex-col items-center slide-in-blurred-top;
+  }
 }
 
 .smooth {

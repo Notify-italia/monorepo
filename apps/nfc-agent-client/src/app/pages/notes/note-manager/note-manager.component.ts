@@ -1,9 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppError, INotifyNote } from '@notify/interfaces';
-import { NoteService, UtilsService } from '@notify/nfc-app-services';
+import { AppError, INotifyNote, INotifyUser } from '@notify/interfaces';
 import {
+  AgentService,
+  NoteService,
+  UtilsService,
+} from '@notify/nfc-app-services';
+import {
+  AddNoteOwnerFactory,
   ConfirmModalFactory,
   LoadingComponent,
   NoteDetailComponent,
@@ -21,7 +26,13 @@ import { Observable, Subject, catchError, switchMap, tap } from 'rxjs';
     NoteDetailComponent,
     SvgBoxIconComponent,
   ],
-  providers: [NoteService, UtilsService, ConfirmModalFactory],
+  providers: [
+    NoteService,
+    UtilsService,
+    ConfirmModalFactory,
+    AddNoteOwnerFactory,
+    AgentService,
+  ],
   templateUrl: './note-manager.component.html',
   styleUrl: './note-manager.component.scss',
 })
@@ -38,7 +49,9 @@ export class NoteManagerComponent implements OnInit {
     private _activeRoute: ActivatedRoute,
     private _noteService: NoteService,
     private _utilsService: UtilsService,
-    private _confirmModal: ConfirmModalFactory
+    private _confirmModal: ConfirmModalFactory,
+    private _agentService: AgentService,
+    private _addNoteOwner: AddNoteOwnerFactory
   ) {}
 
   goBack() {
@@ -73,6 +86,16 @@ export class NoteManagerComponent implements OnInit {
         tap(() => (this.loading = false))
       )
       .subscribe();
+  }
+
+  public addOwner() {
+    const agents$ = this._agentService.getAgents() as Observable<INotifyUser[]>;
+
+    const ref = this._addNoteOwner.create({
+      users$: agents$,
+    });
+
+    return ref;
   }
 
   public deleteNote() {

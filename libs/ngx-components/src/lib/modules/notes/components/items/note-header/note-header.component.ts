@@ -7,8 +7,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { INotifyNote } from '@notify/interfaces';
-import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
-import { NoteItemBase } from '../../note-item.base';
+import { TailwindFormsModule } from '../../../../tailwind-forms/tailwind-forms.module';
+import { NoteItemBase } from '../note-item.base';
 
 @Component({
   selector: 'notify-note-header',
@@ -20,7 +20,7 @@ import { NoteItemBase } from '../../note-item.base';
     FormsModule,
   ],
   templateUrl: './note-header.component.html',
-  styleUrls: ['./note-header.component.scss', '../../notes.styles.scss'],
+  styleUrls: ['./note-header.component.scss', '../../../notes.styles.scss'],
 })
 export class NoteHeaderComponent extends NoteItemBase {
   @Input({ required: true }) override note!: INotifyNote;

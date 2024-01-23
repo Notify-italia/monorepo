@@ -23,6 +23,7 @@ export class TailwindAdvancedSelectComponent implements OnInit, OnChanges {
   @Input() placeholder = '';
   @Input() validationErrors!: { [key: string]: string };
   @Input() options!: TailwindAdvancedSelectOption[];
+  @Input() allowRemove = true;
 
   @Output() removeOption = new EventEmitter<TailwindAdvancedSelectOption>();
 

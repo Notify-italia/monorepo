@@ -8,11 +8,11 @@ import {
 } from '@notify/interfaces';
 import { NoItemsComponent } from '../../../../standalones/no-items/no-items.component';
 import { ConfirmModalFactory } from '../../../modals';
-import { NoteChecklistItemComponent } from '../note-checklist-item/note-checklist-item.component';
-import { NoteHeaderComponent } from '../note-header/note-header.component';
-import { NoteLinkItemComponent } from '../note-link-item/note-link-item.component';
-import { NoteMenuComponent } from '../note-menu/note-menu.component';
-import { NoteTextItemComponent } from '../note-text-item/note-text-item.component';
+import { NoteChecklistItemComponent } from '../items/note-checklist-item/note-checklist-item.component';
+import { NoteHeaderComponent } from '../items/note-header/note-header.component';
+import { NoteLinkItemComponent } from '../items/note-link-item/note-link-item.component';
+import { NoteMenuComponent } from '../items/note-menu/note-menu.component';
+import { NoteTextItemComponent } from '../items/note-text-item/note-text-item.component';
 
 @Component({
   selector: 'notify-note-detail',

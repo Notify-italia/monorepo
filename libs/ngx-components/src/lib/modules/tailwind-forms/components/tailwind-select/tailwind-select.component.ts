@@ -62,4 +62,8 @@ export class TailwindSelectComponent implements OnInit, OnChanges {
 
     return this.validationErrors[Object.keys(this.hasErrors)[0]];
   }
+
+  get value() {
+    return this.parent.get(this.name)?.value;
+  }
 }

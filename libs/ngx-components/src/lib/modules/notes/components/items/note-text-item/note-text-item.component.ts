@@ -9,14 +9,14 @@ import {
 } from '@angular/forms';
 import { INotifyNoteItemText } from '@notify/interfaces';
 import { Editor, NgxEditorModule } from 'ngx-editor';
-import { NoteItemBase } from '../../note-item.base';
+import { NoteItemBase } from '../note-item.base';
 
 @Component({
   selector: 'notify-note-text-item',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NgxEditorModule],
   templateUrl: './note-text-item.component.html',
-  styleUrls: ['./note-text-item.component.scss', '../../notes.styles.scss'],
+  styleUrls: ['./note-text-item.component.scss', '../../../notes.styles.scss'],
 })
 export class NoteTextItemComponent extends NoteItemBase {
   public editor!: Editor;

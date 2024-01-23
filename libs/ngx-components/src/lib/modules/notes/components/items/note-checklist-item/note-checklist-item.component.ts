@@ -15,8 +15,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { INotifyNoteItemChecklist } from '@notify/interfaces';
-import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
-import { NoteItemBase } from '../../note-item.base';
+import { TailwindFormsModule } from '../../../../tailwind-forms/tailwind-forms.module';
+import { NoteItemBase } from '../note-item.base';
 
 @Component({
   selector: 'notify-note-checklist-item',
@@ -30,7 +30,7 @@ import { NoteItemBase } from '../../note-item.base';
   templateUrl: './note-checklist-item.component.html',
   styleUrls: [
     './note-checklist-item.component.scss',
-    '../../notes.styles.scss',
+    '../../../notes.styles.scss',
   ],
 })
 export class NoteChecklistItemComponent extends NoteItemBase {
