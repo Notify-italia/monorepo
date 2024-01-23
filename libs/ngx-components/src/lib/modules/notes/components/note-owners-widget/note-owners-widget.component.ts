@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'notify-note-owners-widget',
@@ -10,4 +10,7 @@ import { Component, Input } from '@angular/core';
 })
 export class NoteOwnersWidgetComponent {
   @Input() owners: string[] = [];
+
+  @Output() addOwner = new EventEmitter<void>();
+  @Output() manageOwners = new EventEmitter<void>();
 }

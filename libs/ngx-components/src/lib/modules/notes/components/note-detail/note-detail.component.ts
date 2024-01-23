@@ -36,6 +36,8 @@ export class NoteDetailComponent implements OnInit {
   @Input({ required: true }) note!: INotifyNote;
 
   @Output() noteChanged = new EventEmitter<INotifyNote>();
+  @Output() addOwner = new EventEmitter<void>();
+  @Output() manageOwners = new EventEmitter<void>();
 
   public currentNote!: INotifyNote;
   public EnumNotifyNoteItemType = EnumNotifyNoteItemType;

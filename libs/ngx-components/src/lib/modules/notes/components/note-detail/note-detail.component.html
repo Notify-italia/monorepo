@@ -18,6 +18,8 @@
   >
     <notify-note-owners-widget
       [owners]="note.owners"
+      (addOwner)="addOwner.emit()"
+      (manageOwners)="manageOwners.emit()"
     ></notify-note-owners-widget>
 
     <div class="divider"></div>
