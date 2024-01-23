@@ -22,7 +22,7 @@ import { ProfileIntegrationsComponent } from '../profile-integrations/profile-in
 import { ProfileStaticLinksComponent } from '../profile-static-links/profile-static-links.component';
 import { RatingComponent } from '../rating/rating.component';
 
-const defaultGradientStops = ['#0A2859', '#041127'];
+export const defaultGradientStops = ['#0A2859', '#041127'];
 
 @Component({
   selector: 'notify-profile-view',

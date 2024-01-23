@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
 import {
@@ -13,6 +13,7 @@ import {
   LoadingComponent,
   ProfileViewComponent,
   SwipeAvailableComponent,
+  defaultGradientStops,
 } from '@notify/ngx-components';
 import { Observable, Subject, catchError, takeUntil, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -61,7 +62,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private _titleService: Title,
     private _router: Router,
     private _socket: SocketService,
-    private _fileRecieved: FileRecievedFactory
+    private _fileRecieved: FileRecievedFactory,
+    private _Meta: Meta
   ) {
     this.profile$ = this._profileService
       .getProfile(
@@ -221,5 +223,63 @@ END:VCARD`;
     );
     a.setAttribute('download', 'contact.vcf');
     a.click();
+  }
+
+  private _updateTags(profile: INotifyProfile) {
+    const descriptionMessage = this.isAgent(profile)
+      ? `Visualizza ${profile.name} ${profile.surname} di ${profile.company?.name} via Notify!`
+      : `Visualizza ${profile.name} via Notify!`;
+
+    const topThemeColor =
+      profile.colors.background[0] || defaultGradientStops[0];
+
+    this._Meta.updateTag({
+      name: 'description',
+      content: descriptionMessage,
+    });
+
+    this._Meta.updateTag({
+      name: 'og:title',
+      content: `${profile.name} ${profile.surname}`,
+    });
+
+    this._Meta.updateTag({
+      name: 'og:description',
+      content: descriptionMessage,
+    });
+
+    this._Meta.updateTag({
+      name: 'og:image',
+      content: profile.avatar || '',
+    });
+
+    //edit the theme color of the browser
+    this._Meta.updateTag({
+      name: 'theme-color',
+      content: topThemeColor,
+    });
+
+    //edit the color of the browser bar on mobile
+    this._Meta.updateTag({
+      name: 'msapplication-navbutton-color',
+      content: topThemeColor,
+    });
+
+    //edit the color of the browser bar on mobile
+    this._Meta.updateTag({
+      name: 'apple-mobile-web-app-status-bar-style',
+      content: topThemeColor,
+    });
+
+    this._Meta.updateTag({
+      name: 'apple-mobile-web-app-capable',
+      content: 'yes',
+    });
+
+    //edit the color of the browser bar on mobile
+    this._Meta.updateTag({
+      name: 'msapplication-TileColor',
+      content: topThemeColor,
+    });
   }
 }
