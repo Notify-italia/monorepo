@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ComponentRef, Input, OnInit } from '@angular/core';
-import { NFC } from 'capacitor-nfc';
+import { Component, ComponentRef, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -10,7 +9,7 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: './nfc-write.component.html',
   styleUrls: ['./nfc-write.component.scss'],
 })
-export class NfcWriteComponent implements OnInit {
+export class NfcWriteComponent {
   @Input() value = '';
   @Input() cf!: ComponentRef<NfcWriteComponent>;
 
@@ -18,22 +17,6 @@ export class NfcWriteComponent implements OnInit {
     status: 'scanning',
     currentValue: '',
   });
-
-  public ngOnInit(): void {
-    this.scanNFC();
-  }
-
-  public async scanNFC() {
-    await NFC.startScanning();
-
-    NFC.addListener('nfcDetected', (tag) => {
-      console.log('nfcDetected', tag);
-      this.progress$.next({
-        status: 'found',
-        currentValue: tag,
-      });
-    });
-  }
 
   public writeNFC() {
     this.progress$.next({

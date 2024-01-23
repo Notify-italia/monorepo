@@ -16,7 +16,6 @@ router.patch(
     .isMongoId()
     .withMessage(NOTE_VALIDATION_MESSAGES._id as string),
   body('note').exists().isObject().withMessage('Nota non valida'),
-
   errorHandledRequest(
     async (req, res) => {
       const { note } = req.body;

@@ -1,12 +1,14 @@
 <div class="modal-container" (click)="close()">
   <div
     class="flex flex-col justify-center w-[{{ size }}px] slide-in-blurred-top "
-    (click)="$event.stopPropagation()"
   >
     <div class="flex w-full justify-between items-center">
-      <h1 class="font-bold text-2xl">{{ title }}</h1>
+      <h1 class="font-bold text-2xl" (click)="$event.stopPropagation()">
+        {{ title }}
+      </h1>
     </div>
     <qrcode
+      (click)="$event.stopPropagation()"
       #Qrcode
       [qrdata]="data"
       [width]="size"
@@ -14,7 +16,7 @@
     ></qrcode>
     <div class="flex justify-end w-full">
       <button
-        (click)="saveAsImage(Qrcode)"
+        (click)="saveAsImage(Qrcode); $event.stopPropagation()"
         class="btn btn-wide justify-around"
         [ngStyle]="{
           width: size / 2 + 'px',

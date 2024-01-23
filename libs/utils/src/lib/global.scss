@@ -36,6 +36,10 @@
   &.smooth-slow {
     transition: all 500ms ease-in-out;
   }
+
+  &.smooth-fast {
+    transition: all 100ms ease-in-out;
+  }
 }
 
 .box {

@@ -17,6 +17,8 @@ import {
 } from '@notify/ngx-components';
 import { Observable, Subject, catchError, map, switchMap, tap } from 'rxjs';
 
+//TODO inverti il nome di questa pagina e "note-detail"
+
 @Component({
   standalone: true,
   imports: [
@@ -74,18 +76,23 @@ export class NoteManagerComponent implements OnInit {
       .subscribe();
   }
 
-  public saveNote(note: INotifyNote) {
+  public saveNote(note: INotifyNote, returnObservable = false) {
     this.loading = true;
-    this._noteService
-      .patchNote(this.id, note)
-      .pipe(
-        tap((note) => {
-          this.noteSubject$?.next(note);
-        }),
-        catchError((err: AppError) => this._utilsService.errorHandler(err)),
-        tap(() => (this.loading = false))
-      )
-      .subscribe();
+    const call = this._noteService.patchNote(this.id, note).pipe(
+      tap((note) => {
+        this.noteSubject$?.next(note);
+      }),
+      catchError((err: AppError) =>
+        this._utilsService.errorHandler<INotifyNote>(err)
+      ),
+      tap(() => (this.loading = false))
+    );
+
+    if (returnObservable) {
+      return call;
+    }
+
+    return call.subscribe();
   }
 
   public addOwner(note: INotifyNote) {
@@ -101,7 +108,23 @@ export class NoteManagerComponent implements OnInit {
       users$: agents$,
     });
 
-    return ref;
+    return ref.instance.submitted
+      .pipe(
+        switchMap((v) => {
+          ref.instance.loading = true;
+          const updatedNote = { ...note };
+
+          updatedNote.owners?.push(v.user);
+
+          return this.saveNote(updatedNote, true) as Observable<INotifyNote>;
+        }),
+        tap((note) => {
+          ref.instance.close();
+          this.noteSubject$?.next(note);
+        }),
+        catchError((err: AppError) => this._utilsService.errorHandler(err))
+      )
+      .subscribe();
   }
 
   public deleteNote() {

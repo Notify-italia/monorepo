@@ -13,6 +13,7 @@ import { NoteHeaderComponent } from '../items/note-header/note-header.component'
 import { NoteLinkItemComponent } from '../items/note-link-item/note-link-item.component';
 import { NoteMenuComponent } from '../items/note-menu/note-menu.component';
 import { NoteTextItemComponent } from '../items/note-text-item/note-text-item.component';
+import { NoteOwnersWidgetComponent } from '../note-owners-widget/note-owners-widget.component';
 
 @Component({
   selector: 'notify-note-detail',
@@ -25,6 +26,7 @@ import { NoteTextItemComponent } from '../items/note-text-item/note-text-item.co
     NoteLinkItemComponent,
     NoteChecklistItemComponent,
     NoItemsComponent,
+    NoteOwnersWidgetComponent,
   ],
   providers: [ConfirmModalFactory],
   templateUrl: './note-detail.component.html',
