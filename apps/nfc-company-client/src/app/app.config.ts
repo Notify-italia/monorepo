@@ -21,7 +21,7 @@ import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
 export function tokenGetter() {
-  return localStorage.getItem(environment.jwtTokenKey) || '';
+  return localStorage?.getItem(environment.jwtTokenKey) || '';
 }
 
 export const appConfig: ApplicationConfig = {

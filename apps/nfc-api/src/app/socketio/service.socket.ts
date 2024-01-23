@@ -47,15 +47,6 @@ export class SocketsConnectionsManager {
       return;
     }
 
-    // const userExists = existingRoom.sockets.find((socket) =>
-    //   this._compare(socket, user)
-    // );
-
-    // if (userExists) {
-    //   //if the user already exists, do nothing
-    //   return;
-    // }
-
     //if the room exists, push the new user to the list
     existingRoom.sockets.push(user);
 

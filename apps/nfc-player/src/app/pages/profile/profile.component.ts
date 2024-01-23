@@ -15,7 +15,8 @@ import {
   SwipeAvailableComponent,
   defaultGradientStops,
 } from '@notify/ngx-components';
-import { Observable, Subject, catchError, takeUntil, tap } from 'rxjs';
+
+import { Observable, Subject, catchError, of, takeUntil, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -72,11 +73,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .pipe(
         tap((profile) => {
           this._titleService.setTitle(`${profile.name} - Notify`);
+
+          this._updateTags(profile);
+
           this._socket.connect(profile._id);
         }),
         catchError((err) => {
           this._router.navigate(['/404']);
-          throw new Error(err);
+          // throw new Error(err);
+
+          return of(err);
         })
       );
   }
@@ -226,12 +232,18 @@ END:VCARD`;
   }
 
   private _updateTags(profile: INotifyProfile) {
-    const descriptionMessage = this.isAgent(profile)
-      ? `Visualizza ${profile.name} ${profile.surname} di ${profile.company?.name} via Notify!`
-      : `Visualizza ${profile.name} via Notify!`;
+    const descriptionMessage =
+      profile.bio ||
+      (this.isAgent(profile)
+        ? `Visualizza il profilo di ${profile.name} ${profile.surname} su Notify!`
+        : `Visualizza ${profile.name} su Notify!`);
 
     const topThemeColor =
       profile.colors.background[0] || defaultGradientStops[0];
+
+    //TODO una volta acquistato il bucket S3, caricare l'avatar da lì
+    const avatar =
+      'https://drive.usercontent.google.com/u/0/uc?id=1Fo2zQXEp4qJzmVYw1_ACFe6hr4K2yoR1&export=download';
 
     this._Meta.updateTag({
       name: 'description',
@@ -250,7 +262,7 @@ END:VCARD`;
 
     this._Meta.updateTag({
       name: 'og:image',
-      content: profile.avatar || '',
+      content: avatar || '',
     });
 
     //edit the theme color of the browser

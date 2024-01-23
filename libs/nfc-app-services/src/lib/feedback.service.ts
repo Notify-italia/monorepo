@@ -21,15 +21,15 @@ export class FeedbackService {
     id: INotifyFeedback['_id'],
     feedbackKey: string
   ) {
-    return JSON.parse(localStorage.getItem(feedbackKey) || '[]').find(
+    return JSON.parse(localStorage?.getItem(feedbackKey) || '[]').find(
       (feedback: INotifyFeedback) => feedback.owner === id
     );
   }
 
   private _saveToLocalStorage(feedback: INotifyFeedback, feedbackKey: string) {
-    const feedbacks = JSON.parse(localStorage.getItem(feedbackKey) || '[]');
+    const feedbacks = JSON.parse(localStorage?.getItem(feedbackKey) || '[]');
     feedbacks.push(feedback);
-    localStorage.setItem(feedbackKey, JSON.stringify(feedbacks));
+    localStorage?.setItem(feedbackKey, JSON.stringify(feedbacks));
 
     console.log('saved to local storage', feedbacks, feedbackKey);
   }

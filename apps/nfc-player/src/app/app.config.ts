@@ -1,7 +1,8 @@
 import { registerLocaleData } from '@angular/common';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import it from '@angular/common/locales/it';
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, NgZone } from '@angular/core';
+import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   provideRouter,
@@ -19,6 +20,7 @@ import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideClientHydration(),
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     provideHttpClient(),
     provideAnimations(),
@@ -32,16 +34,18 @@ export const appConfig: ApplicationConfig = {
     },
     {
       provide: SocketService,
-      deps: [DeviceDetectorService],
-      useFactory: (detector: DeviceDetectorService) =>
+      deps: [DeviceDetectorService, NgZone],
+      useFactory: (detector: DeviceDetectorService, zone: NgZone) =>
         new SocketService(
           environment.socketUrl,
           environment.socketIdKey,
+          zone,
           detector
         ),
     },
     ProfileService,
     DeviceDetectorService,
+    provideClientHydration(),
   ],
 };
 

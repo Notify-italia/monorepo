@@ -19,7 +19,7 @@ export class AuthService {
   );
 
   public get token() {
-    return localStorage.getItem(this._tokenPath) || '';
+    return localStorage?.getItem(this._tokenPath) || '';
   }
 
   public get user() {
@@ -100,7 +100,7 @@ export class AuthService {
    * reloads the page.
    */
   public signOut() {
-    localStorage.removeItem(this._tokenPath);
+    localStorage?.removeItem(this._tokenPath);
     this.currentUser$.next(null);
     location.reload();
   }
@@ -123,6 +123,6 @@ export class AuthService {
   }
 
   private _setToken(token: string) {
-    localStorage.setItem(this._tokenPath, token);
+    localStorage?.setItem(this._tokenPath, token);
   }
 }

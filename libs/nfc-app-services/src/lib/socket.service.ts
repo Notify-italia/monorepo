@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, NgZone } from '@angular/core';
 import { EnumSOcketIOProfileEvents, ISocketUserInfo } from '@notify/interfaces';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -31,16 +31,23 @@ export class SocketService {
   }
 
   public get storedId() {
-    return localStorage.getItem(this._socketIdKey);
+    return localStorage?.getItem(this._socketIdKey);
   }
 
   constructor(
     @Inject('socketUrl') private _socketUrl: string,
     @Inject('socketidKey') private _socketIdKey: string,
+    private _ngZone: NgZone,
     private _detector: DeviceDetectorService
   ) {}
 
   public connect(profile: string, owner = '', userId?: string) {
+    this._ngZone.runOutsideAngular(() => {
+      this._connect(profile, owner, userId);
+    });
+  }
+
+  private _connect(profile: string, owner = '', userId?: string) {
     this._populateUserInfo(userId);
 
     this._socket = io(this._socketUrl, {
@@ -100,7 +107,7 @@ export class SocketService {
     };
 
     if (!this.storedId) {
-      localStorage.setItem(this._socketIdKey, id);
+      localStorage?.setItem(this._socketIdKey, id);
     }
   }
 

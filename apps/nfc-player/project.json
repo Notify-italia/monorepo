@@ -8,21 +8,13 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "allowedCommonJsDependencies": [
-          "qrcode",
-          "file-saver",
-          "compressorjs"
-        ],
-        "outputPath": "dist/apps/nfc-player",
+        "allowedCommonJsDependencies": ["qrcode", "file-saver", "compressorjs"],
+        "outputPath": "dist/apps/nfc-player/browser",
         "index": "apps/nfc-player/src/index.html",
         "main": "apps/nfc-player/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/nfc-player/tsconfig.app.json",
         "assets": [
           "apps/nfc-player/src/favicon.ico",
@@ -92,9 +84,7 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ]
+      "outputs": ["{options.outputFile}"]
     },
     "deploy": {
       "executor": "nx:run-commands",
@@ -102,6 +92,65 @@
       "options": {
         "command": "cp ./apps/nfc-player/Dockerfile ./dist/apps/nfc-player && cp ./apps/nfc-player/captain-definition ./dist/apps/nfc-player && tar --strip-components=4 -cvf ./deploy.tar --exclude='*.map' ./dist/apps/nfc-player/* && caprover deploy -t ./deploy.tar -n notify -a profiles-player && rm ./deploy.tar"
       }
+    },
+    "server": {
+      "dependsOn": ["build"],
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/apps/nfc-player/server",
+        "main": "apps/nfc-player/server.ts",
+        "tsConfig": "apps/nfc-player/tsconfig.server.json"
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media",
+          "fileReplacements": [
+            {
+              "replace": "apps/nfc-player/src/environments/environment.ts",
+              "with": "apps/nfc-player/src/environments/environment.prod.ts"
+            }
+          ]
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "sourceMap": true,
+          "extractLicenses": false,
+          "vendorChunk": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-ssr": {
+      "executor": "@angular-devkit/build-angular:ssr-dev-server",
+      "configurations": {
+        "development": {
+          "browserTarget": "nfc-player:build:development",
+          "serverTarget": "nfc-player:server:development"
+        },
+        "production": {
+          "browserTarget": "nfc-player:build:production",
+          "serverTarget": "nfc-player:server:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "prerender": {
+      "executor": "@angular-devkit/build-angular:prerender",
+      "options": {
+        "routes": ["/"]
+      },
+      "configurations": {
+        "development": {
+          "browserTarget": "nfc-player:build:development",
+          "serverTarget": "nfc-player:server:development"
+        },
+        "production": {
+          "browserTarget": "nfc-player:build:production",
+          "serverTarget": "nfc-player:server:production"
+        }
+      },
+      "defaultConfiguration": "production"
     }
   }
 }

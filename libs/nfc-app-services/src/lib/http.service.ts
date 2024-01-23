@@ -5,7 +5,11 @@ import { ObservableInput, catchError } from 'rxjs';
 @Injectable()
 export class HttpService {
   private get token() {
-    return localStorage.getItem(this.tokenPath);
+    if (!this.tokenPath?.length) {
+      return;
+    }
+
+    return localStorage?.getItem(this.tokenPath);
   }
 
   constructor(
@@ -47,10 +51,16 @@ export class HttpService {
   }
 
   private _genHeaders(params?: Record<string, string>) {
-    return {
+    const headers = {
       params: new HttpParams({ fromObject: params }),
-      headers: { Authorization: `Bearer ${this.token}` },
+      Authorization: '',
     };
+
+    if (this.token) {
+      headers['Authorization'] = `Bearer ${this.token}`;
+    }
+
+    return headers;
   }
 
   private _unauthorized<T>() {
@@ -59,7 +69,7 @@ export class HttpService {
         throw err;
       }
 
-      localStorage.removeItem(this.tokenPath);
+      localStorage?.removeItem(this.tokenPath);
       location.reload();
 
       throw new Error('Unauthorized');
