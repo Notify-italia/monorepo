@@ -15,7 +15,7 @@ import {
   PageHeaderComponent,
   SvgBoxIconComponent,
 } from '@notify/ngx-components';
-import { Observable, Subject, catchError, switchMap, tap } from 'rxjs';
+import { Observable, Subject, catchError, map, switchMap, tap } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -88,8 +88,14 @@ export class NoteManagerComponent implements OnInit {
       .subscribe();
   }
 
-  public addOwner() {
-    const agents$ = this._agentService.getAgents() as Observable<INotifyUser[]>;
+  public addOwner(note: INotifyNote) {
+    const agents$ = this._agentService.getAgents().pipe(
+      map((agents) =>
+        agents.filter((agent) => {
+          return !note?.owners?.includes(agent._id);
+        })
+      )
+    ) as Observable<INotifyUser[]>;
 
     const ref = this._addNoteOwner.create({
       users$: agents$,

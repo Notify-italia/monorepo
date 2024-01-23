@@ -24,7 +24,7 @@ router.patch(
 
       const foundNote = await NoteModel.findOne({
         _id: id,
-        owner: req.currentUser._id,
+        owners: { $in: req.currentUser._id },
       });
 
       if (!foundNote) {

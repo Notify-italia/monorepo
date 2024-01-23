@@ -11,9 +11,11 @@ router.post(
   errorHandledRequest(
     async (req, res) => {
       const note = await NoteModel.build({
-        owner: new Types.ObjectId(
-          req.currentUser._id
-        ) as unknown as Schema.Types.ObjectId,
+        owners: [
+          new Types.ObjectId(
+            req.currentUser._id
+          ) as unknown as Schema.Types.ObjectId,
+        ],
       });
 
       await note.save();

@@ -16,6 +16,7 @@
         <form
           [formGroup]="form"
           autocomplete="off"
+          (submit)="submit()"
           class="w-full flex flex-col justify-center items-center"
         >
           <notify-tailwind-select
@@ -43,7 +44,13 @@
               [disabled]="form.invalid"
               class="btn w-full text-white/80 btn-primary bg-primary-500/40 brightness-90 z-10"
             >
-              Invia
+              <span *ngIf="!loading">Aggiungi</span>
+              <span
+                [ngClass]="{
+                'loading': loading,
+              }"
+                *ngIf="loading"
+              ></span>
             </button>
           </div>
         </form>

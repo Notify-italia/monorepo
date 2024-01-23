@@ -24,7 +24,7 @@ export const NOTE_VALIDATION_MESSAGES: {
   [key in keyof Partial<Note>]: ErrorMessage;
 } = {
   _id: "L'id della nota non è valido",
-  owner: 'Utente non valido',
+  owners: 'Utente non valido',
   title: 'Titolo non valido',
   color: 'Colore non valido',
   items: 'Lista non valida',
@@ -38,7 +38,7 @@ export interface Note
       _id: Types.ObjectId;
       createdAt: Date;
       updatedAt: Date;
-      owner: Schema.Types.ObjectId;
+      owners: Schema.Types.ObjectId[];
     }
   > {}
 
@@ -77,10 +77,12 @@ const NoteSchema = new Schema<Note, NoteModel>(
       type: String,
       default: '#ffffff',
     },
-    owner: {
-      type: Schema.Types.ObjectId,
-      required: [true, NOTE_VALIDATION_MESSAGES.owner],
-    },
+    owners: [
+      {
+        type: Schema.Types.ObjectId,
+        required: [true, NOTE_VALIDATION_MESSAGES.owners],
+      },
+    ],
     items: [_itemsSchema],
   },
   {

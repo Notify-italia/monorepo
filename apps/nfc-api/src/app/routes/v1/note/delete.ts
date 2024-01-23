@@ -20,7 +20,7 @@ router.delete(
 
       await NoteModel.deleteOne({
         _id: id,
-        owner: req.currentUser._id,
+        owners: { $in: req.currentUser._id },
       });
 
       res.status(201).send({ success: true });

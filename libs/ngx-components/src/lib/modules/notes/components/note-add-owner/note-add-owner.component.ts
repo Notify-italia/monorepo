@@ -14,7 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { INotifyUser } from '@notify/interfaces';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { LoadingComponent } from '../../../../standalones/loading/loading.component';
 import { ITailwindSelectOption } from '../../../tailwind-forms/components/tailwind-select/tailwind-select.component';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
@@ -34,6 +34,12 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
 export class NoteAddOwnerComponent implements OnInit {
   @Input() users$ = new Observable<INotifyUser[]>();
   @Input() cf!: ComponentRef<NoteAddOwnerComponent>;
+  @Input() loading = false;
+
+  public submitted = new Subject<{
+    user: string;
+    sendNotification: boolean;
+  }>();
 
   public enrichedUsers$!: Observable<{
     users: INotifyUser[];
@@ -72,5 +78,18 @@ export class NoteAddOwnerComponent implements OnInit {
       name: `${u.profile?.name} ${u.profile?.surname}`,
       value: u._id,
     }));
+  }
+
+  public submit() {
+    if (!this.form.valid) {
+      return;
+    }
+
+    this.submitted.next({
+      user: this.form.value.user as string,
+      sendNotification: this.form.value.sendNotification as boolean,
+    });
+
+    this.loading = true;
   }
 }

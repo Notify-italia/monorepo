@@ -23,7 +23,7 @@ router.get(
       if (id) {
         const note = await NoteModel.findOne({
           _id: id,
-          owner: req.currentUser._id,
+          owners: { $in: req.currentUser._id },
         });
 
         if (!note) {
@@ -34,7 +34,7 @@ router.get(
       }
 
       const notes = await NoteModel.find({
-        owner: req.currentUser._id,
+        owners: { $in: req.currentUser._id },
       });
 
       res.status(200).send(notes);
