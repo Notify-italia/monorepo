@@ -4,6 +4,9 @@ const tailwindConfig = {
       fontFamily: {
         montserratAlt1: ['Montserrat-Alt1', 'bold'],
         roboto: ['Roboto', 'sans-serif'],
+        anek: ['Anek Devanagari', 'sans-serif'],
+        mplusRounded: ['M PLUS Rounded 1c', 'sans-serif'],
+        work: ['Work Sans', 'sans-serif'],
       },
       dropShadow: {
         glow: [
