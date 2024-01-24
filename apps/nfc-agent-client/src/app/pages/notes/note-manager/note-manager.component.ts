@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppError, INotifyNote, INotifyUser } from '@notify/interfaces';
 import {
@@ -15,6 +15,7 @@ import {
   PageHeaderComponent,
   SvgBoxIconComponent,
 } from '@notify/ngx-components';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, catchError, map, switchMap, tap } from 'rxjs';
 
 //TODO inverti il nome di questa pagina e "note-detail"
@@ -38,11 +39,13 @@ import { Observable, Subject, catchError, map, switchMap, tap } from 'rxjs';
   templateUrl: './note-manager.component.html',
   styleUrl: './note-manager.component.scss',
 })
-export class NoteManagerComponent implements OnInit {
+export class NoteManagerComponent implements OnInit, OnDestroy {
   public id = this._activeRoute.snapshot.queryParams['id'];
 
   public noteSubject$ = new Subject<INotifyNote>();
   public note$?: Observable<INotifyNote> = this.noteSubject$;
+
+  private _destroy$ = new Subject<void>();
 
   public loading = false;
 
@@ -53,7 +56,8 @@ export class NoteManagerComponent implements OnInit {
     private _utilsService: UtilsService,
     private _confirmModal: ConfirmModalFactory,
     private _agentService: AgentService,
-    private _addNoteOwner: AddNoteOwnerFactory
+    private _addNoteOwner: AddNoteOwnerFactory,
+    private _toastr: ToastrService
   ) {}
 
   goBack() {
@@ -65,15 +69,20 @@ export class NoteManagerComponent implements OnInit {
       return;
     }
 
-    this._noteService
+    return this._noteService
       .getNote(this.id)
       .pipe(
         tap((note) => {
           this.noteSubject$?.next(note);
         }),
-        catchError((err: AppError) => this._utilsService.errorHandler(err))
+        catchError((err: AppError) => this._goBackErrorhandler(err))
       )
       .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   public saveNote(note: INotifyNote, returnObservable = false) {
@@ -82,9 +91,7 @@ export class NoteManagerComponent implements OnInit {
       tap((note) => {
         this.noteSubject$?.next(note);
       }),
-      catchError((err: AppError) =>
-        this._utilsService.errorHandler<INotifyNote>(err)
-      ),
+      catchError((err: AppError) => this._goBackErrorhandler(err)),
       tap(() => (this.loading = false))
     );
 
@@ -121,6 +128,7 @@ export class NoteManagerComponent implements OnInit {
         tap((note) => {
           ref.instance.close();
           this.noteSubject$?.next(note);
+          this._toastr.success('Editor aggiunto');
         }),
         catchError((err: AppError) => this._utilsService.errorHandler(err))
       )
@@ -158,5 +166,12 @@ export class NoteManagerComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  private _goBackErrorhandler(err: AppError) {
+    return this._utilsService.errorHandler<INotifyNote>(err).pipe(
+      tap(() => (this.loading = false)),
+      tap(() => this.goBack())
+    );
   }
 }

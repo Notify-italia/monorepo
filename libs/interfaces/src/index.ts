@@ -1,3 +1,4 @@
+export * from './lib/interfaces/interface.action-button';
 export * from './lib/interfaces/interface.error';
 export * from './lib/interfaces/interface.socketio';
 export * from './lib/interfaces/interface.user';

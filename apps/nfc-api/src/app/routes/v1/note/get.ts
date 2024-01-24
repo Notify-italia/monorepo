@@ -27,7 +27,7 @@ router.get(
         });
 
         if (!note) {
-          new BadRequestError('Note not found');
+          throw new BadRequestError('Nota non trovata');
         }
 
         res.status(200).send(note);

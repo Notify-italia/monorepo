@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { PageLayoutBaseComponent } from '../layout.base.component';
 
 @Component({
   selector: 'notify-no-items',
@@ -8,7 +9,4 @@ import { Component, Input } from '@angular/core';
   templateUrl: './no-items.component.html',
   styleUrl: './no-items.component.scss',
 })
-export class NoItemsComponent {
-  @Input() title = 'No items to display';
-  @Input() subtitle = 'Add a new item to get started';
-}
+export class NoItemsComponent extends PageLayoutBaseComponent {}

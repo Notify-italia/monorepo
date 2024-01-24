@@ -1,13 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-export interface INotifyHeaderButton {
-  label: string;
-  disabled?: boolean;
-  eventName: string;
-  icon?: string[];
-  buttonColor?: string;
-}
+import { Component } from '@angular/core';
+import { PageLayoutBaseComponent } from '../layout.base.component';
 
 @Component({
   selector: 'notify-page-header',
@@ -16,16 +9,4 @@ export interface INotifyHeaderButton {
   templateUrl: './page-header.component.html',
   styleUrls: ['./page-header.component.scss'],
 })
-export class PageHeaderComponent {
-  @Input({ required: true }) title = 'Placeholder Title';
-  @Input() subtitle = '';
-  @Input() buttons: INotifyHeaderButton[] = [];
-
-  @Output() buttonClicked = new EventEmitter<
-    INotifyHeaderButton['eventName']
-  >();
-
-  onButtonClicked(button: INotifyHeaderButton): void {
-    this.buttonClicked.emit(button.eventName);
-  }
-}
+export class PageHeaderComponent extends PageLayoutBaseComponent {}

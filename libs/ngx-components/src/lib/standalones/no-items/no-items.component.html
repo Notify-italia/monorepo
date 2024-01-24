@@ -1,21 +1,52 @@
 <!-- FILEPATH: /Users/vecho/Dev-Stuff/Projects/notify/libs/ngx-components/src/lib/standalones/no-items/no-items.component.html -->
 
-<div class="flex flex-col items-center justify-center h-full space-y-2">
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke-width="1.5"
-    stroke="currentColor"
-    class="w-14 h-14"
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      d="m21 7.5-2.25-1.313M21 7.5v2.25m0-2.25-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3 2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0 6.75 2.25-1.313M12 21.75V19.5m0 2.25-2.25-1.313m0-16.875L12 2.25l2.25 1.313M21 14.25v2.25l-2.25 1.313m-13.5 0L3 16.5v-2.25"
-    />
-  </svg>
+<div class="flex flex-col items-center justify-center h-full space-y-10">
+  <div class="flex flex-col space-y-2 items-center justify-center">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-14 h-14"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="m21 7.5-2.25-1.313M21 7.5v2.25m0-2.25-2.25 1.313M3 7.5l2.25-1.313M3 7.5l2.25 1.313M3 7.5v2.25m9 3 2.25-1.313M12 12.75l-2.25-1.313M12 12.75V15m0 6.75 2.25-1.313M12 21.75V19.5m0 2.25-2.25-1.313m0-16.875L12 2.25l2.25 1.313M21 14.25v2.25l-2.25 1.313m-13.5 0L3 16.5v-2.25"
+      />
+    </svg>
 
-  <h2 class="text-xl lg:text-3xl font-bold mb-4">{{ title }}</h2>
-  <p class="lg:text-lg text-gray-500 text-center">{{ subtitle }}</p>
+    <h2 class="text-xl lg:text-3xl font-bold mb-4">{{ title }}</h2>
+    <p class="lg:text-lg text-gray-500 text-center">{{ subtitle }}</p>
+  </div>
+  <div class="flex flex-col gap-4 sm:mt-0 sm:flex-row-reverse sm:items-center">
+    @for(btn of buttons; track btn.disabled; let i = $index) {
+    <button
+      (click)="onButtonClicked(btn)"
+      [disabled]="btn.disabled"
+      class="btn btn-{{ btn.buttonColor || 'primary' }} "
+      type="button"
+      data-theme="notifytheme"
+      [class.btn-primary]="i === 0"
+      [ngClass]="{ 'btn-accent brightness-90': i > 0 }"
+    >
+      @if (btn.icon; as i) {
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="w-6 h-6"
+      >
+        @for (path of i; track path) {
+        <path fill-rule="evenodd" [attr.d]="path" clip-rule="evenodd" />
+        }
+      </svg>
+
+      }
+
+      <span> {{ btn.label }}</span>
+    </button>
+    }
+  </div>
 </div>
