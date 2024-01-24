@@ -12,6 +12,13 @@ const tailwindConfig = {
         ],
       },
       colors: {
+        darkmode: {
+          100: '#27323A',
+          200: '#A3F7BF',
+          300: '#029DE9',
+          400: '#435055',
+        },
+
         primary: {
           DEFAULT: '#3ABA8F',
           50: '#C0EBDD',
@@ -65,10 +72,10 @@ const tailwindConfig = {
 
 tailwindConfig.daisyui.themes.push('dark', {
   notifytheme: {
-    primary: tailwindConfig.theme.extend.colors.primary.DEFAULT,
+    primary: tailwindConfig.theme.extend.colors.darkmode[200],
     'primary-focus': tailwindConfig.theme.extend.colors.primary[600],
     'primary-content': '#ffffff',
-    secondary: tailwindConfig.theme.extend.colors.secondary.DEFAULT,
+    secondary: tailwindConfig.theme.extend.colors.darkmode[400],
     'secondary-focus': tailwindConfig.theme.extend.colors.secondary[700],
     'secondary-content': '#191E24',
     //use white: '#ffffff' as the accent,

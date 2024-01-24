@@ -3,13 +3,13 @@
   [formGroup]="parent"
   id="form-wrapper"
 >
-  <label [for]="name" class="font-medium my-auto">{{ label }}</label>
+  <label [for]="name" class="font-medium my-auto opacity-45">{{ label }}</label>
 
   <div class="form-control">
     <label class="cursor-pointer label">
       <input
         type="checkbox"
-        class="toggle toggle-success"
+        class="toggle toggle-info"
         [formControlName]="name"
         [id]="name"
         checked

@@ -1,11 +1,13 @@
 <div class="w-full h-54 p-4 flex justify-around items-center box">
   <div class="tooltip" data-tip="Copia URL">
-    <button class="btn btn-circle" (click)="copyToClipboard()">
+    <button
+      class="btn btn-circle text-darkmode-200 bg-transparent border-none"
+      (click)="copyToClipboard()"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        class="w-6 h-6"
       >
         <path
           fill-rule="evenodd"
@@ -16,12 +18,14 @@
     </button>
   </div>
   <div class="tooltip" data-tip="Mostra QR">
-    <button class="btn btn-circle" (click)="openLightbox()">
+    <button
+      class="btn btn-circle text-darkmode-200 bg-transparent border-none"
+      (click)="openLightbox()"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        class="w-6 h-6"
       >
         <path
           fill-rule="evenodd"
@@ -39,7 +43,7 @@
   >
     <!-- [disabled]="!capacitor.isNative" -->
     <button
-      class="btn btn-circle"
+      class="btn btn-circle text-darkmode-200 bg-transparent border-none"
       (click)="writeNfc()"
       [disabled]="!capacitor.isNative"
     >
@@ -47,7 +51,6 @@
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 380 380"
         fill="currentColor"
-        class="w-6 h-6"
         xmlns:v="https://vecta.io/nano"
       >
         <path
