@@ -54,5 +54,7 @@ export class NoteLinkItemComponent extends NoteItemBase {
         title: new FormControl(itemValue?.title, [Validators.required]),
       })
     );
+
+    this.formVisible = !(this.item.value as INotifyNoteItemLink)?.url;
   }
 }

@@ -1,5 +1,5 @@
 <div class="note-module !flex-row group/linkPadlock h-56">
-  @if (!formVisible) {
+  @if (!formVisible && redirectUrl) {
   <a
     class="main-container"
     [class.pointer-events-none]="!redirectUrl"
@@ -90,6 +90,7 @@
 
   <div
     class="flex justify-end my-auto h-full items-end text-gray-300 absolute right-2 -top-2"
+    *ngIf="redirectUrl"
   >
     <button
       class="btn btn-ghost btn-square lg:pointer-events-none lg:group-hover/linkPadlock:pointer-events-auto lg:translate-x-10 group-hover/linkPadlock:translate-x-0 lg:opacity-0 group-hover/linkPadlock:opacity-100 smooth"
