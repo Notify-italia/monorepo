@@ -33,31 +33,34 @@
       </div>
 
       <div class="flex flex-col justify-center itemsce h-full mt-3">
-        <form class="flex justify-center space-x-4" [formGroup]="form">
-          @for (input of inputsConfig; track $index) {
-          <input
-            class="font-bold rounded lg:rounded-lg tracking-wider p-2 box w-28 uppercase text-center text-secondary-400 brightness-150"
-            (keydown)="handleLicenseInput($event, $index, input.maxLength)"
-            #LicenseInput
-            type="text"
-            [id]="input.name"
-            (paste)="handlePaste($event, $index, input.maxLength)"
-            [formControlName]="input.name"
-            [maxlength]="input.maxLength"
-            [placeholder]="input.placeholder"
-          />
-          }
+        <form [formGroup]="form" (submit)="submit()">
+          <div class="flex justify-center space-x-4">
+            @for (input of inputsConfig; track $index) {
+            <input
+              class="font-bold rounded lg:rounded-lg tracking-wider p-2 box w-28 uppercase text-center text-white brightness-150 placeholder-gray-700"
+              (keydown)="handleLicenseInput($event, $index, input.maxLength)"
+              #LicenseInput
+              type="text"
+              [id]="input.name"
+              (paste)="handlePaste($event, $index, input.maxLength)"
+              [formControlName]="input.name"
+              [maxlength]="input.maxLength"
+              [placeholder]="input.placeholder"
+            />
+            }
+          </div>
+          <div class="divider"></div>
+          <div class="flex justify-end w-full">
+            <button
+              class="btn btn-primary"
+              [disabled]="!form.valid"
+              data-theme="notifytheme"
+              type="submit"
+            >
+              Conferma
+            </button>
+          </div>
         </form>
-      </div>
-      <div class="divider"></div>
-      <div class="flex justify-end w-full">
-        <button
-          class="btn btn-primary"
-          [disabled]="!form.valid"
-          data-theme="notifytheme"
-        >
-          Conferma
-        </button>
       </div>
     </div>
   </div>

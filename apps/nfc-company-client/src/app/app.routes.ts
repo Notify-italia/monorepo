@@ -56,7 +56,6 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'signout',
-        canActivate: [licenseGuard],
         loadComponent: () =>
           import('./pages/signout/signout.component').then(
             (m) => m.SignoutComponent

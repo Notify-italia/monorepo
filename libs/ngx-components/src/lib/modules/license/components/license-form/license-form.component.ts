@@ -38,8 +38,6 @@ export class LicenseFormComponent {
   public loading = false;
   public submitted = new Subject<string>();
 
-  public value: FormControl = new FormControl('', Validators.required);
-
   private _validators = [
     Validators.required,
     Validators.minLength(8),
@@ -67,13 +65,13 @@ export class LicenseFormComponent {
   }
 
   public submit(): void {
-    if (!this.value.valid) {
+    if (!this.form.valid) {
       return;
     }
 
     const { part0, part1, part2, part3 } = this.form.value;
 
-    this.submitted.next(`${part0}-${part1}-${part2}-${part3}`);
+    this.submitted.next(`${part0}-${part1}-${part2}-${part3}`.toUpperCase());
 
     this.cf.destroy();
   }
@@ -138,9 +136,10 @@ export class LicenseFormComponent {
     }
 
     const isBackspace = event.key === 'Backspace';
+    const isTab = event.key === 'Tab';
 
     //if the key isn't alphanumeric or backspace prevent the default behavior
-    if (!event.key.match(/^[a-zA-Z0-9]$/) && !isBackspace) {
+    if (!event.key.match(/^[a-zA-Z0-9]$/) && !isBackspace && !isTab) {
       event.preventDefault();
       return;
     }

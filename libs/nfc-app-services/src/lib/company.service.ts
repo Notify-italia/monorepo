@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { INotifyCompany } from '@notify/interfaces';
+import { INotifyCompany, INotifyLicense } from '@notify/interfaces';
 import { HttpService } from './http.service';
 
 @Injectable()
@@ -12,5 +12,16 @@ export class CompanyService {
       `/v1/company`,
       body
     );
+  }
+
+  public patchLicense(publicKey: INotifyLicense['publicKey']) {
+    return this.http.patch<
+      {
+        publicKey: INotifyLicense['publicKey'];
+      },
+      INotifyLicense
+    >(`/v1/company/license`, {
+      publicKey,
+    });
   }
 }
