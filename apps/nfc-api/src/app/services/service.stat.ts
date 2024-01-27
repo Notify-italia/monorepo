@@ -1,5 +1,6 @@
 import { INotifyStat } from '@notify/interfaces';
-import { setHours, setMinutes } from 'date-fns';
+import { endOfDay, startOfDay } from 'date-fns';
+import { Types } from 'mongoose';
 import { StatDocument, StatModel } from '../models/model.stat';
 import { BadRequestError } from './errors/errors';
 
@@ -17,18 +18,16 @@ export class StatManager {
    */
   public static async increment(
     type: INotifyStat['type'],
+    owner: INotifyStat['owner'],
     period: INotifyStat['period'] = {
       //midnight of today
-      from: setMinutes(setHours(new Date(), 0), 0),
+      from: startOfDay(new Date()),
       //23:59 of today
-      to: setMinutes(setHours(new Date(), 23), 59),
+      to: endOfDay(new Date()),
     },
     valueToAdd?: INotifyStat['value']
   ) {
-    const stat = await StatModel.findOne({
-      type,
-      period,
-    });
+    const stat = await this.getStat(type, new Types.ObjectId(owner), period);
 
     if (!stat) {
       throw new BadRequestError(
@@ -51,20 +50,31 @@ export class StatManager {
    */
   public static async getStat(
     type: INotifyStat['type'],
+    owner: Types.ObjectId,
     period: INotifyStat['period']
   ) {
     const foundStat = await StatModel.findOne({
       type,
-      period: {
-        from: { $gte: period.from },
-        to: { $lte: period.to },
-      },
+      owner,
+      $and: [
+        {
+          'period.from': {
+            $gte: period.from,
+          },
+        },
+        {
+          'period.to': {
+            $lte: period.to,
+          },
+        },
+      ],
     });
 
     if (!foundStat) {
       const generatedStat = new StatModel({
         type,
         period,
+        owner,
         value: 0,
       });
 

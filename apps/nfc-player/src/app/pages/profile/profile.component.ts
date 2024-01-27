@@ -2,11 +2,17 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
+import {
+  EnumNotifyProfileSources,
+  EnumNotifyStatType,
+  EnumNotifyUserType,
+  INotifyProfile,
+} from '@notify/interfaces';
 import {
   GesturesDirective,
   ProfileService,
   SocketService,
+  StatService,
 } from '@notify/nfc-app-services';
 import {
   FileRecievedFactory,
@@ -28,7 +34,7 @@ import { environment } from '../../../environments/environment';
     SwipeAvailableComponent,
     LoadingComponent,
   ],
-  providers: [FileRecievedFactory],
+  providers: [FileRecievedFactory, StatService],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
@@ -63,15 +69,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _socket: SocketService,
     private _fileRecieved: FileRecievedFactory,
-    private _Meta: Meta
+    private _Meta: Meta,
+    private _statService: StatService
   ) {
     this.profile$ = this._profileService
       .getProfile(
         this._activatedRoute.snapshot.queryParamMap.get('p') as string
       )
       .pipe(
+        tap((profile) =>
+          this._statService
+            .incrementStat(this._getSourceStatType(), profile.owner)
+            .subscribe()
+        ),
         tap((profile) => {
-          this._titleService.setTitle(`${profile.name} - Notify`);
+          this._setMeta(profile);
+
           this._socket.connect(profile._id);
         }),
         catchError((err) => {
@@ -208,7 +221,11 @@ TEL;TYPE=work,voice;VALUE=uri:${this._profileService.cleanPhoneNumber(
       d.phoneNumber || ''
     )}
 PHOTO;ENCODING=b:${d.avatar?.split(',')[1]}
-item2.URL;type=pref:${this._profileService.genPlayerUrl(this.publicUrl, d._id)},
+item2.URL;type=pref:${this._profileService.genPlayerUrl(
+      this.publicUrl,
+      d._id,
+      EnumNotifyProfileSources.Contacts
+    )},
 ADR;TYPE=work:;;${this._profileService.buildCompanyLocation(
       d?.company?.address
     )}
@@ -225,13 +242,29 @@ END:VCARD`;
     a.click();
   }
 
-  private _updateTags(profile: INotifyProfile) {
+  private _getSourceStatType() {
+    const source = this._activatedRoute.snapshot.queryParamMap.get(
+      's'
+    ) as EnumNotifyProfileSources;
+
+    switch (source) {
+      case EnumNotifyProfileSources.Contacts:
+        return EnumNotifyStatType.ProfileReturn;
+
+      default:
+        return EnumNotifyStatType.ProfileVisit;
+    }
+  }
+
+  private _setMeta(profile: INotifyProfile) {
     const descriptionMessage = this.isAgent(profile)
       ? `Visualizza ${profile.name} ${profile.surname} di ${profile.company?.name} via Notify!`
       : `Visualizza ${profile.name} via Notify!`;
 
     const topThemeColor =
       profile.colors.background[0] || defaultGradientStops[0];
+
+    this._titleService.setTitle(`${profile.name} - Notify`);
 
     this._Meta.updateTag({
       name: 'description',

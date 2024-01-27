@@ -12,7 +12,7 @@ export interface INotifyStat extends MongodbDocument {
 }
 
 export enum EnumNotifyStatType {
-  ProfileScan = 'profile:scan',
+  ProfileVisit = 'profile:visit',
   ProfileSave = 'profile:save',
   ProfileReturn = 'profile:return',
   ProfileContactsClick = 'profile:contacts:click',

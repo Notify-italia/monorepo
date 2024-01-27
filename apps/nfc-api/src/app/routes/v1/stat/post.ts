@@ -12,14 +12,17 @@ router.post(
   body('type')
     .isString()
     .withMessage(STAT_VALIDATION_MESSAGES.type as string),
+  body('owner')
+    .isMongoId()
+    .withMessage(STAT_VALIDATION_MESSAGES.owner as string),
   body('value')
     .optional()
     .isNumeric()
     .withMessage(STAT_VALIDATION_MESSAGES.value as string),
   errorHandledRequest(async (req, res) => {
-    const { type, value } = req.body;
+    const { type, owner, value } = req.body;
 
-    const stat = await StatManager.increment(type, value);
+    const stat = await StatManager.increment(type, owner, undefined, value);
 
     res.status(201).send(stat.value);
   })

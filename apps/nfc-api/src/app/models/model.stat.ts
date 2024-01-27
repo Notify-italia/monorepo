@@ -24,6 +24,7 @@ export const STAT_VALIDATION_MESSAGES: {
 } = {
   _id: 'ID non valido',
   type: 'Tipo statistica non valido',
+  owner: 'ID proprietario non valido',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
@@ -60,6 +61,16 @@ const StatSchema = new Schema<Stat, StatModel>(
     type: {
       type: String,
       required: true,
+    },
+    period: {
+      from: {
+        type: Date,
+        required: true,
+      },
+      to: {
+        type: Date,
+        required: true,
+      },
     },
   },
   {

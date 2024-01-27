@@ -98,3 +98,10 @@ export const defaultAvatarMask = (type: EnumNotifyUserType) => {
       return 'circle';
   }
 };
+
+export enum EnumNotifyProfileSources {
+  URLShare = '',
+  QR = 'qr',
+  NFC = 'nfc',
+  Contacts = 'contacts',
+}
