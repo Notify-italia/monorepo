@@ -22,7 +22,8 @@ export type StatDocument = Document<unknown, unknown, Stat> &
 export const STAT_VALIDATION_MESSAGES: {
   [key in keyof Partial<Stat>]: ErrorMessage;
 } = {
-  _id: "L'id del sollecito deve essere un valido id mongoDB",
+  _id: 'ID non valido',
+  type: 'Tipo statistica non valido',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB

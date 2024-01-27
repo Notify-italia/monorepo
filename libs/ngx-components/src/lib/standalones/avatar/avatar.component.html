@@ -17,7 +17,7 @@
 </div>
 
 <ng-template #AvatarRenderer let-config="config">
-  <a href="config.src" download="avatar.webp">
+  <a>
     <img
       *ngIf="config.src || placeholderAvatarProvider as avatar"
       [src]="avatar"
