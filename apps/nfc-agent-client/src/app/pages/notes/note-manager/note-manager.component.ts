@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppError, INotifyNote, INotifyUser } from '@notify/interfaces';
 import {
   AgentService,
+  AuthService,
   NoteService,
   UtilsService,
 } from '@notify/nfc-app-services';
@@ -11,12 +12,21 @@ import {
   AddNoteOwnerFactory,
   ConfirmModalFactory,
   LoadingComponent,
+  ManageNoteOwnersFactory,
   NoteDetailComponent,
   PageHeaderComponent,
   SvgBoxIconComponent,
 } from '@notify/ngx-components';
-import { ToastrService } from 'ngx-toastr';
-import { Observable, Subject, catchError, map, switchMap, tap } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  catchError,
+  map,
+  of,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 
 //TODO inverti il nome di questa pagina e "note-detail"
 
@@ -35,6 +45,7 @@ import { Observable, Subject, catchError, map, switchMap, tap } from 'rxjs';
     ConfirmModalFactory,
     AddNoteOwnerFactory,
     AgentService,
+    ManageNoteOwnersFactory,
   ],
   templateUrl: './note-manager.component.html',
   styleUrl: './note-manager.component.scss',
@@ -57,7 +68,8 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
     private _confirmModal: ConfirmModalFactory,
     private _agentService: AgentService,
     private _addNoteOwner: AddNoteOwnerFactory,
-    private _toastr: ToastrService
+    private _manageNoteOwners: ManageNoteOwnersFactory,
+    private _authService: AuthService
   ) {}
 
   goBack() {
@@ -72,9 +84,7 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
     return this._noteService
       .getNote(this.id)
       .pipe(
-        tap((note) => {
-          this.noteSubject$?.next(note);
-        }),
+        tap((note) => this._updateNoteSubject(note)),
         catchError((err: AppError) => this._goBackErrorhandler(err))
       )
       .subscribe();
@@ -88,9 +98,7 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
   public saveNote(note: INotifyNote, returnObservable = false) {
     this.loading = true;
     const call = this._noteService.patchNote(this.id, note).pipe(
-      tap((note) => {
-        this.noteSubject$?.next(note);
-      }),
+      tap((note) => this.noteSubject$?.next(note)),
       catchError((err: AppError) => this._goBackErrorhandler(err)),
       tap(() => (this.loading = false))
     );
@@ -127,12 +135,74 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
         }),
         tap((note) => {
           ref.instance.close();
-          this.noteSubject$?.next(note);
-          this._toastr.success('Editor aggiunto');
+          this._updateNoteSubject(note);
         }),
         catchError((err: AppError) => this._utilsService.errorHandler(err))
       )
       .subscribe();
+  }
+
+  public manageOwners(note: INotifyNote) {
+    const users$ = this._getAgents$(note);
+
+    const ref = this._manageNoteOwners.create({
+      users$,
+      skeletonRows: note.owners.length - 1,
+    });
+
+    ref.instance.removeOwner
+      .pipe(
+        takeUntil(ref.instance.destroyed$),
+        switchMap((v) => {
+          //imposto il loading sul componente
+          ref.instance.loading = true;
+
+          //clono note e gli tolgo l'owner da rimuovere
+          const updatedNote = { ...note };
+          updatedNote.owners = updatedNote.owners?.filter((o) => o !== v);
+
+          //aggiorno il numero di skeleton rows
+          ref.instance.skeletonRows = updatedNote.owners.length - 1;
+
+          //salvo la nota
+          return this.saveNote(updatedNote, true) as Observable<INotifyNote>;
+        }),
+        tap((n) => {
+          note = n;
+          //aggiorno il subject della nota
+          this._updateNoteSubject(n);
+
+          //eseguo il refresh del subject degli utenti
+          ref.instance.refreshUserSubject(this._getAgents$(n));
+        }),
+        catchError((err: AppError) => this._utilsService.errorHandler(err)),
+        tap(() => (ref.instance.loading = false))
+      )
+      .subscribe();
+
+    ref.instance.addOwner
+      .pipe(
+        takeUntil(ref.instance.destroyed$),
+        tap(() => {
+          ref.instance.close();
+          this.addOwner(note);
+        })
+      )
+      .subscribe();
+  }
+
+  private _getAgents$(note: INotifyNote) {
+    const filteredOwners = note.owners.filter(
+      (owner) => owner !== this._authService.user?._id
+    );
+
+    if (filteredOwners.length === 0) {
+      return of([]);
+    }
+
+    return this._agentService.getAgents(filteredOwners) as Observable<
+      INotifyUser[]
+    >;
   }
 
   public deleteNote() {
@@ -173,5 +243,9 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
       tap(() => (this.loading = false)),
       tap(() => this.goBack())
     );
+  }
+
+  private _updateNoteSubject(note: INotifyNote) {
+    this.noteSubject$?.next(note);
   }
 }

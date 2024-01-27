@@ -37,12 +37,14 @@ export class NoteChecklistItemComponent extends NoteItemBase {
   //viewchildern inputs
   @ViewChildren('DescriptionInput') inputs!: QueryList<ElementRef>;
 
-  override componentReady(): void {
+  override componentInit(): void {
     const itemValue = this.item.value as INotifyNoteItemChecklist;
 
     this.initForm(
       new FormGroup({
-        title: new FormControl(itemValue?.title, [Validators.required]),
+        title: new FormControl(itemValue?.title || 'Da fare', [
+          Validators.required,
+        ]),
         items: new FormArray(
           itemValue?.items?.map(
             (item) =>

@@ -6,6 +6,7 @@ import {
 import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
 import { Router } from 'express';
 import { query } from 'express-validator';
+import { isValidObjectId } from 'mongoose';
 
 //boilderplate for a post request to create an agent
 const router = Router();
@@ -14,14 +15,20 @@ router.get(
   '/',
   query('id')
     .optional()
-    .isMongoId()
+    .custom((value) =>
+      value.split(',').every((id: string) => isValidObjectId(id))
+    )
     .withMessage(AGENT_VALIDATION_MESSAGES._id as string),
   errorHandledRequest(
     async (req, res) => {
       const { id } = req.query;
 
       if (id) {
-        res.status(200).send(await AgentModel.findById(id).lean());
+        res.status(200).send(
+          await AgentModel.find({ _id: (id as string).split(',') })
+            .populate('profile')
+            .lean()
+        );
         return;
       }
 

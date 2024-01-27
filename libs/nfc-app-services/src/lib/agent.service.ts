@@ -6,7 +6,12 @@ import { HttpService } from './http.service';
 export class AgentService {
   constructor(private http: HttpService) {}
 
-  public getAgents() {
+  public getAgents(id?: string | string[]) {
+    if (id) {
+      return this.http.get<INotifyAgent[]>(`/v1/agent`, {
+        id: (Array.isArray(id) ? id : [id]).join(','),
+      });
+    }
     return this.http.get<INotifyAgent[]>(`/v1/agent`);
   }
 

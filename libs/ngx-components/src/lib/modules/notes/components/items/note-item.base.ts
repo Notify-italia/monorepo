@@ -32,7 +32,7 @@ export class NoteItemBase implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit(): void {
-    this.componentReady();
+    this.componentInit();
 
     this.form.valueChanges
       .pipe(takeUntil(this.destroy$), debounceTime(NOTE_DEBOUNCE_TIME))
@@ -41,11 +41,15 @@ export class NoteItemBase implements OnInit, OnDestroy {
     return;
   }
 
-  public componentReady(): void {
+  public componentInit(): void {
     return;
   }
 
   public componentDestroyed(): void {
+    return;
+  }
+
+  public componentReady(): void {
     return;
   }
 

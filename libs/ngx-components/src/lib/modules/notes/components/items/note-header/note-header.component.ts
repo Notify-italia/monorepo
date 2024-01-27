@@ -25,7 +25,7 @@ import { NoteItemBase } from '../note-item.base';
 export class NoteHeaderComponent extends NoteItemBase {
   @Input({ required: true }) override note!: INotifyNote;
 
-  override componentReady() {
+  override componentInit() {
     this.initForm(
       new FormGroup({
         title: new FormControl(this.note.title),

@@ -21,7 +21,7 @@ import { NoteItemBase } from '../note-item.base';
 export class NoteTextItemComponent extends NoteItemBase {
   public editor!: Editor;
 
-  override componentReady(): void {
+  override componentInit(): void {
     this.initForm(
       new FormGroup({
         content: new FormControl(

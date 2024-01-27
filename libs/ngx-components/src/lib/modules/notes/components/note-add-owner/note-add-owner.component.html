@@ -1,7 +1,7 @@
 <div class="modal-container" (click)="close()">
   <div>
     @if (enrichedUsers$ | async; as u) {
-    <div (click)="$event.stopPropagation()" class="modal-content w-96">
+    <div (click)="$event.stopPropagation()" class="modal-content">
       <div class="w-full px-4">
         <h2 class="text-3xl font-bold text-start text-white w-full">
           Aggiungi editor

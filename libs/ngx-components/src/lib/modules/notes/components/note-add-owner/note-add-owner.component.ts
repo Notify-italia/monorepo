@@ -28,6 +28,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
     FormsModule,
     TailwindFormsModule,
   ],
+  selector: 'notify-note-add-owner',
   templateUrl: './note-add-owner.component.html',
   styleUrl: './note-add-owner.component.scss',
 })

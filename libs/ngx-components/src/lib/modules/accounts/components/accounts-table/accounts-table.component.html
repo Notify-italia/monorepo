@@ -30,9 +30,24 @@
         </label>
         <!-- TODO FILTERS -->
       </div>
-      @if (users; as p) {
+
+      <notify-no-items
+        *ngIf="users && !users?.length"
+        [title]="noItemsMessages.title"
+        [subtitle]="noItemsMessages.subtitle"
+      >
+      </notify-no-items>
       <!-- TABLE -->
-      <div class="box w-full h-full p-4">
+      <div
+        *ngIf="users?.length || skeletonRows"
+        class="box w-full h-full p-4"
+        [ngStyle]="
+      config.transparentBackgroundColor
+        ? {
+            'background-color': 'transparent',
+          }
+        : {}"
+      >
         <div class="overflow-x-auto">
           <table class="table w-full">
             <!-- head -->
@@ -50,32 +65,61 @@
               </tr>
             </thead>
             <tbody>
+              @if (users?.length) {
               <!-- row 1 -->
-              @for (user of p; track user._id) {
+              @for (user of users; track user._id) {
               <tr
                 (click)="config.clickableRow ? rowClicked.emit(user) : null"
                 notify-accounts-row
                 class="w-full smooth"
                 [user]="user"
                 [ngClass]="{
-                  'hover:brightness-150 cursor-pointer': config.clickableRow,
-                  
-                }"
+                    'hover:brightness-150 cursor-pointer': config.clickableRow,
+                    
+                  }"
                 [config]="config"
                 (inspectProfile)="inspectProfile.emit(user.profile)"
                 (showUserForm)="showUserForm.emit(user)"
                 (deleteUser)="deleteUser.emit(user)"
               ></tr>
-              }
+              } } @else {
+              <!-- skeletons -->
+              @for (item of iterableSkeletonRows; track $index) {
+              <tr>
+                <td *ngIf="!isRowDisabled('select-item')">
+                  <div class="skeleton w-8 h-8 rounded-full"></div>
+                </td>
+                <td *ngIf="!isRowDisabled('name')">
+                  <div class="flex space-x-2">
+                    <div class="skeleton rounded-full shrink-0 w-14 h-14"></div>
+                    <div class="flex flex-col justify-center space-y-2">
+                      <div class="skeleton w-32 h-4"></div>
+                      <div class="skeleton w-32 h-4"></div>
+                    </div>
+                  </div>
+                </td>
+                <td *ngIf="!isRowDisabled('role')">
+                  <div class="skeleton w-32 h-4"></div>
+                </td>
+                <td *ngIf="!isRowDisabled('createdAt')">
+                  <div class="skeleton w-32 h-4"></div>
+                </td>
+                <td *ngIf="!isRowDisabled('actions')">
+                  <div class="skeleton w-20 h-12"></div>
+                </td>
+              </tr>
+
+              } }
             </tbody>
             <!-- foot -->
           </table>
         </div>
       </div>
-      } @else {
-      <div class="h-[40vh] md:h-[60vh]">
+      @if(!users && !skeletonRows) {
+      <div class="h-[40%] md:h-[60%]" *ngIf="!users">
         <notify-loading></notify-loading>
       </div>
+
       }
     </div>
   </div>

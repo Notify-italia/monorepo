@@ -42,7 +42,11 @@
         </svg>
       </button>
       <!-- MANAGE OWNERS -->
-      <button class="smooth" (click)="manageOwners.emit()">
+      <button
+        class="smooth"
+        (click)="manageOwners.emit()"
+        *ngIf="owners.length > 1"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

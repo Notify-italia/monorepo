@@ -1,7 +1,6 @@
 import { LogManager, log } from '@notify/api-shared';
 import { server } from './app';
 import { connectToDatabase } from './app/services/service.db';
-import { LicenseManager } from './app/services/service.license';
 import { socketIOServer } from './app/socketio';
 
 const logManager = LogManager.init([], 100);
@@ -18,13 +17,6 @@ connectToDatabase();
 
 server.listen(port, () => {
   wLog(`listening on port http://localhost:${port}`, 'info');
-
-  const license = LicenseManager.generate({
-    expirationDate: new Date('2024-07-01'),
-    allowedAgents: 10,
-  }).then((license) => {
-    wLog(`License: ${license.license.publicKey}`, 'info');
-  });
 });
 
 socketIOServer.listen(() =>

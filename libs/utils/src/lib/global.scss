@@ -31,7 +31,7 @@
   }
 
   & .modal-content {
-    @apply rounded-xl px-4 py-8 bg-base-100 w-[80%] lg:w-full h-fit flex flex-col items-center slide-in-blurred-top;
+    @apply rounded-xl px-4 py-8 bg-base-100 w-[90vw] lg:w-full lg:max-w-[40vw] h-fit flex flex-col items-center slide-in-blurred-top;
   }
 }
 

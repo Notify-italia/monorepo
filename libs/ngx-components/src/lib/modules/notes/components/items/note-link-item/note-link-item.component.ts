@@ -45,7 +45,7 @@ export class NoteLinkItemComponent extends NoteItemBase {
     super();
   }
 
-  override componentReady(): void {
+  override componentInit(): void {
     const itemValue = this.item.value as INotifyNoteItemLink;
 
     this.initForm(
