@@ -74,10 +74,15 @@ export class NoteAddOwnerComponent implements OnInit {
   }
 
   public mapUsers(u: INotifyUser[]) {
-    return u.map((u) => ({
-      name: `${u.profile?.name} ${u.profile?.surname}`,
-      value: u._id,
-    }));
+    return u.map((u) => {
+      const hasName = u.profile?.name || u.profile?.surname;
+      return {
+        name: hasName
+          ? `${u.profile?.name} ${u.profile?.surname}`
+          : u.email || 'Ignoto',
+        value: u._id,
+      };
+    });
   }
 
   public submit() {
