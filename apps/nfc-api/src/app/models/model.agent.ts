@@ -133,6 +133,7 @@ AgentSchema.statics.build = async (
       whatsappEnabled: true,
       phoneCallEnabled: true,
       emailEnabled: true,
+      smsEnabled: true,
     },
     ...profileData,
   }).save();

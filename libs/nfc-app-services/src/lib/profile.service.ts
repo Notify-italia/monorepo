@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
+import {
+  EnumNotifyProfileSources,
+  EnumNotifyUserType,
+  INotifyProfile,
+} from '@notify/interfaces';
 import { HttpService } from './http.service';
 
 @Injectable()
@@ -19,8 +23,12 @@ export class ProfileService {
     return `${d.street} ${d.number}, ${d.city}`;
   }
 
-  public genPlayerUrl(publicUrl: string, id: string) {
-    return `${publicUrl}/profile?p=${id}`;
+  public genPlayerUrl(
+    publicUrl: string,
+    id: string,
+    source?: EnumNotifyProfileSources
+  ) {
+    return `${publicUrl}/profile?p=${id}` + (source ? `&s=${source}` : '');
   }
 
   public patchProfile<T extends EnumNotifyUserType>(

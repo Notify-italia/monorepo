@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   AppError,
+  EnumNotifyProfileSources,
   EnumNotifyUserType,
   INotifyAgent,
   INotifyCompany,
@@ -118,7 +119,8 @@ export class AccountsComponent implements OnInit {
       profile,
       playerUrl: this._profileService.genPlayerUrl(
         environment.publicUrl,
-        profile._id
+        profile._id,
+        EnumNotifyProfileSources.URLShare
       ),
     });
   }

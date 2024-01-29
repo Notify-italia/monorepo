@@ -8,3 +8,4 @@ export * from './lib/interfaces/models/interface.feedback';
 export * from './lib/interfaces/models/interface.license';
 export * from './lib/interfaces/models/interface.note';
 export * from './lib/interfaces/models/interface.profile';
+export * from './lib/interfaces/models/interface.stat';
