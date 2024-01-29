@@ -150,14 +150,14 @@
           [avatarConfig]="{
             src: data?.avatar || '',
             size: '40',
-            mask: data?.config?.avatarMask || 'circle'
+            mask: data?.config?.avatarMask || ''
           }"
           [subAvatarConfig]="
             isAgent
               ? {
                   src: data?.company?.avatar || '',
                   size: '12',
-                  mask: data?.company?.config?.avatarMask || 'squircle',
+                  mask: data?.company?.config?.avatarMask || '',
                   
                 }
               : undefined

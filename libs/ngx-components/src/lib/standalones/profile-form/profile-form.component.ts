@@ -13,7 +13,6 @@ import {
   INotifyProfile,
   daisyUIAvatarMaks,
   daisyUIAvatarMaksIT,
-  defaultAvatarMask,
 } from '@notify/interfaces';
 import {
   CapacitorService,
@@ -159,7 +158,7 @@ export class ProfileFormComponent implements OnInit {
       ),
       customFields: new FormArray([] as FormGroup[]),
       avatarMask: new FormControl<DaisyUIAvatarMasks>(
-        this.profile.config.avatarMask || defaultAvatarMask(this.profile.type),
+        this.profile.config.avatarMask || '',
         []
       ),
       reviewRedirect: new FormControl(this.profile.reviewRedirect || '', []),
@@ -256,7 +255,7 @@ export class ProfileFormComponent implements OnInit {
       bio: form.bio || null,
       avatar: form.avatar || null,
       config: {
-        avatarMask: form.avatarMask || defaultAvatarMask(this.profile.type),
+        avatarMask: form.avatarMask || '',
         whatsappEnabled: !!form.whatsappEnabled,
         phoneCallEnabled: !!form.phoneCallEnabled,
         emailEnabled: !!form.emailEnabled,

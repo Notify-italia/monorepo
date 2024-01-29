@@ -65,6 +65,7 @@ export const daisyUIAvatarMaks = [
 export const daisyUIAvatarMaksIT: {
   [key in DaisyUIAvatarMasks]: string;
 } = {
+  '': '',
   circle: 'circolare',
   square: 'quadrato',
   squircle: 'squircle',
@@ -86,18 +87,7 @@ export const daisyUIAvatarMaksIT: {
   'triangle-4': 'triangolo-4',
 };
 
-export type DaisyUIAvatarMasks = (typeof daisyUIAvatarMaks)[number];
-
-export const defaultAvatarMask = (type: EnumNotifyUserType) => {
-  switch (type) {
-    case EnumNotifyUserType.Agent:
-      return 'circle';
-    case EnumNotifyUserType.Company:
-      return 'squircle';
-    default:
-      return 'circle';
-  }
-};
+export type DaisyUIAvatarMasks = (typeof daisyUIAvatarMaks)[number] | '';
 
 export enum EnumNotifyProfileSources {
   URLShare = '',

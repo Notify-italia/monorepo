@@ -21,7 +21,10 @@
     <img
       *ngIf="config.src || placeholderAvatarProvider as avatar"
       [src]="avatar"
-      class=" mask mask-{{ config.mask }} object-cover  w-{{ config.size }} h-{{
+      [ngClass]="{
+        'mask': config.mask?.length,
+      }"
+      class=" mask-{{ config.mask }} object-cover  w-{{ config.size }} h-{{
         config.size
       }} "
     />
