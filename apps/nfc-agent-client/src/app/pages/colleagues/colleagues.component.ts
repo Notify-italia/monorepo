@@ -50,10 +50,7 @@ export class ColleaguesComponent {
 
     this._profileFactory.createPlayer({
       profile,
-      playerUrl: this._profileService.genPlayerUrl(
-        environment.publicUrl,
-        profile._id
-      ),
+      baseUrl: environment.profilesUrl,
     });
   }
 }

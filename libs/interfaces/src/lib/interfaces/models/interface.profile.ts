@@ -90,7 +90,7 @@ export const daisyUIAvatarMaksIT: {
 export type DaisyUIAvatarMasks = (typeof daisyUIAvatarMaks)[number] | '';
 
 export enum EnumNotifyProfileSources {
-  URLShare = '',
+  URL = 'url',
   QR = 'qr',
   NFC = 'nfc',
   Contacts = 'contacts',

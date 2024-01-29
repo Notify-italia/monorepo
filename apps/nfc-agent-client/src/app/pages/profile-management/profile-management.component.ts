@@ -46,6 +46,8 @@ export class ProfileManagementComponent {
 
   public loading = false;
 
+  public baseUrl = environment.profilesUrl;
+
   constructor(
     private _profileService: ProfileService,
     private _utilsService: UtilsService,
@@ -53,13 +55,6 @@ export class ProfileManagementComponent {
     private _playerFactroy: ProfilePlayerFactory
   ) {
     this._getProfile();
-  }
-
-  public playerUrl(profile: IProfile) {
-    return this._profileService.genPlayerUrl(
-      environment.publicUrl,
-      profile._id
-    );
   }
 
   public updateProfileSubject(profile: INotifyProfile) {

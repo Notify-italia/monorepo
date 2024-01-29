@@ -19,7 +19,6 @@ import {
   ProfileService,
   UtilsService,
 } from '@notify/nfc-app-services';
-import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, catchError, tap } from 'rxjs';
 import { environment } from '../../../../src/environments/environment';
 
@@ -44,22 +43,16 @@ export class ProfileManagementComponent {
   private _profileSubject$ = new Subject<IProfile>();
   public profile$: Observable<IProfile> = this._profileSubject$;
 
+  public baseUrl = environment.profilesUrl;
+
   public loading = false;
 
   constructor(
     private _profileService: ProfileService,
     private _utilsService: UtilsService,
-    private _toastr: ToastrService,
     private _playerFactroy: ProfilePlayerFactory
   ) {
     this._getProfile();
-  }
-
-  public playerUrl(profile: IProfile) {
-    return this._profileService.genPlayerUrl(
-      environment.publicUrl,
-      profile._id
-    );
   }
 
   public updateProfileSubject(profile: INotifyProfile) {
