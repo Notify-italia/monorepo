@@ -21,6 +21,9 @@ export class ShareProfileComponent {
   @Input({ required: true }) public profile!: INotifyProfile;
   @Input({ required: true }) public playerUrl = 'http://localhost:4200/profile';
 
+  public hasShare = !!navigator.share;
+  public isNative = this.capacitor.isNative;
+
   constructor(
     private _toastr: ToastrService,
     private _nfcFactory: NfcWriteFactory,
@@ -31,6 +34,21 @@ export class ShareProfileComponent {
   public async copyToClipboard() {
     await navigator.clipboard.writeText(this.playerUrl);
     this._toastr.info('URL Copiato');
+  }
+
+  public async share() {
+    if (!navigator.share) {
+      return;
+    }
+    try {
+      return await navigator.share({
+        title: 'Condividi profilo',
+        text: 'Guarda il mio profilo su Notify',
+        url: this.playerUrl,
+      });
+    } catch (error) {
+      console.error('Error sharing:', error);
+    }
   }
 
   public async openLightbox() {
