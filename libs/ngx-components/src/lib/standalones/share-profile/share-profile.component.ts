@@ -33,7 +33,7 @@ export class ShareProfileComponent {
 
   public async copyToClipboard() {
     await navigator.clipboard.writeText(this.playerUrl);
-    this._toastr.info('URL Copiato');
+    this._toastr.info('URL del profilo copiato');
   }
 
   public async share() {
@@ -42,8 +42,8 @@ export class ShareProfileComponent {
     }
     try {
       return await navigator.share({
-        title: 'Condividi profilo',
-        text: 'Guarda il mio profilo su Notify',
+        title: 'Notify',
+        text: 'Consulta il mio profilo su Notify!',
         url: this.playerUrl,
       });
     } catch (error) {
