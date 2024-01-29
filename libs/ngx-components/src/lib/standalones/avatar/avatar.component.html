@@ -22,9 +22,9 @@
       *ngIf="config.src || placeholderAvatarProvider as avatar"
       [src]="avatar"
       [ngClass]="{
-        'mask': config.mask?.length,
+        'mask object-cover ': config.mask?.length,
       }"
-      class=" mask-{{ config.mask }} object-cover  w-{{ config.size }} h-{{
+      class=" mask-{{ config.mask }} object-contain w-{{ config.size }} h-{{
         config.size
       }} "
     />

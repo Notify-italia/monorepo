@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  HostListener,
   Input,
   OnInit,
   Output,
@@ -99,6 +100,11 @@ export class IconSelectorComponent implements OnInit {
     }, 1);
   }
 
+  @HostListener('document:keydown.escape')
+  private _closeSelector() {
+    this.hideSelector = true;
+  }
+
   private _searchFilter() {
     const searchValue$ = this.searchValue.valueChanges.pipe(
       debounceTime(500),
@@ -115,7 +121,10 @@ export class IconSelectorComponent implements OnInit {
         }
 
         return icons.filter((icon) => {
-          return icon.name.toLowerCase().includes(searchValue?.toLowerCase());
+          return [icon.name, icon.expanded]
+            .join(' ')
+            .toLowerCase()
+            .includes(searchValue?.toLowerCase());
         });
       })
     );

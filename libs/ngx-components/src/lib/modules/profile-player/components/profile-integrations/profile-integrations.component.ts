@@ -24,6 +24,10 @@ export class ProfileIntegrationsComponent {
     private _utils: UtilsService
   ) {}
 
+  public getExpandedName(name: string): string {
+    return this._svgBoxService.getIcon(name)?.expanded || name;
+  }
+
   public prepareUrl(url: string, icon: string): string {
     const selectedIcon = this._svgBoxService.availableIcons.find(
       (i) => i.name === icon
@@ -34,8 +38,8 @@ export class ProfileIntegrationsComponent {
     }
 
     return this._utils.populateWebProtocol(
-      'https://',
-      `${selectedIcon.prefix || ''}${url}`
+      selectedIcon.prefix || 'https://',
+      url
     );
   }
 }

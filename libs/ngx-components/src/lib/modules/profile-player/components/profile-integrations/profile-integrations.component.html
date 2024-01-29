@@ -25,7 +25,7 @@
       <notify-svg-box-icon [iconName]="item.iconName"></notify-svg-box-icon>
 
       <span *ngIf="cfLength < 3" class="tracking-wider">{{
-        item.iconName | titlecase
+        getExpandedName(item.iconName) | titlecase
       }}</span>
     </a>
   </button>
