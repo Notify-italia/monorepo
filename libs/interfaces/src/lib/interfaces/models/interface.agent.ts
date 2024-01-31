@@ -1,12 +1,14 @@
 import { MongodbDocument } from '../interface.mongodb';
 import { INotifyCompany } from './interface.company';
 import { INotifyProfile } from './interface.profile';
+import { EnumNotifyStatType } from './interface.stat';
 
 export interface INotifyAgent extends MongodbDocument {
   enabled: boolean;
   email: string;
   password?: string;
   owner: INotifyCompany['_id'];
+  statsTotals: { [key in EnumNotifyStatType]: number };
 
   //Outside of the schema
   token?: string;

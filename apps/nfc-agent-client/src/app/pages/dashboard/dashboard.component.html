@@ -1,0 +1,86 @@
+<div class="page-layout">
+  <notify-page-header
+    title="Dashboard"
+    subtitle="Visualizza le informazioni principali del tuo account"
+  ></notify-page-header>
+  @if (dashboardReady$ | async; as data) {
+  <div>
+    <div>
+      <div class="flex flex-col lg:flex-row lg:justify-between items-spacing">
+        <div class="space-y-4 lg:w-full">
+          <div class="dashboard-cards-container items-spacing">
+            <notify-widget-counter
+              class="dashboard-card"
+              title="Scansioni totali"
+              bgColor="#5EC866"
+              elementsColor="#FFFEFC"
+              [icon]="totalScansIcon"
+              [count]="data.user?.statsTotals?.['profile:visit'] || 0"
+              countSuffix="Scansioni"
+            >
+              >TOTAL_RETURNS</notify-widget-counter
+            >
+            <notify-widget-counter
+              class="dashboard-card"
+              title="Salvati in rubrica"
+              bgColor="#F9FAFB"
+              elementsColor="#1F2937"
+              [icon]="savedContactsIcon"
+              [count]="data.user?.statsTotals?.['profile:save'] || 0"
+              countSuffix="Contatti"
+              >TOTAL_SAVES</notify-widget-counter
+            >
+            <notify-widget-counter
+              class="dashboard-card"
+              title="Visite da rubrica"
+              bgColor="#080E12"
+              elementsColor="#FFFEFE"
+              [icon]="returnFromContactBookIcon"
+              [count]="data.user?.statsTotals?.['profile:return'] || 0"
+              countSuffix="% sul totale"
+            >
+            </notify-widget-counter>
+            <!-- <notify-widget-counter
+              class="dashboard-card"
+              title="Impatto ambientale"
+              bgColor="#5EC866"
+              elementsColor="#FFFEFC"
+              [icon]="co2SavedIcon"
+              [count]="1.5"
+              countSuffix="Kg di CO2 risparmiati"
+              >TOTAL_CO2_SAVED</notify-widget-counter
+            > -->
+          </div>
+          <div class="flex flex-col lg:flex-row w-full h-[28rem] items-spacing">
+            <div class="flex w-full h-full justify-center border items-center">
+              DAILY_SCANS_AREA_CHART
+            </div>
+            <div
+              class="flex flex-col justify-center lg:w-4/12 h-full border p-2 items-center"
+            >
+              ONLINE_COLLEAGUES
+            </div>
+          </div>
+          <div class="flex w-full h-24 justify-center border items-center">
+            LATEST_EDITED_NOTE
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="flex w-full">
+        <notify-share-profile
+          class="w-full"
+          [profile]="data.profile"
+          [baseUrl]="baseUrl"
+        ></notify-share-profile>
+      </div>
+    </div>
+  </div>
+  } @else {
+  <div class="loading-container">
+    <notify-loading></notify-loading>
+  </div>
+  }
+</div>

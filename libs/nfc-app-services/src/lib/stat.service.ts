@@ -25,4 +25,25 @@ export class StatService {
       owner,
     });
   }
+
+  public getStat(
+    type: INotifyStat['type'],
+    period?: INotifyStat['period'],
+    owner?: INotifyStat['owner']
+  ) {
+    const params: Partial<INotifyStat> & { from?: string; to?: string } = {
+      type,
+    };
+
+    if (period) {
+      params['from'] = period.from.toISOString();
+      params['to'] = period.to.toISOString();
+    }
+
+    if (owner) {
+      params.owner = owner;
+    }
+
+    return this.http.get<INotifyStat[]>(`/v1/stat`, params);
+  }
 }

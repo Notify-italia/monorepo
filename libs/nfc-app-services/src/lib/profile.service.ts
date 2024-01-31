@@ -48,4 +48,35 @@ export class ProfileService {
       id ? { id } : undefined
     );
   }
+
+  public saveContact(d: INotifyProfile, publicUrl: string): void {
+    if (!d) {
+      return;
+    }
+
+    const vcard = `BEGIN:VCARD
+VERSION:3.0
+N:${d.surname};${d.name};
+FN:${d.name} ${d.surname}
+ORG:${d.company?.name || d.name}
+TEL;TYPE=work,voice;VALUE=uri:${this.cleanPhoneNumber(d.phoneNumber || '')}
+PHOTO;ENCODING=b:${d.avatar?.split(',')[1]}
+item2.URL;type=pref:${this.genPlayerUrl(
+      publicUrl,
+      d._id,
+      EnumNotifyProfileSources.Contacts
+    )},
+ADR;TYPE=work:;;${this.buildCompanyLocation(d?.company?.address)}
+EMAIL:${d.email}
+END:VCARD`;
+
+    //saving the file by creating an anchor tag and simulating a click on it
+    const a = document.createElement('a');
+    a.setAttribute(
+      'href',
+      'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard)
+    );
+    a.setAttribute('download', 'contact.vcf');
+    a.click();
+  }
 }

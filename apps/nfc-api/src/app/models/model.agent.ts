@@ -77,6 +77,10 @@ const AgentSchema = new Schema<Agent, AgentModel>(
       required: true,
       ref: 'Company',
     },
+    statsTotals: {
+      type: Object,
+      default: {},
+    },
   },
   {
     timestamps: true,

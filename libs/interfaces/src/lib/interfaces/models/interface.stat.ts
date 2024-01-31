@@ -15,6 +15,6 @@ export enum EnumNotifyStatType {
   ProfileVisit = 'profile:visit',
   ProfileSave = 'profile:save',
   ProfileReturn = 'profile:return',
-  ProfileContactsClick = 'profile:contacts:click',
+  PrifileStaticContactsClick = 'profile:static-contacts:click',
   ProfileIntegrationsClick = 'profile:integrations:click',
 }

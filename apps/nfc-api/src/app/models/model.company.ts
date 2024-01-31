@@ -72,6 +72,10 @@ const CompanySchema = new Schema<Company, CompanyModel>(
       type: [String],
       default: [],
     },
+    statsTotals: {
+      type: Object,
+      default: {},
+    },
   },
   {
     timestamps: true,

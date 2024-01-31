@@ -1,0 +1,10 @@
+.dashboard-cards-container {
+  @apply flex flex-col lg:flex-row justify-around w-full;
+  .dashboard-card {
+    @apply flex w-full lg:w-4/12  justify-center items-center;
+  }
+}
+
+.items-spacing {
+  @apply space-y-4 lg:space-y-0 lg:space-x-4;
+}

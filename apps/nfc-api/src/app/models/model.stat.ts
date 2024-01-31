@@ -25,6 +25,7 @@ export const STAT_VALIDATION_MESSAGES: {
   _id: 'ID non valido',
   type: 'Tipo statistica non valido',
   owner: 'ID proprietario non valido',
+  period: 'Periodo non valido',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB

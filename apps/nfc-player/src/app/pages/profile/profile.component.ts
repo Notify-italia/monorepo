@@ -208,38 +208,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   public saveContact(d: INotifyProfile): void {
-    if (!d) {
-      return;
-    }
+    this._profileService.saveContact(d, this.publicUrl);
 
-    const vcard = `BEGIN:VCARD
-VERSION:3.0
-N:${d.surname};${d.name};
-FN:${d.name} ${d.surname}
-ORG:${d.company?.name || d.name}
-TEL;TYPE=work,voice;VALUE=uri:${this._profileService.cleanPhoneNumber(
-      d.phoneNumber || ''
-    )}
-PHOTO;ENCODING=b:${d.avatar?.split(',')[1]}
-item2.URL;type=pref:${this._profileService.genPlayerUrl(
-      this.publicUrl,
-      d._id,
-      EnumNotifyProfileSources.Contacts
-    )},
-ADR;TYPE=work:;;${this._profileService.buildCompanyLocation(
-      d?.company?.address
-    )}
-EMAIL:${d.email}
-END:VCARD`;
-
-    //saving the file by creating an anchor tag and simulating a click on it
-    const a = document.createElement('a');
-    a.setAttribute(
-      'href',
-      'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard)
-    );
-    a.setAttribute('download', 'contact.vcf');
-    a.click();
+    this._statService
+      .incrementStat(EnumNotifyStatType.ProfileSave, d.owner)
+      .subscribe();
   }
 
   private _getSourceStatType() {

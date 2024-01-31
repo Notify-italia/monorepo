@@ -34,7 +34,7 @@ export class HttpService {
       .pipe(this._unauthorized());
   }
 
-  public get<T>(url: string, params?: Record<string, string>) {
+  public get<T>(url: string, params?: Record<string, unknown>) {
     return this.http
       .get<T>(`${this.apiUrl}${url}`, this._genHeaders(params))
       .pipe(this._unauthorized());
@@ -46,9 +46,9 @@ export class HttpService {
       .pipe(this._unauthorized());
   }
 
-  private _genHeaders(params?: Record<string, string>) {
+  private _genHeaders(params?: Record<string, unknown>) {
     return {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: params as Record<string, string> }),
       headers: { Authorization: `Bearer ${this.token}` },
     };
   }

@@ -66,8 +66,8 @@
       <notify-tailwind-input
         [parent]="form"
         name="name"
-        label="Nome*"
-        placeholder="Mario"
+        [label]="isAgent ? 'Nome*' : 'Ragione Sociale*'"
+        [placeholder]="isAgent ? 'Mario' : 'Notify Italia'"
         [validationErrors]="validationErrors"
         class="w-full"
       ></notify-tailwind-input>

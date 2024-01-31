@@ -61,11 +61,15 @@
     }"
   >
     <div class="flex flex-col items-center">
-      <div class="p-4 py-2 lg:pt-10 hidden lg:block w-64">
-        <notify-app-title [subtitle]="subtitle"></notify-app-title>
+      <div class="p-4 py-5 mt-5 lg:mt-8 w-48 lg:w-64">
+        <notify-app-title
+          [subtitle]="subtitle"
+          routerLink="/pages/dashboard"
+          class="cursor-pointer"
+        ></notify-app-title>
       </div>
 
-      <div class="divider px-4 hidden lg:flex lg:mt-8"></div>
+      <div class="divider px-4 mt-5 lg:mt-8"></div>
 
       <span class="w-full text-start px-4 mt-5 font-light text-sm"
         >Navigazione</span

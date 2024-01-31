@@ -1,0 +1,28 @@
+<div
+  class="w-full rounded-3xl h-24 font-work"
+  [ngStyle]="{
+    'background-color': bgColor,
+    color: elementsColor
+  }"
+>
+  <div class="flex flex-col w-full px-2 h-full justify-center">
+    <div class="flex justify-around h-full items-center">
+      <div
+        class="w-20 h-20 backdrop-brightness-90 rounded-3xl flex flex-col justify-center shrink-0 items-center"
+      >
+        <notify-svg-box-icon [icon]="icon" [size]="12"></notify-svg-box-icon>
+      </div>
+      <div class="w-full h-full flex flex-col px-4 justify-center truncate">
+        <h2 class="text-md font-medium truncate opacity-75">
+          {{ title }}
+        </h2>
+        <h4 class="space-x-1 flex items-end">
+          <span class="font-bold text-3xl -mb-[0.105rem]">{{ count }}</span>
+          <span class="text-base tracking-tighter opacity-50 truncate">
+            {{ countSuffix }}
+          </span>
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>

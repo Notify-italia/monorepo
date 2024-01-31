@@ -261,6 +261,11 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     score: 12.5,
   },
   {
+    expanded: 'Condivisione',
+    name: 'share',
+    set: 'hero-solid',
+  },
+  {
     expanded: 'Telegram',
     name: 'telegram',
 
