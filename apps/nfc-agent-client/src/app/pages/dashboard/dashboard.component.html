@@ -11,12 +11,12 @@
           <div class="dashboard-cards-container items-spacing">
             <notify-widget-counter
               class="dashboard-card"
-              title="Scansioni totali"
-              bgColor="#5EC866"
+              title="Visite totali"
+              bgColor="#31A17C"
               elementsColor="#FFFEFC"
               [icon]="totalScansIcon"
-              [count]="data.user?.statsTotals?.['profile:visit'] || 0"
-              countSuffix="Scansioni"
+              [count]="data.user.statsMapped.totalVisits"
+              countSuffix="Visite"
             >
               >TOTAL_RETURNS</notify-widget-counter
             >
@@ -33,10 +33,10 @@
             <notify-widget-counter
               class="dashboard-card"
               title="Visite da rubrica"
-              bgColor="#080E12"
+              bgColor="#0286FF"
               elementsColor="#FFFEFE"
               [icon]="returnFromContactBookIcon"
-              [count]="data.user?.statsTotals?.['profile:return'] || 0"
+              [count]="data.user.statsMapped.percentReturn"
               countSuffix="% sul totale"
             >
             </notify-widget-counter>
@@ -52,13 +52,17 @@
             > -->
           </div>
           <div class="flex flex-col lg:flex-row w-full h-[28rem] items-spacing">
-            <div class="flex w-full h-full justify-center border items-center">
-              DAILY_SCANS_AREA_CHART
-            </div>
+            <notify-widget-area-chart
+              class="flex w-full h-full justify-center items-center"
+              title="Visite"
+              [series]="data.areaChart"
+              (timespanChange)="getProfileVisits($event).subscribe()"
+            >
+            </notify-widget-area-chart>
             <div
               class="flex flex-col justify-center lg:w-4/12 h-full border p-2 items-center"
             >
-              ONLINE_COLLEAGUES
+              USED_INTEGRATIONS_PIE_CHART
             </div>
           </div>
           <div class="flex w-full h-24 justify-center border items-center">

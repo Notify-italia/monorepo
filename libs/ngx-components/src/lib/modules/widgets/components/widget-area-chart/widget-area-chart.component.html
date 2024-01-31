@@ -1,0 +1,45 @@
+<div
+  class="w-full h-full flex flex-col justify-center items-center bg-base-100 rounded-xl relative shadow-md"
+>
+  <div class="px-5 w-full">
+    <div class="flex justify-between items-center">
+      <h2 class="text-2xl font-medium text-white p-2 pt-4 text-start">
+        {{ title }}
+      </h2>
+      <div class="join my-auto mt-4 hidden lg:inline-flex">
+        @for (item of timespans; track $index) {
+        <button
+          class="btn join-item btn-sm"
+          data-theme="notifytheme"
+          (click)="handleTimespanChange($any(prepareSelectValue(item)))"
+          [ngClass]="
+        {
+            'brigthness-150 btn-primary': selectedTimespan.label === item.label,
+        }"
+        >
+          {{ item.label }}
+        </button>
+        }
+      </div>
+      <select
+        class="select w-full max-w-xs lg:hidden mt-2.5"
+        (change)="handleTimespanChange($any($event.target)?.value)"
+      >
+        @for (item of timespans; track $index) {
+        <option [value]="prepareSelectValue(item)">
+          {{ item.label }}
+        </option>
+        }
+      </select>
+    </div>
+    <div class="divider !mt-1"></div>
+  </div>
+  <apx-chart
+    [stroke]="chartConfig.stroke"
+    [fill]="chartConfig.fill"
+    [series]="series"
+    [chart]="chartConfig.chart"
+    [series]="enrichedSeries"
+    class="w-full h-full bottom-0"
+  ></apx-chart>
+</div>

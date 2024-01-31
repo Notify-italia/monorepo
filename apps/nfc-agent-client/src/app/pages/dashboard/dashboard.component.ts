@@ -11,10 +11,12 @@ import {
   LoadingComponent,
   PageHeaderComponent,
   ShareProfileComponent,
+  WidgetAreaChartComponent,
   WidgetCounterComponent,
 } from '@notify/ngx-components';
 import { endOfDay, startOfDay, subWeeks } from 'date-fns';
-import { combineLatest } from 'rxjs';
+import { ApexAxisChartSeries } from 'ng-apexcharts';
+import { Subject, combineLatest, map, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -25,24 +27,35 @@ import { environment } from '../../../environments/environment';
     LoadingComponent,
     ShareProfileComponent,
     WidgetCounterComponent,
+    WidgetAreaChartComponent,
   ],
   providers: [StatService],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  public profile$ = this._profileService.getProfile();
-  public weeklyScans$ = this._statService.getStat(
-    EnumNotifyStatType.ProfileVisit,
-    {
-      from: startOfDay(subWeeks(new Date(), 1)),
-      to: endOfDay(new Date()),
-    }
-  );
+  public areaChartScans$ = new Subject<ApexAxisChartSeries>();
+
   public dashboardReady$ = combineLatest({
-    profile: this.profile$,
-    user: this._authService.currentUser$,
-    weeklyScans: this.weeklyScans$,
+    profile: this._profileService.getProfile(),
+    user: this._authService.currentUser$.pipe(
+      map((p) => {
+        const _visit = p?.statsTotals[EnumNotifyStatType.ProfileVisit] || 0;
+        const _return = p?.statsTotals[EnumNotifyStatType.ProfileReturn] || 0;
+
+        const totalVisits = _visit + _return;
+        const percentReturn = totalVisits ? (_return / totalVisits) * 100 : 0;
+
+        return {
+          ...p,
+          statsMapped: {
+            totalVisits,
+            percentReturn,
+          },
+        };
+      })
+    ),
+    areaChart: this.areaChartScans$,
   });
 
   public baseUrl = environment.profilesUrl;
@@ -74,5 +87,26 @@ export class DashboardComponent {
     private _profileService: ProfileService,
     private _statService: StatService,
     private _authService: AuthService
-  ) {}
+  ) {
+    this.getProfileVisits({
+      from: startOfDay(subWeeks(new Date(), 1)),
+      to: endOfDay(new Date()),
+    }).subscribe();
+  }
+
+  public getProfileVisits(period: { from: Date; to: Date }) {
+    return this._statService
+      .getStat(EnumNotifyStatType.ProfileVisit, period)
+      .pipe(
+        map((s) => {
+          const mapped = s.map((stat) => ({
+            x: new Date(stat.period.from),
+            y: stat.value,
+          }));
+
+          return [{ name: 'Visite', data: mapped }];
+        }),
+        tap((s) => this.areaChartScans$.next(s))
+      );
+  }
 }

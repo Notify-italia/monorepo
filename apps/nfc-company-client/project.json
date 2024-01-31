@@ -33,7 +33,9 @@
           "apps/nfc-company-client/src/styles.scss",
           "libs/utils/src/lib/global.scss"
         ],
-        "scripts": []
+        "scripts": [
+          "node_modules/apexcharts/dist/apexcharts.min.js"
+        ]
       },
       "configurations": {
         "production": {
