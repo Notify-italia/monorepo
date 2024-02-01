@@ -11,6 +11,11 @@
       disabledRows: ['createdAt', 'select-item', 'actions'],
       clickableRow: true
     }"
+    [noItemsMessages]="{
+      title: 'Nessun collega',
+      subtitle:
+        'Non hai ancora colleghi o la tua ricerca non ha prodotto risultati'
+    }"
     (rowClicked)="inspectProfile($event.profile)"
   ></notify-accounts-table>
 </div>

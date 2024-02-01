@@ -49,13 +49,15 @@ router.get(
 
 export { router as getAgentRouter };
 
-const _agentFlow = (currentUser: INotifyUser) => {
-  return AgentModel.find({
+const _agentFlow = async (currentUser: INotifyUser) => {
+  const agents = await AgentModel.find({
     owner: currentUser.owner,
     enabled: true,
   })
     .populate('profile')
     .lean();
+
+  return agents.filter((agent) => String(agent._id) !== currentUser._id);
 };
 
 const _companyFlow = (currentUser: INotifyUser) => {
