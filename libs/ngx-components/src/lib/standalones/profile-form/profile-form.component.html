@@ -7,6 +7,7 @@
   <div class="section">
     <div class="field" *ngIf="isAgent">
       <notify-tailwind-checkbox
+        *ngIf="profile.company?.name?.length"
         [parent]="form"
         name="useCompanyColors"
         label="Usa i colori di {{ profile.company?.name }}"

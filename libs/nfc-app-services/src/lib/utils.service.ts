@@ -9,6 +9,10 @@ export class UtilsService {
   constructor(private _toastr: ToastrService) {}
 
   public stringToArrayBuffer(dataURI: string) {
+    if (!dataURI) {
+      return [new ArrayBuffer(0)];
+    }
+
     const byteString = atob(dataURI.split(',')[1]);
 
     const ab = new ArrayBuffer(byteString.length);

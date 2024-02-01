@@ -1,0 +1,96 @@
+<div class="modal-container">
+  <div>
+    <div class="modal-content">
+      <h1 class="text-2xl font-medium w-full text-start text-white">
+        Ritaglia immagine
+      </h1>
+      <div class="divider"></div>
+
+      <div class="max-h-96 max-w-96 overflow-auto">
+        <image-cropper
+          *ngIf="config as c"
+          [aspectRatio]="config.aspectRatio || 1 / 1"
+          [imageBase64]="config.imageData"
+          [cropperMinWidth]="c.minWidth || 100"
+          [cropperMinHeight]="c.minHeight || 100"
+          [roundCropper]="c.roundCropper || false"
+          [alignImage]="c.alignImage || 'center'"
+          [allowMoveImage]="true"
+          [maintainAspectRatio]="!!c.aspectRatio || false"
+          [onlyScaleDown]="c.onlyScaleDown || false"
+          [format]="c.format || 'png'"
+          (imageCropped)="imageCropped($event)"
+          [(transform)]="transform"
+        ></image-cropper>
+      </div>
+
+      <div class="flex justify-around w-full mt-4">
+        <button
+          class="btn btn-ghost btn-circle"
+          data-theme="notifytheme"
+          (click)="flipHorizontal()"
+        >
+          <notify-svg-box-icon
+            [size]="8"
+            [icon]="{ name: 'flip', set: 'materialui' }"
+          ></notify-svg-box-icon>
+        </button>
+        <button
+          class="btn btn-ghost btn-circle"
+          data-theme="notifytheme"
+          (click)="flipVertical()"
+        >
+          <notify-svg-box-icon
+            class="rotate-90"
+            [size]="8"
+            [icon]="{ name: 'flip', set: 'materialui' }"
+          ></notify-svg-box-icon>
+        </button>
+
+        <div class="divider divider-vertical"></div>
+
+        <button
+          class="btn btn-ghost btn-circle"
+          data-theme="notifytheme"
+          (click)="rotateRight()"
+        >
+          <notify-svg-box-icon
+            class="rotate-90"
+            [size]="8"
+            [icon]="{ name: 'rotate_right', set: 'materialui' }"
+          ></notify-svg-box-icon>
+        </button>
+        <button
+          class="btn btn-ghost btn-circle"
+          data-theme="notifytheme"
+          (click)="rotateLeft()"
+        >
+          <notify-svg-box-icon
+            class="rotate-90"
+            [size]="8"
+            [icon]="{ name: 'rotate_left', set: 'materialui' }"
+          ></notify-svg-box-icon>
+        </button>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="flex w-full justify-end space-x-4">
+        <button
+          class="btn btn-accent brightness-90"
+          data-theme="notifytheme"
+          (click)="close()"
+        >
+          Annulla
+        </button>
+        <button
+          data-theme="notifytheme"
+          class="btn btn-primary"
+          (click)="submit()"
+        >
+          Conferma
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -22,6 +22,7 @@ import {
 import { Subject, combineLatest, debounceTime, takeUntil, tap } from 'rxjs';
 import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
 import { IconSelectorComponent } from '../icon-select/icon-selector.component';
+import { ImageCropperFactory } from '../image-cropper/image-cropper.factory';
 import { UploadComponent } from '../upload/upload.component';
 import { AddButtonComponent } from './add-button.component';
 import { RemoveItemButtonComponent } from './remove-item-button';
@@ -60,6 +61,7 @@ type ProfileForm = FormGroup<{
     AddButtonComponent,
     RemoveItemButtonComponent,
   ],
+  providers: [ImageCropperFactory],
   templateUrl: './profile-form.component.html',
   styleUrls: ['./profile-form.component.scss'],
 })
@@ -107,7 +109,8 @@ export class ProfileFormComponent implements OnInit {
 
   constructor(
     private _utils: UtilsService,
-    public capacitor: CapacitorService
+    public capacitor: CapacitorService,
+    private _imageCropper: ImageCropperFactory
   ) {}
 
   public ngOnInit(): void {
@@ -222,7 +225,35 @@ export class ProfileFormComponent implements OnInit {
   }
 
   public setUploadedFile(file: string | ArrayBuffer | null) {
-    this.controls.avatar.setValue(file as string);
+    if (!file) {
+      this.controls.avatar.setValue(file);
+      return;
+    }
+
+    const ref = this._imageCropper.create({
+      imageData: file as string,
+      aspectRatio: 1,
+      minWidth: 200,
+      alignImage: 'center',
+      roundCropper: true,
+    });
+
+    ref.instance.destroyed
+      .pipe(
+        tap(() => this.setAvatarFile(this.form.controls.avatar.value || ''))
+      )
+      .subscribe();
+
+    ref.instance.submitted
+      .pipe(
+        takeUntil(ref.instance.destroyed),
+        tap((imageData) => {
+          this.controls.avatar.setValue(imageData || '');
+
+          this.setAvatarFile(imageData);
+        })
+      )
+      .subscribe();
   }
 
   public removeCustomField(item: FormGroup) {
@@ -235,6 +266,12 @@ export class ProfileFormComponent implements OnInit {
     const index = this.controls.backgroundColors.value.indexOf(item.value);
 
     this.controls.backgroundColors.removeAt(index);
+  }
+
+  public setAvatarFile(data: string) {
+    this.avatarFile = new File(this._utils.stringToArrayBuffer(data), '', {
+      type: 'image/png',
+    });
   }
 
   private _mapFormToProfile(form: ProfileForm['value']): INotifyProfile {

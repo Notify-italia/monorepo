@@ -12,6 +12,7 @@ export * from './lib/standalones/app-title/app-title.component';
 export * from './lib/standalones/auth/auth.component';
 export * from './lib/standalones/avatar/avatar.component';
 export * from './lib/standalones/google-maps/google-maps.component';
+export * from './lib/standalones/image-cropper/image-cropper.factory';
 export * from './lib/standalones/loading/loading.component';
 export * from './lib/standalones/nav/nav.component';
 export * from './lib/standalones/no-items/no-items.component';
