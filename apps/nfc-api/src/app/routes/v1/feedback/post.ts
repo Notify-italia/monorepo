@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
+import { AgentModel } from '../../../models/model.agent';
 import {
   FEEDBACK_VALIDATION_MESSAGES,
   FeedbackModel,
@@ -30,6 +31,20 @@ router.post(
     });
 
     await feedback.save();
+
+    await AgentModel.findOne({ _id: owner }).then((agent) => {
+      if (!agent) {
+        return;
+      }
+      agent.statsTotals['profile:feedback:count'] += 1;
+      agent.statsTotals['profile:feedback:average'] =
+        (rating + agent.statsTotals['profile:feedback:average']) /
+        agent.statsTotals['profile:feedback:count'];
+
+      agent.markModified('statsTotals');
+
+      agent.save();
+    });
 
     res.status(201).send(feedback.toObject());
   })

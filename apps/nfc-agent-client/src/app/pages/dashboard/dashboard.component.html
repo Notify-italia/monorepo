@@ -6,9 +6,9 @@
   @if (dashboardReady$ | async; as data) {
   <div>
     <div>
-      <div class="flex flex-col lg:flex-row lg:justify-between items-spacing">
-        <div class="space-y-4 lg:w-full">
-          <div class="dashboard-cards-container items-spacing">
+      <div class="flex flex-col lg:flex-row lg:justify-between h-spacing">
+        <div class="v-spacing lg:w-full">
+          <div class="dashboard-cards-container h-spacing">
             <notify-widget-counter
               class="dashboard-card"
               title="Visite totali"
@@ -26,7 +26,7 @@
               bgColor="#F9FAFB"
               elementsColor="#1F2937"
               [icon]="savedContactsIcon"
-              [count]="data.user?.statsTotals?.['profile:save'] || 0"
+              [count]="data.user.statsTotals?.['profile:save'] || 0"
               countSuffix="Contatti"
               >TOTAL_SAVES</notify-widget-counter
             >
@@ -51,7 +51,12 @@
               >TOTAL_CO2_SAVED</notify-widget-counter
             > -->
           </div>
-          <div class="flex flex-col lg:flex-row w-full h-[28rem] items-spacing">
+
+          <div class="divider"></div>
+
+          <div
+            class="flex flex-col lg:flex-row w-full lg:h-[22rem] 2xl:h-[40rem] h-spacing"
+          >
             <notify-widget-area-chart
               class="flex w-full h-full justify-center items-center"
               title="Visite"
@@ -59,26 +64,33 @@
               (timespanChange)="getProfileVisits($event).subscribe()"
             >
             </notify-widget-area-chart>
-            <div
-              class="flex flex-col justify-center lg:w-4/12 h-full border p-2 items-center"
-            >
-              USED_INTEGRATIONS_PIE_CHART
+            <div class="flex flex-col lg:w-4/12 h-full items-center v-spacing">
+              <div class="flex w-full h-48 justify-center border items-center">
+                AVERAGE_FEEDBACK
+              </div>
+              <div
+                class="w-full h-full border items-center flex flex-col justify-center p-2"
+              >
+                USED_INTEGRATIONS_PIE_CHART
+              </div>
             </div>
           </div>
-          <div class="flex w-full h-24 justify-center border items-center">
-            LATEST_EDITED_NOTE
-          </div>
+          <div class="dashboard-cards-container h-spacing"></div>
         </div>
       </div>
 
       <div class="divider"></div>
 
-      <div class="flex w-full">
+      <div class="dashboard-cards-container h-spacing">
         <notify-share-profile
           class="w-full"
           [profile]="data.profile"
           [baseUrl]="baseUrl"
         ></notify-share-profile>
+
+        <div class="w-full h-full border p-2 items-center flex justify-center">
+          LATEST_EDITED_NOTE
+        </div>
       </div>
     </div>
   </div>

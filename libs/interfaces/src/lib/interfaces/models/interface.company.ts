@@ -1,6 +1,6 @@
 import { MongodbDocument } from '../interface.mongodb';
+import { INotifyUserStats } from '../interface.user';
 import { INotifyLicense } from './interface.license';
-import { EnumNotifyStatType } from './interface.stat';
 
 export interface INotifyCompany<populated extends true | false = false>
   extends MongodbDocument {
@@ -8,7 +8,7 @@ export interface INotifyCompany<populated extends true | false = false>
   email: string;
   password?: string;
   createdRoles: string[];
-  statsTotals: { [key in EnumNotifyStatType]: number };
+  statsTotals: INotifyUserStats;
 
   //Outside of the schema
   token?: string;

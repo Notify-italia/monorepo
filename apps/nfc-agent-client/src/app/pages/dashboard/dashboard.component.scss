@@ -5,6 +5,10 @@
   }
 }
 
-.items-spacing {
-  @apply space-y-4 lg:space-y-0 lg:space-x-4;
+.h-spacing {
+  @apply space-y-4 lg:space-y-0 lg:space-x-4 2xl:space-x-8;
+}
+
+.v-spacing {
+  @apply space-y-4 2xl:space-y-8;
 }

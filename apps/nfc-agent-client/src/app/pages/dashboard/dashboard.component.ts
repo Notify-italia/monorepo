@@ -40,8 +40,8 @@ export class DashboardComponent {
     profile: this._profileService.getProfile(),
     user: this._authService.currentUser$.pipe(
       map((p) => {
-        const _visit = p?.statsTotals[EnumNotifyStatType.ProfileVisit] || 0;
-        const _return = p?.statsTotals[EnumNotifyStatType.ProfileReturn] || 0;
+        const _visit = p?.statsTotals?.[EnumNotifyStatType.ProfileVisit] || 0;
+        const _return = p?.statsTotals?.[EnumNotifyStatType.ProfileReturn] || 0;
 
         const totalVisits = _visit + _return;
         const percentReturn = totalVisits ? (_return / totalVisits) * 100 : 0;

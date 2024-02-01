@@ -237,7 +237,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const topThemeColor =
       profile.colors.background[0] || defaultGradientStops[0];
 
-    this._titleService.setTitle(`${profile.name} - Notify`);
+    this._titleService.setTitle(`${profile.name || 'Ignoto'} - Notify`);
 
     this._Meta.updateTag({
       name: 'description',
