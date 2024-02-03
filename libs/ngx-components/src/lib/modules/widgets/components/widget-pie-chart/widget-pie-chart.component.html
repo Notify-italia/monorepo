@@ -9,6 +9,7 @@
   </div>
   <div class="flex flex-col justify-center h-full">
     <apx-chart
+      [noData]="chartConfig.noData || {}"
       [legend]="chartConfig.legend || {}"
       [series]="series"
       [chart]="chartConfig.chart || $any({})"
