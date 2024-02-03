@@ -21,6 +21,7 @@ import {
   ApexAxisChartSeries,
   ApexChart,
   ApexFill,
+  ApexOptions,
   ApexStroke,
   NgApexchartsModule,
 } from 'ng-apexcharts';
@@ -48,7 +49,7 @@ export class WidgetAreaChartComponent implements OnInit, OnChanges {
 
   public enrichedSeries: ApexAxisChartSeries = [];
 
-  public chartConfig = {
+  public chartConfig: ApexOptions = {
     noData: {
       text: 'Nessun dato visualizzabile',
     },

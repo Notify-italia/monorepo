@@ -48,6 +48,9 @@ export class ProfileViewComponent {
   @Input() feedbackKey = 'feedback';
 
   @Output() subAvatarClick = new EventEmitter<void>();
+  @Output() public integrationClicked = new EventEmitter<
+    INotifyProfile['customFields'][0]
+  >();
 
   public currentTime$ = interval(1000).pipe(
     startWith(0),

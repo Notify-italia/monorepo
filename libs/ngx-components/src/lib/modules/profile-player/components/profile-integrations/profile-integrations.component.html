@@ -12,6 +12,7 @@
     type="button"
     class="button-icon m-3"
     [ngStyle]="{ color: color }"
+    (click)="integrationClicked.emit(item)"
   >
     <a
       [href]="prepareUrl(item.value, item.iconName)"

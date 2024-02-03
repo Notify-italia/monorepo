@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { INotifyStat } from '@notify/interfaces';
+import { INotifyStat, INotifyUser } from '@notify/interfaces';
 import { HttpService } from './http.service';
 
 @Injectable()
@@ -22,6 +22,28 @@ export class StatService {
     >(`/v1/stat`, {
       type,
       value,
+      owner,
+    });
+  }
+
+  public incrementStatCounter(
+    type: INotifyStat['type'] | string,
+    owner: INotifyStat['owner'],
+    userType: INotifyUser['userType'],
+    value?: INotifyStat['value']
+  ) {
+    return this.http.post<
+      {
+        type: INotifyStat['type'] | string;
+        owner: INotifyStat['owner'];
+        userType: INotifyUser['userType'];
+        value?: INotifyStat['value'];
+      },
+      INotifyStat
+    >(`/v1/stat/counter`, {
+      type,
+      value,
+      userType,
       owner,
     });
   }

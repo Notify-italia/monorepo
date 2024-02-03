@@ -1,6 +1,6 @@
 <div class="widget-container">
-  <div>
-    <div>
+  <div class="header-container">
+    <div class="header-items">
       <h2>
         {{ title }}
       </h2>
@@ -33,10 +33,10 @@
     <div class="divider !mt-1"></div>
   </div>
   <apx-chart
-    [stroke]="chartConfig.stroke"
-    [fill]="chartConfig.fill"
+    [stroke]="chartConfig.stroke || {}"
+    [fill]="chartConfig.fill || {}"
     [series]="series"
-    [chart]="chartConfig.chart"
+    [chart]="chartConfig.chart || $any({})"
     [series]="enrichedSeries"
     class="w-full h-full bottom-0"
   ></apx-chart>

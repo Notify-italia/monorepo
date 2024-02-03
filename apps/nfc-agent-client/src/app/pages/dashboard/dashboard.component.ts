@@ -7,6 +7,7 @@ import {
   ProfileService,
   StatService,
   SvgBoxIcon,
+  SvgboxService,
 } from '@notify/nfc-app-services';
 import {
   LoadingComponent,
@@ -16,6 +17,7 @@ import {
   WidgetCounterComponent,
   WidgetFeedbackComponent,
   WidgetNoteComponent,
+  WidgetPieChartComponent,
 } from '@notify/ngx-components';
 import { endOfDay, startOfDay, subWeeks } from 'date-fns';
 import { ApexAxisChartSeries } from 'ng-apexcharts';
@@ -33,8 +35,9 @@ import { environment } from '../../../environments/environment';
     WidgetAreaChartComponent,
     WidgetFeedbackComponent,
     WidgetNoteComponent,
+    WidgetPieChartComponent,
   ],
-  providers: [StatService, NoteService],
+  providers: [StatService, NoteService, SvgboxService],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -45,23 +48,51 @@ export class DashboardComponent {
     latestNote: this._noteService.getLatestNote(),
     profile: this._profileService.getProfile(),
     user: this._authService.currentUser$.pipe(
-      map((p) => {
-        const _visit = p?.statsTotals?.[EnumNotifyStatType.ProfileVisit] || 0;
-        const _return = p?.statsTotals?.[EnumNotifyStatType.ProfileReturn] || 0;
+      map((user) => {
+        const _visit =
+          user?.statsTotals?.[EnumNotifyStatType.ProfileVisit] || 0;
+        const _return =
+          user?.statsTotals?.[EnumNotifyStatType.ProfileReturn] || 0;
 
         const totalVisits = _visit + _return;
         const percentReturn = totalVisits ? (_return / totalVisits) * 100 : 0;
 
         const averageFeedback =
-          (p?.statsTotals?.['profile:feedback:total-rating'] || 1) /
-          (p?.statsTotals?.['profile:feedback:count'] || 1);
+          (user?.statsTotals?.[EnumNotifyStatType.ProfileFeedbackTotalRating] ||
+            0) /
+          (user?.statsTotals?.[EnumNotifyStatType.ProfileFeedbackCount] || 1);
+
+        const integrationsCount = (
+          Object.keys(user?.statsTotals || []) as EnumNotifyStatType[]
+        ).filter(
+          (v) =>
+            v.includes(
+              EnumNotifyStatType.ProfileIntegrationCount.replace(
+                '{{integration}}:count',
+                ''
+              )
+            ) && v.includes('count')
+        );
+
+        const integrationsCountLabels = integrationsCount
+          .map(
+            (i) =>
+              this._svgBoxService.getIcon(
+                i.split(':count')[0].split('item:')[1]
+              )?.expanded
+          )
+          .filter((i) => i) as string[];
 
         return {
-          ...p,
+          ...user,
           statsMapped: {
             totalVisits,
             percentReturn,
             averageFeedback,
+            integrationsCountValues: integrationsCount
+              .map((i) => user?.statsTotals[i])
+              .filter((i) => i) as number[],
+            integrationsCountLabels,
           },
         };
       })
@@ -98,7 +129,8 @@ export class DashboardComponent {
     private _profileService: ProfileService,
     private _statService: StatService,
     private _authService: AuthService,
-    private _noteService: NoteService
+    private _noteService: NoteService,
+    private _svgBoxService: SvgboxService
   ) {
     this.getProfileVisits({
       from: startOfDay(subWeeks(new Date(), 1)),

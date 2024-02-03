@@ -1,6 +1,6 @@
 import { MongodbDocument } from '../interface.mongodb';
-import { INotifyUserStats } from '../interface.user';
 import { INotifyLicense } from './interface.license';
+import { INotifyUserStats } from './interface.stat';
 
 export interface INotifyCompany<populated extends true | false = false>
   extends MongodbDocument {

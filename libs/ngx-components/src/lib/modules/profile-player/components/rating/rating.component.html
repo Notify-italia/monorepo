@@ -1,9 +1,9 @@
-<div class="rating rating-{{ sizeClass }} space-x-2 ">
+<div class="rating rating-{{ sizeClass }} ">
   <input
     *ngIf="rating === 0"
     type="radio"
     name="rating-10"
-    class="rating-hidden"
+    class="hidden absolute pointer-events-none"
     [checked]="true"
   />
   @for (item of availableItems; track rating) {
@@ -11,7 +11,7 @@
   <input
     type="radio"
     name="rating-8 "
-    class="mask mask-star-2 {{ colorClass }}"
+    class="mask mask-star-2 {{ colorClass }} mx-1"
     [checked]="rating >= item.value"
     (change)="setRating(item.value)"
   />

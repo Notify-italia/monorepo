@@ -106,6 +106,7 @@
     }"
   >
     <notify-profile-view
+      (integrationClicked)="handleIntegrationClicked($event, p)"
       [data]="p"
       [publicUrl]="publicUrl"
       [feedbackKey]="feedbackKey"
@@ -115,12 +116,13 @@
 
   <!-- MOBILE COMPANY PLAYER -->
   <div
-    *ngIf="p?.company"
+    *ngIf="p?.company as pCompany"
     class="absolute top-0 left-0 smooth z-50 w-full !ease-linear !duration-100 player-responsive lg:hidden will-change-transform"
     [ngStyle]="{ transform: 'translateX(' + companyProfileX + 'vw)' }"
   >
     <notify-profile-view
-      [data]="p?.company"
+      (integrationClicked)="handleIntegrationClicked($event, pCompany)"
+      [data]="pCompany"
       [publicUrl]="publicUrl"
     ></notify-profile-view>
   </div>
@@ -144,9 +146,10 @@
   </div>
 
   <!-- DESKTOP COMPANY PLAYER -->
-  <div *ngIf="p?.company" class="player-responsive hidden lg:block">
+  <div *ngIf="p?.company as pCompany" class="player-responsive hidden lg:block">
     <notify-profile-view
-      [data]="p?.company"
+      (integrationClicked)="handleIntegrationClicked($event, pCompany)"
+      [data]="pCompany"
       [publicUrl]="publicUrl"
     ></notify-profile-view>
   </div>

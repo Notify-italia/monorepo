@@ -11,10 +11,16 @@ export interface INotifyStat extends MongodbDocument {
   value: number;
 }
 
+export type INotifyUserStats = {
+  [key in EnumNotifyStatType]: number;
+};
+
 export enum EnumNotifyStatType {
   ProfileVisit = 'profile:visit',
   ProfileSave = 'profile:save',
   ProfileReturn = 'profile:return',
   PrifileStaticContactsClick = 'profile:static-contacts:click',
-  ProfileIntegrationsClick = 'profile:integrations:click',
+  ProfileFeedbackTotalRating = 'profile:feedback:rating',
+  ProfileFeedbackCount = 'profile:feedback:count',
+  ProfileIntegrationCount = `profile:integrations:item:{{integration}}:count`,
 }

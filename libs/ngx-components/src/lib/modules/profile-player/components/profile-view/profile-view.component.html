@@ -205,6 +205,7 @@
         class="w-full"
         [data]="data?.customFields"
         [color]="cssElementsColor"
+        (integrationClicked)="integrationClicked.emit($event)"
       ></notify-profile-integrations>
 
       @if (!isAgent) {

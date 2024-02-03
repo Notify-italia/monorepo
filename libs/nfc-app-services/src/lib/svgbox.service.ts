@@ -73,6 +73,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     set: 'social',
     score: 14.285714285714286,
     prefix: 'discord.gg/',
+    placeholder: 'discord.gg/...',
   },
   {
     expanded: 'Dribbble',
@@ -126,7 +127,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     set: 'social',
     score: 1,
     prefix: 'https://github.com/',
-    placeholder: 'Il tuo nome utente Github',
+    placeholder: 'Percorso Git (es. user/repo)',
   },
   {
     expanded: 'Glassdoor',

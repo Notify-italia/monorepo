@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
 import { SvgboxService, UtilsService } from '@notify/nfc-app-services';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
@@ -18,6 +18,10 @@ import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-bo
 export class ProfileIntegrationsComponent {
   @Input() data?: INotifyProfile['customFields'];
   @Input() color: INotifyProfile['colors']['elements'] = '#ffffff';
+
+  @Output() public integrationClicked = new EventEmitter<
+    INotifyProfile['customFields'][0]
+  >();
 
   constructor(
     private _svgBoxService: SvgboxService,

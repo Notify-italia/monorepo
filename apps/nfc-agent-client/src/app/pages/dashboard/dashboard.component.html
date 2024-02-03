@@ -31,9 +31,7 @@
               [icon]="totalScansIcon"
               [count]="data.user.statsMapped.totalVisits"
               countSuffix="Visite"
-            >
-              >TOTAL_RETURNS</notify-widget-counter
-            >
+            ></notify-widget-counter>
             <notify-widget-counter
               class="dashboard-card"
               title="Salvati in rubrica"
@@ -42,8 +40,7 @@
               [icon]="savedContactsIcon"
               [count]="data.user.statsTotals?.['profile:save'] || 0"
               countSuffix="Contatti"
-              >TOTAL_SAVES</notify-widget-counter
-            >
+            ></notify-widget-counter>
             <notify-widget-counter
               class="dashboard-card"
               title="Visite da rubrica"
@@ -67,10 +64,10 @@
           </div>
 
           <div
-            class="flex flex-col lg:flex-row w-full h-[40rem] lg:h-[22rem] 2xl:h-[30rem] h-spacing"
+            class="flex flex-col lg:flex-row w-full lg:h-[32rem] 2xl:h-[40rem] h-spacing"
           >
             <notify-widget-area-chart
-              class="flex w-full h-full justify-center items-center"
+              class="w-full h-full"
               title="Visite"
               [series]="data.areaChart"
               (timespanChange)="getProfileVisits($event).subscribe()"
@@ -78,15 +75,19 @@
             </notify-widget-area-chart>
             <div class="flex flex-col lg:w-4/12 h-full items-center v-spacing">
               <notify-widget-feedback
-                class="flex w-full h-48 justify-center items-center"
+                class="flex w-full"
                 [value]="data.user.statsMapped.averageFeedback"
               >
               </notify-widget-feedback>
-              <div
-                class="w-full h-full border items-center flex flex-col justify-center p-2"
+              <notify-widget-pie-chart
+                title="Integrazioni usate"
+                class="w-full h-full"
+                [series]="data.user.statsMapped.integrationsCountValues || []"
+                [legendValues]="
+                  data.user.statsMapped.integrationsCountLabels || []
+                "
               >
-                USED_INTEGRATIONS_PIE_CHART
-              </div>
+              </notify-widget-pie-chart>
             </div>
           </div>
         </div>

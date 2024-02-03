@@ -1,10 +1,11 @@
-import { INotifyStat } from '@notify/interfaces';
+import { EnumNotifyUserType, INotifyStat } from '@notify/interfaces';
 import { endOfDay, startOfDay } from 'date-fns';
 import { FilterQuery, Types } from 'mongoose';
 import { AgentModel } from '../models/model.agent';
 import { CompanyModel } from '../models/model.company';
 import { StatDocument, StatModel } from '../models/model.stat';
 import { BadRequestError } from './errors/errors';
+import { genericUserQuery } from './users/service.query';
 
 export class StatManager {
   public get value() {
@@ -106,6 +107,30 @@ export class StatManager {
 
   public static async report(filter: FilterQuery<StatDocument>) {
     return await StatModel.find(filter).lean();
+  }
+
+  public static async incrementCounter(
+    type: INotifyStat['type'],
+    owner: INotifyStat['owner'],
+    userType: EnumNotifyUserType,
+    value?: INotifyStat['value']
+  ) {
+    const user = await genericUserQuery<true>(userType, { _id: owner }, true);
+
+    if (!user) {
+      throw new BadRequestError('Utente non trovato');
+    }
+
+    if (!user.statsTotals?.[type]) {
+      user.statsTotals[type] = 0;
+    }
+
+    user.statsTotals[type] += value || 1;
+    user.markModified('statsTotals');
+
+    await user.save();
+
+    return user;
   }
 
   private static async _updateUserTotals(

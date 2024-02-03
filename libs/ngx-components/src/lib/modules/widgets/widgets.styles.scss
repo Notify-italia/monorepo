@@ -5,10 +5,10 @@
     @apply text-2xl font-medium text-white p-2 pt-4 text-start whitespace-nowrap truncate;
   }
 
-  & > div {
+  & > .header-container {
     @apply px-5 w-full h-20;
 
-    & > div {
+    & > .header-items {
       @apply flex justify-between items-center;
     }
   }

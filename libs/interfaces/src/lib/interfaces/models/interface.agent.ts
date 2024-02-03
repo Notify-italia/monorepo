@@ -1,7 +1,7 @@
 import { MongodbDocument } from '../interface.mongodb';
-import { INotifyUserStats } from '../interface.user';
 import { INotifyCompany } from './interface.company';
 import { INotifyProfile } from './interface.profile';
+import { INotifyUserStats } from './interface.stat';
 
 export interface INotifyAgent extends MongodbDocument {
   enabled: boolean;

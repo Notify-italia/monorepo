@@ -1,6 +1,5 @@
 import { INotifyAgent } from './models/interface.agent';
 import { INotifyCompany } from './models/interface.company';
-import { EnumNotifyStatType } from './models/interface.stat';
 
 export interface INotifyUser extends INotifyAgent, INotifyCompany {
   iat: number;
@@ -10,13 +9,6 @@ export interface INotifyUser extends INotifyAgent, INotifyCompany {
 }
 
 export interface INotifyAccount extends INotifyAgent, INotifyCompany {}
-
-export type INotifyUserStats = {
-  [key in
-    | EnumNotifyStatType
-    | 'profile:feedback:total-rating'
-    | 'profile:feedback:count']: number;
-};
 
 export interface INotifyAuth {
   email: string;

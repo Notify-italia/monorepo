@@ -146,6 +146,24 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this._handleScaleChange($event);
   }
 
+  public handleIntegrationClicked(
+    $event: INotifyProfile['customFields'][0],
+    profile: INotifyProfile
+  ) {
+    this._statService
+      .incrementStatCounter(
+        EnumNotifyStatType.ProfileIntegrationCount.replace(
+          '{{integration}}',
+          $event.iconName
+        ),
+        profile.owner,
+        this.isAgent(profile)
+          ? EnumNotifyUserType.Agent
+          : EnumNotifyUserType.Company
+      )
+      .subscribe();
+  }
+
   public handleTouchEnd() {
     const _hThreshold = this.companyIsVisible
       ? 100 - this._thresholds.horizontalSwipe
