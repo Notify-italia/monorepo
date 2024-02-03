@@ -30,7 +30,10 @@ import {
   standalone: true,
   imports: [CommonModule, NgApexchartsModule],
   templateUrl: './widget-area-chart.component.html',
-  styleUrl: './widget-area-chart.component.scss',
+  styleUrls: [
+    './widget-area-chart.component.scss',
+    '../../widgets.styles.scss',
+  ],
 })
 export class WidgetAreaChartComponent implements OnInit, OnChanges {
   @Input() public title = '';

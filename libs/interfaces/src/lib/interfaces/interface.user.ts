@@ -14,7 +14,7 @@ export interface INotifyAccount extends INotifyAgent, INotifyCompany {}
 export type INotifyUserStats = {
   [key in
     | EnumNotifyStatType
-    | 'profile:feedback:average'
+    | 'profile:feedback:total-rating'
     | 'profile:feedback:count']: number;
 };
 

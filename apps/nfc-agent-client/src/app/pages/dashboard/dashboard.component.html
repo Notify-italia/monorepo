@@ -9,6 +9,20 @@
       <div class="flex flex-col lg:flex-row lg:justify-between h-spacing">
         <div class="v-spacing lg:w-full">
           <div class="dashboard-cards-container h-spacing">
+            <div class="dashboard-cards-container h-spacing">
+              <notify-share-profile
+                class="w-full"
+                [profile]="data.profile"
+                [baseUrl]="baseUrl"
+              ></notify-share-profile>
+
+              <notify-widget-note [note]="data.latestNote" class="w-full h-20">
+              </notify-widget-note>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="dashboard-cards-container h-spacing">
             <notify-widget-counter
               class="dashboard-card"
               title="Visite totali"
@@ -52,10 +66,8 @@
             > -->
           </div>
 
-          <div class="divider"></div>
-
           <div
-            class="flex flex-col lg:flex-row w-full lg:h-[22rem] 2xl:h-[40rem] h-spacing"
+            class="flex flex-col lg:flex-row w-full h-[40rem] lg:h-[22rem] 2xl:h-[30rem] h-spacing"
           >
             <notify-widget-area-chart
               class="flex w-full h-full justify-center items-center"
@@ -65,9 +77,11 @@
             >
             </notify-widget-area-chart>
             <div class="flex flex-col lg:w-4/12 h-full items-center v-spacing">
-              <div class="flex w-full h-48 justify-center border items-center">
-                AVERAGE_FEEDBACK
-              </div>
+              <notify-widget-feedback
+                class="flex w-full h-48 justify-center items-center"
+                [value]="data.user.statsMapped.averageFeedback"
+              >
+              </notify-widget-feedback>
               <div
                 class="w-full h-full border items-center flex flex-col justify-center p-2"
               >
@@ -75,21 +89,6 @@
               </div>
             </div>
           </div>
-          <div class="dashboard-cards-container h-spacing"></div>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="dashboard-cards-container h-spacing">
-        <notify-share-profile
-          class="w-full"
-          [profile]="data.profile"
-          [baseUrl]="baseUrl"
-        ></notify-share-profile>
-
-        <div class="w-full h-full border p-2 items-center flex justify-center">
-          LATEST_EDITED_NOTE
         </div>
       </div>
     </div>

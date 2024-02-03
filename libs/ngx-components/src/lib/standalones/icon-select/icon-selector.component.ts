@@ -51,7 +51,7 @@ export class IconSelectorComponent implements OnInit {
   public filteredIcons$ = new Observable<SvgBoxIcon[]>();
 
   public currentIcon: SvgBoxIcon = {
-    expanded: 'Question',
+    expanded: 'Ignoto',
     name: 'question',
     tags: [],
     set: 'octicons',

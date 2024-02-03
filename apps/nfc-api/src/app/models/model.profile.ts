@@ -185,6 +185,7 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
   },
   {
     timestamps: true,
+    versionKey: false,
     toJSON: {
       transform: function (doc, ret) {
         delete ret.__v;

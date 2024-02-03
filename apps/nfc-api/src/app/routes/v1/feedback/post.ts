@@ -32,22 +32,28 @@ router.post(
 
     await feedback.save();
 
-    await AgentModel.findOne({ _id: owner }).then((agent) => {
-      if (!agent) {
-        return;
-      }
-      agent.statsTotals['profile:feedback:count'] += 1;
-      agent.statsTotals['profile:feedback:average'] =
-        (rating + agent.statsTotals['profile:feedback:average']) /
-        agent.statsTotals['profile:feedback:count'];
-
-      agent.markModified('statsTotals');
-
-      agent.save();
-    });
+    await _upStats(owner, rating);
 
     res.status(201).send(feedback.toObject());
   })
 );
 
 export { router as postFeedbackRouter };
+
+const _upStats = async (owner: string, rating: number) => {
+  const agent = await AgentModel.findOne({ _id: owner });
+
+  if (!agent) {
+    return;
+  }
+
+  const count = (agent.statsTotals['profile:feedback:count'] || 0) + 1;
+  const totalRating = agent.statsTotals['profile:feedback:total-rating'] || 0;
+
+  agent.statsTotals['profile:feedback:count'] = count;
+  agent.statsTotals['profile:feedback:total-rating'] = rating + totalRating;
+
+  agent.markModified('statsTotals');
+
+  agent.save();
+};

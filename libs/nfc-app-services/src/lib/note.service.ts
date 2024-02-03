@@ -17,6 +17,10 @@ export class NoteService {
     return this.http.get<INotifyNote>(`/v1/notes`, { id });
   }
 
+  public getLatestNote() {
+    return this.http.get<INotifyNote>(`/v1/notes/latest`);
+  }
+
   public getNotes() {
     return this.http.get<INotifyNote[]>(`/v1/notes`);
   }

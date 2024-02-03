@@ -10,7 +10,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class RatingComponent implements OnInit {
   @Input() items: number = 5;
-  @Input() currentValue: number = 0;
+  @Input() rating: number = 0;
   @Input() colorClass = 'bg-yellow-500';
   @Input() sizeClass: 'lg' | 'md' | 'sm' = 'lg';
 
@@ -25,7 +25,7 @@ export class RatingComponent implements OnInit {
   }
 
   public setRating(rating: number) {
-    this.currentValue = rating;
+    this.rating = rating;
     this.valueChanged.emit(rating);
   }
 }

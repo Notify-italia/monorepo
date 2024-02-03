@@ -1,0 +1,15 @@
+.widget-container {
+  @apply w-full h-full flex flex-col justify-around items-center bg-base-100 rounded-xl relative shadow-md;
+
+  & h2:first-child {
+    @apply text-2xl font-medium text-white p-2 pt-4 text-start whitespace-nowrap truncate;
+  }
+
+  & > div {
+    @apply px-5 w-full h-20;
+
+    & > div {
+      @apply flex justify-between items-center;
+    }
+  }
+}

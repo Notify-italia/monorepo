@@ -1,0 +1,23 @@
+<div class="widget-container">
+  <!-- header -->
+  <div class="">
+    <div>
+      <h2>Feedback medio</h2>
+    </div>
+    <div class="divider !mt-1"></div>
+  </div>
+  <!-- body -->
+  <div
+    class="w-full flex flex-col justify-around items-center pointer-events-none space-x-2"
+  >
+    <notify-rating
+      [rating]="value"
+      [items]="maxRating"
+      class="scale-150"
+    ></notify-rating>
+
+    <h3 class="text-lg tracking-wider text-gray-200">
+      {{ value }}/{{ maxRating }}
+    </h3>
+  </div>
+</div>

@@ -41,7 +41,7 @@ export class SvgboxService {
 
 const AVAILABLE_ICONS: SvgBoxIcon[] = [
   {
-    expanded: 'Applepay',
+    expanded: 'Apple Pay',
     name: 'applepay',
 
     set: 'social',
@@ -49,7 +49,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
   },
 
   {
-    expanded: 'Appstore',
+    expanded: 'App Store',
     name: 'appstore',
 
     set: 'social',
@@ -146,28 +146,28 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
   },
   { expanded: 'Google', name: 'google', set: 'social', score: 1 },
   {
-    expanded: 'Googlecalendar',
+    expanded: 'Calendario Google',
     name: 'googlecalendar',
 
     set: 'social',
     score: 1,
   },
   {
-    expanded: 'Googledrive',
+    expanded: 'Google Drive',
     name: 'googledrive',
 
     set: 'social',
     score: 1,
   },
   {
-    expanded: 'Googlepay',
+    expanded: 'Google Pay',
     name: 'googlepay',
 
     set: 'social',
     score: 1,
   },
   {
-    expanded: 'Googleplay',
+    expanded: 'Play Store',
     name: 'googleplay',
 
     set: 'social',
@@ -214,7 +214,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     placeholder: 'https://...',
   },
   {
-    expanded: 'Map',
+    expanded: 'Mappe',
     name: 'map',
 
     set: 'hero-solid',
@@ -238,7 +238,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
   { expanded: 'Patreon', name: 'patreon', set: 'social', score: 1 },
   { expanded: 'Paypal', name: 'paypal', set: 'social', score: 1 },
   {
-    expanded: 'Producthunt',
+    expanded: 'Product Hunt',
     name: 'producthunt',
 
     set: 'social',
