@@ -3,7 +3,13 @@
     <div
       class="rounded-xl px-10 py-8 bg-base-100 w-full h-fit flex flex-col items-center slide-in-blurred-top"
     >
-      <div class="file-animation">
+      <div
+        class="file-animation"
+        [ngStyle]="{
+          'background-color': colors.background[0],
+          color: colors.elements
+        }"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -25,7 +31,11 @@
         <p class="text-base-content">{{ fileName }}</p>
       </div>
       <button
-        class="btn btn-primary w-full mt-5"
+        [ngStyle]="{
+          'background-color': colors.background[0],
+          color: colors.elements
+        }"
+        class="btn w-full mt-5"
         data-theme="notifytheme"
         (click)="downloadFile()"
       >

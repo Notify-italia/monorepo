@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ComponentRef, HostListener, Input } from '@angular/core';
+import { INotifyProfile } from '@notify/interfaces';
+import { defaultGradientStops } from '../../../profile-player';
 
 @Component({
   standalone: true,
@@ -10,6 +12,11 @@ import { Component, ComponentRef, HostListener, Input } from '@angular/core';
 export class FileRecievedComponent {
   @Input() fileName?: string;
   @Input() fileData?: Buffer;
+  @Input() colors: INotifyProfile['colors'] = {
+    background: defaultGradientStops,
+    elements: 'white',
+    useCompanyColors: false,
+  };
   @Input() cf!: ComponentRef<FileRecievedComponent>;
 
   constructor() {}

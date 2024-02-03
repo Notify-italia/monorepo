@@ -55,6 +55,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public profileScale = this._thresholds.maxScale;
   public companyProfileX = this._thresholds.maxTranslate;
   public companyIsVisible = false;
+  public profileColors?: INotifyProfile['colors'];
 
   private _destroy$ = new Subject<void>();
 
@@ -84,7 +85,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         ),
         tap((profile) => {
           this._setMeta(profile);
-
+          this.profileColors = profile.colors;
           this._socket.connect(profile._id);
         }),
         catchError((err) => {
@@ -106,7 +107,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this._destroy$),
         tap((file) => {
-          this._fileRecieved.create(file);
+          this._fileRecieved.create(
+            file,
+            this.profileColors as INotifyProfile['colors']
+          );
         })
       )
       .subscribe();
