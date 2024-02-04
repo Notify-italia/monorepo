@@ -6,9 +6,16 @@
       </h1>
       <div class="divider"></div>
 
-      <div class="max-h-96 max-w-96 overflow-auto">
+      <div
+        class="h-96 w-96 overflow-auto"
+        [ngClass]="{
+          'opacity-0 pointer-events-none absolute': loading
+        }"
+      >
         <image-cropper
+          class="bg-white rounded w-full h-full"
           *ngIf="config as c"
+          [containWithinAspectRatio]="c.containWithinAspectRatio || false"
           [aspectRatio]="config.aspectRatio || 1 / 1"
           [imageBase64]="config.imageData"
           [cropperMinWidth]="c.minWidth || 100"
@@ -20,9 +27,16 @@
           [onlyScaleDown]="c.onlyScaleDown || false"
           [format]="c.format || 'png'"
           (imageCropped)="imageCropped($event)"
+          (cropperReady)="loading = false"
           [(transform)]="transform"
         ></image-cropper>
       </div>
+
+      @if(loading){
+      <div class="flex justify-center items-center w-96 h-96">
+        <notify-loading></notify-loading>
+      </div>
+      }
 
       <div class="flex justify-around w-full mt-4">
         <button

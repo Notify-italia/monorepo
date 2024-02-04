@@ -1,3 +1,4 @@
+import { EnumNotifyStatType } from '@notify/interfaces';
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { AgentModel } from '../../../models/model.agent';
@@ -47,11 +48,14 @@ const _upStats = async (owner: string, rating: number) => {
     return;
   }
 
-  const count = (agent.statsTotals['profile:feedback:count'] || 0) + 1;
-  const totalRating = agent.statsTotals['profile:feedback:total-rating'] || 0;
+  const count =
+    (agent.statsTotals[EnumNotifyStatType.ProfileFeedbackCount] || 0) + 1;
+  const totalRating =
+    agent.statsTotals[EnumNotifyStatType.ProfileFeedbackTotalRating] || 0;
 
-  agent.statsTotals['profile:feedback:count'] = count;
-  agent.statsTotals['profile:feedback:total-rating'] = rating + totalRating;
+  agent.statsTotals[EnumNotifyStatType.ProfileFeedbackCount] = count;
+  agent.statsTotals[EnumNotifyStatType.ProfileFeedbackTotalRating] =
+    rating + totalRating;
 
   agent.markModified('statsTotals');
 

@@ -236,6 +236,7 @@ export class ProfileFormComponent implements OnInit {
       minWidth: 200,
       alignImage: 'center',
       roundCropper: true,
+      containWithinAspectRatio: true,
     });
 
     ref.instance.destroyed
