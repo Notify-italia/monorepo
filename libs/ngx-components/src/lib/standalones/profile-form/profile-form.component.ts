@@ -136,12 +136,11 @@ export class ProfileFormComponent implements OnInit {
 
   private _buildForm(): ProfileForm {
     const pColors = this.profile?.colors;
-    const _requiredWhenAgent = this.isAgent ? [Validators.required] : [];
 
     const f = new FormGroup({
       avatar: new FormControl(this.profile.avatar || '', []),
-      name: new FormControl(this.profile.name || '', [Validators.required]),
-      surname: new FormControl(this.profile?.surname || '', _requiredWhenAgent),
+      name: new FormControl(this.profile.name || ''),
+      surname: new FormControl(this.profile?.surname || ''),
       email: new FormControl(this.profile.email || '', [Validators.email]),
       phoneNumber: new FormControl(this.profile.phoneNumber || '', [
         itPhoneNumberValidators,
