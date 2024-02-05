@@ -81,6 +81,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         tap((profile) =>
           this._statService
             .incrementStat(this._getSourceStatType(), profile.owner)
+            .pipe(tap(() => this._removeQueryParam()))
             .subscribe()
         ),
         tap((profile) => {
@@ -249,6 +250,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
       default:
         return EnumNotifyStatType.ProfileVisit;
     }
+  }
+
+  private _removeQueryParam() {
+    const url = new URL(window.location.href);
+    url.searchParams.delete('s');
+    const newUrl = url.toString();
+    window.history.replaceState({}, '', newUrl);
   }
 
   private _setMeta(profile: INotifyProfile) {

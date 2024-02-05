@@ -1,0 +1,58 @@
+<div class="page-layout">
+  <notify-page-header
+    title="Analytics"
+    subtitle="Visualizza le statistiche relative ai tuoi utenti."
+  ></notify-page-header>
+  @if (dashboard$ | async; as data) {
+  <div>
+    <div>
+      <div class="dashboard-cards-container h-spacing">
+        <notify-widget-counter
+          class="dashboard-card"
+          title="Visite totali"
+          bgColor="#31A17C"
+          elementsColor="#FFFEFC"
+          [icon]="totalScansIcon"
+          [count]="data.totalVisits"
+          countSuffix="Visite"
+        ></notify-widget-counter>
+        <notify-widget-counter
+          class="dashboard-card"
+          title="Salvati in rubrica"
+          bgColor="#F9FAFB"
+          elementsColor="#1F2937"
+          [icon]="savedContactsIcon"
+          [count]="data.totalSaved"
+          countSuffix="Contatti"
+        ></notify-widget-counter>
+        <notify-widget-counter
+          class="dashboard-card"
+          title="Impatto ambientale"
+          bgColor="#5EC866"
+          elementsColor="#FFFEFC"
+          [icon]="co2SavedIcon"
+          [count]="data.totalCO2Saved"
+          countSuffix="Kg di CO2 risparmiati"
+        ></notify-widget-counter>
+      </div>
+      <div class="divider"></div>
+
+      <div
+        class="flex flex-col lg:flex-row w-full lg:h-[32rem] 2xl:h-[40rem] h-spacing"
+      >
+        <notify-widget-bar-chart
+          class="w-full h-full"
+          title="Visite per utente"
+          [series]="data.agentsPerVisitSeries"
+        >
+        </notify-widget-bar-chart>
+      </div>
+      <notify-widget-feedback
+        class="lg:w-4/12"
+        title="Feedback medio"
+        [value]="data.totalAverageFeedbackRating"
+      ></notify-widget-feedback>
+    </div>
+  </div>
+  }
+</div>

@@ -65,7 +65,7 @@ item2.URL;type=pref:${this.genPlayerUrl(
       publicUrl,
       d._id,
       EnumNotifyProfileSources.Contacts
-    )},
+    )}
 ADR;TYPE=work:;;${this.buildCompanyLocation(d?.company?.address)}
 EMAIL:${d.email}
 END:VCARD`;

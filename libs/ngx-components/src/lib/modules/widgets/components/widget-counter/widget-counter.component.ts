@@ -16,5 +16,6 @@ export class WidgetCounterComponent {
   @Input({ required: true }) public icon!: SvgBoxIcon;
   @Input({ required: true }) public elementsColor!: string;
   @Input({ required: true }) public title!: string;
+  @Input() public tooltip?: string;
   @Input() countSuffix = '';
 }

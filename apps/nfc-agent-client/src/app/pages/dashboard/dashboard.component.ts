@@ -44,7 +44,7 @@ import { environment } from '../../../environments/environment';
 export class DashboardComponent {
   public areaChartScans$ = new Subject<ApexAxisChartSeries>();
 
-  public dashboardReady$ = combineLatest({
+  public dashboard$ = combineLatest({
     latestNote: this._noteService.getLatestNote(),
     profile: this._profileService.getProfile(),
     user: this._authService.currentUser$.pipe(
@@ -55,7 +55,9 @@ export class DashboardComponent {
           user?.statsTotals?.[EnumNotifyStatType.ProfileReturn] || 0;
 
         const totalVisits = _visit + _return;
-        const percentReturn = totalVisits ? (_return / totalVisits) * 100 : 0;
+        const percentReturn = Number(
+          (totalVisits ? (_return / totalVisits) * 100 : 0)?.toFixed(1)
+        );
 
         const averageFeedback =
           (user?.statsTotals?.[EnumNotifyStatType.ProfileFeedbackTotalRating] ||

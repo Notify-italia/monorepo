@@ -3,7 +3,7 @@
     title="Dashboard"
     subtitle="Visualizza le informazioni principali del tuo account"
   ></notify-page-header>
-  @if (dashboardReady$ | async; as data) {
+  @if (dashboard$ | async; as data) {
   <div>
     <div>
       <div class="flex flex-col lg:flex-row lg:justify-between h-spacing">

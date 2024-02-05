@@ -55,6 +55,14 @@ export const appRoutes: Route[] = [
           ).then((m) => m.ProfileManagementComponent),
       },
       {
+        path: 'analytics',
+        canActivate: [licenseGuard],
+        loadComponent: () =>
+          import('./pages/analytics/analytics.component').then(
+            (m) => m.AnalyticsComponent
+          ),
+      },
+      {
         path: 'signout',
         loadComponent: () =>
           import('./pages/signout/signout.component').then(

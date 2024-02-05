@@ -1,0 +1,24 @@
+<div class="widget-container">
+  <div class="header-container">
+    <div class="header-items">
+      <h2>
+        {{ title }}
+      </h2>
+    </div>
+    <div class="divider !mt-1"></div>
+  </div>
+
+  <apx-chart
+    [noData]="chartConfig.noData || {}"
+    [stroke]="chartConfig.stroke || {}"
+    [fill]="chartConfig.fill || {}"
+    [plotOptions]="chartConfig.plotOptions || {}"
+    [series]="series"
+    [chart]="chartConfig.chart || $any({})"
+    [series]="series"
+    [legend]="chartConfig.legend || {}"
+    [xaxis]="chartConfig.xaxis || {}"
+    [yaxis]="chartConfig.yaxis || {}"
+    class="w-full h-full bottom-0 p-4"
+  ></apx-chart>
+</div>

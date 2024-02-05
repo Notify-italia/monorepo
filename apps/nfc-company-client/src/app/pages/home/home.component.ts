@@ -55,7 +55,7 @@ export class HomeComponent {
     //   ],
     // },
     {
-      disabled: true,
+      disabled: !this._authService.activeLicense,
       label: 'Analytics',
       path: '/pages/analytics',
       icon: [

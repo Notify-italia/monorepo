@@ -11,5 +11,6 @@ import { RatingComponent } from '../../../profile-player';
 })
 export class WidgetFeedbackComponent {
   @Input() value = 1;
+  @Input() title = 'Feedback';
   @Input() maxRating = 5;
 }
