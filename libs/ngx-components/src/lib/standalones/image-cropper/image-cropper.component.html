@@ -1,39 +1,41 @@
 <div class="modal-container">
   <div>
-    <div class="modal-content">
+    <div class="modal-content min-w-[410px]">
       <h1 class="text-2xl font-medium w-full text-start text-white">
         Ritaglia immagine
       </h1>
+
       <div class="divider"></div>
 
       <div
-        class="h-96 w-96 overflow-auto"
         [ngClass]="{
           'opacity-0 pointer-events-none absolute': loading
         }"
       >
         <image-cropper
-          class="bg-white rounded w-full h-full"
           *ngIf="config as c"
-          [containWithinAspectRatio]="c.containWithinAspectRatio || false"
+          class="rounded !w-full overflow-scroll"
+          [containWithinAspectRatio]="!!c.containWithinAspectRatio"
           [aspectRatio]="config.aspectRatio || 1 / 1"
           [imageBase64]="config.imageData"
           [cropperMinWidth]="c.minWidth || 100"
           [cropperMinHeight]="c.minHeight || 100"
-          [roundCropper]="c.roundCropper || false"
+          [roundCropper]="!!c.roundCropper"
           [alignImage]="c.alignImage || 'center'"
-          [allowMoveImage]="true"
-          [maintainAspectRatio]="!!c.aspectRatio || false"
-          [onlyScaleDown]="c.onlyScaleDown || false"
+          [allowMoveImage]="false"
+          [resizeToWidth]="c.resize?.width || 0"
+          [resizeToHeight]="c.resize?.height || 0"
+          [maintainAspectRatio]="!!c.aspectRatio"
+          [onlyScaleDown]="!!c.onlyScaleDown"
           [format]="c.format || 'png'"
           (imageCropped)="imageCropped($event)"
-          (cropperReady)="loading = false"
+          (imageLoaded)="loading = false"
           [(transform)]="transform"
         ></image-cropper>
       </div>
 
       @if(loading){
-      <div class="flex justify-center items-center w-96 h-96">
+      <div class="flex justify-center items-center h-96 w-96">
         <notify-loading></notify-loading>
       </div>
       }

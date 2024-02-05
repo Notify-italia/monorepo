@@ -23,10 +23,14 @@ export interface IImageCropperConfig {
   format?: 'png' | 'jpeg' | 'webp';
   minWidth?: number;
   minHeight?: number;
-  alignImage: 'center' | 'left';
+  alignImage?: 'center' | 'left';
   roundCropper?: boolean;
   onlyScaleDown?: boolean;
   containWithinAspectRatio?: boolean;
+  resize?: {
+    width: number;
+    height: number;
+  };
 }
 
 @Component({

@@ -233,10 +233,14 @@ export class ProfileFormComponent implements OnInit {
     const ref = this._imageCropper.create({
       imageData: file as string,
       aspectRatio: 1,
+      minHeight: 200,
       minWidth: 200,
-      alignImage: 'center',
       roundCropper: true,
       containWithinAspectRatio: true,
+      resize: {
+        width: 400,
+        height: 400,
+      },
     });
 
     ref.instance.destroyed
