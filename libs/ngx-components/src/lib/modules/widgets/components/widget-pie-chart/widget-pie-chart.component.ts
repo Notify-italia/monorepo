@@ -33,7 +33,7 @@ export class WidgetPieChartComponent {
     },
     chart: {
       type: 'donut',
-      height: 350,
+      height: 300,
       toolbar: {
         show: true,
       },
