@@ -33,17 +33,17 @@ export class WidgetPieChartComponent {
     },
     chart: {
       type: 'donut',
-      height: 300,
+      height: 225,
       toolbar: {
         show: true,
       },
       animations: {
-        enabled: false,
+        enabled: true,
       },
     },
     stroke: {
       show: true,
-      width: 8,
+      width: 3,
       colors: ['#1E222A'],
     },
 

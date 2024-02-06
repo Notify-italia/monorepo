@@ -11,6 +11,12 @@
       "outputs": [
         "{options.outputPath}"
       ],
+      "allowedCommonJsDependencies": [
+        "qrcode",
+        "file-saver",
+        "compressorjs",
+        "apexcharts"
+      ],
       "options": {
         "outputPath": "dist/apps/nfc-company-client",
         "index": "apps/nfc-company-client/src/index.html",

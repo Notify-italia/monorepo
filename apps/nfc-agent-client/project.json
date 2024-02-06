@@ -16,7 +16,8 @@
         "allowedCommonJsDependencies": [
           "qrcode",
           "file-saver",
-          "compressorjs"
+          "compressorjs",
+          "apexcharts"
         ],
         "outputPath": "dist/apps/nfc-agent-client",
         "index": "apps/nfc-agent-client/src/index.html",

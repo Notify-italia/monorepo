@@ -58,6 +58,9 @@ export class AnalyticsComponent {
 
   public baseUrl = environment.profilesUrl;
 
+  public classicBusinessCardCO2 = 0.02;
+  public nfcBusinessCardCO2 = 0.06;
+
   public totalScansIcon: SvgBoxIcon = {
     expanded: 'Condivisione',
     name: 'connect_without_contact',
@@ -119,7 +122,11 @@ export class AnalyticsComponent {
   };
 
   private _savedCO2 = (totalVisits: number, totalUsers: number) => {
-    return Number((totalVisits * 0.02 - totalUsers * 0.06).toFixed(2));
+    const value =
+      totalVisits * this.classicBusinessCardCO2 -
+      totalUsers * this.nfcBusinessCardCO2;
+
+    return value > 0 ? Number(value.toFixed(2)) : 0;
   };
 
   private _feedbackStats = (
@@ -153,8 +160,6 @@ export class AnalyticsComponent {
 
     const bestUser = usersPerRating[0];
     const worstUser = usersPerRating[usersPerRating.length - 1];
-
-    console.log('bestUser', usersPerRating);
 
     bestUser.profile = agents.find((a) => a._id === bestUser.agent)?.profile;
     worstUser.profile = agents.find((a) => a._id === worstUser.agent)?.profile;

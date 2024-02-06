@@ -55,9 +55,10 @@ export class LicenseComponent {
       buttonColor: 'warning',
     };
 
-    if (!this.activeLicense) {
-      return [editLicense];
-    }
+    if (!this.license)
+      if (!this.activeLicense) {
+        return [editLicense];
+      }
 
     return [removeLicense, editLicense];
   }

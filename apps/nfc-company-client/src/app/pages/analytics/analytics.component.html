@@ -45,7 +45,11 @@
           [icon]="co2SavedIcon"
           [count]="data.totalCO2Saved"
           countSuffix="Kg di CO2 risparmiati"
-          tooltip="Dati approssimativi"
+          tooltip="Dati basati su una media di {{
+            classicBusinessCardCO2
+          }} kg di CO2 risparmiati su ogni scansione, sottratti di {{
+            nfcBusinessCardCO2
+          }} kg di CO2 per ogni biglietto da visita digitale posseduto."
         ></notify-widget-counter>
       </div>
       <div class="divider"></div>

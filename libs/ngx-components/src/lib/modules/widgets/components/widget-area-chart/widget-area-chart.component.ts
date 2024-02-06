@@ -59,6 +59,10 @@ export class WidgetAreaChartComponent implements OnInit, OnChanges {
     stroke: DEFAULT_STROKE,
   };
 
+  public constructor() {
+    this._loadScript();
+  }
+
   public ngOnInit(): void {
     this.enrichedSeries = this.enrichSeries();
   }
@@ -131,6 +135,15 @@ export class WidgetAreaChartComponent implements OnInit, OnChanges {
 
     return missingDates;
   }
+
+  private _loadScript() {
+    const node = document.createElement('script');
+    node.src = 'https://cdn.jsdelivr.net/npm/chartjs-plugin-deferred@1';
+    node.type = 'text/javascript';
+    node.async = true;
+    node.charset = 'utf-8';
+    document.getElementsByTagName('head')[0].appendChild(node);
+  }
 }
 
 const DEFAULT_FILL: ApexFill = {
@@ -182,7 +195,7 @@ const DEFAULT_CHART: ApexChart = {
     offsetY: -10,
   },
   animations: {
-    enabled: false,
+    enabled: true,
     easing: 'easeinout',
   },
 };

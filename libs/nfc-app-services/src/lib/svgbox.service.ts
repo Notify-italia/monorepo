@@ -29,7 +29,6 @@ export class SvgboxService {
   }
 
   private _loadScript() {
-    console.log('preparing to load...');
     const node = document.createElement('script');
     node.src = 'https://unpkg.com/external-svg-loader@latest/svg-loader.min.js';
     node.type = 'text/javascript';
