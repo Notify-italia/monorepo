@@ -26,7 +26,7 @@
             <notify-widget-counter
               class="dashboard-card"
               title="Visite totali"
-              bgColor="#31A17C"
+              backgroundColor="#31A17C"
               elementsColor="#FFFEFC"
               [icon]="totalScansIcon"
               [count]="data.user.statsMapped.totalVisits"
@@ -35,7 +35,7 @@
             <notify-widget-counter
               class="dashboard-card"
               title="Salvati in rubrica"
-              bgColor="#F9FAFB"
+              backgroundColor="#F9FAFB"
               elementsColor="#1F2937"
               [icon]="savedContactsIcon"
               [count]="data.user.statsTotals?.['profile:save'] || 0"
@@ -44,7 +44,7 @@
             <notify-widget-counter
               class="dashboard-card"
               title="Visite da rubrica"
-              bgColor="#0286FF"
+              backgroundColor="#0286FF"
               elementsColor="#FFFEFE"
               [icon]="returnFromContactBookIcon"
               [count]="data.user.statsMapped.percentReturn"
@@ -54,7 +54,7 @@
             <!-- <notify-widget-counter
               class="dashboard-card"
               title="Impatto ambientale"
-              bgColor="#5EC866"
+              backgroundColor="#5EC866"
               elementsColor="#FFFEFC"
               [icon]="co2SavedIcon"
               [count]="1.5"
@@ -73,7 +73,7 @@
               (timespanChange)="getProfileVisits($event).subscribe()"
             >
             </notify-widget-area-chart>
-            <div class="flex flex-col lg:w-4/12 h-full items-center v-spacing">
+            <div class="flex flex-col lg:w-5/12 h-full items-center v-spacing">
               <notify-widget-feedback
                 class="flex w-full"
                 [value]="data.user.statsMapped.averageFeedback"

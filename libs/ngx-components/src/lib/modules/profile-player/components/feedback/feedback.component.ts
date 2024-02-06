@@ -37,7 +37,7 @@ export class FeedbackComponent implements OnInit {
   public sendFeedback() {
     this.loading = true;
     this._feedbackService
-      .sendFeedback(
+      .postFeedback(
         {
           owner: this.profile.owner,
           rating: this.rating,

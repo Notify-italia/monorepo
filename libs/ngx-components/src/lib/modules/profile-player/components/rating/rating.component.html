@@ -9,11 +9,13 @@
   @for (item of availableItems; track rating) {
 
   <input
+    #ItemInput
     type="radio"
     name="rating-8 "
     class="mask mask-star-2 {{ colorClass }} mx-1"
     [checked]="rating >= item.value"
     (change)="setRating(item.value)"
   />
+
   }
 </div>

@@ -17,6 +17,8 @@ export class WidgetBarChartComponent {
   @Input() public title = '';
   @Input() public series: ApexAxisChartSeries = [];
 
+  public backgroundColor = 'transparent';
+
   public chartConfig: ApexOptions = {
     noData: {
       text: 'Nessun dato visualizzabile',
@@ -39,7 +41,7 @@ export class WidgetBarChartComponent {
         borderRadius: 4,
         borderRadiusApplication: 'end',
         horizontal: true,
-        barHeight: '10%',
+        barHeight: '30%',
       },
     },
     dataLabels: {

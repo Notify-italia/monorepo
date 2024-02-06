@@ -18,6 +18,8 @@ export class WidgetPieChartComponent {
   @Input() series: ApexNonAxisChartSeries = [];
   @Input() legendValues: string[] = [];
 
+  public backgroundColor = 'transparent';
+
   public chartConfig: ApexOptions = {
     noData: {
       text: 'Nessun dato visualizzabile',

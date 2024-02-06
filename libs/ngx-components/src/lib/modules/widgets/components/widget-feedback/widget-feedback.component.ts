@@ -13,4 +13,6 @@ export class WidgetFeedbackComponent {
   @Input() value = 1;
   @Input() title = 'Feedback';
   @Input() maxRating = 5;
+
+  public backgroundColor = 'transparent';
 }

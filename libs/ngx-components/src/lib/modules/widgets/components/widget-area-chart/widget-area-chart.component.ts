@@ -47,8 +47,9 @@ export class WidgetAreaChartComponent implements OnInit, OnChanges {
 
   @Output() public timespanChange = new EventEmitter<INotifyStat['period']>();
 
-  public enrichedSeries: ApexAxisChartSeries = [];
+  public backgroundColor = 'transparent';
 
+  public enrichedSeries: ApexAxisChartSeries = [];
   public chartConfig: ApexOptions = {
     noData: {
       text: 'Nessun dato visualizzabile',

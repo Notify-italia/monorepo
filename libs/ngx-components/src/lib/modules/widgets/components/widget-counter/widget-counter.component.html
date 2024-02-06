@@ -1,45 +1,67 @@
-<div
-  class="w-full rounded-3xl h-24 font-work"
-  [ngStyle]="{
-    'background-color': bgColor,
-    color: elementsColor
-  }"
->
-  <div class="flex flex-col w-full px-2 h-full justify-center">
-    <div class="flex justify-around h-full items-center">
-      <div
-        class="w-20 h-20 backdrop-brightness-90 rounded-3xl flex flex-col justify-center shrink-0 items-center"
-      >
-        <notify-svg-box-icon [icon]="icon" [size]="12"></notify-svg-box-icon>
-      </div>
-      <div class="w-full h-full flex flex-col px-4 justify-center truncate">
-        <h2 class="text-md font-medium truncate opacity-75">
-          {{ title }}
-        </h2>
-        <h4 class="space-x-1 flex items-end">
-          <span class="font-bold text-3xl -mb-[0.105rem]">{{ count }}</span>
-          <span class="text-base tracking-tighter opacity-50 truncate">
-            {{ countSuffix }}
-          </span>
-        </h4>
-      </div>
-      <div class="flex flex-col justify-center items-center">
-        <svg
-          *ngIf="tooltip"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6 tooltip tooltip-open tooltip-right"
-          [attr.data-tip]="tooltip"
+<div class="w-full h-full widget-container">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 1000 1000"
+    xmlns:v="https://vecta.io/nano"
+    class="left-0 !opacity-100 !bottom-auto -ml-5 !w-fit"
+  >
+    <defs>
+      <clipPath id="A">
+        <path
+          [attr.fill]="backgroundColor"
+          d="M922.5 673Q846 846 673 907.5T340.5 894q-159.5-75-234-234.5T96 330q64-170 234-226.5t343-3Q846 154 922.5 327t0 346Z"
+        />
+      </clipPath>
+    </defs>
+    <g clip-path="url(#A)">
+      <path
+        [attr.fill]="backgroundColor"
+        d="M922.5 673Q846 846 673 907.5T340.5 894q-159.5-75-234-234.5T96 330q64-170 234-226.5t343-3Q846 154 922.5 327t0 346Z"
+      />
+    </g>
+  </svg>
+
+  <div>
+    <div class="flex flex-col w-full p-2 h-full justify-center">
+      <div class="flex justify-around h-full items-center">
+        <div
+          class="w-20 h-20 flex flex-col justify-center shrink-0 items-center"
+          [ngStyle]="{
+            color: elementsColor,
+          }"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
-          />
-        </svg>
+          <notify-svg-box-icon [icon]="icon" [size]="12"></notify-svg-box-icon>
+        </div>
+        <div class="w-full h-full flex flex-col px-4 justify-center truncate">
+          <h2 class="text-md font-medium truncate opacity-75">
+            {{ title }}
+          </h2>
+          <h4 class="space-x-1 flex items-end px-2">
+            <span class="font-bold text-3xl">{{ count }}</span>
+            <span class="text-base tracking-tighter opacity-50 truncate">
+              {{ countSuffix }}
+            </span>
+          </h4>
+        </div>
+        <div class="flex flex-col justify-center items-center mx-5">
+          <a class="tooltip tooltip-left" [attr.data-tip]="tooltip">
+            <svg
+              *ngIf="tooltip"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+              />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>

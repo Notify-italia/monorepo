@@ -8,11 +8,11 @@ import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-bo
   standalone: true,
   imports: [CommonModule, SvgBoxIconComponent],
   templateUrl: './widget-counter.component.html',
-  styleUrl: './widget-counter.component.scss',
+  styleUrls: ['./widget-counter.component.scss', '../../widgets.styles.scss'],
 })
 export class WidgetCounterComponent {
   @Input({ required: true }) public count = 0;
-  @Input({ required: true }) public bgColor!: string;
+  @Input({ required: true }) public backgroundColor!: string;
   @Input({ required: true }) public icon!: SvgBoxIcon;
   @Input({ required: true }) public elementsColor!: string;
   @Input({ required: true }) public title!: string;

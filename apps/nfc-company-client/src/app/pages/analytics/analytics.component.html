@@ -2,7 +2,18 @@
   <notify-page-header
     title="Analytics"
     subtitle="Visualizza le statistiche relative ai tuoi utenti."
+    [buttons]="[
+      {
+        label: 'Dettagli',
+        icon: [
+          'M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z',
+          'M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z'
+        ],
+        eventName: 'details'
+      }
+    ]"
   ></notify-page-header>
+
   @if (dashboard$ | async; as data) {
   <div>
     <div>
@@ -10,7 +21,7 @@
         <notify-widget-counter
           class="dashboard-card"
           title="Visite totali"
-          bgColor="#31A17C"
+          backgroundColor="transparent"
           elementsColor="#FFFEFC"
           [icon]="totalScansIcon"
           [count]="data.totalVisits"
@@ -19,8 +30,8 @@
         <notify-widget-counter
           class="dashboard-card"
           title="Salvati in rubrica"
-          bgColor="#F9FAFB"
-          elementsColor="#1F2937"
+          backgroundColor="transparent"
+          elementsColor="#FFFEFC"
           [icon]="savedContactsIcon"
           [count]="data.totalSaved"
           countSuffix="Contatti"
@@ -28,17 +39,18 @@
         <notify-widget-counter
           class="dashboard-card"
           title="Impatto ambientale"
-          bgColor="#5EC866"
-          elementsColor="#FFFEFC"
+          backgroundColor="transparent"
+          elementsColor="#5EC866"
           [icon]="co2SavedIcon"
           [count]="data.totalCO2Saved"
           countSuffix="Kg di CO2 risparmiati"
+          tooltip="Dati approssimativi"
         ></notify-widget-counter>
       </div>
       <div class="divider"></div>
 
       <div
-        class="flex flex-col lg:flex-row w-full lg:h-[32rem] 2xl:h-[40rem] h-spacing"
+        class="flex flex-col lg:flex-row w-full lg:min-h-[32rem] 2xl:min-h-[40rem] h-spacing"
       >
         <notify-widget-bar-chart
           class="w-full h-full"
@@ -46,12 +58,31 @@
           [series]="data.agentsPerVisitSeries"
         >
         </notify-widget-bar-chart>
+        <div
+          class="flex flex-col justify-around lg:w-5/12 items-stretch v-spacing"
+        >
+          <notify-widget-feedback
+            title="Feedback medio"
+            [value]="data.totalAverageFeedbackRating"
+          ></notify-widget-feedback>
+          <notify-widget-profile-card
+            *ngIf="data.bestUser.profile as bestUser"
+            [profile]="bestUser"
+            [rating]="data.bestUser.averageRating"
+            [ratingItems]="data.bestUser.count"
+            title="Miglior utente ({{ currentMonth }})"
+            backgroundColor="#40ff00"
+          ></notify-widget-profile-card>
+          <notify-widget-profile-card
+            *ngIf="data.worstUser.profile as worstUser"
+            [profile]="worstUser"
+            [rating]="data.worstUser.averageRating"
+            [ratingItems]="data.worstUser.count"
+            title="Peggior utente ({{ currentMonth }})"
+            backgroundColor="#ff0000"
+          ></notify-widget-profile-card>
+        </div>
       </div>
-      <notify-widget-feedback
-        class="lg:w-4/12"
-        title="Feedback medio"
-        [value]="data.totalAverageFeedbackRating"
-      ></notify-widget-feedback>
     </div>
   </div>
   }
