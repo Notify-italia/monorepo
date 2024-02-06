@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import {
   EnumNotifyStatType,
   INotifyAgent,
@@ -9,7 +10,6 @@ import {
 import {
   AgentService,
   FeedbackService,
-  StatService,
   SvgBoxIcon,
 } from '@notify/nfc-app-services';
 import {
@@ -35,8 +35,10 @@ import { environment } from '../../../environments/environment';
     WidgetFeedbackComponent,
     WidgetBarChartComponent,
     WidgetProfileCardComponent,
+    RouterModule,
+    LoadingComponent,
   ],
-  providers: [StatService, AgentService, FeedbackService],
+  providers: [AgentService, FeedbackService],
   templateUrl: './analytics.component.html',
   styleUrl: './analytics.component.scss',
 })
@@ -85,10 +87,14 @@ export class AnalyticsComponent {
   }
 
   constructor(
-    private _statService: StatService,
     private _feedbackService: FeedbackService,
-    private _agentService: AgentService
+    private _agentService: AgentService,
+    private _router: Router
   ) {}
+
+  public goToDetails = () => {
+    this._router.navigate(['pages/analytics/detail']);
+  };
 
   private _cleanUserEmail = (email: string) => email.split('@')[0];
 

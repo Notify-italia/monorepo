@@ -26,7 +26,7 @@
             <notify-widget-counter
               class="dashboard-card"
               title="Visite totali"
-              backgroundColor="#31A17C"
+              backgroundColor="transparent"
               elementsColor="#FFFEFC"
               [icon]="totalScansIcon"
               [count]="data.user.statsMapped.totalVisits"
@@ -35,8 +35,8 @@
             <notify-widget-counter
               class="dashboard-card"
               title="Salvati in rubrica"
-              backgroundColor="#F9FAFB"
-              elementsColor="#1F2937"
+              backgroundColor="transparent"
+              elementsColor="#FFFEFC"
               [icon]="savedContactsIcon"
               [count]="data.user.statsTotals?.['profile:save'] || 0"
               countSuffix="Contatti"
@@ -44,7 +44,7 @@
             <notify-widget-counter
               class="dashboard-card"
               title="Visite da rubrica"
-              backgroundColor="#0286FF"
+              backgroundColor="transparent"
               elementsColor="#FFFEFE"
               [icon]="returnFromContactBookIcon"
               [count]="data.user.statsMapped.percentReturn"
@@ -54,7 +54,7 @@
             <!-- <notify-widget-counter
               class="dashboard-card"
               title="Impatto ambientale"
-              backgroundColor="#5EC866"
+              backgroundColor="transparent"
               elementsColor="#FFFEFC"
               [icon]="co2SavedIcon"
               [count]="1.5"

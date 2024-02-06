@@ -1,0 +1,99 @@
+<div class="page-layout">
+  <notify-page-header
+    title="Dettaglio Analytics"
+    subtitle="Analizza l'andamento dei tuoi utenti in Notify"
+    [buttons]="[
+      {
+        label: 'Indietro',
+        icon: [
+          'M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z'
+        ],
+        eventName: 'back'
+      }
+    ]"
+    (buttonClicked)="goBack()"
+  ></notify-page-header>
+
+  <div>
+    <div>
+      <div
+        class="flex flex-col lg:flex-row lg:space-x-2 p-2 w-full min-h-[80vh] justify-around"
+      >
+        <div class="lg:w-4/12 2xl:w-3/12 lg:h-full p-2 space-y-2">
+          <notify-search-bar
+            [array$]="agents$"
+            [filterableFields]="[
+              'email',
+              'profile.email',
+              'profile.name',
+              'profile.surname',
+              'profile.email',
+              'profile.phone',
+              'profile.customFields.iconName',
+              'profile.customFields.value',
+              'createdAt',
+              'profile.role'
+            ]"
+            placeholder="Cerca tra gli utenti..."
+            (filteredArray)="agents = $event"
+          ></notify-search-bar>
+          <div class="divider"></div>
+          @for (item of agents; track item._id) {
+          <button
+            class="flex smooth hover:brightness-150 justify-between w-full"
+          >
+            <div class="flex items-center w-full space-x-2">
+              <div class="w-14">
+                <notify-avatar
+                  [avatarConfig]="{
+                src: item.profile?.avatar || '',
+                mask: item.profile?.config?.avatarMask ||'',
+                size: '14',
+              }"
+                ></notify-avatar>
+              </div>
+              <small class="flex flex-col h-full justify-center my-auto">
+                <h2
+                  *ngIf="item.profile?.name || item.profile?.surname"
+                  class="w-full text-start"
+                >
+                  {{ item.profile?.name }}
+                  {{ item.profile?.surname }}
+                </h2>
+                <p class="w-full text-start max-w-48 2xl:max-w-96 truncate">
+                  {{ item.email }}
+                </p>
+              </small>
+            </div>
+            <div class="my-auto">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+
+          <div class="divider"></div>
+          }
+        </div>
+
+        <div class="divider lg:divider-horizontal"></div>
+
+        <div class="lg:w-8/12 2xl:w-9/12 h-full p-2">
+          <notify-no-items
+            title="Seleziona un utente"
+            subtitle="Selezione un utente per visualizzarne le statistiche"
+          ></notify-no-items>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

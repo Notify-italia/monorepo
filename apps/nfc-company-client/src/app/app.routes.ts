@@ -57,10 +57,27 @@ export const appRoutes: Route[] = [
       {
         path: 'analytics',
         canActivate: [licenseGuard],
-        loadComponent: () =>
-          import('./pages/analytics/analytics.component').then(
-            (m) => m.AnalyticsComponent
-          ),
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'dashboard',
+          },
+          {
+            path: 'dashboard',
+            loadComponent: () =>
+              import('./pages/analytics/analytics.component').then(
+                (m) => m.AnalyticsComponent
+              ),
+          },
+          {
+            path: 'detail',
+            loadComponent: () =>
+              import(
+                './pages/analytics-detail/analytics-detail.component'
+              ).then((m) => m.AnalyticsDetailComponent),
+          },
+        ],
       },
       {
         path: 'signout',

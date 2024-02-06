@@ -12,6 +12,7 @@
         eventName: 'details'
       }
     ]"
+    (buttonClicked)="goToDetails()"
   ></notify-page-header>
 
   @if (dashboard$ | async; as data) {
@@ -66,6 +67,7 @@
             [value]="data.totalAverageFeedbackRating"
           ></notify-widget-feedback>
           <notify-widget-profile-card
+            [baseUrl]="baseUrl"
             *ngIf="data.bestUser.profile as bestUser"
             [profile]="bestUser"
             [rating]="data.bestUser.averageRating"
@@ -74,6 +76,7 @@
             backgroundColor="#40ff00"
           ></notify-widget-profile-card>
           <notify-widget-profile-card
+            [baseUrl]="baseUrl"
             *ngIf="data.worstUser.profile as worstUser"
             [profile]="worstUser"
             [rating]="data.worstUser.averageRating"
@@ -84,6 +87,10 @@
         </div>
       </div>
     </div>
+  </div>
+  } @else {
+  <div class="loading-container">
+    <notify-loading></notify-loading>
   </div>
   }
 </div>
