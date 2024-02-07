@@ -76,7 +76,14 @@ const _companyFlow = async (
     );
   }
 
-  return await StatManager.report({ type, owner: { $in: agents }, period });
+  return await StatManager.report({
+    type,
+    owner: { $in: agents },
+    $or: [
+      { 'period.from': { $gte: period.from } },
+      { 'period.to': { $lte: period.to } },
+    ],
+  });
 };
 
 const _agentFlow = async (

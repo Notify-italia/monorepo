@@ -32,7 +32,7 @@
               backgroundColor="transparent"
               elementsColor="#008FFB"
               [icon]="totalScansIcon"
-              [count]="data.user.statsMapped.totalVisits"
+              [count]="data.user.totalVisits"
               countSuffix="Visite"
             ></notify-widget-counter>
             <notify-widget-counter
@@ -44,7 +44,7 @@
               backgroundColor="transparent"
               elementsColor="#876756"
               [icon]="savedContactsIcon"
-              [count]="data.user.statsTotals?.['profile:save'] || 0"
+              [count]="data.user['profile:save'] || 0"
               countSuffix="Contatti"
             ></notify-widget-counter>
             <notify-widget-counter
@@ -56,7 +56,7 @@
               backgroundColor="transparent"
               elementsColor="#a7ed72"
               [icon]="returnFromContactBookIcon"
-              [count]="data.user.statsMapped.percentReturn"
+              [count]="data.user.percentReturn"
               countSuffix="% sul totale"
             >
             </notify-widget-counter>
@@ -77,9 +77,6 @@
           >
             <notify-widget-area-chart
               class="w-full h-full dashboard-card"
-              [ngStyle]="{
-                'animation-delay': '0.2s'
-              }"
               title="Visite"
               [series]="data.areaChart"
               (timespanChange)="getProfileVisits($event).subscribe()"
@@ -88,19 +85,14 @@
             <div class="flex flex-col lg:w-5/12 h-full items-center v-spacing">
               <notify-widget-feedback
                 class="flex w-full dashboard-card animate__fadeInRight animate__animated"
-                [value]="data.user.statsMapped.averageFeedback"
+                [value]="data.user.averageFeedback"
               >
               </notify-widget-feedback>
               <notify-widget-pie-chart
                 title="Integrazioni"
                 class="w-full h-full"
-                [ngStyle]="{
-                  'animation-delay': '0.2s'
-                }"
-                [series]="data.user.statsMapped.integrationsCountValues || []"
-                [legendValues]="
-                  data.user.statsMapped.integrationsCountLabels || []
-                "
+                [series]="data.user.integrationsCountValues || []"
+                [legendValues]="data.user.integrationsCountLabels || []"
               >
               </notify-widget-pie-chart>
             </div>

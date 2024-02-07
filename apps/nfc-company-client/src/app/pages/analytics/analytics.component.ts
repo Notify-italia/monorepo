@@ -230,19 +230,20 @@ export class AnalyticsComponent {
       EnumNotifyStatType.ProfileFeedbackTotalRating
     );
 
-    const _totalFeedbackCount = this._absoluteStatProperty(
+    const totalFeedbackCount = this._absoluteStatProperty(
       agents,
       EnumNotifyStatType.ProfileFeedbackCount
     );
 
     const totalAverageFeedbackRating =
-      _totalFeedbackRating / _totalFeedbackCount || 0;
+      _totalFeedbackRating / totalFeedbackCount || 0;
 
     return {
       agentsPerVisitSeries,
       totalVisits,
       totalSaved,
       totalAverageFeedbackRating,
+      totalFeedbackCount,
       totalCO2Saved: this._savedCO2(totalVisits, agents.length),
     };
   };

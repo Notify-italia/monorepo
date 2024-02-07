@@ -19,79 +19,100 @@
       <div
         class="flex flex-col lg:flex-row lg:space-x-2 p-2 w-full min-h-[80vh] justify-around"
       >
-        <div class="lg:w-4/12 2xl:w-3/12 lg:h-full p-2 space-y-2">
+        <div class="lg:w-3/12 p-2 space-y-2">
           <notify-search-bar
             [array$]="agents$"
-            [filterableFields]="[
-              'email',
-              'profile.email',
-              'profile.name',
-              'profile.surname',
-              'profile.email',
-              'profile.phone',
-              'profile.customFields.iconName',
-              'profile.customFields.value',
-              'createdAt',
-              'profile.role'
-            ]"
+            [filterableFields]="filterableFields"
             placeholder="Cerca tra gli utenti..."
             (filteredArray)="agents = $event"
           ></notify-search-bar>
-          <div class="divider"></div>
-          @for (item of agents; track item._id) {
-          <button
-            class="flex smooth hover:brightness-150 justify-between w-full"
-          >
-            <div class="flex items-center w-full space-x-2">
-              <div class="w-14">
-                <notify-avatar
-                  [avatarConfig]="{
-                src: item.profile?.avatar || '',
-                mask: item.profile?.config?.avatarMask ||'',
-                size: '14',
-              }"
-                ></notify-avatar>
-              </div>
-              <small class="flex flex-col h-full justify-center my-auto">
-                <h2
-                  *ngIf="item.profile?.name || item.profile?.surname"
-                  class="w-full text-start"
-                >
-                  {{ item.profile?.name }}
-                  {{ item.profile?.surname }}
-                </h2>
-                <p class="w-full text-start max-w-48 2xl:max-w-96 truncate">
-                  {{ item.email }}
-                </p>
-              </small>
-            </div>
-            <div class="my-auto">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-6 h-6"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </div>
-          </button>
+          <div class="divider !mb-4"></div>
 
-          <div class="divider"></div>
+          @for (item of agents; track item._id) {
+          <notify-analyitics-detail-user-row
+            [item]="item"
+            (selectedItem)="selectedAgent.setValue($event)"
+            [selected]="selectedAgent.value?._id === item._id"
+            [hasSelected]="!!selectedAgent.value?._id"
+          ></notify-analyitics-detail-user-row>
+          } @if(!(agents$ |async)) {
+          <div class="loading-container">
+            <notify-loading></notify-loading>
+          </div>
+
           }
         </div>
 
         <div class="divider lg:divider-horizontal"></div>
 
-        <div class="lg:w-8/12 2xl:w-9/12 h-full p-2">
+        <div class="p-2 w-9/12 h-[30rem]">
+          @if(agentStats$ | async; as stats) {
+          <div class="flex flex-col justify around w-full h-full v-spacing">
+            <div class="flex justify-around w-full h-full h-spacing">
+              <notify-widget-area-chart
+                class="w-full h-full dashboard-card"
+                title="Visite"
+                [series]="stats.visits"
+                (timespanChange)="
+                  getProfileVisits(
+                    selectedAgent.value?._id || '',
+                    $event
+                  ).subscribe()
+                "
+              ></notify-widget-area-chart>
+              <div class="flex flex-col justify-start w-5/12 v-spacing">
+                <notify-widget-pie-chart
+                  title="Integrazioni"
+                  class="w-full"
+                  [series]="stats.totals.integrationsCountValues || []"
+                  [legendValues]="stats.totals.integrationsCountLabels || []"
+                ></notify-widget-pie-chart>
+                <notify-widget-counter
+                  class="dashboard-card animate__fadeInDown animate__animated"
+                  [ngStyle]="{
+                    'animation-delay': '0s'
+                  }"
+                  title="Visite totali"
+                  backgroundColor="transparent"
+                  elementsColor="#008FFB"
+                  [icon]="totalScansIcon"
+                  [count]="stats.totals.totalVisits"
+                  countSuffix="Visite"
+                ></notify-widget-counter>
+                <notify-widget-counter
+                  class="dashboard-card animate__fadeInDown animate__animated"
+                  [ngStyle]="{
+                    'animation-delay': '0.2s'
+                  }"
+                  title="Contatto Salvato"
+                  backgroundColor="transparent"
+                  elementsColor="#876756"
+                  [icon]="savedContactsIcon"
+                  [count]="stats.totals['profile:save'] || 0"
+                  countSuffix="Contatti"
+                ></notify-widget-counter>
+                <notify-widget-counter
+                  class="dashboard-card animate__fadeInDown animate__animated"
+                  [ngStyle]="{
+                    'animation-delay': '0.4s'
+                  }"
+                  title="Visite da rubrica"
+                  backgroundColor="transparent"
+                  elementsColor="#a7ed72"
+                  [icon]="returnFromContactBookIcon"
+                  [count]="stats.totals.percentReturn"
+                  countSuffix="% sul totale"
+                >
+                </notify-widget-counter>
+              </div>
+            </div>
+          </div>
+          } @else if(!selectedAgent.value?._id) {
           <notify-no-items
             title="Seleziona un utente"
             subtitle="Selezione un utente per visualizzarne le statistiche"
           ></notify-no-items>
+          }
         </div>
       </div>
     </div>

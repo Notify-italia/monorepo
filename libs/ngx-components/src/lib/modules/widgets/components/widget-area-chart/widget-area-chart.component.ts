@@ -26,6 +26,11 @@ import {
   NgApexchartsModule,
 } from 'ng-apexcharts';
 
+export const AREA_CHART_DEFAULT_PERIOD = {
+  from: startOfDay(subWeeks(new Date(), 1)),
+  to: endOfDay(new Date()),
+};
+
 @Component({
   selector: 'notify-widget-area-chart',
   standalone: true,

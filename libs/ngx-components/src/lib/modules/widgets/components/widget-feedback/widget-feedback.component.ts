@@ -12,7 +12,7 @@ import { RatingComponent } from '../../../profile-player';
 export class WidgetFeedbackComponent {
   @Input() value = 1;
   @Input() title = 'Feedback';
-  @Input() maxRating = 5;
+  @Input() totalFeedbacks = 0;
 
   public backgroundColor = 'transparent';
 }

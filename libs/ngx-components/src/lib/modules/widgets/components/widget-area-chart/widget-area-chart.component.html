@@ -29,7 +29,7 @@
         <div class="join my-auto mt-4 hidden lg:inline-flex">
           @for (item of timespans; track $index) {
           <button
-            class="btn join-item btn-sm"
+            class="btn join-item btn-sm text-xs"
             data-theme="notifytheme"
             (click)="handleTimespanChange($any(prepareSelectValue(item)))"
             [ngClass]="

@@ -55,7 +55,7 @@
       <div class="divider"></div>
 
       <div
-        class="flex flex-col lg:flex-row w-full lg:min-h-[32rem] 2xl:min-h-[40rem] h-spacing"
+        class="flex flex-col lg:flex-row w-full lg:min-h-[32rem] 2xl:min-h-[35rem] h-spacing"
       >
         <notify-widget-bar-chart
           class="w-full h-full"
@@ -67,9 +67,14 @@
           class="flex flex-col justify-around lg:w-5/12 2xl:w-3/12 items-stretch v-spacing"
         >
           <notify-widget-feedback
-            title="Feedback medio"
+            title="Valutazione media"
             [value]="data.totalAverageFeedbackRating"
+            [totalFeedbacks]="data.totalFeedbackCount"
           ></notify-widget-feedback>
+          <div class="divider"></div>
+
+          <h2 class="text-2xl text-white font-bold">Utenti Mensili</h2>
+
           <notify-widget-profile-card
             [baseUrl]="baseUrl"
             *ngIf="data.bestUser.profile as bestUser"
