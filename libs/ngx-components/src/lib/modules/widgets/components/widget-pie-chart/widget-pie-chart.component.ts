@@ -23,6 +23,9 @@ export class WidgetPieChartComponent {
   public chartConfig: ApexOptions = {
     noData: {
       text: 'Nessun dato visualizzabile',
+      style: {
+        color: '#ffffff',
+      },
     },
     legend: {
       show: true,
@@ -67,12 +70,14 @@ export class WidgetPieChartComponent {
               show: true,
               fontSize: '52px',
               fontFamily: 'Roboto, sans-serif',
+              fontWeight: 600,
               color: '#ffffff',
               offsetY: 25,
             },
             total: {
               show: true,
               label: 'Totale',
+              fontSize: '12px',
               color: '#ffffff',
               fontWeight: 'bold',
               formatter: function (w: { globals: { seriesTotals: number[] } }) {

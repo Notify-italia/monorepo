@@ -62,6 +62,16 @@ export class WidgetAreaChartComponent implements OnInit, OnChanges {
     fill: DEFAULT_FILL,
     chart: DEFAULT_CHART,
     stroke: DEFAULT_STROKE,
+    tooltip: {
+      enabled: true,
+      x: {
+        show: true,
+        format: 'dd MMM',
+      },
+      y: {
+        formatter: (value) => value.toFixed(0),
+      },
+    },
   };
 
   public constructor() {

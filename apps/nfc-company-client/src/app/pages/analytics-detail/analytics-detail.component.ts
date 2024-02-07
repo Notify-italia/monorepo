@@ -10,6 +10,7 @@ import {
 } from '@notify/interfaces';
 import {
   AgentService,
+  FeedbackService,
   StatService,
   SvgBoxIcon,
 } from '@notify/nfc-app-services';
@@ -54,7 +55,7 @@ import { AnalyiticsDetailRowComponent } from '../../components/analyitics-detail
     WidgetNoteComponent,
     WidgetPieChartComponent,
   ],
-  providers: [AgentService, StatService],
+  providers: [AgentService, StatService, FeedbackService],
   templateUrl: './analytics-detail.component.html',
   styleUrl: './analytics-detail.component.scss',
 })
@@ -82,6 +83,17 @@ export class AnalyticsDetailComponent implements OnDestroy {
 
   public agentStats$ = combineLatest({
     visits: this.areaChartScans$,
+    feedbacks: this.selectedAgent.valueChanges.pipe(
+      switchMap((agent) =>
+        this._feedbackService.getFeedbacks(
+          {
+            from: new Date(agent?.createdAt || new Date()),
+            to: new Date(),
+          },
+          agent?._id
+        )
+      )
+    ),
     totals: this.selectedAgent.valueChanges.pipe(
       map((agent) => this._statService.userCounters(agent as INotifyUser))
     ),
@@ -99,12 +111,6 @@ export class AnalyticsDetailComponent implements OnDestroy {
     set: 'octicons',
   };
 
-  // public co2SavedIcon: SvgBoxIcon = {
-  //   expanded: 'Eco',
-  //   name: 'eco',
-  //   set: 'materialui',
-  // };
-
   public savedContactsIcon: SvgBoxIcon = {
     expanded: 'Contatti',
     name: 'contacts',
@@ -114,7 +120,8 @@ export class AnalyticsDetailComponent implements OnDestroy {
   constructor(
     private _router: Router,
     private _agentService: AgentService,
-    private _statService: StatService
+    private _statService: StatService,
+    private _feedbackService: FeedbackService
   ) {
     this.selectedAgent.valueChanges
       .pipe(

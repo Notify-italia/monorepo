@@ -47,19 +47,34 @@
 
         <div class="p-2 w-9/12 h-[30rem]">
           @if(agentStats$ | async; as stats) {
-          <div class="flex flex-col justify around w-full h-full v-spacing">
-            <div class="flex justify-around w-full h-full h-spacing">
-              <notify-widget-area-chart
-                class="w-full h-full dashboard-card"
-                title="Visite"
-                [series]="stats.visits"
-                (timespanChange)="
-                  getProfileVisits(
-                    selectedAgent.value?._id || '',
-                    $event
-                  ).subscribe()
-                "
-              ></notify-widget-area-chart>
+          <div
+            class="flex flex-col justify-around w-full h-full v-spacing flex-nowrap"
+          >
+            <div class="flex w-full h-full h-spacing justify-evenly">
+              <div
+                class="flex flex-col justify-start w-full v-spacing flex-nowrap"
+              >
+                <notify-widget-area-chart
+                  class="w-full h-full dashboard-card"
+                  title="Visite"
+                  [series]="stats.visits"
+                  (timespanChange)="
+                    getProfileVisits(
+                      selectedAgent.value?._id || '',
+                      $event
+                    ).subscribe()
+                  "
+                ></notify-widget-area-chart>
+                <notify-widget-feedback
+                  [value]="stats.totals.averageFeedback"
+                  [title]="'Feedbacks'"
+                  [advanced]="{
+                    enabled: true,
+                    feedbacks: stats.feedbacks
+                  }"
+                ></notify-widget-feedback>
+              </div>
+
               <div class="flex flex-col justify-start w-5/12 v-spacing">
                 <notify-widget-pie-chart
                   title="Integrazioni"
@@ -107,6 +122,7 @@
               </div>
             </div>
           </div>
+
           } @else if(!selectedAgent.value?._id) {
           <notify-no-items
             title="Seleziona un utente"
