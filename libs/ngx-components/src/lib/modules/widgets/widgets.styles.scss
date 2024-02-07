@@ -1,5 +1,5 @@
 .widget-container {
-  @apply w-full h-full text-white relative overflow-hidden rounded-2xl shadow-xl;
+  @apply w-full h-full text-white relative overflow-clip rounded-2xl shadow-xl;
 
   & > svg {
     @apply absolute opacity-50 w-full h-full bottom-0;
@@ -9,7 +9,7 @@
     @apply flex flex-col justify-around items-center relative bg-primary-500/10 backdrop-blur-3xl h-full w-full;
 
     & h2:first-child {
-      @apply text-2xl font-bold p-2 pt-4 text-start whitespace-nowrap truncate font-mplusRounded;
+      @apply 2xl:text-2xl font-bold p-2 pt-4 text-start whitespace-nowrap truncate font-mplusRounded;
     }
 
     & > .header-container {

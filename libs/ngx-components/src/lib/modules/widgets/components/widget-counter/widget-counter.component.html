@@ -1,4 +1,4 @@
-<div class="w-full h-full widget-container">
+<div class="widget-container">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1000 1000"
@@ -23,7 +23,7 @@
 
   <div>
     <div class="flex flex-col w-full p-2 h-full justify-center">
-      <div class="flex justify-around h-full items-center">
+      <div class="flex h-full items-center">
         <div
           class="w-20 h-20 flex flex-col justify-center shrink-0 items-center"
           [ngStyle]="{
@@ -32,8 +32,10 @@
         >
           <notify-svg-box-icon [icon]="icon" [size]="12"></notify-svg-box-icon>
         </div>
-        <div class="w-full h-full flex flex-col px-4 justify-center truncate">
-          <h2 class="text-md font-medium truncate opacity-75 !pt-0">
+        <div
+          class="w-full h-full flex flex-col 2xl:px-4 justify-center truncate"
+        >
+          <h2 class="font-medium truncate opacity-75 !pt-0">
             {{ title }}
           </h2>
           <h4 class="space-x-2 flex items-end px-2">
