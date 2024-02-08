@@ -1,4 +1,4 @@
-<div class="w-full h-full min-h-96 widget-container">
+<div class="w-full min-h-96 widget-container">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1000 1000"
@@ -29,7 +29,7 @@
       </div>
       <div class="divider !mt-1"></div>
     </div>
-    <div class="flex flex-col justify-center h-full">
+    <div class="flex flex-col justify-center h-full items-center">
       <apx-chart
         [noData]="chartConfig.noData || {}"
         [legend]="chartConfig.legend || {}"
@@ -40,6 +40,7 @@
         [stroke]="chartConfig.stroke || {}"
         [plotOptions]="chartConfig.plotOptions || {}"
         [dataLabels]="chartConfig.dataLabels || {}"
+        [responsive]="chartConfig.responsive || []"
         [labels]="legendValues"
         class="w-full h-fit 2xl:scale-125"
       ></apx-chart>

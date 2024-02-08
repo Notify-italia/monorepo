@@ -99,7 +99,7 @@ export class StatService {
       .filter((i) => i) as string[];
 
     return {
-      ...user.statsTotals,
+      ...user?.statsTotals,
       totalVisits,
       percentReturn,
       averageFeedback,

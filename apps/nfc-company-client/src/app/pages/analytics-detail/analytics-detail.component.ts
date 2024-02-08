@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import {
   EnumNotifyStatType,
@@ -22,6 +22,7 @@ import {
   PageHeaderComponent,
   SearchBarComponent,
   ShareProfileComponent,
+  TailwindFormsModule,
   WidgetAreaChartComponent,
   WidgetCounterComponent,
   WidgetFeedbackComponent,
@@ -30,6 +31,7 @@ import {
 } from '@notify/ngx-components';
 import { ApexAxisChartSeries } from 'ng-apexcharts';
 import { Observable, Subject, combineLatest, map, switchMap, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { AnalyiticsDetailRowComponent } from '../../components/analyitics-detail-row/analyitics-detail-row.component';
 
 @Component({
@@ -54,6 +56,9 @@ import { AnalyiticsDetailRowComponent } from '../../components/analyitics-detail
     WidgetFeedbackComponent,
     WidgetNoteComponent,
     WidgetPieChartComponent,
+    TailwindFormsModule,
+    ReactiveFormsModule,
+    ShareProfileComponent,
   ],
   providers: [AgentService, StatService, FeedbackService],
   templateUrl: './analytics-detail.component.html',
@@ -65,7 +70,21 @@ export class AnalyticsDetailComponent implements OnDestroy {
   public destroy$ = new Subject<void>();
 
   public areaChartScans$ = new Subject<ApexAxisChartSeries>();
+  public selectAgents$ = this.agents$.pipe(
+    map((agents) =>
+      agents.map((agent) => {
+        let name = `${agent.profile?.name} ${agent.profile?.surname}`;
 
+        if (!name.trim()) {
+          name = agent.email;
+        }
+
+        return { name, value: JSON.stringify(agent) };
+      })
+    )
+  );
+
+  public baseUrl = environment.profilesUrl;
   public selectedAgent = new FormControl<INotifyAgent>({} as INotifyAgent);
   public agents: INotifyAgent[] = [];
   public filterableFields = [
@@ -97,6 +116,9 @@ export class AnalyticsDetailComponent implements OnDestroy {
     totals: this.selectedAgent.valueChanges.pipe(
       map((agent) => this._statService.userCounters(agent as INotifyUser))
     ),
+    user: this.selectedAgent.valueChanges.pipe(
+      map((agent) => agent as INotifyUser)
+    ),
   });
 
   public totalScansIcon: SvgBoxIcon = {
@@ -125,9 +147,12 @@ export class AnalyticsDetailComponent implements OnDestroy {
   ) {
     this.selectedAgent.valueChanges
       .pipe(
-        switchMap((agent) =>
-          this.getProfileVisits(agent?._id || '', AREA_CHART_DEFAULT_PERIOD)
-        )
+        switchMap((agent) => {
+          return this.getProfileVisits(
+            agent?._id || '',
+            AREA_CHART_DEFAULT_PERIOD
+          );
+        })
       )
       .subscribe();
   }

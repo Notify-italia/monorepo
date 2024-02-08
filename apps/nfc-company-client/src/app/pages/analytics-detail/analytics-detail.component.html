@@ -17,8 +17,9 @@
   <div>
     <div>
       <div
-        class="flex flex-col lg:flex-row lg:space-x-2 p-2 w-full min-h-[80vh] justify-around"
+        class="flex flex-col lg:flex-row lg:space-x-2 lg:p-2 w-full lg:min-h-[80vh] justify-around"
       >
+        <!-- DESKTOP USER SELECT -->
         <div class="lg:w-3/12 p-2 space-y-2">
           <notify-search-bar
             [array$]="agents$"
@@ -26,31 +27,40 @@
             placeholder="Cerca tra gli utenti..."
             (filteredArray)="agents = $event"
           ></notify-search-bar>
-          <div class="divider !mb-4"></div>
 
-          @for (item of agents; track item._id) {
-          <notify-analyitics-detail-user-row
-            [item]="item"
-            (selectedItem)="selectedAgent.setValue($event)"
-            [selected]="selectedAgent.value?._id === item._id"
-            [hasSelected]="!!selectedAgent.value?._id"
-          ></notify-analyitics-detail-user-row>
-          } @if(!(agents$ |async)) {
-          <div class="loading-container">
-            <notify-loading></notify-loading>
+          <div class="max-h-48 lg:max-h-full overflow-y-auto">
+            <div class="divider !mb-4"></div>
+            @for (item of agents; track item._id) {
+            <notify-analyitics-detail-user-row
+              [item]="item"
+              (selectedItem)="selectedAgent.setValue($event)"
+              [selected]="selectedAgent.value?._id === item._id"
+              [hasSelected]="!!selectedAgent.value?._id"
+            ></notify-analyitics-detail-user-row>
+            } @if(!(agents$ |async)) {
+            <div class="loading-container">
+              <notify-loading></notify-loading>
+            </div>
+
+            }
           </div>
-
-          }
         </div>
 
         <div class="divider lg:divider-horizontal"></div>
 
-        <div class="p-2 w-9/12 h-[30rem]">
-          @if(agentStats$ | async; as stats) {
+        <div class="lg:p-2 w-full lg:w-9/12 min-h-[33rem]">
+          @if(selectedAgent.value) { @if(agentStats$ | async; as stats) {
           <div
             class="flex flex-col justify-around w-full h-full v-spacing flex-nowrap"
           >
-            <div class="flex w-full h-full h-spacing justify-evenly">
+            <notify-share-profile
+              *ngIf="stats.user.profile as profile"
+              [profile]="profile"
+              [baseUrl]="baseUrl"
+            ></notify-share-profile>
+            <div
+              class="flex flex-col lg:flex-row w-full h-full h-spacing justify-evenly"
+            >
               <div
                 class="flex flex-col justify-start w-full v-spacing flex-nowrap"
               >
@@ -60,7 +70,7 @@
                   [series]="stats.visits"
                   (timespanChange)="
                     getProfileVisits(
-                      selectedAgent.value?._id || '',
+                      selectedAgent.value._id || '',
                       $event
                     ).subscribe()
                   "
@@ -75,7 +85,9 @@
                 ></notify-widget-feedback>
               </div>
 
-              <div class="flex flex-col justify-start w-5/12 v-spacing">
+              <div
+                class="flex flex-col justify-start w-full lg:w-5/12 v-spacing"
+              >
                 <notify-widget-pie-chart
                   title="Integrazioni"
                   class="w-full"
@@ -122,8 +134,7 @@
               </div>
             </div>
           </div>
-
-          } @else if(!selectedAgent.value?._id) {
+          } } @else{
           <notify-no-items
             title="Seleziona un utente"
             subtitle="Selezione un utente per visualizzarne le statistiche"

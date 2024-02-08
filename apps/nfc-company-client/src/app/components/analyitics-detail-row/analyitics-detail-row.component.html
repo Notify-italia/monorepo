@@ -1,10 +1,9 @@
 <button
   *ngIf="item"
   (click)="selectedItem.emit(item)"
-  class="flex smooth hover:brightness-125 justify-between w-full smooth"
+  class="flex smooth hover:brightness-125 justify-between w-full smooth !duration-100"
   [ngClass]="{
-    'border-l-2 border-primary-500 pl-2 scale-110 brightness-125  grayscale-0':
-      selected,
+    'border-l-2 border-primary-500 pl-2  brightness-125  grayscale-0': selected,
     grayscale: hasSelected
   }"
 >

@@ -53,6 +53,7 @@ export class WidgetPieChartComponent {
     dataLabels: {
       enabled: false,
     },
+
     plotOptions: {
       pie: {
         donut: {
