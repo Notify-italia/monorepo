@@ -31,7 +31,7 @@
     </div>
     <!-- body -->
     <div
-      class="w-full flex flex-col justify-around items-center pointer-events-none space-y-2 mb-4"
+      class="w-full flex flex-col justify-around items-center space-y-2 mb-4"
     >
       @if(!advanced?.enabled) {
       <div class="flex items-center text-lg">
@@ -70,20 +70,26 @@
         </svg>
 
         <p class="ms-1 text-sm font-medium text-gray-400">
-          {{ value }} su 5 stelle
+          {{ advancedFeedbackAverage }} su 5 stelle
         </p>
       </div>
-      <p class="text-sm font-medium text-gray-400">
+      <button
+        class="text-sm font-medium text-gray-400 cursor-pointer disabled:pointer-events-none"
+        [disabled]="!advanced?.feedbacks?.length"
+        (click)="browseFeedbacks(advanced?.feedbacks || [])"
+      >
         {{ advanced?.feedbacks?.length }} feedbacks ricevuti
-      </p>
+      </button>
       <div
         class="flex items-center mt-4 w-full flex-col-reverse justify-around"
       >
         @for (item of sortedFeedbacks.iterable; track $index) {
-        <div class="flex items-center mt-4 w-full justify-center">
-          <a href="#" class="text-sm font-medium text-gray-400"
-            >{{ item[0] }} stelle</a
-          >
+        <button
+          class="flex items-center mt-4 w-full justify-center disabled:pointer-events-none"
+          [disabled]="!item[1].length"
+          (click)="browseFeedbacks(item[1])"
+        >
+          <a class="text-sm font-medium text-gray-400">{{ item[0] }} stelle</a>
           <div class="w-2/4 h-5 mx-4 bg-primary-500/20 rounded">
             <div
               class="h-5 bg-yellow-400 rounded"
@@ -101,7 +107,7 @@
             }}
             %
           </span>
-        </div>
+        </button>
         }
       </div>
 
