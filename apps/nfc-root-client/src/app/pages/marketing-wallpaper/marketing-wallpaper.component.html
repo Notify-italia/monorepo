@@ -1,0 +1,98 @@
+<div
+  class="h-screen w-screen"
+  [ngStyle]="{
+    background:
+      'linear-gradient(to bottom right, ' +
+      this.form.value.gradient?.start +
+      ', ' +
+      this.form.value.gradient?.end +
+      ')'
+  }"
+>
+  <div class="group/controller">
+    <button class="p-2 w-10 h-10"></button>
+    <div
+      class="absolute top-0 left-0 hidden group-focus-within/controller:block"
+      id="container"
+    >
+      <form [formGroup]="form" class="flex flex-col p-2 h-full flex-nowrap">
+        <div class="fg-container" formGroupName="gradient">
+          <label for="startColor">Start Color:</label>
+          <input type="color" id="startColor" formControlName="start" />
+          <label for="endColor">End Color:</label>
+          <input type="color" id="endColor" formControlName="end" />
+        </div>
+
+        <div class="fg-container" formGroupName="blur">
+          <label for="blurAmount">Blur Amount:</label>
+          <input type="number" id="blurAmount" formControlName="amount" />
+          <label for="blurThreshold">Blur Threshold:</label>
+          <input type="number" id="blurThreshold" formControlName="threshold" />
+        </div>
+        <div class="fg-container" formGroupName="scale">
+          <label for="scaleMin">Scale Min:</label>
+          <input type="number" id="scaleMin" formControlName="min" />
+          <label for="scaleMax">Scale Max:</label>
+          <input type="number" id="scaleMax" formControlName="max" />
+        </div>
+        <div class="fg-container flex-nowrap">
+          <h2 class="text-center">Position</h2>
+          <div class="flex flex-col" formGroupName="evenItemsOffsets">
+            <label for="evenItemsOffsetsMin">Even Items Offsets Min:</label>
+            <input
+              type="number"
+              id="evenItemsOffsetsMin"
+              formControlName="min"
+            />
+            <label for="evenItemsOffsetsMax">Even Items Offsets Max:</label>
+            <input
+              type="number"
+              id="evenItemsOffsetsMax"
+              formControlName="max"
+            />
+          </div>
+          <div class="flex flex-col" formGroupName="oddItemsOffsets">
+            <label for="oddItemsOffsetsMin">Odd Items Offsets Min:</label>
+            <input
+              type="number"
+              id="oddItemsOffsetsMin"
+              formControlName="min"
+            />
+            <label for="oddItemsOffsetsMax">Odd Items Offsets Max:</label>
+            <input
+              type="number"
+              id="oddItemsOffsetsMax"
+              formControlName="max"
+            />
+          </div>
+        </div>
+        <div class="flex flex-col justify-center items-center fg-container">
+          <h2 for="cards" class="w-full text-center">Cards:</h2>
+          <input type="number" id="cards" formControlName="cards" />
+        </div>
+        <div class="fg-container" formGroupName="delay">
+          <h2>Delay</h2>
+          <div class="flex flex-col" formGroupName="fastCards">
+            <label for="fastCardsItems">Fast Cards Items:</label>
+            <input type="number" id="fastCardsItems" formControlName="items" />
+            <label for="fastCardsMin">Fast Cards Min:</label>
+            <input type="number" id="fastCardsMin" formControlName="min" />
+            <label for="fastCardsMax">Fast Cards Max:</label>
+            <input type="number" id="fastCardsMax" formControlName="max" />
+          </div>
+          <div class="flex flex-col" formGroupName="items">
+            <label for="delayItemsMin">Delay Items Min:</label>
+            <input type="number" id="delayItemsMin" formControlName="min" />
+            <label for="delayItemsMax">Delay Items Max:</label>
+            <input type="number" id="delayItemsMax" formControlName="max" />
+          </div>
+        </div>
+      </form>
+      <button (click)="resetForm()">reset!</button>
+    </div>
+  </div>
+  <notify-animated-bg
+    class="z-0"
+    [config]="$any(this.form.value)"
+  ></notify-animated-bg>
+</div>
