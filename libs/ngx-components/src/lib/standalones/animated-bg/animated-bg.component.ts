@@ -78,9 +78,9 @@ export class AnimatedBgComponent implements OnInit, OnChanges {
       const scale = this.random(this.config.scale.min, this.config.scale.max);
 
       const blur =
-        scale < this.config.blur.threshold
-          ? 0
-          : (scale - 1) * this.config.blur.amount;
+        scale > this.config.blur.threshold
+          ? (scale - 1) * this.config.blur.amount
+          : 0;
 
       return {
         left: `${
