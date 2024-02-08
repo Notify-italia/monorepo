@@ -9,6 +9,7 @@ import {
   FeedbackModel,
 } from '../../../models/model.feedback';
 import { STAT_VALIDATION_MESSAGES } from '../../../models/model.stat';
+import { BadRequestError } from '../../../services/errors/errors';
 
 //boilderplate for a post request to create an agent
 const router = Router();
@@ -35,6 +36,7 @@ router.get(
       //get the owner, from and to from the request query
       const { owner, from, to } = req.query;
 
+      //get all the agents that belong to the company
       const companyAgents = await AgentModel.find({
         owner: req.currentUser._id,
       })
@@ -51,13 +53,24 @@ router.get(
         },
       };
 
+      if (
+        owner &&
+        !companyAgents.find(
+          (agent) => agent._id.toString() === owner.toString()
+        )
+      ) {
+        throw new BadRequestError(
+          'Stai cercando di accedere a feedback di un agente che non ti appartiene.'
+        );
+      }
+
       if (owner) {
+        //if the owner is present, add it to the params, overwriting the previous owner
         params.owner = owner;
       }
 
-      const feedback = await FeedbackModel.find(params).lean();
-
-      res.send(feedback);
+      //get all the feedbacks that match the params
+      res.send(await FeedbackModel.find(params).lean());
     },
     {
       requireAuth: {
