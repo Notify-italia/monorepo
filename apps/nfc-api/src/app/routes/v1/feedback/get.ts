@@ -3,6 +3,7 @@ import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middle
 import { Router } from 'express';
 import { query } from 'express-validator';
 import { FilterQuery } from 'mongoose';
+import { AgentModel } from '../../../models/model.agent';
 import {
   FeedbackDocument,
   FeedbackModel,
@@ -34,10 +35,19 @@ router.get(
       //get the owner, from and to from the request query
       const { owner, from, to } = req.query;
 
+      const companyAgents = await AgentModel.find({
+        owner: req.currentUser._id,
+      })
+        .select('_id')
+        .lean();
+
       const params: FilterQuery<FeedbackDocument> = {
         createdAt: {
           $gte: from,
           $lte: to,
+        },
+        owner: {
+          $in: companyAgents.map((agent) => agent._id),
         },
       };
 
