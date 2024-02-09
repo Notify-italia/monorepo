@@ -158,11 +158,12 @@ export class AnalyticsComponent {
       }))
       .sort((a, b) => b.averageRating - a.averageRating);
 
-    const bestUser = usersPerRating[0];
-    const worstUser = usersPerRating[usersPerRating.length - 1];
+    const bestUser = usersPerRating[0] || {};
 
-    bestUser.profile = agents.find((a) => a._id === bestUser.agent)?.profile;
-    worstUser.profile = agents.find((a) => a._id === worstUser.agent)?.profile;
+    const worstUser = usersPerRating[usersPerRating.length - 1] || {};
+
+    bestUser.profile = agents.find((a) => a._id === bestUser?.agent)?.profile;
+    worstUser.profile = agents.find((a) => a._id === worstUser?.agent)?.profile;
 
     return {
       bestUser,
