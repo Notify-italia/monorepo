@@ -19,7 +19,14 @@ import {
   UtilsService,
   itPhoneNumberValidators,
 } from '@notify/nfc-app-services';
-import { Subject, combineLatest, debounceTime, takeUntil, tap } from 'rxjs';
+import {
+  Subject,
+  combineLatest,
+  debounceTime,
+  map,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
 import { IconSelectorComponent } from '../icon-select/icon-selector.component';
 import { ImageCropperFactory } from '../image-cropper/image-cropper.factory';
@@ -120,15 +127,17 @@ export class ProfileFormComponent implements OnInit {
     combineLatest([this.form.valueChanges, this.form.statusChanges])
       .pipe(
         takeUntil(this._destroy$),
+        map(([value]) => {
+          const mappedProfile = this._mapFormToProfile(value);
+          return { ...value, mappedProfile };
+        }),
+        tap((v) => this.value.emit(v.mappedProfile)),
         debounceTime(500),
-        tap(([value]) => {
-          const profile = this._mapFormToProfile(value);
-          this.value.emit(profile);
-
+        tap((v) => {
           if (this.form.invalid) {
             return;
           }
-          this.submitForm.emit(profile);
+          this.submitForm.emit(v.mappedProfile);
         })
       )
       .subscribe();
@@ -236,10 +245,6 @@ export class ProfileFormComponent implements OnInit {
       minWidth: 200,
       roundCropper: true,
       containWithinAspectRatio: true,
-      resize: {
-        width: 400,
-        height: 400,
-      },
     });
 
     ref.instance.destroyed

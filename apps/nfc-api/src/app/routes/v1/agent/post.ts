@@ -1,4 +1,4 @@
-import { EnumNotifyUserType } from '@notify/interfaces';
+import { EnumNotifyUserType, INotifyLicense } from '@notify/interfaces';
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { Types } from 'mongoose';
@@ -10,6 +10,7 @@ import {
 import { PROFILE_VALIDATION_MESSAGES } from '../../../models/model.profile';
 import { BadRequestError } from '../../../services/errors/errors';
 import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { LicenseManager } from '../../../services/service.license';
 import { userSignInValidation } from '../../../services/service.validation';
 
 //boilderplate for a post request to create an agent
@@ -29,6 +30,20 @@ router.post(
       const { email, password, role, enabled } = req.body;
 
       //TODO check se la company può ancora creare agenti
+
+      const license = await LicenseManager.load({
+        id: (req.currentUser?.license as unknown as INotifyLicense)?._id,
+      });
+
+      const companyagents = await AgentModel.find({
+        owner: req.currentUser?._id,
+      })
+        .lean()
+        .select('_id');
+
+      if (license.license.allowedAgents === companyagents.length) {
+        throw new BadRequestError('Hai raggiunto il numero massimo di agenti');
+      }
 
       const agent = await AgentModel.build(
         { email, password, enabled },

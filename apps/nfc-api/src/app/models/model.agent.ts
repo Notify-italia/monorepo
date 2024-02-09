@@ -110,7 +110,7 @@ AgentSchema.virtual('profile', {
 });
 
 // 4. Aggiungi qui, se ci sono, gli hook da eseguire prima o dopo una operazione di CRUD (create, read, update, delete)
-AgentSchema.pre('save', async function (done) {
+AgentSchema.pre('save', function (done) {
   done();
 });
 

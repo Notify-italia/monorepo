@@ -37,6 +37,10 @@ export class UserFormComponent implements OnInit {
   public form!: FormGroup;
   public destroyed$ = new Subject<void>();
 
+  public get isLoading() {
+    return this.loading;
+  }
+
   public validationErrors = {
     required: 'Campo obbligatorio',
     email: 'Campo non valido',

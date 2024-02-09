@@ -60,6 +60,11 @@ export class ImageCropperComponent implements OnInit {
     this.value = await this._base64ToBlob(this.config.imageData);
   }
 
+  loadImageFailed() {
+    console.log('Load failed');
+    this.close();
+  }
+
   flipHorizontal() {
     this.transform = {
       ...this.transform,

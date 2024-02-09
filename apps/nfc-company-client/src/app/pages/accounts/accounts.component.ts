@@ -160,22 +160,25 @@ export class AccountsComponent implements OnInit {
       this.company.createdRoles
     );
 
-    ref.removeRole
+    ref.instance.removeRole
       .pipe(
-        takeUntil(ref.destroyed$),
+        takeUntil(ref.instance.destroyed$),
         switchMap((role) => this._removeRole(role)),
-        tap((v) => (ref.createdRoles = v?.createdRoles || []))
+        tap((v) => {
+          ref.instance.createdRoles = v?.createdRoles || [];
+          this.company.createdRoles = v?.createdRoles || [];
+        })
       )
       .subscribe();
 
-    ref.submitted
+    ref.instance.submitted
       .pipe(
-        takeUntil(ref.destroyed$),
+        takeUntil(ref.instance.destroyed$),
         tap((agent) =>
           this._addRole((agent as INotifyPartialAgent).role).subscribe()
         ),
         switchMap((_a) => {
-          ref.loading = true;
+          ref.instance.loading = true;
 
           if (agent) {
             return this._agentService.patch(agent._id, _a);
@@ -187,15 +190,16 @@ export class AccountsComponent implements OnInit {
         switchMap(() => this.getAgents()),
         tap(() => {
           this._toastr.success('Utente salvato!', 'OK');
-          ref.loading = false;
-          ref.close();
+          ref.instance.loading = false;
+          ref.instance.close();
         }),
 
         catchError((error: AppError, c) => {
           this._utilsService.errorHandler(error);
+          ref.instance.loading = false;
+
           return c;
-        }),
-        tap(() => (ref.loading = false))
+        })
       )
       .subscribe();
   }

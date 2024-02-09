@@ -69,13 +69,13 @@
 
         <button
           [disabled]="form.invalid"
-          [class.pointer-events-none]="loading"
+          [class.pointer-events-none]="isLoading"
           class="btn btn-primary w-full"
           type="submit"
           data-theme="notifytheme"
         >
-          <span class="loading loading-spinner" *ngIf="loading"></span>
-          <span class="my-auto" *ngIf="!loading"> Conferma </span>
+          <span class="loading loading-spinner" *ngIf="isLoading"></span>
+          <span class="my-auto" *ngIf="!isLoading"> Conferma </span>
         </button>
       </form>
     </div>

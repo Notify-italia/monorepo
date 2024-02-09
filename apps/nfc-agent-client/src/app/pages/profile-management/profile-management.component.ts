@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   LoadingComponent,
   PageHeaderComponent,
@@ -19,8 +19,14 @@ import {
   ProfileService,
   UtilsService,
 } from '@notify/nfc-app-services';
-import { ToastrService } from 'ngx-toastr';
-import { Observable, Subject, catchError, tap } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  catchError,
+  debounceTime,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { environment } from '../../../../src/environments/environment';
 
 type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
@@ -40,25 +46,41 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
 })
-export class ProfileManagementComponent {
+export class ProfileManagementComponent implements OnDestroy {
   private _profileSubject$ = new Subject<IProfile>();
   public profile$: Observable<IProfile> = this._profileSubject$;
 
   public loading = false;
-
   public baseUrl = environment.profilesUrl;
+
+  public destroy$ = new Subject<void>();
+
+  public debouncedNextProfile$: Subject<INotifyProfile> =
+    new Subject<IProfile>();
 
   constructor(
     private _profileService: ProfileService,
     private _utilsService: UtilsService,
-    private _toastr: ToastrService,
     private _playerFactroy: ProfilePlayerFactory
   ) {
     this._getProfile();
+
+    this.debouncedNextProfile$
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(500),
+        tap((profile) => this._profileSubject$.next(profile))
+      )
+      .subscribe();
+  }
+
+  public ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public updateProfileSubject(profile: INotifyProfile) {
-    this._profileSubject$.next(profile as IProfile);
+    this.debouncedNextProfile$.next(profile as IProfile);
   }
 
   public previewProfile(profile: INotifyProfile) {
@@ -71,7 +93,7 @@ export class ProfileManagementComponent {
       .patchProfile<EnumNotifyUserType.Agent>(profile)
       .pipe(
         tap((profile) => {
-          this._profileSubject$.next(profile);
+          this.updateProfileSubject(profile);
         }),
         catchError(async (err: AppError) =>
           this._utilsService.errorHandler(err)
