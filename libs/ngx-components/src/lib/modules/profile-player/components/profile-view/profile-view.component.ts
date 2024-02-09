@@ -51,6 +51,7 @@ export class ProfileViewComponent {
   @Output() public integrationClicked = new EventEmitter<
     INotifyProfile['customFields'][0]
   >();
+  @Output() public feedbackClicked = new EventEmitter<void>();
 
   public currentTime$ = interval(1000).pipe(
     startWith(0),
@@ -107,17 +108,6 @@ export class ProfileViewComponent {
     );
 
     return fb;
-  }
-
-  public showFeedback(): void {
-    if (!this.data || this.feedbackGiven() || this.mockup) {
-      return;
-    }
-
-    this._feedbackFactory.create({
-      profile: this.data,
-      feedbackKey: this.feedbackKey,
-    });
   }
 
   public redirectToReview(): void {

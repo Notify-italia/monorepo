@@ -1,42 +1,25 @@
-<div *ngIf="profile" class="modal-container">
-  <div class="h-[60%] w-[90%] slide-in-blurred-top">
-    <div class="my-1 w-full flex justify-end">
-      <button
-        class="btn btn-secondary btn-circle btn-ghost"
-        data-theme="notifytheme"
-        (click)="close()"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="w-10 h-10"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </button>
-    </div>
+<div *ngIf="profile" class="modal-container" (click)="close()">
+  <div>
     <div
-      class="bg-base-100 rounded-xl p-2 w-full h-full flex justify-center border border-primary"
+      class="modal-content !backdrop-blur-3xl !bg-white/10"
+      (click)="$event.stopPropagation()"
     >
       <div class="hero-content text-center h-full w-full">
-        <div class="h-full flex flex-col justify-around w-full space-y-2">
+        <div class="h-full flex flex-col justify-center w-full space-y-2">
           <div>
             <h1 class="text-2xl lg:text-5xl font-bold">Lascia un feedback</h1>
             <p class="text-xs lg:text-xl">
               Come valuteresti la tua esperienza con {{ profile.name }}?
             </p>
           </div>
-          <div class="flex justify-center">
-            <notify-rating
-              [rating]="rating"
-              (valueChanged)="rating = $event"
-            ></notify-rating>
-          </div>
+          <div class="divider"></div>
+
+          <notify-rating
+            [rating]="rating"
+            (valueChanged)="rating = $event"
+            sizeClass="lg"
+          ></notify-rating>
+
           <div>
             <div class="form-control text-xs">
               <label class="label">
@@ -61,7 +44,7 @@
               <span class="loading loading-spinner loading-lg"></span>
               }
             </button>
-            <p class="text-xs lg:text-xl">
+            <p class="text-xs lg:text-base">
               Il feedback inviato sarà usato per migliorare la tua esperienza e
               non sarà visibile pubblicamente.
             </p>

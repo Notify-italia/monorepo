@@ -26,6 +26,11 @@
   animation-delay: 0.75s;
 }
 
+.hide-animation {
+  transform: translateY(0px);
+  animation: hideAnimation 0.2s ease-in-out forwards;
+}
+
 @keyframes showOnLoad {
   0% {
     opacity: 0;
@@ -46,6 +51,17 @@
   }
 
   100% {
+    opacity: 0;
+  }
+}
+
+@keyframes hideAnimation {
+  0% {
+    opacity: 100;
+  }
+
+  100% {
+    transform: translateY(-100px);
     opacity: 0;
   }
 }

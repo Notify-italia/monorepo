@@ -11,4 +11,6 @@ import { Component, Input } from '@angular/core';
 export class SwipeAvailableComponent {
   @Input({ required: true }) public title!: string;
   @Input({ required: true }) public subtitle!: string;
+
+  @Input() isHidden = false;
 }

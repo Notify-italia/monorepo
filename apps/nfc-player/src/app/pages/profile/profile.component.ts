@@ -15,6 +15,7 @@ import {
   StatService,
 } from '@notify/nfc-app-services';
 import {
+  FeedbackFactory,
   FileRecievedFactory,
   LoadingComponent,
   ProfileViewComponent,
@@ -34,7 +35,7 @@ import { environment } from '../../../environments/environment';
     SwipeAvailableComponent,
     LoadingComponent,
   ],
-  providers: [FileRecievedFactory, StatService],
+  providers: [FileRecievedFactory, StatService, FeedbackFactory],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
@@ -71,7 +72,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private _socket: SocketService,
     private _fileRecieved: FileRecievedFactory,
     private _Meta: Meta,
-    private _statService: StatService
+    private _statService: StatService,
+    private _feedbackFactory: FeedbackFactory
   ) {
     this.profile$ = this._profileService
       .getProfile(
@@ -163,6 +165,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
           : EnumNotifyUserType.Company
       )
       .subscribe();
+  }
+
+  public showFeedback(profile: INotifyProfile): void {
+    this._feedbackFactory.create({
+      profile,
+      feedbackKey: this.feedbackKey,
+    });
   }
 
   public handleTouchEnd() {

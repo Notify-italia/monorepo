@@ -79,7 +79,7 @@
           [ngStyle]="{ 'background-color': cssElementsColor }"
           data-theme="notifytheme"
           [disabled]="mockup || feedbackGiven()"
-          (click)="showFeedback()"
+          (click)="feedbackClicked.emit()"
         >
           @if (feedbackGiven(); as fb) {
           <div *ngIf="feedbackGiven() as fb" class="space-y-1">
