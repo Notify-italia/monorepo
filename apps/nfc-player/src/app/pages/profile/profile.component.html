@@ -60,6 +60,7 @@
     (horizontalSwipe)="handleHorizontalSwipe($event, p)"
     (touchEnd)="handleTouchEnd()"
   >
+    <!-- PLAYER OUTLET -->
     <ng-container
       [ngTemplateOutlet]="playerContent"
       [ngTemplateOutletContext]="{
@@ -96,6 +97,7 @@
   </div>
   }
 </div>
+
 <ng-template #playerContent let-p="profile">
   <!-- MAIN PLAYER -->
   <div
@@ -112,6 +114,7 @@
       [feedbackKey]="feedbackKey"
       (subAvatarClick)="forceShowCompanyProfile()"
       (feedbackClicked)="showFeedback(p)"
+      [mockup]="['lg', 'xl', '2xl'].includes(currentBreakpoint)"
     ></notify-profile-view>
   </div>
 
@@ -129,7 +132,7 @@
   </div>
 
   <!-- DESKTOP RELATIONSHIP ICON -->
-  <div class="flex-col justify-center hidden lg:flex" *ngIf="isAgent">
+  <div class="flex-col justify-center hidden lg:flex" *ngIf="isAgent(p)">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -147,11 +150,15 @@
   </div>
 
   <!-- DESKTOP COMPANY PLAYER -->
-  <div *ngIf="p?.company as pCompany" class="player-responsive hidden lg:block">
+  <div
+    *ngIf="p?.company as pCompany"
+    class="player-responsive hidden lg:block mockup-scale"
+  >
     <notify-profile-view
       (integrationClicked)="handleIntegrationClicked($event, pCompany)"
       [data]="pCompany"
       [publicUrl]="publicUrl"
+      [mockup]="true"
     ></notify-profile-view>
   </div>
 </ng-template>

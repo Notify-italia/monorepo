@@ -78,7 +78,7 @@
           class="btn btn-wide border-none"
           [ngStyle]="{ 'background-color': cssElementsColor }"
           data-theme="notifytheme"
-          [disabled]="mockup || feedbackGiven()"
+          [disabled]="feedbackGiven()"
           (click)="feedbackClicked.emit()"
         >
           @if (feedbackGiven(); as fb) {
