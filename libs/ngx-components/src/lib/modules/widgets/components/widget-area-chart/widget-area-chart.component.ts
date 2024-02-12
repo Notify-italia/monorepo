@@ -122,8 +122,6 @@ export class WidgetAreaChartComponent {
         return acc;
       }, []);
 
-    console.log(enrichedSeries);
-
     return [{ name: 'Visite', data: enrichedSeries }];
   }
 
@@ -221,26 +219,28 @@ const DEFAULT_CHART: ApexChart = {
   },
 };
 
+const td = new Date();
+
 const DEFAULT_TIMESPANS = [
   {
     label: 'Ultima settimana',
     value: {
-      from: startOfDay(subWeeks(new Date(), 1)),
-      to: endOfDay(new Date()),
+      from: startOfDay(subWeeks(td, 1)),
+      to: endOfDay(td),
     },
   },
   {
     label: 'Ultimo mese',
     value: {
-      from: startOfDay(subMonths(new Date(), 1)),
-      to: endOfDay(new Date()),
+      from: startOfDay(subMonths(td, 1)),
+      to: endOfDay(td),
     },
   },
   {
     label: 'Ultimi 3 mesi',
     value: {
-      from: startOfDay(subMonths(new Date(), 3)),
-      to: endOfDay(new Date()),
+      from: startOfDay(subMonths(td, 3)),
+      to: endOfDay(td),
     },
   },
 ];

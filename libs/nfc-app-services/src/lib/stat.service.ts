@@ -7,6 +7,7 @@ import {
 } from '@notify/interfaces';
 import { HttpService } from './http.service';
 import { SvgboxService } from './svgbox.service';
+import { UtilsService } from './utils.service';
 
 export interface INotifyUserCounters {
   totalVisits: number;
@@ -20,7 +21,8 @@ export interface INotifyUserCounters {
 export class StatService {
   constructor(
     private http: HttpService,
-    private _svgboxService: SvgboxService
+    private _svgboxService: SvgboxService,
+    private _utilsService: UtilsService
   ) {}
 
   public incrementStat(
@@ -120,8 +122,12 @@ export class StatService {
     };
 
     if (period) {
-      params['from'] = period.from.toISOString();
-      params['to'] = period.to.toISOString();
+      params['from'] = this._utilsService
+        .compensateUTCDate(period.from)
+        .toISOString();
+      params['to'] = this._utilsService
+        .compensateUTCDate(period.to)
+        .toISOString();
     }
 
     if (owner) {

@@ -33,6 +33,10 @@ export class UtilsService {
     return of((returnValue || []) as T);
   }
 
+  public compensateUTCDate(date: Date) {
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  }
+
   /**
    *La funzione `deepSearchKey` cerca ricorsivamente i campi in un oggetto in base a un determinato percorso.
    *@param obj -Un oggetto che contiene coppie chiave-valore, dove le chiavi sono stringhe e i valori
