@@ -32,7 +32,7 @@ export class FeaturesComponent {
     {
       title:
         'Ottenere statistiche concrete sul tuo networking e sulle tue relazioni professionali',
-      description: `Condividi il tuo profilo e scopri i quali sono i contatti e le informazioni più richieste dai tuoi clienti. Il tutto da una pratica dashboard.`,
+      description: `Condividi il tuo profilo e scopri quali sono i contatti e le informazioni più richieste dai tuoi clienti. Il tutto da una pratica dashboard.`,
       image: 'assets/images/dashboard.webp',
     },
     {
