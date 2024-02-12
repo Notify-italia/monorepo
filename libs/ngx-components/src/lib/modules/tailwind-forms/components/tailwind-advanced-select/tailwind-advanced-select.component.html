@@ -10,6 +10,7 @@
       tabindex="0"
       [id]="name"
       [name]="name"
+      autocomplete="one-time-code"
       [formControlName]="name"
       [placeholder]="placeholder"
       [ngClass]="{
@@ -23,8 +24,10 @@
       class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-full my-2"
     >
       @for (item of filteredOptions; track item) {
-      <li class="w-full items-center flex justify-between !flex-row">
-        <button type="button" (click)="value = item" class="w-11/12">
+      <li
+        class="w-full items-center flex justify-between !flex-row flex-nowrap"
+      >
+        <button type="button" (click)="value = item" class="w-10/12 xl:w-11/12">
           <span>
             {{ item }}
           </span>
@@ -33,7 +36,7 @@
           *ngIf="allowRemove"
           type="button"
           (click)="removeOption.emit(item)"
-          class="w-1/12 flex justify-center"
+          class="w-2/12 xl:w-1/12 flex justify-center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

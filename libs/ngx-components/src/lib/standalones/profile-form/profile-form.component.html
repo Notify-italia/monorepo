@@ -1,262 +1,351 @@
 <form
-  class="flex flex-col items-center space-y-4 box p-4 rounded-xl w-full smooth"
+  class="flex flex-col items-center space-y-4 p-4 w-full smooth min-h-screen"
   [formGroup]="form"
 >
-  <div class="divider !pt-0">Colori</div>
+  <div class="relative">
+    <div class="section box p-4 w-full">
+      <h2 class="text-center w-full font-medium">
+        Cosa vuoi visualizzare tramite scansione?
+      </h2>
+      <div class="flex justify-center space-x-2 w-full">
+        <button
+          class="btn w-6/12"
+          [ngClass]="{
+            'btn-outline ': !form.value.redirectEnabled
+          }"
+          (click)="
+            form.controls.redirectEnabled.setValue(!form.value.redirectEnabled)
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061A1.125 1.125 0 0 1 3 16.811V8.69ZM12.75 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061a1.125 1.125 0 0 1-1.683-.977V8.69Z"
+            />
+          </svg>
+          <span> URL</span>
+        </button>
+        <button
+          class="btn btn-outline w-6/12"
+          [ngClass]="{
+            'btn-outline ': form.value.redirectEnabled
+          }"
+          (click)="
+            form.controls.redirectEnabled.setValue(!form.value.redirectEnabled)
+          "
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+            />
+          </svg>
 
-  <div class="section">
-    <div class="field" *ngIf="isAgent">
-      <notify-tailwind-checkbox
-        *ngIf="profile.company?.name?.length"
-        [parent]="form"
-        name="useCompanyColors"
-        label="Usa i colori di {{ profile.company?.name }}"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-checkbox>
+          <span>Contatto</span>
+        </button>
+      </div>
     </div>
+
     <div
-      class="flex lg:space-x-2 items-center flex-col lg:flex-row space-y-2 lg:space-y-0 smooth"
+      class="flex flex-col items-center space-y-4 p-4 w-full h-full smooth"
       [ngClass]="{
-        'opacity-50 pointer-events-none scale-90':
-          form.controls.useCompanyColors.value
+        ' opacity-0 pointer-events-none absolute h-0':
+          !form.value.redirectEnabled
       }"
     >
-      <!-- TODO incapsulamento -->
-      @if (form.controls.backgroundColors.controls; as bgColors) {
-      <div
-        class="flex space-x-2 items-center box p-2 w-full"
-        *ngIf="bgColors[0] as c"
-      >
-        <notify-tailwind-color-picker
-          [parent]="c"
-          name="value"
-          [validationErrors]="validationErrors"
-        ></notify-tailwind-color-picker>
-        <span class="font-bold">Superiore</span>
+      <div class="section box p-4">
+        <div class="divider divider-start">Reindirizza ad un URL</div>
+        <div class="field">
+          <notify-tailwind-advanced-select
+            [allowRemove]="true"
+            label=" "
+            [parent]="form"
+            name="redirectUrl"
+            [options]="savedRedirects"
+            (removeOption)="removeSavedRedirect.emit($event)"
+          ></notify-tailwind-advanced-select>
+        </div>
       </div>
-      <div
-        class="flex space-x-2 items-center box p-2 w-full"
-        *ngIf="bgColors[1] as c"
-      >
-        <notify-tailwind-color-picker
-          [parent]="c"
-          name="value"
-          [validationErrors]="validationErrors"
-        ></notify-tailwind-color-picker>
-        <span class="font-bold">Inferiore</span>
-      </div>
-
-      <div class="flex space-x-2 items-center box p-2 w-full">
-        <notify-tailwind-color-picker
-          [parent]="form"
-          name="elementsColor"
-          [validationErrors]="validationErrors"
-        ></notify-tailwind-color-picker>
-        <span class="font-bold">Elementi</span>
-      </div>
-
-      }
     </div>
-  </div>
 
-  <div class="divider">Info</div>
+    <div
+      class="flex flex-col items-center space-y-4 p-4 w-full h-full smooth"
+      [ngClass]="{
+        ' opacity-0 pointer-events-none  h-0': form.value.redirectEnabled
+      }"
+    >
+      <div class="section box p-4">
+        <div class="divider !pt-0 divider-start">Colori</div>
+        <div class="field" *ngIf="isAgent">
+          <notify-tailwind-checkbox
+            *ngIf="profile.company?.name?.length"
+            [parent]="form"
+            name="useCompanyColors"
+            label="Usa i colori di {{ profile.company?.name }}"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-checkbox>
+        </div>
+        <div
+          class="flex lg:space-x-2 items-center flex-col lg:flex-row space-y-2 lg:space-y-0 smooth"
+          [ngClass]="{
+            'opacity-50 pointer-events-none scale-90':
+              form.controls.useCompanyColors.value
+          }"
+        >
+          <!-- TODO incapsulamento -->
+          @if (form.controls.backgroundColors.controls; as bgColors) {
+          <div
+            class="flex space-x-2 items-center box p-2 w-full"
+            *ngIf="bgColors[0] as c"
+          >
+            <notify-tailwind-color-picker
+              [parent]="c"
+              name="value"
+              [validationErrors]="validationErrors"
+            ></notify-tailwind-color-picker>
+            <span class="font-bold">Superiore</span>
+          </div>
+          <div
+            class="flex space-x-2 items-center box p-2 w-full"
+            *ngIf="bgColors[1] as c"
+          >
+            <notify-tailwind-color-picker
+              [parent]="c"
+              name="value"
+              [validationErrors]="validationErrors"
+            ></notify-tailwind-color-picker>
+            <span class="font-bold">Inferiore</span>
+          </div>
 
-  <div class="section">
-    <!-- NOME -->
-    <div class="field flex w-full !space-y-0 space-x-2">
-      <notify-tailwind-input
-        [parent]="form"
-        name="name"
-        [label]="isAgent ? 'Nome*' : 'Ragione Sociale*'"
-        [placeholder]="isAgent ? 'Mario' : 'Offcenter SRL'"
-        [validationErrors]="validationErrors"
-        class="w-full"
-      ></notify-tailwind-input>
-      <!-- COGNOME -->
-      <div class="field" *ngIf="isAgent">
-        <notify-tailwind-input
-          [parent]="form"
-          name="surname"
-          label="Cognome*"
-          placeholder="Rossi"
-          [validationErrors]="validationErrors"
+          <div class="flex space-x-2 items-center box p-2 w-full">
+            <notify-tailwind-color-picker
+              [parent]="form"
+              name="elementsColor"
+              [validationErrors]="validationErrors"
+            ></notify-tailwind-color-picker>
+            <span class="font-bold">Elementi</span>
+          </div>
+
+          }
+        </div>
+      </div>
+
+      <div class="section box p-4">
+        <div class="divider divider-start">Info</div>
+        <!-- NOME -->
+        <div class="field flex w-full !space-y-0 space-x-2">
+          <notify-tailwind-input
+            [parent]="form"
+            name="name"
+            [label]="isAgent ? 'Nome*' : 'Ragione Sociale*'"
+            [placeholder]="isAgent ? 'Mario' : 'Offcenter SRL'"
+            [validationErrors]="validationErrors"
+            class="w-full"
+          ></notify-tailwind-input>
+          <!-- COGNOME -->
+          <div class="field" *ngIf="isAgent">
+            <notify-tailwind-input
+              [parent]="form"
+              name="surname"
+              label="Cognome*"
+              placeholder="Rossi"
+              [validationErrors]="validationErrors"
+              class="w-full"
+            ></notify-tailwind-input>
+          </div>
+        </div>
+
+        <!-- BIO -->
+        <div class="field">
+          <notify-tailwind-input
+            [parent]="form"
+            name="bio"
+            label="Bio"
+            placeholder="Inserisci una breve descrizione di te"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-input>
+        </div>
+      </div>
+
+      <!-- AVATAR -->
+      <div class="section box p-4">
+        <div class="divider divider-start">Avatar</div>
+        <notify-upload
           class="w-full"
-        ></notify-tailwind-input>
+          [uploadLabel]="capacitor.isNative ? mobileMessage : desktopMessage"
+          [acceptedFiles]="'image/*'"
+          [file]="avatarFile"
+          (fileChanged)="setUploadedFile($event.blob)"
+          [removeFile$]="removeAvatar$"
+        ></notify-upload>
+
+        <div class="field">
+          <notify-tailwind-select
+            [parent]="form"
+            name="avatarMask"
+            label="Cornice"
+            placeholder="Nessuna Cornice"
+            [options]="avatarMaskOptions"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-select>
+        </div>
       </div>
-    </div>
 
-    <!-- BIO -->
-    <div class="field">
-      <notify-tailwind-input
-        [parent]="form"
-        name="bio"
-        label="Bio"
-        placeholder="Inserisci una breve descrizione di te"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-input>
-    </div>
-  </div>
+      <!-- INDIRIZZO -->
+      @if (isCompany) {
+      <div class="section box p-4">
+        <div class="divider divider-start">Indirizzo</div>
+        <div class="field flex w-full !space-y-0 space-x-2">
+          <notify-tailwind-input
+            [parent]="form"
+            name="street"
+            label="Via/Piazza"
+            class="w-5/12"
+            placeholder="Via Lorenzo Ciulli"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-input>
 
-  <div class="divider">Avatar</div>
-  <!-- AVATAR -->
-  <div class="section">
-    <notify-upload
-      class="w-full"
-      [uploadLabel]="capacitor.isNative ? mobileMessage : desktopMessage"
-      [acceptedFiles]="'image/*'"
-      [file]="avatarFile"
-      (fileChanged)="setUploadedFile($event.blob)"
-      [removeFile$]="removeAvatar$"
-    ></notify-upload>
+          <notify-tailwind-input
+            [parent]="form"
+            name="number"
+            label="civico"
+            class="w-3/12"
+            placeholder="40"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-input>
 
-    <div class="field">
-      <notify-tailwind-select
-        [parent]="form"
-        name="avatarMask"
-        label="Cornice"
-        placeholder="Nessuna Cornice"
-        [options]="avatarMaskOptions"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-select>
-    </div>
-  </div>
+          <notify-tailwind-input
+            [parent]="form"
+            name="city"
+            label="Città"
+            placeholder="Prato"
+            class="w-4/12"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-input>
+        </div>
+      </div>
+      }
 
-  <!-- INDIRIZZO -->
-  @if (isCompany) {
-  <div class="divider">Indirizzo</div>
-  <div class="section">
-    <div class="field flex w-full !space-y-0 space-x-2">
-      <notify-tailwind-input
-        [parent]="form"
-        name="street"
-        label="Via/Piazza"
-        class="w-5/12"
-        placeholder="Via Lorenzo Ciulli"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-input>
+      <div class="section box p-4">
+        <div class="divider divider-start">Contatti</div>
+        <!-- EMAIL -->
+        <div class="field">
+          <notify-tailwind-input
+            [parent]="form"
+            name="email"
+            label="Email"
+            placeholder="email@example.com"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-input>
+        </div>
+        <!-- TELEFONO -->
+        <div class="field">
+          <notify-tailwind-input
+            [parent]="form"
+            name="phoneNumber"
+            label="Telefono"
+            placeholder="3331234567"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-input>
+        </div>
 
-      <notify-tailwind-input
-        [parent]="form"
-        name="number"
-        label="civico"
-        class="w-3/12"
-        placeholder="40"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-input>
+        <div class="field" *ngIf="isCompany">
+          <notify-tailwind-input
+            [parent]="form"
+            name="reviewRedirect"
+            label="Reindirizzamento recensioni"
+            placeholder="https://g.page/la-tua-azienda/review?rc"
+            [validationErrors]="validationErrors"
+            class="w-full"
+            helpText="Lascia vuoto per nascondere il pulsante."
+          >
+          </notify-tailwind-input>
+        </div>
+        <div class="divider divider-start">Visibilità</div>
+        <div class="field">
+          <notify-tailwind-checkbox
+            [parent]="form"
+            name="phoneCallEnabled"
+            label="Telefonate"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-checkbox>
+          <notify-tailwind-checkbox
+            [parent]="form"
+            name="smsEnabled"
+            label="SMS"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-checkbox>
+          <notify-tailwind-checkbox
+            [parent]="form"
+            name="whatsappEnabled"
+            label="Whatsapp"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-checkbox>
+          <notify-tailwind-checkbox
+            [parent]="form"
+            name="emailEnabled"
+            label="E-Mail"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-checkbox>
+        </div>
+      </div>
 
-      <notify-tailwind-input
-        [parent]="form"
-        name="city"
-        label="Città"
-        placeholder="Prato"
-        class="w-4/12"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-input>
-    </div>
-  </div>
-  }
+      <div class="section box p-4">
+        <div class="divider">Integrazioni</div>
 
-  <div class="divider">Contatti</div>
+        <div class="field space-y-2" *ngIf="form.controls.customFields as cf">
+          <button
+            notify-add-item
+            class="w-full"
+            type="button"
+            (click)="addCustomField()"
+          ></button>
 
-  <div class="section">
-    <!-- EMAIL -->
-    <div class="field">
-      <notify-tailwind-input
-        [parent]="form"
-        name="email"
-        label="Email"
-        placeholder="email@example.com"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-input>
-    </div>
-    <!-- TELEFONO -->
-    <div class="field">
-      <notify-tailwind-input
-        [parent]="form"
-        name="phoneNumber"
-        label="Telefono"
-        placeholder="3331234567"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-input>
-    </div>
-  </div>
-
-  <div class="divider">Contatti</div>
-
-  <div class="section">
-    <div class="field" *ngIf="isCompany">
-      <notify-tailwind-input
-        [parent]="form"
-        name="reviewRedirect"
-        label="Reindirizzamento recensioni"
-        placeholder="https://g.page/la-tua-azienda/review?rc"
-        [validationErrors]="validationErrors"
-        class="w-full"
-        helpText="Lascia vuoto per nascondere il pulsante."
-      >
-      </notify-tailwind-input>
-    </div>
-    <div class="field">
-      <notify-tailwind-checkbox
-        [parent]="form"
-        name="phoneCallEnabled"
-        label="Telefonate"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-checkbox>
-      <notify-tailwind-checkbox
-        [parent]="form"
-        name="smsEnabled"
-        label="SMS"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-checkbox>
-      <notify-tailwind-checkbox
-        [parent]="form"
-        name="whatsappEnabled"
-        label="Whatsapp"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-checkbox>
-      <notify-tailwind-checkbox
-        [parent]="form"
-        name="emailEnabled"
-        label="E-Mail"
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-checkbox>
-    </div>
-  </div>
-
-  <div class="divider">Integrazioni</div>
-
-  <div class="field space-y-2" *ngIf="form.controls.customFields as cf">
-    <button
-      notify-add-item
-      class="w-full"
-      type="button"
-      (click)="addCustomField()"
-    ></button>
-
-    <div *ngFor="let item of cf.controls" class="flex items-center space-x-2">
-      <notify-icon-selector
-        class="items-end mt-6"
-        [icon]="item.controls['iconName'].value"
-        (iconValue)="item.controls['iconName'].setValue($event.name)"
-        #IconSelector
-      ></notify-icon-selector>
-      <notify-tailwind-input
-        [parent]="item"
-        name="value"
-        class="w-full"
-        label=" "
-        [placeholder]="
-          IconSelector?.currentIcon?.placeholder || 'Inserisci un link'
-        "
-        [validationErrors]="validationErrors"
-      ></notify-tailwind-input>
-      <!-- RIMUOVI SERVIZIO -->
-      <div class="mt-1">
-        <button
-          notify-remove-item-button
-          (click)="removeCustomField(item)"
-        ></button>
+          <div
+            *ngFor="let item of cf.controls"
+            class="flex items-center space-x-2"
+          >
+            <notify-icon-selector
+              class="items-end mt-6"
+              [icon]="item.controls['iconName'].value"
+              (iconValue)="item.controls['iconName'].setValue($event.name)"
+              #IconSelector
+            ></notify-icon-selector>
+            <notify-tailwind-input
+              [parent]="item"
+              name="value"
+              class="w-full"
+              label=" "
+              [placeholder]="
+                IconSelector?.currentIcon?.placeholder || 'Inserisci un link'
+              "
+              [validationErrors]="validationErrors"
+            ></notify-tailwind-input>
+            <!-- RIMUOVI SERVIZIO -->
+            <div class="mt-1">
+              <button
+                notify-remove-item-button
+                (click)="removeCustomField(item)"
+              ></button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

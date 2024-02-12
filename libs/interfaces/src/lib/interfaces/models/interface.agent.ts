@@ -9,12 +9,12 @@ export interface INotifyAgent extends MongodbDocument {
   password?: string;
   owner: INotifyCompany['_id'];
   statsTotals: INotifyUserStats;
-
+  savedRedirects: string[];
   //Outside of the schema
   token?: string;
   profile?: INotifyProfile;
 }
 
 export interface INotifyPartialAgent extends Partial<INotifyAgent> {
-  role: string;
+  role?: string;
 }

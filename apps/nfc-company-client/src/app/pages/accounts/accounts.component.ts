@@ -175,7 +175,7 @@ export class AccountsComponent implements OnInit {
       .pipe(
         takeUntil(ref.instance.destroyed$),
         tap((agent) =>
-          this._addRole((agent as INotifyPartialAgent).role).subscribe()
+          this._addRole((agent as INotifyPartialAgent).role || '').subscribe()
         ),
         switchMap((_a) => {
           ref.instance.loading = true;

@@ -12,12 +12,17 @@ const router = Router();
 
 router.patch(
   '/',
+  body('savedRedirects')
+    .optional()
+    .isArray()
+    .withMessage(COMPANY_VALIDATION_MESSAGES.savedRedirects as string),
   body('createdRoles')
+    .optional()
     .isArray()
     .withMessage(COMPANY_VALIDATION_MESSAGES.createdRoles as string),
   errorHandledRequest(
     async (req, res) => {
-      const { createdRoles } = req.body;
+      const { createdRoles, savedRedirects } = req.body;
 
       const company = await CompanyModel.findById(req.currentUser._id);
 
@@ -25,7 +30,8 @@ router.patch(
         throw new BadRequestError(COMPANY_VALIDATION_MESSAGES._id as string);
       }
 
-      company.createdRoles = createdRoles;
+      company.createdRoles = createdRoles ?? company.createdRoles;
+      company.savedRedirects = savedRedirects ?? company.savedRedirects;
 
       await company.save();
 

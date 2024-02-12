@@ -111,6 +111,10 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
         type: Boolean,
         default: true,
       },
+      redirectEnabled: {
+        type: Boolean,
+        default: true,
+      },
     },
     type: {
       type: String,
@@ -167,6 +171,10 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
         },
       ],
       required: true,
+    },
+    redirectUrl: {
+      type: String,
+      default: null,
     },
     colors: {
       background: {

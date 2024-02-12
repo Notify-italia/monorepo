@@ -24,15 +24,20 @@ router.patch(
     .isMongoId()
     .withMessage(AGENT_VALIDATION_MESSAGES._id as string),
   body('role')
+    .optional()
     .isString()
     .withMessage(PROFILE_VALIDATION_MESSAGES.role as string),
   body('enabled')
+    .optional()
     .isBoolean()
     .withMessage(AGENT_VALIDATION_MESSAGES.enabled as string),
+  body('savedRedirects')
+    .isArray()
+    .withMessage(AGENT_VALIDATION_MESSAGES.savedRedirects as string),
   errorHandledRequest(
     async (req, res) => {
       const { id } = req.query;
-      const { email, password, role, enabled } = req.body;
+      const { email, password, role, enabled, savedRedirects } = req.body;
 
       const agent = await AgentModel.findById(id);
 
@@ -45,6 +50,7 @@ router.patch(
         ? await Password.toHash(password)
         : agent.password;
       agent.enabled = enabled ?? agent.enabled;
+      agent.savedRedirects = savedRedirects ?? agent.savedRedirects;
 
       if (role) {
         await ProfileModel.updateOne({ owner: agent._id }, { role });

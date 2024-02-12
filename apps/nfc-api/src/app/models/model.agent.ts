@@ -28,6 +28,7 @@ export const AGENT_VALIDATION_MESSAGES: {
   email: 'Inserire una email valida',
   password: 'Inserire una password valida',
   enabled: 'Inserire un valore booleano',
+  savedRedirects: 'Errore nel formato dei redirect salvati',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
@@ -76,6 +77,10 @@ const AgentSchema = new Schema<Agent, AgentModel>(
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'Company',
+    },
+    savedRedirects: {
+      type: [String],
+      default: [],
     },
     statsTotals: {
       type: Object,
@@ -138,6 +143,7 @@ AgentSchema.statics.build = async (
       phoneCallEnabled: true,
       emailEnabled: true,
       smsEnabled: true,
+      redirectEnabled: false,
     },
     ...profileData,
   }).save();

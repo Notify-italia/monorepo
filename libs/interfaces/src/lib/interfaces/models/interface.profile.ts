@@ -27,6 +27,7 @@ export interface INotifyProfile<
     phoneCallEnabled: boolean;
     emailEnabled: boolean;
     smsEnabled: boolean;
+    redirectEnabled: boolean;
   };
   customFields: { iconName: string; value: string }[];
   type: EnumNotifyUserType;
@@ -34,6 +35,7 @@ export interface INotifyProfile<
   openHours: T extends EnumNotifyUserType.Company
     ? { start: number; end: number }[]
     : null;
+  redirectUrl: string | null;
   company?: INotifyProfile<EnumNotifyUserType.Company>;
   colors: {
     background: string[];

@@ -11,6 +11,7 @@ import {
   DaisyUIAvatarMasks,
   EnumNotifyUserType,
   INotifyProfile,
+  INotifyUser,
   daisyUIAvatarMaks,
   daisyUIAvatarMaksIT,
 } from '@notify/interfaces';
@@ -54,6 +55,8 @@ type ProfileForm = FormGroup<{
   backgroundColors: FormArray<FormGroup>;
   elementsColor: FormControl<string | null>;
   useCompanyColors: FormControl<boolean | null>;
+  redirectEnabled: FormControl<boolean | null>;
+  redirectUrl: FormControl<string | null>;
 }>;
 
 @Component({
@@ -75,9 +78,11 @@ type ProfileForm = FormGroup<{
 export class ProfileFormComponent implements OnInit {
   @Input({ required: true }) public profile!: INotifyProfile;
   @Input() public loading = false;
+  @Input() public savedRedirects: INotifyUser['savedRedirects'] = [];
 
   @Output() public value = new EventEmitter<INotifyProfile>();
   @Output() public submitForm = new EventEmitter<INotifyProfile>();
+  @Output() public removeSavedRedirect = new EventEmitter<string>();
 
   public removeAvatar$ = new Subject<void>();
   private _destroy$ = new Subject<void>();
@@ -180,6 +185,13 @@ export class ProfileFormComponent implements OnInit {
       backgroundColors: new FormArray([] as FormGroup[]),
       elementsColor: new FormControl(pColors?.elements || '#ffffff'),
       useCompanyColors: new FormControl(pColors?.useCompanyColors || false, []),
+      redirectEnabled: new FormControl(
+        this.profile.config.redirectEnabled || false,
+        []
+      ),
+      redirectUrl: new FormControl(this.profile.redirectUrl || '', [
+        Validators.pattern(/^([a-z0-9]+:+(\/\/)?)?[\w-]+(\.[\w-]+)+[#?]?.*$/i),
+      ]),
     });
 
     this.profile.customFields?.forEach((item) => {
@@ -306,6 +318,7 @@ export class ProfileFormComponent implements OnInit {
         phoneCallEnabled: !!form.phoneCallEnabled,
         emailEnabled: !!form.emailEnabled,
         smsEnabled: !!form.smsEnabled,
+        redirectEnabled: !!form.redirectEnabled,
       },
       address,
       reviewRedirect: form.reviewRedirect || null,
@@ -316,6 +329,7 @@ export class ProfileFormComponent implements OnInit {
             value: item.value,
           };
         }) || [],
+      redirectUrl: form.redirectUrl || null,
       colors: {
         background: form.backgroundColors?.map((item) => item.value) || [],
         elements: form.elementsColor || '#ffffff',

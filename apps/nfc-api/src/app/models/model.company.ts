@@ -29,6 +29,7 @@ export const COMPANY_VALIDATION_MESSAGES: {
   password: 'Inserire una password valida',
   createdRoles: 'Errore durante la modifica dei ruoli',
   license: 'Errore durante la modifica della licenza',
+  savedRedirects: 'Errore durante la modifica dei redirect',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
@@ -75,6 +76,10 @@ const CompanySchema = new Schema<Company, CompanyModel>(
     statsTotals: {
       type: Object,
       default: {},
+    },
+    savedRedirects: {
+      type: [String],
+      default: [],
     },
   },
   {
@@ -125,6 +130,7 @@ CompanySchema.statics.build = async (doc: Partial<Company>) => {
       phoneCallEnabled: true,
       smsEnabled: true,
       emailEnabled: true,
+      redirectEnabled: false,
     },
   }).save();
 

@@ -12,9 +12,12 @@ import {
 import {
   AppError,
   EnumNotifyUserType,
+  INotifyAgent,
   INotifyProfile,
 } from '@notify/interfaces';
 import {
+  AgentService,
+  AuthService,
   CapacitorService,
   ProfileService,
   UtilsService,
@@ -24,6 +27,8 @@ import {
   Subject,
   catchError,
   debounceTime,
+  of,
+  switchMap,
   takeUntil,
   tap,
 } from 'rxjs';
@@ -42,14 +47,13 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
     PageHeaderComponent,
     LoadingComponent,
   ],
-  providers: [ProfilePlayerFactory, CapacitorService],
+  providers: [ProfilePlayerFactory, CapacitorService, AgentService],
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
 })
 export class ProfileManagementComponent implements OnDestroy {
   private _profileSubject$ = new Subject<IProfile>();
   public profile$: Observable<IProfile> = this._profileSubject$;
-
   public loading = false;
   public baseUrl = environment.profilesUrl;
 
@@ -58,10 +62,16 @@ export class ProfileManagementComponent implements OnDestroy {
   public debouncedNextProfile$: Subject<INotifyProfile> =
     new Subject<IProfile>();
 
+  public get savedRedirects() {
+    return this._authService.user?.savedRedirects || [];
+  }
+
   constructor(
     private _profileService: ProfileService,
     private _utilsService: UtilsService,
-    private _playerFactroy: ProfilePlayerFactory
+    private _playerFactroy: ProfilePlayerFactory,
+    private _agentService: AgentService,
+    private _authService: AuthService
   ) {
     this._getProfile();
 
@@ -95,10 +105,44 @@ export class ProfileManagementComponent implements OnDestroy {
         tap((profile) => {
           this.updateProfileSubject(profile);
         }),
+        switchMap((p) => {
+          if (!this._authService.user) {
+            return of();
+          }
+
+          const savedRedirects: string[] = [
+            ...new Set([
+              ...(this._authService.user?.savedRedirects || []),
+              p.redirectUrl || '',
+            ]),
+          ];
+
+          return this._agentService.patch(this._authService.user?._id || '', {
+            savedRedirects,
+          });
+        }),
         catchError(async (err: AppError) =>
           this._utilsService.errorHandler(err)
         ),
         tap(() => (this.loading = false))
+      )
+      .subscribe();
+  }
+
+  public removeSavedRedirect(redirect: string) {
+    const user = this._authService.user as unknown as INotifyAgent;
+
+    this._agentService
+      .patch(user?._id || '', {
+        savedRedirects: this.savedRedirects.filter((r) => r !== redirect),
+      })
+      .pipe(
+        switchMap(() => {
+          return this._authService.refreshToken();
+        }),
+        catchError(async (err: AppError) => {
+          return this._utilsService.errorHandler(err);
+        })
       )
       .subscribe();
   }

@@ -15,11 +15,13 @@ import {
   INotifyProfile,
 } from '@notify/interfaces';
 import {
+  AuthService,
   CapacitorService,
+  CompanyService,
   ProfileService,
   UtilsService,
 } from '@notify/nfc-app-services';
-import { Observable, Subject, catchError, tap } from 'rxjs';
+import { Observable, Subject, catchError, of, switchMap, tap } from 'rxjs';
 import { environment } from '../../../../src/environments/environment';
 
 type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
@@ -35,7 +37,12 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
     PageHeaderComponent,
     LoadingComponent,
   ],
-  providers: [ProfilePlayerFactory, CapacitorService, UtilsService],
+  providers: [
+    ProfilePlayerFactory,
+    CapacitorService,
+    UtilsService,
+    CompanyService,
+  ],
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
 })
@@ -44,13 +51,18 @@ export class ProfileManagementComponent {
   public profile$: Observable<IProfile> = this._profileSubject$;
 
   public baseUrl = environment.profilesUrl;
-
   public loading = false;
+
+  public get savedRedirects() {
+    return this._authService.user?.savedRedirects || [];
+  }
 
   constructor(
     private _profileService: ProfileService,
     private _utilsService: UtilsService,
-    private _playerFactroy: ProfilePlayerFactory
+    private _playerFactroy: ProfilePlayerFactory,
+    private _authService: AuthService,
+    private _companyService: CompanyService
   ) {
     this._getProfile();
   }
@@ -69,10 +81,44 @@ export class ProfileManagementComponent {
       .patchProfile<EnumNotifyUserType.Agent>(profile)
       .pipe(
         tap((profile) => this._profileSubject$.next(profile)),
+        switchMap((p) => {
+          if (!this._authService.user) {
+            return of();
+          }
+
+          const savedRedirects: string[] = [
+            ...new Set([
+              ...(this._authService.user?.savedRedirects || []),
+              p.redirectUrl || '',
+            ]),
+          ].filter((r) => r);
+
+          return this._companyService
+            .patchCompany({
+              savedRedirects,
+            })
+            .pipe(switchMap(() => this._authService.refreshToken()));
+        }),
         catchError(async (err: AppError) =>
           this._utilsService.errorHandler(err)
         ),
         tap(() => (this.loading = false))
+      )
+      .subscribe();
+  }
+
+  public removeSavedRedirect(redirect: string) {
+    this._companyService
+      .patchCompany({
+        savedRedirects: this.savedRedirects.filter((r) => r !== redirect),
+      })
+      .pipe(
+        switchMap(() => {
+          return this._authService.refreshToken();
+        }),
+        catchError(async (err: AppError) => {
+          return this._utilsService.errorHandler(err);
+        })
       )
       .subscribe();
   }

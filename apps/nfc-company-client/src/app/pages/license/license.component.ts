@@ -104,6 +104,6 @@ export class LicenseComponent {
   }
 
   private _contactUs(): void {
-    window.location.href = 'mailto:preventivi@notifyapp.it';
+    window.location.href = 'mailto:vendite@notifyapp.it';
   }
 }

@@ -18,9 +18,11 @@
       >
         <notify-profile-form
           [profile]="profile"
+          [savedRedirects]="savedRedirects"
           [loading]="loading"
           (value)="updateProfileSubject($event)"
           (submitForm)="saveProfile($event)"
+          (removeSavedRedirect)="removeSavedRedirect($event)"
           class="w-full 2xl:w-6/12"
         ></notify-profile-form>
 

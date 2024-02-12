@@ -8,6 +8,7 @@ export interface INotifyCompany<populated extends true | false = false>
   email: string;
   password?: string;
   createdRoles: string[];
+  savedRedirects: string[];
   statsTotals: INotifyUserStats;
 
   //Outside of the schema
