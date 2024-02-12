@@ -54,15 +54,9 @@
       </div>
       <div class="divider !mt-1"></div>
     </div>
-    <apx-chart
-      [noData]="chartConfig.noData || {}"
-      [stroke]="chartConfig.stroke || {}"
-      [fill]="chartConfig.fill || {}"
-      [tooltip]="chartConfig.tooltip || {}"
-      [series]="series"
-      [chart]="chartConfig.chart || $any({})"
-      [series]="enrichedSeries"
+    <notify-apex-chart-ssr
+      [chartOptions]="chartOptions"
       class="w-full h-full bottom-0"
-    ></apx-chart>
+    ></notify-apex-chart-ssr>
   </div>
 </div>

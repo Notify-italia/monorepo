@@ -4,6 +4,7 @@ export * from './lib/capacitor.service';
 export * from './lib/company.service';
 export * from './lib/directives/gestures.directive';
 export * from './lib/directives/remove-focus.directive';
+export * from './lib/directives/ssr.directive';
 export * from './lib/feedback.service';
 export * from './lib/guards/auth.guard';
 export * from './lib/guards/license.guard';

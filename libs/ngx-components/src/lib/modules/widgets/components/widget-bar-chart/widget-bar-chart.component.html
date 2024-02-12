@@ -30,19 +30,9 @@
       <div class="divider !mt-1"></div>
     </div>
 
-    <apx-chart
-      [noData]="chartConfig.noData || {}"
-      [stroke]="chartConfig.stroke || {}"
-      [fill]="chartConfig.fill || {}"
-      [plotOptions]="chartConfig.plotOptions || {}"
-      [series]="series"
-      [chart]="chartConfig.chart || $any({})"
-      [series]="series"
-      [dataLabels]="chartConfig.dataLabels || {}"
-      [legend]="chartConfig.legend || {}"
-      [xaxis]="chartConfig.xaxis || {}"
-      [yaxis]="chartConfig.yaxis || {}"
+    <notify-apex-chart-ssr
+      [chartOptions]="chartOptions"
       class="w-full h-full bottom-0 p-4"
-    ></apx-chart>
+    ></notify-apex-chart-ssr>
   </div>
 </div>

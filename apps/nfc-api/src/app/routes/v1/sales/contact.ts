@@ -9,10 +9,10 @@ router.get(
   '/',
   query('name'),
   query('source'),
-  query('companyName'),
-  query('contact'),
+  query('email'),
+  query('message'),
   errorHandledRequest(async (req, res) => {
-    const { name, source, companyName, contact } = req.query;
+    const { name, source, email, message } = req.query;
 
     // await sendEmail(
     //     Bun.env['NOTIFY_EMAIL'],
@@ -23,4 +23,4 @@ router.get(
   })
 );
 
-export { router as getProfileRouter };
+export { router as getSalesContactRouter };

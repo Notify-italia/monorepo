@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, afterNextRender } from '@angular/core';
 
 export interface SvgBoxIcon {
   expanded?: string;
@@ -17,7 +17,9 @@ export class SvgboxService {
   public availableIcons: SvgBoxIcon[] = AVAILABLE_ICONS;
 
   constructor() {
-    this._loadScript();
+    afterNextRender(() => {
+      this._loadScript();
+    });
   }
 
   public iconUrl(icon: SvgBoxIcon) {

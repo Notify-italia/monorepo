@@ -1,0 +1,20 @@
+<div class="flex justify-between w-full p-5 h-24">
+  <a href="#splash" class="h-36 w-36">
+    <notify-app-title
+      class="items-center pointer-events-none"
+      [compact]="false"
+    ></notify-app-title>
+  </a>
+
+  <div class="flex justify-around w-5/12 items-center h-full">
+    @for (item of options; track item.label) {
+    <a
+      [href]="item.path"
+      data-theme="notifytheme"
+      class="btn btn-link text-white no-underline"
+    >
+      {{ item.label }}
+    </a>
+    }
+  </div>
+</div>

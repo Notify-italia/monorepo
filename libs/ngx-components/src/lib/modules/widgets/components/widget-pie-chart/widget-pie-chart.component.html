@@ -30,20 +30,10 @@
       <div class="divider !mt-1"></div>
     </div>
     <div class="flex flex-col justify-center h-full items-center">
-      <apx-chart
-        [noData]="chartConfig.noData || {}"
-        [legend]="chartConfig.legend || {}"
-        [series]="series"
-        [chart]="chartConfig.chart || $any({})"
-        [series]="series"
-        [fill]="chartConfig.fill || {}"
-        [stroke]="chartConfig.stroke || {}"
-        [plotOptions]="chartConfig.plotOptions || {}"
-        [dataLabels]="chartConfig.dataLabels || {}"
-        [responsive]="chartConfig.responsive || []"
-        [labels]="legendValues"
+      <notify-apex-chart-ssr
+        [chartOptions]="chartOptions"
         class="w-full h-fit 2xl:scale-125"
-      ></apx-chart>
+      ></notify-apex-chart-ssr>
     </div>
   </div>
 </div>

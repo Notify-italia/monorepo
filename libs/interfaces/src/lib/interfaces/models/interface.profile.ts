@@ -31,7 +31,9 @@ export interface INotifyProfile<
   customFields: { iconName: string; value: string }[];
   type: EnumNotifyUserType;
   //TODO aggiungi open hours (solo azienda)
-  openHours: { start: number; end: number }[];
+  openHours: T extends EnumNotifyUserType.Company
+    ? { start: number; end: number }[]
+    : null;
   company?: INotifyProfile<EnumNotifyUserType.Company>;
   colors: {
     background: string[];

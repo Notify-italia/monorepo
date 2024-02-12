@@ -1,0 +1,24 @@
+import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import { ApplicationConfig } from '@angular/core';
+import { provideClientHydration } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
+import { HttpService } from '@notify/nfc-app-services';
+import { provideToastr } from 'ngx-toastr';
+import { environment } from '../environments/environment.prod';
+import { appRoutes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideClientHydration(),
+    provideRouter(appRoutes),
+    provideHttpClient(withFetch()),
+    provideToastr(),
+    // provideTailwindToasts(),
+    {
+      provide: HttpService,
+      deps: [HttpClient],
+      useFactory: (http: HttpClient) =>
+        new HttpService(environment.apiUrl, environment.jwtTokenKey, http),
+    },
+  ],
+};

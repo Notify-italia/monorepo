@@ -7,7 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import Compressor from 'compressorjs';
-import 'hammerjs';
+// import 'hammerjs';
 import {
   ImageCroppedEvent,
   ImageCropperModule,

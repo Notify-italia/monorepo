@@ -1,15 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import {
-  ApexAxisChartSeries,
-  ApexOptions,
-  NgApexchartsModule,
-} from 'ng-apexcharts';
+import { SSRDirective } from '@notify/nfc-app-services';
+import { ApexAxisChartSeries, ApexOptions } from 'ng-apexcharts';
+import { ApexChartSsrComponent } from '../../../../standalones/apex-chart-ssr/apex-chart-ssr.component';
 
 @Component({
   selector: 'notify-widget-bar-chart',
   standalone: true,
-  imports: [CommonModule, NgApexchartsModule],
+  imports: [CommonModule, SSRDirective, ApexChartSsrComponent],
   templateUrl: './widget-bar-chart.component.html',
   styleUrls: ['./widget-bar-chart.component.scss', '../../widgets.styles.scss'],
 })
@@ -75,4 +73,11 @@ export class WidgetBarChartComponent {
       },
     },
   };
+
+  public get chartOptions(): ApexOptions {
+    return {
+      ...this.chartConfig,
+      series: this.series,
+    };
+  }
 }

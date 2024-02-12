@@ -1,7 +1,4 @@
 {
   "name": "@notify/ngx-components",
-  "version": "0.0.1",
-  "devDependencies": {
-    "@types/hammerjs": "^2.0.45"
-  }
+  "version": "0.0.1"
 }

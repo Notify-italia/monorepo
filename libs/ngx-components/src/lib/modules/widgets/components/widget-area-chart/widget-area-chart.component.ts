@@ -17,13 +17,14 @@ import {
   subMonths,
   subWeeks,
 } from 'date-fns';
+import { ApexChartSsrComponent } from '../../../../standalones/apex-chart-ssr/apex-chart-ssr.component';
+
 import {
   ApexAxisChartSeries,
   ApexChart,
   ApexFill,
   ApexOptions,
   ApexStroke,
-  NgApexchartsModule,
 } from 'ng-apexcharts';
 
 export const AREA_CHART_DEFAULT_PERIOD = {
@@ -34,7 +35,7 @@ export const AREA_CHART_DEFAULT_PERIOD = {
 @Component({
   selector: 'notify-widget-area-chart',
   standalone: true,
-  imports: [CommonModule, NgApexchartsModule],
+  imports: [CommonModule, ApexChartSsrComponent],
   templateUrl: './widget-area-chart.component.html',
   styleUrls: [
     './widget-area-chart.component.scss',
@@ -75,6 +76,13 @@ export class WidgetAreaChartComponent implements OnInit, OnChanges {
   };
 
   public constructor() {}
+
+  public get chartOptions(): ApexOptions {
+    return {
+      ...this.chartConfig,
+      series: this.enrichedSeries,
+    };
+  }
 
   public ngOnInit(): void {
     this.enrichedSeries = this.enrichSeries();

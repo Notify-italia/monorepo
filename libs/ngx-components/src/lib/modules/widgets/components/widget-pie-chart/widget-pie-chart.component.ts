@@ -1,15 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import {
-  ApexNonAxisChartSeries,
-  ApexOptions,
-  NgApexchartsModule,
-} from 'ng-apexcharts';
+import { SSRDirective } from '@notify/nfc-app-services';
+import { ApexNonAxisChartSeries, ApexOptions } from 'ng-apexcharts';
+import { ApexChartSsrComponent } from '../../../../standalones/apex-chart-ssr/apex-chart-ssr.component';
 
 @Component({
   selector: 'notify-widget-pie-chart',
   standalone: true,
-  imports: [CommonModule, NgApexchartsModule],
+  imports: [CommonModule, SSRDirective, ApexChartSsrComponent],
   templateUrl: './widget-pie-chart.component.html',
   styleUrls: ['./widget-pie-chart.component.scss', '../../widgets.styles.scss'],
 })
@@ -94,4 +92,12 @@ export class WidgetPieChartComponent {
       },
     },
   };
+
+  public get chartOptions(): ApexOptions {
+    return {
+      ...this.chartConfig,
+      series: this.series,
+      labels: this.legendValues,
+    };
+  }
 }

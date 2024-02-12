@@ -60,7 +60,11 @@ const tailwindConfig = {
       },
     },
   },
-  plugins: [require('daisyui'), require('tailwindcss-safe-area')],
+  plugins: [
+    require('daisyui'),
+    require('tailwindcss-safe-area'),
+    require('tailwindcss-dotted-background'),
+  ],
   daisyui: {
     themes: <unknown[]>[],
   },

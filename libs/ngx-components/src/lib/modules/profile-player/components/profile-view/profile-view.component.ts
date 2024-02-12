@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   EnumNotifyUserType,
   INotifyFeedback,
@@ -37,13 +37,18 @@ export const defaultGradientStops = ['#0A2859', '#041127'];
     GoogleMapsComponent,
     ProfileIntegrationsComponent,
   ],
-  providers: [FeedbackFactory, FeedbackService, SvgboxService, UtilsService],
+  providers: [
+    FeedbackFactory,
+    FeedbackService,
+    SvgboxService,
+    UtilsService,
+    ProfileService,
+  ],
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss', '../profile.styles.scss'],
 })
-export class ProfileViewComponent {
+export class ProfileViewComponent implements OnInit {
   @Input() data?: INotifyProfile;
-  @Input({ required: true }) publicUrl = 'http://localhost:4200';
   @Input() mockup = false;
   @Input() feedbackKey = 'feedback';
 
@@ -52,6 +57,7 @@ export class ProfileViewComponent {
     INotifyProfile['customFields'][0]
   >();
   @Output() public feedbackClicked = new EventEmitter<void>();
+  @Output() public componentReady = new EventEmitter<void>();
 
   public currentTime$ = interval(1000).pipe(
     startWith(0),
@@ -93,9 +99,12 @@ export class ProfileViewComponent {
 
   constructor(
     public profileService: ProfileService,
-    private _feedbackFactory: FeedbackFactory,
     private _feedbackService: FeedbackService
   ) {}
+
+  public ngOnInit(): void {
+    this.componentReady.emit();
+  }
 
   public feedbackGiven(): INotifyFeedback | null {
     if (!this.data?._id) {
