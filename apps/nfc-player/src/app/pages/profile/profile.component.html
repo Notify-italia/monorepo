@@ -110,7 +110,6 @@
     <notify-profile-view
       (integrationClicked)="handleIntegrationClicked($event, p)"
       [data]="p"
-      [publicUrl]="publicUrl"
       [feedbackKey]="feedbackKey"
       (subAvatarClick)="forceShowCompanyProfile()"
       (feedbackClicked)="showFeedback(p)"
@@ -127,7 +126,6 @@
     <notify-profile-view
       (integrationClicked)="handleIntegrationClicked($event, pCompany)"
       [data]="pCompany"
-      [publicUrl]="publicUrl"
     ></notify-profile-view>
   </div>
 
@@ -157,7 +155,6 @@
     <notify-profile-view
       (integrationClicked)="handleIntegrationClicked($event, pCompany)"
       [data]="pCompany"
-      [publicUrl]="publicUrl"
       [mockup]="true"
     ></notify-profile-view>
   </div>

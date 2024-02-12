@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
-  OnChanges,
-  OnInit,
   Output,
 } from '@angular/core';
 import { INotifyStat } from '@notify/interfaces';
@@ -41,8 +40,9 @@ export const AREA_CHART_DEFAULT_PERIOD = {
     './widget-area-chart.component.scss',
     '../../widgets.styles.scss',
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WidgetAreaChartComponent implements OnInit, OnChanges {
+export class WidgetAreaChartComponent {
   @Input() public title = '';
   @Input() public series: ApexAxisChartSeries = [];
 
@@ -55,7 +55,6 @@ export class WidgetAreaChartComponent implements OnInit, OnChanges {
 
   public backgroundColor = 'transparent';
 
-  public enrichedSeries: ApexAxisChartSeries = [];
   public chartConfig: ApexOptions = {
     noData: {
       text: 'Nessun dato visualizzabile',
@@ -84,12 +83,8 @@ export class WidgetAreaChartComponent implements OnInit, OnChanges {
     };
   }
 
-  public ngOnInit(): void {
-    this.enrichedSeries = this.enrichSeries();
-  }
-
-  public ngOnChanges(): void {
-    this.enrichedSeries = this.enrichSeries();
+  public get enrichedSeries() {
+    return this.enrichSeries();
   }
 
   public enrichSeries(): ApexAxisChartSeries {
@@ -113,8 +108,21 @@ export class WidgetAreaChartComponent implements OnInit, OnChanges {
       )
       .map((d) => ({
         x: format((d as { x: Date })?.x, 'dd MMM'),
-        y: (d as { y: number })?.y,
-      }));
+        y: Number((d as { y: number })?.y),
+      }))
+      .reduce((acc: { x: string; y: number }[], curr) => {
+        const index = acc.findIndex((v) => v.x === curr.x);
+
+        if (index === -1) {
+          return [...acc, curr];
+        }
+
+        acc[index].y += curr.y;
+
+        return acc;
+      }, []);
+
+    console.log(enrichedSeries);
 
     return [{ name: 'Visite', data: enrichedSeries }];
   }
@@ -175,7 +183,8 @@ const DEFAULT_STROKE: ApexStroke = {
 
 const DEFAULT_CHART: ApexChart = {
   type: 'area',
-  height: `100%`,
+  height: '100%',
+  width: '100%',
   defaultLocale: 'it',
   locales: [
     {

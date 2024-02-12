@@ -79,7 +79,7 @@ const _companyFlow = async (
   return await StatManager.report({
     type,
     owner: { $in: agents },
-    $or: [
+    $and: [
       { 'period.from': { $gte: period.from } },
       { 'period.to': { $lte: period.to } },
     ],
@@ -95,7 +95,7 @@ const _agentFlow = async (
   return await StatManager.report({
     type,
     owner: user._id,
-    $or: [
+    $and: [
       { 'period.from': { $gte: period.from } },
       { 'period.to': { $lte: period.to } },
     ],
