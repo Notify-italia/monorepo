@@ -3,3 +3,86 @@
 @tailwind utilities;
 
 /* You can add global styles to this file, and also import other style files */
+@import url(//fonts.googleapis.com/css?family=Vibur);
+
+.neon {
+  text-align: start;
+  margin: auto;
+  user-select: none;
+  @apply w-full lg:w-[85%];
+}
+
+.neon b {
+  font: 400 12vh 'Vibur';
+  color: #fee;
+  text-shadow: 0 -40px 100px, 0 0 2px, 0 0 1em #028de2, 0 0 0.5em #028de2,
+    0 0 0.1em #028de2, 0 10px 3px #000;
+
+  @apply flex font-[12vh] lg:font-[18vh];
+}
+.neon b .blink {
+  animation: blink linear infinite 2s;
+}
+.neon b .blink:nth-of-type(2) {
+  animation: blink linear infinite 3s;
+}
+@keyframes blink {
+  78% {
+    color: inherit;
+    text-shadow: inherit;
+  }
+  79% {
+    color: #333;
+  }
+  80% {
+    text-shadow: none;
+  }
+  81% {
+    color: inherit;
+    text-shadow: inherit;
+  }
+  82% {
+    color: #333;
+    text-shadow: none;
+  }
+  83% {
+    color: inherit;
+    text-shadow: inherit;
+  }
+  92% {
+    color: #333;
+    text-shadow: none;
+  }
+  92.5% {
+    color: inherit;
+    text-shadow: inherit;
+  }
+}
+
+/* follow me @nodws */
+#btn-twtr {
+  clear: both;
+  color: #fff;
+  border: 2px solid;
+  border-radius: 3px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-family: sans-serif;
+  font-size: 14px;
+  width: 13em;
+  padding: 5px 10px;
+  font-weight: 600;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 0px 3px rgba(0, 0, 0, 0.2);
+  opacity: 0.4;
+}
+#btn-twtr:hover {
+  color: #fff;
+  opacity: 1;
+}

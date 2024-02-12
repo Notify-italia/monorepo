@@ -1,0 +1,52 @@
+<div
+  class="w-full relative min-h-[30rem] flex flex-col justify-center items-center p-10"
+>
+  <h1 class="text-3xl md:text-5xl font-bold text-white text-center">
+    Si, ok. Ma come funziona?
+  </h1>
+  <div
+    class="flex flex-col lg:flex-row justify-center lg:space-x-20 w-full mt-5 h-full items-center"
+  >
+    <div
+      *ngIf="demoProfile$ | async as demo"
+      class="iphone-15-pro scale-90 lg:scale-90 2xl:scale-100"
+    >
+      <notify-profile-view
+        *SSR
+        [mockup]="true"
+        class="scale-[80%] lg:scale-[70%] 2xl:scale-100"
+        [data]="demo"
+        (componentReady)="componentStable.emit(); isProfileReady = true"
+      ></notify-profile-view>
+    </div>
+    <div
+      class="w-full lg:w-6/12 flex flex-col items-center h-full min-h-[80vh] lg:min-h-[50vh] justify-around"
+    >
+      @for (item of steps; track $index) {
+      <div class="flex flex-col w-full">
+        <div class="flex space-x-10 w-full items-center">
+          <div>
+            <div class="neon">
+              <b>
+                <span
+                  [ngClass]="{
+                    blink: $index % 2 === 1
+                  }"
+                >
+                  {{ $index + 1 }}
+                </span>
+              </b>
+            </div>
+          </div>
+          <span class="font-bold text-4xl">
+            {{ item.title }}
+            <div class="flex space-x-2 font-normal text-base">
+              {{ item.description }}
+            </div>
+          </span>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>

@@ -21,6 +21,12 @@
 
     <div class="divider mx-5"></div>
 
+    <notify-instructions
+      (componentStable)="instructionsStable$.next()"
+    ></notify-instructions>
+
+    <div class="divider mx-5"></div>
+
     <notify-partners id="partners"></notify-partners>
 
     <div class="divider mx-5"></div>

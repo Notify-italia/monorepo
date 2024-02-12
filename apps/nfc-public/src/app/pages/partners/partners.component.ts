@@ -60,6 +60,7 @@ export class PartnersComponent {
           this._profilePlayer.createPlayer({
             profile: v,
             baseUrl: environment.profilesUrl,
+            hideShare: true,
           })
         )
       )
