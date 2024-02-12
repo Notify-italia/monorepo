@@ -1,0 +1,22 @@
+<div class="w-full flex justify-center items-center">
+  <div class="slider">
+    @for (item of partners; track $index) {
+    <button
+      class="slide smooth hover:scale-110"
+      [title]="item.title"
+      (click)="showProfile(item.profile)"
+    >
+      <img
+        [src]="item.image"
+        alt=""
+        class=" {{ item.class }} h-24 w-24 object-contain"
+      />
+      <h1
+        class="text-black/40 text-lg tracking-tighter font-work font-medium ites"
+      >
+        {{ item.title }}
+      </h1>
+    </button>
+    }
+  </div>
+</div>

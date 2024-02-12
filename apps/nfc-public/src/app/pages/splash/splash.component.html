@@ -1,22 +1,30 @@
-<div
-  class="flex flex-col lg:justify-center min-h-[100vh] w-full overflow-hidden"
->
+<div class="flex flex-col min-h-[100vh] w-full overflow-hidden">
   <div
     class="flex flex-col justify-start lg:flex-row lg:justify-around w-full flex-nowrap items-center lg:px-5"
   >
     <div class="scale-90 lg:scale-100">
-      <h1 class="text-2xl lg:text-[56px] font-bold text-center">
+      <h1
+        class="text-2xl lg:text-[56px] font-bold text-center pt-20 whitespace-nowrap"
+      >
         Regala un effetto
-        <div class="neonText">WOW!</div>
+        <div class="logo">
+          <b> WOW <span>!</span> </b>
+        </div>
         ai tuoi clienti.
       </h1>
 
-      <h2 class="text-center text-gray-300 lg:text-xl mt-1">
+      <h2 class="text-center text-gray-300 lg:text-xl">
         Modernizza il tuo Networking
       </h2>
     </div>
 
-    @if (demoProfile$ | async;as demoProfile) {
+    <img
+      src="/assets/images/splash.svg"
+      alt=""
+      class="h-full lg:w-6/12 object-contain"
+    />
+    <!-- @if (demoProfile$ | async;as demoProfile) {
+
     <notify-profile-view
       *SSR
       [mockup]="true"
@@ -25,5 +33,6 @@
       (componentReady)="componentStable.emit(); isProfileReady = true"
     ></notify-profile-view>
     }
+  </div> -->
   </div>
 </div>

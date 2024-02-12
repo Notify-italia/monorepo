@@ -6,6 +6,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
 import { ContactUsComponent } from '../contact-us/contact-us.component';
 import { FeaturesComponent } from '../features/features.component';
+import { PartnersComponent } from '../partners/partners.component';
 import { SplashComponent } from '../splash/splash.component';
 
 @Component({
@@ -19,6 +20,7 @@ import { SplashComponent } from '../splash/splash.component';
     FooterComponent,
     LoadingComponent,
     ContactUsComponent,
+    PartnersComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

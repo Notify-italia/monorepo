@@ -30,6 +30,8 @@ export class SplashComponent {
       this.demoProfile$ = this._profileService.getProfile(
         '655805c8f5638dc5ef4b3590'
       );
+
+      this.componentStable.emit();
     });
   }
 }

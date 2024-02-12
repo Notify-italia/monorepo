@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ComponentRef, HostListener, Input } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
 
+import { ProfileService } from '@notify/nfc-app-services';
 import { ShareProfileComponent } from '../../../../standalones/share-profile/share-profile.component';
 import { ProfileViewComponent } from '../profile-view/profile-view.component';
 
@@ -9,6 +10,8 @@ import { ProfileViewComponent } from '../profile-view/profile-view.component';
   selector: 'notify-fullscreen-mockup',
   standalone: true,
   imports: [CommonModule, ProfileViewComponent, ShareProfileComponent],
+  //* per qualche ragione, sul sito vetrina se non si fa il provide di profile service da un errore all'apertura dei profili dei partners
+  providers: [ProfileService],
   templateUrl: './fullscreen-mockup.component.html',
   styleUrls: ['./fullscreen-mockup.component.scss', '../profile.styles.scss'],
 })
