@@ -19,9 +19,12 @@
     <video
       #SplashVideo
       src="/assets/images/splash.mp4"
-      muted
+      [muted]="'muted'"
       alt=""
       autoplay
+      playsinline
+      oncanplay="this.play()"
+      onloadedmetadata="this.muted = true"
       loop
       class="w-full h-full lg:w-5/12 lg:h-4/6 object-contain pointer-events-none"
     ></video>
