@@ -1,35 +1,48 @@
 <div
-  class="w-full relative min-h-[30rem] flex flex-col justify-center items-center p-10"
+  class="w-full relative min-h-[90vh] flex flex-col py-10 items-center overflow-hidden group/cards-container bg-gray-100 bg-dotted-spacing-12 bg-dotted-cyan-500"
 >
-  <h1 class="text-3xl md:text-5xl font-bold text-white text-center">
-    Ma cosa posso fare con Notify? 🤔
-  </h1>
-  <h2 class="md:text-2xl font-bold text-gray-300 text-center">
-    Beh, per esempio puoi...
-  </h2>
-
   <div
-    class="flex flex-col w-full md:px-10 items-center 2xl:w-8/12 py-5"
-    id="cardWrapper"
+    class="section pointer-events-none group-focus-within/cards-container:blur-md group-focus-within/cards-container:opacity-50 smooth flex"
+  >
+    <h1 class="section-title">Cosa posso fare con Notify? 🤔</h1>
+    <h2 class="section-subtitle">
+      Scopri le funzionalità che rendono Notify unico e innovativo 🚀
+    </h2>
+  </div>
+  <div
+    class="flex w-96 min-h-[40vh] justify-center items-end translate-y-2 absolute bottom-16 scale-[60%] 2xl:scale-100"
   >
     @for (item of features; track $index) {
-    <div
-      id="card"
-      class="w-full flex md:m-4 my-6 h-56 justify-center"
-      [ngClass]="{
-        'lg:justify-start animate__fadeInLeft': $index % 2 === 0,
-        'lg:justify-end animate__fadeInRight': $index % 2 !== 0
+    <button
+      class="card {{
+        item.color
+      }} hover:brightness-110 smooth focus:!m-0 focus:bottom-auto focus:!rotate-0 focus:!w-[24rem] focus:!h-[40rem] focus:z-20 focus:scale-125 focus:-translate-y-[5rem] focus:!shadow-2xl focus:pointer-events-none group/card "
+      [ngStyle]="{
+        transform: 'rotate(' + item.rotation + 'deg)',
+        'margin-left': item.marginLeft + 'rem',
+        'margin-right': item.marginRight + 'rem',
+        'margin-bottom': item.marginBottom + 'rem',
+        'align-items': item.justify
       }"
     >
-      <notify-feature-card
-        [feature]="item"
-        class="md:w-8/12"
-      ></notify-feature-card>
-    </div>
+      <notify-svg-box-icon
+        [icon]="item.icon"
+        class="p-2 ring-1 ring-current rounded m-2"
+        [size]="$any('[100%]')"
+      ></notify-svg-box-icon>
+
+      <p
+        class="w-full px-5 font-medium text-sm my-2.5 text-center group-focus/card:px-10 group-focus/card:my-5 group-focus/card:text-3xl drop-shadow-md smooth"
+      >
+        {{ item.title }}
+      </p>
+      <div class="divider"></div>
+      <p
+        class="w-full px-5 font-medium text-xs h-full text-center group-focus/card:px-10 group-focus/card:leading-loose group-focus/card:text-2xl drop-shadow-md leading-loose smooth"
+      >
+        {{ item.description }}
+      </p>
+    </button>
     }
   </div>
-
-  <h2 class="md:text-2xl font-bold text-gray-300 text-center mt-5">
-    E molto altro ancora!
-  </h2>
 </div>

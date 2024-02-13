@@ -1,21 +1,19 @@
-<div class="flex flex-col min-h-[100vh] w-full overflow-hidden">
+<div class="flex flex-col w-full overflow-hidden">
   <div
-    class="flex flex-col justify-start lg:flex-row lg:justify-around w-full flex-nowrap items-center lg:px-5"
+    class="flex flex-col justify-around lg:flex-row lg:justify-center w-full flex-nowrap items-center min-h-[90vh]"
   >
-    <div class="scale-90 lg:scale-100">
+    <div class="scale-90 lg:scale-100 lg:w-6/12">
       <h1
-        class="text-2xl lg:text-[56px] font-bold text-center pt-20 whitespace-nowrap"
+        class="text-5xl lg:text-[56px] font-bold text-center flex flex-col justify-center text-slate-800"
       >
-        Regala un effetto
+        <span> Regala un effetto </span>
         <div class="neon">
-          <b> WOW <span class="blink">!</span> </b>
+          <b class="z-0"> WOW </b> <b class="blink z-0">!</b>
         </div>
-        ai tuoi clienti.
+        <span> ai tuoi clienti. </span>
       </h1>
 
-      <h2 class="text-center text-gray-300 lg:text-xl">
-        Modernizza il tuo Networking
-      </h2>
+      <h2 class="text-center lg:text-xl mt-2">Modernizza il tuo Networking</h2>
     </div>
 
     <video
@@ -25,11 +23,7 @@
       alt=""
       autoplay
       loop
-      class="h-full w-full lg:w-6/12 object-contain pointer-events-none opacity-0 absolute"
+      class="w-full h-full lg:w-5/12 lg:h-4/6 object-contain pointer-events-none"
     ></video>
-    <canvas
-      #SplashVideoCanvas
-      class="object-contain pointer-events-none w-full lg:w-6/12 object-center"
-    ></canvas>
   </div>
 </div>
