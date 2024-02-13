@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import {
   LoadingComponent,
   PageHeaderComponent,
@@ -9,6 +9,7 @@ import {
   ShareProfileComponent,
 } from '@notify/ngx-components';
 
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   AppError,
   EnumNotifyUserType,
@@ -50,6 +51,7 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
   providers: [ProfilePlayerFactory, CapacitorService, AgentService],
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileManagementComponent implements OnDestroy {
   private _profileSubject$ = new Subject<IProfile>();
@@ -71,7 +73,8 @@ export class ProfileManagementComponent implements OnDestroy {
     private _utilsService: UtilsService,
     private _playerFactroy: ProfilePlayerFactory,
     private _agentService: AgentService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _domSanitizer: DomSanitizer
   ) {
     this._getProfile();
 
@@ -115,11 +118,17 @@ export class ProfileManagementComponent implements OnDestroy {
               ...(this._authService.user?.savedRedirects || []),
               p.redirectUrl || '',
             ]),
-          ];
+          ].filter((r) => r);
 
-          return this._agentService.patch(this._authService.user?._id || '', {
-            savedRedirects,
-          });
+          return this._agentService
+            .patch(this._authService.user?._id || '', {
+              savedRedirects,
+            })
+            .pipe(
+              switchMap(() => {
+                return this._authService.refreshToken();
+              })
+            );
         }),
         catchError(async (err: AppError) =>
           this._utilsService.errorHandler(err)
@@ -129,7 +138,18 @@ export class ProfileManagementComponent implements OnDestroy {
       .subscribe();
   }
 
+  public normalizeURL(url: string | null) {
+    if (!url) {
+      url = 'https://notifyapp.it';
+    }
+
+    return this._domSanitizer.bypassSecurityTrustResourceUrl(
+      this._utilsService.populateWebProtocol('https://', url)
+    );
+  }
+
   public removeSavedRedirect(redirect: string) {
+    this.loading = true;
     const user = this._authService.user as unknown as INotifyAgent;
 
     this._agentService
@@ -142,7 +162,8 @@ export class ProfileManagementComponent implements OnDestroy {
         }),
         catchError(async (err: AppError) => {
           return this._utilsService.errorHandler(err);
-        })
+        }),
+        tap(() => (this.loading = false))
       )
       .subscribe();
   }

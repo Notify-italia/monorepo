@@ -19,11 +19,17 @@
     </div>
 
     <video
+      #SplashVideo
       src="/assets/images/splash.mp4"
+      muted
       alt=""
       autoplay
       loop
-      class="h-full w-full lg:w-6/12 object-contain"
+      class="h-full w-full lg:w-6/12 object-contain pointer-events-none opacity-0 absolute"
     ></video>
+    <canvas
+      #SplashVideoCanvas
+      class="object-contain pointer-events-none w-full lg:w-6/12 object-center"
+    ></canvas>
   </div>
 </div>

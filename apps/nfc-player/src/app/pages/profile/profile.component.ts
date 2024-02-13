@@ -13,6 +13,7 @@ import {
   ProfileService,
   SocketService,
   StatService,
+  UtilsService,
 } from '@notify/nfc-app-services';
 import {
   FeedbackFactory,
@@ -35,7 +36,7 @@ import { environment } from '../../../environments/environment';
     SwipeAvailableComponent,
     LoadingComponent,
   ],
-  providers: [FileRecievedFactory, StatService, FeedbackFactory],
+  providers: [FileRecievedFactory, StatService, FeedbackFactory, UtilsService],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
@@ -99,7 +100,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private _fileRecieved: FileRecievedFactory,
     private _Meta: Meta,
     private _statService: StatService,
-    private _feedbackFactory: FeedbackFactory
+    private _feedbackFactory: FeedbackFactory,
+    private _utils: UtilsService
   ) {
     this.profile$ = this._profileService
       .getProfile(
@@ -108,8 +110,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .pipe(
         tap((profile) =>
           this._statService
-            .incrementStat(this._getSourceStatType(), profile.owner)
-            .pipe(tap(() => this._removeQueryParam()))
+            .incrementStat(this._getStatTypeFromOrigin(), profile.owner)
+            .pipe(
+              tap(() => this._redirect(profile)),
+              tap(() => this._removeQueryParam())
+            )
             .subscribe()
         ),
         tap((profile) => {
@@ -273,7 +278,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  private _getSourceStatType() {
+  private _getStatTypeFromOrigin() {
     const source = this._activatedRoute.snapshot.queryParamMap.get(
       's'
     ) as EnumNotifyProfileSources;
@@ -292,6 +297,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
     url.searchParams.delete('s');
     const newUrl = url.toString();
     window.history.replaceState({}, '', newUrl);
+  }
+
+  private _redirect(profile: INotifyProfile) {
+    if (this._getStatTypeFromOrigin() === EnumNotifyStatType.ProfileReturn) {
+      return;
+    }
+
+    if (!profile.redirectUrl || !profile.config.redirectEnabled) {
+      return;
+    }
+
+    //create an "a" element to redirect the user to the redirect url
+    const a = document.createElement('a');
+    a.id = 'redirectToURL';
+    a.classList.add('hidden');
+    a.href = this._utils.populateWebProtocol('https://', profile.redirectUrl);
+    // a.target = '_blank';
+
+    //click the "a" element
+    a.click();
   }
 
   private _setMeta(profile: INotifyProfile) {

@@ -19,7 +19,7 @@ const router = Router();
 
 router.patch(
   '/',
-  ...userSignInValidation(AGENT_VALIDATION_MESSAGES, false),
+  ...userSignInValidation(AGENT_VALIDATION_MESSAGES, false, false),
   query('id')
     .isMongoId()
     .withMessage(AGENT_VALIDATION_MESSAGES._id as string),
@@ -39,17 +39,30 @@ router.patch(
       const { id } = req.query;
       const { email, password, role, enabled, savedRedirects } = req.body;
 
+      if (
+        req.currentUser.userType === EnumNotifyUserType.Agent &&
+        req.currentUser._id !== id
+      ) {
+        throw new BadRequestError(
+          'You are not authorized to perform this action'
+        );
+      }
+
       const agent = await AgentModel.findById(id);
 
       if (!agent) {
         throw new BadRequestError('Agent not found');
       }
 
-      agent.email = email;
+      agent.email = email ?? agent.email;
       agent.password = password
         ? await Password.toHash(password)
         : agent.password;
-      agent.enabled = enabled ?? agent.enabled;
+
+      if (EnumNotifyUserType.Company === req.currentUser.userType) {
+        agent.enabled = enabled ?? agent.enabled;
+      }
+
       agent.savedRedirects = savedRedirects ?? agent.savedRedirects;
 
       if (role) {
@@ -64,7 +77,6 @@ router.patch(
       requireAuth: {
         requireLicense: true,
       },
-      permittedRoles: [EnumNotifyUserType.Company],
     }
   )
 );

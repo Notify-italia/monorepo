@@ -108,6 +108,8 @@ export class ProfileManagementComponent {
   }
 
   public removeSavedRedirect(redirect: string) {
+    this.loading = true;
+
     this._companyService
       .patchCompany({
         savedRedirects: this.savedRedirects.filter((r) => r !== redirect),
@@ -118,7 +120,8 @@ export class ProfileManagementComponent {
         }),
         catchError(async (err: AppError) => {
           return this._utilsService.errorHandler(err);
-        })
+        }),
+        tap(() => (this.loading = false))
       )
       .subscribe();
   }
