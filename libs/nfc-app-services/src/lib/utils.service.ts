@@ -111,7 +111,7 @@ export class UtilsService {
       return data;
     }
 
-    return `${protocol}${data}`;
+    return `${protocol}${data.trim()}`;
   }
 
   public currentTailwindMediaQuery():

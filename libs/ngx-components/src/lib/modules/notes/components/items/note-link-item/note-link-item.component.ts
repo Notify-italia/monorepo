@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { INotifyNoteItemLink } from '@notify/interfaces';
+import { UtilsService } from '@notify/nfc-app-services';
 import { TailwindFormsModule } from '../../../../tailwind-forms/tailwind-forms.module';
 import { NoteItemBase } from '../note-item.base';
 
@@ -28,20 +29,21 @@ export class NoteLinkItemComponent extends NoteItemBase {
   public formVisible = false;
 
   public get redirectUrl() {
-    let url = this.form.get('url')?.value;
+    const url = this.form.get('url')?.value;
 
     if (!url) {
       return null;
     }
 
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      url = `http://${url}`;
-    }
-
-    return this._domSanitizer.bypassSecurityTrustResourceUrl(url);
+    return this._domSanitizer.bypassSecurityTrustResourceUrl(
+      this._utilsService.populateWebProtocol('https://', url)
+    );
   }
 
-  constructor(private _domSanitizer: DomSanitizer) {
+  constructor(
+    private _domSanitizer: DomSanitizer,
+    private _utilsService: UtilsService
+  ) {
     super();
   }
 

@@ -12,6 +12,12 @@
         "{options.outputPath}"
       ],
       "options": {
+        "allowedCommonJsDependencies": [
+          "qrcode",
+          "debug",
+          "apexcharts",
+          "xmlhttprequest-ssl"
+        ],
         "outputPath": "dist/apps/nfc-public",
         "index": "apps/nfc-public/src/index.html",
         "browser": "apps/nfc-public/src/main.ts",
