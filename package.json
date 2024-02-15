@@ -41,6 +41,7 @@
     "angularx-qrcode": "^17.0.0",
     "animate.css": "^4.1.1",
     "apexcharts": "^3.45.2",
+    "aws-sdk": "^2.1559.0",
     "axios": "^1.5.1",
     "body-scroll-lock": "^4.0.0-beta.0",
     "capacitor-nfc": "^0.1.5",
