@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpService } from '@notify/nfc-app-services';
+import { HttpService, PixelService } from '@notify/nfc-app-services';
 import { TailwindFormsModule } from '@notify/ngx-components';
 
 @Component({
@@ -23,12 +23,17 @@ export class ContactUsComponent {
     message: new FormControl('', [Validators.required]),
   });
 
-  constructor(private _httpService: HttpService) {}
+  constructor(
+    private _httpService: HttpService,
+    private _pixel: PixelService
+  ) {}
 
   public submit() {
     if (!this.form.valid) {
       return;
     }
+
+    this._pixel.track('Contact');
 
     this._httpService
       .get('/v1/sales/contact', {

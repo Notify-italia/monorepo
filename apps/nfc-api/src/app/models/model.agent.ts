@@ -48,7 +48,6 @@ export interface Agent
 interface AgentModel extends Model<Agent> {
   build(
     doc: Partial<Agent>,
-    company: Types.ObjectId,
     profileData: {
       role: string;
     }
@@ -122,15 +121,12 @@ AgentSchema.pre('save', function (done) {
 // 5. Aggiungi un metodo statico build per creare il nuovo Model
 AgentSchema.statics.build = async (
   doc: Partial<Agent>,
-  company: Types.ObjectId,
   profileData: {
     role: string;
   }
 ) => {
   const agent = new AgentModel(doc);
   agent.password = await Password.toHash(doc.password as string);
-  //assigns the company id to the agent
-  agent.owner = company;
 
   //creates a profile for the agent
   await ProfileModel.build({

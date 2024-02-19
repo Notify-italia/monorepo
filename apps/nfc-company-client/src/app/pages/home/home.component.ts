@@ -73,7 +73,6 @@ export class HomeComponent {
     // },
   ];
 
-  //TODO pagina di help company
   public bottomNav: NavItem[] = [
     {
       disabled: !this._authService.activeLicense,

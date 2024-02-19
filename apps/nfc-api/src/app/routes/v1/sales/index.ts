@@ -5,4 +5,4 @@ const router = Router();
 
 router.use('/contact', getSalesContactRouter);
 
-export { router as ApiV1 };
+export { router as SalesRouter };

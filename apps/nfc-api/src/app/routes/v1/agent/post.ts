@@ -46,8 +46,12 @@ router.post(
       }
 
       const agent = await AgentModel.build(
-        { email, password, enabled },
-        new Types.ObjectId(req.currentUser?._id),
+        {
+          email,
+          password,
+          enabled,
+          owner: new Types.ObjectId(req.currentUser?._id),
+        },
         { role }
       ).catch((err) => {
         wLog(err, 'error');

@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+
+import { PixelService } from '@notify/nfc-app-services';
 import { LoadingComponent } from '@notify/ngx-components';
 import { Subject, combineLatest, tap } from 'rxjs';
 import { FooterComponent } from '../../components/footer/footer.component';
@@ -35,4 +37,8 @@ export class HomeComponent {
     this.splashSable$,
     this.instructionsStable$,
   ]).pipe(tap(() => console.log('pageStable$')));
+
+  constructor(private _pixel: PixelService) {
+    this._pixel.track('ViewContent');
+  }
 }

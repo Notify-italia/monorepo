@@ -2,11 +2,6 @@
   class="bg-black lg:bg-base-200 min-h-screen w-full flex flex-col justify-center items-center relative font-work"
 >
   @if (profile$ | async; as p) {
-  <notify-swipe-available
-    *ngIf="isAgent(p)"
-    title="Gesture disponibile"
-    subtitle="Fai swipe da sinistra verso destra per passare al profilo aziendale"
-  ></notify-swipe-available>
 
   <!-- TODO incapsula save contact e force close company -->
   <!-- SAVE CONTACT -->
