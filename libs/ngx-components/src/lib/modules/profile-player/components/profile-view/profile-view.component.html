@@ -149,7 +149,12 @@
           [avatarConfig]="{
             src: data?.avatar || '',
             size: '42',
-            mask: data?.config?.avatarMask || ''
+            mask: data?.config?.avatarMask || '',
+            placeholderSeed: data?._id || '',
+            backgroundColor: cssElementsColor,
+            placeholderStyle: isAgent
+              ? dicebearAvatarStyles.BigSmile
+              : dicebearAvatarStyles.Bottts
           }"
           [subAvatarConfig]="
             isAgent
@@ -157,7 +162,7 @@
                   src: data?.company?.avatar || '',
                   size: '12',
                   mask: data?.company?.config?.avatarMask || '',
-                  
+                  placeholderSeed: ''
                 }
               : undefined
           "

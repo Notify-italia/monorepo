@@ -4,9 +4,45 @@ import { format } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
 
+export enum EnumDicebearAvatarStyles {
+  Bottts = 'bottts',
+  Avataaars = 'avataaars',
+  Adventurer = 'adventurer',
+  Gridy = 'gridy',
+  Identicon = 'identicon',
+  BigSmile = 'big-smile',
+  BigEars = 'big-ears',
+  Micah = 'micah',
+  Lorelei = 'lorelei',
+  PixelArt = 'pixel-art',
+  Croodles = 'croodles',
+  BottsNeutral = 'botts-neutral',
+  CroodlesNeutral = 'croodles-neutral',
+  Icons = 'icons',
+  Initials = 'initials',
+  LoreleiNeutral = 'lorelei-neutral',
+  Miniavs = 'miniavs',
+  Notionists = 'notionists',
+  OpenPeeps = 'open-peeps',
+  NotionistsNeutral = 'notionists-neutral',
+  Personals = 'personals',
+  AdventurerNeutral = 'adventurer-neutral',
+  Rings = 'rings',
+  PixelArtNeutral = 'pixel-art-neutral',
+  Shapes = 'shapes',
+  Thumbs = 'thumbs',
+}
+
 @Injectable()
 export class UtilsService {
   constructor(private _toastr: ToastrService) {}
+
+  public diceBearAvatar(config: {
+    style: EnumDicebearAvatarStyles;
+    seed: string;
+  }) {
+    return `https://api.dicebear.com/7.x/${config.style}/png?seed=${config.seed}`;
+  }
 
   public stringToArrayBuffer(dataURI: string) {
     if (!dataURI) {

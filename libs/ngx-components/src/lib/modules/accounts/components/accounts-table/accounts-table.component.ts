@@ -19,7 +19,7 @@ export interface IAccountsTableConfig {
   allowEdit?: boolean;
   allowInspect?: boolean;
   displayLeftAccounts?: boolean;
-  disabledRows?: IAccountsTableRow[];
+  hiddenColumns?: IAccountsTableRow[];
   clickableRow?: boolean;
   transparentBackgroundColor?: boolean;
 }
@@ -59,6 +59,6 @@ export class AccountsTableComponent {
   public users: INotifyAgent[] | null = null;
 
   public isRowDisabled(row: IAccountsTableRow): boolean {
-    return this.config.disabledRows?.includes(row) || false;
+    return this.config.hiddenColumns?.includes(row) || false;
   }
 }

@@ -15,7 +15,8 @@
         [avatarConfig]="{
           src: user.profile?.avatar || '',
           size: '14',
-          mask: 'circle'
+          mask: 'circle',
+          placeholderSeed: user.profile?._id || ''
         }"
       ></notify-avatar>
     </div>

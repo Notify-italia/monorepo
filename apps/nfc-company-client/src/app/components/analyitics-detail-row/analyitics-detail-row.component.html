@@ -12,10 +12,11 @@
     <div class="w-14">
       <notify-avatar
         [avatarConfig]="{
-                src: item.profile?.avatar || '',
-                mask: item.profile?.config?.avatarMask ||'',
-                size: '14',
-              }"
+          src: item.profile?.avatar || '',
+          mask: item.profile?.config?.avatarMask || '',
+          size: '14',
+          placeholderSeed: item.profile?._id || ''
+        }"
       ></notify-avatar>
     </div>
     <small class="flex flex-col h-full justify-center my-auto">

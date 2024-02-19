@@ -6,6 +6,7 @@ import {
   INotifyProfile,
 } from '@notify/interfaces';
 import {
+  EnumDicebearAvatarStyles,
   FeedbackService,
   ProfileService,
   SvgboxService,
@@ -58,6 +59,8 @@ export class ProfileViewComponent implements OnInit {
   >();
   @Output() public feedbackClicked = new EventEmitter<void>();
   @Output() public componentReady = new EventEmitter<void>();
+
+  public dicebearAvatarStyles = EnumDicebearAvatarStyles;
 
   public currentTime$ = interval(1000).pipe(
     startWith(0),

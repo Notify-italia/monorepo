@@ -22,7 +22,7 @@ export class AccountsRowComponent {
     allowEdit: true,
     allowInspect: true,
     displayLeftAccounts: true,
-    disabledRows: [],
+    hiddenColumns: [],
   };
 
   @Output() public inspectProfile = new EventEmitter<void>();
@@ -33,6 +33,6 @@ export class AccountsRowComponent {
     'https://www.heymind.org.uk/wp-content/uploads/2022/04/avatar-placeholder.png';
 
   public isRowDisabled(row: IAccountsTableRow): boolean {
-    return this.config.disabledRows?.includes(row) || false;
+    return this.config.hiddenColumns?.includes(row) || false;
   }
 }

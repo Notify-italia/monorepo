@@ -19,11 +19,12 @@
 <ng-template #AvatarRenderer let-config="config">
   <a class="overflow-hidden">
     <img
-      *ngIf="config.src || placeholderAvatarProvider as avatar"
+      *ngIf="config.src || placeholderAvatar as avatar"
       [src]="avatar"
       [ngClass]="{
         'mask object-cover ': config.mask?.length,
       }"
+      [style.background-color]="config?.mask ? config.backgroundColor : ''"
       class=" mask-{{ config.mask }} w-{{ config.size }} h-{{
         config.size
       }} object-contain "
