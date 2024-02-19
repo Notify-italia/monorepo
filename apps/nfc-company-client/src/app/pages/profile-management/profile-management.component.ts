@@ -9,6 +9,7 @@ import {
   ShareProfileComponent,
 } from '@notify/ngx-components';
 
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   AppError,
   EnumNotifyUserType,
@@ -62,7 +63,8 @@ export class ProfileManagementComponent {
     private _utilsService: UtilsService,
     private _playerFactroy: ProfilePlayerFactory,
     private _authService: AuthService,
-    private _companyService: CompanyService
+    private _companyService: CompanyService,
+    private _domSanitizer: DomSanitizer
   ) {
     this._getProfile();
   }
@@ -105,6 +107,16 @@ export class ProfileManagementComponent {
         tap(() => (this.loading = false))
       )
       .subscribe();
+  }
+
+  public normalizeURL(url: string | null) {
+    if (!url) {
+      url = 'https://notifyapp.it';
+    }
+
+    return this._domSanitizer.bypassSecurityTrustResourceUrl(
+      this._utilsService.populateWebProtocol('https://', url)
+    );
   }
 
   public removeSavedRedirect(redirect: string) {
