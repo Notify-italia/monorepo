@@ -60,16 +60,6 @@
               countSuffix="% sul totale"
             >
             </notify-widget-counter>
-            <!-- <notify-widget-counter
-              class="dashboard-card"
-              title="Impatto ambientale"
-              backgroundColor="transparent"
-              elementsColor="#FFFEFC"
-              [icon]="co2SavedIcon"
-              [count]="1.5"
-              countSuffix="Kg di CO2 risparmiati"
-              >TOTAL_CO2_SAVED</notify-widget-counter
-            > -->
           </div>
 
           <div
@@ -79,6 +69,7 @@
               class="w-full h-full dashboard-card"
               title="Visite"
               [series]="data.areaChart"
+              [disableExport]="isNative"
               (timespanChange)="getProfileVisits($event).subscribe()"
             >
             </notify-widget-area-chart>
@@ -94,6 +85,7 @@
                 class="w-full h-full"
                 [series]="data.user.integrationsCountValues || []"
                 [legendValues]="data.user.integrationsCountLabels || []"
+                [disableExport]="isNative"
               >
               </notify-widget-pie-chart>
             </div>

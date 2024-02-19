@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { EnumNotifyStatType, INotifyUser } from '@notify/interfaces';
 import {
   AuthService,
+  CapacitorService,
   NoteService,
   ProfileService,
   StatService,
@@ -37,7 +38,7 @@ import { environment } from '../../../environments/environment';
     WidgetNoteComponent,
     WidgetPieChartComponent,
   ],
-  providers: [StatService, NoteService, SvgboxService],
+  providers: [StatService, NoteService, SvgboxService, CapacitorService],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -53,6 +54,7 @@ export class DashboardComponent {
     areaChart: this.areaChartScans$,
   });
 
+  public isNative = this._capacitorService.isNative;
   public baseUrl = environment.profilesUrl;
   public totalScansIcon: SvgBoxIcon = {
     expanded: 'Condivisione',
@@ -66,12 +68,6 @@ export class DashboardComponent {
     set: 'octicons',
   };
 
-  // public co2SavedIcon: SvgBoxIcon = {
-  //   expanded: 'Eco',
-  //   name: 'eco',
-  //   set: 'materialui',
-  // };
-
   public savedContactsIcon: SvgBoxIcon = {
     expanded: 'Contatti',
     name: 'contacts',
@@ -82,7 +78,8 @@ export class DashboardComponent {
     private _profileService: ProfileService,
     private _statService: StatService,
     private _authService: AuthService,
-    private _noteService: NoteService
+    private _noteService: NoteService,
+    private _capacitorService: CapacitorService
   ) {
     this.getProfileVisits(AREA_CHART_DEFAULT_PERIOD).subscribe();
   }

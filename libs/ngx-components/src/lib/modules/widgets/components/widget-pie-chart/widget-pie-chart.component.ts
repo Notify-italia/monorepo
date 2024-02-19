@@ -14,6 +14,7 @@ import { ApexChartSsrComponent } from '../../../../standalones/apex-chart-ssr/ap
 export class WidgetPieChartComponent {
   @Input() title: string = '';
   @Input() series: ApexNonAxisChartSeries = [];
+  @Input() disableExport = false;
   @Input() legendValues: string[] = [];
 
   public backgroundColor = 'transparent';
@@ -94,6 +95,12 @@ export class WidgetPieChartComponent {
   };
 
   public get chartOptions(): ApexOptions {
+    if (!this.chartConfig.chart?.toolbar) {
+      return this.chartConfig;
+    }
+
+    this.chartConfig.chart.toolbar.show = !this.disableExport;
+
     return {
       ...this.chartConfig,
       series: this.series,

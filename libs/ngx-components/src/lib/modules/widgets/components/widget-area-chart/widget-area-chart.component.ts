@@ -45,6 +45,7 @@ export const AREA_CHART_DEFAULT_PERIOD = {
 export class WidgetAreaChartComponent {
   @Input() public title = '';
   @Input() public series: ApexAxisChartSeries = [];
+  @Input() disableExport = false;
 
   @Input() public timespans: { label: string; value: INotifyStat['period'] }[] =
     DEFAULT_TIMESPANS;
@@ -79,6 +80,20 @@ export class WidgetAreaChartComponent {
   public get chartOptions(): ApexOptions {
     return {
       ...this.chartConfig,
+      chart: {
+        ...(this.chartConfig.chart || ({} as never)),
+        toolbar: {
+          show: !this.disableExport,
+          offsetX: -10,
+          offsetY: -10,
+        },
+      },
+      xaxis: {
+        type: 'datetime',
+      },
+      yaxis: {
+        opposite: true,
+      },
       series: this.enrichedSeries,
     };
   }
@@ -104,10 +119,10 @@ export class WidgetAreaChartComponent {
       .concat(missingDates)
       .sort(
         (a, b) =>
-          (a as { x: Date })?.x.getTime() - (b as { x: Date })?.x.getTime()
+          (b as { x: Date })?.x.getTime() - (a as { x: Date })?.x.getTime()
       )
       .map((d) => ({
-        x: format((d as { x: Date })?.x, 'dd MMM'),
+        x: format((d as { x: Date })?.x, 'dd MMM yyyy'),
         y: Number((d as { y: number })?.y),
       }))
       .reduce((acc: { x: string; y: number }[], curr) => {
@@ -208,11 +223,7 @@ const DEFAULT_CHART: ApexChart = {
   sparkline: {
     enabled: true,
   },
-  toolbar: {
-    show: true,
-    offsetX: -10,
-    offsetY: -10,
-  },
+
   animations: {
     enabled: true,
     easing: 'easeinout',
