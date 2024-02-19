@@ -86,6 +86,7 @@
               <notify-widget-feedback
                 class="flex w-full dashboard-card animate__fadeInRight animate__animated"
                 [value]="data.user.averageFeedback"
+                [totalFeedbacksCount]="data.user['profile:feedback:count']"
               >
               </notify-widget-feedback>
               <notify-widget-pie-chart

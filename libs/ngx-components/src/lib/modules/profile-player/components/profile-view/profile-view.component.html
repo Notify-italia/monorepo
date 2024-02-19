@@ -5,52 +5,8 @@
     'min-h-screen w-full ': !mockup
   }"
 >
-  @if (mockup) {
-  <!-- MOCKUP MASK -->
-  <div class="flex justify-between relative text-gray-50">
-    <div class="absolute top-[0.6rem] left-8 font-medium my-auto">
-      {{ currentTime$ | async }}
-    </div>
-    <div class="phone-camera"></div>
-    <div class="flex absolute top-[0.6rem] right-6 space-x-1">
-      <!-- CELLULAR -->
-      <svg
-        class="w-4 h-4 my-auto"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-      >
-        <path d="M0 0h24v24H0z" fill="none" st></path>
-        <path d="M17 4h3v16h-3zM5 14h3v6H5zm6-5h3v11h-3z"></path>
-      </svg>
-      <!-- WIFI -->
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        class="w-4 h-4 my-auto"
-      >
-        <path d="M0 0h24v24H0z" fill="none" st></path>
-        <path
-          d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3a4.237 4.237 0 00-6 0zm-4-4l2 2a7.074 7.074 0 0110 0l2-2C15.14 9.14 8.87 9.14 5 13z"
-        ></path>
-      </svg>
-      <!-- BATTERY -->
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        class="w-6 h-6 my-auto"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M3.75 6.75a3 3 0 00-3 3v6a3 3 0 003 3h15a3 3 0 003-3v-.037c.856-.174 1.5-.93 1.5-1.838v-2.25c0-.907-.644-1.664-1.5-1.837V9.75a3 3 0 00-3-3h-15zm15 1.5a1.5 1.5 0 011.5 1.5v6a1.5 1.5 0 01-1.5 1.5h-15a1.5 1.5 0 01-1.5-1.5v-6a1.5 1.5 0 011.5-1.5h15zM4.5 9.75a.75.75 0 00-.75.75V15c0 .414.336.75.75.75H18a.75.75 0 00.75-.75v-4.5a.75.75 0 00-.75-.75H4.5z"
-          clip-rule="evenodd"
-        />
-      </svg>
-    </div>
-  </div>
-  }
+  <!-- MOCKUP FILL -->
+  <notify-mockup-fill *ngIf="mockup" class="w-full"></notify-mockup-fill>
 
   <div
     class="main-container"
@@ -63,169 +19,114 @@
     }"
   >
     <div
-      class="main-child"
+      class="main-child !h-full justify-around"
       [class.opacity-50]="!data"
       [ngClass]="{
         'h-full py-5': mockup,
         'h-full  min-h-screen  w-screen': !mockup
       }"
     >
-      <div class="flex justify-center mt-4">
-        <!-- FEEDBACK -->
-        @if (isAgent) {
-        <button
-          type="button"
-          class="btn btn-wide border-none"
-          [ngStyle]="{ 'background-color': cssElementsColor }"
-          data-theme="notifytheme"
-          [disabled]="feedbackGiven()"
-          (click)="feedbackClicked.emit()"
-        >
-          @if (feedbackGiven(); as fb) {
-          <div *ngIf="feedbackGiven() as fb" class="space-y-1">
-            <p
-              class="normal-case text-xs"
-              [ngStyle]="getContrastingColor(cssElementsColor, 'color')"
-            >
-              Feedback lasciato
-            </p>
-            <notify-rating
-              [rating]="fb.rating"
-              colorClass="bg-[{{data?.colors?.background?.[0]}}]"
-              sizeClass="sm"
-            ></notify-rating>
+      <div class="section h-fit w-full space-y-8">
+        <div class="flex justify-center mt-4">
+          <!-- FEEDBACK -->
+          <notify-feedback-button
+            [data]="data"
+            [cssElementsColor]="cssElementsColor"
+            (feedbackClicked)="feedbackClicked.emit($event)"
+            [isAgent]="isAgent"
+            [feedbackKey]="feedbackKey"
+          ></notify-feedback-button>
+        </div>
+        <div class="section space-y-2">
+          <div
+            class="section w-full h-fit !flex-row justify-around space-x-5 px-2"
+          >
+            <notify-avatar
+              class="w-4/12"
+              [avatarConfig]="{
+                src: data?.avatar || '',
+                size: '42',
+                mask: data?.config?.avatarMask || '',
+                placeholderSeed: data?._id || '',
+                backgroundColor: cssElementsColor,
+                placeholderStyle: isAgent
+                  ? dicebearAvatarStyles.BigSmile
+                  : dicebearAvatarStyles.Bottts
+              }"
+              [subAvatarConfig]="
+                isAgent
+                  ? {
+                      src: data?.company?.avatar || '',
+                      size: '12',
+                      mask: data?.company?.config?.avatarMask || '',
+                      placeholderSeed: ''
+                    }
+                  : undefined
+              "
+              (subAvatarClick)="subAvatarClick.emit()"
+            ></notify-avatar>
+
+            <div class="h-full w-7/12">
+              <div class="title" [ngStyle]="{ color: cssElementsColor }">
+                <!-- NAME ( and surname) -->
+                <span>{{ data?.name || 'Nome' }}</span>
+                <span *ngIf="isAgent">{{ data?.surname || 'Cognome' }}</span>
+              </div>
+              <!-- ROLE -->
+              <div
+                class="text-sm italic w-full text-start"
+                *ngIf="isAgent"
+                [ngStyle]="{ color: cssElementsColor, opacity: 0.8 }"
+              >
+                {{ data?.role }}
+              </div>
+              <!-- BIO -->
+              <div
+                class="text-xs w-full mt-2"
+                [ngStyle]="{ color: cssElementsColor, opacity: 0.7 }"
+                *ngIf="data?.bio as b"
+              >
+                {{ b }}
+              </div>
+            </div>
           </div>
-          } @else {
-          <svg
-            class="w-6 h-6"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            [ngStyle]="getContrastingColor(cssElementsColor, 'color')"
-          >
-            <path d="M0 0h24v24H0z" fill="none"></path>
-            <path
-              d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"
-            ></path>
-          </svg>
-          <p
-            class="normal-case"
-            [ngStyle]="getContrastingColor(cssElementsColor, 'color')"
-          >
-            Lascia un feedback
-          </p>
-          }
-        </button>
-        } @else {
-        <button
-          *ngIf="data?.reviewRedirect"
-          type="button"
-          data-theme="notifytheme"
-          class="btn btn-wide btn-accent"
-          (click)="redirectToReview()"
+
+          <!-- STATIC LINKS -->
+          <notify-profile-static-links
+            [data]="data"
+            class="w-10/12"
+            [color]="cssElementsColor"
+          ></notify-profile-static-links>
+        </div>
+      </div>
+
+      <div class="section w-full">
+        <div class="divider mx-5" *ngIf="data?.customFields?.length"></div>
+        <notify-profile-integrations
+          class="w-full"
+          [data]="data?.customFields"
+          [color]="cssElementsColor"
+          (integrationClicked)="integrationClicked.emit($event)"
+        ></notify-profile-integrations>
+
+        @if (!isAgent) {
+        <div
+          class="section w-full"
+          *ngIf="profileService.buildCompanyLocation(data?.address) as p"
         >
-          <svg
-            class="w-6 h-6"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
+          <div
+            class="module module-blur !py-2 text-center my-1.5 text-sm"
+            [ngStyle]="{ color: cssElementsColor }"
           >
-            <path
-              d="M0 0h24v24H0zm15.35 6.41l-1.77-1.77c-.2-.2-.51-.2-.71 0L6 11.53V14h2.47l6.88-6.88c.2-.19.2-.51 0-.71z"
-              fill="none"
-            ></path>
-            <path
-              d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 14v-2.47l6.88-6.88c.2-.2.51-.2.71 0l1.77 1.77c.2.2.2.51 0 .71L8.47 14H6zm12 0h-7.5l2-2H18v2z"
-            ></path>
-          </svg>
-          <p class="normal-case">Lascia una recensione</p>
-        </button>
+            {{ p | titlecase }}
+          </div>
+          <notify-google-maps
+            [address]="p"
+            class="!w-[90%]"
+          ></notify-google-maps>
+        </div>
         }
       </div>
-
-      <div class="section w-full h-fit !flex-row justify-around space-x-5 px-2">
-        <notify-avatar
-          class="w-4/12"
-          [avatarConfig]="{
-            src: data?.avatar || '',
-            size: '42',
-            mask: data?.config?.avatarMask || '',
-            placeholderSeed: data?._id || '',
-            backgroundColor: cssElementsColor,
-            placeholderStyle: isAgent
-              ? dicebearAvatarStyles.BigSmile
-              : dicebearAvatarStyles.Bottts
-          }"
-          [subAvatarConfig]="
-            isAgent
-              ? {
-                  src: data?.company?.avatar || '',
-                  size: '12',
-                  mask: data?.company?.config?.avatarMask || '',
-                  placeholderSeed: ''
-                }
-              : undefined
-          "
-          (subAvatarClick)="subAvatarClick.emit()"
-        ></notify-avatar>
-        <div class="h-full w-7/12">
-          <div class="title" [ngStyle]="{ color: cssElementsColor }">
-            <!-- NAME ( and surname) -->
-            <span>{{ data?.name || 'Nome' }}</span>
-            <span *ngIf="isAgent">{{ data?.surname || 'Cognome' }}</span>
-          </div>
-          <!-- ROLE -->
-          <div
-            class="text-sm italic w-full text-start"
-            *ngIf="isAgent"
-            [ngStyle]="{ color: cssElementsColor, opacity: 0.8 }"
-          >
-            {{ data?.role }}
-          </div>
-          <!-- BIO -->
-          <div
-            class="text-xs w-full mt-2"
-            [ngStyle]="{ color: cssElementsColor, opacity: 0.7 }"
-            *ngIf="data?.bio as b"
-          >
-            {{ b }}
-          </div>
-        </div>
-      </div>
-
-      <!-- STATIC LINKS -->
-      <notify-profile-static-links
-        [data]="data"
-        class="w-10/12"
-        [color]="cssElementsColor"
-      ></notify-profile-static-links>
-
-      <div
-        class="divider mx-5 mix-blend-difference"
-        *ngIf="data?.customFields?.length"
-      ></div>
-
-      <notify-profile-integrations
-        class="w-full"
-        [data]="data?.customFields"
-        [color]="cssElementsColor"
-        (integrationClicked)="integrationClicked.emit($event)"
-      ></notify-profile-integrations>
-
-      @if (!isAgent) {
-      <div
-        class="section w-full"
-        *ngIf="profileService.buildCompanyLocation(data?.address) as p"
-      >
-        <div
-          class="module module-blur !py-2 text-center my-1.5 text-sm"
-          [ngStyle]="{ color: cssElementsColor }"
-        >
-          {{ p | titlecase }}
-        </div>
-        <notify-google-maps [address]="p" class="!w-[90%]"></notify-google-maps>
-      </div>
-      }
     </div>
   </div>
 </div>

@@ -18,6 +18,19 @@ export class RatingComponent implements OnInit {
 
   public availableItems: { value: number }[] = [];
 
+  public get starSize() {
+    switch (this.sizeClass) {
+      case 'lg':
+        return 2.5;
+      case 'md':
+        return 2;
+      case 'sm':
+        return 1.5;
+      default:
+        return 2;
+    }
+  }
+
   ngOnInit(): void {
     this.availableItems = Array(this.items)
       .fill(0)

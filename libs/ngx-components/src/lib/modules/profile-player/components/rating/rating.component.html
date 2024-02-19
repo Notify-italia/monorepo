@@ -1,4 +1,4 @@
-<div class="rating rating-{{ sizeClass }}">
+<div class="rating">
   <input
     *ngIf="rating === 0"
     type="radio"
@@ -15,6 +15,10 @@
     class="mask mask-star-2 {{ colorClass }} mx-1"
     [checked]="rating >= item.value"
     (change)="setRating(item.value)"
+    [ngStyle]="{
+      width: starSize + 'rem',
+      height: starSize + 'rem'
+    }"
   />
 
   }

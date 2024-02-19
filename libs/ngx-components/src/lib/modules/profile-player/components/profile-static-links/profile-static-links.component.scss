@@ -1,7 +1,7 @@
 svg {
-  @apply w-6 h-6;
+  @apply w-6 h-6 shrink-0;
 }
 
 button {
-  @apply btn btn-ghost btn-circle disabled:opacity-50;
+  @apply btn btn-ghost  disabled:opacity-50;
 }

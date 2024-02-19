@@ -1,13 +1,18 @@
 <!-- TODO refactoring tramite loop invce che hardcoded -->
 <!-- STATIC LINKS -->
 <div class="section section-horizontal !justify-around">
+  @for (item of staticLinks; track $index) {
   <button
-    *ngIf="config?.phoneCallEnabled ?? true"
-    [disabled]="!data?.phoneNumber"
+    *ngIf="item.visible ?? true"
+    [disabled]="item.disabled"
+    [ngClass]="{
+      'btn-circle': linksCount > countThreshold,
+    }"
+    class="flex !flex-row whitespace-nowrap"
   >
     <a
-      href="tel:{{ data?.phoneNumber }}"
-      class="button-redirect"
+      [href]="item.href"
+      class="button-redirect space-x-2"
       [ngStyle]="iconColor"
     >
       <svg
@@ -15,75 +20,15 @@
         viewBox="0 0 24 24"
         fill="currentColor"
       >
-        <path
-          fill-rule="evenodd"
-          d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
-          clip-rule="evenodd"
-        />
+        @for (path of item.icon; track $index) {
+        <path fill-rule="evenodd" [attr.d]="path" clip-rule="evenodd" />
+
+        }
       </svg>
+      <span *ngIf="linksCount <= countThreshold">
+        {{ item.name }}
+      </span>
     </a>
   </button>
-  <button
-    *ngIf="config?.smsEnabled ?? true"
-    [disabled]="!data?.phoneNumber"
-    [ngStyle]="iconColor"
-  >
-    <a href="sms:{{ data?.phoneNumber }}" class="button-redirect">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M4.848 2.771A49.144 49.144 0 0 1 12 2.25c2.43 0 4.817.178 7.152.52 1.978.292 3.348 2.024 3.348 3.97v6.02c0 1.946-1.37 3.678-3.348 3.97-1.94.284-3.916.455-5.922.505a.39.39 0 0 0-.266.112L8.78 21.53A.75.75 0 0 1 7.5 21v-3.955a48.842 48.842 0 0 1-2.652-.316c-1.978-.29-3.348-2.024-3.348-3.97V6.741c0-1.946 1.37-3.68 3.348-3.97Z"
-          clip-rule="evenodd"
-        />
-      </svg>
-    </a>
-  </button>
-  <button
-    *ngIf="config?.whatsappEnabled ?? true"
-    [disabled]="!data?.phoneNumber"
-    [ngStyle]="iconColor"
-  >
-    <a
-      href="https://api.whatsapp.com/send?phone={{
-        cleanPhoneNumber(data?.phoneNumber || '')
-      }}"
-      target="_blank"
-      class="button-redirect"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="currentColor"
-        viewBox="0 0 308 308"
-        xmlns:v="https://vecta.io/nano"
-      >
-        <path
-          d="M227.904 176.981c-.6-.288-23.054-11.345-27.044-12.781-1.629-.585-3.374-1.156-5.23-1.156-3.032 0-5.579 1.511-7.563 4.479-2.243 3.334-9.033 11.271-11.131 13.642-.274.313-.648.687-.872.687-.201 0-3.676-1.431-4.728-1.888-24.087-10.463-42.37-35.624-44.877-39.867-.358-.61-.373-.887-.376-.887.088-.323.898-1.135 1.316-1.554 1.223-1.21 2.548-2.805 3.83-4.348l1.812-2.153c1.86-2.164 2.688-3.844 3.648-5.79l.503-1.011c2.344-4.657.342-8.587-.305-9.856-.531-1.062-10.012-23.944-11.02-26.348-2.424-5.801-5.627-8.502-10.078-8.502-.413 0 0 0-1.732.073-2.109.089-13.594 1.601-18.672 4.802C90 87.918 80.89 98.74 80.89 117.772c0 17.129 10.87 33.302 15.537 39.453.116.155.329.47.638.922 17.873 26.102 40.154 45.446 62.741 54.469 21.745 8.686 32.042 9.69 37.896 9.69 2.461 0 4.43-.193 6.167-.364l1.102-.105c7.512-.666 24.02-9.22 27.775-19.655 2.958-8.219 3.738-17.199 1.77-20.458-1.348-2.216-3.671-3.331-6.612-4.743zM156.734 0C73.318 0 5.454 67.354 5.454 150.143c0 26.777 7.166 52.988 20.741 75.928L.212 302.716a4 4 0 0 0 .933 4.085C1.908 307.58 2.943 308 4 308a3.98 3.98 0 0 0 1.211-.188l79.92-25.396c21.87 11.685 46.588 17.853 71.604 17.853C240.143 300.27 308 232.923 308 150.143 308 67.354 240.143 0 156.734 0zm0 268.994c-23.539 0-46.338-6.797-65.936-19.657-.659-.433-1.424-.655-2.194-.655a4 4 0 0 0-1.212.188l-40.035 12.726 12.924-38.129a4 4 0 0 0-.561-3.647c-14.924-20.392-22.813-44.485-22.813-69.677 0-65.543 53.754-118.867 119.826-118.867 66.064 0 119.812 53.324 119.812 118.867.001 65.535-53.746 118.851-119.811 118.851z"
-        />
-      </svg>
-    </a>
-  </button>
-  <button
-    *ngIf="config?.emailEnabled ?? true"
-    [disabled]="!data?.email"
-    [ngStyle]="iconColor"
-  >
-    <a href="mailto:{{ data?.email }}" class="buttton-redirect">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-      >
-        <path
-          d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"
-        />
-        <path
-          d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"
-        />
-      </svg>
-    </a>
-  </button>
+  }
 </div>

@@ -1,10 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  EnumNotifyUserType,
-  INotifyFeedback,
-  INotifyProfile,
-} from '@notify/interfaces';
+import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
 import {
   EnumDicebearAvatarStyles,
   FeedbackService,
@@ -12,13 +8,13 @@ import {
   SvgboxService,
   UtilsService,
 } from '@notify/nfc-app-services';
-import { format } from 'date-fns';
-import { interval, map, startWith } from 'rxjs';
 import { AnimatedBgComponent } from '../../../../standalones/animated-bg/animated-bg.component';
 import { AvatarComponent } from '../../../../standalones/avatar/avatar.component';
 import { GoogleMapsComponent } from '../../../../standalones/google-maps/google-maps.component';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
 import { FeedbackFactory } from '../../factories';
+import { FeedbackButtonComponent } from '../feedback-button/feedback-button.component';
+import { MockupFillComponent } from '../mockup-fill/mockup-fill.component';
 import { ProfileIntegrationsComponent } from '../profile-integrations/profile-integrations.component';
 import { ProfileStaticLinksComponent } from '../profile-static-links/profile-static-links.component';
 import { RatingComponent } from '../rating/rating.component';
@@ -37,6 +33,8 @@ export const defaultGradientStops = ['#0A2859', '#041127'];
     RatingComponent,
     GoogleMapsComponent,
     ProfileIntegrationsComponent,
+    MockupFillComponent,
+    FeedbackButtonComponent,
   ],
   providers: [
     FeedbackFactory,
@@ -61,11 +59,6 @@ export class ProfileViewComponent implements OnInit {
   @Output() public componentReady = new EventEmitter<void>();
 
   public dicebearAvatarStyles = EnumDicebearAvatarStyles;
-
-  public currentTime$ = interval(1000).pipe(
-    startWith(0),
-    map(() => format(new Date(), 'HH:mm'))
-  );
 
   public get isAgent(): boolean {
     return this.data?.type === EnumNotifyUserType.Agent;
@@ -100,47 +93,9 @@ export class ProfileViewComponent implements OnInit {
     return this.data?.colors?.elements || '#ffffff';
   }
 
-  constructor(
-    public profileService: ProfileService,
-    private _feedbackService: FeedbackService
-  ) {}
+  constructor(public profileService: ProfileService) {}
 
   public ngOnInit(): void {
     this.componentReady.emit();
-  }
-
-  public feedbackGiven(): INotifyFeedback | null {
-    if (!this.data?._id) {
-      return null;
-    }
-
-    const fb = this._feedbackService.getFeedbackFromLocalStorage(
-      this.data?.owner,
-      this.feedbackKey
-    );
-
-    return fb;
-  }
-
-  public redirectToReview(): void {
-    if (!this.data?.reviewRedirect) {
-      return;
-    }
-
-    window.open(this.data.reviewRedirect, '_blank');
-  }
-
-  public getContrastingColor(color: string, styleProp: string) {
-    //return white or black, depending on the one that contrasts the most with the given color
-
-    const hex = color.replace('#', '');
-    const r = parseInt(hex.substr(0, 2), 16); // Grab the hex representation of red (chars 1-2) and convert to decimal (base 10).
-    const g = parseInt(hex.substr(2, 2), 16);
-    const b = parseInt(hex.substr(4, 2), 16);
-
-    const yiq = (r * 299 + g * 587 + b * 114) / 1000; // Calculate the perceptive luminance (aka luma) - human eye favors green color...
-    const value = yiq >= 128 ? 'black' : 'white'; // ... So we'll use that as the benchmark.
-
-    return { [styleProp]: value };
   }
 }
