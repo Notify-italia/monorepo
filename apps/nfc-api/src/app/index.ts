@@ -9,7 +9,7 @@ import { errorHandler } from './services/errors/middlewares/error-handler';
 
 const app = express();
 
-app.use(express.json({ limit: '5mb' }));
+app.use(express.json({ limit: '50mb' }));
 
 app.use(logRequest);
 
