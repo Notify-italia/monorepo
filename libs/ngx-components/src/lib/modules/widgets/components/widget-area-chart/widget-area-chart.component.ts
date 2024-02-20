@@ -187,11 +187,13 @@ const DEFAULT_FILL: ApexFill = {
     opacityTo: 0,
     stops: [0, 100],
   },
+  colors: ['#74EAB3'],
 };
 
 const DEFAULT_STROKE: ApexStroke = {
   curve: 'smooth',
-  dashArray: 20,
+  dashArray: 0,
+  colors: ['#74EAB3'],
 };
 
 const DEFAULT_CHART: ApexChart = {
