@@ -41,6 +41,8 @@
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>$(PRODUCT_NAME) needs access to your photo library to save qrcodes and other media</string>
+	<string>$(PRODUCT_NAME) ha bisogno dell'accesso alla tua libreria di foto per salvare codici qr e altri media</string>
+	<key>NSCameraUsageDescription</key>
+<string>$(PRODUCT_NAME) ha bisogno dell'accesso alla tua fotocamera per scattare una foto durante la configurazione del tuo profilo</string>
 </dict>
 </plist>
