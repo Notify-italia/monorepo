@@ -82,12 +82,6 @@
       },
       "defaultConfiguration": "development"
     },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "buildTarget": "nfc-public:build"
-      }
-    },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": [
@@ -98,7 +92,7 @@
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "cp ./apps/nfc-public/main.js ./dist/apps/nfc-public/server && cp ./apps/nfc-public/Dockerfile ./dist/apps/nfc-public && cp ./apps/nfc-public/captain-definition ./dist/apps/nfc-public && tar --strip-components=4 -cvf ./deploy.tar --exclude='*.map' ./dist/apps/nfc-public/* && caprover deploy -t ./deploy.tar -n notify -a public && rm ./deploy.tar"
+        "command": "cp ./apps/nfc-public/sitemap.xml ./dist/apps/nfc-public/serve && ./apps cp ./apps/nfc-public/main.js ./dist/apps/nfc-public/server && cp ./apps/nfc-public/Dockerfile ./dist/apps/nfc-public && cp ./apps/nfc-public/captain-definition ./dist/apps/nfc-public && tar --strip-components=4 -cvf ./deploy.tar --exclude='*.map' ./dist/apps/nfc-public/* && caprover deploy -t ./deploy.tar -n notify -a public && rm ./deploy.tar"
       }
     }
   }

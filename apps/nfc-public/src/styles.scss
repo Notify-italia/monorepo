@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.section {
+.website-section {
   @apply flex flex-col justify-center items-center space-x-2 h-full;
 
   .section-title {

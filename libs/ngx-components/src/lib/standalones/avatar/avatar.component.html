@@ -17,10 +17,11 @@
 </div>
 
 <ng-template #AvatarRenderer let-config="config">
-  <a class="overflow-hidden">
+  <div class="overflow-hidden">
     <img
       *ngIf="config.src || placeholderAvatar as avatar"
       [src]="avatar"
+      alt="User Avatar"
       [ngClass]="{
         'mask object-cover ': config.mask?.length,
       }"
@@ -29,5 +30,5 @@
         config.size
       }} object-contain "
     />
-  </a>
+  </div>
 </ng-template>
