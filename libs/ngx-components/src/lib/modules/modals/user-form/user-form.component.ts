@@ -14,9 +14,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { INotifyAccount, INotifyPartialAgent } from '@notify/interfaces';
+import { INotifyAccount, INotifyPartialUser } from '@notify/interfaces';
 import { Subject } from 'rxjs';
 import { TailwindFormsModule } from '../../tailwind-forms/tailwind-forms.module';
+
+export type IUserFormHiddenFields = (
+  | 'email'
+  | 'password'
+  | 'role'
+  | 'enabled'
+)[];
 
 @Component({
   standalone: true,
@@ -29,10 +36,10 @@ export class UserFormComponent implements OnInit {
   @Input() public loading = false;
   @Input() public user: INotifyAccount | null = null;
   @Input() public createdRoles: string[] = [];
-
+  @Input() public hiddenFields: IUserFormHiddenFields = [];
   @Output() public removeRole = new EventEmitter<string>();
 
-  public submitted = new Subject<INotifyPartialAgent>();
+  public submitted = new Subject<INotifyPartialUser>();
 
   public form!: FormGroup;
   public destroyed$ = new Subject<void>();
@@ -54,20 +61,24 @@ export class UserFormComponent implements OnInit {
       this.destroyed$.complete();
     });
 
-    const _pwValidators = this.user ? [] : [Validators.required];
+    const _pwValidators = this.user ? [] : [...this._isRequired('password')];
 
     this.form = new FormGroup({
       enabled: new FormControl<boolean>(this.user?.enabled ?? true, []),
       email: new FormControl<string>(this.user?.email || '', [
         Validators.email,
-        Validators.required,
+        ...this._isRequired('email'),
       ]),
       password: new FormControl<string>('', _pwValidators),
       role: new FormControl<string>(
         this.user?.profile?.role || '',
-        Validators.required
+        this._isRequired('role')
       ),
     });
+  }
+
+  private _isRequired(field: IUserFormHiddenFields[0]) {
+    return this.hiddenFields.includes(field) ? [] : [Validators.required];
   }
 
   @HostListener('document:keydown.escape')

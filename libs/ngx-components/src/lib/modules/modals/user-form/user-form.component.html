@@ -32,6 +32,7 @@
         class="flex flex-col jusitfy-center items-center w-full space-y-10 h-full"
       >
         <notify-tailwind-input
+          *ngIf="!hiddenFields.includes('email')"
           name="email"
           label="emall"
           [parent]="form"
@@ -40,6 +41,7 @@
         >
         </notify-tailwind-input>
         <notify-tailwind-input
+          *ngIf="!hiddenFields.includes('password')"
           name="password"
           [label]="user ? 'Nuova password' : 'Password'"
           [parent]="form"
@@ -49,6 +51,7 @@
         >
         </notify-tailwind-input>
         <notify-tailwind-advanced-select
+          *ngIf="!hiddenFields.includes('role')"
           name="role"
           label="Ruolo"
           class="w-full"
@@ -60,6 +63,7 @@
         ></notify-tailwind-advanced-select>
 
         <notify-tailwind-checkbox
+          *ngIf="!hiddenFields.includes('enabled')"
           name="enabled"
           label="Attivo"
           [parent]="form"

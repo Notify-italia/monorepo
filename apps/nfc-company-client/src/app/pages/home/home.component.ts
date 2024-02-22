@@ -92,6 +92,7 @@ export class HomeComponent {
       ],
     },
     {
+      disabled: !this._authService.activeLicense,
       label: 'Impostazioni',
       path: '/pages/settings',
       icon: [

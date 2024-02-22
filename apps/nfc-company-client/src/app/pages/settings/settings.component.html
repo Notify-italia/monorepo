@@ -4,7 +4,7 @@
     <div class="!space-y-10">
       <div class="flex justify-center items-center space-x-5">
         <div
-          class="rounded-full ring ring-primary-300 w-32 h-32 overflow-hidden"
+          class="rounded-full ring ring-primary-300 shadow-lg shadow-primary-400/80 w-32 h-32 overflow-hidden"
         >
           <notify-avatar
             [avatarConfig]="{
@@ -37,7 +37,13 @@
             <h2 class="value">
               {{ user?.email }}
             </h2>
-            <button class="button" data-theme="notifytheme">Modifica</button>
+            <button
+              class="button"
+              data-theme="notifytheme"
+              (click)="editEmail()"
+            >
+              Modifica
+            </button>
           </div>
         </div>
 
@@ -48,7 +54,13 @@
           <div class="title">Password</div>
           <div class="content">
             <h2 class="value">••••••••••••••••</h2>
-            <button class="button" data-theme="notifytheme">Modifica</button>
+            <button
+              class="button"
+              data-theme="notifytheme"
+              (click)="editPassword()"
+            >
+              Modifica
+            </button>
           </div>
         </div>
       </div>

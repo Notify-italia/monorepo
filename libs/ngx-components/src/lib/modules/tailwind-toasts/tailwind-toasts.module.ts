@@ -11,6 +11,8 @@ import { TailwindToastComponent } from './components/tailwind-toast/tailwind-toa
     ToastrModule.forRoot({
       toastComponent: TailwindToastComponent,
       toastClass: '',
+      maxOpened: 1,
+      autoDismiss: true,
     }),
   ],
 })

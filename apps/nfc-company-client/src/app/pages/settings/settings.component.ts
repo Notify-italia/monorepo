@@ -1,14 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ComponentRef } from '@angular/core';
+import { AppError } from '@notify/interfaces';
 import {
   AuthService,
+  CompanyService,
   EnumDicebearAvatarStyles,
+  UtilsService,
 } from '@notify/nfc-app-services';
-import { AvatarComponent, PageHeaderComponent } from '@notify/ngx-components';
+import {
+  AvatarComponent,
+  PageHeaderComponent,
+  UserFormComponent,
+  UserFormFactory,
+} from '@notify/ngx-components';
+import { ToastrService } from 'ngx-toastr';
+import { OperatorFunction, catchError, switchMap, takeUntil, tap } from 'rxjs';
 
 @Component({
   standalone: true,
   imports: [CommonModule, PageHeaderComponent, AvatarComponent],
+  providers: [UserFormFactory, CompanyService],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
 })
@@ -18,5 +29,85 @@ export class SettingsComponent {
     return this._authService.user;
   }
 
-  constructor(private _authService: AuthService) {}
+  constructor(
+    private _authService: AuthService,
+    private _userForm: UserFormFactory,
+    private _companyService: CompanyService,
+    private _toastr: ToastrService,
+    private _utilsService: UtilsService
+  ) {}
+
+  public editEmail() {
+    if (!this.user) {
+      return;
+    }
+
+    const ref = this._userForm.create(
+      this.user,
+      [],
+      ['password', 'role', 'enabled']
+    );
+
+    ref.instance.submitted
+      .pipe(
+        takeUntil(ref.instance.destroyed$),
+        switchMap((_u) => {
+          ref.instance.loading = true;
+
+          return this._companyService.patchCompany({
+            email: _u.email,
+          });
+        }),
+        ...(this._httpCallFlow(ref) as [OperatorFunction<unknown, unknown>])
+      )
+      .subscribe();
+  }
+
+  public editPassword() {
+    if (!this.user) {
+      return;
+    }
+
+    const ref = this._userForm.create(
+      this.user,
+      ['password'],
+      ['email', 'role', 'enabled']
+    );
+
+    ref.instance.submitted
+      .pipe(
+        takeUntil(ref.instance.destroyed$),
+        switchMap((_u) => {
+          ref.instance.loading = true;
+
+          return this._companyService.patchCompany({
+            password: _u.password,
+          });
+        }),
+        ...(this._httpCallFlow(ref) as [OperatorFunction<unknown, unknown>])
+      )
+      .subscribe();
+  }
+
+  private _httpCallFlow(
+    ref: ComponentRef<UserFormComponent>
+  ): OperatorFunction<unknown, unknown>[] {
+    return [
+      switchMap(() => this._authService.refreshToken()),
+      tap(() => {
+        this._toastr.success('Utente salvato, eseguo log out', 'OK');
+        ref.instance.loading = false;
+        ref.instance.close();
+        setTimeout(() => {
+          this._authService.signOut();
+        }, 1000);
+      }),
+      catchError((error: AppError, c) => {
+        this._utilsService.errorHandler(error);
+        ref.instance.loading = false;
+
+        return c;
+      }),
+    ];
+  }
 }

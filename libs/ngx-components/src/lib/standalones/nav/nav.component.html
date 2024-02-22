@@ -81,7 +81,7 @@
           <a
             #sidebarItem
             [routerLink]="item.path"
-            routerLinkActive="btn-active pointer-events-none border-l-4 border-primary-600 shadow-md  rounded"
+            routerLinkActive="btn-active pointer-events-none"
             class="flex space-x-2 smooth smooth-slow"
             (click)="sidebarItem.blur(); DrawerController.click()"
           >
@@ -111,9 +111,11 @@
         @for(item of bottomItems; track item.path) {
         <li [class.nav-disabled]="item.disabled">
           <a
+            #bottomSidebarItem
             [routerLink]="item.path"
-            routerLinkActive="btn-active"
+            routerLinkActive="btn-active pointer-events-none"
             class="flex space-x-2 {{ item.style }}"
+            (click)="bottomSidebarItem.blur(); DrawerController.click()"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
