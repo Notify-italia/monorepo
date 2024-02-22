@@ -1,0 +1,25 @@
+.settings-card {
+  .title {
+    @apply opacity-75 font-medium;
+
+    &.title-lg {
+      @apply text-lg;
+    }
+  }
+
+  .content {
+    @apply flex justify-between w-full items-center flex-nowrap;
+
+    .value {
+      @apply text-lg text-white;
+
+      &.value-lg {
+        @apply text-2xl;
+      }
+    }
+
+    .button {
+      @apply btn btn-outline text-primary hover:bg-primary hover:text-white hover:border-transparent;
+    }
+  }
+}

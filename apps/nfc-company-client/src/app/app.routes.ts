@@ -55,6 +55,15 @@ export const appRoutes: Route[] = [
           ).then((m) => m.ProfileManagementComponent),
       },
       {
+        path: 'settings',
+        canActivate: [licenseGuard],
+        loadComponent: () =>
+          import('./pages/settings/settings.component').then(
+            (m) => m.SettingsComponent
+          ),
+      },
+
+      {
         path: 'analytics',
         canActivate: [licenseGuard],
         children: [

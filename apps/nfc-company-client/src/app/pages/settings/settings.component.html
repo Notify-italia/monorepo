@@ -1,0 +1,57 @@
+<div class="page-layout">
+  <notify-page-header title="Impostazioni"></notify-page-header>
+  <div>
+    <div class="!space-y-10">
+      <div class="flex justify-center items-center space-x-5">
+        <div
+          class="rounded-full ring ring-primary-300 w-32 h-32 overflow-hidden"
+        >
+          <notify-avatar
+            [avatarConfig]="{
+              size: 'large',
+              mask: '',
+              placeholderSeed: user?._id || '',
+              src: '',
+              placeholderStyle: dicebearStyles.Thumbs
+            }"
+          ></notify-avatar>
+        </div>
+
+        <div class="flex flex-col h-full justify-center">
+          <div class="settings-card">
+            <h1 class="title title-lg">Iscritto il</h1>
+            <div class="content">
+              <h2 class="value value-lg">
+                {{ user?.createdAt | date : 'dd/MM/yyyy' }}
+              </h2>
+            </div>
+          </div>
+          <small class="text-[0.6rem] opacity-50">{{ user?._id }}</small>
+        </div>
+      </div>
+      <div class="box p-5">
+        <!-- EMAIL -->
+        <div class="settings-card">
+          <div class="title">Email</div>
+          <div class="content">
+            <h2 class="value">
+              {{ user?.email }}
+            </h2>
+            <button class="button" data-theme="notifytheme">Modifica</button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- PASSWORD -->
+        <div class="settings-card">
+          <div class="title">Password</div>
+          <div class="content">
+            <h2 class="value">••••••••••••••••</h2>
+            <button class="button" data-theme="notifytheme">Modifica</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
