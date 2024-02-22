@@ -1,4 +1,4 @@
-<div class="w-full min-h-96 widget-container">
+<div class="w-full min-h-96 h-full widget-container">
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 1000 1000"
@@ -20,7 +20,7 @@
     </g>
   </svg>
 
-  <div>
+  <div class="!h-96">
     <div class="header-container">
       <div class="header-items">
         <h2>
@@ -29,10 +29,10 @@
       </div>
       <div class="divider !mt-1"></div>
     </div>
-    <div class="flex flex-col justify-center h-full items-center">
+    <div class="flex flex-col justify-center !h-full items-center">
       <notify-apex-chart-ssr
         [chartOptions]="chartOptions"
-        class="w-full h-fit 2xl:scale-125"
+        class="w-full h-fit scale-125"
       ></notify-apex-chart-ssr>
     </div>
   </div>
