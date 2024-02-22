@@ -32,6 +32,7 @@ router.patch(
     .isBoolean()
     .withMessage(AGENT_VALIDATION_MESSAGES.enabled as string),
   body('savedRedirects')
+    .optional()
     .isArray()
     .withMessage(AGENT_VALIDATION_MESSAGES.savedRedirects as string),
   errorHandledRequest(

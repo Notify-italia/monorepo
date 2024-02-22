@@ -20,18 +20,23 @@ router.patch(
     .optional()
     .isArray()
     .withMessage(COMPANY_VALIDATION_MESSAGES.createdRoles as string),
+  body('email')
+    .optional()
+    .isEmail()
+    .withMessage(COMPANY_VALIDATION_MESSAGES.email as string),
   errorHandledRequest(
     async (req, res) => {
-      const { createdRoles, savedRedirects } = req.body;
-
       const company = await CompanyModel.findById(req.currentUser._id);
 
       if (!company) {
         throw new BadRequestError(COMPANY_VALIDATION_MESSAGES._id as string);
       }
 
-      company.createdRoles = createdRoles ?? company.createdRoles;
-      company.savedRedirects = savedRedirects ?? company.savedRedirects;
+      //per ogni chiave del body, setta la chiave del company uguale al valore del body
+      Object.keys(req.body).forEach((key) => {
+        company.set(key, req.body[key]);
+        company.isModified(key);
+      });
 
       await company.save();
 

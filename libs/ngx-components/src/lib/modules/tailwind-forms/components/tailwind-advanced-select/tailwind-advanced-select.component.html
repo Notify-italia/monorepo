@@ -21,7 +21,7 @@
     <ul
       *ngIf="dropdownVisible"
       tabindex="0"
-      class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-full my-2"
+      class="dropdown-content dropdown-left z-[1] menu p-2 shadow bg-base-100 rounded-box w-full my-2 !whitespace-nowrap !flex-nowrap overflow-y-auto max-h-56"
     >
       @for (item of filteredOptions; track item) {
       <li
