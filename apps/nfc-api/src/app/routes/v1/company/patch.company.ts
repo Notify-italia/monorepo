@@ -9,6 +9,7 @@ import {
 import { BadRequestError } from '../../../services/errors/errors';
 import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
 import { asyncForEach } from '../../../services/service.utils';
+import { userSignInValidation } from '../../../services/service.validation';
 import { Password } from '../../../services/users/service.password';
 
 const router = Router();
@@ -23,10 +24,7 @@ router.patch(
     .optional()
     .isArray()
     .withMessage(COMPANY_VALIDATION_MESSAGES.createdRoles as string),
-  body('email')
-    .optional()
-    .isEmail()
-    .withMessage(COMPANY_VALIDATION_MESSAGES.email as string),
+  userSignInValidation(COMPANY_VALIDATION_MESSAGES, false, false),
   errorHandledRequest(
     async (req, res) => {
       const company = await CompanyModel.findById(req.currentUser._id);

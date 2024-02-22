@@ -9,6 +9,7 @@ import {
 } from '@notify/nfc-app-services';
 import {
   AvatarComponent,
+  IUserFormPasswordFieldConfig,
   PageHeaderComponent,
   UserFormComponent,
   UserFormFactory,
@@ -70,8 +71,13 @@ export class SettingsComponent {
 
     const ref = this._userForm.create(
       this.user,
-      ['password'],
-      ['email', 'role', 'enabled']
+      [],
+      ['email', 'role', 'enabled'],
+      {
+        required: true,
+        helpText:
+          'deve contenere almeno 6 caratteri e non può essere uguale alla password attuale',
+      } as IUserFormPasswordFieldConfig
     );
 
     ref.instance.submitted

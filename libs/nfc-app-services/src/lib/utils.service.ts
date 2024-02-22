@@ -26,7 +26,7 @@ export enum EnumDicebearAvatarStyles {
   Notionists = 'notionists',
   OpenPeeps = 'open-peeps',
   NotionistsNeutral = 'notionists-neutral',
-  Personals = 'personals',
+  Personas = 'personas',
   AdventurerNeutral = 'adventurer-neutral',
   Rings = 'rings',
   PixelArtNeutral = 'pixel-art-neutral',

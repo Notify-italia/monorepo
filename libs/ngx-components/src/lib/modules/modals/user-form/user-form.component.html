@@ -6,6 +6,7 @@
       <button
         class="btn btn-secondary btn-circle btn-ghost"
         data-theme="notifytheme"
+        [disabled]="loading"
         (click)="close()"
       >
         <svg
@@ -43,11 +44,19 @@
         <notify-tailwind-input
           *ngIf="!hiddenFields.includes('password')"
           name="password"
-          [label]="user ? 'Nuova password' : 'Password'"
+          [label]="
+            passwordFieldConfig.label || (user ? 'Nuova password' : 'Password')
+          "
           [parent]="form"
           placeholder="******"
+          [type]="passwordFieldConfig.type"
           [validationErrors]="validationErrors"
-          [helpText]="user ? 'Lascia vuoto per non modificare la password' : ''"
+          [helpText]="
+            user
+              ? passwordFieldConfig.helpText ||
+                'Lascia vuoto per non modificare la password'
+              : ''
+          "
         >
         </notify-tailwind-input>
         <notify-tailwind-advanced-select

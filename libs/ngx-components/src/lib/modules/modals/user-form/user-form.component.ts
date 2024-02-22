@@ -25,6 +25,13 @@ export type IUserFormHiddenFields = (
   | 'enabled'
 )[];
 
+export interface IUserFormPasswordFieldConfig {
+  helpText: string;
+  type: 'text' | 'password';
+  required?: boolean;
+  label?: string;
+}
+
 @Component({
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, TailwindFormsModule],
@@ -37,6 +44,12 @@ export class UserFormComponent implements OnInit {
   @Input() public user: INotifyAccount | null = null;
   @Input() public createdRoles: string[] = [];
   @Input() public hiddenFields: IUserFormHiddenFields = [];
+  @Input() public passwordFieldConfig: IUserFormPasswordFieldConfig = {
+    helpText: 'Lascia vuoto per mantenere la password attuale',
+    type: 'text',
+    required: false,
+  };
+
   @Output() public removeRole = new EventEmitter<string>();
 
   public submitted = new Subject<INotifyPartialUser>();
@@ -61,7 +74,10 @@ export class UserFormComponent implements OnInit {
       this.destroyed$.complete();
     });
 
-    const _pwValidators = this.user ? [] : [...this._isRequired('password')];
+    const _pwValidators =
+      this.user && !this.passwordFieldConfig.required
+        ? []
+        : [...this._isRequired('password')];
 
     this.form = new FormGroup({
       enabled: new FormControl<boolean>(this.user?.enabled ?? true, []),
@@ -69,7 +85,10 @@ export class UserFormComponent implements OnInit {
         Validators.email,
         ...this._isRequired('email'),
       ]),
-      password: new FormControl<string>('', _pwValidators),
+      password: new FormControl<string>('', [
+        ..._pwValidators,
+        Validators.minLength(6),
+      ]),
       role: new FormControl<string>(
         this.user?.profile?.role || '',
         this._isRequired('role')
