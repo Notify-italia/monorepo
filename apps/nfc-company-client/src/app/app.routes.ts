@@ -22,6 +22,31 @@ export const appRoutes: Route[] = [
       import('./pages/signup/signup.component').then((m) => m.SignupComponent),
   },
   {
+    path: 'password',
+    canActivate: [signInGuard],
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'recover',
+      },
+      {
+        path: 'recover',
+        loadComponent: () =>
+          import('./pages/recover-password/recover-password.component').then(
+            (m) => m.RecoverPasswordComponent
+          ),
+      },
+      {
+        path: 'update',
+        loadComponent: () =>
+          import('./pages/update-password/update-password.component').then(
+            (m) => m.UpdatePasswordComponent
+          ),
+      },
+    ],
+  },
+  {
     path: 'pages',
     component: HomeComponent,
     canActivate: [authGuard],

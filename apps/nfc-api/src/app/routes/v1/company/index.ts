@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { companyPasswordRouter } from './password';
 import { patchCompanyRouter } from './patch.company';
 import { patchLicenseCompanyRouter } from './patch.license';
 import { postCompanyRouter } from './post';
@@ -9,6 +10,7 @@ const router = Router();
 
 router.use('/', postCompanyRouter);
 router.use('/', patchCompanyRouter);
+router.use('/password', companyPasswordRouter);
 router.use('/signin', postSigninCompanyRouter);
 router.use('/license', patchLicenseCompanyRouter);
 router.use('/refresh', postRefreshCompanyRouter);

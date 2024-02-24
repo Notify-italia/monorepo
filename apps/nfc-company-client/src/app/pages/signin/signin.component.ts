@@ -21,7 +21,7 @@ export class SigninComponent {
     pageSubtitle: 'Dashboard',
     pageTitle: "Effettua l'accesso",
     signupRoute: '/signup',
-    forgotPasswordRoute: '/forgot-password',
+    forgotPasswordRoute: '/password/recover',
   };
 
   constructor(
