@@ -9,3 +9,5 @@ export const declareEnvs = (envs: string[]) => {
 
   return Bun.env as { [key: string]: string };
 };
+
+export const isProduction = () => Bun.env.BUN_ENV === 'production';

@@ -11,7 +11,10 @@ export const wLog = (...args: Parameters<typeof log>) => {
   log(...args);
 };
 
-wLog(`Starting with Bun version ${Bun.version}`, 'start');
+wLog(
+  `Starting with Bun version ${Bun.version} with BUN_ENV ${Bun.env.BUN_ENV}`,
+  'start'
+);
 
 connectToDatabase();
 
