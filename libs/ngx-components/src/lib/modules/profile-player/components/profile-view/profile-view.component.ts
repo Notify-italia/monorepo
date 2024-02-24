@@ -8,7 +8,7 @@ import {
   SvgboxService,
   UtilsService,
 } from '@notify/nfc-app-services';
-import { AnimatedBgComponent } from '../../../../standalones/animated-bg/animated-bg.component';
+import { WallpaperComponent } from '../../../../standalones/animated-bg/wallpaper.component';
 import { AvatarComponent } from '../../../../standalones/avatar/avatar.component';
 import { GoogleMapsComponent } from '../../../../standalones/google-maps/google-maps.component';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
@@ -27,7 +27,7 @@ export const defaultGradientStops = ['#0A2859', '#041127'];
   imports: [
     CommonModule,
     SvgBoxIconComponent,
-    AnimatedBgComponent,
+    WallpaperComponent,
     AvatarComponent,
     ProfileStaticLinksComponent,
     RatingComponent,

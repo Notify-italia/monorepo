@@ -18,7 +18,7 @@ import { RouterModule } from '@angular/router';
 import { INotifyAuth } from '@notify/interfaces';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
-import { AnimatedBgComponent } from '../animated-bg/animated-bg.component';
+import { WallpaperComponent } from '../animated-bg/wallpaper.component';
 import { AppTitleComponent } from '../app-title/app-title.component';
 
 export interface IAuthConfig {
@@ -38,7 +38,7 @@ export interface IAuthConfig {
     ReactiveFormsModule,
     TailwindFormsModule,
     AppTitleComponent,
-    AnimatedBgComponent,
+    WallpaperComponent,
     RouterModule,
   ],
   templateUrl: './auth.component.html',

@@ -1,5 +1,6 @@
 export * from './lib/modules/accounts';
 export * from './lib/modules/file-sharing';
+export * from './lib/modules/forgot-password';
 export * from './lib/modules/license';
 export * from './lib/modules/modals';
 export * from './lib/modules/notes';
@@ -7,7 +8,7 @@ export * from './lib/modules/profile-player';
 export * from './lib/modules/tailwind-forms/tailwind-forms.module';
 export * from './lib/modules/tailwind-toasts/tailwind-toasts.module';
 export * from './lib/modules/widgets';
-export * from './lib/standalones/animated-bg/animated-bg.component';
+export * from './lib/standalones/animated-bg/wallpaper.component';
 export * from './lib/standalones/app-title/app-title.component';
 export * from './lib/standalones/auth/auth.component';
 export * from './lib/standalones/avatar/avatar.component';

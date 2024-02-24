@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AnimatedBgComponent, AppTitleComponent } from '@notify/ngx-components';
+import { AppTitleComponent, WallpaperComponent } from '@notify/ngx-components';
 
 @Component({
   standalone: true,
   imports: [
     CommonModule,
-    AnimatedBgComponent,
+    WallpaperComponent,
     AppTitleComponent,
     ReactiveFormsModule,
   ],

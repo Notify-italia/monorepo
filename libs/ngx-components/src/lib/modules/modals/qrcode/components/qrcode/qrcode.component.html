@@ -14,7 +14,7 @@
       [width]="size"
       class="!rounded-xl mb-5 mt-3"
     ></qrcode>
-    <div class="flex justify-end w-full">
+    <div class="flex justify-end w-full" *ngIf="!isNative">
       <button
         (click)="saveAsImage(Qrcode); $event.stopPropagation()"
         class="btn btn-wide justify-around"

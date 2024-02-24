@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'notify-animated-bg',
+  selector: 'notify-wallpaper',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './animated-bg.component.html',
-  styleUrls: ['./animated-bg.component.scss'],
+  templateUrl: './wallpaper.component.html',
+  styleUrls: ['./wallpaper.component.scss'],
 })
-export class AnimatedBgComponent implements OnInit, OnChanges {
+export class WallpaperComponent implements OnInit, OnChanges {
   @Input() public config = {
     blur: {
       amount: 10,

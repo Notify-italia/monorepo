@@ -20,6 +20,7 @@ target 'App' do
   pod 'CapacitorFilesystem', :path => '../../../../../node_modules/@capacitor/filesystem'
   pod 'CapacitorCommunityScreenBrightness', :path => '../../../../../node_modules/@capacitor-community/screen-brightness'
   pod 'CapacitorCommunityMedia', :path => '../../../../../node_modules/@capacitor-community/media'
+  pod 'CapawesomeTeamCapacitorNfc', :path => '../../../../../node_modules/@capawesome-team/capacitor-nfc'
 end
 
 post_install do |installer|

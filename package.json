@@ -34,6 +34,7 @@
     "@capacitor/haptics": "5.0.6",
     "@capacitor/keyboard": "5.0.7",
     "@capacitor/status-bar": "5.0.6",
+    "@capawesome-team/capacitor-nfc": "^5.1.0",
     "@ionic/angular": "^7.6.2",
     "@nx-bun/nx": "^1.2.0",
     "@nx/angular": "17.2.8",
