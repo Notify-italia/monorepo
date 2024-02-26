@@ -51,7 +51,8 @@ interface AgentModel extends Model<Agent> {
     profileData: {
       role: string;
       feedbackEnabled: boolean;
-    }
+    },
+    skipProfile?: boolean
   ): Promise<HydratedDocument<Agent>>;
 }
 
@@ -125,10 +126,15 @@ AgentSchema.statics.build = async (
   profileData: {
     role: string;
     feedbackEnabled: boolean;
-  }
+  },
+  skipProfile = false
 ) => {
   const agent = new AgentModel(doc);
   agent.password = await Password.toHash(doc.password as string);
+
+  if (skipProfile) {
+    return agent;
+  }
 
   //creates a profile for the agent
   await ProfileModel.build({

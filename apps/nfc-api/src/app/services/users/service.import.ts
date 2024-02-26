@@ -120,7 +120,9 @@ export class ImportManager {
         },
         {
           role: _p?.role || noDataString,
-        }
+          feedbackEnabled: _p?.config.feedbackEnabled ?? false,
+        },
+        true
       );
 
       const profile = ProfileModel.build({
@@ -138,6 +140,9 @@ export class ImportManager {
         colors: _p?.colors || _fallbackProfile?.colors,
         redirectUrl: _p?.redirectUrl || _fallbackProfile?.redirectUrl,
       });
+
+      profile.config.feedbackEnabled = _p?.config.feedbackEnabled ?? false;
+      profile.role = _p?.role || _fallbackProfile?.role || noDataString;
 
       results.push({ agent, profile });
     });
