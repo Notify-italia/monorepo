@@ -22,6 +22,16 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+	<key>NFCReaderUsageDescription</key>
+	<string>$(PRODUCT_NAME) ha bisogno dell'accesso al tuo lettore NFC per scrivere le informazioni di profilo su supporti NFC</string>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) ha bisogno dell'accesso alla tua fotocamera per scattare una foto durante la configurazione del tuo profilo</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$(PRODUCT_NAME) ha bisogno dell'accesso alla tua libreria di foto per salvare codici qr e altri media</string>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
 	<key>UIMainStoryboardFile</key>
@@ -36,15 +46,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>UIFileSharingEnabled</key>
-	<true/>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>$(PRODUCT_NAME) ha bisogno dell'accesso alla tua libreria di foto per salvare codici qr e altri media</string>
-	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) ha bisogno dell'accesso alla tua fotocamera per scattare una foto durante la configurazione del tuo profilo</string>
-	<key>NFCReaderUsageDescription</key>
-	<string>$(PRODUCT_NAME) ha bisogno dell'accesso al tuo lettore NFC per scrivere le informazioni di profilo su supporti NFC</string>
 </dict>
 </plist>
