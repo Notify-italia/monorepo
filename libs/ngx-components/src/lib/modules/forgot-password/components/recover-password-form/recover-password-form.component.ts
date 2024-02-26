@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 
+import { RouterModule } from '@angular/router';
 import { AppTitleComponent } from '../../../../standalones/app-title/app-title.component';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
 
@@ -18,6 +19,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
     AppTitleComponent,
     TailwindFormsModule,
     ReactiveFormsModule,
+    RouterModule,
   ],
   templateUrl: './recover-password-form.component.html',
   styleUrl: './recover-password-form.component.scss',

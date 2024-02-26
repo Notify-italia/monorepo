@@ -21,10 +21,10 @@ export const signToken = (data: string | object | Buffer, expiresIn = '1d') => {
   });
 };
 
-export const verifyToken = <T>(token: string) => {
+export const verifyToken = <T>(token: string, throwError = true) => {
   const verified = jwt.verify(token, JWT_KEY);
 
-  if (!verified) {
+  if (!verified && throwError) {
     throw new BadRequestError(INVALID_JWT_TOKEN);
   }
 

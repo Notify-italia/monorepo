@@ -24,4 +24,23 @@ export class CompanyService {
       publicKey,
     });
   }
+
+  public recoverPassword(email: string) {
+    return this.http.post<{ email: string }, void>(
+      `/v1/company/password/recover`,
+      {
+        email,
+      }
+    );
+  }
+
+  public updatePassword(password: string, token: string) {
+    return this.http.post<{ password: string; token: string }, void>(
+      `/v1/company/password/update`,
+      {
+        password,
+        token,
+      }
+    );
+  }
 }

@@ -15,5 +15,7 @@ export class PageNotFoundComponent {
   public noHomeRedirect =
     this._activatedRoute.snapshot.data?.['noHomeRedirect'] ?? false;
 
-  constructor(private _activatedRoute: ActivatedRoute) {}
+  constructor(private _activatedRoute: ActivatedRoute) {
+    window.history.replaceState({}, '', '/404');
+  }
 }
