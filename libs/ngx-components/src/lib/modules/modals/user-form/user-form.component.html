@@ -1,7 +1,5 @@
 <div class="modal-container">
-  <div
-    class="w-[90%] lg:w-[50%] 2xl:w-[40%] animate__fadeInDown animate__animated animate__fast"
-  >
+  <div class="w-[90%] lg:w-[50%] 2xl:w-[40%]">
     <div class="my-1 w-full flex justify-end">
       <button
         class="btn btn-secondary btn-circle btn-ghost"
@@ -23,14 +21,14 @@
         </svg>
       </button>
     </div>
-    <div class="bg-base-300/70 rounded-xl w-full h-full p-5 space-y-10">
+    <div class="modal-content content-static">
       <h1 class="text-3xl font-bold text-white sm:text-4xl p-4">
         {{ user ? 'Modifica utente' : 'Crea utente' }}
       </h1>
       <form
         [formGroup]="form"
         (ngSubmit)="submit()"
-        class="flex flex-col jusitfy-center items-center w-full space-y-10 h-full"
+        class="flex flex-col justify-around items-center w-full h-full space-y-5"
       >
         <notify-tailwind-input
           *ngIf="!hiddenFields.includes('email')"
@@ -55,10 +53,36 @@
             user
               ? passwordFieldConfig.helpText ||
                 'Lascia vuoto per non modificare la password'
-              : ''
+              : 'Inserisci una password sicura, di almeno 6 caratteri'
           "
         >
         </notify-tailwind-input>
+        <notify-tailwind-input
+          *ngIf="
+            !hiddenFields.includes('password') && form.value.password?.length
+          "
+          class="a animate__fadeInDown animate__animated animate__faster"
+          name="confirmPassword"
+          label="Conferma password"
+          [parent]="form"
+          placeholder="******"
+          [type]="passwordFieldConfig.type"
+          [validationErrors]="validationErrors"
+          helpText="Conferma la password inserita"
+        >
+        </notify-tailwind-input>
+
+        <notify-tailwind-checkbox
+          *ngIf="!hiddenFields.includes('enabled')"
+          name="enabled"
+          label="Attivo"
+          [parent]="form"
+          class="w-full"
+          [validationErrors]="validationErrors"
+        ></notify-tailwind-checkbox>
+
+        <div class="divider" *ngIf="hasProfileFields"></div>
+
         <notify-tailwind-advanced-select
           *ngIf="!hiddenFields.includes('role')"
           name="role"
@@ -72,13 +96,15 @@
         ></notify-tailwind-advanced-select>
 
         <notify-tailwind-checkbox
-          *ngIf="!hiddenFields.includes('enabled')"
-          name="enabled"
-          label="Attivo"
+          *ngIf="!hiddenFields.includes('feedbackEnabled')"
+          name="feedbackEnabled"
+          label="Può ricevere feedbacks"
           [parent]="form"
           class="w-full"
           [validationErrors]="validationErrors"
         ></notify-tailwind-checkbox>
+
+        <div class="divider"></div>
 
         <button
           [disabled]="form.invalid"

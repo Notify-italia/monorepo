@@ -19,3 +19,4 @@ export * from './lib/stat.service';
 export * from './lib/svgbox.service';
 export * from './lib/utils.service';
 export * from './lib/validators/validator.it-phone-number';
+export * from './lib/validators/validator.password-match';

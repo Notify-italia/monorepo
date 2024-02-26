@@ -64,6 +64,10 @@ export class ProfileViewComponent implements OnInit {
     return this.data?.type === EnumNotifyUserType.Agent;
   }
 
+  public get isFeedbackEnabled(): boolean {
+    return this.data?.config?.feedbackEnabled || !this.isAgent;
+  }
+
   public get cssGradientStops(): string {
     const colors = this.data?.colors?.background;
 

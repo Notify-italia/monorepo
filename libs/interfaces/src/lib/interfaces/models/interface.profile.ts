@@ -28,6 +28,7 @@ export interface INotifyProfile<
     emailEnabled: boolean;
     smsEnabled: boolean;
     redirectEnabled: boolean;
+    feedbackEnabled?: boolean;
   };
   customFields: { iconName: string; value: string }[];
   type: EnumNotifyUserType;

@@ -25,9 +25,12 @@ router.post(
   body('enabled')
     .isBoolean()
     .withMessage(AGENT_VALIDATION_MESSAGES.enabled as string),
+  body('feedbackEnabled')
+    .isBoolean()
+    .withMessage(AGENT_VALIDATION_MESSAGES.enabled as string),
   errorHandledRequest(
     async (req, res) => {
-      const { email, password, role, enabled } = req.body;
+      const { email, password, role, enabled, feedbackEnabled } = req.body;
 
       //TODO check se la company può ancora creare agenti
 
@@ -52,7 +55,7 @@ router.post(
           enabled,
           owner: new Types.ObjectId(req.currentUser?._id),
         },
-        { role }
+        { role, feedbackEnabled }
       ).catch((err) => {
         wLog(err, 'error');
         throw new BadRequestError('Email già in uso');

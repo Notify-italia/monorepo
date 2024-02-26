@@ -115,6 +115,10 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
         type: Boolean,
         default: true,
       },
+      feedbackEnabled: {
+        type: Boolean,
+        default: true,
+      },
     },
     type: {
       type: String,

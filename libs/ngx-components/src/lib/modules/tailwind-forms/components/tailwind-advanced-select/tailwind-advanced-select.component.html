@@ -5,7 +5,7 @@
 
   <div class="dropdown w-full">
     <input
-      class="w-full select items-center flex"
+      class="w-full select items-center flex text-white placeholder-slate-600 input-bordered"
       role="button"
       tabindex="0"
       [id]="name"
@@ -21,13 +21,17 @@
     <ul
       *ngIf="dropdownVisible"
       tabindex="0"
-      class="dropdown-content dropdown-left z-[1] menu p-2 shadow bg-base-100 rounded-box w-full my-2 !whitespace-nowrap !flex-nowrap overflow-y-auto max-h-56"
+      class="dropdown-content dropdown-left z-[1] menu p-2 shadow-lg shadow-gray-600/20 bg-base-100 rounded-xl w-full my-2 !whitespace-nowrap !flex-nowrap overflow-y-auto max-h-56 border border-gray-300/20"
     >
       @for (item of filteredOptions; track item) {
       <li
         class="w-full items-center flex justify-between !flex-row flex-nowrap"
       >
-        <button type="button" (click)="value = item" class="w-10/12 xl:w-11/12">
+        <button
+          type="button"
+          (click)="value = item"
+          class="w-10/12 xl:w-11/12 text-white"
+        >
           <span>
             {{ item }}
           </span>

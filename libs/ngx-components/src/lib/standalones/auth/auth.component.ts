@@ -8,7 +8,6 @@ import {
   Output,
 } from '@angular/core';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -16,6 +15,7 @@ import {
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { INotifyAuth } from '@notify/interfaces';
+import { passwordMatchValidator } from '@notify/nfc-app-services';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
 import { WallpaperComponent } from '../animated-bg/wallpaper.component';
@@ -118,15 +118,3 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 }
-
-const passwordMatchValidator = (control: AbstractControl) => {
-  const parent = control.parent;
-  const password = parent?.get('password')?.value;
-  const confirmPassword = parent?.get('confirmPassword')?.value;
-
-  if (password !== confirmPassword) {
-    return { passwordMatch: true };
-  }
-
-  return null;
-};

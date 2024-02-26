@@ -3,7 +3,6 @@ import {
   Component,
   ComponentRef,
   EventEmitter,
-  HostListener,
   Input,
   OnInit,
   Output,
@@ -15,6 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { INotifyAccount, INotifyPartialUser } from '@notify/interfaces';
+import { passwordMatchValidator } from '@notify/nfc-app-services';
 import { Subject } from 'rxjs';
 import { TailwindFormsModule } from '../../tailwind-forms/tailwind-forms.module';
 
@@ -23,6 +23,7 @@ export type IUserFormHiddenFields = (
   | 'password'
   | 'role'
   | 'enabled'
+  | 'feedbackEnabled'
 )[];
 
 export interface IUserFormPasswordFieldConfig {
@@ -61,9 +62,17 @@ export class UserFormComponent implements OnInit {
     return this.loading;
   }
 
+  public get hasProfileFields() {
+    return (['role', 'feedbackEnabled'] as IUserFormHiddenFields).some(
+      (f) => !this.hiddenFields.includes(f)
+    );
+  }
+
   public validationErrors = {
     required: 'Campo obbligatorio',
     email: 'Campo non valido',
+    passwordMatchValidator: 'I campi non corrispondono',
+    minLength: 'Minimo 6 caratteri',
   };
 
   constructor() {}
@@ -76,8 +85,8 @@ export class UserFormComponent implements OnInit {
 
     const _pwValidators =
       this.user && !this.passwordFieldConfig.required
-        ? []
-        : [...this._isRequired('password')];
+        ? [Validators.minLength(6)]
+        : [...this._isRequired('password'), Validators.minLength(6)];
 
     this.form = new FormGroup({
       enabled: new FormControl<boolean>(this.user?.enabled ?? true, []),
@@ -85,13 +94,18 @@ export class UserFormComponent implements OnInit {
         Validators.email,
         ...this._isRequired('email'),
       ]),
-      password: new FormControl<string>('', [
+      password: new FormControl<string>('', _pwValidators),
+      confirmPassword: new FormControl<string>('', [
         ..._pwValidators,
-        Validators.minLength(6),
+        passwordMatchValidator,
       ]),
       role: new FormControl<string>(
         this.user?.profile?.role || '',
         this._isRequired('role')
+      ),
+      feedbackEnabled: new FormControl<boolean>(
+        this.user?.profile?.config?.feedbackEnabled ?? true,
+        []
       ),
     });
   }
@@ -100,7 +114,6 @@ export class UserFormComponent implements OnInit {
     return this.hiddenFields.includes(field) ? [] : [Validators.required];
   }
 
-  @HostListener('document:keydown.escape')
   close() {
     this.cf.destroy();
   }

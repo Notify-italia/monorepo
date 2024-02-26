@@ -31,14 +31,26 @@ router.patch(
     .optional()
     .isBoolean()
     .withMessage(AGENT_VALIDATION_MESSAGES.enabled as string),
+  body('feedbackEnabled')
+    .optional()
+    .isBoolean()
+    .withMessage(AGENT_VALIDATION_MESSAGES.enabled as string),
   body('savedRedirects')
     .optional()
     .isArray()
     .withMessage(AGENT_VALIDATION_MESSAGES.savedRedirects as string),
+
   errorHandledRequest(
     async (req, res) => {
       const { id } = req.query;
-      const { email, password, role, enabled, savedRedirects } = req.body;
+      const {
+        email,
+        password,
+        role,
+        enabled,
+        savedRedirects,
+        feedbackEnabled,
+      } = req.body;
 
       if (
         req.currentUser.userType === EnumNotifyUserType.Agent &&
@@ -68,6 +80,13 @@ router.patch(
 
       if (role) {
         await ProfileModel.updateOne({ owner: agent._id }, { role });
+      }
+
+      if (feedbackEnabled !== undefined) {
+        await ProfileModel.updateOne(
+          { owner: agent._id },
+          { $set: { 'config.feedbackEnabled': feedbackEnabled } }
+        );
       }
 
       await agent.save();

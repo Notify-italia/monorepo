@@ -27,7 +27,7 @@
       }"
     >
       <div class="section h-fit w-full space-y-8">
-        <div class="flex justify-center mt-4">
+        <div class="flex justify-center mt-4" *ngIf="isFeedbackEnabled">
           <!-- FEEDBACK -->
           <notify-feedback-button
             [data]="data"

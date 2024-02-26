@@ -27,7 +27,7 @@ export const AGENT_VALIDATION_MESSAGES: {
   _id: "L'id del sollecito deve essere un valido id mongoDB",
   email: 'Inserire una email valida',
   password: 'Inserire una password valida',
-  enabled: 'Inserire un valore booleano',
+  enabled: 'Inserire un valore valido',
   savedRedirects: 'Errore nel formato dei redirect salvati',
 };
 
@@ -50,6 +50,7 @@ interface AgentModel extends Model<Agent> {
     doc: Partial<Agent>,
     profileData: {
       role: string;
+      feedbackEnabled: boolean;
     }
   ): Promise<HydratedDocument<Agent>>;
 }
@@ -123,6 +124,7 @@ AgentSchema.statics.build = async (
   doc: Partial<Agent>,
   profileData: {
     role: string;
+    feedbackEnabled: boolean;
   }
 ) => {
   const agent = new AgentModel(doc);
@@ -140,6 +142,7 @@ AgentSchema.statics.build = async (
       emailEnabled: true,
       smsEnabled: true,
       redirectEnabled: false,
+      feedbackEnabled: profileData.feedbackEnabled,
     },
     ...profileData,
   }).save();

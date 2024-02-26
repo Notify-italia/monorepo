@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { passwordMatchValidator } from '@notify/nfc-app-services';
 import { AppTitleComponent } from '../../../../standalones/app-title/app-title.component';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
 
@@ -53,15 +53,3 @@ export class UpdatePasswordFormComponent {
     this.submitted.emit(this.form.value.password as string);
   }
 }
-
-const passwordMatchValidator = (control: AbstractControl) => {
-  const parent = control.parent;
-  const password = parent?.get('password')?.value;
-  const confirmPassword = parent?.get('confirmPassword')?.value;
-
-  if (password !== confirmPassword) {
-    return { passwordMatch: true };
-  }
-
-  return null;
-};

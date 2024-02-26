@@ -9,6 +9,7 @@ import {
 } from '@notify/nfc-app-services';
 import {
   AvatarComponent,
+  IUserFormHiddenFields,
   IUserFormPasswordFieldConfig,
   PageHeaderComponent,
   UserFormComponent,
@@ -46,7 +47,7 @@ export class SettingsComponent {
     const ref = this._userForm.create(
       this.user,
       [],
-      ['password', 'role', 'enabled']
+      this._userFormHiddenFields('email')
     );
 
     ref.instance.submitted
@@ -72,7 +73,7 @@ export class SettingsComponent {
     const ref = this._userForm.create(
       this.user,
       [],
-      ['email', 'role', 'enabled'],
+      this._userFormHiddenFields('password'),
       {
         required: true,
         helpText:
@@ -93,6 +94,18 @@ export class SettingsComponent {
         ...(this._httpCallFlow(ref) as [OperatorFunction<unknown, unknown>])
       )
       .subscribe();
+  }
+
+  private _userFormHiddenFields(excluded: string) {
+    const allFields: IUserFormHiddenFields = [
+      'email',
+      'password',
+      'role',
+      'enabled',
+      'feedbackEnabled',
+    ];
+
+    return allFields.filter((f) => f !== excluded);
   }
 
   private _httpCallFlow(

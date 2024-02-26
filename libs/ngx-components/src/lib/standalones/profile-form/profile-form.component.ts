@@ -319,6 +319,7 @@ export class ProfileFormComponent implements OnInit {
         emailEnabled: !!form.emailEnabled,
         smsEnabled: !!form.smsEnabled,
         redirectEnabled: !!form.redirectEnabled,
+        feedbackEnabled: this.profile.config.feedbackEnabled,
       },
       address,
       reviewRedirect: form.reviewRedirect || null,
