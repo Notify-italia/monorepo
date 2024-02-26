@@ -81,6 +81,10 @@
 
 .box {
   @apply bg-primary/10 rounded-xl shadow-xl ring-2 ring-black/5;
+
+  &.box-neutral {
+    @apply bg-neutral-50/10;
+  }
 }
 
 .floating-button {

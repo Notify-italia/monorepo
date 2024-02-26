@@ -104,6 +104,6 @@ export class LicenseComponent {
   }
 
   private _contactUs(): void {
-    window.location.href = 'mailto:vendite@notifyapp.it';
+    window.location.href = `mailto:supporto@notifyapp.it?subject=Disdetta&body=Vorrei richiedere la disdetta del mio account Notify con licenza ${this.license.publicKey}. Grazie.`;
   }
 }

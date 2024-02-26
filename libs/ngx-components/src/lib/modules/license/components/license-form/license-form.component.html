@@ -36,7 +36,7 @@
           <div class="flex justify-center space-x-4 scale-75 md:scale-100">
             @for (input of inputsConfig; track $index) {
             <input
-              class="font-bold rounded lg:rounded-lg tracking-wider p-2 box w-28 uppercase text-center text-white brightness-150 placeholder-gray-700"
+              class="font-bold rounded lg:rounded-lg tracking-wider p-2 box box-neutral w-28 uppercase text-center text-white brightness-150 placeholder-gray-700"
               (keydown)="handleLicenseInput($event, $index, input.maxLength)"
               #LicenseInput
               type="text"
