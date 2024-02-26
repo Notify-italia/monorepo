@@ -19,11 +19,12 @@
       [class.input-error]="showValidationErrors"
     />
 
-    <div class="action" *ngIf="!showToggleEye">
+    <div class="action" *ngIf="!showToggleEye && !inputRef.value">
+      <!-- CLEAR -->
       <button
         tabindex="-1"
+        tabindex="-1"
         data-theme="notifytheme"
-        [disabled]="!inputRef.value"
         (click)="clearInputValue()"
         [ngClass]="{
           'text-red-500 border-red-500': showValidationErrors,
@@ -49,7 +50,9 @@
     </div>
 
     <div class="action" *ngIf="showToggleEye">
+      <!-- PASSWORD TOGGLE -->
       <button
+        tabindex="-1"
         (click)="togglePasswordVisibility()"
         class="hover:brightness-75 smooth disabled:brightness-50"
         [disabled]="!inputRef.value"
