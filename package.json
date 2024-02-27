@@ -39,6 +39,7 @@
     "@nx-bun/nx": "^1.2.0",
     "@nx/angular": "17.2.8",
     "@nx/devkit": "17.2.8",
+    "@sentry/node": "^7.102.1",
     "angularx-qrcode": "^17.0.0",
     "animate.css": "^4.1.1",
     "apexcharts": "^3.45.2",

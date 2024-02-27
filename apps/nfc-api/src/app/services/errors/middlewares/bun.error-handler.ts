@@ -5,6 +5,7 @@ import { permittedRoles } from '../../../middlewares/middleware.permitted-roles'
 import { requireAuth } from '../../../middlewares/middleware.require-auth';
 import { validateRequest } from '../../../middlewares/middleware.validate-request';
 import { CustomError } from '../errors';
+
 //express middleware
 export const errorHandledRequest = <T>(
   func: (req: Request<T>, res: Response) => Promise<void>,
@@ -39,6 +40,7 @@ const _ehReq = <T>(
   return async (req: Request<T>, res: Response, next: NextFunction) => {
     await func(req, res, next)?.catch((err: CustomError) => {
       wLog(err.message, 'error');
+
       res.status(err.statusCode || 400).send({
         errors: [{ message: config?.errorMessage || String(err.message) }],
       });

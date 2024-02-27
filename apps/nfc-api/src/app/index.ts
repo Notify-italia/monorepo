@@ -1,4 +1,4 @@
-//boilerplate for an express app
+import * as Sentry from '@sentry/node';
 import cors from 'cors';
 import express from 'express';
 import http from 'http';
@@ -9,6 +9,7 @@ import { errorHandler } from './services/errors/middlewares/error-handler';
 
 const app = express();
 
+app.use(Sentry.Handlers.requestHandler() as express.RequestHandler);
 app.use(express.json({ limit: '50mb' }));
 
 app.use(logRequest);
@@ -26,6 +27,8 @@ app.use('/api', api);
 app.all('*', () => {
   throw new NotFoundError();
 });
+
+app.use(Sentry.Handlers.errorHandler() as express.ErrorRequestHandler);
 
 // È un middleware creato ad hoc per gestire gli errori che possono generarsi e per restituirli
 // sempre nel solito formato al client
