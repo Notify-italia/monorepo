@@ -33,17 +33,14 @@ router.get(
 
     await sendEmail({
       to: [email as string],
-      title: `Grazie per averci contattato`,
+      title: `Grazie per il tuo interesse in Notify!`,
       body: `
-      <p>
-      Grazie per averci contattato! 
-      <br>
-      Un nostro commerciarle ti risponderà al più presto.
-      </p>
-      
-      <p>
-      Il team di Notify
-      </p>`,
+    <p>Ciao <span>${name}</span>,</p>
+    <p>Grazie per averci contattato! Siamo entusiasti del tuo interesse per Notify.</p>
+    <p>Stiamo ancora lavorando duramente per portare l'app alla perfezione. Appena pronta, ti avviseremo immediatamente!</p>
+    <p>Grazie per la tua pazienza e supporto.</p>
+    <p>Resta sintonizzato!</p>
+    <p>Cordiali saluti,<br>Il Team di Notify 🚀</p>`,
     });
 
     res.status(200).send({ status: 'ok' });

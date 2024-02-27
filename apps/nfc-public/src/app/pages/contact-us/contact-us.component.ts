@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { HttpService, PixelService } from '@notify/nfc-app-services';
 import { TailwindFormsModule } from '@notify/ngx-components';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'notify-contact-us',
@@ -25,7 +26,8 @@ export class ContactUsComponent {
 
   constructor(
     private _httpService: HttpService,
-    private _pixel: PixelService
+    private _pixel: PixelService,
+    private _toastr: ToastrService
   ) {}
 
   public submit() {
@@ -43,6 +45,7 @@ export class ContactUsComponent {
         source: 'website',
       })
       .subscribe(() => {
+        this._toastr.success('Grazie per averci contattato!');
         this.form.reset();
       });
   }

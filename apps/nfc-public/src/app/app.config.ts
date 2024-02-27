@@ -3,6 +3,7 @@ import { ApplicationConfig } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { HttpService, providePixelModule } from '@notify/nfc-app-services';
+import { provideTailwindToasts } from '@notify/ngx-components';
 import { provideToastr } from 'ngx-toastr';
 import { environment } from '../environments/environment.prod';
 import { appRoutes } from './app.routes';
@@ -20,5 +21,6 @@ export const appConfig: ApplicationConfig = {
       useFactory: (http: HttpClient) =>
         new HttpService(environment.apiUrl, environment.jwtTokenKey, http),
     },
+    provideTailwindToasts(),
   ],
 };
