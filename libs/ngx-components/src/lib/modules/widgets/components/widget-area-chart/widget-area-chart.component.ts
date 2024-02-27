@@ -185,7 +185,7 @@ const DEFAULT_FILL: ApexFill = {
     shadeIntensity: 0,
     opacityFrom: 0.9,
     opacityTo: 0,
-    stops: [0, 100],
+    // colorStops: [0, 100],
   },
   colors: ['#74EAB3'],
 };

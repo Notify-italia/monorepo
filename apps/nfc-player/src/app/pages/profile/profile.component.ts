@@ -23,7 +23,15 @@ import {
   SwipeAvailableComponent,
   defaultGradientStops,
 } from '@notify/ngx-components';
-import { Observable, Subject, catchError, takeUntil, tap } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  catchError,
+  of,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -89,13 +97,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
         tap((profile) =>
           this._statService
             .incrementStat(this._getStatTypeFromOrigin(), profile.owner)
-            .pipe(
-              tap(() => this._redirect(profile)),
-              tap(() => this._removeQueryParam())
-            )
+            .pipe(tap(() => this._removeQueryParam()))
             .subscribe()
         ),
+        switchMap((p) => {
+          if (!p.config.redirectEnabled) {
+            return of(p);
+          }
+          this._redirect(p);
+
+          return of(null as unknown as INotifyProfile);
+        }),
         tap((profile) => {
+          if (!profile) {
+            return;
+          }
+
           this._setMeta(profile);
           this.profileColors = profile.colors;
           this._socket.connect(profile._id);
