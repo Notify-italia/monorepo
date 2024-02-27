@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
+import { ActivatedRoute } from '@angular/router';
 import { PixelService } from '@notify/nfc-app-services';
 import { LoadingComponent } from '@notify/ngx-components';
 import { Subject, combineLatest, tap } from 'rxjs';
@@ -38,7 +39,23 @@ export class HomeComponent {
     this.instructionsStable$,
   ]).pipe(tap(() => console.log('pageStable$')));
 
-  constructor(private _pixel: PixelService) {
+  constructor(
+    private _pixel: PixelService,
+    private _activatedRoute: ActivatedRoute
+  ) {
     this._pixel.track('ViewContent');
+
+    this.scrollToElement();
+  }
+
+  public scrollToElement() {
+    this._activatedRoute.fragment.subscribe((fragment) => {
+      if (fragment) {
+        const element = document.getElementById(fragment);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
   }
 }
