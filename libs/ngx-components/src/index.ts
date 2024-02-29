@@ -24,5 +24,6 @@ export * from './lib/standalones/page-not-found/page-not-found.component';
 export * from './lib/standalones/profile-form/profile-form.component';
 export * from './lib/standalones/search-bar/search-bar.component';
 export * from './lib/standalones/share-profile/share-profile.component';
+export * from './lib/standalones/spline-viewer/spline-viewer.component';
 export * from './lib/standalones/svg-box-icon/svg-box-icon.component';
 export * from './lib/standalones/swipe-available/swipe-available.component';

@@ -47,7 +47,7 @@ Benvenuto/a nel mondo di Notify!</p>
 
 <p>Per iniziare a utilizzare il nostro servizio, ti invitiamo a effettuare il login su <a href="https://aziende.notifyapp.it">aziende.notifyapp.it</a>, inserendo le tue credenziali e attivando la licenza per accedere immediatamente ai vantaggi di Notify!</p>
 
-<p>Se non possiedi una licenza, invece, ti invitiamo a contattare il nostro team vendite all'indirizzo <a href="mailto:vendite@notifyapp.it">vendite@notifyapp.it</a>. Sarà un piacere fornirti un preventivo su misura, adattato alle tue esigenze. </p>
+<p>Se non possiedi una licenza, invece, ti invitiamo a contattare il nostro team vendite all'indirizzo <a href="mailto:commerciale@notifyapp.it">commerciale@notifyapp.it</a>. Sarà un piacere fornirti un preventivo su misura, adattato alle tue esigenze. </p>
 
 <p>Il nostro team è sempre disponibile per assisterti, quindi non esitare a contattarci per qualsiasi domanda o necessità all'indirizzo <a href="mailto:supporto@notifyapp.it">supporto@notifyapp.it</a>.</p>
 

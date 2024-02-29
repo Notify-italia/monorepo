@@ -1,20 +1,20 @@
 import { CommonModule } from '@angular/common';
-import {
-  AfterRenderPhase,
-  Component,
-  EventEmitter,
-  Output,
-  afterNextRender,
-} from '@angular/core';
-import { INotifyProfile } from '@notify/interfaces';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ProfileService, SSRDirective } from '@notify/nfc-app-services';
-import { ProfileViewComponent } from '@notify/ngx-components';
-import { Observable } from 'rxjs';
+import {
+  ProfileViewComponent,
+  SplineViewerComponent,
+} from '@notify/ngx-components';
 
 @Component({
   selector: 'notify-splash',
   standalone: true,
-  imports: [CommonModule, ProfileViewComponent, SSRDirective],
+  imports: [
+    CommonModule,
+    ProfileViewComponent,
+    SSRDirective,
+    SplineViewerComponent,
+  ],
   providers: [ProfileService],
   templateUrl: './splash.component.html',
   styleUrl: './splash.component.scss',
@@ -22,25 +22,17 @@ import { Observable } from 'rxjs';
 export class SplashComponent {
   @Output() componentStable = new EventEmitter<void>();
 
-  public canvasSize = {
-    width: 1080,
-    height: 1080,
-  };
-
-  public isProfileReady = false;
-
-  public demoProfile$!: Observable<INotifyProfile>;
+  // public demoProfile$!: Observable<INotifyProfile>;
 
   constructor(private _profileService: ProfileService) {
-    afterNextRender(
-      () => {
-        this.demoProfile$ = this._profileService.getProfile(
-          '655805c8f5638dc5ef4b3590'
-        );
-
-        this.componentStable.emit();
-      },
-      { phase: AfterRenderPhase.Read }
-    );
+    // afterNextRender(
+    //   () => {
+    //     this.demoProfile$ = this._profileService.getProfile(
+    //       '655805c8f5638dc5ef4b3590'
+    //     );
+    //     this.componentStable.emit();
+    //   },
+    //   { phase: AfterRenderPhase.Read }
+    // );
   }
 }

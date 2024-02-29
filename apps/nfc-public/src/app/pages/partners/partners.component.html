@@ -1,8 +1,15 @@
 <div class="w-full flex flex-col justify-center items-center">
-  <div class="slider">
+  <div class="website-section">
+    <h1 class="section-title">Dai un'occhiata ad alcuni dei nostri utenti</h1>
+    <p class="section-subtitle">
+      Siamo orgogliosi di collaborare con queste aziende e organizzazioni che
+      hanno già scelto di guardare al futuro
+    </p>
+  </div>
+  <div class="slider !mt-10">
     @for (item of partners; track $index) {
     <button
-      class="slide smooth hover:scale-110"
+      class="slide smooth hover:scale-110 cursor-pointer"
       [title]="item.title"
       (click)="showProfile(item.profile)"
     >
@@ -19,7 +26,7 @@
     </button>
     }
   </div>
-  <div class="text-xs tracking-wide opacity-65">
+  <div class="text-sm tracking-wide opacity-65">
     Fai click su un logo per visualizzarne il profilo attuale
   </div>
 </div>

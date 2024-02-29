@@ -16,7 +16,7 @@ router.get(
     const { name, source, email, message } = req.query;
 
     await sendEmail({
-      to: ['vendite@notifyapp.it'],
+      to: ['commerciale@notifyapp.it'],
       title: `Nuovo contatto da ${source}`,
       body: `
       <p>

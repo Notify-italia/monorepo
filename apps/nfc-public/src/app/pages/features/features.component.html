@@ -1,8 +1,8 @@
 <div
-  class="w-full relative min-h-[90vh] flex flex-col py-10 items-center overflow-hidden group/cards-container bg-gray-100 bg-dotted-spacing-12 bg-dotted-cyan-500"
+  class="w-full relative min-h-[80vh] flex flex-col lg:justify-center items-center overflow-hidden group/cards-container bg-current/20 bg-dotted-spacing-12 bg-dotted-gray-500"
 >
   <div
-    class="website-section pointer-events-none group-focus-within/cards-container:blur-md group-focus-within/cards-container:opacity-50 smooth flex"
+    class="website-section pointer-events-none group-focus-within/cards-container:blur group-focus-within/cards-container:opacity-50 smooth flex my-5"
   >
     <h1 class="section-title">Cosa posso fare con Notify? 🤔</h1>
     <h2 class="section-subtitle">
@@ -10,19 +10,17 @@
     </h2>
   </div>
   <div
-    class="flex w-96 min-h-[40vh] justify-center items-end translate-y-2 absolute bottom-16 scale-[60%] 2xl:scale-100"
+    class="w-full items-end absolute h-full lg:my-auto flex flex-col justify-center"
   >
     @for (item of features; track $index) {
     <button
       tabindex="0"
       class="card {{
         item.color
-      }} hover:brightness-110 smooth focus:!m-0 focus:bottom-auto focus:!rotate-0 focus:!w-[24rem] focus:!h-[40rem] focus:z-20 focus:scale-125 focus:-translate-y-[5rem] focus:!shadow-2xl focus:pointer-events-none group/card "
+      }}  hover:!translate-x-10 hover:!-translate-y-2 hover:!rotate-[84deg] rotate-90 smooth focus:!mt-0 focus:!bottom-0 md:focus:!bottom-auto focus:!left-[0%] lg:focus:!left-[35%] focus:!rotate-0 focus:!w-[24rem] focus:!h-[40rem] focus:scale-75  lg:focus:scale-100  2xl:focus:scale-125 focus:z-20  lg:focus:!shadow-lg focus:pointer-events-none group/card absolute my-auto"
       [ngStyle]="{
-        transform: 'rotate(' + item.rotation + 'deg)',
-        'margin-left': item.marginLeft + 'rem',
-        'margin-right': item.marginRight + 'rem',
-        'margin-bottom': item.marginBottom + 'rem',
+        left: item.left + 'rem',
+        'margin-top': item.bottom + 'rem',
         'align-items': item.justify
       }"
     >
@@ -33,16 +31,16 @@
       ></notify-svg-box-icon>
 
       <p
-        class="w-full px-5 font-medium text-sm my-2.5 text-center group-focus/card:px-10 group-focus/card:my-5 group-focus/card:text-3xl drop-shadow-md smooth"
-      >
-        {{ item.title }}
-      </p>
+        class="w-full px-5 font-bold text-sm my-2.5 text-center group-focus/card:px-5 group-focus/card:my-5 group-focus/card:text-3xl drop-shadow-md smooth font-kodeMono"
+        [innerHTML]="item.title"
+      ></p>
+
       <div class="divider"></div>
+
       <p
-        class="w-full px-5 font-medium text-xs h-full text-center group-focus/card:px-10 group-focus/card:leading-loose group-focus/card:text-2xl drop-shadow-md leading-loose smooth"
-      >
-        {{ item.description }}
-      </p>
+        class="w-full text-xs h-full text-start px-5 group-focus/card:text-lg drop-shadow-md smooth whitespace-pre-line font-light"
+        [innerHTML]="item.description"
+      ></p>
     </button>
     }
   </div>

@@ -27,19 +27,19 @@ export class InstructionsComponent {
 
   public steps = [
     {
-      title: 'Abbonati',
+      title: 'Richiedi',
       description:
-        'Contatta il nostro team di vendite per richiedere subito le tessere personalizzate per la tua azienda, oltre che la licenza di Notify.',
+        'Consegnaci la tua tela, noi la plasmeremo sui tuoi nuovi biglietti da visita digitali',
     },
     {
       title: 'Iscriviti',
       description:
-        'Vai su aziende.notifyapp.it, crea un account master e immetti la tua licenza dopo aver eseguito il login.',
+        'Vai su aziende.notifyapp.it, crea un account master e immetti la tua licenza dopo aver eseguito il login, ovviamente il nostro team è pronto a supportati in ogni fase',
     },
     {
       title: 'Esplora ',
       description:
-        'Crea il tuo profilo aziendale e gli accounts per i tuoi dipendenti, distribuisci le tessere e inizia subito a rivoluzionare il tuo networking! 🤩',
+        'Crea il tuo profilo aziendale e gli accounts per i tuoi dipendenti, distribuisci le tessere e inizia subito la tua avventura spaziale!',
     },
   ];
 

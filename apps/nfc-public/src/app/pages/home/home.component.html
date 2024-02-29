@@ -5,7 +5,7 @@
 }
 
 <div
-  class="w-full min-h-screen flex justify-center overflow-hidden scroll-smooth font-anek bg-slate-50"
+  class="w-full min-h-screen flex justify-center overflow-hidden scroll-smooth font-mulish bg-gradient-to-b from-[#cc5333] to-[#23074d] text-slate-200"
 >
   <div class="h-full w-full flex flex-col">
     <notify-top-nav></notify-top-nav>
@@ -17,15 +17,19 @@
       (componentStable)="splashSable$.next()"
     ></notify-splash>
 
+    <div class="divider"></div>
+
     <notify-features id="features"></notify-features>
+
+    <div class="divider"></div>
+
+    <notify-partners id="partners"></notify-partners>
+
+    <div class="divider mx-5"></div>
 
     <notify-instructions
       (componentStable)="instructionsStable$.next()"
     ></notify-instructions>
-
-    <div class="divider mx-5"></div>
-
-    <notify-partners id="partners"></notify-partners>
 
     <div class="divider mx-5"></div>
 

@@ -7,13 +7,21 @@ import {
   Validators,
 } from '@angular/forms';
 import { HttpService, PixelService } from '@notify/nfc-app-services';
-import { TailwindFormsModule } from '@notify/ngx-components';
+import {
+  SplineViewerComponent,
+  TailwindFormsModule,
+} from '@notify/ngx-components';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'notify-contact-us',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TailwindFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TailwindFormsModule,
+    SplineViewerComponent,
+  ],
   templateUrl: './contact-us.component.html',
   styleUrl: './contact-us.component.scss',
 })

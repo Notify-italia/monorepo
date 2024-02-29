@@ -112,6 +112,13 @@
       "options": {
         "command": "nx gulp nfc-public && cp ./apps/nfc-public/main.js ./dist/apps/nfc-public/server && cp ./apps/nfc-public/Dockerfile ./dist/apps/nfc-public && cp ./apps/nfc-public/captain-definition ./dist/apps/nfc-public && tar --strip-components=4 -cvf ./deploy.tar --exclude='*.map' ./dist/apps/nfc-public/* && caprover deploy -t ./deploy.tar -n notify -a public && rm ./deploy.tar"
       }
+    },
+    "ptc-deploy": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "nx gulp nfc-public && cp ./apps/nfc-public/main.js ./dist/apps/nfc-public/server && cp ./apps/nfc-public/Dockerfile ./dist/apps/nfc-public && cp ./apps/nfc-public/captain-definition ./dist/apps/nfc-public && tar --strip-components=4 -cvf ./deploy.tar --exclude='*.map' ./dist/apps/nfc-public/* && caprover deploy -t ./deploy.tar -n notify -a ptc-public && rm ./deploy.tar"
+      }
     }
   }
 }

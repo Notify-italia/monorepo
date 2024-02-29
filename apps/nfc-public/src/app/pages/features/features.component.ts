@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, afterNextRender } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { UtilsService } from '@notify/nfc-app-services';
 import { SvgBoxIconComponent } from '@notify/ngx-components';
 import { FeatureCardComponent } from '../../components/feature-card/feature-card.component';
@@ -15,12 +16,11 @@ import { FeatureCardComponent } from '../../components/feature-card/feature-card
 export class FeaturesComponent {
   public features: {
     rotation: number;
-    marginLeft: number;
-    marginBottom: number;
-    marginRight: number;
+    left: number;
+    bottom: number;
     justify: string;
-    title: string;
-    description: string;
+    title: SafeHtml;
+    description: SafeHtml;
     icon: {
       name: string;
       set: string;
@@ -28,7 +28,7 @@ export class FeaturesComponent {
     color: string;
   }[] = [];
 
-  constructor(private _utils: UtilsService) {
+  constructor(private _domSanitizer: DomSanitizer) {
     afterNextRender(() => {
       this.features = this._buildFeatures();
     });
@@ -38,86 +38,81 @@ export class FeaturesComponent {
     return [
       {
         title: 'Rendi veramente tuo il biglietto da vista aziendale',
-        description:
-          'Con Notify puoi personalizzare il tuo biglietto da visita come vuoi tu. Aggiungi il tuo logo, i tuoi social, i tuoi contatti e molto altro.',
+        description: `Con Notify puoi personalizzare il tuo biglietto da visita come vuoi tu. <br /><br /> Aggiungi il tuo logo, i tuoi social, i tuoi contatti e molto altro.`,
         // image: 'assets/images/personalization.webp',
         icon: {
           name: 'color_lens',
           set: 'materialui',
         },
-        color: 'bg-blue-500/10 text-blue-600',
+        color: 'bg-blue-400/20 text-blue-400',
       },
       {
-        title: 'Elimina gli sprechi di carta',
-        description:
-          'Condividi un biglietto da visita digitale in modo digitale e risparmiare carta e denaro, mai più biglietti da visita smarriti, o usurati!',
+        title: 'Risparmio di carta',
+        description: `Contribuisci alla salvaguardia dell'ambiente riducendo l'uso di carta. <br /><br /> Passando ai biglietti da visita digitali, dimostri il tuo impegno per un futuro più sostenibile!`,
         // image: 'assets/images/paperless.webp',
         icon: {
           name: 'eco',
           set: 'materialui',
         },
-        color: 'bg-green-500/10 text-green-600',
+        color: 'bg-green-400/20 text-green-400',
       },
       {
-        title: 'Ricevi feedbacks dai tuoi clienti',
-        description:
-          'Ricevi feedbacks dai clienti ai quali hai condiviso il tuo biglietto da visita digitale. Scopri cosa pensano di te e del tuo lavoro, il tutto in tempo reale e alla portata di un tap.',
+        title: ' Ricezione Feedback istantanea',
+        description: `Dimentica le congetture! <br /><br /> Ricevi feedback in tempo reale dalle persone che scansionano il tuo biglietto digitale. <br /><br /> Scopri cosa funziona e cosa può essere migliorato per stupire ancora di più nel prossimo incontro!`,
+
         // image: 'assets/images/feedbacks.webp',
         icon: {
           name: 'star',
           set: 'materialui',
         },
-        color: 'bg-yellow-500/10 text-yellow-600',
+        color: 'bg-yellow-400/20 text-yellow-400',
       },
       {
-        title:
-          'Ottieni statistiche concrete sul tuo networking e sulle tue relazioni professionali',
-        description: `Condividi il tuo profilo e scopri quali sono i contatti e le informazioni più richieste dai tuoi clienti. Il tutto da una pratica dashboard.`,
+        title: 'Analytics avanzati',
+        description: `Non si tratta solo di fare una bella impressione, ma di capire come farla al meglio! <br /> <br />  Con i nostri analytics avanzati, ottieni insights dettagliati sulle interazioni con il tuo biglietto digitale. Segui i trend, individua le opportunità e ottimizza la tua strategia di networking come mai prima d'ora!`,
         // image: 'assets/images/dashboard.webp',
         icon: {
           name: 'show_chart',
           set: 'materialui',
         },
-        color: 'bg-purple-500/10 text-purple-600',
+        color: 'bg-purple-400/20 text-purple-200',
       },
       {
-        title:
-          'Invia files in tempo reale a chi sta visualizzando il tuo profilo',
-        description:
-          "Condividi con i tuoi clienti files e documenti, semplicemente aprendo l'applicazione e selezionando un dispositivo tra quelli connessi al tuo profilo.",
+        title: 'Invio file in tempo reale',
+        description: `Hai mai desiderato condividere una risorsa importante durante una conversazione senza dover attendere? <br /><br /> Con la nostra funzione di invio file in tempo reale, puoi farlo senza sudare! Condividi presentazioni, brochure o qualsiasi altro documento direttamente mentre parli, rendendo ogni interazione più fluida e produttiva!`,
         // image: 'assets/images/file-sharing.webp',
         icon: {
           name: 'download',
           set: 'octicons',
         },
-        color: 'bg-orange-500/10 text-orange-600',
+        color: 'bg-orange-400/20 text-orange-200',
       },
+      // {
+      //   title: 'Note personalizzate',
+      //   description: `Aggiungi un tocco personale ad ogni incontro! <br /><br /> Con le note personalizzate, puoi annotare dettagli importanti, ricordi o promemoria direttamente sul biglietto digitale. <br /> Mai più dimenticare un dettaglio chiave!`,
+      //   // image: 'assets/images/file-sharing.webp',
+      //   icon: {
+      //     name: 'notes',
+      //     set: 'materialui',
+      //   },
+      //   color: 'bg-red-400/20 text-red-200',
+      // },
     ]
-      .map((feature, index, arr) => {
-        const isDesktop = ['xl', 'lg', '2xl'].includes(
-          this._utils.currentTailwindMediaQuery()
-        );
-
-        const rotation = 45;
-        const sideMargin = isDesktop ? 50 : 14;
-        const verticalMargin = isDesktop ? 22 : 10;
-
-        const arrLength = arr.length - 1;
-        const half = arrLength / 2;
-
-        const vmCoeff = verticalMargin / (arrLength / 2);
-        const vmValue =
-          index < half ? vmCoeff * index : vmCoeff * (arrLength - index);
-
-        const smValue = this.getMarginValue(index, arrLength, sideMargin);
+      .map((feature, index) => {
+        // const isDesktop = ['xl', 'lg', '2xl'].includes(
+        //   this._utils.currentTailwindMediaQuery()
+        // );
 
         return {
           ...feature,
-          rotation: -rotation + index * ((rotation * 2) / arrLength),
-          marginLeft: half > index ? 0 : smValue,
-          marginBottom: vmValue,
-          marginRight: half < index ? 0 : smValue,
-          justify: half < index ? 'end' : 'start',
+          description: this._domSanitizer.bypassSecurityTrustHtml(
+            feature.description
+          ),
+          title: this._domSanitizer.bypassSecurityTrustHtml(feature.title),
+          rotation: 90,
+          left: -12,
+          bottom: index * 8,
+          justify: 'start',
         };
       })
       .sort((a, b) => Math.abs(b.rotation) - Math.abs(a.rotation));

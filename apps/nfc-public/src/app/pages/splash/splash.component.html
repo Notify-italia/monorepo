@@ -1,10 +1,12 @@
 <div class="flex flex-col w-full overflow-hidden">
   <div
-    class="flex flex-col justify-around lg:flex-row lg:justify-center w-full flex-nowrap items-center min-h-[90vh]"
+    class="flex flex-col justify-around lg:flex-row lg:justify-center w-full flex-nowrap items-center h-screen"
   >
-    <div class="scale-90 lg:scale-100 lg:w-6/12">
+    <div
+      class="scale-90 lg:scale-100 lg:w-6/12 p-10 flex flex-col justify-center space-y-10 h-full"
+    >
       <h1
-        class="text-5xl lg:text-[56px] font-bold text-center flex flex-col justify-center text-slate-800"
+        class="text-5xl font-bold text-start flex flex-col justify-center text-white w-fit"
       >
         <span> Regala un effetto </span>
         <div class="neon">
@@ -13,10 +15,15 @@
         <span> ai tuoi clienti. </span>
       </h1>
 
-      <h2 class="text-center lg:text-xl mt-2">Modernizza il tuo Networking</h2>
+      <h2 class="text-lg mt-2 text-slate-200">
+        Hai mai sognato di vedere il tuo biglietto da visita fare un moonwalk
+        nell'era digitale? Beh, preparati a rimanere senza fiato! Con i nostri
+        biglietti da visita digitali ogni presentazione diventa un'avventura
+        spaziale!
+      </h2>
     </div>
 
-    <video
+    <!-- <video
       #SplashVideo
       src="/assets/images/splash.mp4"
       [muted]="'muted'"
@@ -27,6 +34,11 @@
       onloadedmetadata="this.muted = true"
       loop
       class="w-full h-full lg:w-5/12 lg:h-4/6 object-contain pointer-events-none"
-    ></video>
+    ></video> -->
+    <notify-spline-viewer
+      sceneId="4rUVVl-Y51GsI15U"
+      class="w-full h-full lg:w-7/12 pointer-events-none overflow-visible"
+      (ready)="componentStable.next()"
+    ></notify-spline-viewer>
   </div>
 </div>

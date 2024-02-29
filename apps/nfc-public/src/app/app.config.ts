@@ -1,6 +1,7 @@
 import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { HttpService, providePixelModule } from '@notify/nfc-app-services';
 import { provideToastr } from 'ngx-toastr';
@@ -12,7 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideRouter(appRoutes),
     provideHttpClient(withFetch()),
-    provideToastr(),
     providePixelModule({ pixelId: '1035992114161358', enabled: true }),
     {
       provide: HttpService,
@@ -20,6 +20,8 @@ export const appConfig: ApplicationConfig = {
       useFactory: (http: HttpClient) =>
         new HttpService(environment.apiUrl, environment.jwtTokenKey, http),
     },
+    provideAnimations(),
     // provideTailwindToasts(),
+    provideToastr(),
   ],
 };

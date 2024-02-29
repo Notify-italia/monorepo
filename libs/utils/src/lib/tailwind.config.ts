@@ -7,6 +7,10 @@ const tailwindConfig = {
         anek: ['Anek Devanagari', 'sans-serif'],
         mplusRounded: ['M PLUS Rounded 1c', 'sans-serif'],
         work: ['Work Sans', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+        avenir: ['Avenir', 'sans-serif'],
+        kodeMono: ['Kode Mono', 'monospace'],
+        mulish: ['Mulish', 'sans-serif'],
       },
       dropShadow: {
         glow: [

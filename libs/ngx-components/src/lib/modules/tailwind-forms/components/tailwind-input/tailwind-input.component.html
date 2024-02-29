@@ -15,11 +15,11 @@
       [suffix]="suffix"
       [thousandSeparator]="thousandSeparator"
       [patterns]="patterns"
-      class="input input-bordered w-full input-style"
+      class="input input-bordered w-full input-style backdrop-blur"
       [class.input-error]="showValidationErrors"
     />
 
-    <div class="action" *ngIf="!showToggleEye && !inputRef.value">
+    <div class="action" *ngIf="!showToggleEye && inputRef.value">
       <!-- CLEAR -->
       <button
         tabindex="-1"

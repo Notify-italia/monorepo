@@ -37,15 +37,13 @@ export class HomeComponent {
   public pageStable$ = combineLatest([
     this.splashSable$,
     this.instructionsStable$,
-  ]).pipe(tap(() => console.log('pageStable$')));
+  ]).pipe(tap(() => this.scrollToElement()));
 
   constructor(
     private _pixel: PixelService,
     private _activatedRoute: ActivatedRoute
   ) {
     this._pixel.track('ViewContent');
-
-    this.scrollToElement();
   }
 
   public scrollToElement() {
