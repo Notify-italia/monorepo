@@ -1,5 +1,5 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/bun';
 import { NextFunction, Request, Response } from 'express';
 import { wLog } from '../../../../main';
 import { permittedRoles } from '../../../middlewares/middleware.permitted-roles';

@@ -1,5 +1,5 @@
 import { LogManager, log } from '@notify/api-shared';
-import * as Sentry from '@sentry/node';
+import * as Sentry from '@sentry/bun';
 import { server } from './app';
 import { connectToDatabase } from './app/services/service.db';
 import { declareEnvs } from './app/services/service.envs';
