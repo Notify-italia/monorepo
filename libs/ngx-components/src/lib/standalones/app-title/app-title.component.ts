@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'notify-app-title',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgOptimizedImage],
   templateUrl: './app-title.component.html',
   styleUrls: ['./app-title.component.scss'],
 })

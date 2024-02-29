@@ -2,6 +2,7 @@ import 'zone.js/node';
 
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr';
+import compression from 'compression';
 import express from 'express';
 import { dirname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
@@ -16,6 +17,7 @@ export function app(): express.Express {
 
   const commonEngine = new CommonEngine();
 
+  server.use(compression());
   server.set('view engine', 'html');
   server.set('views', browserDistFolder);
 

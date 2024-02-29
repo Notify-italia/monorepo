@@ -14,22 +14,5 @@ export class TopNavComponent {
   public options: {
     label: string;
     path: string;
-  }[] = [
-    // {
-    //   label: 'e a cosa serve?',
-    //   path: '#features',
-    // },
-    // {
-    //   label: 'Chi siamo',
-    //   path: '#aboutus',
-    // },
-    // {
-    //   label: 'Q&A',
-    //   path: '#faq',
-    // },
-    // {
-    //   label: 'Beviamoci una Coca-Cola',
-    //   path: '#contactus',
-    // },
-  ];
+  }[] = [];
 }
