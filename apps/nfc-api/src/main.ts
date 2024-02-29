@@ -9,7 +9,10 @@ const { SENTRY_DSN, BUN_ENV, PORT } = declareEnvs(['SENTRY_DSN', 'BUN_ENV']);
 const logManager = LogManager.init([], 100);
 const port = PORT || 3000;
 
-Sentry.init({ dsn: SENTRY_DSN });
+Sentry.init({
+  dsn: SENTRY_DSN,
+  tracesSampleRate: 1.0, // Capture 100% of the transactions
+});
 
 export const wLog = (...args: Parameters<typeof log>) => {
   args.push(logManager);

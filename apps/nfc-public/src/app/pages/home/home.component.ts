@@ -11,7 +11,9 @@ import { ContactUsComponent } from '../contact-us/contact-us.component';
 import { FeaturesComponent } from '../features/features.component';
 import { InstructionsComponent } from '../instructions/instructions.component';
 import { PartnersComponent } from '../partners/partners.component';
+import { QuestionsComponent } from '../questions/questions.component';
 import { SplashComponent } from '../splash/splash.component';
+import { SustainabilityComponent } from '../sustainability/sustainability.component';
 
 @Component({
   selector: 'notify-home',
@@ -26,6 +28,8 @@ import { SplashComponent } from '../splash/splash.component';
     ContactUsComponent,
     PartnersComponent,
     InstructionsComponent,
+    SustainabilityComponent,
+    QuestionsComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -33,10 +37,12 @@ import { SplashComponent } from '../splash/splash.component';
 export class HomeComponent {
   public splashSable$ = new Subject<void>();
   public instructionsStable$ = new Subject<void>();
+  public sustainabilityStable$ = new Subject<void>();
 
   public pageStable$ = combineLatest([
     this.splashSable$,
     this.instructionsStable$,
+    this.sustainabilityStable$,
   ]).pipe(tap(() => this.scrollToElement()));
 
   constructor(

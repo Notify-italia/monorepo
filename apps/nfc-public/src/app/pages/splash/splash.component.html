@@ -1,44 +1,40 @@
-<div class="flex flex-col w-full overflow-hidden">
+<div class="flex flex-col w-full h-screen">
   <div
-    class="flex flex-col justify-around lg:flex-row lg:justify-center w-full flex-nowrap items-center h-screen"
+    class="flex flex-col-reverse lg:flex-row justify-center w-full flex-nowrap items-center h-full"
   >
-    <div
-      class="scale-90 lg:scale-100 lg:w-6/12 p-10 flex flex-col justify-center space-y-10 h-full"
-    >
+    <div class="space-y-10 w-full lg:w-fit lg:max-w-[50vw] mx-2">
       <h1
-        class="text-5xl font-bold text-start flex flex-col justify-center text-white w-fit"
+        class="text-4xl lg:text-5xl font-bold text-center lg:text-start flex flex-col justify-center text-white w-full lg:w-fit"
       >
         <span> Regala un effetto </span>
         <div class="neon">
           <b class="z-0"> WOW </b> <b class="blink z-0">!</b>
         </div>
-        <span> ai tuoi clienti. </span>
+        <span class="-mt-5"> ai tuoi clienti</span>
       </h1>
 
-      <h2 class="text-lg mt-2 text-slate-200">
-        Hai mai sognato di vedere il tuo biglietto da visita fare un moonwalk
-        nell'era digitale? Beh, preparati a rimanere senza fiato! Con i nostri
-        biglietti da visita digitali ogni presentazione diventa un'avventura
-        spaziale!
+      <h2
+        class="lg:text-xl mt-5 text-slate-200 whitespace-pre-line px-5 lg:px-0 text-center lg:text-start"
+      >
+        <b class="text-gray-50">
+          Hai mai sognato di vedere il tuo biglietto da visita fare un moonwalk
+          nell'era digitale?
+        </b>
+        <br />
+        <p class="font-light mt-2">
+          Beh, Preparati a rimanere senza fiato! <br />
+          Con i nostri biglietti da visita digitali ogni presentazione diventa
+          un'avventura spaziale!
+        </p>
       </h2>
     </div>
 
-    <!-- <video
-      #SplashVideo
-      src="/assets/images/splash.mp4"
-      [muted]="'muted'"
-      alt=""
-      autoplay
-      playsinline
-      oncanplay="this.play()"
-      onloadedmetadata="this.muted = true"
-      loop
-      class="w-full h-full lg:w-5/12 lg:h-4/6 object-contain pointer-events-none"
-    ></video> -->
-    <notify-spline-viewer
-      sceneId="4rUVVl-Y51GsI15U"
-      class="w-full h-full lg:w-7/12 pointer-events-none overflow-visible"
-      (ready)="componentStable.next()"
-    ></notify-spline-viewer>
+    <div class="w-full h-full relative">
+      <notify-spline-viewer
+        sceneId="4rUVVl-Y51GsI15U"
+        class="w-full h-full pointer-events-none absolute lg:scale-75"
+        (ready)="componentStable.next()"
+      ></notify-spline-viewer>
+    </div>
   </div>
 </div>

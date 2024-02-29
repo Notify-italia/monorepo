@@ -1,14 +1,10 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Output,
-  afterNextRender,
-} from '@angular/core';
+import { Component, afterNextRender } from '@angular/core';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
 import { ProfileService, SSRDirective } from '@notify/nfc-app-services';
 import { ProfileViewComponent } from '@notify/ngx-components';
 import { Observable, of } from 'rxjs';
+import { BasePageComponent } from '../../components/base-page/base-page.component';
 
 @Component({
   selector: 'notify-instructions',
@@ -18,9 +14,7 @@ import { Observable, of } from 'rxjs';
   templateUrl: './instructions.component.html',
   styleUrl: './instructions.component.scss',
 })
-export class InstructionsComponent {
-  @Output() componentStable = new EventEmitter<void>();
-
+export class InstructionsComponent extends BasePageComponent {
   public isProfileReady = false;
 
   public demoProfile$!: Observable<INotifyProfile>;
@@ -43,7 +37,8 @@ export class InstructionsComponent {
     },
   ];
 
-  constructor(private _profileService: ProfileService) {
+  constructor() {
+    super();
     afterNextRender(() => {
       this.demoProfile$ = of(_DEMO_PROFILE);
     });

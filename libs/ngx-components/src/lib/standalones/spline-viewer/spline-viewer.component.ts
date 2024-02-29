@@ -29,25 +29,15 @@ export class SplineViewerComponent {
         return;
       }
 
-      // Ridimensiona il canvas al caricamento
-      this.resizeCanvas();
-
       const app = new Application(this.canvas.nativeElement, {
         renderMode: 'auto',
       });
-      app.renderOnDemand = true;
 
       app.load(`https://prod.spline.design/${this.sceneId}/scene.splinecode`);
+
       app.addEventListener('rendered', () => {
         this.ready.emit();
       });
-    });
-  }
-
-  private resizeCanvas() {
-    this.canvas.nativeElement.addEventListener('resize', () => {
-      this.canvas.nativeElement.width = window.innerWidth;
-      this.canvas.nativeElement.height = window.innerHeight;
     });
   }
 }

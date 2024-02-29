@@ -5,12 +5,12 @@
 }
 
 <div
-  class="w-full min-h-screen flex justify-center overflow-hidden scroll-smooth font-mulish bg-gradient-to-b from-[#cc5333] to-[#23074d] text-slate-200"
+  class="w-full min-h-screen flex justify-center overflow-hidden scroll-smooth font-mulish bg-gradient-to-b from-[#704ca5] to-[#23074d] text-slate-200"
 >
-  <div class="h-full w-full flex flex-col">
+  <div class="h-full w-full flex flex-col max-w-[1920px] overflow-visible">
     <notify-top-nav></notify-top-nav>
 
-    <div class="divider mx-5"></div>
+    <div class="divider"></div>
 
     <notify-splash
       id="splash"
@@ -21,20 +21,25 @@
 
     <notify-features id="features"></notify-features>
 
+    <notify-sustainability
+      (componentStable)="sustainabilityStable$.next()"
+    ></notify-sustainability>
+
     <div class="divider"></div>
 
     <notify-partners id="partners"></notify-partners>
 
-    <div class="divider mx-5"></div>
+    <div class="divider"></div>
 
     <notify-instructions
       (componentStable)="instructionsStable$.next()"
     ></notify-instructions>
 
-    <div class="divider mx-5"></div>
+    <div class="divider"></div>
 
-    <notify-contact-us id="contactus"></notify-contact-us>
+    <notify-questions></notify-questions>
 
-    <notify-footer></notify-footer>
+    <notify-contact-us id="contactus" class="mt-20"></notify-contact-us>
   </div>
 </div>
+<notify-footer class="z-10"></notify-footer>

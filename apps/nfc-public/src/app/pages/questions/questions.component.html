@@ -1,0 +1,62 @@
+<div class="w-full flex flex-col justify-between items-center">
+  <div class="website-section !h-fit">
+    <div class="section-title">Ho ancora qualche dubbio...</div>
+    <div class="section-subtitle">
+      Non ti preoccupare! Ti lasciamo alcune delle domande più frequenti, ti
+      aiuterenno senz'altro a capire meglio come funziona il nostro servizio.
+    </div>
+  </div>
+  <div
+    class="w-full flex flex-col lg:flex-row justify-between 2xl:max-w-[50vw] mt-20 items-center lg:items-start"
+  >
+    <div class="cards-container">
+      @for (item of itemHalved.first; track $index) {
+      <ng-container
+        [ngTemplateOutlet]="Card"
+        [ngTemplateOutletContext]="{item}"
+      ></ng-container>
+      }
+    </div>
+    <div class="cards-container">
+      @for (item of itemHalved.second; track $index) {
+      <ng-container
+        [ngTemplateOutlet]="Card"
+        [ngTemplateOutletContext]="{item}"
+      ></ng-container>
+      }
+    </div>
+  </div>
+
+  <ng-template let-item="item" #Card>
+    <button
+      class="group/card flex flex-col rounded backdrop-blur-md border border-slate-300 smooth hover:brightness-125 focus-within/card:pointer-events-none focus-within/card:brightness-125 px-2 bg-primary/5 h-full"
+      tabindex="0"
+    >
+      <div class="flex justify-between items-center w-full min-h-32 lg:h-24">
+        <span
+          [innerHTML]="item.question"
+          class="p-2 items-center w-full font-bold text-white text-xl drop-shadow-lg my-auto"
+        ></span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6 group-focus-within/card:rotate-180 smooth smooth-fast my-auto"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m19.5 8.25-7.5 7.5-7.5-7.5"
+          />
+        </svg>
+      </div>
+
+      <span
+        [innerHTML]="item.answer"
+        class="px-2 text-gray-300/80 max-h-0 overflow-hidden opacity-0 group-focus-within/card:py-4 group-focus-within/card:opacity-100 group-focus-within/card:max-h-96 smooth text-justify drop-shadow-md font-light leading-relaxed"
+      ></span>
+    </button>
+  </ng-template>
+</div>

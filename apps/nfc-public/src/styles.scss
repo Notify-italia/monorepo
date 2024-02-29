@@ -6,7 +6,7 @@
   @apply flex flex-col justify-center items-center space-x-2 h-full;
 
   .section-title {
-    @apply text-white text-2xl lg:text-4xl  font-bold text-center font-kodeMono;
+    @apply text-white text-2xl lg:text-4xl  font-bold text-center font-kodeMono px-2;
   }
 
   .section-subtitle {
@@ -18,10 +18,8 @@
 @import url(//fonts.googleapis.com/css?family=Vibur);
 
 .neon {
-  text-align: start;
-  margin: auto;
   user-select: none;
-  @apply w-full lg:w-[85%] flex justify-center;
+  @apply w-full flex justify-center lg:justify-start;
 }
 
 .neon b {
