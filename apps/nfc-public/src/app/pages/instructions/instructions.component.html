@@ -2,14 +2,14 @@
   class="w-full relative min-h-[30rem] flex flex-col justify-center items-center p-10"
 >
   <div class="website-section">
-    <h1 class="section-title">Si, ok. Ma come funziona?</h1>
+    <h1 class="section-title">"Si ma come funziona? 🤔"</h1>
   </div>
   <div
     class="flex flex-col lg:flex-row justify-center lg:space-x-20 w-full mt-5 h-full items-center"
   >
     <div
       *ngIf="demoProfile$ | async as demo"
-      class="iphone-15-pro scale-90 lg:scale-90 2xl:scale-100"
+      class="iphone-15-pro scale-75 lg:scale-90 2xl:scale-100"
     >
       <notify-profile-view
         *SSR

@@ -11,6 +11,8 @@ const tailwindConfig = {
         avenir: ['Avenir', 'sans-serif'],
         kodeMono: ['Kode Mono', 'monospace'],
         mulish: ['Mulish', 'sans-serif'],
+        bebasNeue: ['Bebas Neue', 'sans-serif'],
+        caveat: ['Caveat', 'cursive'],
       },
       dropShadow: {
         glow: [
