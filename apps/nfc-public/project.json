@@ -42,7 +42,6 @@
           "libs/utils/src/lib/global.scss"
         ],
         "aot": true,
-        "scripts": [],
         "server": "apps/nfc-public/src/main.server.ts",
         "prerender": true,
         "ssr": {
