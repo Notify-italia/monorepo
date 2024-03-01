@@ -1,47 +1,63 @@
-<div
-  class="w-full relative min-h-[80vh] flex flex-col lg:justify-center items-center overflow-hidden group/cards-container bg-current/20 bg-dotted-spacing-12 bg-dotted-gray-500 2xl:border-l"
->
-  <div
-    class="website-section pointer-events-none group-focus-within/cards-container:blur group-focus-within/cards-container:opacity-50 smooth flex my-5"
-  >
-    <h1 class="section-title">Con Notify puoi...</h1>
-    <h2 class="section-subtitle">
-      Scopri le funzionalità che rendono Notify unico e innovativo 🚀
-    </h2>
-  </div>
-  <div
-    class="w-full items-end absolute h-full lg:my-auto flex flex-col justify-center"
-  >
-    @for (item of features; track $index) {
-    <button
-      tabindex="0"
-      class="card {{
-        item.color
-      }}  hover:!translate-x-10 hover:!-translate-y-2 hover:!rotate-[84deg] rotate-90 smooth focus:!mt-0 focus:!bottom-0 md:focus:!bottom-auto focus:!left-[0%] lg:focus:!left-[35%] focus:!rotate-0 focus:!w-[24rem] focus:!h-[40rem] focus:scale-75  lg:focus:scale-100  2xl:focus:scale-125 focus:z-20  lg:focus:!shadow-lg focus:pointer-events-none group/card absolute my-auto"
-      [ngStyle]="{
-        left: item.left + 'rem',
-        'margin-top': item.bottom + 'rem',
-        'align-items': item.justify
-      }"
+<div class="max-content-width">
+  <div class="w-full flex flex-col justify-between items-center">
+    <div class="website-section !h-fit">
+      <div class="section-title">
+        Dai un'occhiata a quello che ci rende unici
+      </div>
+      <div class="section-subtitle">
+        Scopri alcune delle funzionalità che rendono Notify a misura delle tue
+        esigenze e di quelle dei tuoi clienti.
+      </div>
+    </div>
+    <div
+      class="w-full flex flex-col lg:flex-row justify-between 2xl:max-w-[60vw] mt-20 items-center lg:items-start space-y-10 lg:space-y-0"
     >
-      <notify-svg-box-icon
-        [icon]="item.icon"
-        class="p-2 ring-1 ring-current rounded m-2"
-        [size]="$any('[100%]')"
-      ></notify-svg-box-icon>
-
-      <p
-        class="w-full px-5 font-bold text-sm my-2.5 text-center group-focus/card:px-5 group-focus/card:my-5 group-focus/card:text-3xl drop-shadow-md smooth font-kodeMono"
-        [innerHTML]="item.title"
-      ></p>
-
-      <div class="divider"></div>
-
-      <p
-        class="w-full text-xs h-full text-start px-5 group-focus/card:text-lg drop-shadow-md smooth whitespace-pre-line font-light"
-        [innerHTML]="item.description"
-      ></p>
-    </button>
-    }
+      <div class="cards-container space-y-10 !justify-between">
+        @for (item of featuresSplit.first; track $index) {
+        <ng-container
+          [ngTemplateOutlet]="Card"
+          [ngTemplateOutletContext]="{item, half: 'first'}"
+        ></ng-container>
+        }
+      </div>
+      <div class="cards-container space-y-10 !justify-between">
+        @for (item of featuresSplit.second; track $index) {
+        <ng-container
+          [ngTemplateOutlet]="Card"
+          [ngTemplateOutletContext]="{item, half: 'second'}"
+        ></ng-container>
+        }
+      </div>
+    </div>
   </div>
 </div>
+
+<ng-template let-item="item" let-half="half" #Card>
+  <button
+    class="group/card flex flex-col h-full pointer-events-none"
+    [ngClass]="{
+        'intersect:animate-fade-right animate-ease-out': half === 'first',
+        'intersect:animate-fade-left animate-ease-out': half === 'second',
+    }"
+    tabindex="0"
+  >
+    <div class="flex flex-col justify-around space-y-2">
+      <div
+        class="mask mask-squircle h-12 w-12 shrink-0 items-center flex flex-col justify-center {{
+          item.color
+        }}"
+      >
+        <notify-svg-box-icon [icon]="item.icon"></notify-svg-box-icon>
+      </div>
+      <span
+        [innerHTML]="item.title"
+        class="p-2 items-center w-full font-bold text-white text-xl drop-shadow-lg my-auto text-start"
+      ></span>
+    </div>
+
+    <span
+      [innerHTML]="item.description"
+      class="px-2 text-gray-300/80 overflow-hidden opacity-100 max-h-96 smooth text-justify drop-shadow-md font-light leading-relaxed"
+    ></span>
+  </button>
+</ng-template>

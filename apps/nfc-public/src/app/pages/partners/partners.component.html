@@ -1,32 +1,34 @@
-<div class="w-full flex flex-col justify-center items-center">
-  <div class="website-section">
-    <h1 class="section-title">Dai un'occhiata ad alcuni dei nostri utenti</h1>
-    <p class="section-subtitle">
-      Siamo orgogliosi di collaborare con queste aziende e organizzazioni che
-      hanno già scelto di guardare al futuro
-    </p>
-  </div>
-  <div class="slider !mt-20">
-    @for (item of partners; track $index) {
-    <button
-      class="slide smooth hover:scale-110 cursor-pointer"
-      [title]="item.title"
-      (click)="showProfile(item.profile)"
-    >
-      <img
-        [src]="item.image"
-        alt=""
-        class=" {{ item.class }} h-24 w-24 object-contain shrink-0"
-      />
-      <h1
-        class="text-black/40 text-lg tracking-tighter font-work font-medium ites whitespace-nowrap"
+<div class="max-content-width">
+  <div class="w-full flex flex-col justify-center items-center h-full">
+    <div class="website-section">
+      <h1 class="section-title">Dai un'occhiata ad alcuni dei nostri utenti</h1>
+      <p class="section-subtitle">
+        Siamo orgogliosi di collaborare con queste aziende e organizzazioni che
+        hanno già scelto di guardare al futuro
+      </p>
+    </div>
+    <div class="slider !mt-20">
+      @for (item of partners; track $index) {
+      <button
+        class="slide smooth hover:scale-110 cursor-pointer"
+        [title]="item.title"
+        (click)="showProfile(item.profile)"
       >
-        {{ item.title }}
-      </h1>
-    </button>
-    }
-  </div>
-  <div class="text-sm tracking-wide mt-2">
-    Fai click su un logo per visualizzarne il profilo attuale
+        <img
+          [src]="item.image"
+          alt=""
+          class=" {{ item.class }} h-24 w-24 object-contain shrink-0"
+        />
+        <h1
+          class="text-black/40 text-lg tracking-tighter font-work font-medium ites whitespace-nowrap"
+        >
+          {{ item.title }}
+        </h1>
+      </button>
+      }
+    </div>
+    <div class="text-sm tracking-wide mt-2">
+      Fai click su un logo per visualizzarne il profilo attuale
+    </div>
   </div>
 </div>

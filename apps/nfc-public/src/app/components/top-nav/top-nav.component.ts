@@ -14,5 +14,10 @@ export class TopNavComponent {
   public options: {
     label: string;
     path: string;
-  }[] = [];
+  }[] = [
+    {
+      label: 'Crea la tua tessera',
+      path: '/personalize',
+    },
+  ];
 }

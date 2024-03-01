@@ -1,64 +1,66 @@
-<div class="min-h-[80vh]">
-  <div class="website-section">
-    <h1 class="section-title z-10">Ti abbiamo convinto?</h1>
-    <p class="section-subtitle z-10">
-      Compila il form sottostante e beviamoci un caffè per scoprire insieme come
-      portare il tuo business nello spazio!
-    </p>
+<div class="max-content-width">
+  <div class="min-h-[80vh] w-full">
+    <div class="website-section">
+      <h1 class="section-title z-10">Ti abbiamo convinto?</h1>
+      <p class="section-subtitle z-10">
+        Compila il form sottostante e beviamoci un caffè per scoprire insieme
+        come portare il tuo business nello spazio!
+      </p>
 
-    <div
-      class="flex flex-col lg:flex-row justify-around w-full items-center overflow-visible h-[70vh]"
-    >
-      <form
-        [formGroup]="form"
-        (submit)="submit()"
-        class="flex flex-col space-y-5 w-full lg:w-4/12 justify-end p-4 px-5 rounded-xl z-10"
+      <div
+        class="flex flex-col lg:flex-row justify-around w-full items-center overflow-visible h-[70vh]"
       >
-        <notify-tailwind-input
-          [parent]="form"
-          label="Nome e Cognome"
-          name="name"
-          placeholder="Inserisci il tuo nome e cognome"
-        ></notify-tailwind-input>
+        <form
+          [formGroup]="form"
+          (submit)="submit()"
+          class="flex flex-col space-y-5 w-full lg:w-4/12 justify-end p-4 px-5 rounded-xl z-10"
+        >
+          <notify-tailwind-input
+            [parent]="form"
+            label="Nome e Cognome"
+            name="name"
+            placeholder="Inserisci il tuo nome e cognome"
+          ></notify-tailwind-input>
 
-        <notify-tailwind-input
-          [parent]="form"
-          label="Email"
-          name="email"
-          placeholder="Inserisci la tua email"
-        ></notify-tailwind-input>
+          <notify-tailwind-input
+            [parent]="form"
+            label="Email"
+            name="email"
+            placeholder="Inserisci la tua email"
+          ></notify-tailwind-input>
 
-        <div class="flex flex-col">
-          <label for="message" class="text-sm">Parlaci di te</label>
-          <textarea
-            formControlName="message"
-            cols="30"
-            rows="3"
-            class="textarea !outline outline-1 !outline-gray-300/20 bg-current/50"
-            placeholder="Descrivi il tuo business e le tue esigenze..."
-          ></textarea>
-        </div>
+          <div class="flex flex-col">
+            <label for="message" class="text-sm">Parlaci di te</label>
+            <textarea
+              formControlName="message"
+              cols="30"
+              rows="3"
+              class="textarea !outline outline-1 !outline-gray-300/20 bg-current/50"
+              placeholder="Descrivi il tuo business e le tue esigenze..."
+            ></textarea>
+          </div>
 
-        <div class="flex justify-end w-full">
-          <button
-            class="btn btn-primary"
-            data-theme="notifytheme"
-            [disabled]="form.invalid"
-          >
-            <span>Contattaci</span>
-          </button>
-        </div>
-      </form>
+          <div class="flex justify-end w-full">
+            <button
+              class="btn btn-primary"
+              data-theme="notifytheme"
+              [disabled]="form.invalid"
+            >
+              <span>Contattaci</span>
+            </button>
+          </div>
+        </form>
 
-      <img
-        src="/assets/space-rocket.gif"
-        class="w-full h-full pointer-events-none lg:scale-75 absolute object-cover"
-      />
+        <img
+          src="/assets/space-rocket.gif"
+          class="w-full h-full pointer-events-none lg:scale-75 absolute object-cover"
+        />
 
-      <!-- <notify-spline-viewer
+        <!-- <notify-spline-viewer
         class="w-full h-full pointer-events-none scale-75 lg:scale-100 absolute object-cover"
         sceneId="dk861HTC3-7031NY"
       ></notify-spline-viewer> -->
+      </div>
     </div>
   </div>
 </div>

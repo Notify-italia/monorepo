@@ -70,6 +70,8 @@ const tailwindConfig = {
     require('daisyui'),
     require('tailwindcss-safe-area'),
     require('tailwindcss-dotted-background'),
+    require('tailwindcss-animated'),
+    require('tailwindcss-intersect'),
   ],
   daisyui: {
     themes: <unknown[]>[],

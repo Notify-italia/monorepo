@@ -1,20 +1,22 @@
-<header class="flex justify-between w-full p-5 h-24">
-  <a href="#splash" class="h-14 w-14">
-    <notify-app-title
-      class="items-center pointer-events-none"
-      [compact]="true"
-    ></notify-app-title>
-  </a>
-
-  <!-- <div class="flex justify-around w-5/12 items-center h-full">
-    @for (item of options; track item.label) {
-    <a
-      [href]="item.path"
-      data-theme="notifytheme"
-      class="btn btn-link text-white no-underline"
-    >
-      {{ item.label }}
+<div class="max-content-width">
+  <header class="flex justify-between w-full p-5 h-24">
+    <a href="#splash" class="h-14 w-14">
+      <notify-app-title
+        class="items-center pointer-events-none"
+        [compact]="true"
+      ></notify-app-title>
     </a>
-    }
-  </div> -->
-</header>
+
+    <div class="flex justify-end w-5/12 space-x-2 items-center h-full">
+      @for (item of options; track item.label) {
+      <a
+        [href]="item.path"
+        data-theme="notifytheme"
+        class="btn btn-link text-white no-underline"
+      >
+        {{ item.label }}
+      </a>
+      }
+    </div>
+  </header>
+</div>
