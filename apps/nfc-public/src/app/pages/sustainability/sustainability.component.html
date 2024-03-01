@@ -1,5 +1,5 @@
 <div
-  class="w-full flex flex-col items-center min-h-screen relative max-w-none h-full justify-end"
+  class="w-full flex flex-col items-center relative max-w-none justify-end min-h-[850px] lg:min-h-[850px] 2xl:min-h-[1000px]"
 >
   <div class="h-full md:my-20 z-10">
     <p
@@ -11,9 +11,10 @@
       più sostenibile!
     </p>
   </div>
+
   <notify-spline-viewer
     sceneId="D072QNDIDy3RuzqT"
-    class="pointer-events-none absolute right-0 bottom-0 w-full max-w-none h-full"
+    class="pointer-events-none absolute bottom-0 h-[850px] lg:w-[1500px] lg:h-[850px] 2xl:w-[2000px] 2xl:h-[1000px] max-w-none"
     (ready)="componentStable.next()"
   ></notify-spline-viewer>
 </div>

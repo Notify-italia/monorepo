@@ -1,6 +1,6 @@
-<div class="flex flex-col w-full h-screen">
+<div class="flex flex-col w-full h-screen relative">
   <div
-    class="flex flex-col-reverse lg:flex-row justify-center w-full flex-nowrap items-center h-full"
+    class="flex flex-col-reverse lg:flex-row w-full flex-nowrap items-center h-full z-10"
   >
     <div class="space-y-10 w-full lg:w-fit lg:max-w-[50vw] mx-2">
       <h1
@@ -21,6 +21,7 @@
           nell'era digitale?
         </b>
         <br />
+        <br />
         <p class="font-light mt-2">
           Beh, Preparati a rimanere senza fiato! <br />
           Con i nostri biglietti da visita digitali ogni presentazione diventa
@@ -28,13 +29,10 @@
         </p>
       </h2>
     </div>
-
-    <div class="w-full h-full relative">
-      <notify-spline-viewer
-        sceneId="4rUVVl-Y51GsI15U"
-        class="w-full h-full pointer-events-none absolute lg:scale-75"
-        (ready)="componentStable.next()"
-      ></notify-spline-viewer>
-    </div>
   </div>
+  <notify-spline-viewer
+    sceneId="4rUVVl-Y51GsI15U"
+    class="w-full h-[500px] lg:w-[850px] lg:h-[850px] 2xl:w-[1000px] 2xl:h-[1000px] pointer-events-none absolute right-0 top-0"
+    (ready)="componentStable.next()"
+  ></notify-spline-viewer>
 </div>
