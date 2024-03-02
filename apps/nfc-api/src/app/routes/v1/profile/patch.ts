@@ -9,6 +9,7 @@ import {
 } from '../../../models/model.profile';
 import { BadRequestError } from '../../../services/errors/errors';
 import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { uploadToBucket } from '../../../services/service.bucket';
 import { getAgentOwnerProfile } from '../../../services/service.profile';
 
 const router = Router();
@@ -83,6 +84,14 @@ const _editProfile = async (
   toEdit.updatedAt === undefined;
   toEdit.createdAt === undefined;
   toEdit.type === undefined;
+
+  if (toEdit.avatar !== source.avatar && toEdit.avatar?.length) {
+    await uploadToBucket({
+      src: toEdit.avatar,
+      name: `avatar.${toEdit.avatar.split(';')[0].split('/')[1]}`,
+      path: `profiles/${source._id}`,
+    });
+  }
 
   source.set(toEdit);
 

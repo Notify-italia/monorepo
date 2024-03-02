@@ -1,49 +1,57 @@
-import * as AWS from 'aws-sdk';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import * as Sentry from '@sentry/bun';
 import { wLog } from '../../main';
 import { declareEnvs } from './service.envs';
 
-const { DO_ACCESS_KEY, DO_SECRET, DO_SPACE, DO_ENDPOINT } = declareEnvs([
-  'DO_ACCESS_KEY',
-  'DO_SECRET',
-  'DO_SPACE',
-  'DO_ENDPOINT',
+const { S3_ACCESS_KEY, S3_SECRET, S3_BUCKET, S3_ENDPOINT } = declareEnvs([
+  'S3_ACCESS_KEY',
+  'S3_SECRET',
+  'S3_BUCKET',
+  'S3_ENDPOINT',
 ]);
 
 //assegno le variabili d'ambiente
-const accessKeyId = DO_ACCESS_KEY;
-const secretAccessKey = DO_SECRET;
-const spaceName = DO_SPACE || '';
-const endpoint = DO_ENDPOINT;
+const accessKeyId = S3_ACCESS_KEY;
+const secretAccessKey = S3_SECRET;
+const bucket = S3_BUCKET || '';
+const endpoint = S3_ENDPOINT;
 
 //assegno l's3 per savare l'immagine
-const s3 = new AWS.S3({
-  accessKeyId,
-  secretAccessKey,
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId,
+    secretAccessKey,
+  },
+
+  // The transformation for endpoint is not implemented.
+  // Refer to UPGRADING.md on aws-sdk-js-v3 for changes needed.
+  // Please create/upvote feature request on aws-sdk-js-codemod for endpoint.
   endpoint,
 });
 
-const _uploadToBucket = async (src: string, name: string) => {
+export const uploadToBucket = async (config: {
+  src: string;
+  name: string;
+  path: string;
+}) => {
   //converto il base64 in buffer, rimuovendo il prefisso
-  const Body = Buffer.from(src, 'base64');
+  const Body = Buffer.from(config.src, 'base64');
 
-  try {
-    //provo fare l'upload nello sapce del file
-    s3.putObject(
-      {
-        Bucket: spaceName,
-        Key: name,
-        Body,
-        ACL: 'public-read',
-      },
-      (err, data) => {
-        if (err) {
-          wLog(`Error uploading file: ${JSON.stringify(err)} `, 'error');
-        }
+  //provo fare l'upload nello sapce del file
+  const command = new PutObjectCommand({
+    Bucket: bucket,
+    Key: `${config.path}/${config.name}`,
+    Body,
+    ACL: 'public-read',
+  });
 
-        return data;
-      }
-    );
-  } catch (err) {
-    wLog(`Error uploading file: ${JSON.stringify(err)} `, 'error');
-  }
+  const result = await s3.send(command).catch((err) => {
+    const message = `Error uploading file: ${JSON.stringify(err)} `;
+    wLog(message, 'error');
+    Sentry.captureException(message);
+  });
+
+  console.log(result);
+
+  return `https://${bucket}.${endpoint}/${config.path}/${config.name}`;
 };

@@ -19,14 +19,22 @@ export class FeaturesComponent {
   public get featuresSplit() {
     const features = this._buildFeatures();
     const columns = 2;
-    const length = features.length;
 
-    const columnSize = length / columns;
+    return features.reduce((acc: (typeof features)[], curr) => {
+      const latestAccItem = acc[acc.length - 1];
 
-    return {
-      first: features.slice(0, columnSize),
-      second: features.slice(columnSize, length),
-    };
+      if (!latestAccItem) {
+        return [[curr]];
+      }
+
+      if (latestAccItem.length >= columns) {
+        return [...acc, [curr]];
+      }
+
+      acc[acc.length - 1].push(curr);
+
+      return acc;
+    }, []);
   }
 
   private _buildFeatures() {
