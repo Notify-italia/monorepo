@@ -89,7 +89,6 @@ export class AuthService {
       .pipe(
         tap((user) => this._assignToken(user)),
         catchError(() => {
-          confirm("Licenza scaduta, contattare l'amministratore.");
           this.signOut();
           return of(null);
         })
