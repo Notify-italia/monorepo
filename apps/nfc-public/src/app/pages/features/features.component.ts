@@ -40,7 +40,7 @@ export class FeaturesComponent {
   private _buildFeatures() {
     return [
       {
-        title: 'Rendi veramente tuo il biglietto da vista aziendale',
+        title: 'Profilo digitale personalizzato',
         description: `Con Notify puoi personalizzare il tuo biglietto da visita come vuoi tu. Aggiungi il tuo logo, i tuoi social, i tuoi contatti e molto altro.  <br /><br /> Scegli tra una varietà di design per creare un biglietto che rifletta al meglio la tua personalità e il tuo brand. Non c'è limite alla tua creatività!`,
         // image: 'assets/images/personalization.webp',
         icon: {
@@ -50,7 +50,7 @@ export class FeaturesComponent {
         color: 'bg-blue-400/20 text-blue-400',
       },
       {
-        title: 'Note personalizzate',
+        title: 'Note in coworking',
         description: `Aggiungi un tocco personale ad ogni incontro! <br /><br /> Con le note personalizzate, puoi annotare dettagli importanti, ricordi o promemoria per poi condividerli col cliente o con i tuoi colleghi. <br /> Mai più dimenticare un dettaglio chiave!`,
         // image: 'assets/images/file-sharing.webp',
         icon: {

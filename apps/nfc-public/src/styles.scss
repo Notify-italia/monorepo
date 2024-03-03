@@ -2,11 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* You can add global styles to this file, and also import other style files */
+@import url(//fonts.googleapis.com/css?family=Vibur);
+
 .website-section {
-  @apply flex flex-col justify-center items-center space-x-2 h-full;
+  @apply flex flex-col justify-center items-center space-x-2;
 
   .section-title {
-    @apply text-white text-3xl lg:text-4xl  font-bold text-center font-caveat px-2;
+    @apply text-white text-3xl lg:text-4xl  font-bold text-center font-caveat;
   }
 
   .section-subtitle {
@@ -25,9 +28,6 @@
 .cards-container {
   @apply h-full w-10/12 lg:w-6/12 flex flex-col m-2 space-y-5;
 }
-
-/* You can add global styles to this file, and also import other style files */
-@import url(//fonts.googleapis.com/css?family=Vibur);
 
 .neon {
   user-select: none;

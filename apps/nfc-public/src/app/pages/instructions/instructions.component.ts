@@ -23,17 +23,17 @@ export class InstructionsComponent extends BasePageComponent {
     {
       title: 'Richiedi',
       description:
-        'Consegnaci la tua tela, noi la plasmeremo sui tuoi nuovi biglietti da visita digitali',
+        'Contattaci tramite il form di contatto per scegliere il piano perfetto per la tua azienda e informarci sul design delle tue tessere, il nostro team è pronto a supportarti in ogni fase',
     },
     {
       title: 'Iscriviti',
       description:
-        'Vai su aziende.notifyapp.it, crea un account master e immetti la tua licenza dopo aver eseguito il login, ovviamente il nostro team è pronto a supportati in ogni fase',
+        'Vai su aziende.notifyapp.it, crea un account master e immetti la tua licenza dopo aver eseguito il login',
     },
     {
       title: 'Esplora ',
       description:
-        'Crea il tuo profilo aziendale e gli accounts per i tuoi dipendenti, distribuisci le tessere e inizia subito la tua avventura spaziale!',
+        'Crea il tuo profilo aziendale e gli accounts per i tuoi dipendenti, distribuisci le tessere ai tuoi collaboratori e inizia subito la tua avventura spaziale!',
     },
   ];
 

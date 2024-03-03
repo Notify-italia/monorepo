@@ -1,13 +1,16 @@
-<notify-cursor></notify-cursor>
-<!-- @if (!(pageStable$ | async)) {
-<div class="fixed w-screen h-screen top-0 left-0 z-[999] bg-gray-700">
-  <notify-loading></notify-loading>
-</div>
-} -->
-
 <div
-  class="w-full min-h-screen flex justify-center overflow-hidden scroll-smooth font-mulish text-slate-200 bg-black"
+  class="flex justify-center scroll-smooth font-mulish text-slate-200 bg-[#0E0E0F]"
 >
+  <div
+    class="fixed w-screen h-screen top-0 left-0 z-[999] bg-black smooth"
+    [ngClass]="{
+      'opacity-0 pointer-events-none': stable
+    }"
+  >
+    <notify-loading></notify-loading>
+  </div>
+  <notify-cursor></notify-cursor>
+
   <div class="h-full w-full flex flex-col">
     <div class="w-full min-h-[80vh] hero-gradient">
       <notify-top-nav></notify-top-nav>
@@ -17,21 +20,22 @@
 
     <notify-features id="features" class="mt-20"></notify-features>
 
-    <notify-sustainability id="sustainability"></notify-sustainability>
-
     <div class="divider"></div>
+
+    <notify-sustainability id="sustainability"></notify-sustainability>
 
     <notify-partners id="partners"></notify-partners>
 
-    <div class="divider"></div>
-
-    <notify-instructions></notify-instructions>
+    <notify-instructions
+      class="mt-20"
+      (componentStable)="instructionsStable$.next()"
+    ></notify-instructions>
 
     <div class="divider"></div>
 
     <notify-questions></notify-questions>
 
     <notify-contact-us id="contactus" class="mt-20"></notify-contact-us>
+    <notify-footer class="z-10"></notify-footer>
   </div>
 </div>
-<notify-footer class="z-10"></notify-footer>

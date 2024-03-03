@@ -36,15 +36,16 @@ import { SustainabilityComponent } from '../sustainability/sustainability.compon
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  public splashSable$ = new Subject<void>();
   public instructionsStable$ = new Subject<void>();
-  public sustainabilityStable$ = new Subject<void>();
 
-  public pageStable$ = combineLatest([
-    this.splashSable$,
-    this.instructionsStable$,
-    this.sustainabilityStable$,
-  ]).pipe(tap(() => this.scrollToElement()));
+  public stable = false;
+
+  public pageStable$ = combineLatest([this.instructionsStable$])
+    .pipe(
+      tap(() => this.scrollToElement()),
+      tap(() => (this.stable = true))
+    )
+    .subscribe();
 
   constructor(
     private _pixel: PixelService,

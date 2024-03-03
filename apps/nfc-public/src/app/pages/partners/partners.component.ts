@@ -25,7 +25,7 @@ export class PartnersComponent {
       title: 'Pegaso Florence',
       profile: '65b4123355f91802d0f2585e',
       class: 'opacity-75',
-      image: '/assets/partners/pegaso.svg',
+      image: '/assets/partners/pegaso.webp',
     },
     {
       title: 'Legione Etruria',
