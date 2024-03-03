@@ -1,5 +1,5 @@
 .slider {
-  @apply w-full flex flex-wrap justify-evenly lg:justify-around items-center p-4 py-10  2xl:m-5 2xl:rounded-lg  overflow-auto  bg-[#212122];
+  @apply grid grid-flow-row lg:grid-flow-col  w-full p-4 py-10  2xl:m-5 2xl:rounded-lg  overflow-auto  bg-[#212122] justify-center place-items-center content-center;
 }
 
 .slide {

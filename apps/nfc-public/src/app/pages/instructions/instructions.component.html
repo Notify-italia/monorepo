@@ -20,13 +20,15 @@
       ></notify-profile-view>
     </div>
     <div
-      class="w-full lg:w-6/12 flex flex-col items-center h-full min-h-[80vh] lg:min-h-[50vh] justify-around"
+      class="w-10/12 lg:w-6/12 flex flex-col h-full min-h-[80vh] lg:min-h-[50vh] justify-around"
     >
       @for (item of steps; track $index) {
       <div class="flex flex-col w-full">
         <div class="flex space-x-10 w-full items-center">
-          <div class="intersect:animate-fade-right animate-ease-out">
-            <div class="neon">
+          <div
+            class="intersect:animate-fade-right animate-ease-out smooth opacity-0 intersect:opacity-100 smooth"
+          >
+            <div class="neon w-20">
               <b
                 [ngClass]="{
                   'blink -z-1': $index % 2 === 1
@@ -37,7 +39,7 @@
             </div>
           </div>
           <span
-            class="font-bold text-4xl font-rocaTwoBold intersect:animate-fade-down animate-ease-out"
+            class="font-bold text-4xl font-rocaTwoBold intersect:animate-fade-down animate-ease-out opacity-0 intersect:opacity-100 smooth"
           >
             {{ item.title }}
             <div class="flex space-x-2 font-normal text-base font-mulish">

@@ -1,16 +1,20 @@
 <div class="max-content-width">
   <div class="w-full flex flex-col justify-center items-center h-full">
-    <div class="slider">
+    <!-- ? AUMENTA lg:grid-cols-n se aumenti gli items in questo for -->
+    <div class="slider grid-cols-2 lg:grid-cols-5">
       @for (item of partners; track $index) {
+
       <button
-        class="slide smooth cursor-pointer intersect:animate-jump-in animate-duration-500 animate-ease-out animate-normal"
+        class="slide smooth cursor-pointer intersect:animate-jump-in animate-duration-500 animate-ease-out animate-normal opacity-0 intersect:opacity-100"
         [title]="item.title"
         (click)="showProfile(item.profile)"
       >
         <img
           [src]="item.image"
           alt=""
-          class=" {{ item.class }} h-24 w-24 object-contain shrink-0"
+          class=" {{
+            item.class
+          }} h-24 w-24 object-contain shrink-0 pointer-events-none"
         />
         <h1
           class="text-black/40 text-lg tracking-tighter font-work font-medium ites whitespace-nowrap"
@@ -18,6 +22,7 @@
           <!-- {{ item.title }} -->
         </h1>
       </button>
+
       }
     </div>
   </div>
