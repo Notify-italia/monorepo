@@ -10,8 +10,8 @@
     <p class="section-subtitle">
       è importante scegliere la carta giusta per la tua azienda,
       <br />
-      scegli un design che ti rappresenti o carica un design personalizzato e
-      noi ci occuperemo del resto.
+      scegli un design che ti rappresenti o caricane uno personalizzato e noi ci
+      occuperemo del resto.
       <br />
     </p>
 
@@ -65,18 +65,25 @@
 <ng-template #CardSelector let-item="item">
   <button
     class="w-12 h-12 smooth flex flex-col group/card hover:scale-110 focus-within:hover:scale-100"
+    tabindex="0"
   >
     <div
       class="hidden group-focus-within/card:flex flex-col justify-end items-center w-12 absolute h-full bottom-[4rem] space-y-2"
+      tabindex="0"
     >
       @for (card of item.items; track $index) {
       <img
+        tabindex="0"
         [src]="card.thumb"
         class="mask mask-squircle w-10 h-10 hover:scale-110 cursor-pointer smooth"
         (click)="selectedCard = card"
       />
       }
     </div>
-    <img [src]="item.thumb" class="mask mask-squircle w-12 h-12 saturate-0" />
+    <img
+      [src]="item.thumb"
+      class="mask mask-squircle w-12 h-12 saturate-0"
+      tabindex="0"
+    />
   </button>
 </ng-template>
