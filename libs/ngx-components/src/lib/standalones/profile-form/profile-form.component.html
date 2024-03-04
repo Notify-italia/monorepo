@@ -146,8 +146,9 @@
         </div>
       </div>
 
-      <div class="section box p-4">
+      <div class="section box p-4 !space-y-2">
         <div class="divider divider-start">Info</div>
+
         <!-- NOME -->
         <div class="field flex w-full !space-y-0 space-x-2">
           <notify-tailwind-input
@@ -170,16 +171,24 @@
             ></notify-tailwind-input>
           </div>
         </div>
-
+        <div class="text-center mx-5">
+          <small class=""
+            >Il layout della pagina si reimposta automaticamente in base alla
+            lunghezza del nome {{ isAgent ? 'e del cognome' : '' }}</small
+          >
+        </div>
+        <div class="divider mx-5"></div>
         <!-- BIO -->
         <div class="field">
-          <notify-tailwind-input
-            [parent]="form"
+          <label for="Biotextarea">Bio</label>
+          <textarea
+            id="Biotextarea"
+            formControlName="bio"
             name="bio"
-            label="Bio"
+            class="textarea w-full textarea-bordered backdrop-blur input-style resize-none"
+            cols="4"
             placeholder="Inserisci una breve descrizione di te"
-            [validationErrors]="validationErrors"
-          ></notify-tailwind-input>
+          ></textarea>
         </div>
       </div>
 

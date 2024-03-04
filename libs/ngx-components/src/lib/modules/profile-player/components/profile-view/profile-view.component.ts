@@ -2,14 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
 import {
-  EnumDicebearAvatarStyles,
   FeedbackService,
   ProfileService,
   SvgboxService,
   UtilsService,
 } from '@notify/nfc-app-services';
 import { WallpaperComponent } from '../../../../standalones/animated-bg/wallpaper.component';
-import { AvatarComponent } from '../../../../standalones/avatar/avatar.component';
 import { GoogleMapsComponent } from '../../../../standalones/google-maps/google-maps.component';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
 import { FeedbackFactory } from '../../factories';
@@ -17,6 +15,7 @@ import { FeedbackButtonComponent } from '../feedback-button/feedback-button.comp
 import { MockupFillComponent } from '../mockup-fill/mockup-fill.component';
 import { ProfileIntegrationsComponent } from '../profile-integrations/profile-integrations.component';
 import { ProfileStaticLinksComponent } from '../profile-static-links/profile-static-links.component';
+import { ProfileUserInfoComponent } from '../profile-user-info/profile-user-info.component';
 import { RatingComponent } from '../rating/rating.component';
 
 export const defaultGradientStops = ['#0A2859', '#041127'];
@@ -28,13 +27,13 @@ export const defaultGradientStops = ['#0A2859', '#041127'];
     CommonModule,
     SvgBoxIconComponent,
     WallpaperComponent,
-    AvatarComponent,
     ProfileStaticLinksComponent,
     RatingComponent,
     GoogleMapsComponent,
     ProfileIntegrationsComponent,
     MockupFillComponent,
     FeedbackButtonComponent,
+    ProfileUserInfoComponent,
   ],
   providers: [
     FeedbackFactory,
@@ -57,8 +56,6 @@ export class ProfileViewComponent implements OnInit {
   >();
   @Output() public feedbackClicked = new EventEmitter<void>();
   @Output() public componentReady = new EventEmitter<void>();
-
-  public dicebearAvatarStyles = EnumDicebearAvatarStyles;
 
   public get isAgent(): boolean {
     return this.data?.type === EnumNotifyUserType.Agent;
