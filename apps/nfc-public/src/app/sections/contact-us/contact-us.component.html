@@ -1,7 +1,7 @@
 <div class="max-content-width">
   <div class="min-h-[80vh] w-full">
     <div class="website-section">
-      <h1 class="section-title z-10">Ti abbiamo convinto?</h1>
+      <h1 class="section-title z-10">{{ title }}</h1>
       <p class="section-subtitle z-10">
         Compila il form sottostante e beviamoci un caffè per scoprire insieme
         come portare il tuo business nello spazio!
@@ -13,7 +13,7 @@
         <form
           [formGroup]="form"
           (submit)="submit()"
-          class="flex flex-col space-y-5 w-full lg:w-4/12 2xl:w-6/12 justify-end p-4 px-5 rounded-xl z-10"
+          class="flex flex-col space-y-5 w-full lg:w-8/12 justify-end p-4 px-5 rounded-xl z-10"
         >
           <notify-tailwind-input
             [parent]="form"

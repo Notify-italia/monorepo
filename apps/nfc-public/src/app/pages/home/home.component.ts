@@ -7,13 +7,13 @@ import { CursorComponent, LoadingComponent } from '@notify/ngx-components';
 import { Subject, combineLatest, tap } from 'rxjs';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
-import { ContactUsComponent } from '../contact-us/contact-us.component';
-import { FeaturesComponent } from '../features/features.component';
-import { InstructionsComponent } from '../instructions/instructions.component';
-import { PartnersComponent } from '../partners/partners.component';
-import { QuestionsComponent } from '../questions/questions.component';
-import { SplashComponent } from '../splash/splash.component';
-import { SustainabilityComponent } from '../sustainability/sustainability.component';
+import { ContactUsComponent } from '../../sections/contact-us/contact-us.component';
+import { FeaturesComponent } from '../../sections/features/features.component';
+import { InstructionsComponent } from '../../sections/instructions/instructions.component';
+import { PartnersComponent } from '../../sections/partners/partners.component';
+import { QuestionsComponent } from '../../sections/questions/questions.component';
+import { SplashComponent } from '../../sections/splash/splash.component';
+import { SustainabilityComponent } from '../../sections/sustainability/sustainability.component';
 
 @Component({
   selector: 'notify-home',

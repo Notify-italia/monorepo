@@ -1,8 +1,6 @@
-<div
-  class="flex justify-center scroll-smooth font-mulish text-slate-200 bg-[#0E0E0F]"
->
+<div class="flex justify-center scroll-smooth font-mulish">
   <div
-    class="fixed w-screen h-screen top-0 left-0 z-[999] bg-black smooth"
+    class="fixed w-full h-full top-0 left-0 z-[999] bg-black smooth"
     [ngClass]="{
       'opacity-0 pointer-events-none': stable
     }"
@@ -11,7 +9,7 @@
   </div>
   <notify-cursor></notify-cursor>
 
-  <div class="h-full w-full flex flex-col max-w-[100vw] overflow-hidden">
+  <div class="h-full w-full flex flex-col overflow-hidden">
     <div class="w-full min-h-[80vh] flex flex-col hero-gradient relative">
       <notify-top-nav></notify-top-nav>
 

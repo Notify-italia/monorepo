@@ -16,8 +16,8 @@ export class TopNavComponent {
     path: string;
   }[] = [
     {
-      label: 'Crea la tua tessera',
-      path: '/personalize',
+      label: 'Sfoglia le tessere',
+      path: '/builder',
     },
   ];
 }

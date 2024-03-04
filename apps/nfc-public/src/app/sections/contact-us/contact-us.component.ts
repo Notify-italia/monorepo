@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -26,6 +26,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './contact-us.component.scss',
 })
 export class ContactUsComponent {
+  @Input() public title = 'Siamo riusciti a convincerti?';
+
   public form = new FormGroup({
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
