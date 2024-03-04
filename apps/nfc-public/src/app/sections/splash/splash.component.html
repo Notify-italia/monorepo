@@ -1,6 +1,6 @@
 <div class="max-content-width">
   <div
-    class="flex flex-col justify-center w-full lg:h-[70vh] relative py-5 lg:py-0"
+    class="flex flex-col justify-center w-full lg:h-[90vh] relative py-5 lg:py-0"
   >
     <div
       class="flex flex-col-reverse lg:flex-row lg:justify-around w-full flex-nowrap items-center h-full"
@@ -30,6 +30,18 @@
             un'avventura spaziale!
           </p>
         </h2>
+
+        <div class="flex justify-center lg:justify-start">
+          <a
+            class="responsive-scroll"
+            href="#features"
+            [ngClass]="{
+              'is-notTouch': !isMobile
+            }"
+          >
+            <span class="scroll-thisico"></span>
+          </a>
+        </div>
       </div>
       <div
         class="w-full h-full lg:w-[80%] lg:h-[80%] flex justify-end opacity-90 px-5 lg:px-0 pointer-events-none z-0"

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ProfileService, SSRDirective } from '@notify/nfc-app-services';
+import { SSRDirective, UtilsService } from '@notify/nfc-app-services';
 import {
   ProfileViewComponent,
   SplineViewerComponent,
@@ -16,21 +16,21 @@ import { BasePageComponent } from '../../components/base-page/base-page.componen
     SSRDirective,
     SplineViewerComponent,
   ],
-  providers: [ProfileService],
+  providers: [UtilsService],
   templateUrl: './splash.component.html',
   styleUrl: './splash.component.scss',
 })
 export class SplashComponent extends BasePageComponent {
-  // public demoProfile$!: Observable<INotifyProfile>;
-  //   constructor(private _profileService: ProfileService) {
-  //     // afterNextRender(
-  //     //   () => {
-  //     //     this.demoProfile$ = this._profileService.getProfile(
-  //     //       '655805c8f5638dc5ef4b3590'
-  //     //     );
-  //     //     this.componentStable.emit();
-  //     //   },
-  //     //   { phase: AfterRenderPhase.Read }
-  //     // );
-  //   }
+  public isMobile = false;
+
+  public constructor(private _utilsService: UtilsService) {
+    super();
+    console.log(
+      'SplashComponent',
+      this._utilsService.currentTailwindMediaQuery()
+    );
+    this.isMobile = ['none', 'sm', 'md'].includes(
+      this._utilsService.currentTailwindMediaQuery()
+    );
+  }
 }
