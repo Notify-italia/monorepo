@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, afterNextRender } from '@angular/core';
 import { SSRDirective, UtilsService } from '@notify/nfc-app-services';
 import {
   ProfileViewComponent,
@@ -24,13 +24,11 @@ export class SplashComponent extends BasePageComponent {
   public isMobile = false;
 
   public constructor(private _utilsService: UtilsService) {
+    afterNextRender(() => {
+      this.isMobile = ['none', 'sm', 'md'].includes(
+        this._utilsService.currentTailwindMediaQuery()
+      );
+    });
     super();
-    console.log(
-      'SplashComponent',
-      this._utilsService.currentTailwindMediaQuery()
-    );
-    this.isMobile = ['none', 'sm', 'md'].includes(
-      this._utilsService.currentTailwindMediaQuery()
-    );
   }
 }
