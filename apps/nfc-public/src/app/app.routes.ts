@@ -14,6 +14,13 @@ export const appRoutes: Route[] = [
       ),
   },
   {
+    path: 'linee-guida',
+    loadComponent: () =>
+      import('./pages/linee-guida/linee-guida.component').then(
+        (m) => m.LineeGuidaComponent
+      ),
+  },
+  {
     path: '**',
     pathMatch: 'full',
     redirectTo: '',

@@ -306,10 +306,10 @@ export class ProfileFormComponent implements OnInit {
 
     return {
       ...this.profile,
-      name: form.name || null,
-      surname: form.surname || null,
-      email: form.email || null,
-      phoneNumber: form.phoneNumber || null,
+      name: form.name?.trim() || null,
+      surname: form.surname?.trim() || null,
+      email: form.email?.trim() || null,
+      phoneNumber: form.phoneNumber?.trim() || null,
       bio: form.bio || null,
       avatar: form.avatar || null,
       config: {
