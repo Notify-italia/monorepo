@@ -1,16 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { UploadComponent } from '@notify/ngx-components';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
 import { ContactUsComponent } from '../../sections/contact-us/contact-us.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, TopNavComponent, ContactUsComponent],
+  imports: [CommonModule, TopNavComponent, ContactUsComponent, UploadComponent],
 
   templateUrl: './card-builder.component.html',
   styleUrl: './card-builder.component.scss',
 })
 export class CardBuilderComponent {
+  public isDropzoneOpen = false;
+
   public cards = [
     {
       theme: 'vermicelli',
@@ -142,5 +145,9 @@ export class CardBuilderComponent {
   resetItem(event: MouseEvent, elem?: HTMLElement) {
     const card = elem || (event.currentTarget as HTMLElement);
     card.style.transform = '';
+  }
+
+  public closeDropzone() {
+    this.isDropzoneOpen = false;
   }
 }

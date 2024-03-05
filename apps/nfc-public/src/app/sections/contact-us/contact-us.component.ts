@@ -27,6 +27,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ContactUsComponent {
   @Input() public title = 'Siamo riusciti a convincerti?';
+  @Input() public extraData: {
+    type: 'file' | 'text';
+    content: string;
+    title: string;
+  }[] = [];
 
   public form = new FormGroup({
     name: new FormControl('', [Validators.required]),
