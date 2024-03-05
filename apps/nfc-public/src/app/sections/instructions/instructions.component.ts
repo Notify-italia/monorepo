@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, afterNextRender } from '@angular/core';
+import { AfterContentInit, Component } from '@angular/core';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
 import { ProfileService, SSRDirective } from '@notify/nfc-app-services';
 import { ProfileViewComponent } from '@notify/ngx-components';
@@ -14,7 +14,10 @@ import { BasePageComponent } from '../../components/base-page/base-page.componen
   templateUrl: './instructions.component.html',
   styleUrl: './instructions.component.scss',
 })
-export class InstructionsComponent extends BasePageComponent {
+export class InstructionsComponent
+  extends BasePageComponent
+  implements AfterContentInit
+{
   public isProfileReady = false;
 
   public demoProfile$!: Observable<INotifyProfile>;
@@ -37,11 +40,8 @@ export class InstructionsComponent extends BasePageComponent {
     },
   ];
 
-  constructor() {
-    super();
-    afterNextRender(() => {
-      this.demoProfile$ = of(_DEMO_PROFILE);
-    });
+  ngAfterContentInit(): void {
+    this.demoProfile$ = of(_DEMO_PROFILE);
   }
 }
 

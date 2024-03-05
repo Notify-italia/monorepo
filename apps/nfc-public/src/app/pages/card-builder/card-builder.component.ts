@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, afterNextRender } from '@angular/core';
+import { PixelService } from '@notify/nfc-app-services';
 import { UploadComponent } from '@notify/ngx-components';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
 import { ContactUsComponent } from '../../sections/contact-us/contact-us.component';
@@ -123,8 +124,9 @@ export class CardBuilderComponent {
 
   public selectedCard = this.cards[0].items[0];
 
-  constructor() {
+  constructor(private _pixel: PixelService) {
     afterNextRender(() => {
+      this._pixel.track('ViewContent');
       window.scrollTo(0, 0);
     });
   }

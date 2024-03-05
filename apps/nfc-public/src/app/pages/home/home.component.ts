@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterContentInit, Component, afterNextRender } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { PixelService } from '@notify/nfc-app-services';
@@ -37,23 +37,28 @@ import { SustainabilityComponent } from '../../sections/sustainability/sustainab
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements AfterContentInit {
   public instructionsStable$ = new Subject<void>();
 
   public stable = false;
 
-  public pageStable$ = combineLatest([this.instructionsStable$])
-    .pipe(
-      tap(() => this.scrollToElement()),
-      tap(() => (this.stable = true))
-    )
-    .subscribe();
+  public pageStable$ = combineLatest([this.instructionsStable$]).pipe(
+    tap(() => window.scrollTo(0, 0)),
+    tap(() => this.scrollToElement()),
+    tap(() => (this.stable = true))
+  );
 
   constructor(
     private _pixel: PixelService,
     private _activatedRoute: ActivatedRoute
   ) {
-    this._pixel.track('ViewContent');
+    afterNextRender(() => {
+      this._pixel.track('ViewContent');
+    });
+  }
+
+  public ngAfterContentInit() {
+    this.pageStable$.subscribe();
   }
 
   public scrollToElement() {
