@@ -124,6 +124,12 @@ export class CardBuilderComponent {
   public selectedCard = this.cards[0].items[0];
 
   rotateItem(event: MouseEvent, coeff = 50, elem?: HTMLElement) {
+    const isMobile = window.innerWidth < 768;
+
+    if (isMobile) {
+      return;
+    }
+
     const card = elem || (event.currentTarget as HTMLElement);
 
     const rect = card.getBoundingClientRect();

@@ -80,7 +80,7 @@
     >
       <div class="nfc-card" #MainCardContainer>
         <img
-          class="nfc-card hover:brightness-125 smooth"
+          class="nfc-card lg:hover:brightness-125 smooth"
           [src]="selectedCard.path"
           [title]="selectedCard.title"
         />
@@ -134,7 +134,7 @@
 
 <ng-template #CardSelector let-item="item">
   <button
-    class="w-12 h-12 smooth flex flex-col group/card hover:scale-110 focus-within:hover:scale-100"
+    class="w-12 h-12 smooth flex flex-col group/card lg:hover:scale-110 lg:focus-within:hover:scale-100"
     tabindex="0"
   >
     <div
