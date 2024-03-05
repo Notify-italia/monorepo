@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getSalesContactRouter } from './contact';
+import { getSalesContactRouter } from './get.contact';
 
 const router = Router();
 

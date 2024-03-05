@@ -15,9 +15,9 @@ export class TopNavComponent {
     label: string;
     path: string;
   }[] = [
-    {
-      label: 'Sfoglia le tessere',
-      path: '/builder',
-    },
+    // {
+    //   label: 'Sfoglia le tessere',
+    //   path: '/builder',
+    // },
   ];
 }

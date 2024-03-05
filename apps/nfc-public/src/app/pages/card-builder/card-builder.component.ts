@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, afterNextRender } from '@angular/core';
 import { UploadComponent } from '@notify/ngx-components';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
 import { ContactUsComponent } from '../../sections/contact-us/contact-us.component';
@@ -122,6 +122,12 @@ export class CardBuilderComponent {
   ];
 
   public selectedCard = this.cards[0].items[0];
+
+  constructor() {
+    afterNextRender(() => {
+      window.scrollTo(0, 0);
+    });
+  }
 
   rotateItem(event: MouseEvent, coeff = 50, elem?: HTMLElement) {
     const isMobile = window.innerWidth < 768;

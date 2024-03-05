@@ -6,14 +6,14 @@
 @import url(//fonts.googleapis.com/css?family=Vibur);
 
 .website-section {
-  @apply flex flex-col justify-center items-center  px-3;
+  @apply flex flex-col justify-center items-center;
 
   .section-title {
-    @apply text-white text-3xl lg:text-4xl font-bold text-center font-caveat;
+    @apply text-white text-3xl lg:text-4xl font-bold text-center font-caveat px-3;
   }
 
   .section-subtitle {
-    @apply font-medium text-center  text-white/60;
+    @apply font-medium text-center  text-white/60 px-3;
   }
 }
 

@@ -11,6 +11,7 @@ import { ContactUsComponent } from '../../sections/contact-us/contact-us.compone
 import { FeaturesComponent } from '../../sections/features/features.component';
 import { InstructionsComponent } from '../../sections/instructions/instructions.component';
 import { PartnersComponent } from '../../sections/partners/partners.component';
+import { PersonalizationComponent } from '../../sections/personalization/personalization.component';
 import { QuestionsComponent } from '../../sections/questions/questions.component';
 import { SplashComponent } from '../../sections/splash/splash.component';
 import { SustainabilityComponent } from '../../sections/sustainability/sustainability.component';
@@ -31,6 +32,7 @@ import { SustainabilityComponent } from '../../sections/sustainability/sustainab
     SustainabilityComponent,
     QuestionsComponent,
     CursorComponent,
+    PersonalizationComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

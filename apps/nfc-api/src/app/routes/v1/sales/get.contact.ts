@@ -12,8 +12,9 @@ router.get(
   query('source'),
   query('email'),
   query('message'),
+  query('extraData'),
   errorHandledRequest(async (req, res) => {
-    const { name, source, email, message } = req.query;
+    const { name, source, email, message, extraData } = req.query;
 
     await sendEmail({
       to: ['commerciale@notifyapp.it'],
@@ -27,6 +28,12 @@ router.get(
       Email: ${email}
       <br>
       Messaggio: ${message}
+      ${
+        extraData
+          ? `<br>
+        Altri dati: ${extraData}`
+          : ''
+      }
       
       </p>`,
     });
