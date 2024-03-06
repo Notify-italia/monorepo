@@ -19,14 +19,13 @@
 
 @font-face {
   font-family: 'Roca Two Bold';
-  src: url('libs/utils/assets/roca-two-bold/Roca Two Bold.eot');
-  src: url('libs/utils/assets/roca-two-bold/Roca Two Bold.eot?#iefix')
+  src: url('../../assets/roca-two-bold/Roca Two Bold.eot');
+  src: url('../../assets/roca-two-bold/Roca Two Bold.eot?#iefix')
       format('embedded-opentype'),
-    url('libs/utils/assets/roca-two-bold/Roca Two Bold.woff2') format('woff2'),
-    url('libs/utils/assets/roca-two-bold/Roca Two Bold.woff') format('woff'),
-    url('libs/utils/assets/roca-two-bold/Roca Two Bold.ttf') format('truetype'),
-    url('libs/utils/assets/roca-two-bold/Roca Two Bold.svg#Roca Two Bold')
-      format('svg');
+    url('../../assets/roca-two-bold/Roca Two Bold.woff2') format('woff2'),
+    url('../../assets/roca-two-bold/Roca Two Bold.woff') format('woff'),
+    url('../../assets/roca-two-bold/Roca Two Bold.ttf') format('truetype'),
+    url('../../assets/roca-two-bold/Roca Two Bold.svg') format('svg');
 }
 
 .iphone-15-pro {
