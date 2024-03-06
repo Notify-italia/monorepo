@@ -7,6 +7,7 @@ import { CursorComponent, LoadingComponent } from '@notify/ngx-components';
 import { Subject, combineLatest, tap } from 'rxjs';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
+import { CardBuilderComponent } from '../../sections/card-builder/card-builder.component';
 import { ContactUsComponent } from '../../sections/contact-us/contact-us.component';
 import { FeaturesComponent } from '../../sections/features/features.component';
 import { InstructionsComponent } from '../../sections/instructions/instructions.component';
@@ -33,6 +34,7 @@ import { SustainabilityComponent } from '../../sections/sustainability/sustainab
     QuestionsComponent,
     CursorComponent,
     PersonalizationComponent,
+    CardBuilderComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

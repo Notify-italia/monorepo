@@ -2,7 +2,6 @@ const tailwindConfig = {
   theme: {
     extend: {
       fontFamily: {
-        montserratAlt1: ['Montserrat-Alt1', 'bold'],
         roboto: ['Roboto', 'sans-serif'],
         anek: ['Anek Devanagari', 'sans-serif'],
         mplusRounded: ['M PLUS Rounded 1c', 'sans-serif'],

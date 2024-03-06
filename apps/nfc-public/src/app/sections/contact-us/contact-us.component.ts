@@ -12,6 +12,7 @@ import {
   TailwindFormsModule,
 } from '@notify/ngx-components';
 import { ToastrService } from 'ngx-toastr';
+import { Attachment } from 'nodemailer/lib/mailer';
 
 @Component({
   selector: 'notify-contact-us',
@@ -29,9 +30,10 @@ export class ContactUsComponent {
   @Input() public title = 'Siamo riusciti a convincerti?';
   @Input() public extraData: {
     type: 'file' | 'text';
-    content: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    content: Attachment;
     title: string;
-  }[] = [];
+  } | null = null;
 
   public form = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -45,23 +47,47 @@ export class ContactUsComponent {
     private _toastr: ToastrService
   ) {}
 
-  public submit() {
-    if (!this.form.valid) {
+  public async submit() {
+    if (!this.form.valid || (this.extraData && !this.extraData?.content)) {
       return;
     }
 
     this._pixel.track('Contact');
 
     this._httpService
-      .get('/v1/sales/contact', {
+      .post('/v1/sales/contact', {
         name: this.form.value.name,
         email: this.form.value.email,
         message: this.form.value.message,
         source: 'website',
+        attachments: [
+          {
+            content: await this._arrayBufferToBase64(
+              this.extraData?.content.content as ArrayBuffer
+            ),
+            filename: this.extraData?.content.filename,
+          },
+        ],
       })
       .subscribe(() => {
         this._toastr.success('Grazie per averci contattato!');
         this.form.reset();
       });
+  }
+
+  private async _arrayBufferToBase64(buffer: ArrayBuffer) {
+    //arraybuffer to blob
+    const blob = new Blob([buffer]);
+
+    const result = new Promise<string | ArrayBuffer | null>((resolve) => {
+      //blob to base64 without using FileReader
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = () => {
+        return resolve(reader.result);
+      };
+    });
+
+    return result;
   }
 }

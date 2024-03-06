@@ -84,15 +84,16 @@ export class CursorComponent {
   }
 
   private _pointerMouse(cursor: HTMLElement) {
-    this._currentScale = 5;
+    this._currentScale = 3;
 
-    cursor.style.backdropFilter = 'invert(100%)';
+    // cursor.style.backdropFilter = 'blur(1px)';
 
     cursor.animate(
       [
         {
           scale: this._currentScale,
           border: '1px solid transparent',
+          background: 'rgba(255, 255, 255, 0.2)',
           opacity: 1,
         },
       ],

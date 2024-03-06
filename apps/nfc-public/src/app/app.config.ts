@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideRouter(appRoutes),
     provideHttpClient(withFetch()),
-    providePixelModule({ pixelId: '1035992114161358', enabled: true }),
+    providePixelModule({ pixelId: '1105803970565876', enabled: true }),
     {
       provide: HttpService,
       deps: [HttpClient],

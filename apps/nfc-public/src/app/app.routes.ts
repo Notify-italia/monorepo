@@ -7,13 +7,6 @@ export const appRoutes: Route[] = [
       import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
   {
-    path: 'builder',
-    loadComponent: () =>
-      import('./pages/card-builder/card-builder.component').then(
-        (m) => m.CardBuilderComponent
-      ),
-  },
-  {
     path: 'linee-guida',
     loadComponent: () =>
       import('./pages/linee-guida/linee-guida.component').then(

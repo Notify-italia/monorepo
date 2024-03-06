@@ -1,4 +1,4 @@
-<div
+<!-- <div
   class="modal-container fixed top-0"
   (click)="closeDropzone()"
   *ngIf="isDropzoneOpen"
@@ -28,18 +28,18 @@
           Carica un'immagine per rendere le tue tessere Notify veramente tue!
         </p>
 
-        <div class="divider"></div>
+        <div class="divider"></div> 
       </div>
       <div class="my-5 w-full">
         <notify-upload
           class="w-full h-full"
           acceptedFiles="image/*"
           (fileChanged)="
-            selectedCard = {
-              title: 'Custom',
+            updateCard({
+              title: $event.file?.name || '',
               path: $event.blob?.toString() || '',
               thumb: ''
-            };
+            });
             closeDropzone()
           "
         ></notify-upload>
@@ -57,23 +57,20 @@
       >
     </div>
   </div>
-</div>
+</div> -->
 
 <div class="max-content-width flex !flex-col items-center">
-  <notify-top-nav class="w-full"></notify-top-nav>
-
   <div
-    class="website-section space-y-5 w-full h-[90vh]"
+    class="website-section space-y-5 w-full"
     (mousemove)="rotateItem($event, 70, MainCardContainer)"
     (mouseleave)="resetItem($event, MainCardContainer)"
   >
-    <h1 class="section-title">Dress the part 😎</h1>
+    <h1 class="section-title">Non vuoi una tessera personalizzata?</h1>
     <p class="section-subtitle">
-      è importante scegliere la carta giusta per la tua azienda,
+      Non ti preoccupare, abbiamo pensato a tutto!
       <br />
-      scegli un design che ti rappresenti o caricane uno personalizzato e noi ci
-      occuperemo del resto
-      <br />
+      Scegli una delle nostre tessere predefinite e ricevi la tua tessera in
+      pochi giorni!
     </p>
 
     <div
@@ -97,7 +94,9 @@
         [ngTemplateOutletContext]="{ item }"
       ></ng-container>
       }
-      <button
+
+      <!-- ? Carica la tua tessera -->
+      <!-- <button
         (click)="isDropzoneOpen = !isDropzoneOpen"
         class="mask mask-squircle w-12 h-12 bg-gray-200 text-black items-center flex justify-center hover:scale-110 smooth"
       >
@@ -113,23 +112,8 @@
             clip-rule="evenodd"
           />
         </svg>
-      </button>
+      </button> -->
     </div>
-  </div>
-  <div class="w-full">
-    <div class="divider"></div>
-    <notify-contact-us
-      title="Soddisfatto dalla tua scelta?"
-      class="h-full w-full"
-      [extraData]="[
-        {
-          title: 'La tua tessera preferita',
-          content: selectedCard.path,
-          type: 'file'
-        }
-      ]"
-    >
-    </notify-contact-us>
   </div>
 </div>
 
@@ -149,7 +133,7 @@
         class="mask mask-squircle w-10 h-10 hover:scale-110 cursor-pointer smooth"
         [draggable]="false"
         #ThisCard
-        (click)="selectedCard = card; ThisCard.blur()"
+        (click)="updateCard(card); ThisCard.blur()"
       />
       }
     </div>

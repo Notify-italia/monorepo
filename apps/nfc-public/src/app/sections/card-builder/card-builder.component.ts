@@ -3,12 +3,12 @@ import { Component, afterNextRender } from '@angular/core';
 import { PixelService } from '@notify/nfc-app-services';
 import { UploadComponent } from '@notify/ngx-components';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
-import { ContactUsComponent } from '../../sections/contact-us/contact-us.component';
+import { ContactUsComponent } from '../contact-us/contact-us.component';
 
 @Component({
   standalone: true,
   imports: [CommonModule, TopNavComponent, ContactUsComponent, UploadComponent],
-
+  selector: 'notify-card-builder',
   templateUrl: './card-builder.component.html',
   styleUrl: './card-builder.component.scss',
 })
@@ -18,116 +18,126 @@ export class CardBuilderComponent {
   public cards = [
     {
       theme: 'vermicelli',
-      thumb: '/assets/cards/vermicelli/thumb.png',
+      thumb: '/assets/cards/vermicelli/thumb.webp',
       items: [
         {
-          title: 'river',
+          title: 'river.svg',
           path: '/assets/cards/vermicelli/river.svg',
-          thumb: '/assets/cards/vermicelli/river_thumb.png',
+          thumb: '/assets/cards/vermicelli/river_thumb.webp',
         },
         {
-          title: 'banana',
+          title: 'banana.svg',
           path: '/assets/cards/vermicelli/banana.svg',
-          thumb: '/assets/cards/vermicelli/banana_thumb.png',
+          thumb: '/assets/cards/vermicelli/banana_thumb.webp',
         },
         {
-          title: 'neon',
+          title: 'neon.svg',
           path: '/assets/cards/vermicelli/neon.svg',
-          thumb: '/assets/cards/vermicelli/neon_thumb.png',
+          thumb: '/assets/cards/vermicelli/neon_thumb.webp',
         },
       ],
     },
     {
       theme: 'esagoni',
-      thumb: '/assets/cards/esagoni/thumb.png',
+      thumb: '/assets/cards/esagoni/thumb.webp',
       items: [
         {
-          title: 'river',
+          title: 'river.svg',
           path: '/assets/cards/esagoni/river.svg',
-          thumb: '/assets/cards/esagoni/river_thumb.png',
+          thumb: '/assets/cards/esagoni/river_thumb.webp',
         },
         {
-          title: 'banana',
+          title: 'banana.svg',
           path: '/assets/cards/esagoni/banana.svg',
-          thumb: '/assets/cards/esagoni/banana_thumb.png',
+          thumb: '/assets/cards/esagoni/banana_thumb.webp',
         },
         {
-          title: 'neon',
+          title: 'neon.svg',
           path: '/assets/cards/esagoni/neon.svg',
-          thumb: '/assets/cards/esagoni/neon_thumb.png',
+          thumb: '/assets/cards/esagoni/neon_thumb.webp',
         },
       ],
     },
     {
       theme: 'cubi',
-      thumb: '/assets/cards/cubi/thumb.png',
+      thumb: '/assets/cards/cubi/thumb.webp',
       items: [
         {
-          title: 'river',
+          title: 'river.svg',
           path: '/assets/cards/cubi/river.svg',
-          thumb: '/assets/cards/cubi/river_thumb.png',
+          thumb: '/assets/cards/cubi/river_thumb.webp',
         },
         {
-          title: 'banana',
+          title: 'banana.svg',
           path: '/assets/cards/cubi/banana.svg',
-          thumb: '/assets/cards/cubi/banana_thumb.png',
+          thumb: '/assets/cards/cubi/banana_thumb.webp',
         },
         {
-          title: 'neon',
+          title: 'neon.svg',
           path: '/assets/cards/cubi/neon.svg',
-          thumb: '/assets/cards/cubi/neon_thumb.png',
+          thumb: '/assets/cards/cubi/neon_thumb.webp',
         },
       ],
     },
     {
       theme: 'pastello',
-      thumb: '/assets/cards/pastello/thumb.png',
+      thumb: '/assets/cards/pastello/thumb.webp',
       items: [
         {
-          title: 'black',
+          title: 'black.svg',
           path: '/assets/cards/pastello/black.svg',
-          thumb: '/assets/cards/pastello/black_thumb.png',
+          thumb: '/assets/cards/pastello/black_thumb.webp',
         },
         {
-          title: 'blue',
+          title: 'blue.svg',
           path: '/assets/cards/pastello/blue.svg',
-          thumb: '/assets/cards/pastello/blue_thumb.png',
+          thumb: '/assets/cards/pastello/blue_thumb.webp',
         },
         {
-          title: 'grass',
+          title: 'grass.svg',
           path: '/assets/cards/pastello/grass.svg',
-          thumb: '/assets/cards/pastello/grass_thumb.png',
+          thumb: '/assets/cards/pastello/grass_thumb.webp',
         },
         {
-          title: 'lemon',
+          title: 'lemon.svg',
           path: '/assets/cards/pastello/lemon.svg',
-          thumb: '/assets/cards/pastello/lemon_thumb.png',
+          thumb: '/assets/cards/pastello/lemon_thumb.webp',
         },
         {
-          title: 'purple',
+          title: 'purple.svg',
           path: '/assets/cards/pastello/purple.svg',
-          thumb: '/assets/cards/pastello/purple_thumb.png',
+          thumb: '/assets/cards/pastello/purple_thumb.webp',
         },
         {
-          title: 'pink',
+          title: 'pink.svg',
           path: '/assets/cards/pastello/pink.svg',
-          thumb: '/assets/cards/pastello/pink_thumb.png',
+          thumb: '/assets/cards/pastello/pink_thumb.webp',
         },
         {
-          title: 'red',
+          title: 'red.svg',
           path: '/assets/cards/pastello/red.svg',
-          thumb: '/assets/cards/pastello/red_thumb.png',
+          thumb: '/assets/cards/pastello/red_thumb.webp',
         },
       ],
     },
   ];
 
-  public selectedCard = this.cards[0].items[0];
+  public selectedCard: {
+    title: string;
+    path: string;
+    thumb: string;
+    data?: Buffer | null;
+  } = {
+    title: 'river.svg',
+    path: '/assets/cards/vermicelli/river.svg',
+    thumb: '/assets/cards/vermicelli/river_thumb.webp',
+  };
 
   constructor(private _pixel: PixelService) {
     afterNextRender(() => {
       this._pixel.track('ViewContent');
       window.scrollTo(0, 0);
+      this.updateCard(this.cards[0].items[0]);
     });
   }
 
@@ -163,5 +173,32 @@ export class CardBuilderComponent {
 
   public closeDropzone() {
     this.isDropzoneOpen = false;
+  }
+
+  public async updateCard(card: typeof this.selectedCard) {
+    card.data = (await (
+      await this._getCurrentCardBlob(card)
+    )?.arrayBuffer()) as Buffer;
+    this.selectedCard = card;
+  }
+
+  private _getCurrentCardBlob(card: {
+    title: string;
+    path: string;
+    thumb: string;
+  }) {
+    // if (this.selectedCard.title === 'Custom') {
+    //   return this.selectedCard.path;
+    // }
+
+    return fetch(card.path)
+      .then((res) => res.blob())
+      .then((blob) => {
+        return blob;
+      })
+      .catch((err) => {
+        console.error(err);
+        return null;
+      });
   }
 }

@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { getSalesContactRouter } from './get.contact';
+import { postSalesContactRouter } from './post.contact';
 
 const router = Router();
 
-router.use('/contact', getSalesContactRouter);
+router.use('/contact', postSalesContactRouter);
 
 export { router as SalesRouter };
