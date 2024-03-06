@@ -3,5 +3,5 @@
 }
 
 .slide {
-  @apply grayscale hover:invert hover:grayscale-0 object-center  flex flex-col justify-center items-center m-2 lg:m-0;
+  @apply grayscale hover:grayscale-0 object-center  flex flex-col justify-center items-center m-2 lg:m-0;
 }

@@ -6,7 +6,7 @@ import { LicenseManager } from '../../../services/service.license';
 
 const router = Router();
 
-router.patch(
+router.post(
   '/',
   body('allowedAgents')
     .isNumeric()
