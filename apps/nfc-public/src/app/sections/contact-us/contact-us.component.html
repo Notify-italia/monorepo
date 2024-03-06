@@ -13,7 +13,7 @@
         <form
           [formGroup]="form"
           (submit)="submit()"
-          class="flex flex-col space-y-5 w-full lg:w-8/12 justify-end p-4 px-5 rounded-xl z-10"
+          class="flex flex-col space-y-5 w-full lg:w-8/12 justify-end p-4 px-5 rounded-xl z-10 absolute"
         >
           <notify-tailwind-input
             [parent]="form"
@@ -75,10 +75,18 @@
           </div>
         </form>
 
-        <img
+        <video
+          src="/assets/space-rocket.webm"
+          muted
+          loop
+          autoplay
+          class="w-full h-full pointer-events-none lg:scale-75 object-contain"
+        ></video>
+
+        <!-- <img
           src="/assets/images/space-rocket.gif"
           class="w-full h-full pointer-events-none lg:scale-75 absolute object-cover"
-        />
+        /> -->
 
         <!-- <notify-spline-viewer
         class="w-full h-full pointer-events-none scale-75 lg:scale-100 absolute object-cover"
