@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   EnumNotifyNoteItemType,
   INotifyNote,
@@ -32,7 +39,7 @@ import { NoteOwnersWidgetComponent } from '../note-owners-widget/note-owners-wid
   templateUrl: './note-detail.component.html',
   styleUrl: './note-detail.component.scss',
 })
-export class NoteDetailComponent implements OnInit {
+export class NoteDetailComponent implements OnInit, OnChanges {
   @Input({ required: true }) note!: INotifyNote;
 
   @Output() noteChanged = new EventEmitter<INotifyNote>();
@@ -48,6 +55,10 @@ export class NoteDetailComponent implements OnInit {
     this.currentNote = this.note;
   }
 
+  ngOnChanges(): void {
+    this.currentNote = this.note;
+  }
+
   public headerChanged(value: INotifyNoteHeader | null) {
     if (!value) {
       return;
@@ -59,6 +70,7 @@ export class NoteDetailComponent implements OnInit {
 
   public itemChanged(item: INotifyNoteItemValue | null, index: number) {
     this.currentNote.items[index].value = item;
+
     this.noteChanged.emit(this.currentNote);
   }
 
