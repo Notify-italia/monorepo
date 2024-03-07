@@ -17,10 +17,10 @@
   <div>
     <div>
       <div
-        class="flex flex-col lg:flex-row lg:space-x-2 lg:p-2 w-full lg:min-h-[80vh] justify-around"
+        class="flex flex-col lg:flex-row lg:space-x-2 w-full justify-around lg:items-start"
       >
         <!-- DESKTOP USER SELECT -->
-        <div class="lg:w-3/12 p-2 space-y-2">
+        <div class="lg:w-3/12 p-2 space-y-2 lg:h-full">
           <notify-search-bar
             [array$]="agents$"
             [filterableFields]="filterableFields"
@@ -48,7 +48,7 @@
 
         <div class="divider lg:divider-horizontal"></div>
 
-        <div class="lg:p-2 w-full lg:w-9/12 min-h-[33rem]">
+        <div class="lg:p-2 w-full lg:w-9/12">
           @if(selectedAgent.value) { @if(agentStats$ | async; as stats) {
           <div
             class="flex flex-col justify-around w-full h-full v-spacing flex-nowrap"

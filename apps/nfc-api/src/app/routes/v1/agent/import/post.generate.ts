@@ -11,14 +11,14 @@ router.post(
   //TODO validazione
   errorHandledRequest(
     async (req: Request<{ email: string; password: string }>, res) => {
-      const user = await ImportManager.generate({
+      const generatedAgents = await ImportManager.generate({
         ...req.body,
         parent: req.currentUser._id,
       });
 
-      await user.createDocuments();
+      await generatedAgents.createDocuments();
 
-      res.status(201).json(user);
+      res.status(201).json(generatedAgents.instance);
     },
     {
       requireAuth: {

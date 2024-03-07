@@ -14,6 +14,7 @@ router.post(
     {
       requireAuth: {
         requireLicense: false,
+        ignoreExpiration: true,
       },
     }
   )

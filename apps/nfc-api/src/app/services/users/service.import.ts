@@ -1,10 +1,15 @@
-import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
+import {
+  EnumNotifyUserType,
+  INotifyCompany,
+  INotifyProfile,
+} from '@notify/interfaces';
 import csv from 'csv-parser';
 import * as fs from 'fs';
 import { Types } from 'mongoose';
 import { AgentDocument, AgentModel } from '../../models/model.agent';
 import { ProfileDocument, ProfileModel } from '../../models/model.profile';
 import { BadRequestError } from '../errors/errors';
+import { agentCreatedEmail } from '../service.email';
 import { asyncForEach } from '../service.utils';
 
 const pendingImports: ImportManager[] = [];
@@ -34,11 +39,20 @@ export class ImportManager {
     profile: ProfileDocument;
   }[] = [];
 
+  private _plainTextPasswords: {
+    email: string;
+    password: string;
+  }[] = [];
+
   public get documents() {
     return this._documents.map((i) => ({
       agent: i.agent.toJSON(),
       profile: i.profile.toJSON(),
     }));
+  }
+
+  public get instance() {
+    return { ...this, _plainTextPasswords: undefined };
   }
 
   constructor(
@@ -56,7 +70,11 @@ export class ImportManager {
   }
 
   public static load(id: string) {
-    return pendingImports.find((i) => i.instanceConfig.id === id);
+    const result = pendingImports.find((i) => i.instanceConfig.id === id);
+    if (!result) {
+      throw new BadRequestError('Nessuna importazione trovata');
+    }
+    return result;
   }
 
   public async createDocuments() {
@@ -66,10 +84,26 @@ export class ImportManager {
     });
   }
 
-  public confirm() {
-    this._documents.forEach(async (i) => {
+  public async confirm(currentUser: INotifyCompany) {
+    await asyncForEach(this._documents, async (i) => {
       await i.agent.save();
       await i.profile.save();
+
+      const password =
+        this._plainTextPasswords.find((p) => p.email === i.agent.email)
+          ?.password || `ERRORE DURANTE L'OTTENIMENTO DELLA PASSWORD`;
+
+      console.log('password', password);
+
+      await agentCreatedEmail(
+        i.agent.email,
+        currentUser.email as string,
+        password
+      );
+
+      console.log('email inviata');
+
+      pendingImports.splice(pendingImports.indexOf(this), 1);
     });
   }
 
@@ -112,18 +146,22 @@ export class ImportManager {
         );
       }
 
+      const password = i.password || this._generateString();
+
       const agent = await AgentModel.build(
         {
           email: i.email,
-          password: i.password || this._generateString(),
+          password,
           owner: this.instanceConfig.options?.parent,
         },
         {
           role: _p?.role || noDataString,
-          feedbackEnabled: _p?.config.feedbackEnabled ?? false,
+          feedbackEnabled: _p?.config?.feedbackEnabled ?? false,
         },
         true
       );
+
+      this._plainTextPasswords.push({ email: i.email, password });
 
       const profile = ProfileModel.build({
         role: _p?.role || _fallbackProfile?.role || noDataString,
@@ -133,15 +171,15 @@ export class ImportManager {
         type: EnumNotifyUserType.Agent,
         config: _p?.config || _fallbackProfile?.config,
         phoneNumber: _p?.phoneNumber || noDataString,
-        email: _p?.email || noDataString,
+        email: _p?.email || agent.email || noDataString,
         bio: _p?.bio || _fallbackProfile?.bio || noDataString,
-        avatar: _p?.avatar || _fallbackProfile?.avatar,
+        avatar: _p?.avatar,
         customFields: _p?.customFields || _fallbackProfile?.customFields,
         colors: _p?.colors || _fallbackProfile?.colors,
         redirectUrl: _p?.redirectUrl || _fallbackProfile?.redirectUrl,
       });
 
-      profile.config.feedbackEnabled = _p?.config.feedbackEnabled ?? false;
+      profile.config.feedbackEnabled = _p?.config?.feedbackEnabled ?? false;
       profile.role = _p?.role || _fallbackProfile?.role || noDataString;
 
       results.push({ agent, profile });

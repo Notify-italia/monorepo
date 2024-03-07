@@ -13,13 +13,21 @@ export const errorHandledRequest = <T>(
     errorMessage?: string;
     requireAuth?: {
       requireLicense?: boolean;
+      ignoreExpiration?: boolean;
     };
     permittedRoles?: EnumNotifyUserType[];
   }
 ) => {
   //if requireAuth is true, then we need to check for the token
   const _reqAuth = config?.requireAuth
-    ? [_ehReq(requireAuth(config.requireAuth.requireLicense))]
+    ? [
+        _ehReq(
+          requireAuth(
+            config.requireAuth.requireLicense,
+            config.requireAuth.ignoreExpiration
+          )
+        ),
+      ]
     : [];
 
   const _permRoles = config?.permittedRoles?.length

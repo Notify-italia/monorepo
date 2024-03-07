@@ -10,6 +10,7 @@ import {
 import { PROFILE_VALIDATION_MESSAGES } from '../../../models/model.profile';
 import { BadRequestError } from '../../../services/errors/errors';
 import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { agentCreatedEmail } from '../../../services/service.email';
 import { LicenseManager } from '../../../services/service.license';
 import { userSignInValidation } from '../../../services/service.validation';
 
@@ -63,7 +64,11 @@ router.post(
 
       await agent?.save();
 
-      //TODO send email to agent
+      await agentCreatedEmail(
+        agent.email,
+        req.currentUser?.email as string,
+        password
+      );
 
       res.status(201).send(agent);
     },
