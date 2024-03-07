@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SplineViewerComponent } from '@notify/ngx-components';
 import { BasePageComponent } from '../../components/base-page/base-page.component';
 
@@ -9,5 +9,6 @@ import { BasePageComponent } from '../../components/base-page/base-page.componen
   imports: [CommonModule, SplineViewerComponent],
   templateUrl: './sustainability.component.html',
   styleUrl: './sustainability.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SustainabilityComponent extends BasePageComponent {}

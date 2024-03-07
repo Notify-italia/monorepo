@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, afterNextRender } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SSRDirective, UtilsService } from '@notify/nfc-app-services';
 import {
   ProfileViewComponent,
@@ -19,16 +19,6 @@ import { BasePageComponent } from '../../components/base-page/base-page.componen
   providers: [UtilsService],
   templateUrl: './splash.component.html',
   styleUrl: './splash.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SplashComponent extends BasePageComponent {
-  public isMobile = false;
-
-  public constructor(private _utilsService: UtilsService) {
-    afterNextRender(() => {
-      this.isMobile = ['none', 'sm', 'md'].includes(
-        this._utilsService.currentTailwindMediaQuery()
-      );
-    });
-    super();
-  }
-}
+export class SplashComponent extends BasePageComponent {}

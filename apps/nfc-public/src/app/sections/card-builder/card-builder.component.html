@@ -129,6 +129,7 @@
     >
       @for (card of item.items; track $index) {
       <img
+        loading="lazy"
         [alt]="card.title"
         tabindex="0"
         [src]="card.thumb"
@@ -140,6 +141,7 @@
       }
     </div>
     <img
+      [alt]="item.title + ' thumbnail'"
       [src]="item.thumb"
       class="mask mask-squircle w-12 h-12 saturate-0"
       tabindex="0"

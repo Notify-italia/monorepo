@@ -16,8 +16,9 @@
         @for (item of row; track $index) {
         <ng-container
           [ngTemplateOutlet]="Card"
-          [ngTemplateOutletContext]="{item, half: 'first'}"
+          [ngTemplateOutletContext]="{item, half: $index === 0 ? 'first' : 'second'}"
         ></ng-container>
+
         }
       </div>
       }
@@ -33,7 +34,10 @@
     }"
       tabindex="0"
     >
-      <div class="flex flex-col justify-around space-y-2">
+      <div
+        class="flex flex-col justify-around space-y-2 w-full"
+        [ngClass]="{ 'items-end': half === 'second' }"
+      >
         <div
           class="mask mask-squircle h-12 w-12 shrink-0 items-center flex flex-col justify-center {{
             item.color
@@ -44,12 +48,14 @@
         <span
           [innerHTML]="item.title"
           class="p-2 items-center w-full font-bold text-white text-xl drop-shadow-lg my-auto text-start"
+          [ngClass]="{ '!text-end': half === 'second' }"
         ></span>
       </div>
 
       <span
         [innerHTML]="item.description"
         class="px-2 text-gray-300/80 overflow-hidden opacity-100 max-h-96 smooth text-justify drop-shadow-md font-light leading-relaxed"
+        [ngClass]="{ 'text-end': half === 'second' }"
       ></span>
     </button>
   </ng-template>

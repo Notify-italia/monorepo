@@ -35,10 +35,41 @@
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
 
-    <script
-      defer
-      src="https://unpkg.com/tailwindcss-intersect@1.x.x/dist/observer.min.js"
-    ></script>
+    <script defer>
+      (() => {
+        var n = {
+            start() {
+              if (document.readyState !== 'complete') {
+                document.addEventListener('DOMContentLoaded', this.observe);
+                return;
+              }
+              this.observe();
+            },
+            observe() {
+              document
+                .querySelectorAll(
+                  '[class*=" intersect:"],[class*=":intersect:"],[class^="intersect:"],[class="intersect"],[class*=" intersect "],[class^="intersect "],[class$=" intersect"]'
+                )
+                .forEach((e) => {
+                  let t = new IntersectionObserver((r) => {
+                    r.forEach((c) => {
+                      if (!c.isIntersecting) {
+                        e.setAttribute('no-intersect', '');
+                        return;
+                      }
+                      e.removeAttribute('no-intersect'),
+                        e.classList.contains('intersect-once') &&
+                          t.disconnect();
+                    });
+                  });
+                  t.observe(e);
+                });
+            },
+          },
+          s = n;
+        s.start();
+      })();
+    </script>
     <!-- 
     <script
       type="text/javascript"
