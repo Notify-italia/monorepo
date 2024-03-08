@@ -49,10 +49,25 @@ export class ProfileService {
     );
   }
 
-  public saveContact(d: INotifyProfile, publicUrl: string): void {
+  public async saveContact(d: INotifyProfile, publicUrl: string) {
     if (!d) {
       return;
     }
+
+    const avatar = this._isAvatarBase64(d.avatar || '')
+      ? d.avatar
+      : await fetch(d.avatar || '')
+          .then((r) => r.blob())
+          .then(
+            (blob) =>
+              new Promise<string>((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                  resolve(reader.result as string);
+                };
+                reader.readAsDataURL(blob);
+              })
+          );
 
     const vcard = `BEGIN:VCARD
 VERSION:3.0
@@ -60,7 +75,7 @@ N:${d.surname};${d.name};
 FN:${d.name} ${d.surname}
 ORG:${d.company?.name || d.name}
 TEL;TYPE=work,voice;VALUE=uri:${this.cleanPhoneNumber(d.phoneNumber || '')}
-PHOTO;ENCODING=b:${d.avatar?.split(',')[1]}
+PHOTO;ENCODING=b:${avatar?.split(',')[1]}
 item2.URL;type=pref:${this.genPlayerUrl(
       publicUrl,
       d._id,
@@ -78,5 +93,12 @@ END:VCARD`;
     );
     a.setAttribute('download', 'contact.vcf');
     a.click();
+  }
+
+  private _isAvatarBase64(avatar: string) {
+    const base64regex =
+      /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+
+    return base64regex.test(avatar);
   }
 }
