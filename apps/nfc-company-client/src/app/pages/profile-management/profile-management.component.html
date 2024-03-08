@@ -1,12 +1,42 @@
 <div class="page-layout">
   <notify-page-header
-    title="Gestione Profilo"
-    subtitle="Modifica e condividi il tuo profilo aziendale"
+    [title]="
+      providedProfile ? 'Modifica Profilo Utente' : 'Gestione Profilo Aziendale'
+    "
+    [subtitle]="
+      providedProfile
+        ? 'Modifica e condividi il profilo di un tuo utente'
+        : 'Modifica e condividi il tuo profilo aziendale'
+    "
   ></notify-page-header>
 
   @if (profile$ | async; as profile) {
   <div>
     <div>
+      <!-- BACK TO LIST -->
+      <button
+        *ngIf="providedProfile"
+        [disabled]="loading"
+        type="button"
+        class="btn w-28 lg:w-44 lg:space-x-2 flex items-center justify-center border-none flex-nowrap hover:brightness-150 whitespace-nowrap !bg-complimentary-400/30 smooth"
+        routerLink="/pages/users"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          class="w-6 h-6"
+          stroke-width="1.5"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+          />
+        </svg>
+        <span>Torna alla lista</span>
+      </button>
       <div>
         <notify-share-profile
           [profile]="profile"

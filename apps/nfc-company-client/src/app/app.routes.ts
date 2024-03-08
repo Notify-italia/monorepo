@@ -54,10 +54,10 @@ export const appRoutes: Route[] = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'accounts',
+        redirectTo: 'users',
       },
       {
-        path: 'accounts',
+        path: 'users',
         canActivate: [licenseGuard],
         loadComponent: () =>
           import('./pages/accounts/accounts.component').then(

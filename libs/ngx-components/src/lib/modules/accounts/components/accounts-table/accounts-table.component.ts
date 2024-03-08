@@ -55,6 +55,7 @@ export class AccountsTableComponent {
   @Output() public showUserForm = new EventEmitter<INotifyAgent>();
   @Output() public deleteUser = new EventEmitter<INotifyAgent>();
   @Output() public rowClicked = new EventEmitter<INotifyAgent>();
+  @Output() public editProfile = new EventEmitter<INotifyAgent>();
 
   public users: INotifyAgent[] | null = null;
 

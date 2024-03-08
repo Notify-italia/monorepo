@@ -60,7 +60,7 @@ interface ProfileModel extends Model<Profile> {
 // 3. Crea uno Schema corrispondente all'interfaccia del documento definita al punto 1
 //    nb: l'interfaccia del documento avrà anche _id e __v, che non devono essere
 //        aggiunte nel Schema!
-const OrdineSchema = new Schema<Profile, ProfileModel>(
+const ProfileSchema = new Schema<Profile, ProfileModel>(
   {
     name: {
       type: String,
@@ -128,6 +128,7 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
     owner: {
       type: Schema.Types.ObjectId,
       required: true,
+      refPath: 'type',
     },
     address: {
       street: {
@@ -207,12 +208,12 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
 );
 
 // 4. Aggiungi qui, se ci sono, gli hook da eseguire prima o dopo una operazione di CRUD (create, read, update, delete)
-OrdineSchema.pre('save', async function (done) {
+ProfileSchema.pre('save', async function (done) {
   done();
 });
 
 // 5. Aggiungi un metodo statico build per creare il nuovo Model
-OrdineSchema.statics.build = (doc: Partial<Profile>) => {
+ProfileSchema.statics.build = (doc: Partial<Profile>) => {
   doc.colors = doc.colors || {
     background: ['#0A2859', '#041127'],
     elements: '#FFFFFF',
@@ -224,5 +225,5 @@ OrdineSchema.statics.build = (doc: Partial<Profile>) => {
 // 6. Esporta il Model creato con la funzione model di mongoose
 export const ProfileModel = model<Profile, ProfileModel>(
   'Profile',
-  OrdineSchema
+  ProfileSchema
 );

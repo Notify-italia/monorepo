@@ -82,6 +82,7 @@
             #sidebarItem
             [routerLink]="item.path"
             routerLinkActive="btn-active pointer-events-none"
+            [routerLinkActiveOptions]="{ exact: true }"
             class="flex space-x-2 smooth smooth-slow"
             (click)="sidebarItem.blur(); DrawerController.click()"
           >
@@ -114,6 +115,7 @@
             #bottomSidebarItem
             [routerLink]="item.path"
             routerLinkActive="btn-active pointer-events-none"
+            [routerLinkActiveOptions]="{ exact: true }"
             class="flex space-x-2 {{ item.style }}"
             (click)="bottomSidebarItem.blur(); DrawerController.click()"
           >

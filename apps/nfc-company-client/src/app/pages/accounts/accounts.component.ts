@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   AppError,
   EnumNotifyUserType,
@@ -79,7 +80,8 @@ export class AccountsComponent implements OnInit {
     private _userFormFactory: UserFormFactory,
     private _confirmModalFactory: ConfirmModalFactory,
     private _utilsService: UtilsService,
-    private _companyService: CompanyService
+    private _companyService: CompanyService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -202,6 +204,14 @@ export class AccountsComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  public editProfile(agent: INotifyAgent) {
+    this._router.navigate(['/pages/profile'], {
+      queryParams: {
+        p: agent.profile?._id,
+      },
+    });
   }
 
   private _addRole(role: string) {

@@ -10,6 +10,7 @@ import {
 } from '@notify/ngx-components';
 
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
   AppError,
   EnumNotifyUserType,
@@ -37,6 +38,7 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
     ShareProfileComponent,
     PageHeaderComponent,
     LoadingComponent,
+    RouterLink,
   ],
   providers: [
     ProfilePlayerFactory,
@@ -53,6 +55,8 @@ export class ProfileManagementComponent {
 
   public baseUrl = environment.profilesUrl;
   public loading = false;
+  public providedProfile =
+    this._activatedRoute.snapshot.queryParamMap.get('p') || undefined;
 
   public get savedRedirects() {
     return this._authService.user?.savedRedirects || [];
@@ -64,9 +68,18 @@ export class ProfileManagementComponent {
     private _playerFactroy: ProfilePlayerFactory,
     private _authService: AuthService,
     private _companyService: CompanyService,
-    private _domSanitizer: DomSanitizer
+    private _domSanitizer: DomSanitizer,
+    private _activatedRoute: ActivatedRoute
   ) {
     this._getProfile();
+
+    this._activatedRoute.queryParams.subscribe((params) => {
+      if (params['p'] !== this.providedProfile) {
+        //? questo è un workaround per forzare il refresh della pagina quando cambia il parametro p nella query string
+        //TODO spostare tutta la logica di update del profilo di un agente da una company in un altro componente e tornare a questo se non è presente il parametro p
+        location.reload();
+      }
+    });
   }
 
   public updateProfileSubject(profile: INotifyProfile) {
@@ -80,7 +93,7 @@ export class ProfileManagementComponent {
   public saveProfile(profile: IProfile) {
     this.loading = true;
     this._profileService
-      .patchProfile<EnumNotifyUserType.Agent>(profile)
+      .patchProfile(profile, this.providedProfile)
       .pipe(
         tap((profile) => this._profileSubject$.next(profile)),
         switchMap((p) => {
@@ -140,7 +153,7 @@ export class ProfileManagementComponent {
 
   private _getProfile() {
     this._profileService
-      .getProfile<EnumNotifyUserType.Agent>()
+      .getProfile<EnumNotifyUserType.Agent>(this.providedProfile)
       .pipe(
         tap((profile) => {
           this._profileSubject$.next(profile);
