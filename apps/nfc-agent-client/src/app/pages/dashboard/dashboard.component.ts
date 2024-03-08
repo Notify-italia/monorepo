@@ -56,6 +56,7 @@ export class DashboardComponent {
 
   public isNative = this._capacitorService.isNative;
   public baseUrl = environment.profilesUrl;
+  public production = environment.production;
   public totalScansIcon: SvgBoxIcon = {
     expanded: 'Condivisione',
     name: 'connect_without_contact',

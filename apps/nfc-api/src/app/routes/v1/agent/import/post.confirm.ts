@@ -12,15 +12,22 @@ router.post(
   body('instanceId')
     .isString()
     .withMessage(`Errore nell'importazione degli agenti`),
+  body('sendEmails')
+    .isBoolean()
+    .withMessage(`Errore nell'importazione degli agenti`),
   errorHandledRequest(
     async (req: Request<{ email: string; password: string }>, res) => {
       const importInstance = ImportManager.load(req.body.instanceId);
 
-      await importInstance.confirm(req.currentUser);
+      await importInstance.processDocuments(
+        req.currentUser,
+        req.body.sendEmails
+      );
 
       res.status(201).json({
         status: 'ok',
         length: importInstance.documents.length,
+        passwords: importInstance.plainTextPasswords,
       });
     },
     {

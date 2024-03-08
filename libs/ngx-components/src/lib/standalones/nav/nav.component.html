@@ -76,7 +76,7 @@
       >
       <ul>
         <!-- Sidebar content here -->
-        @for (item of topItems; track item.path) {
+        @for (item of availableItems.top; track item.path) {
         <li [class.nav-disabled]="item.disabled">
           <a
             #sidebarItem
@@ -108,7 +108,7 @@
       >
       <ul>
         <!-- Sidebar content here -->
-        @for(item of bottomItems; track item.path) {
+        @for(item of availableItems.bottom; track item.path) {
         <li [class.nav-disabled]="item.disabled">
           <a
             #bottomSidebarItem

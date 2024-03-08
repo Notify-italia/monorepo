@@ -16,7 +16,11 @@
                 [baseUrl]="baseUrl"
               ></notify-share-profile>
 
-              <notify-widget-note [note]="data.latestNote" class="w-full h-20">
+              <notify-widget-note
+                [note]="data.latestNote"
+                class="w-full h-20"
+                *ngIf="!production"
+              >
               </notify-widget-note>
             </div>
           </div>

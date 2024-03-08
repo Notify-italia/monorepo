@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CapacitorService } from '@notify/nfc-app-services';
 import { NavComponent, NavItem } from '@notify/ngx-components';
+import { environment } from '../../../environments/environment';
 
 @Component({
   standalone: true,
@@ -35,7 +36,7 @@ export class HomeComponent {
       ],
     },
     {
-      disabled: false,
+      hidden: environment.production,
       label: 'Note',
       path: '/pages/notes',
       icon: [

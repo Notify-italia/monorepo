@@ -23,8 +23,10 @@ export interface IImportManagerOptions {
   }[];
   CSV?: {
     data: string;
+    path?: string;
+    separator?: string;
     mappings: {
-      [key: string]: string;
+      [key in keyof INotifyProfile]: string;
     };
   };
   fallbacks: {
@@ -39,7 +41,7 @@ export class ImportManager {
     profile: ProfileDocument;
   }[] = [];
 
-  private _plainTextPasswords: {
+  public plainTextPasswords: {
     email: string;
     password: string;
   }[] = [];
@@ -78,30 +80,29 @@ export class ImportManager {
   }
 
   public async createDocuments() {
-    await this._createDocuments().then((d) => {
-      this._documents = d;
-      pendingImports.push(this);
-    });
+    this._documents = await this._createDocuments();
+    pendingImports.push(this);
   }
 
-  public async confirm(currentUser: INotifyCompany) {
+  public async processDocuments(
+    currentUser: INotifyCompany,
+    sendEmails: boolean
+  ) {
     await asyncForEach(this._documents, async (i) => {
       await i.agent.save();
       await i.profile.save();
 
       const password =
-        this._plainTextPasswords.find((p) => p.email === i.agent.email)
+        this.plainTextPasswords.find((p) => p.email === i.agent.email)
           ?.password || `ERRORE DURANTE L'OTTENIMENTO DELLA PASSWORD`;
 
-      console.log('password', password);
-
-      await agentCreatedEmail(
-        i.agent.email,
-        currentUser.email as string,
-        password
-      );
-
-      console.log('email inviata');
+      if (sendEmails) {
+        await agentCreatedEmail(
+          i.agent.email,
+          currentUser.email as string,
+          password
+        );
+      }
 
       pendingImports.splice(pendingImports.indexOf(this), 1);
     });
@@ -113,22 +114,27 @@ export class ImportManager {
 
   private async _createDocuments() {
     if (this.instanceConfig.options?.JSON) {
+      //se è stato fornito un oggetto JSON effettuo l'importazione da esso
       return await this._createFromJSON(this.instanceConfig.options?.JSON);
     }
 
     if (this.instanceConfig.options?.CSV) {
+      //se è stato fornito un file CSV effettuo l'importazione da esso
       return await this._createFromCSV();
     }
 
+    //se non è stato fornito nessun dato effettuo un throw errore
     throw new BadRequestError('Nessun dato fornito');
   }
 
   private async _createFromJSON(data: IImportManagerOptions['JSON']) {
+    //estraggo i fallbacks dalle opzioni
     const fallbacks = this.instanceConfig.options?.fallbacks;
 
-    const noDataString = 'Nessun dato fornito';
+    const noDataString = '';
 
     if (!data) {
+      //se non ci sono dati forniti effettuo un throw errore
       throw new BadRequestError('Nessun dato JSON fornito');
     }
 
@@ -161,7 +167,7 @@ export class ImportManager {
         true
       );
 
-      this._plainTextPasswords.push({ email: i.email, password });
+      this.plainTextPasswords.push({ email: i.email, password });
 
       const profile = ProfileModel.build({
         role: _p?.role || _fallbackProfile?.role || noDataString,
@@ -188,65 +194,83 @@ export class ImportManager {
     return results;
   }
 
-  private _createFromCSV() {
-    const data = this.instanceConfig.options?.CSV?.data;
+  private async _createFromCSV() {
+    //estraggo il path, il separator e i mappings dalle opzioni
+    const path = this.instanceConfig.options?.CSV?.path;
+    const separator = this.instanceConfig.options?.CSV?.separator || ',';
     const mappings = this.instanceConfig.options?.CSV?.mappings;
 
-    if (!data || !mappings) {
+    if (!path || !mappings) {
       throw new BadRequestError('Nessun file CSV fornito');
     }
 
+    let csvObject: { [key: string]: string }[] = [];
     let results: { agent: AgentDocument; profile: ProfileDocument }[] = [];
 
-    fs.createReadStream(data)
-      .pipe(csv())
-      //   .on('data', (data) => results.push(data))
-      .on('end', async (d: { [key: string]: string }[]) => {
-        const _results: IImportManagerOptions['JSON'] = d.map((i) => {
-          //dichiaro un oggetto result contenente i dati dell'utente e del profilo
-          const result: Partial<INotifyProfile<EnumNotifyUserType.Agent>> & {
-            password?: string;
-          } = {};
+    await new Promise((r) =>
+      fs
+        .createReadStream(path)
+        .pipe(
+          csv({
+            separator,
+          })
+        )
+        .on('data', (d: { [key: string]: string }) => {
+          csvObject.push(d);
+        })
+        .on('end', async () => {
+          r(csvObject);
+        })
+    );
 
-          //per ogni chiave nell'oggetto mappings
-          Object.keys(mappings).forEach((k) => {
-            const profileKey = mappings[
-              k
-            ] as keyof INotifyProfile<EnumNotifyUserType.Agent>;
+    const _results: IImportManagerOptions['JSON'] = csvObject
+      .filter((i) => i)
+      .map((i) => {
+        //dichiaro un oggetto result contenente i dati dell'utente e del profilo
+        const result: Partial<INotifyProfile<EnumNotifyUserType.Agent>> & {
+          password?: string;
+        } = {};
 
-            if (!profileKey) {
-              throw new BadRequestError(
-                `Nessun mapping fornito per la chiave ${k}`
-              );
-            }
+        //per ogni chiave nell'oggetto mappings
+        (Object.keys(mappings) as (keyof INotifyProfile)[]).forEach((k) => {
+          const profileKey = mappings[
+            k
+          ] as keyof INotifyProfile<EnumNotifyUserType.Agent>;
 
-            if (!i[k]) {
-              throw new BadRequestError(
-                `Nessun valore fornito per la chiave ${k}`
-              );
-            }
-
-            // fuck typescript sometimes
-            //! se tolgo "as any" da un errore ridicolo dove dice che il tipo string non è assegnabile al tipo undefined
-            result[profileKey] = i[k] as any;
-          });
-
-          if (!result.email || !result.password) {
+          if (!profileKey) {
             throw new BadRequestError(
-              `Errore durante l'ottenimento dei dati dal file CSV`
+              `Nessun mapping fornito per la chiave ${k}`
             );
           }
 
-          return {
-            email: result.email,
-            password: result.password,
-            parent: new Types.ObjectId(i.parent),
-            profile: result as INotifyProfile,
-          };
+          if (!i[profileKey]) {
+            throw new BadRequestError(
+              `Nessun valore fornito per la chiave ${k}`
+            );
+          }
+
+          // fuck typescript sometimes
+          //! se tolgo "as any" da un errore ridicolo dove dice che il tipo string non è assegnabile al tipo undefined
+          result[k] = i[profileKey] as any;
         });
 
-        results = await this._createFromJSON(_results || []);
+        if (!result.email) {
+          throw new BadRequestError(
+            `Errore durante l'ottenimento dei dati dal file CSV, nessuna email o password ottenibile`
+          );
+        }
+
+        return {
+          email: result.email,
+          password: result.password,
+          parent: new Types.ObjectId(i.parent),
+          profile: result as INotifyProfile,
+        };
       });
+
+    results = await this._createFromJSON(_results);
+
+    fs.unlinkSync(path);
 
     return results;
   }

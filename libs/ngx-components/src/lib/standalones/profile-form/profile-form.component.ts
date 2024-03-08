@@ -119,6 +119,30 @@ export class ProfileFormComponent implements OnInit {
     return this.form.controls;
   }
 
+  private set _initialAvatarFile(value: string) {
+    const base64regex =
+      /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+
+    if (!value) {
+      return;
+    }
+
+    if (base64regex.test(value)) {
+      this.avatarFile = new File(this._utils.stringToArrayBuffer(value), '', {
+        type: 'image/png',
+      });
+      return;
+    }
+
+    fetch(value).then((res) => {
+      res.blob().then((blob) => {
+        this.avatarFile = new File([blob], 'avatar.png', {
+          type: 'image/png',
+        });
+      });
+    });
+  }
+
   constructor(
     private _utils: UtilsService,
     public capacitor: CapacitorService,
@@ -207,15 +231,7 @@ export class ProfileFormComponent implements OnInit {
       pColors?.background?.[1] || '#041127'
     );
 
-    if (f.controls.avatar.value) {
-      this.avatarFile = new File(
-        this._utils.stringToArrayBuffer(f.controls.avatar.value),
-        '',
-        {
-          type: 'image/png',
-        }
-      );
-    }
+    this._initialAvatarFile = f.controls.avatar.value || '';
 
     return f;
   }
