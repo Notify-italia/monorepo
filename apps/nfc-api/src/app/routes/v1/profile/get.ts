@@ -21,6 +21,10 @@ router.get(
     .isMongoId()
     .withMessage(AGENT_VALIDATION_MESSAGES._id as string),
   errorHandledRequest(async (req, res) => {
+    if (req.query.id) {
+      return await _profilePlayerFlow(req, res);
+    }
+
     //injecting the authorization manually to avoid throwing an error if the user is not logged in
     await injectAuth(req);
 

@@ -12,7 +12,7 @@ import {
   PageHeaderComponent,
   ProfilePlayerFactory,
 } from '@notify/ngx-components';
-import { catchError } from 'rxjs';
+import { catchError, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -43,14 +43,21 @@ export class ColleaguesComponent {
     private _utilsService: UtilsService
   ) {}
 
-  public inspectProfile(profile: INotifyAgent['profile']) {
-    if (!profile) {
-      return;
-    }
+  public async inspectProfile(profile: INotifyAgent['profile']) {
+    this._profileService
+      .getProfile(profile?._id)
+      .pipe(
+        tap((p) => {
+          if (!p) {
+            return;
+          }
 
-    this._profileFactory.createPlayer({
-      profile,
-      baseUrl: environment.profilesUrl,
-    });
+          this._profileFactory.createPlayer({
+            profile: p,
+            baseUrl: environment.profilesUrl,
+          });
+        })
+      )
+      .subscribe();
   }
 }

@@ -69,7 +69,7 @@ export const requireAuth = <T>(
 
 export const injectAuth = async <T>(
   req: Request<T>,
-  ignoreExpiration: boolean
+  ignoreExpiration = false
 ) => {
   const token = req.header('Authorization')?.replace('Bearer ', '') || null;
 
