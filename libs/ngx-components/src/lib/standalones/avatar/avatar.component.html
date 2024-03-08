@@ -1,26 +1,27 @@
-<div class="flex h-fit w-fit relative">
+<div class="flex h-fit w-fit relative" *ngIf="cleanedConfigs as c">
   <ng-container
     [ngTemplateOutlet]="AvatarRenderer"
-    [ngTemplateOutletContext]="{ config: avatarConfig }"
+    [ngTemplateOutletContext]="{ config: c.main }"
   ></ng-container>
 
   <button
-    *ngIf="subAvatarConfig?.src?.length && avatarConfig?.src?.length"
+    *ngIf="c.sub?.src?.length && avatarConfig?.src?.length"
     class="!absolute bottom-0 right-0 -mr-4 scale-125 lg:pointer-events-none"
     (click)="subAvatarClick.emit()"
   >
     <ng-container
       [ngTemplateOutlet]="AvatarRenderer"
-      [ngTemplateOutletContext]="{ config: subAvatarConfig }"
+      [ngTemplateOutletContext]="{ config: c.sub, }"
     ></ng-container>
   </button>
 </div>
 
 <ng-template #AvatarRenderer let-config="config">
   <div class="overflow-hidden">
+    {{ config.isBase64 }}
     <img
       *ngIf="config.src || placeholderAvatar as avatar"
-      [src]="avatar"
+      [src]="config.isBase64 ? avatar : avatar"
       alt="User Avatar"
       [ngClass]="{
         'mask object-cover ': config.mask?.length,
