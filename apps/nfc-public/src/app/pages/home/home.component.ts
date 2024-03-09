@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, Component, afterNextRender } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
 import { PixelService } from '@notify/nfc-app-services';
 import { CursorComponent, LoadingComponent } from '@notify/ngx-components';
@@ -56,6 +55,7 @@ export class HomeComponent implements AfterContentInit {
   ) {
     afterNextRender(() => {
       this._pixel.track('ViewContent');
+      // _initTileDesk();
     });
   }
 
@@ -74,3 +74,30 @@ export class HomeComponent implements AfterContentInit {
     });
   }
 }
+
+// const _initTileDesk = () => {
+//   window.tiledeskSettings = {
+//     projectid: '65ec3f0992ab270015f8fa58',
+//   };
+//   (function (d, s, id) {
+//     var w = window;
+//     var d = document;
+//     var i = function () {
+//       i.c(arguments);
+//     };
+//     i.q = [];
+//     i.c = function (args) {
+//       i.q.push(args);
+//     };
+//     w.Tiledesk = i;
+//     var js,
+//       fjs = d.getElementsByTagName(s)[0];
+//     if (d.getElementById(id)) return;
+//     js = d.createElement(s);
+//     js.id = id;
+//     js.async = true;
+
+//     js.src = 'https://widget.tiledesk.com/v6/launch.js';
+//     fjs.parentNode.insertBefore(js, fjs);
+//   })(document, 'script', 'tiledesk-jssdk');
+// };
