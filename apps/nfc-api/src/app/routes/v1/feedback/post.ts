@@ -6,7 +6,7 @@ import {
   FEEDBACK_VALIDATION_MESSAGES,
   FeedbackModel,
 } from '../../../models/model.feedback';
-import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 
 const router = Router();
 
@@ -22,7 +22,7 @@ router.post(
     .optional()
     .isString()
     .withMessage(FEEDBACK_VALIDATION_MESSAGES.comment as string),
-  errorHandledRequest(async (req, res) => {
+  requestHandler(async (req, res) => {
     const { owner, rating, comment } = req.body;
 
     const feedback = FeedbackModel.build({

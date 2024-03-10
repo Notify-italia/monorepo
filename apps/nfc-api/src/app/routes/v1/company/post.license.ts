@@ -1,7 +1,8 @@
+import { isDate } from 'date-fns';
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { LICENSE_VALIDATION_MESSAGES } from '../../../models/model.license';
-import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 import { LicenseManager } from '../../../services/service.license';
 
 const router = Router();
@@ -9,17 +10,16 @@ const router = Router();
 router.post(
   '/',
   body('allowedAgents')
-    .isNumeric()
-    .custom((value) => value > 0)
+    .custom((value) => value === null || (!isNaN(value) && value > 0))
     .withMessage(LICENSE_VALIDATION_MESSAGES.allowedAgents as string),
   body('expirationDate')
-    .isISO8601()
+    .custom((value) => value === null || isDate(value))
     .withMessage(LICENSE_VALIDATION_MESSAGES.expirationDate as string),
   body('APIKey')
     .custom((v) => v === Bun.env['API_KEY'])
     .notEmpty()
     .withMessage('invalid APIKey'),
-  errorHandledRequest(async (req, res) => {
+  requestHandler(async (req, res) => {
     const { allowedAgents, expirationDate } = req.body;
 
     const license = await LicenseManager.generate({

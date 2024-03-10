@@ -1,4 +1,4 @@
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { Router } from 'express';
 import { query } from 'express-validator';
 import {
@@ -14,7 +14,7 @@ router.delete(
   query('id')
     .isMongoId()
     .withMessage(NOTE_VALIDATION_MESSAGES._id as string),
-  errorHandledRequest(
+  requestHandler(
     async (req, res) => {
       const { id } = req.query;
 

@@ -1,5 +1,5 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { STAT_VALIDATION_MESSAGES } from '../../../models/model.stat';
@@ -24,7 +24,7 @@ router.post(
     .custom((value) => [...Object.values(EnumNotifyUserType)].includes(value))
     .withMessage('userType is required'),
 
-  errorHandledRequest(async (req, res) => {
+  requestHandler(async (req, res) => {
     const { type, owner, value, userType } = req.body;
 
     const user = await StatManager.incrementCounter(

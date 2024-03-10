@@ -5,7 +5,7 @@ import {
   ProfileModel,
 } from 'apps/nfc-api/src/app/models/model.profile';
 import { BadRequestError } from 'apps/nfc-api/src/app/services/errors/errors';
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { getAgentOwnerProfile } from 'apps/nfc-api/src/app/services/service.profile';
 import { Request, Response, Router } from 'express';
 import { query } from 'express-validator';
@@ -20,7 +20,7 @@ router.get(
     .optional()
     .isMongoId()
     .withMessage(AGENT_VALIDATION_MESSAGES._id as string),
-  errorHandledRequest(async (req, res) => {
+  requestHandler(async (req, res) => {
     if (req.query.id) {
       return await _profilePlayerFlow(req, res);
     }

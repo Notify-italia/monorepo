@@ -9,7 +9,7 @@ import {
   CompanyModel,
 } from '../../../../models/model.company';
 import { LICENSE_VALIDATION_MESSAGES } from '../../../../models/model.license';
-import { errorHandledRequest } from '../../../../services/errors/middlewares/bun.error-handler';
+import { requestHandler } from '../../../../services/errors/middlewares/bun.request';
 import {
   INVALID_JWT_TOKEN,
   verifyToken,
@@ -24,7 +24,7 @@ router.post(
   '/',
   userSignInValidation(LICENSE_VALIDATION_MESSAGES, true, false),
   body('token').isJWT().withMessage(INVALID_JWT_TOKEN),
-  errorHandledRequest(async (req, res) => {
+  requestHandler(async (req, res) => {
     const { password, token } = req.body;
 
     if (usedTokens.includes(token)) {

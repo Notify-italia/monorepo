@@ -1,4 +1,4 @@
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { Router } from 'express';
 import { Schema, Types } from 'mongoose';
 import { NoteModel } from '../../../models/model.note';
@@ -8,7 +8,7 @@ const router = Router();
 
 router.post(
   '/',
-  errorHandledRequest(
+  requestHandler(
     async (req, res) => {
       const note = await NoteModel.build({
         owners: [

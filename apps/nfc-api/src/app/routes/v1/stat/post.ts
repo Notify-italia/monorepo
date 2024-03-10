@@ -1,4 +1,4 @@
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { STAT_VALIDATION_MESSAGES } from '../../../models/model.stat';
@@ -19,7 +19,7 @@ router.post(
     .optional()
     .isNumeric()
     .withMessage(STAT_VALIDATION_MESSAGES.value as string),
-  errorHandledRequest(async (req, res) => {
+  requestHandler(async (req, res) => {
     const { type, owner, value } = req.body;
 
     const stat = await StatManager.increment(type, owner, undefined, value);

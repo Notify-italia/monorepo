@@ -1,5 +1,5 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { Router } from 'express';
 import { query } from 'express-validator';
 import { FilterQuery } from 'mongoose';
@@ -31,7 +31,7 @@ router.get(
         new Date(v) > new Date(req.query?.from) && new Date(v) < new Date()
     )
     .withMessage(STAT_VALIDATION_MESSAGES.period as string),
-  errorHandledRequest(
+  requestHandler(
     async (req, res) => {
       //get the owner, from and to from the request query
       const { owner, from, to } = req.query;

@@ -19,11 +19,15 @@ export class LicenseInfoComponent {
   constructor(private _toastr: ToastrService) {}
 
   public get isExpired(): boolean {
-    if (!this.license) {
+    if (!this.license || !this.license.enabled) {
       return true;
     }
 
     const { expirationDate } = this.license;
+
+    if (!expirationDate) {
+      return false;
+    }
 
     const today = new Date();
     const expires = new Date(expirationDate);

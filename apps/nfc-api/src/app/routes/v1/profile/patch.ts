@@ -12,7 +12,7 @@ import {
   ProfileModel,
 } from '../../../models/model.profile';
 import { BadRequestError } from '../../../services/errors/errors';
-import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 import { S3Upload } from '../../../services/service.bucket';
 import { getAgentOwnerProfile } from '../../../services/service.profile';
 
@@ -28,7 +28,7 @@ router.patch(
     'name',
     'surname',
   ]),
-  errorHandledRequest(
+  requestHandler(
     async (req: Request<{ email: string; password: string }>, res) => {
       const { id } = req.query;
 

@@ -5,7 +5,7 @@ import {
   CompanyModel,
 } from '../../../models/model.company';
 import { BadRequestError } from '../../../services/errors/errors';
-import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 import { sendEmail } from '../../../services/service.email';
 import { userSignInValidation } from '../../../services/service.validation';
 
@@ -15,7 +15,7 @@ const router = Router();
 router.post(
   '/',
   ...userSignInValidation(COMPANY_VALIDATION_MESSAGES),
-  errorHandledRequest(
+  requestHandler(
     async (req: Request<{ email: string; password: string }>, res) => {
       const { email, password } = req.body;
 

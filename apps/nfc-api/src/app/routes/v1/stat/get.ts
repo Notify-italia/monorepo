@@ -4,7 +4,7 @@ import {
   INotifyStat,
   INotifyUser,
 } from '@notify/interfaces';
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { Router } from 'express';
 import { query } from 'express-validator';
 import { Types } from 'mongoose';
@@ -32,7 +32,7 @@ router.get(
     .isISO8601()
     .custom((v, { req }) => new Date(v) > new Date(req.query?.from))
     .withMessage(STAT_VALIDATION_MESSAGES.period as string),
-  errorHandledRequest(
+  requestHandler(
     async (req, res) => {
       const { type, owner } = req.query as unknown as INotifyStat;
 

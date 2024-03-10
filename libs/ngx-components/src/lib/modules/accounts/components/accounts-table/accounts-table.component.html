@@ -23,7 +23,11 @@
         <label class="label" *ngIf="config?.displayLeftAccounts">
           <label class="label-text"></label>
           <div class="flex justify-end">
-            <span class="badge badge-warning badge-sm" data-theme="notifytheme">
+            <span
+              class="badge badge-warning badge-sm"
+              data-theme="notifytheme"
+              *ngIf="maxAgents !== null"
+            >
               {{ users?.length ?? '?' }}/{{ maxAgents }} Utenti creati
             </span>
           </div>

@@ -44,7 +44,6 @@ export class HomeComponent implements AfterContentInit {
   public stable = false;
 
   public pageStable$ = combineLatest([this.instructionsStable$]).pipe(
-    tap(() => window.scrollTo(0, 0)),
     tap(() => this.scrollToElement()),
     tap(() => (this.stable = true))
   );

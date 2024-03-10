@@ -7,13 +7,13 @@ import { requireAuth } from '../../../middlewares/middleware.require-auth';
 import { validateRequest } from '../../../middlewares/middleware.validate-request';
 import { CustomError } from '../errors';
 //express middleware
-export const errorHandledRequest = <T>(
+export const requestHandler = <T>(
   func: (req: Request<T>, res: Response) => Promise<void>,
   config?: {
     errorMessage?: string;
     requireAuth?: {
       requireLicense?: boolean;
-      ignoreExpiration?: boolean;
+      ignoreTokenExpiration?: boolean;
     };
     permittedRoles?: EnumNotifyUserType[];
   }
@@ -24,7 +24,7 @@ export const errorHandledRequest = <T>(
         _ehReq(
           requireAuth(
             config.requireAuth.requireLicense,
-            config.requireAuth.ignoreExpiration
+            config.requireAuth.ignoreTokenExpiration
           )
         ),
       ]

@@ -7,7 +7,7 @@ import {
   CompanyModel,
 } from '../../../models/model.company';
 import { BadRequestError } from '../../../services/errors/errors';
-import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 import { asyncForEach } from '../../../services/service.utils';
 import { userSignInValidation } from '../../../services/service.validation';
 import { Password } from '../../../services/users/service.password';
@@ -25,7 +25,7 @@ router.patch(
     .isArray()
     .withMessage(COMPANY_VALIDATION_MESSAGES.createdRoles as string),
   userSignInValidation(COMPANY_VALIDATION_MESSAGES, false, false),
-  errorHandledRequest(
+  requestHandler(
     async (req, res) => {
       const company = await CompanyModel.findById(req.currentUser._id);
 

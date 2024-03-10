@@ -52,7 +52,7 @@ const LicenseSchema = new Schema<License, LicenseModel>(
   {
     expirationDate: {
       type: Date,
-      required: [true, LICENSE_VALIDATION_MESSAGES.expirationDate as string],
+      default: null,
     },
     enabled: {
       type: Boolean,

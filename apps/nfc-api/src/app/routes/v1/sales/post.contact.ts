@@ -1,4 +1,4 @@
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { wLog } from 'apps/nfc-api/src/main';
 import { Router } from 'express';
 import { body } from 'express-validator';
@@ -16,7 +16,7 @@ router.post(
   body('email'),
   body('message'),
   body('attachments'),
-  errorHandledRequest(async (req, res) => {
+  requestHandler(async (req, res) => {
     const { name, source, email, message, attachments } = req.body;
 
     const attacchementsMapped = _base64ToArrayBuffer(attachments);

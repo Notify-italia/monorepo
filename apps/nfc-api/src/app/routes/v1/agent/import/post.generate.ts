@@ -1,5 +1,5 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { ImportManager } from 'apps/nfc-api/src/app/services/users/service.import';
 import { Request, Router } from 'express';
 
@@ -9,7 +9,7 @@ const router = Router();
 router.post(
   '/',
   //TODO validazione
-  errorHandledRequest(
+  requestHandler(
     async (req: Request<{ email: string; password: string }>, res) => {
       if (req.body.CSV?.data?.length) {
         //base64 to arraybuffer

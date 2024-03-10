@@ -29,8 +29,12 @@ export class AuthService {
   public get activeLicense() {
     const license = this.user?.license as unknown as INotifyLicense;
 
-    if (!license) {
+    if (!license || !license.enabled) {
       return false;
+    }
+
+    if (!license.expirationDate && license.enabled) {
+      return true;
     }
 
     return new Date(license.expirationDate) > new Date();

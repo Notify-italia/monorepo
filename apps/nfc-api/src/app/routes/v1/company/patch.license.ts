@@ -3,7 +3,7 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import { Types } from 'mongoose';
 import { LICENSE_VALIDATION_MESSAGES } from '../../../models/model.license';
-import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 import { LicenseManager } from '../../../services/service.license';
 
 const router = Router();
@@ -14,7 +14,7 @@ router.patch(
     .isString()
     .notEmpty()
     .withMessage(LICENSE_VALIDATION_MESSAGES.publicKey as string),
-  errorHandledRequest(
+  requestHandler(
     async (req, res) => {
       const { publicKey } = req.body;
 

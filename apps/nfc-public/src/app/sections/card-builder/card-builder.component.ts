@@ -134,7 +134,6 @@ export class CardBuilderComponent {
 
   constructor() {
     afterNextRender(() => {
-      window.scrollTo(0, 0);
       this.updateCard(this.cards[0].items[0]);
     });
   }

@@ -3,7 +3,7 @@ import { isProduction } from 'apps/nfc-api/src/app/services/service.envs';
 import { Router } from 'express';
 import { CompanyModel } from '../../../../models/model.company';
 import { LICENSE_VALIDATION_MESSAGES } from '../../../../models/model.license';
-import { errorHandledRequest } from '../../../../services/errors/middlewares/bun.error-handler';
+import { requestHandler } from '../../../../services/errors/middlewares/bun.request';
 import { sendEmail } from '../../../../services/service.email';
 import { signToken } from '../../../../services/service.jwt';
 import { userSignInValidation } from '../../../../services/service.validation';
@@ -13,7 +13,7 @@ const router = Router();
 router.post(
   '/',
   userSignInValidation(LICENSE_VALIDATION_MESSAGES, false, true),
-  errorHandledRequest(async (req, res) => {
+  requestHandler(async (req, res) => {
     const { email } = req.body;
 
     const company = await CompanyModel.findOne({ email })

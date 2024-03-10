@@ -9,7 +9,7 @@ import {
 } from '../../../models/model.agent';
 import { PROFILE_VALIDATION_MESSAGES } from '../../../models/model.profile';
 import { BadRequestError } from '../../../services/errors/errors';
-import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 import { agentCreatedEmail } from '../../../services/service.email';
 import { LicenseManager } from '../../../services/service.license';
 import { userSignInValidation } from '../../../services/service.validation';
@@ -29,7 +29,7 @@ router.post(
   body('feedbackEnabled')
     .isBoolean()
     .withMessage(AGENT_VALIDATION_MESSAGES.enabled as string),
-  errorHandledRequest(
+  requestHandler(
     async (req, res) => {
       const { email, password, role, enabled, feedbackEnabled } = req.body;
 

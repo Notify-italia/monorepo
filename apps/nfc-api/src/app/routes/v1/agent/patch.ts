@@ -10,7 +10,7 @@ import {
   ProfileModel,
 } from '../../../models/model.profile';
 import { BadRequestError } from '../../../services/errors/errors';
-import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 import { userSignInValidation } from '../../../services/service.validation';
 import { Password } from '../../../services/users/service.password';
 
@@ -40,7 +40,7 @@ router.patch(
     .isArray()
     .withMessage(AGENT_VALIDATION_MESSAGES.savedRedirects as string),
 
-  errorHandledRequest(
+  requestHandler(
     async (req, res) => {
       const { id } = req.query;
       const {

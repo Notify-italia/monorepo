@@ -1,5 +1,5 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { ImportManager } from 'apps/nfc-api/src/app/services/users/service.import';
 import { Request, Router } from 'express';
 import { body } from 'express-validator';
@@ -15,7 +15,7 @@ router.post(
   body('sendEmails')
     .isBoolean()
     .withMessage(`Errore nell'importazione degli agenti`),
-  errorHandledRequest(
+  requestHandler(
     async (req: Request<{ email: string; password: string }>, res) => {
       const importInstance = ImportManager.load(req.body.instanceId);
 

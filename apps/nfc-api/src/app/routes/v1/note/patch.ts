@@ -1,4 +1,4 @@
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { Router } from 'express';
 import { body, query } from 'express-validator';
 import {
@@ -16,7 +16,7 @@ router.patch(
     .isMongoId()
     .withMessage(NOTE_VALIDATION_MESSAGES._id as string),
   body('note').exists().isObject().withMessage('Nota non valida'),
-  errorHandledRequest(
+  requestHandler(
     async (req, res) => {
       const { note } = req.body;
       const { id } = req.query;

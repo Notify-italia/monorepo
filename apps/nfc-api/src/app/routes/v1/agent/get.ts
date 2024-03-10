@@ -3,7 +3,7 @@ import {
   AGENT_VALIDATION_MESSAGES,
   AgentModel,
 } from 'apps/nfc-api/src/app/models/model.agent';
-import { errorHandledRequest } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.error-handler';
+import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { Router } from 'express';
 import { query } from 'express-validator';
 import { isValidObjectId } from 'mongoose';
@@ -19,7 +19,7 @@ router.get(
       value.split(',').every((id: string) => isValidObjectId(id))
     )
     .withMessage(AGENT_VALIDATION_MESSAGES._id as string),
-  errorHandledRequest(
+  requestHandler(
     async (req, res) => {
       const { id } = req.query;
 

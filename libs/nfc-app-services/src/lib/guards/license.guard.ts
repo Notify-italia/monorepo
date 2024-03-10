@@ -10,7 +10,15 @@ export const licenseGuard: CanActivateFn = () => {
   const license = authService.currentUser$.value
     ?.license as unknown as INotifyLicense;
 
-  if (!license || new Date(license.expirationDate) < new Date()) {
+  if (license && !license.expirationDate && license.enabled) {
+    return true;
+  }
+
+  if (
+    !license ||
+    !license.enabled ||
+    new Date(license.expirationDate) < new Date()
+  ) {
     router.navigate(['/pages/license']);
     return false;
   }

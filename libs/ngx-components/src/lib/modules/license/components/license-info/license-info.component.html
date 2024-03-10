@@ -94,7 +94,11 @@
           </svg>
 
           <div class="timeline-box text-white">
-            {{ license?.expirationDate | date : 'dd MMM yyyy' }}
+            {{
+              license?.expirationDate
+                ? (license?.expirationDate | date : 'dd MMM yyyy')
+                : 'Mai'
+            }}
           </div>
         </div>
       </li>
@@ -116,7 +120,7 @@
           </svg>
         </div>
         <div class="stat-value">
-          {{ license?.allowedAgents }}
+          {{ license?.allowedAgents === null ? '∞' : license?.allowedAgents }}
         </div>
         <div class="stat-title">Accounts</div>
         <div class="stat-desc">Gestibili</div>
@@ -127,7 +131,7 @@
         <div
           class="stat-figure"
           [ngClass]="{
-            'text-warning': remainingDays < 30 && !isExpired,
+            'text-warning': remainingDays < 30 && !isExpired && license?.expirationDate,
             'text-success': !isExpired,
             'text-error': isExpired,
           }"
@@ -148,12 +152,12 @@
         <div
           class="stat-value"
           [ngClass]="{
-            'text-warning': remainingDays < 30 && !isExpired,
+            'text-warning': remainingDays < 30 && !isExpired && license?.expirationDate,
             'text-success': !isExpired,
             'text-error': isExpired,
           }"
         >
-          {{ remainingDays || 0 }}
+          {{ license?.expirationDate ? remainingDays || 0 : '∞' }}
         </div>
         <div class="stat-title">Giorni</div>
         <div class="stat-desc">Al rinnovo</div>
