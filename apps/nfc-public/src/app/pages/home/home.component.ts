@@ -13,6 +13,7 @@ import { InstructionsComponent } from '../../sections/instructions/instructions.
 import { PartnersComponent } from '../../sections/partners/partners.component';
 import { PersonalizationComponent } from '../../sections/personalization/personalization.component';
 import { QuestionsComponent } from '../../sections/questions/questions.component';
+import { SoftwareOnlyComponent } from '../../sections/software-only/software-only.component';
 import { SplashComponent } from '../../sections/splash/splash.component';
 import { SustainabilityComponent } from '../../sections/sustainability/sustainability.component';
 
@@ -34,6 +35,7 @@ import { SustainabilityComponent } from '../../sections/sustainability/sustainab
     CursorComponent,
     PersonalizationComponent,
     CardBuilderComponent,
+    SoftwareOnlyComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
