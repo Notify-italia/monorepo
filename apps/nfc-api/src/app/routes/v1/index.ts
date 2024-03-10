@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { agentRouter } from './agent';
 import { companyRouter } from './company';
 import { feedbackRouter } from './feedback';
+import { getHeartbeatRouter } from './get.heartbeat';
 import { noteRouter } from './note';
 import { postTestRouter } from './post.test-route';
 import { profileRouter } from './profile';
@@ -18,5 +19,6 @@ router.use('/notes', noteRouter);
 router.use('/stat', statRouter);
 router.use('/sales', SalesRouter);
 router.use('/test', postTestRouter);
+router.use('/heartbeat', getHeartbeatRouter);
 
 export { router as ApiV1 };
