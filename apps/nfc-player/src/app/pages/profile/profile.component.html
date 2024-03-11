@@ -7,23 +7,25 @@
   <!-- SAVE CONTACT -->
   <div class="fixed bottom-5 right-5 z-[999]" *ngIf="isAgent(p)">
     <button class="floating-button" (click)="saveContact(p)">
+      <span class="lg:hidden"> Salva </span>
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
         fill="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M0 0h24v24H0z" fill="none"></path>
         <path
-          d="M17 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
+          d="M19 1H8.99C7.89 1 7 1.9 7 3h10c1.1 0 2 .9 2 2v13l2 1V3c0-1.1-.9-2-2-2Z"
         ></path>
+        <path d="M5 5h10c1.1 0 2 .9 2 2v16l-7-3-7 3V7c0-1.1.9-2 2-2Z"></path>
       </svg>
+
       <span class="hidden lg:block"> Scarica contatto </span>
     </button>
   </div>
 
   <!-- FORCE CLOSE COMPANY -->
   <div
-    class="fixed bottom-7 right-24 z-[999] pointer-events-none smooth opacity-0"
+    class="fixed bottom-7 right-36 z-[999] pointer-events-none smooth opacity-0"
     [ngClass]="{
       'opacity-100 pointer-events-auto': companyIsVisible
     }"
@@ -57,7 +59,7 @@
   >
     <!-- PLAYER OUTLET -->
     <ng-container
-      [ngTemplateOutlet]="playerContent"
+      [ngTemplateOutlet]="PlayerContent"
       [ngTemplateOutletContext]="{
         profile: p
       }"
@@ -67,7 +69,7 @@
   <!-- if the profile belongs to a company then we don't need notifyGestures -->
   <div class="content-container">
     <ng-container
-      [ngTemplateOutlet]="playerContent"
+      [ngTemplateOutlet]="PlayerContent"
       [ngTemplateOutletContext]="{
         profile: p
       }"
@@ -93,7 +95,7 @@
   }
 </div>
 
-<ng-template #playerContent let-p="profile">
+<ng-template #PlayerContent let-p="profile">
   <!-- MAIN PLAYER -->
   <div
     class="smooth h-full w-full !ease-linear !duration-100 player-responsive will-change-transform"

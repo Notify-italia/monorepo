@@ -18,6 +18,7 @@ import {
 } from 'date-fns';
 import { ApexChartSsrComponent } from '../../../../standalones/apex-chart-ssr/apex-chart-ssr.component';
 
+import { UtilsService } from '@notify/nfc-app-services';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -35,6 +36,7 @@ export const AREA_CHART_DEFAULT_PERIOD = {
   selector: 'notify-widget-area-chart',
   standalone: true,
   imports: [CommonModule, ApexChartSsrComponent],
+  providers: [UtilsService],
   templateUrl: './widget-area-chart.component.html',
   styleUrls: [
     './widget-area-chart.component.scss',
@@ -56,43 +58,77 @@ export class WidgetAreaChartComponent {
 
   public backgroundColor = 'transparent';
 
-  public chartConfig: ApexOptions = {
-    noData: {
-      text: 'Nessun dato visualizzabile',
-    },
-    fill: DEFAULT_FILL,
-    chart: DEFAULT_CHART,
-    stroke: DEFAULT_STROKE,
-    tooltip: {
-      enabled: true,
-      x: {
-        show: true,
-        format: 'dd MMM',
-      },
-      y: {
-        formatter: (value) => value.toFixed(0),
-      },
-    },
-  };
-
-  public constructor() {}
+  public constructor(private _utilsService: UtilsService) {}
 
   public get chartOptions(): ApexOptions {
     return {
-      ...this.chartConfig,
+      noData: {
+        text: 'Nessun dato visualizzabile',
+      },
+      fill: DEFAULT_FILL,
+
+      stroke: DEFAULT_STROKE,
+
+      grid: {
+        borderColor: '#7573f0',
+        yaxis: {
+          lines: {
+            show: true,
+          },
+        },
+        xaxis: {
+          lines: {
+            show: true,
+          },
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+
+      tooltip: {
+        enabled: true,
+        x: {
+          show: true,
+        },
+        y: {
+          formatter: (value) => value.toFixed(0),
+        },
+      },
       chart: {
-        ...(this.chartConfig.chart || ({} as never)),
+        ...DEFAULT_CHART,
         toolbar: {
           show: !this.disableExport,
           offsetX: -10,
           offsetY: -10,
+          tools: {
+            download: true,
+            selection: false,
+            zoom: false,
+            zoomin: false,
+            zoomout: false,
+            pan: false,
+            reset: false,
+          },
         },
       },
       xaxis: {
-        type: 'datetime',
+        type: 'category',
+        labels: {
+          show: true,
+          style: {
+            colors: '#9E9E9E',
+          },
+          datetimeUTC: false,
+        },
       },
       yaxis: {
-        opposite: true,
+        labels: {
+          show: true,
+          style: {
+            colors: '#9E9E9E',
+          },
+        },
       },
       series: this.enrichedSeries,
     };
@@ -106,7 +142,9 @@ export class WidgetAreaChartComponent {
     //fill the series with the missing dates, the data is assumed to be of type {x: Date, y: number}
 
     //create an array of dates from the first to the last date in the series
-    const dates = this.series[0].data.map((d) => (d as { x: Date })?.x);
+    const dates = this.series[0].data.map((d) =>
+      this._utcFix((d as { x: Date })?.x)
+    );
 
     //get the selected timespan and compare it with the dates array to get the missing dates in the series as an array of dates
     const missingDates: { x: Date; y: number }[] = this._getMissingDates(
@@ -116,13 +154,17 @@ export class WidgetAreaChartComponent {
 
     //add the missing dates to the series and sort it
     const enrichedSeries = this.series[0].data
+      .map((d) => ({
+        x: (d as { x: Date })?.x,
+        y: Number((d as { y: number })?.y),
+      }))
       .concat(missingDates)
       .sort(
         (a, b) =>
-          (b as { x: Date })?.x.getTime() - (a as { x: Date })?.x.getTime()
+          (a as { x: Date })?.x.getTime() - (b as { x: Date })?.x.getTime()
       )
       .map((d) => ({
-        x: format((d as { x: Date })?.x, 'dd MMM yyyy'),
+        x: format((d as { x: Date })?.x, 'dd MMM '),
         y: Number((d as { y: number })?.y),
       }))
       .reduce((acc: { x: string; y: number }[], curr) => {
@@ -136,6 +178,8 @@ export class WidgetAreaChartComponent {
 
         return acc;
       }, []);
+
+    console.log('enrichedSeries', enrichedSeries);
 
     return [{ name: 'Visite', data: enrichedSeries }];
   }
@@ -177,6 +221,11 @@ export class WidgetAreaChartComponent {
 
     return missingDates;
   }
+
+  private _utcFix(d: Date): Date {
+    //remove the timezone offset from the date
+    return this._utilsService.compensateUTCDate(d);
+  }
 }
 
 const DEFAULT_FILL: ApexFill = {
@@ -200,6 +249,8 @@ const DEFAULT_CHART: ApexChart = {
   type: 'area',
   height: '100%',
   width: '100%',
+  redrawOnParentResize: true,
+  redrawOnWindowResize: true,
   defaultLocale: 'it',
   locales: [
     {
@@ -223,7 +274,7 @@ const DEFAULT_CHART: ApexChart = {
     },
   ],
   sparkline: {
-    enabled: true,
+    enabled: false,
   },
 
   animations: {

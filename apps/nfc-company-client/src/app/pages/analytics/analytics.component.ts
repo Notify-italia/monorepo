@@ -5,10 +5,12 @@ import {
   EnumNotifyStatType,
   INotifyAgent,
   INotifyFeedback,
+  INotifyLicense,
   INotifyProfile,
 } from '@notify/interfaces';
 import {
   AgentService,
+  AuthService,
   FeedbackService,
   SvgBoxIcon,
 } from '@notify/nfc-app-services';
@@ -92,7 +94,8 @@ export class AnalyticsComponent {
   constructor(
     private _feedbackService: FeedbackService,
     private _agentService: AgentService,
-    private _router: Router
+    private _router: Router,
+    private _authService: AuthService
   ) {}
 
   public goToDetails = () => {
@@ -121,10 +124,14 @@ export class AnalyticsComponent {
     }, {});
   };
 
-  private _savedCO2 = (totalVisits: number, totalUsers: number) => {
+  private _savedCO2 = (totalVisits: number) => {
+    const boughtCards =
+      (this._authService.user?.license as unknown as INotifyLicense)
+        ?.boughtCards || 0;
+
     const value =
       totalVisits * this.classicBusinessCardCO2 -
-      totalUsers * this.nfcBusinessCardCO2;
+      boughtCards * this.nfcBusinessCardCO2;
 
     return value > 0 ? Number(value.toFixed(2)) : 0;
   };
@@ -245,7 +252,7 @@ export class AnalyticsComponent {
       totalSaved,
       totalAverageFeedbackRating,
       totalFeedbackCount,
-      totalCO2Saved: this._savedCO2(totalVisits, agents.length),
+      totalCO2Saved: this._savedCO2(totalVisits),
     };
   };
 }

@@ -26,6 +26,7 @@ export const LICENSE_VALIDATION_MESSAGES: {
   expirationDate: 'Inserire una data di scadenza valida',
   enabled: 'Inserire un valore valido',
   publicKey: 'Inserire una licenza valida',
+  boughtCards: 'Inserire un valore valido',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
@@ -65,6 +66,14 @@ const LicenseSchema = new Schema<License, LicenseModel>(
     allowedAgents: {
       type: Number,
       default: 1,
+    },
+    features: {
+      type: [String],
+      default: [],
+    },
+    boughtCards: {
+      type: Number,
+      default: 0,
     },
   },
   {

@@ -18,25 +18,26 @@
       
     }"
   >
+    <div class="flex justify-center p-4" *ngIf="isFeedbackEnabled">
+      <!-- FEEDBACK -->
+      <notify-feedback-button
+        [data]="data"
+        [cssElementsColor]="cssElementsColor"
+        (feedbackClicked)="feedbackClicked.emit($event)"
+        [isAgent]="isAgent"
+        [feedbackKey]="feedbackKey"
+      ></notify-feedback-button>
+    </div>
     <div
-      class="main-child !h-full justify-around"
+      class="main-child !h-full"
       [class.opacity-50]="!data"
       [ngClass]="{
         'h-full py-5': mockup,
-        'h-full  min-h-screen  w-screen': !mockup
+        'h-full  min-h-screen  w-screen': !mockup,
+        'justify-center': !isFeedbackEnabled
       }"
     >
       <div class="section h-fit w-full space-y-8">
-        <div class="flex justify-center mt-4" *ngIf="isFeedbackEnabled">
-          <!-- FEEDBACK -->
-          <notify-feedback-button
-            [data]="data"
-            [cssElementsColor]="cssElementsColor"
-            (feedbackClicked)="feedbackClicked.emit($event)"
-            [isAgent]="isAgent"
-            [feedbackKey]="feedbackKey"
-          ></notify-feedback-button>
-        </div>
         <div class="section space-y-2">
           <notify-profile-user-info
             [data]="data"
@@ -54,7 +55,7 @@
         </div>
       </div>
 
-      <div class="section w-full">
+      <div class="section w-full mb-2">
         <div class="divider mx-5" *ngIf="data?.customFields?.length"></div>
         <notify-profile-integrations
           class="w-full"

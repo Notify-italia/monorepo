@@ -91,7 +91,10 @@ END:VCARD`;
       'href',
       'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard)
     );
-    a.setAttribute('download', 'contact.vcf');
+    a.setAttribute(
+      'download',
+      `${d.name} ${d.surname?.length ? ' ' + d.surname : ''}.vcf`
+    );
     a.click();
   }
 
