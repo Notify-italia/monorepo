@@ -1,0 +1,29 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'notify-funded-by',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './funded-by.component.html',
+  styleUrl: './funded-by.component.scss',
+})
+export class FundedByComponent {
+  public funds = [
+    {
+      name: 'Regione Toscana',
+      logo: 'assets/funders/toscana.webp',
+      url: 'https://www.regione.toscana.it/',
+    },
+    {
+      name: 'Fondazione Monte dei Paschi di Siena',
+      logo: 'assets/funders/fmps.webp',
+      url: 'https://www.fondazionemps.it/',
+    },
+    {
+      name: 'IKIGAI',
+      logo: 'assets/funders/ikigai.webp',
+      url: 'https://www.ikigaihub.it/ikigai-toscana/',
+    },
+  ];
+}
