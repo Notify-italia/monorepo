@@ -20,12 +20,13 @@ import { TailwindFormsService } from '../../services/tailwind-forms.service';
 export class TailwindColorPickerComponent
   implements OnInit, OnChanges, OnDestroy
 {
+  @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
   @Input() parent!: FormGroup;
   @Input() name!: string;
   @Input() validationErrors!: { [key: string]: string };
-  @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
   //an array colors to be used as default colors
   @Input() colors: string[] = availableColors;
+  @Input() label = '';
 
   public colorPickerOpen = false;
   public color = '';

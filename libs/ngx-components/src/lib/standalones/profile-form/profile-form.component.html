@@ -91,13 +91,13 @@
       }"
     >
       <div class="section box p-4">
-        <div class="divider !pt-0 divider-start">Colori</div>
-        <div class="field" *ngIf="isAgent">
+        <div class="divider !pt-0 divider-start">Tema</div>
+        <div class="field text-white" *ngIf="isAgent">
           <notify-tailwind-checkbox
             *ngIf="profile.company?.name?.length"
             [parent]="form"
             name="useCompanyColors"
-            label="Usa i colori di {{ profile.company?.name }}"
+            label="Usa il tema di {{ profile.company?.name }}"
             [validationErrors]="validationErrors"
           ></notify-tailwind-checkbox>
         </div>
@@ -110,37 +110,32 @@
         >
           <!-- TODO incapsulamento -->
           @if (form.controls.backgroundColors.controls; as bgColors) {
-          <div
-            class="flex space-x-2 items-center box p-2 w-full"
-            *ngIf="bgColors[0] as c"
-          >
-            <notify-tailwind-color-picker
-              [parent]="c"
-              name="value"
-              [validationErrors]="validationErrors"
-            ></notify-tailwind-color-picker>
-            <span class="font-bold">Superiore</span>
-          </div>
-          <div
-            class="flex space-x-2 items-center box p-2 w-full"
-            *ngIf="bgColors[1] as c"
-          >
-            <notify-tailwind-color-picker
-              [parent]="c"
-              name="value"
-              [validationErrors]="validationErrors"
-            ></notify-tailwind-color-picker>
-            <span class="font-bold">Inferiore</span>
-          </div>
 
-          <div class="flex space-x-2 items-center box p-2 w-full">
-            <notify-tailwind-color-picker
-              [parent]="form"
-              name="elementsColor"
-              [validationErrors]="validationErrors"
-            ></notify-tailwind-color-picker>
-            <span class="font-bold">Elementi</span>
-          </div>
+          <notify-tailwind-color-picker
+            *ngIf="bgColors[0] as c"
+            [parent]="c"
+            name="value"
+            label="Superiore"
+            [validationErrors]="validationErrors"
+            class="w-full"
+          ></notify-tailwind-color-picker>
+
+          <notify-tailwind-color-picker
+            *ngIf="bgColors[1] as c"
+            [parent]="c"
+            name="value"
+            [validationErrors]="validationErrors"
+            class="w-full"
+            label="Inferiore"
+          ></notify-tailwind-color-picker>
+
+          <notify-tailwind-color-picker
+            [parent]="form"
+            name="elementsColor"
+            label="Testo"
+            [validationErrors]="validationErrors"
+            class="w-full"
+          ></notify-tailwind-color-picker>
 
           }
         </div>

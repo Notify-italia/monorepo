@@ -1,17 +1,24 @@
-<div [formGroup]="parent" class="flex space-x-2 my-auto">
-  <div class="relative group/colorPicker w-full" tabindex="0">
-    <button
-      tabindex="0"
-      type="button"
-      class="color-bubble group-focus-within/colorPicker:border-2 group-focus-within/colorPicker:scale-90"
-      [ngStyle]="{
-        'background-color': color || defaultColor
-      }"
-      [ngClass]="{
-        'border-2 border-red-500': hasErrors && touched
-      }"
-    ></button>
-
+<div tabindex="-1" #DummyFocus></div>
+<div [formGroup]="parent" class="flex space-x-2 my-auto w-full" tabindex="0">
+  <button class="relative group/colorPicker w-full" tabindex="0">
+    <div
+      class="flex items-center space-x-2 smooth hover:scale-90 box w-full cursor-pointer px-4 py-2 bg-red-500"
+    >
+      <button
+        tabindex="0"
+        type="button"
+        class="color-bubble group-focus-within/colorPicker:border-2 group-focus-within/colorPicker:scale-90"
+        [ngStyle]="{
+          'background-color': color || defaultColor
+        }"
+        [ngClass]="{
+          'border-2 border-red-500': hasErrors && touched
+        }"
+      ></button>
+      <label class="font-bold pointer-events-none" *ngIf="label?.length">{{
+        label
+      }}</label>
+    </div>
     <div
       tabindex="0"
       class="absolute -translate-y-10 opacity-0 pointer-events-none group-focus-within/colorPicker:translate-y-0 group-focus-within/colorPicker:opacity-100 group-focus-within/colorPicker:pointer-events-auto py-2 px-4 rounded-lg bg-white border my-2 smooth max-w-80 lg:max-w-96 overflow-auto z-50"
@@ -20,6 +27,7 @@
         @for (c of colors; track color) {
         <button
           remove-focus
+          [elementToFocus]="DummyFocus"
           type="button"
           class="color-bubble !w-6 !h-6 border border-slate-500 flex-shrink-0 m-2"
           [ngStyle]="{
@@ -34,5 +42,5 @@
         }
       </div>
     </div>
-  </div>
+  </button>
 </div>

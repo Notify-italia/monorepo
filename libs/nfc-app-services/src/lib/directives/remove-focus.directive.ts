@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 /**
  * This directive removes focus from the selectors after clicking on them
@@ -6,17 +6,23 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 @Directive({
   standalone: true,
   // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: '[remove-focus]', // your selectors here!
+  selector: '[remove-focus]',
 })
 export class RemoveFocusDirective {
+  @Input() elementToFocus?: HTMLElement;
   constructor(private elRef: ElementRef<HTMLButtonElement>) {}
 
+  @HostListener('touchcancel') onTouchCancel() {
+    this.elRef.nativeElement.blur();
+    return;
+  }
+
   @HostListener('click') onClick() {
-    if (this.elRef.nativeElement.hasAttribute('focus')) {
-      this.elRef.nativeElement.blur();
+    if (this.elementToFocus) {
+      this.elementToFocus.focus();
       return;
     }
 
-    this.elRef.nativeElement.focus();
+    this.elRef.nativeElement.blur();
   }
 }

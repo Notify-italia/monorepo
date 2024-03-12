@@ -34,7 +34,7 @@
       [ngClass]="{
         'h-full py-5': mockup,
         'h-full  min-h-screen  w-screen': !mockup,
-        'justify-center': !isFeedbackEnabled
+        'justify-center': !isFeedbackEnabled && !data?.customFields?.length
       }"
     >
       <div class="section h-fit w-full space-y-8">

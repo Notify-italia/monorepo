@@ -97,6 +97,9 @@ export class WidgetAreaChartComponent {
       },
       chart: {
         ...DEFAULT_CHART,
+        sparkline: {
+          enabled: true,
+        },
         toolbar: {
           show: !this.disableExport,
           offsetX: -10,
@@ -178,8 +181,6 @@ export class WidgetAreaChartComponent {
 
         return acc;
       }, []);
-
-    console.log('enrichedSeries', enrichedSeries);
 
     return [{ name: 'Visite', data: enrichedSeries }];
   }
