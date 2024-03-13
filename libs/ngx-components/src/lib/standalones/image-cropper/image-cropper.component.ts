@@ -119,6 +119,8 @@ export class ImageCropperComponent implements OnInit {
     const result = new Promise<File>((resolve) => {
       new Compressor(this.value, {
         quality: 0.6,
+        width: 800,
+        height: 800,
         success: (result) => {
           return resolve(result as File);
         },

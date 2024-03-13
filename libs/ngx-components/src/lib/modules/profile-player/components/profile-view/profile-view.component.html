@@ -9,13 +9,13 @@
   <notify-mockup-fill *ngIf="mockup" class="w-full"></notify-mockup-fill>
 
   <div
-    class="main-container"
+    class="main-container py-10 pb-20"
     [ngStyle]="{
       background: 'linear-gradient(' + cssGradientStops + ')'
     }"
     [ngClass]="{
-      'display pt-10 h-full': mockup,
-      
+      'display h-full pt-20': mockup,
+      'h-full  min-h-screen  w-screen': !mockup,
     }"
   >
     <div class="flex justify-center p-4" *ngIf="isFeedbackEnabled">
@@ -28,15 +28,7 @@
         [feedbackKey]="feedbackKey"
       ></notify-feedback-button>
     </div>
-    <div
-      class="main-child !h-full"
-      [class.opacity-50]="!data"
-      [ngClass]="{
-        'h-full py-5': mockup,
-        'h-full  min-h-screen  w-screen': !mockup,
-        'justify-center': !isFeedbackEnabled && !data?.customFields?.length
-      }"
-    >
+    <div class="main-child" [class.opacity-50]="!data">
       <div class="section h-fit w-full space-y-8">
         <div class="section space-y-2">
           <notify-profile-user-info

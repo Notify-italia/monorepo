@@ -37,7 +37,7 @@ import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 })
 export class IconSelectorComponent implements OnInit {
   @Input() public icon?: SvgBoxIcon['name'];
-  @Output() public iconValue = new EventEmitter<SvgBoxIcon>();
+  @Output() public iconValue = new EventEmitter<SvgBoxIcon | null>();
 
   @ViewChildren('card') public cards?: QueryList<ElementRef>;
 
@@ -50,13 +50,7 @@ export class IconSelectorComponent implements OnInit {
   );
   public filteredIcons$ = new Observable<SvgBoxIcon[]>();
 
-  public currentIcon: SvgBoxIcon = {
-    expanded: 'Ignoto',
-    name: 'question',
-    tags: [],
-    set: 'octicons',
-    score: 10,
-  };
+  public currentIcon: SvgBoxIcon = DEFAULT_ICON;
 
   constructor(private _svgBox: SvgboxService) {
     this._searchFilter();
@@ -65,10 +59,11 @@ export class IconSelectorComponent implements OnInit {
   public ngOnInit() {
     if (this.icon) {
       //if the icon is passed as input, we hide the selector and set the current icon
-      this.hideSelector = true;
+
       this.currentIcon = this.availableIcons$.value.find(
         (icon) => icon.name === this.icon
       ) as SvgBoxIcon;
+      this.closeSelector();
     }
 
     this.iconValue.emit(this.currentIcon);
@@ -86,10 +81,18 @@ export class IconSelectorComponent implements OnInit {
 
   public setIcon(icon: SvgBoxIcon) {
     this.currentIcon = icon;
-    this.iconValue.emit(this.currentIcon);
-    this.hideSelector = true;
+
+    this.closeSelector();
 
     this._refresh();
+  }
+
+  public closeSelector() {
+    this.hideSelector = true;
+
+    this.iconValue.emit(
+      this.currentIcon === DEFAULT_ICON ? null : this.currentIcon
+    );
   }
 
   private _refresh() {
@@ -101,8 +104,8 @@ export class IconSelectorComponent implements OnInit {
   }
 
   @HostListener('document:keydown.escape')
-  private _closeSelector() {
-    this.hideSelector = true;
+  private _closeSelectorOnEscape() {
+    this.closeSelector();
   }
 
   private _searchFilter() {
@@ -130,3 +133,11 @@ export class IconSelectorComponent implements OnInit {
     );
   }
 }
+
+const DEFAULT_ICON = {
+  expanded: 'Ignoto',
+  name: 'question',
+  tags: [],
+  set: 'octicons',
+  score: 10,
+};

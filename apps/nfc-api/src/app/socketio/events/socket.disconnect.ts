@@ -14,7 +14,5 @@ export const socketEventDisconnect = (
     socket.disconnect();
 
     connections.remove(JSON.parse(userinfo as unknown as string));
-
-    console.log(`User disconnected`);
   });
 };

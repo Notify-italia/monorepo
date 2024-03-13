@@ -13,10 +13,10 @@ router.post(
     .custom((value) => value === null || (!isNaN(value) && value > 0))
     .withMessage(LICENSE_VALIDATION_MESSAGES.allowedAgents as string),
   body('expirationDate')
-    .custom((value) => value === null || isDate(value))
+    .custom((value) => value === null || isDate(new Date(value)))
     .withMessage(LICENSE_VALIDATION_MESSAGES.expirationDate as string),
   body('boughtCards')
-    .custom((value) => value === null || (!isNaN(value) && value > 0))
+    .custom((value) => !isNaN(value) && value >= 0)
     .withMessage(LICENSE_VALIDATION_MESSAGES.boughtCards as string),
   body('APIKey')
     .custom((v) => v === Bun.env['API_KEY'])

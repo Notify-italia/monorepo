@@ -52,7 +52,7 @@ export class ContactUsComponent {
       return;
     }
 
-    this._pixel.track('Purchase');
+    this._pixel.track('Lead');
 
     this._httpService
       .post('/v1/sales/contact', {

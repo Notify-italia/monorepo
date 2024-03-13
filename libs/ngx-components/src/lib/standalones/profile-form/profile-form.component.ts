@@ -34,6 +34,7 @@ import { ImageCropperFactory } from '../image-cropper/image-cropper.factory';
 import { UploadComponent } from '../upload/upload.component';
 import { AddButtonComponent } from './add-button.component';
 import { RemoveItemButtonComponent } from './remove-item-button';
+import { TestItemButtonComponent } from './test-item-button';
 
 type ProfileForm = FormGroup<{
   name: FormControl<INotifyProfile['name']>;
@@ -70,6 +71,7 @@ type ProfileForm = FormGroup<{
     IconSelectorComponent,
     AddButtonComponent,
     RemoveItemButtonComponent,
+    TestItemButtonComponent,
   ],
   providers: [ImageCropperFactory],
   templateUrl: './profile-form.component.html',
@@ -303,6 +305,10 @@ export class ProfileFormComponent implements OnInit {
     const index = this.controls.backgroundColors.value.indexOf(item.value);
 
     this.controls.backgroundColors.removeAt(index);
+  }
+
+  public getUrl(protocol = 'https://', url: string) {
+    return this._utils.populateWebProtocol(protocol, url);
   }
 
   public setAvatarFile(data: string) {

@@ -5,10 +5,9 @@
   }"
 >
   <notify-avatar
-    class="w-4/12"
     [avatarConfig]="{
       src: data?.avatar || '',
-      size: '42',
+      size: '36',
       mask: data?.config?.avatarMask || '',
       placeholderSeed: data?._id || '',
       backgroundColor: cssElementsColor,
@@ -22,7 +21,8 @@
             src: data?.company?.avatar || '',
             size: '12',
             mask: data?.company?.config?.avatarMask || '',
-            placeholderSeed: ''
+            placeholderStyle: dicebearAvatarStyles.Bottts,
+            placeholderSeed: data?.company?._id || '',
           }
         : undefined
     "

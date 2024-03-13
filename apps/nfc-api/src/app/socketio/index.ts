@@ -19,6 +19,8 @@ const io = new Server(server, {
   perMessageDeflate: true,
   httpCompression: true,
   maxHttpBufferSize: 1e8, //100MB
+  pingInterval: 10000,
+  pingTimeout: 5000,
 });
 
 const listen = async (callback: Function) => {

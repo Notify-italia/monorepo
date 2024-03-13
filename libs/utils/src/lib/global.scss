@@ -117,7 +117,7 @@
 }
 
 .input-style {
-  @apply text-gray-50 bg-base-100/50 backdrop-brightness-105;
+  @apply text-gray-50 bg-base-100/50 backdrop-brightness-105 placeholder-gray-600;
 }
 
 .action-btn {

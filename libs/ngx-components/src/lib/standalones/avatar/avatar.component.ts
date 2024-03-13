@@ -40,10 +40,20 @@ export class AvatarComponent implements OnChanges {
     src: null,
     size: 'w-6 h-6',
     mask: 'circle',
-    placeholderSeed: 'sub-avatar',
+    placeholderSeed: '',
   };
 
   @Output() subAvatarClick = new EventEmitter<void>();
+
+  public isMainAvatarLoaded = false;
+  public isSubAvatarLoaded = false;
+
+  public get loaded(): { [key: string]: boolean } {
+    return {
+      main: this.isMainAvatarLoaded,
+      sub: this.isSubAvatarLoaded,
+    };
+  }
 
   public scrambleCache = `?c=${Date.now()}`;
   public get cleanedConfigs() {
@@ -77,15 +87,33 @@ export class AvatarComponent implements OnChanges {
     return { main, sub };
   }
 
-  public get placeholderAvatar() {
-    return this._utils.diceBearAvatar({
-      style:
-        this.avatarConfig.placeholderStyle || EnumDicebearAvatarStyles.BigSmile,
-      seed: this.avatarConfig.placeholderSeed || '',
-    });
+  public get placeholderAvatar(): { [key: string]: string } {
+    return {
+      main: this._utils.diceBearAvatar({
+        style:
+          this.avatarConfig.placeholderStyle ||
+          EnumDicebearAvatarStyles.BigSmile,
+        seed: this.avatarConfig.placeholderSeed || '',
+      }),
+      sub: this._utils.diceBearAvatar({
+        style:
+          this.subAvatarConfig?.placeholderStyle ||
+          EnumDicebearAvatarStyles.BigSmile,
+        seed: this.subAvatarConfig?.placeholderSeed || '',
+      }),
+    };
   }
 
   constructor(private _utils: UtilsService) {}
+
+  public setLoaded(type: 'main' | 'sub') {
+    if (type === 'main') {
+      this.isMainAvatarLoaded = true;
+      return;
+    }
+
+    this.isSubAvatarLoaded = true;
+  }
 
   ngOnChanges() {
     this.scrambleCache = `?c=${Date.now()}`;

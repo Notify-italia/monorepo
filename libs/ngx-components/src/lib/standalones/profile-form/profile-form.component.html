@@ -63,7 +63,7 @@
     </div>
 
     <div
-      class="flex flex-col items-center space-y-4 p-4 w-full h-full smooth"
+      class="form-type-container smooth"
       [ngClass]="{
         ' opacity-0 pointer-events-none absolute h-0':
           !form.value.redirectEnabled
@@ -85,7 +85,7 @@
     </div>
 
     <div
-      class="flex flex-col items-center space-y-4 p-4 w-full h-full smooth"
+      class="form-type-container smooth"
       [ngClass]="{
         ' opacity-0 pointer-events-none  h-0': form.value.redirectEnabled
       }"
@@ -265,6 +265,7 @@
             name="phoneNumber"
             label="Telefono"
             placeholder="3331234567"
+            prefix="+39"
             [validationErrors]="validationErrors"
           ></notify-tailwind-input>
         </div>
@@ -321,14 +322,16 @@
             (click)="addCustomField()"
           ></button>
 
-          <div
-            *ngFor="let item of cf.controls"
-            class="flex items-center space-x-2"
-          >
+          @for (item of cf.controls; track item) {
+          <div class="flex items-center space-x-2">
             <notify-icon-selector
               class="items-end mt-6"
               [icon]="item.controls['iconName'].value"
-              (iconValue)="item.controls['iconName'].setValue($event.name)"
+              (iconValue)="
+                $event
+                  ? item.controls['iconName'].setValue($event.name)
+                  : form.controls['customFields'].removeAt($index)
+              "
               #IconSelector
             ></notify-icon-selector>
             <notify-tailwind-input
@@ -336,19 +339,31 @@
               name="value"
               class="w-full"
               label=" "
+              [prefix]="IconSelector?.currentIcon?.publicPrefix || ''"
               [placeholder]="
                 IconSelector?.currentIcon?.placeholder || 'Inserisci un link'
               "
               [validationErrors]="validationErrors"
             ></notify-tailwind-input>
             <!-- RIMUOVI SERVIZIO -->
-            <div class="mt-1">
+            <div class="mt-1 flex">
               <button
                 notify-remove-item-button
                 (click)="removeCustomField(item)"
               ></button>
+              <a
+                notify-test-item-button
+                target="_blank"
+                [href]="
+                  getUrl(
+                    IconSelector.currentIcon.prefix,
+                    item.controls['value'].value
+                  )
+                "
+              ></a>
             </div>
           </div>
+          }
         </div>
       </div>
     </div>
