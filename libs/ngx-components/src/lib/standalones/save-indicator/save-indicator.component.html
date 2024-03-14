@@ -1,0 +1,58 @@
+<div
+  class="w-full h-54 p-3 flex items-center justify-between box backdrop-blur-md"
+  [ngClass]="{
+    sticky: followPage
+  }"
+>
+  <div class="flex items-center space-x-4">
+    <button
+      class="rounded-full size-8 shrink-0 text-white p-2 flex flex-col justify-center smooth items-center"
+      [ngClass]="{
+        'bg-green-500': !isSaving,
+        'bg-yellow-500': isSaving,
+    }"
+    >
+      @if (isSaving) {
+      <span class="spinner"></span>
+
+      } @else {
+      <svg
+        class="size-8"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M20.048 6.352a1.2 1.2 0 0 1 0 1.696l-9.6 9.6a1.2 1.2 0 0 1-1.696 0l-4.8-4.8a1.2 1.2 0 0 1 1.696-1.696L9.6 15.103l8.752-8.751a1.2 1.2 0 0 1 1.696 0Z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+      }
+    </button>
+    <small>
+      {{ isSaving ? 'Salvataggio in corso...' : 'Salvato' }}
+    </small>
+  </div>
+  <div class="flex items-center space-x-4">
+    <small class="text-gray-500 text-sm">
+      Ultimo salvataggio il {{ lastSave | date : 'dd/MM/yyyy HH:mm' }}
+    </small>
+    <button class="btn btn-ghost" (click)="save.emit()" [disabled]="isSaving">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+        />
+      </svg>
+    </button>
+  </div>
+</div>

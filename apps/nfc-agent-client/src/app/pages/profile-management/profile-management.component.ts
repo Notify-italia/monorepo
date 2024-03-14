@@ -6,6 +6,7 @@ import {
   ProfileFormComponent,
   ProfilePlayerFactory,
   ProfileViewComponent,
+  SaveIndicatorComponent,
   ShareProfileComponent,
 } from '@notify/ngx-components';
 
@@ -47,6 +48,7 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
     ShareProfileComponent,
     PageHeaderComponent,
     LoadingComponent,
+    SaveIndicatorComponent,
   ],
   providers: [ProfilePlayerFactory, CapacitorService, AgentService],
   templateUrl: './profile-management.component.html',

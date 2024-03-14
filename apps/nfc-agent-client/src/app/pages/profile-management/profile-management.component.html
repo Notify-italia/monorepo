@@ -1,4 +1,4 @@
-<div class="page-layout">
+<div class="page-layout overflow-auto">
   <notify-page-header
     [title]="'Gestione Profilo'"
     subtitle="Modifica e condividi il tuo profilo personale"
@@ -13,6 +13,12 @@
           [baseUrl]="baseUrl"
         ></notify-share-profile>
       </div>
+      <notify-save-indicator
+        [followPage]="true"
+        [isSaving]="loading"
+        [followPage]="true"
+        (save)="saveProfile(profile)"
+      ></notify-save-indicator>
       <div
         class="lg:flex justify-around lg:space-x-4 space-y-4 lg:space-y-0 items-start w-full"
       >
@@ -76,10 +82,4 @@
     <notify-loading></notify-loading>
   </div>
   }
-</div>
-<div
-  class="fixed bottom-0 left-0 lg:left-auto lg:right-0 scale-[0.4] opacity-50"
-  *ngIf="loading"
->
-  <notify-loading></notify-loading>
 </div>

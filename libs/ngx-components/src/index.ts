@@ -23,6 +23,7 @@ export * from './lib/standalones/no-items/no-items.component';
 export * from './lib/standalones/page-header/page-header.component';
 export * from './lib/standalones/page-not-found/page-not-found.component';
 export * from './lib/standalones/profile-form/profile-form.component';
+export * from './lib/standalones/save-indicator/save-indicator.component';
 export * from './lib/standalones/search-bar/search-bar.component';
 export * from './lib/standalones/share-profile/share-profile.component';
 export * from './lib/standalones/spline-viewer/spline-viewer.component';
