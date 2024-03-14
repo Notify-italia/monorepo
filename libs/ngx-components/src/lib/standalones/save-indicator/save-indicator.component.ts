@@ -9,8 +9,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './save-indicator.component.scss',
 })
 export class SaveIndicatorComponent {
-  @Input() isSaving = false;
-  @Input() lastSave = new Date();
+  @Input({ required: true }) isSaving = false;
+  @Input({ required: true }) lastSave = new Date();
   @Input() followPage = false;
 
   @Output() save = new EventEmitter<void>();

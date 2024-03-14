@@ -16,7 +16,7 @@
       <notify-save-indicator
         [followPage]="true"
         [isSaving]="loading"
-        [followPage]="true"
+        [lastSave]="profile.updatedAt"
         (save)="saveProfile(profile)"
       ></notify-save-indicator>
       <div
