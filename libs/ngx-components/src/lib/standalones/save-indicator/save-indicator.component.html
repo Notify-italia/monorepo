@@ -30,13 +30,14 @@
       </svg>
       }
     </button>
-    <small>
-      {{ isSaving ? 'Salvataggio in corso...' : 'Salvato' }}
+    <small class="text-xs lg:text-base whitespace-nowrap">
+      {{ isSaving ? 'Salvataggio...' : 'Salvato' }}
     </small>
   </div>
-  <div class="flex items-center space-x-4">
-    <small class="text-gray-500 text-sm">
-      Ultimo salvataggio il {{ lastSave | date : 'dd/MM/yyyy HH:mm' }}
+  <div class="flex items-center space-x-1 lg:space-x-4">
+    <small class="text-gray-500 text-sm whitespace-nowrap">
+      <span class="hidden lg:block">Ultimo salvataggio il </span>
+      {{ lastSave | date : 'dd/MM/yyyy HH:mm' }}
     </small>
     <button class="btn btn-ghost" (click)="save.emit()" [disabled]="isSaving">
       <svg
