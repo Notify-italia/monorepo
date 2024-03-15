@@ -43,6 +43,12 @@
           [baseUrl]="baseUrl"
         ></notify-share-profile>
       </div>
+      <notify-save-indicator
+        [followPage]="true"
+        [isSaving]="loading"
+        [lastSave]="profile.updatedAt"
+        (save)="saveProfile(profile)"
+      ></notify-save-indicator>
       <div
         class="lg:flex justify-around lg:space-x-4 space-y-4 lg:space-y-0 items-start w-full"
       >

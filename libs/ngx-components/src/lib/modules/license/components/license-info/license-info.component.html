@@ -126,6 +126,34 @@
         <div class="stat-desc">Gestibili</div>
       </div>
 
+      <!-- BOUGHT CARDS -->
+      <div class="stat w-fit">
+        <div class="stat-figure text-purple-500 relative">
+          <svg
+            class="inline-block w-8 h-8 stroke-current rotate-12"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19 19V5a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2Z"
+            ></path>
+            <path d="M8 6h.01"></path>
+            <path d="M16 18h.01"></path>
+            <path d="m12 16-3-4 3-4 3 4-3 4Z"></path>
+          </svg>
+        </div>
+        <div class="stat-value text-purple-500">
+          {{ license?.boughtCards || 0 }}
+        </div>
+        <div class="stat-title">Tessere</div>
+        <div class="stat-desc">Notify</div>
+      </div>
+
       <!-- EXPIRATION DAYS -->
       <div class="stat w-fit">
         <div
