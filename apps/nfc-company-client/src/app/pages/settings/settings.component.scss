@@ -11,7 +11,7 @@
     @apply flex justify-between w-full items-center flex-nowrap;
 
     .value {
-      @apply text-lg text-white;
+      @apply text-lg text-white truncate max-w-48;
 
       &.value-lg {
         @apply text-2xl;

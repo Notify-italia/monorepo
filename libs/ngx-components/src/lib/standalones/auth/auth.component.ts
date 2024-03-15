@@ -60,8 +60,8 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   public validationErrors = {
     required: ' ',
-    email: 'Inserisci un indirizzo email valido',
-    minlength: 'La password deve essere di almeno 6 caratteri',
+    email: 'Email non valida!',
+    minlength: 'almeno 6 caratteri',
     passwordMatch: 'Le password non coincidono',
   };
 
