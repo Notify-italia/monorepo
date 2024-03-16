@@ -7,6 +7,7 @@ export * from './lib/modules/notes';
 export * from './lib/modules/profile-player';
 export * from './lib/modules/tailwind-forms/tailwind-forms.module';
 export * from './lib/modules/tailwind-toasts/tailwind-toasts.module';
+export * from './lib/modules/version-manager';
 export * from './lib/modules/widgets';
 export * from './lib/standalones/animated-bg/wallpaper.component';
 export * from './lib/standalones/app-title/app-title.component';

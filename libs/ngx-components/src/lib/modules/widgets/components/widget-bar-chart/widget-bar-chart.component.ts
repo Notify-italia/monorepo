@@ -51,14 +51,17 @@ export class WidgetBarChartComponent {
     xaxis: {
       categories: [],
       labels: {
-        show: false,
+        show: true,
+        style: {
+          colors: '#8e90d1',
+        },
       },
     },
     yaxis: {
       labels: {
         show: true,
         style: {
-          colors: '#fff',
+          colors: '#8e90d1',
         },
       },
     },

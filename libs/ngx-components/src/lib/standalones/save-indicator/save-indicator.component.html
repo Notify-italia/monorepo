@@ -6,10 +6,11 @@
 >
   <div class="flex items-center space-x-4">
     <button
+      (click)="save.emit()"
       class="rounded-full size-8 shrink-0 text-white p-2 flex flex-col justify-center smooth items-center"
       [ngClass]="{
         'bg-green-500': !isSaving,
-        'bg-yellow-500': isSaving,
+        'bg-yellow-500 pointer-events-none': isSaving,
     }"
     >
       @if (isSaving) {
@@ -35,9 +36,11 @@
     </small>
   </div>
   <div class="flex items-center space-x-1 lg:space-x-4">
-    <small class="text-gray-500 text-sm whitespace-nowrap">
-      <span class="hidden lg:block">Ultimo salvataggio il </span>
-      {{ lastSave | date : 'dd/MM/yyyy HH:mm' }}
+    <small class="text-gray-500 text-sm flex space-x-1">
+      <span class="hidden lg:block">Ultima modifica il </span>
+      <span>
+        {{ lastSave | date : 'dd/MM/yyyy HH:mm' }}
+      </span>
     </small>
     <button class="btn btn-ghost" (click)="save.emit()" [disabled]="isSaving">
       <svg

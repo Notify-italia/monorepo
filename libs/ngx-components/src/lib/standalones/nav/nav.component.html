@@ -136,6 +136,12 @@
         </li>
         }
       </ul>
+      <div *ngIf="versionInfo" class="m-2">
+        <notify-version-label
+          [versionInfo]="versionInfo"
+          (versionClick)="versionClick.emit($event)"
+        ></notify-version-label>
+      </div>
     </div>
   </div>
 </ng-template>

@@ -4,6 +4,7 @@ import it from '@angular/common/locales/it';
 import {
   APP_INITIALIZER,
   ApplicationConfig,
+  LOCALE_ID,
   importProvidersFrom,
 } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -26,6 +27,10 @@ export function tokenGetter() {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'it-IT',
+    },
     provideRouter(
       appRoutes,
       withRouterConfig({

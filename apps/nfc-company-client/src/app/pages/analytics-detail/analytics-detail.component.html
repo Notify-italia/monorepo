@@ -53,13 +53,17 @@
           <div
             class="flex flex-col justify-around w-full h-full v-spacing flex-nowrap"
           >
-            <div class="flex items-center">
+            <div class="flex items-center space-x-2">
               <notify-share-profile
                 *ngIf="stats.user.profile as profile"
                 [profile]="profile"
                 [baseUrl]="baseUrl"
+                class="w-full"
               ></notify-share-profile>
-              <button class="box mask mask-squircle">
+              <button
+                (click)="showProfile()"
+                class="box w-24 h-20 flex justify-center items-center hover:brightness-150 smooth"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"

@@ -55,7 +55,7 @@
       <div class="divider"></div>
 
       <div
-        class="flex flex-col lg:flex-row w-full lg:min-h-[32rem] 2xl:min-h-[35rem] h-spacing"
+        class="flex flex-col lg:flex-row w-full min-h-screen lg:min-h-[60vh] h-spacing"
       >
         <notify-widget-bar-chart
           class="w-full h-full"
@@ -63,38 +63,36 @@
           [series]="data.agentsPerVisitSeries"
         >
         </notify-widget-bar-chart>
-        <div
-          class="flex flex-col justify-around lg:w-5/12 2xl:w-3/12 items-stretch v-spacing"
-        >
+        <div class="flex flex-col lg:w-5/12 2xl:w-3/12 items-stretch v-spacing">
           <notify-widget-feedback
             title="Valutazione media"
             [value]="data.totalAverageFeedbackRating"
             [totalFeedbacksCount]="data.totalFeedbackCount"
           ></notify-widget-feedback>
 
-          @if (data.bestUser.profile && data.worstUser.profile) {
           <div class="divider"></div>
-          <h2 class="text-2xl text-white font-bold">Utenti Mensili</h2>
+          <h2 class="text-2xl text-white font-bold">
+            Top/Worst Pick di {{ currentMonth | titlecase }}
+          </h2>
 
           <notify-widget-profile-card
             [baseUrl]="baseUrl"
-            *ngIf="data.bestUser.profile as bestUser"
-            [profile]="bestUser"
-            [rating]="data.bestUser.averageRating"
-            [ratingItems]="data.bestUser.count"
+            *ngIf="data.bestUser as bestUser"
+            [profile]="bestUser.profile"
+            [rating]="bestUser.averageRating"
+            [ratingItems]="bestUser.count"
             title="Miglior utente ({{ currentMonth }})"
             backgroundColor="#40ff00"
           ></notify-widget-profile-card>
           <notify-widget-profile-card
+            *ngIf="data.worstUser as worstUser"
             [baseUrl]="baseUrl"
-            *ngIf="data.worstUser.profile as worstUser"
-            [profile]="worstUser"
-            [rating]="data.worstUser.averageRating"
-            [ratingItems]="data.worstUser.count"
+            [profile]="worstUser.profile"
+            [rating]="worstUser.averageRating"
+            [ratingItems]="worstUser.count"
             title="Peggior utente ({{ currentMonth }})"
             backgroundColor="#ff0000"
           ></notify-widget-profile-card>
-          }
         </div>
       </div>
     </div>

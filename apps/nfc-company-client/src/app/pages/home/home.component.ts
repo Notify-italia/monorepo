@@ -2,15 +2,96 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '@notify/nfc-app-services';
-import { NavComponent, NavItem } from '@notify/ngx-components';
+import {
+  ChangelogFactory,
+  INotifyVersionInfo,
+  NavComponent,
+  NavItem,
+} from '@notify/ngx-components';
 
 @Component({
   standalone: true,
   imports: [CommonModule, NavComponent, RouterModule],
+  providers: [ChangelogFactory],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
+  public currentVersionInfo: INotifyVersionInfo = {
+    tag: 'v0.8.0',
+    date: '2024-03-15',
+    title: '🦾 Accessibilità e Usabilità',
+    description:
+      "La versione 0.8.0 introduce alcune migliorie all'accessibilità e all'usabilità dell'applicazione. Inoltre, sono state introdotte nuove funzionalità per la gestione degli utenti e per la visualizzazione dei changelogs.",
+    artPath:
+      'https://s3-api.vps.notifyapp.it/assets/version-art/v0.8.0.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=SLOHR0YUKPIG6FLJQ27A%2F20240316%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240316T163744Z&X-Amz-Expires=604800&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJTTE9IUjBZVUtQSUc2RkxKUTI3QSIsImV4cCI6MTcxMDYyOTY1MCwicGFyZW50Ijoibm90aWZ5LWFwaSJ9.U5AAWeTRAfTq5DXAVkVC256URcTwbmX64IEgcVFxxD2lVBeVaa7fQrvhJKnayZX1EKIzzWAsrd7sP9uqGq1PWw&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=f04b5bb2e20babe0dd4a4c99edd0df3c8e7c01ce0ae8b3c1b98032e1ed156d34',
+    changes: [
+      {
+        type: 'new',
+        message:
+          '<b>Changelogs</b>: Aggiunta la possibilità di visualizzare i changelogs della versione corrente (questo popup).',
+      },
+      {
+        type: 'improvement',
+        message: `<b>Gestione Utenti</b>: Aggiunta la possibilità di modificare il profilo di un utente dall'account master.`,
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Pannello Profilo</b>: Migliorata la gestione dei salvataggi.',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Pannello Profilo</b>: Aggiunto un pulsante per testare le integrazioni senza doverle clickare/tappare dal profilo.',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Pannello Profilo</b>: Aggiunti i prefissi, ove possibile, per evidenziare il tipo di dato da inserire in una text-box.',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Analytics</b>: Modificate alcune labels per renderle più comprensibili.',
+      },
+      {
+        type: 'improvement',
+        message: `<b>Analytics</b>: Il top e il worst pick del mese ora rimandano alle analytics dell'utente invece che al suo priflo`,
+      },
+      {
+        type: 'improvement',
+        message: `<b>Analytics</b>: Aggiunta la possiblità di visualizzare il profilo di un utente direttamente dalle analytics.`,
+      },
+      {
+        type: 'improvement',
+        message: `<b>Licenza</b>: Aggiunto un counter per tenere traccia delle tessere Notify acquistate`,
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Selezione colori</b>: Risolto un problema con il focus dei tasti su iOS',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Analytics</b>: Risolti alcuni problemi che impedivano la visualizzazione corretta di alcuni grafici.',
+      },
+      {
+        type: 'fix',
+        message: `<b>Profilo</b>: Modificato l'allineamento di alcuni elementi.`,
+      },
+      {
+        type: 'fix',
+        message: `<b>Impostazioni</b>: Il label dell'email ora è correttamente allineato.`,
+      },
+      {
+        type: 'fix',
+        message: `<b>Analytics</b>: Il top e il worst pick del mese non possono più essere la stessa persona`,
+      },
+    ],
+  };
+
   public nav: NavItem[] = [
     {
       disabled: !this._authService.activeLicense,
@@ -110,5 +191,13 @@ export class HomeComponent {
     },
   ];
 
-  constructor(private _authService: AuthService) {}
+  constructor(
+    private _authService: AuthService,
+    private _changelogFactory: ChangelogFactory
+  ) {}
+
+  public handleVersionClick(versionInfo: INotifyVersionInfo) {
+    //? perchè changlogFactory è un qui e non in version-label? perchè triggerandolo da version labl non applica correttamente il backdrop-blur, oltre che ad avere diversi problemi di alignment
+    this._changelogFactory.create(versionInfo);
+  }
 }

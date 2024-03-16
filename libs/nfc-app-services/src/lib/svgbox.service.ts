@@ -180,7 +180,8 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
   {
     expanded: 'Sito Web',
     name: 'globe',
-
+    prefix: 'https://',
+    publicPrefix: 'https://',
     set: 'octicons',
   },
   {

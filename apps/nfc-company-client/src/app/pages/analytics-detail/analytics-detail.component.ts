@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {
   EnumNotifyStatType,
   INotifyAgent,
@@ -20,6 +20,7 @@ import {
   LoadingComponent,
   NoItemsComponent,
   PageHeaderComponent,
+  ProfilePlayerFactory,
   SearchBarComponent,
   ShareProfileComponent,
   TailwindFormsModule,
@@ -60,12 +61,21 @@ import { AnalyiticsDetailRowComponent } from '../../components/analyitics-detail
     ReactiveFormsModule,
     ShareProfileComponent,
   ],
-  providers: [AgentService, StatService, FeedbackService],
+  providers: [AgentService, StatService, FeedbackService, ProfilePlayerFactory],
   templateUrl: './analytics-detail.component.html',
   styleUrl: './analytics-detail.component.scss',
 })
 export class AnalyticsDetailComponent implements OnDestroy {
-  public agents$ = this._agentService.getAgents();
+  public agents$ = this._agentService.getAgents().pipe(
+    tap((agents) => {
+      const a = this._activatedRoute.snapshot.queryParamMap.get('a');
+      if (a) {
+        this.selectedAgent.setValue(
+          agents.find((agent) => agent._id === a) || null
+        );
+      }
+    })
+  );
   public stat$ = new Observable<INotifyStat[]>();
   public destroy$ = new Subject<void>();
 
@@ -143,11 +153,19 @@ export class AnalyticsDetailComponent implements OnDestroy {
     private _router: Router,
     private _agentService: AgentService,
     private _statService: StatService,
-    private _feedbackService: FeedbackService
+    private _feedbackService: FeedbackService,
+    private _activatedRoute: ActivatedRoute,
+    private _profilePlayer: ProfilePlayerFactory
   ) {
     this.selectedAgent.valueChanges
       .pipe(
         switchMap((agent) => {
+          document.title = `${agent?.profile?.name} ${agent?.profile?.surname} - Analytics - Notify`;
+          _router.navigate([], {
+            relativeTo: _activatedRoute,
+            queryParams: { a: agent?._id },
+            queryParamsHandling: 'merge',
+          });
           return this.getProfileVisits(
             agent?._id || '',
             AREA_CHART_DEFAULT_PERIOD
@@ -164,6 +182,16 @@ export class AnalyticsDetailComponent implements OnDestroy {
 
   public goBack(): void {
     this._router.navigate(['pages/analytics']);
+  }
+
+  public showProfile() {
+    if (!this.selectedAgent.value?.profile) {
+      return;
+    }
+    return this._profilePlayer.createPlayer({
+      profile: this.selectedAgent.value.profile,
+      baseUrl: this.baseUrl,
+    });
   }
 
   public getProfileVisits(userId: string, period: { from: Date; to: Date }) {

@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import {
   EnumNotifyStatType,
+  EnumNotifyUserType,
   INotifyAgent,
   INotifyFeedback,
   INotifyLicense,
@@ -26,6 +27,14 @@ import { startOfMonth } from 'date-fns';
 import { ApexAxisChartSeries } from 'ng-apexcharts';
 import { combineLatest, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
+
+type INotifyPickedUser = {
+  agent: string;
+  rating: number;
+  count: number;
+  averageRating: number;
+  profile: INotifyProfile<EnumNotifyUserType>;
+} | null;
 
 @Component({
   standalone: true,
@@ -139,7 +148,10 @@ export class AnalyticsComponent {
   private _feedbackStats = (
     feedbacks: INotifyFeedback[],
     agents: INotifyAgent[]
-  ) => {
+  ): {
+    bestUser: INotifyPickedUser;
+    worstUser: INotifyPickedUser;
+  } => {
     const usersPerRating: {
       agent: string;
       rating: number;
@@ -165,16 +177,25 @@ export class AnalyticsComponent {
       }))
       .sort((a, b) => b.averageRating - a.averageRating);
 
-    const bestUser = usersPerRating[0] || {};
+    const bestUser: INotifyPickedUser =
+      {
+        ...usersPerRating[0],
+        profile: agents.find((a) => a._id === usersPerRating[0]?.agent)
+          ?.profile as INotifyProfile,
+      } || null;
 
-    const worstUser = usersPerRating[usersPerRating.length - 1] || {};
-
-    bestUser.profile = agents.find((a) => a._id === bestUser?.agent)?.profile;
-    worstUser.profile = agents.find((a) => a._id === worstUser?.agent)?.profile;
+    const worstUser: INotifyPickedUser =
+      {
+        ...usersPerRating[usersPerRating.length - 1],
+        profile: agents.find(
+          (a) => a._id === usersPerRating[usersPerRating.length - 1]?.agent
+        )?.profile as INotifyProfile,
+      } || null;
 
     return {
       bestUser,
-      worstUser,
+      worstUser:
+        bestUser.profile?._id !== worstUser.profile?._id ? worstUser : null,
     };
   };
 

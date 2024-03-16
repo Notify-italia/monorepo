@@ -57,6 +57,10 @@
     &.content-static {
       animation: none;
     }
+
+    &.content-transparent {
+      @apply bg-transparent;
+    }
   }
 
   & .modal-icon {
@@ -145,6 +149,14 @@
 
   &.action-error {
     @apply text-error;
+  }
+
+  &.action-neutral {
+    @apply text-neutral;
+  }
+
+  &.action-accent {
+    @apply text-accent;
   }
 }
 

@@ -1,0 +1,11 @@
+<button
+  (click)="versionClick.emit(versionInfo)"
+  class="box p-2 px-4 !shadow-none !rounded-lg flex justify-between items-center w-full hover:brightness-150 smooth border border-cyan-600"
+>
+  <span class="font-medium">
+    {{ versionInfo.tag }}
+  </span>
+  <span class="text-sm">
+    {{ versionInfo.date | date : 'dd/MM/yyyy' }}
+  </span>
+</button>

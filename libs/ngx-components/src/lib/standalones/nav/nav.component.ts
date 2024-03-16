@@ -1,7 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CapacitorService } from '@notify/nfc-app-services';
+
+import {
+  INotifyVersionInfo,
+  VersionLabelComponent,
+} from '../../modules/version-manager';
 import { AppTitleComponent } from '../app-title/app-title.component';
 
 export interface NavItem {
@@ -16,7 +21,12 @@ export interface NavItem {
 @Component({
   selector: 'notify-nav',
   standalone: true,
-  imports: [CommonModule, RouterModule, AppTitleComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    AppTitleComponent,
+    VersionLabelComponent,
+  ],
   providers: [CapacitorService],
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
@@ -34,6 +44,9 @@ export class NavComponent {
     },
   ];
   @Input({ required: true }) topItems: NavItem[] = [];
+  @Input() versionInfo!: INotifyVersionInfo;
+
+  @Output() versionClick = new EventEmitter<INotifyVersionInfo>();
 
   public get availableItems() {
     return {

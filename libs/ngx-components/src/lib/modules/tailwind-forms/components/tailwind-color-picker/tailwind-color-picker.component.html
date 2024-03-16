@@ -1,13 +1,16 @@
 <div tabindex="-1" #DummyFocus></div>
 <div [formGroup]="parent" class="flex space-x-2 my-auto w-full" tabindex="0">
-  <button class="relative group/colorPicker w-full" tabindex="0">
+  <button
+    class="relative group/colorPicker w-full focus-within:pointer-events-none"
+    tabindex="0"
+  >
     <div
-      class="flex items-center space-x-2 smooth hover:scale-90 box w-full cursor-pointer px-4 py-2 bg-red-500"
+      class="flex items-center space-x-2 smooth hover:scale-95 hover:brightness-200 box w-full cursor-pointer px-4 py-2"
     >
       <button
         tabindex="0"
         type="button"
-        class="color-bubble group-focus-within/colorPicker:border-2 group-focus-within/colorPicker:scale-90"
+        class="color-bubble"
         [ngStyle]="{
           'background-color': color || defaultColor
         }"

@@ -32,6 +32,10 @@ import { tap } from 'rxjs';
 })
 export class ShareFilesComponent implements OnInit, OnDestroy {
   public devices$ = this._socket.connectedDevices$.pipe();
+  public instructions = `<ul class="text-start  space-y-4"><li>1. Fai visitare il tuo profilo alla persona a cui vuoi inviare il file</li> 
+  <li>2. Seleziona il dispositivo dall'elenco e carica un file</li>
+  <li> 3. Conferma l'invio</li>
+  </ul>`;
 
   constructor(
     private _socket: SocketService,

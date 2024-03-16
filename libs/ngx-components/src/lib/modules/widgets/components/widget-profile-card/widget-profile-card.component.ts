@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { INotifyProfile } from '@notify/interfaces';
 import { AvatarComponent } from '../../../../standalones/avatar/avatar.component';
 import { ProfilePlayerFactory, RatingComponent } from '../../../profile-player';
@@ -23,12 +24,13 @@ export class WidgetProfileCardComponent {
   @Input() public baseUrl = '';
   @Input() backgroundColor = '#408558';
 
-  constructor(private _profilePlayer: ProfilePlayerFactory) {}
+  constructor(private _router: Router) {}
 
-  public showProfile() {
-    return this._profilePlayer.createPlayer({
-      profile: this.profile,
-      baseUrl: this.baseUrl,
+  public inspect() {
+    this._router.navigate(['/pages/analytics/detail'], {
+      queryParams: {
+        a: this.profile.owner,
+      },
     });
   }
 }

@@ -18,7 +18,10 @@
     </svg>
 
     <h2 class="text-xl lg:text-3xl font-bold mb-4">{{ title }}</h2>
-    <p class="lg:text-lg text-gray-500 text-center">{{ subtitle }}</p>
+    <p
+      class="lg:text-lg text-gray-500 text-center"
+      [innerHTML]="subtitleHTML"
+    ></p>
   </div>
   <div class="flex flex-col gap-4 sm:mt-0 sm:flex-row-reverse sm:items-center">
     @for(btn of buttons; track btn.disabled; let i = $index) {

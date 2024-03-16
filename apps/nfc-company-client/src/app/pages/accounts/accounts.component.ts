@@ -122,6 +122,14 @@ export class AccountsComponent implements OnInit {
     });
   }
 
+  public inspectAnalytics(agent: INotifyAgent) {
+    this._router.navigate(['/pages/analytics/detail'], {
+      queryParams: {
+        a: agent._id,
+      },
+    });
+  }
+
   public deleteUser(agent: INotifyAgent) {
     const ref = this._confirmModalFactory.create({
       title: 'Elimina utente',
