@@ -79,7 +79,7 @@ export class HomeComponent {
       },
       {
         type: 'fix',
-        message: `<b>Profilo</b>: Modificato l'allineamento di alcuni elementi.`,
+        message: `<b>Profilo</b>: Corretto l'allineamento di alcuni elementi.`,
       },
       {
         type: 'fix',
