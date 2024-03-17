@@ -1,29 +1,42 @@
 import { $ } from 'bun';
 import chalk from 'chalk';
-import { printError } from './utils';
+import {
+  hasApp,
+  printError,
+  publishManifest,
+  type INotifyAvailableApps,
+} from './utils';
 
-const name = 'agent-client';
+const manifest = publishManifest({
+  appName: 'agent',
+  buildName: 'nfc-agent-client',
+  productionContainer: 'profiles-agent-client',
+  developContainer: 'ptc-profiles-agent-client',
+});
 
 export const runAgentClientBuild = async (config: { capSync: boolean }) => {
-  console.log(chalk.blue(`Building ${name}...`));
-  const { stdout, stderr } = await $`nx build nfc-agent-client --prod`;
-
-  if (stderr.length) {
-    printError(stderr, name);
+  if (
+    !hasApp(manifest.appName as INotifyAvailableApps) &&
+    !hasApp('native') &&
+    !hasApp('all')
+  ) {
     return;
   }
 
-  console.log(chalk.green.bold(`${name} build successful`));
-  console.log(stdout);
+  console.log(chalk.blue(`Building ${manifest.appName}...`));
+  const { stderr } = await $`nx build ${manifest.buildName} --prod`;
+
+  if (stderr.length) {
+    printError(stderr, manifest.appName);
+    return;
+  }
+
+  console.log(chalk.green.bold(`${manifest.appName} build successful`));
 
   if (config.capSync) {
     console.log(chalk.blue('Syncing Capacitor...'));
-    const { stdout, stderr } = Bun.spawn([
-      'nx',
-      'run',
-      'nfc-agent-client:cap:sync',
-    ]);
-    if (stderr) {
+    const { stderr } = await $`nx run ${manifest.buildName}:cap:sync`;
+    if (stderr.length) {
       console.log(chalk.red('Capacitor sync failed'));
       console.log(stderr);
       return;

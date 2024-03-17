@@ -1,17 +1,12 @@
-import { $ } from 'bun';
-import chalk from 'chalk';
-import { printError } from './utils';
+import { baseNxBuilder, publishManifest } from './utils';
 
-const name = 'company-client';
+const manifest = publishManifest({
+  appName: 'company',
+  buildName: 'nfc-company-client',
+  productionContainer: 'company-client',
+  developContainer: 'ptc-company-client',
+});
 
 export const runCompanyClientBuild = async () => {
-  console.log(chalk.blue(`Building ${name}...`));
-  const { stdout, stderr } = await $`nx build nfc-company-client --prod`;
-
-  if (stderr.length) {
-    printError(stderr, name);
-    return;
-  }
-
-  console.log(chalk.green.bold(`${name} build successful`));
+  await baseNxBuilder(manifest);
 };

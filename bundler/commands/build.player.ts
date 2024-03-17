@@ -1,17 +1,12 @@
-import { $ } from 'bun';
-import chalk from 'chalk';
-import { printError } from './utils';
+import { baseNxBuilder, publishManifest } from './utils';
 
-const name = 'player';
+const manifest = publishManifest({
+  appName: 'player',
+  buildName: 'nfc-player',
+  productionContainer: 'profiles-player',
+  developContainer: 'ptc-profiles-player',
+});
 
 export const runPlayerBuild = async () => {
-  console.log(chalk.blue(`Building ${name}...`));
-  const { stdout, stderr } = await $`nx build nfc-player --prod`;
-
-  if (stderr.length) {
-    printError(stderr, name);
-    return;
-  }
-
-  console.log(chalk.green.bold(`${name} build successful`));
+  await baseNxBuilder(manifest);
 };

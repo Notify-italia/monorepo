@@ -11,6 +11,7 @@
     "typescript": "^5.0.0"
   },
   "bin": {
-    "notify-bundler": "index.ts"
+    "notify-bundler": "index.ts",
+    "nb": "index.ts"
   }
 }

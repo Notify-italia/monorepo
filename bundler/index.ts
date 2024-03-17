@@ -2,31 +2,24 @@
 import chalk from 'chalk';
 import { program } from 'commander';
 import { runAgentClientBuild } from './commands/build.agent';
+import { runApiBuild } from './commands/build.api';
 import { runCompanyClientBuild } from './commands/build.company';
 import { runPlayerBuild } from './commands/build.player';
-import { hasApp } from './commands/utils';
-
-export type INotifyAvailableApps =
-  | 'company'
-  | 'api'
-  | 'agent'
-  | 'admin'
-  | 'player'
-  | 'native'
-  | 'all';
+import { runPublicClientBuild } from './commands/build.public';
+import { runRootClientBuild } from './commands/build.root';
+import { deployApps } from './commands/deploy';
+import { hasApp, type INotifyAvailableApps } from './commands/utils';
 
 program
-  .option(
-    '-a, --apps <apps...>',
-    'Specify which apps to build',
-    (val: string) => val.split(',')
-  )
-  .option('-sp --skip-deploy', 'Skip deploying the apps');
+  .argument('<apps...>')
+  .option('-sp --skip-deploy', 'Skip deploying the apps')
+  .option('--production', 'Deploy to production');
 
 program.parse();
 
-export const selectedApps = program.opts()?.apps as INotifyAvailableApps[];
+export const selectedApps = program.args as INotifyAvailableApps[];
 const skipDeploy = program.opts()?.skipDeploy as boolean;
+const production = program.opts()?.production as boolean;
 
 if (!selectedApps?.length) {
   console.log(
@@ -37,35 +30,22 @@ if (!selectedApps?.length) {
   process.exit(1);
 }
 
-if (hasApp('company')) {
-  await runCompanyClientBuild();
-}
+await runCompanyClientBuild();
 
-if (hasApp('agent') && !hasApp('native')) {
-  await runAgentClientBuild({ capSync: false });
-}
+await runAgentClientBuild({ capSync: hasApp('native') || hasApp('all') });
 
-if (hasApp('admin')) {
-  console.log('Building admin app');
-}
+await runRootClientBuild();
 
-if (hasApp('native')) {
-  await runAgentClientBuild({ capSync: true });
-}
+await runPlayerBuild();
 
-if (hasApp('player')) {
-  await runPlayerBuild();
-}
+await runApiBuild();
 
-if (hasApp('api')) {
-  console.log('Building api');
-}
+await runPublicClientBuild();
 
-if (hasApp('all')) {
-  await runCompanyClientBuild();
-  await runAgentClientBuild({ capSync: true });
-}
+await runCompanyClientBuild();
 
 if (skipDeploy) {
   process.exit(0);
 }
+
+await deployApps(production);
