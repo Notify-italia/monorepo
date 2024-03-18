@@ -3,8 +3,12 @@
     class="lg:my-auto lg:scale-95 box !rounded-xl z-[999]"
     [topItems]="nav"
     [bottomItems]="bottomNav"
-    [versionInfo]="currentVersionInfo"
-    (versionClick)="handleVersionClick($event)"
+    [versionInfo]="{
+      currentVersion: currentVersionLabel,
+      currentVersionDate: currentVersionDate,
+    
+    }"
+    (versionClick)="handleVersionClick()"
     subtitle=""
   ></notify-nav>
 

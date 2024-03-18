@@ -138,8 +138,9 @@
       </ul>
       <div *ngIf="versionInfo" class="m-2">
         <notify-version-label
-          [versionInfo]="versionInfo"
-          (versionClick)="versionClick.emit($event)"
+          [currentVersion]="versionInfo.currentVersion"
+          [currentVersionDate]="versionInfo.currentVersionDate"
+          (versionClick)="versionClick.emit()"
         ></notify-version-label>
       </div>
     </div>

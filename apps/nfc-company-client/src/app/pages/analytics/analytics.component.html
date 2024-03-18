@@ -71,7 +71,10 @@
           ></notify-widget-feedback>
 
           <div class="divider"></div>
-          <h2 class="text-2xl text-white font-bold">
+          <h2
+            class="text-2xl text-white font-bold"
+            *ngIf="data.bestUser || data.worstUser"
+          >
             Top/Worst Pick di {{ currentMonth | titlecase }}
           </h2>
 

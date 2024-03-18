@@ -16,6 +16,8 @@ export const deployApps = async (production = false) => {
   );
 
   await asyncForEach(mainfests, async (manifest) => {
+    //TODO trovare un'alternativa a $ dato che bun ancora non gestisce i cp
+
     const cpDockerFile = `cp ./apps/${manifest.buildName}/Dockerfile ./dist/apps/${manifest.buildName}`;
     const cpCaptainDefinition = `cp ./apps/${manifest.buildName}/captain-definition ./dist/apps/${manifest.buildName}`;
     const makeTar = `tar --strip-components=4 -cvf ./deploy.tar --exclude='*.map' ./dist/apps/${manifest.buildName}`;

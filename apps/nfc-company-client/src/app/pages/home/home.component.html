@@ -4,8 +4,11 @@
     [topItems]="nav"
     [bottomItems]="bottomNav"
     subtitle="Dashboard"
-    [versionInfo]="currentVersionInfo"
-    (versionClick)="handleVersionClick($event)"
+    [versionInfo]="{
+      currentVersion: currentVersionLabel,
+      currentVersionDate: currentVersionDate,
+    }"
+    (versionClick)="handleVersionClick()"
   ></notify-nav>
 
   <div

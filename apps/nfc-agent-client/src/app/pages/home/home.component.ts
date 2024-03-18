@@ -18,14 +18,16 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  public currentVersionInfo: INotifyVersionInfo = {
+  public currentVersionLabel: string = 'v0.8.0';
+  public currentVersionDate: string = '2024-03-15';
+
+  public latestChangelog: INotifyVersionInfo = {
     tag: 'v0.8.0',
     date: '2024-03-15',
     title: '🦾 Accessibilità e Usabilità',
     description:
       "La versione 0.8.0 introduce alcune migliorie all'accessibilità e all'usabilità dell'applicazione. Inoltre, sono state introdotte nuove funzionalità per la gestione degli utenti e per la visualizzazione dei changelogs.",
-    artPath:
-      'https://s3-api.vps.notifyapp.it/assets/version-art/v0.8.0.webp?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=SLOHR0YUKPIG6FLJQ27A%2F20240316%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240316T163744Z&X-Amz-Expires=604800&X-Amz-Security-Token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NLZXkiOiJTTE9IUjBZVUtQSUc2RkxKUTI3QSIsImV4cCI6MTcxMDYyOTY1MCwicGFyZW50Ijoibm90aWZ5LWFwaSJ9.U5AAWeTRAfTq5DXAVkVC256URcTwbmX64IEgcVFxxD2lVBeVaa7fQrvhJKnayZX1EKIzzWAsrd7sP9uqGq1PWw&X-Amz-SignedHeaders=host&versionId=null&X-Amz-Signature=f04b5bb2e20babe0dd4a4c99edd0df3c8e7c01ce0ae8b3c1b98032e1ed156d34',
+    artPath: 'https://s3-api.vps.notifyapp.it/assets/version-art/v0.8.0.webp',
     changes: [
       {
         type: 'new',
@@ -142,8 +144,8 @@ export class HomeComponent {
     private _changelogFactory: ChangelogFactory
   ) {}
 
-  public handleVersionClick(versionInfo: INotifyVersionInfo) {
+  public handleVersionClick() {
     //? perchè changlogFactory è un qui e non in version-label? perchè triggerandolo da version labl non applica correttamente il backdrop-blur, oltre che ad avere diversi problemi di alignment
-    this._changelogFactory.create(versionInfo);
+    this._changelogFactory.create(this.latestChangelog);
   }
 }

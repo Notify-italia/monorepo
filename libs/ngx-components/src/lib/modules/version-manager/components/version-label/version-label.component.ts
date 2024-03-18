@@ -21,6 +21,7 @@ export interface INotifyVersionInfo {
   styleUrl: './version-label.component.scss',
 })
 export class VersionLabelComponent {
-  @Input({ required: true }) versionInfo!: INotifyVersionInfo;
-  @Output() versionClick = new EventEmitter<INotifyVersionInfo>();
+  @Input({ required: true }) currentVersion!: string;
+  @Input({ required: true }) currentVersionDate!: string | Date;
+  @Output() versionClick = new EventEmitter<void>();
 }

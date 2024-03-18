@@ -3,10 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CapacitorService } from '@notify/nfc-app-services';
 
-import {
-  INotifyVersionInfo,
-  VersionLabelComponent,
-} from '../../modules/version-manager';
+import { VersionLabelComponent } from '../../modules/version-manager';
 import { AppTitleComponent } from '../app-title/app-title.component';
 
 export interface NavItem {
@@ -44,9 +41,12 @@ export class NavComponent {
     },
   ];
   @Input({ required: true }) topItems: NavItem[] = [];
-  @Input() versionInfo!: INotifyVersionInfo;
+  @Input() versionInfo!: {
+    currentVersion: string;
+    currentVersionDate: string | Date;
+  };
 
-  @Output() versionClick = new EventEmitter<INotifyVersionInfo>();
+  @Output() versionClick = new EventEmitter<void>();
 
   public get availableItems() {
     return {
