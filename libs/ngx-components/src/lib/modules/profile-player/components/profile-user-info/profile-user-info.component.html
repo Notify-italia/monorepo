@@ -47,10 +47,9 @@
       [ngClass]="{
         '!text-center ': hasLongName
       }"
-      *ngIf="isAgent"
       [ngStyle]="{ color: cssElementsColor, opacity: 0.8 }"
     >
-      {{ data?.role }}
+      {{ isAgent ? data?.role : data?.piva ? 'P. IVA ' + data?.piva : '' }}
     </div>
     <!-- BIO -->
     <div

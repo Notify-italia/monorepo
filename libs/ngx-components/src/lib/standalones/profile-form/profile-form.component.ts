@@ -50,6 +50,7 @@ type ProfileForm = FormGroup<{
   avatarMask: FormControl<DaisyUIAvatarMasks | null>;
   street: FormControl<string | null>;
   city: FormControl<string | null>;
+  piva: FormControl<string | null>;
   number: FormControl<string | null>;
   reviewRedirect: FormControl<string | null>;
   smsEnabled: FormControl<boolean | null>;
@@ -209,6 +210,7 @@ export class ProfileFormComponent implements OnInit {
       number: new FormControl(this.profile.address?.number || ''),
       smsEnabled: new FormControl(this.profile.config.smsEnabled ?? true, []),
       backgroundColors: new FormArray([] as FormGroup[]),
+      piva: new FormControl(this.profile.piva || '', []),
       elementsColor: new FormControl(pColors?.elements || '#ffffff'),
       useCompanyColors: new FormControl(pColors?.useCompanyColors || false, []),
       redirectEnabled: new FormControl(
@@ -334,6 +336,7 @@ export class ProfileFormComponent implements OnInit {
       phoneNumber: form.phoneNumber?.trim() || null,
       bio: form.bio || null,
       avatar: form.avatar || null,
+      piva: form.piva || null,
       config: {
         avatarMask: form.avatarMask || '',
         whatsappEnabled: !!form.whatsappEnabled,

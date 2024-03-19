@@ -144,6 +144,10 @@ const ProfileSchema = new Schema<Profile, ProfileModel>(
         default: null,
       },
     },
+    piva: {
+      type: String,
+      default: null,
+    },
     reviewRedirect: {
       type: Schema.Types.String,
       default: null,

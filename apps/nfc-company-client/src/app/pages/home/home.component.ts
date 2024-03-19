@@ -17,12 +17,12 @@ import {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  public currentVersionLabel: string = 'v0.8.0.1';
-  public currentVersionDate: string = '2024-03-18';
+  public currentVersionLabel: string = 'v0.8.1';
+  public currentVersionDate: string = '2024-03-19';
 
   public latestChangelog: INotifyVersionInfo = {
-    tag: 'v0.8.0',
-    date: '2024-03-15',
+    tag: 'v0.8.x',
+    date: '2024-03-19',
     title: '🦾 Accessibilità e Usabilità',
     description:
       "La versione 0.8.0 introduce alcune migliorie all'accessibilità e all'usabilità dell'applicazione. Inoltre, sono state introdotte nuove funzionalità per la gestione degli utenti e per la visualizzazione dei changelogs.",
@@ -31,11 +31,11 @@ export class HomeComponent {
       {
         type: 'new',
         message:
-          '<b>Changelogs</b>: Aggiunta la possibilità di visualizzare i changelogs della versione corrente (questo popup).',
+          '<b>Changelogs</b>: è ora possibile visualizzare i changelogs della versione corrente (questo popup).',
       },
       {
         type: 'improvement',
-        message: `<b>Gestione Utenti</b>: Aggiunta la possibilità di modificare il profilo di un utente dall'account master.`,
+        message: `<b>Gestione Utenti</b>: è ora possibile modificare il profilo di un utente dall'account master.`,
       },
       {
         type: 'improvement',
@@ -63,7 +63,7 @@ export class HomeComponent {
       },
       {
         type: 'improvement',
-        message: `<b>Analytics</b>: Aggiunta la possiblità di visualizzare il profilo di un utente direttamente dalle analytics.`,
+        message: `<b>Analytics</b>: è ora possibile visualizzare il profilo di un utente direttamente dalle analytics.`,
       },
       {
         type: 'improvement',
@@ -90,6 +90,14 @@ export class HomeComponent {
       {
         type: 'fix',
         message: `<b>Analytics</b>: Il top e il worst pick del mese non possono più essere la stessa persona`,
+      },
+      {
+        type: 'new',
+        message: `<b>Profilo</b>: Inserito il campo Partita IVA per le aziende (0.8.1)`,
+      },
+      {
+        type: 'fix',
+        message: `<b>Analytics</b>: Corretto un problema che impediva la visualizzazione del tema di un profilo se impostato sul tema aziendale (0.8.1)`,
       },
     ],
   };

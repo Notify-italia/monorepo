@@ -37,6 +37,7 @@ export interface INotifyProfile<
     ? { start: number; end: number }[]
     : null;
   redirectUrl: string | null;
+  piva: T extends EnumNotifyUserType.Company ? string : null;
   company?: INotifyProfile<EnumNotifyUserType.Company>;
   colors: {
     background: string[];

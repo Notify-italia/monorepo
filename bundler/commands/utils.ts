@@ -1,6 +1,6 @@
 import { $ } from 'bun';
 import chalk from 'chalk';
-import { selectedApps } from '..';
+import { productionOptTrue, selectedApps, verboseEnabled } from '..';
 
 export type INotifyAvailableApps =
   | 'company'
@@ -39,7 +39,9 @@ export const baseNxBuilder = async (manifest: INotifyAppManifest) => {
   }
 
   console.log(chalk.blue(`Building ${manifest.appName}...`));
-  const { stdout, stderr } = await $`nx build ${manifest.buildName} --prod`;
+  const { stdout, stderr } = await $`nx build ${manifest.buildName} ${
+    productionOptTrue ? '--prod' : ''
+  }`;
 
   if (stderr.length) {
     printError(stderr, manifest.appName);
@@ -56,4 +58,12 @@ export const publishManifest = (
 ): INotifyAppManifest => {
   availableManifests.push(config);
   return config;
+};
+
+export const whenVerbose = (chalk: string) => {
+  if (!verboseEnabled) {
+    return;
+  }
+
+  console.log(chalk);
 };

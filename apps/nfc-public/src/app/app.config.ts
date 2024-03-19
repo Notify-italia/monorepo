@@ -4,6 +4,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { HttpService, providePixelModule } from '@notify/nfc-app-services';
+import { provideClarity } from 'ngx-clarity';
 import { provideToastr } from 'ngx-toastr';
 import { environment } from '../environments/environment.prod';
 import { appRoutes } from './app.routes';
@@ -23,5 +24,9 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     // provideTailwindToasts(),
     provideToastr(),
+    provideClarity({
+      enabled: true,
+      projectId: 'l2q2lfi4bb',
+    }),
   ],
 };

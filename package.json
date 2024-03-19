@@ -66,6 +66,7 @@
     "mongoose": "^7.6.3",
     "ng-apexcharts": "^1.8.0",
     "ng-apexcharts-lazy": "^1.9.0",
+    "ngx-clarity": "^2.1.0",
     "ngx-color-picker": "^16.0.0",
     "ngx-device-detector": "^7.0.0",
     "ngx-dropzone": "^3.1.0",

@@ -172,6 +172,17 @@
             lunghezza del nome {{ isAgent ? 'e del cognome' : '' }}</small
           >
         </div>
+        <div>
+          <notify-tailwind-input
+            *ngIf="!isAgent"
+            [parent]="form"
+            name="piva"
+            label="Partita IVA"
+            [placeholder]="'02585410976'"
+            [validationErrors]="validationErrors"
+            class="w-full"
+          ></notify-tailwind-input>
+        </div>
         <div class="divider mx-5"></div>
         <!-- BIO -->
         <div class="field">

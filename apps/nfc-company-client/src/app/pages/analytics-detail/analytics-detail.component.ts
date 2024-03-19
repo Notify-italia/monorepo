@@ -11,6 +11,7 @@ import {
 import {
   AgentService,
   FeedbackService,
+  ProfileService,
   StatService,
   SvgBoxIcon,
 } from '@notify/nfc-app-services';
@@ -66,14 +67,29 @@ import { AnalyiticsDetailRowComponent } from '../../components/analyitics-detail
   styleUrl: './analytics-detail.component.scss',
 })
 export class AnalyticsDetailComponent implements OnDestroy {
-  public agents$ = this._agentService.getAgents().pipe(
+  public agents$ = combineLatest([
+    this._agentService.getAgents(),
+    this._profileService.getProfile(),
+  ]).pipe(
+    map(([agents, profile]) => {
+      return agents.map((agent) => {
+        if (!agent.profile) {
+          return agent;
+        }
+
+        agent.profile.company = profile;
+        return agent;
+      });
+    }),
     tap((agents) => {
       const a = this._activatedRoute.snapshot.queryParamMap.get('a');
-      if (a) {
-        this.selectedAgent.setValue(
-          agents.find((agent) => agent._id === a) || null
-        );
+      if (!a) {
+        return;
       }
+
+      this.selectedAgent.setValue(
+        agents.find((agent) => agent._id === a) || null
+      );
     })
   );
   public stat$ = new Observable<INotifyStat[]>();
@@ -155,6 +171,7 @@ export class AnalyticsDetailComponent implements OnDestroy {
     private _statService: StatService,
     private _feedbackService: FeedbackService,
     private _activatedRoute: ActivatedRoute,
+    private _profileService: ProfileService,
     private _profilePlayer: ProfilePlayerFactory
   ) {
     this.selectedAgent.valueChanges
