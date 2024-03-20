@@ -126,6 +126,7 @@
     "@typescript-eslint/parser": "6.11.0",
     "autoprefixer": "^10.4.0",
     "bun-types": "latest",
+    "cli-spinner": "^0.2.10",
     "daisyui": "^4.4.23",
     "esbuild": "^0.19.2",
     "eslint": "8.48.0",

@@ -53,6 +53,7 @@ const _DEMO_PROFILE: INotifyProfile<EnumNotifyUserType.Company> = {
   name: 'Notify Italia',
   surname: null,
   email: 'notifyitalia@gmail.com',
+  piva: '02585410976',
   phoneNumber: '3240552651',
   bio: 'Regala un effetto wow ai tuoi clienti. Notify è il software che ti mette in contatto con i tuoi clienti in un modo mai visto prima!',
   avatar: _DEMO_PROFILE_AVATAR,

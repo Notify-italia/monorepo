@@ -4,6 +4,7 @@ import {
   hasApp,
   printError,
   publishManifest,
+  whenVerbose,
   type INotifyAvailableApps,
 } from './utils';
 
@@ -23,7 +24,7 @@ export const runAgentClientBuild = async (config: { capSync: boolean }) => {
     return;
   }
 
-  console.log(chalk.blue(`Building ${manifest.appName}...`));
+  whenVerbose(chalk.blue(`Building ${manifest.appName}...`));
   const { stderr } = await $`nx build ${manifest.buildName} --prod`;
 
   if (stderr.length) {

@@ -17,6 +17,7 @@ export interface INotifyAppManifest {
   buildName: string;
   productionContainer: string;
   developContainer: string;
+  preDeployTasks?: string[][];
 }
 
 export const availableManifests: INotifyAppManifest[] = [];
@@ -38,7 +39,7 @@ export const baseNxBuilder = async (manifest: INotifyAppManifest) => {
     return;
   }
 
-  console.log(chalk.blue(`Building ${manifest.appName}...`));
+  whenVerbose(chalk.blue(`Building ${manifest.appName}...`));
   const { stdout, stderr } = await $`nx build ${manifest.buildName} ${
     productionOptTrue ? '--prod' : ''
   }`;

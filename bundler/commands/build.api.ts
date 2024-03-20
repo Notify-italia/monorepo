@@ -4,6 +4,7 @@ import {
   hasApp,
   printError,
   publishManifest,
+  whenVerbose,
   type INotifyAvailableApps,
 } from './utils';
 
@@ -19,7 +20,7 @@ export const runApiBuild = async () => {
     return;
   }
 
-  console.log(chalk.blue(`Building ${manifest.appName}...`));
+  whenVerbose(chalk.blue(`Building ${manifest.appName}...`));
   const { stdout, stderr } =
     await $`bun build --target=bun ./apps/${manifest.buildName}/src/main.ts --outdir ./dist/apps/${manifest.buildName}`;
 
