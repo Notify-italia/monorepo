@@ -8,6 +8,7 @@ import {
   type INotifyAppManifest,
 } from './utils';
 
+//dichiaro lo spinner del cli (globetto che gira mentre esegue il deploy)
 const spinner = new Spinner({
   text: 'Deploying...',
   stream: process.stderr,
@@ -18,9 +19,11 @@ const spinner = new Spinner({
 }).setSpinnerString(15);
 
 export const deployApps = async (production = false) => {
-  const mainfests = availableManifests.filter((manifest) => {
-    return selectedApps.includes(manifest.appName);
-  });
+  const mainfests = selectedApps.includes('all')
+    ? availableManifests
+    : availableManifests.filter((manifest) => {
+        return selectedApps.includes(manifest.appName);
+      });
 
   console.log(
     chalk.blue(
