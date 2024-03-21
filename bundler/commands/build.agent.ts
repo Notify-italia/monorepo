@@ -25,9 +25,9 @@ export const runAgentClientBuild = async (config: { capSync: boolean }) => {
   }
 
   whenVerbose(chalk.blue(`Building ${manifest.appName}...`));
-  const { stderr } = await $`nx build ${manifest.buildName} --prod`;
+  const { stderr, exitCode } = await $`nx build ${manifest.buildName} --prod`;
 
-  if (stderr.length) {
+  if (exitCode) {
     printError(stderr, manifest.appName);
     return;
   }
@@ -36,8 +36,8 @@ export const runAgentClientBuild = async (config: { capSync: boolean }) => {
 
   if (config.capSync) {
     console.log(chalk.blue('Syncing Capacitor...'));
-    const { stderr } = await $`nx run ${manifest.buildName}:cap:sync`;
-    if (stderr.length) {
+    const { stderr, exitCode } = await $`nx run ${manifest.buildName}:cap:sync`;
+    if (exitCode) {
       console.log(chalk.red('Capacitor sync failed'));
       console.log(stderr);
       return;

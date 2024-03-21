@@ -34,19 +34,27 @@ export const hasApp = (app: INotifyAvailableApps) => {
   return selectedApps.includes(app);
 };
 
-export const baseNxBuilder = async (manifest: INotifyAppManifest) => {
+export const baseBundler = async (
+  manifest: INotifyAppManifest,
+  command?: string
+) => {
   if (!hasApp(manifest.appName as INotifyAvailableApps) && !hasApp('all')) {
     return;
   }
 
   whenVerbose(chalk.blue(`Building ${manifest.appName}...`));
-  const { stdout, stderr } = await $`nx build ${manifest.buildName} ${
-    productionOptTrue ? '--prod' : ''
-  }`;
 
-  if (stderr.length) {
+  // This code snippet is using a ternary operator to conditionally execute a command based on the presence of the `command` parameter
+  const { stdout, stderr, exitCode } = command
+    ? Bun.spawnSync(command.split(' '))
+    : await $`nx build ${manifest.buildName} ${
+        productionOptTrue ? '--prod' : ''
+      }`;
+
+  whenVerbose(bufferToString(stdout));
+
+  if (exitCode) {
     printError(stderr, manifest.appName);
-    return;
   }
 
   console.log(chalk.green.bold(`${manifest.appName} build successful`));

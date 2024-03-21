@@ -1,4 +1,4 @@
-import { baseNxBuilder, publishManifest } from './utils';
+import { baseBundler, publishManifest } from './utils';
 
 const manifest = publishManifest({
   appName: 'root',
@@ -8,5 +8,5 @@ const manifest = publishManifest({
 });
 
 export const runRootClientBuild = async () => {
-  await baseNxBuilder(manifest);
+  await baseBundler(manifest);
 };
