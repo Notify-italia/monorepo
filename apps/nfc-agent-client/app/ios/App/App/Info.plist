@@ -29,7 +29,9 @@
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) ha bisogno dell'accesso alla tua fotocamera per scattare una foto durante la configurazione del tuo profilo</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>$(PRODUCT_NAME) ha bisogno dell'accesso alla tua libreria di foto per salvare codici qr e altri media</string>
+	<string>$(PRODUCT_NAME) ha bisogno dell'accesso alla tua libreria di foto per salvare codici QR e altri media</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT_NAME) ha bisogno dell'accesso alla tua libreria di foto per caricare una foto del tuo profilo</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -40,9 +42,18 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIStatusBarHidden</key>
+	<false/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
