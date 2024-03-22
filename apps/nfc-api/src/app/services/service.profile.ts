@@ -22,7 +22,7 @@ export const getAgentOwnerProfile = async (agentId: Types.ObjectId) => {
     .lean();
 
   if (!agent) {
-    wLog('Agent not found', 'warning');
+    wLog('Agent not found, user is not an agent?', 'warning');
     return undefined;
   }
 

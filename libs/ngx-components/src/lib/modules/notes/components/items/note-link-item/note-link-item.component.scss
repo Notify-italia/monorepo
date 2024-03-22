@@ -1,0 +1,22 @@
+.main-container {
+  @apply flex flex-col flex-shrink-0 items-center w-full h-52;
+
+  & > * {
+    @apply w-full;
+  }
+}
+
+.iframe-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  & > iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

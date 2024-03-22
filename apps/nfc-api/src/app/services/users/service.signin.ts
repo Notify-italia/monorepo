@@ -1,8 +1,7 @@
 import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
 import { wLog } from 'apps/nfc-api/src/main';
-import jwt from 'jsonwebtoken';
-import { Agent } from '../../models/model.agent';
 import { BadRequestError } from '../errors/errors';
+import { signToken } from '../service.jwt';
 import { Password } from './service.password';
 import { genericUserQuery } from './service.query';
 
@@ -57,7 +56,7 @@ export const signIn = async (
   //if the authentication is successful, it will return the user object with a signed token
   return {
     ...user.toObject(),
-    token: _signToken({ ...user.toObject(), userType }),
+    token: signToken({ ...user.toObject(), userType }),
     userType,
   };
 };
@@ -82,7 +81,7 @@ export const refreshToken = async (u: INotifyUser, populate = '') => {
 
   return {
     ...user.toObject(),
-    token: _signToken({ ...user.toObject(), userType: u.userType }),
+    token: signToken({ ...user.toObject(), userType: u.userType }),
     userType: u.userType,
   };
 };
@@ -98,20 +97,6 @@ export const refreshToken = async (u: INotifyUser, populate = '') => {
  */
 const _comparePassword = async (source: string, provided: string) => {
   return await Password.compare(source, provided);
-};
-
-/**
- * The function `_signToken` takes a user object and returns a signed JSON Web Token (JWT) using the
- * user's id, email, password, and a secret key.
- * @param {Agent} user - The `user` parameter is an object of type `Agent`. It contains properties such
- * as `_id`, `email`, and `password`.
- * @returns a JSON Web Token (JWT) that is signed with the user's ID, email, and password, using the
- * JWT_KEY from the environment variables.
- */
-const _signToken = (user: INotifyUser) => {
-  return jwt.sign(user, Bun.env.JWT_KEY!, {
-    expiresIn: '1d',
-  });
 };
 
 const _throwError = () => {

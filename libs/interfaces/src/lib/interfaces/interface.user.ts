@@ -24,3 +24,7 @@ export enum EnumNotifyUserType {
   Agent = 'agent',
   Company = 'company',
 }
+
+export interface INotifyPartialUser extends Partial<INotifyUser> {
+  role?: string;
+}

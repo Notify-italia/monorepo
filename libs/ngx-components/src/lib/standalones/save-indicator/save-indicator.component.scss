@@ -1,0 +1,21 @@
+$spinnerSize: 2px;
+
+.spinner {
+  width: $spinnerSize;
+  height: $spinnerSize;
+  animation: spinner-xp626r 1s infinite;
+  border-radius: 50%;
+  box-shadow: 9.6px 0 0 $spinnerSize #ffff, -9.6px 0 0 $spinnerSize #ffff;
+}
+@keyframes spinner-xp626r {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+
+  @apply top-5;
+}

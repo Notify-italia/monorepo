@@ -1,0 +1,15 @@
+.content-container {
+  @apply h-full w-full relative overflow-x-hidden overflow-y-clip  lg:flex;
+}
+
+.player-responsive {
+  @apply lg:min-h-min lg:w-[25rem] lg:h-[50rem] m-auto lg:overflow-y-hidden lg:rounded-xl;
+}
+
+.footer {
+  @apply w-full  lg:bg-none text-xs text-center whitespace-nowrap py-4 px-6 absolute bottom-0 text-white;
+}
+
+.mockup-scale {
+  @apply lg:scale-75 2xl:scale-100;
+}

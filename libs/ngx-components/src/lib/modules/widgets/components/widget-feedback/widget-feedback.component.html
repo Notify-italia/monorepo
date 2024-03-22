@@ -1,0 +1,117 @@
+<div class="w-full h-full widget-container">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 1000 1000"
+    xmlns:v="https://vecta.io/nano"
+    class="absolute opacity-25 top-0 w-48 h-48 right-0 -mt-10 -mr-10"
+  >
+    <defs>
+      <clipPath id="A">
+        <path
+          [attr.fill]="backgroundColor"
+          d="M922.5 673Q846 846 673 907.5T340.5 894q-159.5-75-234-234.5T96 330q64-170 234-226.5t343-3Q846 154 922.5 327t0 346Z"
+        />
+      </clipPath>
+    </defs>
+    <g clip-path="url(#A)">
+      <path
+        [attr.fill]="backgroundColor"
+        d="M922.5 673Q846 846 673 907.5T340.5 894q-159.5-75-234-234.5T96 330q64-170 234-226.5t343-3Q846 154 922.5 327t0 346Z"
+      />
+    </g>
+  </svg>
+
+  <div>
+    <!-- header -->
+    <div class="header-container">
+      <div class="header-items">
+        <h2>{{ title }}</h2>
+      </div>
+      <div class="divider !mt-1"></div>
+    </div>
+    <!-- body -->
+    <div
+      class="w-full flex flex-col justify-around items-center space-y-2 mb-4"
+    >
+      @if(!advanced?.enabled) {
+      <div class="flex items-center text-lg">
+        <svg
+          class="w-6 h-6 text-yellow-300 me-1"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 22 20"
+        >
+          <path
+            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+          />
+        </svg>
+        <p class="ms-2 text-sm font-bold text-white items-center">
+          {{ value | number : '1.2-2' }}
+        </p>
+        <span class="w-1 h-1 mx-1.5 rounded-full bg-gray-400"></span>
+        <a class="text-sm font-medium text-white items-center"
+          >{{ totalFeedbacksCount }} feedbacks ricevuti</a
+        >
+      </div>
+      } @else {
+
+      <div class="flex justify-center items-center w-full">
+        <svg
+          class="w-4 h-4 text-yellow-300 me-1"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 22 20"
+        >
+          <path
+            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+          />
+        </svg>
+
+        <p class="ms-1 text-sm font-medium text-gray-400">
+          {{ advancedFeedbackAverage }} su 5 stelle
+        </p>
+      </div>
+      <button
+        class="text-sm font-medium text-gray-400 cursor-pointer disabled:pointer-events-none"
+        [disabled]="!advanced?.feedbacks?.length"
+        (click)="browseFeedbacks(advanced?.feedbacks || [])"
+      >
+        {{ advanced?.feedbacks?.length }} feedbacks ricevuti
+      </button>
+      <div
+        class="flex items-center mt-4 w-full flex-col-reverse justify-around"
+      >
+        @for (item of sortedFeedbacks.iterable; track $index) {
+        <button
+          class="flex items-center mt-4 w-full justify-center disabled:pointer-events-none"
+          [disabled]="!item[1].length"
+          (click)="browseFeedbacks(item[1])"
+        >
+          <a class="text-sm font-medium text-gray-400">{{ item[0] }} stelle</a>
+          <div class="w-2/4 h-5 mx-4 bg-primary-500/20 rounded">
+            <div
+              class="h-5 bg-yellow-400 rounded whitespace-nowrap"
+              [ngStyle]="{
+                width:
+                  ((item[1].length / (advanced?.feedbacks?.length || 0)) *
+                    100 || 0) + '%'
+              }"
+            ></div>
+          </div>
+          <span class="text-sm font-medium text-gray-400 w-10">
+            {{
+              (item[1].length / (advanced?.feedbacks?.length || 0)) * 100 || 0
+                | number : '1.0-0'
+            }}
+            %
+          </span>
+        </button>
+        }
+      </div>
+
+      }
+    </div>
+  </div>
+</div>

@@ -1,12 +1,41 @@
 // regular style toast
 @import 'ngx-toastr/toastr';
 @import 'animate.css/animate.min.css';
-@import 'ngx-lightbox/lightbox.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@100;200;300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/avenir');
+@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400..700&display=swap');
+
+@font-face {
+  font-family: 'Roca Two Bold';
+  src: url('../../assets/roca-two-bold/Roca Two Bold.eot');
+  src: url('../../assets/roca-two-bold/Roca Two Bold.eot?#iefix')
+      format('embedded-opentype'),
+    url('../../assets/roca-two-bold/Roca Two Bold.woff2') format('woff2'),
+    url('../../assets/roca-two-bold/Roca Two Bold.woff') format('woff'),
+    url('../../assets/roca-two-bold/Roca Two Bold.ttf') format('truetype'),
+    url('../../assets/roca-two-bold/Roca Two Bold.svg') format('svg');
+}
+
+.iphone-15-pro {
+  @apply w-[400px] h-[852px] shrink-0;
+}
 
 .page-layout {
   @apply w-full space-y-4;
 
-  & > div {
+  & > * {
     @apply flex justify-center w-full;
 
     & > div {
@@ -15,39 +44,152 @@
   }
 }
 
-.popup-backdrop {
-  @apply fixed w-screen h-screen  backdrop-blur-xl backdrop-brightness-50 z-[999] top-0 left-0 flex justify-center items-center;
+.modal-container {
+  @apply fixed w-screen h-screen backdrop-blur-xl backdrop-brightness-50 z-[999] top-0 left-0 flex justify-center items-center;
+
+  & > div {
+    @apply flex flex-col justify-center items-center;
+  }
+
+  & .modal-content {
+    @apply rounded-xl px-4 py-8 bg-base-100 w-[95vw] lg:w-full md:max-w-[80vw] lg:max-w-[55vw] h-fit flex flex-col items-center slide-in-blurred-top;
+
+    &.content-static {
+      animation: none;
+    }
+
+    &.content-transparent {
+      @apply bg-transparent;
+    }
+  }
+
+  & .modal-icon {
+    @apply w-full space-y-2;
+
+    & > div {
+      @apply flex justify-center;
+
+      & > div {
+        @apply rounded-full border-4 text-white border-primary-500 h-32 w-32 flex justify-center items-center;
+
+        & svg {
+          @apply w-24 h-24;
+        }
+      }
+    }
+
+    & h2 {
+      @apply text-3xl font-bold text-center text-white;
+    }
+
+    & p {
+      @apply text-center text-white;
+    }
+  }
 }
 
 .smooth {
-  @apply transition-all duration-300 ease-in-out;
+  transition: all 300ms ease-in-out;
+
+  &.smooth-slow {
+    transition: all 500ms ease-in-out;
+  }
+
+  &.smooth-fast {
+    transition: all 200ms ease-in-out;
+  }
 }
 
 .box {
-  @apply bg-gray-700/20 rounded-xl;
+  @apply bg-primary/10 rounded-xl shadow-xl ring-2 ring-black/5;
+
+  &.box-neutral {
+    @apply bg-neutral-50/10;
+  }
 }
 
 .floating-button {
-  @apply btn btn-circle btn-ghost btn-primary backdrop-blur backdrop-brightness-50 text-gray-50 flex flex-col justify-center items-center w-16 h-16 shadow-lg shadow-primary/40;
+  @apply btn rounded-2xl w-fit btn-ghost backdrop-blur backdrop-brightness-75 text-gray-50 flex flex-row justify-around  items-center flex-nowrap h-16 shadow-lg  lg:backdrop-brightness-125 px-4;
+
+  &.fb-small {
+    @apply w-12 h-12 mask mask-squircle;
+  }
 
   & > svg {
-    @apply w-full h-full p-3;
+    @apply w-8 h-8;
   }
 }
 
 .input-style {
-  @apply text-gray-50 bg-base-100/50 backdrop-brightness-105;
+  @apply text-gray-50 bg-base-100/50 backdrop-brightness-105 placeholder-gray-600;
+}
+
+.action-btn {
+  @apply btn btn-circle btn-sm btn-ghost;
+
+  &.action-primary {
+    @apply text-primary;
+  }
+
+  &.action-secondary {
+    @apply text-secondary;
+  }
+
+  &.action-success {
+    @apply text-success;
+  }
+
+  &.action-info {
+    @apply text-info;
+  }
+
+  &.action-warning {
+    @apply text-warning;
+  }
+
+  &.action-error {
+    @apply text-error;
+  }
+
+  &.action-neutral {
+    @apply text-neutral;
+  }
+
+  &.action-accent {
+    @apply text-accent;
+  }
+}
+
+.loading-container {
+  @apply h-[80vh];
+}
+
+.dashboard-cards-container {
+  @apply flex flex-col lg:flex-row justify-around w-full;
+  .dashboard-card {
+    @apply flex w-full lg:w-4/12  justify-center items-center;
+  }
+}
+
+.h-spacing {
+  @apply space-y-4 lg:space-y-0 lg:space-x-4 2xl:space-x-6;
+}
+
+.v-spacing {
+  @apply space-y-4 2xl:space-y-6;
 }
 
 .slide-in-left {
   -webkit-animation: slide-in-left 0.5s cubic-bezier(0.19, 1, 0.22, 1) both;
   animation: slide-in-left 0.5s cubic-bezier(0.19, 1, 0.22, 1) both;
+  will-change: transform;
 }
 .slide-in-blurred-top {
   -webkit-animation: slide-in-blurred-top 0.5s
     cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
   animation: slide-in-blurred-top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)
     both;
+  will-change: transform;
 }
 
 /* ----------------------------------------------
@@ -99,5 +241,24 @@
     -webkit-filter: blur(0);
     filter: blur(0);
     opacity: 1;
+  }
+}
+
+.button-click-animation {
+  &:active,
+  &:focus {
+    animation: buttonClick 0.5s ease-in-out;
+  }
+}
+
+@keyframes buttonClick {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
   }
 }

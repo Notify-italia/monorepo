@@ -1,0 +1,21 @@
+<div class="page-layout">
+  <notify-page-header
+    title="Colleghi"
+    subtitle="Mostra i e condividi il profilo dei tuoi colleghi"
+  ></notify-page-header>
+
+  <notify-accounts-table
+    [users$]="colleagues$"
+    [maxAgents]="null"
+    [config]="{
+      hiddenColumns: ['createdAt', 'select-item', 'actions'],
+      clickableRow: true
+    }"
+    [noItemsMessages]="{
+      title: 'Nessun collega',
+      subtitle:
+        'Non hai ancora colleghi o la tua ricerca non ha prodotto risultati'
+    }"
+    (rowClicked)="inspectProfile($event.profile)"
+  ></notify-accounts-table>
+</div>

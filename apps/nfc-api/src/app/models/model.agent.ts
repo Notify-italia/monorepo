@@ -27,7 +27,8 @@ export const AGENT_VALIDATION_MESSAGES: {
   _id: "L'id del sollecito deve essere un valido id mongoDB",
   email: 'Inserire una email valida',
   password: 'Inserire una password valida',
-  enabled: 'Inserire un valore booleano',
+  enabled: 'Inserire un valore valido',
+  savedRedirects: 'Errore nel formato dei redirect salvati',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
@@ -47,10 +48,11 @@ export interface Agent
 interface AgentModel extends Model<Agent> {
   build(
     doc: Partial<Agent>,
-    company: Types.ObjectId,
     profileData: {
       role: string;
-    }
+      feedbackEnabled: boolean;
+    },
+    skipProfile?: boolean
   ): Promise<HydratedDocument<Agent>>;
 }
 
@@ -76,6 +78,14 @@ const AgentSchema = new Schema<Agent, AgentModel>(
       type: Schema.Types.ObjectId,
       required: true,
       ref: 'Company',
+    },
+    savedRedirects: {
+      type: [String],
+      default: [],
+    },
+    statsTotals: {
+      type: Object,
+      default: {},
     },
   },
   {
@@ -106,28 +116,40 @@ AgentSchema.virtual('profile', {
 });
 
 // 4. Aggiungi qui, se ci sono, gli hook da eseguire prima o dopo una operazione di CRUD (create, read, update, delete)
-AgentSchema.pre('save', async function (done) {
+AgentSchema.pre('save', function (done) {
   done();
 });
 
 // 5. Aggiungi un metodo statico build per creare il nuovo Model
 AgentSchema.statics.build = async (
   doc: Partial<Agent>,
-  company: Types.ObjectId,
   profileData: {
     role: string;
-  }
+    feedbackEnabled: boolean;
+  },
+  skipProfile = false
 ) => {
   const agent = new AgentModel(doc);
   agent.password = await Password.toHash(doc.password as string);
-  //assigns the company id to the agent
-  agent.owner = company;
+
+  if (skipProfile) {
+    return agent;
+  }
 
   //creates a profile for the agent
   await ProfileModel.build({
     email: agent.email,
     type: EnumNotifyUserType.Agent,
     owner: agent._id,
+    config: {
+      avatarMask: 'circle',
+      whatsappEnabled: true,
+      phoneCallEnabled: true,
+      emailEnabled: true,
+      smsEnabled: true,
+      redirectEnabled: false,
+      feedbackEnabled: profileData.feedbackEnabled,
+    },
     ...profileData,
   }).save();
 

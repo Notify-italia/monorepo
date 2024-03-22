@@ -14,10 +14,12 @@
   <div
     class="selector-container"
     *ngIf="!hideSelector"
+    (click)="closeSelector()"
     (mousemove)="onMouseMove($event)"
   >
     <div class="flex flex-col justify-center items-center h-full w-full">
       <div
+        (click)="$event.stopPropagation()"
         class="flex justify-between font-bold text-xl lg:text-3xl tracking-wider my-4 items-center w-11/12 lg:w-5/12"
       >
         <div class="flex flex-col space-y-4 w-full">
@@ -40,7 +42,7 @@
               type="text"
               [formControl]="searchValue"
               placeholder="LinkedIn"
-              class="input input-style w-full pl-10 placeholder-secondary-50/20"
+              class="input input-bordered input-style w-full pl-10 placeholder-secondary-50/20"
             />
           </span>
         </div>

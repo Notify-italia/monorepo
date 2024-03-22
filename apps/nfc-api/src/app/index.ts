@@ -1,6 +1,6 @@
-//boilerplate for an express app
 import cors from 'cors';
 import express from 'express';
+import http from 'http';
 import { logRequest } from './middlewares/middleware.logs';
 import { api } from './routes';
 import { NotFoundError } from './services/errors/errors';
@@ -8,7 +8,7 @@ import { errorHandler } from './services/errors/middlewares/error-handler';
 
 const app = express();
 
-app.use(express.json({ limit: '5mb' }));
+app.use(express.json({ limit: '50mb' }));
 
 app.use(logRequest);
 
@@ -30,4 +30,6 @@ app.all('*', () => {
 // sempre nel solito formato al client
 app.use(errorHandler);
 
-export default app;
+const server = http.createServer(app);
+
+export { server };

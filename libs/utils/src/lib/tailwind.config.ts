@@ -2,8 +2,23 @@ const tailwindConfig = {
   theme: {
     extend: {
       fontFamily: {
-        montserratAlt1: ['Montserrat-Alt1', 'bold'],
         roboto: ['Roboto', 'sans-serif'],
+        anek: ['Anek Devanagari', 'sans-serif'],
+        mplusRounded: ['M PLUS Rounded 1c', 'sans-serif'],
+        work: ['Work Sans', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+        avenir: ['Avenir', 'sans-serif'],
+        kodeMono: ['Kode Mono', 'monospace'],
+        mulish: ['Mulish', 'sans-serif'],
+        bebasNeue: ['Bebas Neue', 'sans-serif'],
+        caveat: ['Caveat', 'cursive'],
+        rocaTwoBold: ['Roca Two Bold', 'sans-serif'],
+      },
+      dropShadow: {
+        glow: [
+          '0 0px 20px rgba(255,255, 255, 0.35)',
+          '0 0px 65px rgba(255, 255,255, 0.2)',
+        ],
       },
       colors: {
         primary: {
@@ -51,7 +66,13 @@ const tailwindConfig = {
       },
     },
   },
-  plugins: [require('daisyui')],
+  plugins: [
+    require('daisyui'),
+    require('tailwindcss-safe-area'),
+    require('tailwindcss-dotted-background'),
+    require('tailwindcss-animated'),
+    require('tailwindcss-intersect'),
+  ],
   daisyui: {
     themes: <unknown[]>[],
   },
@@ -70,6 +91,11 @@ tailwindConfig.daisyui.themes.push('dark', {
     'accent-focus': '#ffffff',
     'accent-content': '#000000',
     neutral: tailwindConfig.theme.extend.colors.complimentary.DEFAULT,
+    'neutral-focus': tailwindConfig.theme.extend.colors.complimentary[600],
+    error: '#F44336',
+    'error-focus': '#E53E3E',
+    warning: '#ff9800',
+    'warning-focus': '#F29D49',
   },
 });
 

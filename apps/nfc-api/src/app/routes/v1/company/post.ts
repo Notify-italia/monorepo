@@ -5,7 +5,8 @@ import {
   CompanyModel,
 } from '../../../models/model.company';
 import { BadRequestError } from '../../../services/errors/errors';
-import { errorHandledRequest } from '../../../services/errors/middlewares/bun.error-handler';
+import { requestHandler } from '../../../services/errors/middlewares/bun.request';
+import { sendEmail } from '../../../services/service.email';
 import { userSignInValidation } from '../../../services/service.validation';
 
 //boilderplate for a post request to create an agent
@@ -14,7 +15,7 @@ const router = Router();
 router.post(
   '/',
   ...userSignInValidation(COMPANY_VALIDATION_MESSAGES),
-  errorHandledRequest(
+  requestHandler(
     async (req: Request<{ email: string; password: string }>, res) => {
       const { email, password } = req.body;
 
@@ -27,7 +28,11 @@ router.post(
 
       await company?.save();
 
-      //TODO invia email di conferma
+      await sendEmail({
+        to: [email],
+        title: 'Benvenuto in Notify!',
+        body: welcomeEmailTemplate,
+      });
 
       res.status(201).send(company);
     }
@@ -35,3 +40,25 @@ router.post(
 );
 
 export { router as postCompanyRouter };
+
+const welcomeEmailTemplate = `
+<p>Ciao,<br>
+Benvenuto/a nel mondo di Notify!</p>
+
+<p>Per iniziare a utilizzare il nostro servizio, ti invitiamo a effettuare il login su <a href="https://aziende.notifyapp.it">aziende.notifyapp.it</a>, inserendo le tue credenziali e attivando la licenza per accedere immediatamente ai vantaggi di Notify!</p>
+
+<p>Se non possiedi una licenza, invece, ti invitiamo a contattare il nostro team vendite all'indirizzo <a href="mailto:commerciale@notifyapp.it">commerciale@notifyapp.it</a>. Sarà un piacere fornirti un preventivo su misura, adattato alle tue esigenze. </p>
+
+<p>Il nostro team è sempre disponibile per assisterti, quindi non esitare a contattarci per qualsiasi domanda o necessità all'indirizzo <a href="mailto:supporto@notifyapp.it">supporto@notifyapp.it</a>.</p>
+
+<p>Di seguito, troverai alcuni link utili per aiutarti a prendere confidenza con il software:</p>
+<ul>
+  <li><a href="https://scribehow.com/shared/Creazione_e_personalizzazione_dellaccount_aziendale_di_Notify__I26vXKSwTaWGcxwXpNoeoA">Creazione e personalizzazione dell'account aziendale di Notify</a></li>
+  <li><a href="https://scribehow.com/shared/Accesso_personalizzazione_e_strumenti_Notify__8HEseaZbQK6si51sN0AXyQ">Accesso, personalizzazione e strumenti Notify</a></li>
+</ul>
+
+<p>Grazie per averci scelto! Siamo entusiasti di accompagnarti in questo percorso.</p>
+
+<p>Cordiali saluti,<br>
+Il Team di Notify</p>
+`;

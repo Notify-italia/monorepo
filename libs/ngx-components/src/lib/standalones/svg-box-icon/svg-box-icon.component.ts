@@ -12,6 +12,7 @@ import { SvgBoxIcon, SvgboxService } from '@notify/nfc-app-services';
 export class SvgBoxIconComponent implements OnInit, OnChanges {
   @Input() public icon?: SvgBoxIcon;
   @Input() public iconName?: string;
+  @Input() public size: number = 8;
 
   constructor(private _svgBox: SvgboxService) {}
 

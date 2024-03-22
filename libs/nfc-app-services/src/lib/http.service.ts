@@ -14,27 +14,41 @@ export class HttpService {
     private http: HttpClient
   ) {}
 
-  public patch<R, T>(url: string, body: R, params?: Record<string, string>) {
+  public patch<Req, Res>(
+    url: string,
+    body: Req,
+    params?: Record<string, string>
+  ) {
     return this.http
-      .patch<T>(`${this.apiUrl}${url}`, body, this._genHeaders(params))
+      .patch<Res>(`${this.apiUrl}${url}`, body, this._genHeaders(params))
       .pipe(this._unauthorized());
   }
 
-  public post<R, T>(url: string, body: R, params?: Record<string, string>) {
+  public post<Request, Resposnse>(
+    url: string,
+    body: Request,
+    params?: Record<string, string>
+  ) {
     return this.http
-      .post<T>(`${this.apiUrl}${url}`, body, this._genHeaders(params))
+      .post<Resposnse>(`${this.apiUrl}${url}`, body, this._genHeaders(params))
       .pipe(this._unauthorized());
   }
 
-  public get<T>(url: string, params?: Record<string, string>) {
+  public get<T>(url: string, params?: Record<string, unknown>) {
     return this.http
       .get<T>(`${this.apiUrl}${url}`, this._genHeaders(params))
       .pipe(this._unauthorized());
   }
 
-  private _genHeaders(params?: Record<string, string>) {
+  public delete<T>(url: string, params?: Record<string, string>) {
+    return this.http
+      .delete<T>(`${this.apiUrl}${url}`, this._genHeaders(params))
+      .pipe(this._unauthorized());
+  }
+
+  private _genHeaders(params?: Record<string, unknown>) {
     return {
-      params: new HttpParams({ fromObject: params }),
+      params: new HttpParams({ fromObject: params as Record<string, string> }),
       headers: { Authorization: `Bearer ${this.token}` },
     };
   }

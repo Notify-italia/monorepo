@@ -84,11 +84,15 @@ export class LicenseManager {
 
   public static async generate(conf: {
     expirationDate: Date;
+    allowedAgents: number;
+    boughtCards: number;
   }): Promise<LicenseManager> {
     const l = await LicenseModel.build({
       expirationDate: conf.expirationDate,
       enabled: true,
       publicKey: this._generatePublicKey(),
+      allowedAgents: conf.allowedAgents,
+      boughtCards: conf.boughtCards,
     });
 
     await l.save();

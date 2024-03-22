@@ -1,0 +1,106 @@
+<div class="page-layout">
+  <notify-page-header
+    title="Dashboard"
+    subtitle="Visualizza le informazioni principali del tuo account"
+  ></notify-page-header>
+  @if (dashboard$ | async; as data) {
+  <div>
+    <div>
+      <div class="flex flex-col lg:flex-row lg:justify-between h-spacing">
+        <div class="v-spacing lg:w-full">
+          <div class="dashboard-cards-container h-spacing">
+            <div class="dashboard-cards-container h-spacing">
+              <notify-share-profile
+                class="w-full"
+                [profile]="data.profile"
+                [baseUrl]="baseUrl"
+              ></notify-share-profile>
+
+              <notify-widget-note
+                [note]="data.latestNote"
+                class="w-full h-20"
+                *ngIf="!production"
+              >
+              </notify-widget-note>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div class="dashboard-cards-container h-spacing">
+            <notify-widget-counter
+              class="dashboard-card animate__fadeInDown animate__animated"
+              [ngStyle]="{
+                'animation-delay': '0s'
+              }"
+              title="Visite totali"
+              backgroundColor="transparent"
+              elementsColor="#008FFB"
+              [icon]="totalScansIcon"
+              [count]="data.user.totalVisits"
+              countSuffix="Visite"
+            ></notify-widget-counter>
+            <notify-widget-counter
+              class="dashboard-card animate__fadeInDown animate__animated"
+              [ngStyle]="{
+                'animation-delay': '0.2s'
+              }"
+              title="Salvati in rubrica"
+              backgroundColor="transparent"
+              elementsColor="#876756"
+              [icon]="savedContactsIcon"
+              [count]="data.user['profile:save'] || 0"
+              countSuffix="Salvataggi"
+            ></notify-widget-counter>
+            <notify-widget-counter
+              class="dashboard-card animate__fadeInDown animate__animated"
+              [ngStyle]="{
+                'animation-delay': '0.4s'
+              }"
+              title="Visite da rubrica"
+              backgroundColor="transparent"
+              elementsColor="#a7ed72"
+              [icon]="returnFromContactBookIcon"
+              [count]="data.user.percentReturn"
+              countSuffix="% sul totale"
+            >
+            </notify-widget-counter>
+          </div>
+
+          <div
+            class="flex flex-col lg:flex-row w-full lg:h-[32rem] 2xl:h-[33rem] h-spacing"
+          >
+            <notify-widget-area-chart
+              class="w-full h-full dashboard-card"
+              title="Visite"
+              [series]="data.areaChart"
+              [disableExport]="isNative"
+              (timespanChange)="getProfileVisits($event).subscribe()"
+            >
+            </notify-widget-area-chart>
+            <div class="flex flex-col lg:w-5/12 h-full items-center v-spacing">
+              <notify-widget-feedback
+                class="flex w-full dashboard-card animate__fadeInRight animate__animated"
+                [value]="data.user.averageFeedback"
+                [totalFeedbacksCount]="data.user['profile:feedback:count']"
+              >
+              </notify-widget-feedback>
+              <notify-widget-pie-chart
+                title="Integrazioni"
+                class="w-full h-full"
+                [series]="data.user.integrationsCountValues || []"
+                [legendValues]="data.user.integrationsCountLabels || []"
+                [disableExport]="isNative"
+              >
+              </notify-widget-pie-chart>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  } @else {
+  <div class="loading-container">
+    <notify-loading></notify-loading>
+  </div>
+  }
+</div>

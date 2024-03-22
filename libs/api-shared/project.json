@@ -6,13 +6,9 @@
   "targets": {
     "build": {
       "executor": "@nx-bun/nx:build",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "entrypoints": [
-          "libs/nfc-api-services/src/index.ts"
-        ],
+        "entrypoints": ["libs/nfc-api-services/src/index.ts"],
         "outputPath": "dist/nfc-api-services",
         "tsConfig": "libs/nfc-api-services/tsconfig.lib.json",
         "smol": false,
@@ -21,11 +17,10 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
+          "libs/api-shared",
           "libs/nfc-api-services/**/*.ts",
           "libs/nfc-api-services/package.json"
         ]

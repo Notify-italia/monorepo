@@ -1,6 +1,6 @@
-<div class="page-layout">
+<div class="page-layout overflow-auto">
   <notify-page-header
-    title="Gestione Profilo"
+    [title]="'Gestione Profilo'"
     subtitle="Modifica e condividi il tuo profilo personale"
   ></notify-page-header>
 
@@ -10,32 +10,56 @@
       <div>
         <notify-share-profile
           [profile]="profile"
-          [playerUrl]="playerUrl(profile)"
+          [baseUrl]="baseUrl"
         ></notify-share-profile>
       </div>
+      <notify-save-indicator
+        [followPage]="true"
+        [isSaving]="loading"
+        [lastSave]="profile.updatedAt"
+        (save)="saveProfile(profile)"
+      ></notify-save-indicator>
       <div
         class="lg:flex justify-around lg:space-x-4 space-y-4 lg:space-y-0 items-start w-full"
       >
         <notify-profile-form
           [profile]="profile"
+          [savedRedirects]="savedRedirects"
           [loading]="loading"
           (value)="updateProfileSubject($event)"
-          (submitForm)="saveProfile(profile)"
-          (reloadForm)="reloadForm()"
+          (submitForm)="saveProfile($event)"
+          (removeSavedRedirect)="removeSavedRedirect($event)"
           class="w-full 2xl:w-6/12"
         ></notify-profile-form>
-        <!-- TODO preview mobile -->
+
         <div class="w-6/12 p-2 flex justify-center relative">
           <notify-profile-view
+            *ngIf="!profile.config.redirectEnabled"
             [data]="profile"
             [mockup]="true"
-            [publicUrl]="''"
-            class="w-[405px] h-[800px] hidden lg:block absolute scale-75 2xl:scale-100 top-10"
+            class="iphone-15-pro hidden lg:block absolute scale-75 2xl:scale-100 top-10"
           ></notify-profile-view>
+
+          <div
+            class="hidden lg:flex absolute scale-75 2xl:scale-100 top-10 flex-col"
+            *ngIf="profile.config.redirectEnabled"
+          >
+            <iframe
+              [src]="normalizeURL(profile.redirectUrl)"
+              class="iphone-15-pro phone mockup-phone pointer-events-none"
+              frameborder="0"
+            ></iframe>
+            <small class="w-full text-center mx-auto">
+              Alcuni siti web potrebbero non essere visualizzati correttamente
+            </small>
+          </div>
         </div>
       </div>
 
-      <div class="fixed bottom-5 right-5 lg:hidden z-50">
+      <div
+        class="fixed bottom-5 right-5 lg:hidden z-50"
+        *ngIf="!profile.config.redirectEnabled"
+      >
         <button class="floating-button" (click)="previewProfile(profile)">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +78,7 @@
     </div>
   </div>
   } @else {
-  <div class="h-[80vh]">
+  <div class="loading-container">
     <notify-loading></notify-loading>
   </div>
   }

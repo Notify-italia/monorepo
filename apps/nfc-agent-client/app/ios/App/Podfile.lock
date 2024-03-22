@@ -1,0 +1,55 @@
+PODS:
+  - Capacitor (5.7.0):
+    - CapacitorCordova
+  - CapacitorCommunityMedia (5.4.0):
+    - Capacitor
+    - SDWebImage
+  - CapacitorCommunityScreenBrightness (5.0.0):
+    - Capacitor
+  - CapacitorCordova (5.7.0)
+  - CapacitorFilesystem (5.2.1):
+    - Capacitor
+  - CapawesomeTeamCapacitorNfc (5.1.0):
+    - Capacitor
+  - SDWebImage (5.18.8):
+    - SDWebImage/Core (= 5.18.8)
+  - SDWebImage/Core (5.18.8)
+
+DEPENDENCIES:
+  - "Capacitor (from `../../../../../node_modules/@capacitor/ios`)"
+  - "CapacitorCommunityMedia (from `../../../../../node_modules/@capacitor-community/media`)"
+  - "CapacitorCommunityScreenBrightness (from `../../../../../node_modules/@capacitor-community/screen-brightness`)"
+  - "CapacitorCordova (from `../../../../../node_modules/@capacitor/ios`)"
+  - "CapacitorFilesystem (from `../../../../../node_modules/@capacitor/filesystem`)"
+  - "CapawesomeTeamCapacitorNfc (from `../../../../../node_modules/@capawesome-team/capacitor-nfc`)"
+
+SPEC REPOS:
+  trunk:
+    - SDWebImage
+
+EXTERNAL SOURCES:
+  Capacitor:
+    :path: "../../../../../node_modules/@capacitor/ios"
+  CapacitorCommunityMedia:
+    :path: "../../../../../node_modules/@capacitor-community/media"
+  CapacitorCommunityScreenBrightness:
+    :path: "../../../../../node_modules/@capacitor-community/screen-brightness"
+  CapacitorCordova:
+    :path: "../../../../../node_modules/@capacitor/ios"
+  CapacitorFilesystem:
+    :path: "../../../../../node_modules/@capacitor/filesystem"
+  CapawesomeTeamCapacitorNfc:
+    :path: "../../../../../node_modules/@capawesome-team/capacitor-nfc"
+
+SPEC CHECKSUMS:
+  Capacitor: fc155ee2ee45a2093d716f13cf5aa5a865e2d85a
+  CapacitorCommunityMedia: dd6d8dde68498d6f19d29e0f4684e5bcfd59fd51
+  CapacitorCommunityScreenBrightness: b2d9c6fffee6b684994cd69f727f2090e2f05c6d
+  CapacitorCordova: e825fce1a2e14e4b5730641c7e098dccf74397b7
+  CapacitorFilesystem: 9f3e3c7fea2fff12f46dd5b07a2914f2103e4cfc
+  CapawesomeTeamCapacitorNfc: b9d4e287a384a49cc6a2c0699dd38717aea9cee6
+  SDWebImage: a81bbb3ba4ea5f810f4069c68727cb118467a04a
+
+PODFILE CHECKSUM: d3d9d1c303a29d984fb4420fb7a5b49cdb0af7af
+
+COCOAPODS: 1.15.2

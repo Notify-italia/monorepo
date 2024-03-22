@@ -23,29 +23,41 @@ declare global {
 
 const verifyJwt = (
   token: string,
-  secret: string
+  secret: string,
+  ignoreExpiration: boolean
 ): Promise<string | JwtPayload | undefined | VerifyErrors> => {
   return new Promise((resolve, reject) => {
-    JwtVerify(token, secret, (error, decode) => {
-      if (error) {
-        wLog(error.message, 'error');
-        return reject(error);
-      }
+    JwtVerify(
+      token,
+      secret,
+      {
+        ignoreExpiration,
+      },
+      (error, decode) => {
+        if (error) {
+          wLog(error.message, 'error');
+          return reject(error);
+        }
 
-      // Logger.info(decode);
-      return resolve(decode);
-    });
+        // Logger.info(decode);
+        return resolve(decode);
+      }
+    );
   });
 };
 
-export const requireAuth = <T>(requireLicense = false) => {
+export const requireAuth = <T>(
+  requireLicense = false,
+  ignoreExpiration = false
+) => {
   return async (req: Request<T>, res: Response, next: NextFunction) => {
     if (!requireLicense) {
-      return _requireAuth(req).then(() => next());
+      return _requireAuth(req, ignoreExpiration).then(() => next());
     }
 
     const isActive =
-      (await _requireAuth(req)) && (await _hasActiveLicense(req.currentUser));
+      (await _requireAuth(req, ignoreExpiration)) &&
+      (await _hasActiveLicense(req.currentUser));
 
     if (!isActive) {
       throw new NotAuthorizedError();
@@ -55,7 +67,10 @@ export const requireAuth = <T>(requireLicense = false) => {
   };
 };
 
-export const injectAuth = async <T>(req: Request<T>) => {
+export const injectAuth = async <T>(
+  req: Request<T>,
+  ignoreExpiration = false
+) => {
   const token = req.header('Authorization')?.replace('Bearer ', '') || null;
 
   if (!token || token === 'null') {
@@ -63,23 +78,25 @@ export const injectAuth = async <T>(req: Request<T>) => {
     return null;
   }
 
-  const payload = (await verifyJwt(token, JWT_KEY).catch((error) => {
-    if (error && error.name === 'TokenExpiredError') {
+  const payload = (await verifyJwt(token, JWT_KEY, ignoreExpiration).catch(
+    (error) => {
+      if (error && error.name === 'TokenExpiredError') {
+        wLog(error.message, 'error');
+        return null;
+      }
+
       wLog(error.message, 'error');
       return null;
     }
-
-    wLog(error.message, 'error');
-    return null;
-  })) as INotifyUser;
+  )) as INotifyUser;
 
   req.currentUser = payload;
 
   return payload;
 };
 
-const _requireAuth = async <T>(req: Request<T>) => {
-  const payload = await injectAuth(req);
+const _requireAuth = async <T>(req: Request<T>, ignoreExpiration: boolean) => {
+  const payload = await injectAuth(req, ignoreExpiration);
 
   if (!payload) {
     throw new NotAuthorizedError();
@@ -107,14 +124,18 @@ const _isAllowed = (user: INotifyUser): boolean => {
 const _hasActiveLicense = async (user: INotifyUser): Promise<boolean> => {
   //obtains the current license directly from the user (assuming it's a company) or through _getAgentLicense
   const lm = await LicenseManager.load({ id: user.license }).catch(
-    async (err) => await _getAgentLicense(user)
+    async () => await _getAgentLicense(user)
   );
 
-  if (!lm) {
+  if (!lm || !lm.license.enabled) {
     return false;
   }
 
-  return lm.license.enabled && new Date(lm.license.expirationDate) > new Date();
+  if (!lm.license.expirationDate) {
+    return true;
+  }
+
+  return new Date(lm.license.expirationDate) > new Date();
 };
 
 /**

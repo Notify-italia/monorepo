@@ -1,5 +1,5 @@
 .section {
-  @apply flex flex-col items-center  space-y-1;
+  @apply flex flex-col items-center;
 
   &.section-bordered {
     @apply border-b border-primary/40;
@@ -11,14 +11,14 @@
 }
 
 .button-redirect {
-  @apply h-full w-full flex justify-center items-center;
+  @apply h-full w-full flex items-center justify-center;
 }
 
 .main-container {
-  @apply bg-gradient-to-tr from-complimentary-500 to-complimentary-600 overflow-y-visible;
+  @apply bg-gradient-to-tr from-complimentary-500 to-complimentary-600 overflow-y-auto h-full;
 
   & > .main-child {
-    @apply w-full flex flex-col space-y-3 items-center;
+    @apply w-full flex flex-col  space-y-5 items-center;
   }
 }
 
@@ -38,14 +38,18 @@
   @apply bg-primary-500/10 w-[90%] rounded-xl p-2 py-5 text-gray-50;
 
   &.module-blur {
-    @apply bg-transparent backdrop-blur backdrop-brightness-75;
+    @apply bg-transparent backdrop-blur backdrop-brightness-90;
+  }
+
+  &.module-clear {
+    @apply bg-transparent;
   }
 }
 
 .title {
-  @apply text-3xl font-bold text-center tracking-wider space-x-2;
+  @apply text-lg font-bold text-start tracking-wider space-x-[0.15rem]  whitespace-nowrap;
 }
 
 .button-icon {
-  @apply btn btn-primary bg-primary-600/30  btn-square;
+  @apply btn btn-ghost;
 }

@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { authGuard, signInGuard } from '@notify/nfc-app-services';
+import { authGuard, licenseGuard, signInGuard } from '@notify/nfc-app-services';
 import { PageNotFoundComponent } from '@notify/ngx-components';
 import { HomeComponent } from './pages/home/home.component';
 
@@ -16,6 +16,37 @@ export const appRoutes: Route[] = [
       import('./pages/signin/signin.component').then((m) => m.SigninComponent),
   },
   {
+    path: 'signup',
+    canActivate: [signInGuard],
+    loadComponent: () =>
+      import('./pages/signup/signup.component').then((m) => m.SignupComponent),
+  },
+  {
+    path: 'password',
+    canActivate: [signInGuard],
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'recover',
+      },
+      {
+        path: 'recover',
+        loadComponent: () =>
+          import('./pages/recover-password/recover-password.component').then(
+            (m) => m.RecoverPasswordComponent
+          ),
+      },
+      {
+        path: 'update',
+        loadComponent: () =>
+          import('./pages/update-password/update-password.component').then(
+            (m) => m.UpdatePasswordComponent
+          ),
+      },
+    ],
+  },
+  {
     path: 'pages',
     component: HomeComponent,
     canActivate: [authGuard],
@@ -23,10 +54,11 @@ export const appRoutes: Route[] = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'profile',
+        redirectTo: 'users',
       },
       {
-        path: 'accounts',
+        path: 'users',
+        canActivate: [licenseGuard],
         loadComponent: () =>
           import('./pages/accounts/accounts.component').then(
             (m) => m.AccountsComponent
@@ -38,6 +70,48 @@ export const appRoutes: Route[] = [
           import('./pages/license/license.component').then(
             (m) => m.LicenseComponent
           ),
+      },
+      {
+        path: 'profile',
+        canActivate: [licenseGuard],
+        loadComponent: () =>
+          import(
+            './pages/profile-management/profile-management.component'
+          ).then((m) => m.ProfileManagementComponent),
+      },
+      {
+        path: 'settings',
+        canActivate: [licenseGuard],
+        loadComponent: () =>
+          import('./pages/settings/settings.component').then(
+            (m) => m.SettingsComponent
+          ),
+      },
+
+      {
+        path: 'analytics',
+        canActivate: [licenseGuard],
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'dashboard',
+          },
+          {
+            path: 'dashboard',
+            loadComponent: () =>
+              import('./pages/analytics/analytics.component').then(
+                (m) => m.AnalyticsComponent
+              ),
+          },
+          {
+            path: 'detail',
+            loadComponent: () =>
+              import(
+                './pages/analytics-detail/analytics-detail.component'
+              ).then((m) => m.AnalyticsDetailComponent),
+          },
+        ],
       },
       {
         path: 'signout',

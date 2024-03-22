@@ -1,7 +1,51 @@
-<img
-  *ngIf="src || placeholderAvatarProvider as avatar"
-  [src]="avatar"
-  class="rounded-full object-cover shadow-lg shadow-primary/20 w-{{ size }} h-{{
-    size
-  }}"
-/>
+<div class="flex h-fit w-fit relative" *ngIf="cleanedConfigs as c">
+  <ng-container
+    [ngTemplateOutlet]="AvatarRenderer"
+    [ngTemplateOutletContext]="{ config: c.main, avatarType: 'main' }"
+  ></ng-container>
+
+  <button
+    *ngIf="
+      (c.sub.src?.length || c.sub.placeholderSeed?.length) &&
+      avatarConfig?.src?.length
+    "
+    class="!absolute bottom-0 right-0 -mr-4 scale-125 lg:pointer-events-none"
+    (click)="subAvatarClick.emit()"
+  >
+    <ng-container
+      [ngTemplateOutlet]="AvatarRenderer"
+      [ngTemplateOutletContext]="{ config: c.sub, avatarType: 'sub' }"
+    ></ng-container>
+  </button>
+</div>
+
+<ng-template #AvatarRenderer let-config="config" let-avatarType="avatarType">
+  <div class="overflow-hidden relative flex">
+    <img
+      (load)="setLoaded(avatarType)"
+      *ngIf="config.src || placeholderAvatar[avatarType] as avatar"
+      [src]="config.isBase64 ? avatar : avatar"
+      alt="User Avatar"
+      [ngClass]="{
+        'mask object-cover ': config.mask?.length,
+        'opacity-0 absolute': !loaded[avatarType],
+      }"
+      class="mask-{{ config.mask }} object-contain smooth"
+      [style.background-color]="config?.mask ? config.backgroundColor : ''"
+      [ngStyle]="{
+        width: config.size/4 + 'rem',
+        height: config.size/4 + 'rem',
+      }"
+    />
+    <div
+      *ngIf="!loaded[avatarType]"
+      class="mask mask-{{
+        config.mask
+      }} object-cover smooth bg-gray-600 animate-pulse"
+      [ngStyle]="{
+      width: config.size/4 + 'rem',
+      height: config.size/4 + 'rem',
+    }"
+    ></div>
+  </div>
+</ng-template>

@@ -1,0 +1,63 @@
+<div
+  class="section w-full h-fit !flex-row justify-around space-x-5 px-2"
+  [ngClass]="{
+    '!flex-col justify-center items-center !space-x-0 space-y-2': hasLongName
+  }"
+>
+  <notify-avatar
+    [avatarConfig]="{
+      src: data?.avatar || '',
+      size: '36',
+      mask: data?.config?.avatarMask || '',
+      placeholderSeed: data?._id || '',
+      backgroundColor: cssElementsColor,
+      placeholderStyle: isAgent
+        ? dicebearAvatarStyles.BigSmile
+        : dicebearAvatarStyles.Bottts
+    }"
+    [subAvatarConfig]="
+      isAgent
+        ? {
+            src: data?.company?.avatar || '',
+            size: '12',
+            mask: data?.company?.config?.avatarMask || '',
+            placeholderStyle: dicebearAvatarStyles.Bottts,
+            placeholderSeed: data?.company?._id || '',
+          }
+        : undefined
+    "
+    (subAvatarClick)="subAvatarClick.emit()"
+  ></notify-avatar>
+
+  <div
+    class="h-full w-7/12 flex flex-col justify-center"
+    [ngClass]="{
+      'text-center w-full items-center ': hasLongName
+    }"
+  >
+    <div class="title" [ngStyle]="{ color: cssElementsColor }">
+      <!-- NAME ( and surname) -->
+      <span>{{ data?.name || '' }}</span>
+      <span *ngIf="isAgent">{{ data?.surname || '' }}</span>
+    </div>
+
+    <!-- ROLE -->
+    <div
+      class="text-sm italic w-full text-start"
+      [ngClass]="{
+        '!text-center ': hasLongName
+      }"
+      [ngStyle]="{ color: cssElementsColor, opacity: 0.8 }"
+    >
+      {{ isAgent ? data?.role : data?.piva ? 'P. IVA ' + data?.piva : '' }}
+    </div>
+    <!-- BIO -->
+    <div
+      class="text-xs w-full mt-2"
+      [ngStyle]="{ color: cssElementsColor, opacity: 0.7 }"
+      *ngIf="data?.bio as b"
+    >
+      {{ b }}
+    </div>
+  </div>
+</div>

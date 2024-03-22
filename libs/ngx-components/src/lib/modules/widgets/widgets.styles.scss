@@ -1,0 +1,34 @@
+.widget-container {
+  @apply w-full h-full text-white relative overflow-clip rounded-2xl shadow-xl bg-primary-500/10;
+
+  & > svg {
+    @apply absolute opacity-50 w-full h-full bottom-0;
+  }
+
+  & > div {
+    @apply flex flex-col justify-around items-center relative backdrop-blur-3xl h-full w-full;
+
+    & h2:first-child {
+      @apply 2xl:text-2xl font-bold p-2 pt-4 text-start whitespace-nowrap truncate font-mplusRounded;
+    }
+
+    & > .header-container {
+      @apply px-5 w-full h-20;
+
+      & > .header-items {
+        @apply flex justify-between items-center;
+      }
+    }
+  }
+}
+
+::ng-deep apx-chart {
+  .apexcharts-toolbar {
+    color: black;
+  }
+
+  .apexcharts-tooltip {
+    color: black;
+    background-color: white;
+  }
+}

@@ -1,0 +1,46 @@
+<div class="modal-container" (click)="close()">
+  <div>
+    <div (click)="$event.stopPropagation()" class="modal-content">
+      <div class="w-full">
+        <div class="w-full px-4">
+          <h2 class="text-3xl font-bold text-start text-white w-full">
+            Gestisci editors
+          </h2>
+          <p class="text-base text-start w-full">
+            Visualizza e modifica gli utenti che possono modificare questa nota.
+          </p>
+        </div>
+
+        <div class="divider !mb-0"></div>
+
+        <div class="relative overflow-y-auto w-full">
+          <notify-accounts-table
+            [users$]="usersSubject$"
+            [config]="{
+              allowDelete: true,
+              allowEdit: false,
+              allowInspect: false,
+              hiddenColumns: ['createdAt', 'role', 'select-item'],
+              clickableRow: false,
+            }"
+            [skeletonRows]="skeletonRows"
+            [noItemsMessages]="{
+              title: 'Nessun Editor',
+              subtitle: 'Aggiungi un editor usando il tasto +'
+            }"
+            (deleteUser)="this.removeOwner.next($event._id)"
+          ></notify-accounts-table>
+        </div>
+        <div class="divider"></div>
+
+        <button
+          class="btn btn-primary w-full"
+          data-theme="notifytheme"
+          (click)="addOwner.next()"
+        >
+          Aggiungi Editor
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

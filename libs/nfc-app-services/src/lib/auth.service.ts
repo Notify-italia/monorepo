@@ -4,9 +4,10 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import {
   EnumNotifyUserType,
   INotifyAuth,
+  INotifyLicense,
   INotifyUser,
 } from '@notify/interfaces';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, of, tap } from 'rxjs';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -23,6 +24,20 @@ export class AuthService {
 
   public get user() {
     return this.currentUser$.value;
+  }
+
+  public get activeLicense() {
+    const license = this.user?.license as unknown as INotifyLicense;
+
+    if (!license || !license.enabled) {
+      return false;
+    }
+
+    if (!license.expirationDate && license.enabled) {
+      return true;
+    }
+
+    return new Date(license.expirationDate) > new Date();
   }
 
   constructor(
@@ -49,6 +64,20 @@ export class AuthService {
   }
 
   /**
+   * The signUp function sends a POST request to the server with user data and assigns a token to the
+   * user.
+   * @param {INotifyAuth} data - INotifyAuth - an interface representing the data required for user
+   * signup. It contains properties such as username, email, and password.
+   * @returns The `signUp` function is returning an Observable of type `INotifyUser`.
+   */
+  public signUp(data: INotifyAuth) {
+    return this._http.post<INotifyAuth, INotifyUser>(
+      `/v1/${this._userType}`,
+      data
+    );
+  }
+
+  /**
    * The `refreshToken` function sends a POST request to refresh the user's token and assigns the new
    * token to the user.
    * @returns The `refreshToken()` method returns an Observable that emits a response object containing
@@ -56,12 +85,18 @@ export class AuthService {
    */
   public refreshToken() {
     if (!this.token) {
-      return;
+      return of(null);
     }
 
     return this._http
       .post<null, INotifyUser>(`/v1/${this._userType}/refresh`, null)
-      .pipe(tap((user) => this._assignToken(user)));
+      .pipe(
+        tap((user) => this._assignToken(user)),
+        catchError(() => {
+          this.signOut();
+          return of(null);
+        })
+      );
   }
 
   /**

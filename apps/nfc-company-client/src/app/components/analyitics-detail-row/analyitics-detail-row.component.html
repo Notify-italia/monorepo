@@ -1,0 +1,48 @@
+<button
+  *ngIf="item"
+  (click)="selectedItem.emit(item)"
+  class="flex smooth hover:brightness-125 justify-between w-full smooth !duration-100"
+  [ngClass]="{
+    'border-l-2 border-primary-500 pl-2  brightness-125  grayscale-0 pointer-events-none':
+      selected,
+    grayscale: hasSelected
+  }"
+>
+  <div class="flex items-center w-full space-x-2">
+    <div class="w-14">
+      <notify-avatar
+        [avatarConfig]="{
+          src: item.profile?.avatar || '',
+          mask: item.profile?.config?.avatarMask || '',
+          size: '14',
+          placeholderSeed: item.profile?._id || ''
+        }"
+      ></notify-avatar>
+    </div>
+    <small class="flex flex-col h-full justify-center my-auto">
+      <h2
+        *ngIf="item.profile?.name || item.profile?.surname"
+        class="w-full text-start"
+      >
+        {{ item.profile?.name }}
+        {{ item.profile?.surname }}
+      </h2>
+    </small>
+  </div>
+  <div class="my-auto">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class="w-6 h-6"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
+        clip-rule="evenodd"
+      />
+    </svg>
+  </div>
+</button>
+
+<div class="divider"></div>

@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AuthService } from '@notify/nfc-app-services';
+import { LoadingComponent } from '@notify/ngx-components';
 
 @Component({
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LoadingComponent],
   templateUrl: './signout.component.html',
   styleUrls: ['./signout.component.scss'],
 })

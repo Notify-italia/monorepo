@@ -8,18 +8,25 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/nfc-root-client",
         "index": "apps/nfc-root-client/src/index.html",
         "main": "apps/nfc-root-client/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/nfc-root-client/tsconfig.app.json",
         "assets": [
           "apps/nfc-root-client/src/favicon.ico",
           "apps/nfc-root-client/src/assets"
         ],
-        "styles": ["apps/nfc-root-client/src/styles.scss"],
+        "styles": [
+          "apps/nfc-root-client/src/styles.scss",
+          "libs/utils/src/lib/global.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -69,12 +76,15 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "outputs": [],
       "options": {
-        "lintFilePatterns": [
-          "apps/nfc-root-client/**/*.ts",
-          "apps/nfc-root-client/**/*.html"
-        ]
+        "command": "cp ./apps/nfc-root-client/Dockerfile ./dist/apps/nfc-root-client && cp ./apps/nfc-root-client/captain-definition ./dist/apps/nfc-root-client && tar --strip-components=4 -cvf ./deploy.tar --exclude='*.map' ./dist/apps/nfc-root-client/* && caprover deploy -t ./deploy.tar -n notify -a notify-root-client && rm ./deploy.tar"
       }
     }
   }

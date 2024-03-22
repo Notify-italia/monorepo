@@ -1,0 +1,18 @@
+<div
+  (click)="isHidden = true"
+  class="absolute backdrop-brightness-[0.4] top-0 left-0 center w-screen text-center z-[9999] flex flex-col justify-center items-center show-animation py-2 space-y-4 swipe-available-container lg:hidden"
+  [ngClass]="{
+    'hide-animation pointer-events-none': isHidden,
+  }"
+>
+  <div class="flex flex-col justify-center text-center text-gray-100">
+    <h1 class="font-bold text-lg">{{ title }}</h1>
+    <p class="text-xs md:text-sm text-gray-200">
+      {{ subtitle }}
+    </p>
+  </div>
+  <div class="finger-container slide-animation">
+    <div class="finger"></div>
+    <div class="finger" style="animation-duration: 1.5s"></div>
+  </div>
+</div>

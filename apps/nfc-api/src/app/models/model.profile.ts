@@ -60,7 +60,7 @@ interface ProfileModel extends Model<Profile> {
 // 3. Crea uno Schema corrispondente all'interfaccia del documento definita al punto 1
 //    nb: l'interfaccia del documento avrà anche _id e __v, che non devono essere
 //        aggiunte nel Schema!
-const OrdineSchema = new Schema<Profile, ProfileModel>(
+const ProfileSchema = new Schema<Profile, ProfileModel>(
   {
     name: {
       type: String,
@@ -103,6 +103,22 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
         type: Boolean,
         default: true,
       },
+      avatarMask: {
+        type: String,
+        default: null,
+      },
+      smsEnabled: {
+        type: Boolean,
+        default: true,
+      },
+      redirectEnabled: {
+        type: Boolean,
+        default: true,
+      },
+      feedbackEnabled: {
+        type: Boolean,
+        default: true,
+      },
     },
     type: {
       type: String,
@@ -112,6 +128,29 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
     owner: {
       type: Schema.Types.ObjectId,
       required: true,
+      refPath: 'type',
+    },
+    address: {
+      street: {
+        type: String,
+        default: null,
+      },
+      city: {
+        type: String,
+        default: null,
+      },
+      number: {
+        type: String,
+        default: null,
+      },
+    },
+    piva: {
+      type: String,
+      default: null,
+    },
+    reviewRedirect: {
+      type: Schema.Types.String,
+      default: null,
     },
     customFields: {
       type: [
@@ -142,9 +181,28 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
       ],
       required: true,
     },
+    redirectUrl: {
+      type: String,
+      default: null,
+    },
+    colors: {
+      background: {
+        type: [String],
+        default: ['#0A2859', '#041127'],
+      },
+      elements: {
+        type: String,
+        default: '#FFFFFF',
+      },
+      useCompanyColors: {
+        type: Boolean,
+        default: false,
+      },
+    },
   },
   {
     timestamps: true,
+    versionKey: false,
     toJSON: {
       transform: function (doc, ret) {
         delete ret.__v;
@@ -154,17 +212,22 @@ const OrdineSchema = new Schema<Profile, ProfileModel>(
 );
 
 // 4. Aggiungi qui, se ci sono, gli hook da eseguire prima o dopo una operazione di CRUD (create, read, update, delete)
-OrdineSchema.pre('save', async function (done) {
+ProfileSchema.pre('save', async function (done) {
   done();
 });
 
 // 5. Aggiungi un metodo statico build per creare il nuovo Model
-OrdineSchema.statics.build = (doc: Partial<Profile>) => {
+ProfileSchema.statics.build = (doc: Partial<Profile>) => {
+  doc.colors = doc.colors || {
+    background: ['#0A2859', '#041127'],
+    elements: '#FFFFFF',
+    useCompanyColors: false,
+  };
   return new ProfileModel(doc);
 };
 
 // 6. Esporta il Model creato con la funzione model di mongoose
 export const ProfileModel = model<Profile, ProfileModel>(
   'Profile',
-  OrdineSchema
+  ProfileSchema
 );

@@ -25,14 +25,7 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "libs/nfc-app-services/**/*.ts",
-          "libs/nfc-app-services/**/*.html",
-          "libs/nfc-app-services/package.json"
-        ]
-      }
+      "outputs": ["{options.outputFile}"]
     }
   }
 }

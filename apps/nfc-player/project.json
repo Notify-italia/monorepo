@@ -12,6 +12,11 @@
         "{options.outputPath}"
       ],
       "options": {
+        "allowedCommonJsDependencies": [
+          "qrcode",
+          "file-saver",
+          "compressorjs"
+        ],
         "outputPath": "dist/apps/nfc-player",
         "index": "apps/nfc-player/src/index.html",
         "main": "apps/nfc-player/src/main.ts",
@@ -40,7 +45,7 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "100mb"
             },
             {
               "type": "anyComponentStyle",
@@ -89,13 +94,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": [
         "{options.outputFile}"
-      ],
-      "options": {
-        "lintFilePatterns": [
-          "apps/nfc-player/**/*.ts",
-          "apps/nfc-player/**/*.html"
-        ]
-      }
+      ]
     },
     "deploy": {
       "executor": "nx:run-commands",

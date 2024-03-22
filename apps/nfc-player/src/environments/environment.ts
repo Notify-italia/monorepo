@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:3100/api',
   publicUrl: 'http://localhost:4200',
+  socketUrl: 'http://localhost:3100',
+  socketIdKey: 'dev.socketId',
   feedbackKey: 'dev.feedback',
 };
 

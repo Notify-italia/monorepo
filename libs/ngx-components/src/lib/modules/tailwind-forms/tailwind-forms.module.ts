@@ -2,10 +2,14 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { RemoveFocusDirective } from '@notify/nfc-app-services';
+import { ColorPickerModule } from 'ngx-color-picker';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { TailwindAdvancedSelectComponent } from './components/tailwind-advanced-select/tailwind-advanced-select.component';
 import { TailwindCheckboxComponent } from './components/tailwind-checkbox/tailwind-checkbox.component';
+import { TailwindColorPickerComponent } from './components/tailwind-color-picker/tailwind-color-picker.component';
 import { TailwindDatepickerComponent } from './components/tailwind-datepicker/tailwind-datepicker.component';
-import { TailwindDropdownComponent } from './components/tailwind-dropdown/tailwind-dropdown.component';
+
 import { TailwindInputComponent } from './components/tailwind-input/tailwind-input.component';
 import { TailwindRadioListDescriptionPanelComponent } from './components/tailwind-radio-list-description-panel/tailwind-radio-list-description-panel.component';
 import { TailwindSelectMultipleComponent } from './components/tailwind-select-multiple/tailwind-select-multiple.component';
@@ -23,12 +27,13 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     TailwindRadioListDescriptionPanelComponent,
     TailwindTimepickerComponent,
     TailwindDatepickerComponent,
-    TailwindDropdownComponent,
     TailwindSelectComponent,
     TailwindCheckboxComponent,
     TailwindSelectMultipleComponent,
     TailwindToggleButtonComponent,
     HighlightSearchPipe,
+    TailwindColorPickerComponent,
+    TailwindAdvancedSelectComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +42,8 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     RouterModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    ColorPickerModule,
+    RemoveFocusDirective,
   ],
   exports: [
     TailwindInputComponent,
@@ -45,10 +52,11 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     TailwindTimepickerComponent,
     TailwindDatepickerComponent,
     TailwindSelectComponent,
-    TailwindDropdownComponent,
     TailwindCheckboxComponent,
     TailwindSelectMultipleComponent,
     HighlightSearchPipe,
+    TailwindColorPickerComponent,
+    TailwindAdvancedSelectComponent,
   ],
   providers: [TailwindFormsService, provideNgxMask()],
 })
@@ -57,9 +65,10 @@ export class TailwindFormsModule {}
 //directly exporting all exported components of the ngModule to include them automatically the lib's index.ts
 export {
   HighlightSearchPipe,
+  TailwindAdvancedSelectComponent,
   TailwindCheckboxComponent,
+  TailwindColorPickerComponent,
   TailwindDatepickerComponent,
-  TailwindDropdownComponent,
   TailwindInputComponent,
   TailwindRadioListDescriptionPanelComponent,
   TailwindSelectComponent,

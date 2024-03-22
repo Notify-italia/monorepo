@@ -1,16 +1,82 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NavComponent, NavItem } from '@notify/ngx-components';
+import { CapacitorService } from '@notify/nfc-app-services';
+import {
+  ChangelogFactory,
+  INotifyVersionInfo,
+  NavComponent,
+  NavItem,
+} from '@notify/ngx-components';
+import { environment } from '../../../environments/environment';
 
 @Component({
   standalone: true,
   imports: [CommonModule, NavComponent, RouterModule],
+  providers: [CapacitorService, ChangelogFactory],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
+  public currentVersionLabel: string = 'v0.8.0';
+  public currentVersionDate: string = '2024-03-15';
+
+  public latestChangelog: INotifyVersionInfo = {
+    tag: 'v0.8.0',
+    date: '2024-03-15',
+    title: '🦾 Accessibilità e Usabilità',
+    description:
+      "La versione 0.8.0 introduce alcune migliorie all'accessibilità e all'usabilità dell'applicazione. Inoltre, sono state introdotte nuove funzionalità per la gestione degli utenti e per la visualizzazione dei changelogs.",
+    artPath: 'https://s3-api.vps.notifyapp.it/assets/version-art/v0.8.0.webp',
+    changes: [
+      {
+        type: 'new',
+        message:
+          '<b>Changelogs</b>: Aggiunta la possibilità di visualizzare i changelogs della versione corrente (questo popup).',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Pannello Profilo</b>: Migliorata la gestione dei salvataggi.',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Pannello Profilo</b>: Aggiunto un pulsante per testare le integrazioni senza doverle clickare/tappare dal profilo.',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Pannello Profilo</b>: Aggiunti i prefissi, ove possibile, per evidenziare il tipo di dato da inserire in una text-box.',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Selezione colori</b>: Risolto un problema con il focus dei tasti su iOS',
+      },
+      {
+        type: 'fix',
+        message: `<b>Profilo</b>: Corretto l'allineamento di alcuni elementi.`,
+      },
+      {
+        type: 'improvement',
+        message: `<b>Invio File</b>: Migliorata la velocità di disconnessione dei visitatori.`,
+      },
+      {
+        type: 'improvement',
+        message: `<b>Invio File</b>: Migliorate le istruzioni per l'invio dei file.`,
+      },
+    ],
+  };
+
   public nav: NavItem[] = [
+    {
+      label: 'Dashboard',
+      path: '/pages/dashboard',
+      icon: [
+        'M3 6a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3v2.25a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3V6ZM3 15.75a3 3 0 0 1 3-3h2.25a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2.25Zm9.75 0a3 3 0 0 1 3-3H18a3 3 0 0 1 3 3V18a3 3 0 0 1-3 3h-2.25a3 3 0 0 1-3-3v-2.25Z',
+      ],
+    },
     {
       label: 'Profilo',
       path: '/pages/profile',
@@ -19,7 +85,14 @@ export class HomeComponent {
       ],
     },
     {
-      disabled: true,
+      label: 'Invia File',
+      path: '/pages/share',
+      icon: [
+        'M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z',
+      ],
+    },
+    {
+      hidden: environment.production,
       label: 'Note',
       path: '/pages/notes',
       icon: [
@@ -28,34 +101,34 @@ export class HomeComponent {
       ],
     },
     {
-      disabled: true,
       label: 'Colleghi',
-      path: '/pages/peers',
+      path: '/pages/colleagues',
       icon: [
         'M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z',
       ],
     },
-    {
-      disabled: true,
-      label: 'Impostazioni',
-      path: '/pages/settings',
-      icon: [
-        'M17.004 10.407c.138.435-.216.842-.672.842h-3.465a.75.75 0 01-.65-.375l-1.732-3c-.229-.396-.053-.907.393-1.004a5.252 5.252 0 016.126 3.537zM8.12 8.464c.307-.338.838-.235 1.066.16l1.732 3a.75.75 0 010 .75l-1.732 3.001c-.229.396-.76.498-1.067.16A5.231 5.231 0 016.75 12c0-1.362.519-2.603 1.37-3.536zM10.878 17.13c-.447-.097-.623-.608-.394-1.003l1.733-3.003a.75.75 0 01.65-.375h3.465c.457 0 .81.408.672.843a5.252 5.252 0 01-6.126 3.538z',
-        'M21 12.75a.75.75 0 000-1.5h-.783a8.22 8.22 0 00-.237-1.357l.734-.267a.75.75 0 10-.513-1.41l-.735.268a8.24 8.24 0 00-.689-1.191l.6-.504a.75.75 0 10-.964-1.149l-.6.504a8.3 8.3 0 00-1.054-.885l.391-.678a.75.75 0 10-1.299-.75l-.39.677a8.188 8.188 0 00-1.295-.471l.136-.77a.75.75 0 00-1.477-.26l-.136.77a8.364 8.364 0 00-1.377 0l-.136-.77a.75.75 0 10-1.477.26l.136.77c-.448.121-.88.28-1.294.47l-.39-.676a.75.75 0 00-1.3.75l.392.678a8.29 8.29 0 00-1.054.885l-.6-.504a.75.75 0 00-.965 1.149l.6.503a8.243 8.243 0 00-.689 1.192L3.8 8.217a.75.75 0 10-.513 1.41l.735.267a8.222 8.222 0 00-.238 1.355h-.783a.75.75 0 000 1.5h.783c.042.464.122.917.238 1.356l-.735.268a.75.75 0 10.513 1.41l.735-.268c.197.417.428.816.69 1.192l-.6.504a.75.75 0 10.963 1.149l.601-.505c.326.323.679.62 1.054.885l-.392.68a.75.75 0 101.3.75l.39-.679c.414.192.847.35 1.294.471l-.136.771a.75.75 0 101.477.26l.137-.772a8.376 8.376 0 001.376 0l.136.773a.75.75 0 101.477-.26l-.136-.772a8.19 8.19 0 001.294-.47l.391.677a.75.75 0 101.3-.75l-.393-.679a8.282 8.282 0 001.054-.885l.601.504a.75.75 0 10.964-1.15l-.6-.503a8.24 8.24 0 00.69-1.191l.735.268a.75.75 0 10.512-1.41l-.734-.268c.115-.438.195-.892.237-1.356h.784zm-2.657-3.06a6.744 6.744 0 00-1.19-2.053 6.784 6.784 0 00-1.82-1.51A6.704 6.704 0 0012 5.25a6.801 6.801 0 00-1.225.111 6.7 6.7 0 00-2.15.792 6.784 6.784 0 00-2.952 3.489.758.758 0 01-.036.099A6.74 6.74 0 005.251 12a6.739 6.739 0 003.355 5.835l.01.006.01.005a6.706 6.706 0 002.203.802c.007 0 .014.002.021.004a6.792 6.792 0 002.301 0l.022-.004a6.707 6.707 0 002.228-.816 6.781 6.781 0 001.762-1.483l.009-.01.009-.012a6.744 6.744 0 001.18-2.064c.253-.708.39-1.47.39-2.264a6.74 6.74 0 00-.408-2.308z',
-      ],
-    },
+    // {
+    //   disabled: true,
+    //   label: 'Calendario Appuntamenti',
+    //   path: '/pages/calendar',
+    //   icon: [
+    //     'M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z',
+    //     'M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z',
+    //   ],
+    // },
   ];
 
   //TODO pagina di help
   public bottomNav: NavItem[] = [
-    {
-      label: 'Aiuto',
-      path: '/pages/help',
-      style: '',
-      icon: [
-        'M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm11.378-3.917c-.89-.777-2.366-.777-3.255 0a.75.75 0 01-.988-1.129c1.454-1.272 3.776-1.272 5.23 0 1.513 1.324 1.513 3.518 0 4.842a3.75 3.75 0 01-.837.552c-.676.328-1.028.774-1.028 1.152v.75a.75.75 0 01-1.5 0v-.75c0-1.279 1.06-2.107 1.875-2.502.182-.088.351-.199.503-.331.83-.727.83-1.857 0-2.584zM12 18a.75.75 0 100-1.5.75.75 0 000 1.5z',
-      ],
-    },
+    // {
+    //   disabled: true,
+    //   label: 'Aiuto',
+    //   path: '/pages/help',
+    //   style: '',
+    //   icon: [
+    //     'M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm11.378-3.917c-.89-.777-2.366-.777-3.255 0a.75.75 0 01-.988-1.129c1.454-1.272 3.776-1.272 5.23 0 1.513 1.324 1.513 3.518 0 4.842a3.75 3.75 0 01-.837.552c-.676.328-1.028.774-1.028 1.152v.75a.75.75 0 01-1.5 0v-.75c0-1.279 1.06-2.107 1.875-2.502.182-.088.351-.199.503-.331.83-.727.83-1.857 0-2.584zM12 18a.75.75 0 100-1.5.75.75 0 000 1.5z',
+    //   ],
+    // },
     {
       label: 'Log out',
       path: '/pages/signout',
@@ -65,4 +138,14 @@ export class HomeComponent {
       ],
     },
   ];
+
+  constructor(
+    public capacitor: CapacitorService,
+    private _changelogFactory: ChangelogFactory
+  ) {}
+
+  public handleVersionClick() {
+    //? perchè changlogFactory è un qui e non in version-label? perchè triggerandolo da version labl non applica correttamente il backdrop-blur, oltre che ad avere diversi problemi di alignment
+    this._changelogFactory.create(this.latestChangelog);
+  }
 }

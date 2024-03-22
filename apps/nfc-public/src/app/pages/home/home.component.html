@@ -1,0 +1,70 @@
+<div class="flex justify-center scroll-smooth font-mulish">
+  <div
+    class="fixed w-full h-full top-0 left-0 z-[999] bg-black smooth"
+    [ngClass]="{
+      'opacity-0 pointer-events-none': stable
+    }"
+  >
+    <notify-loading></notify-loading>
+  </div>
+  <notify-cursor></notify-cursor>
+
+  <div
+    class="h-full w-full flex flex-col overflow-hidden scroll-smooth text-slate-200 bg-[#0E0E0F]"
+  >
+    <!-- SPLASH E TOP NAV -->
+    <div class="w-full h-full flex flex-col hero-gradient relative">
+      <notify-top-nav></notify-top-nav>
+
+      <notify-splash id="splash"></notify-splash>
+    </div>
+
+    <!-- GRADIENT DIVIDER -->
+    <section
+      class="items-center relative py-20 overflow-hidden"
+      data-v-03e9e875
+    >
+      <div style="opacity: 1; transform: none" data-v-03e9e875 data-v-b822103d>
+        <span class="hero-divider" data-v-b822103d></span
+        ><span
+          class="gradient-border gradient-border-right"
+          data-v-b822103d
+        ></span
+        ><span
+          class="gradient-border gradient-border-left"
+          data-v-b822103d
+        ></span>
+      </div>
+    </section>
+
+    <notify-personalization id="#personalization"></notify-personalization>
+
+    <notify-card-builder class="my-20" id="#card-builder"></notify-card-builder>
+
+    <notify-software-only></notify-software-only>
+
+    <div class="divider"></div>
+
+    <notify-features id="features"></notify-features>
+
+    <notify-sustainability id="sustainability"></notify-sustainability>
+
+    <div class="divider"></div>
+
+    <notify-funded-by id="fundedby" class="mt-20"></notify-funded-by>
+
+    <notify-partners id="partners"></notify-partners>
+
+    <notify-instructions
+      class="mt-20"
+      (componentStable)="instructionsStable$.next()"
+    ></notify-instructions>
+
+    <div class="divider"></div>
+
+    <notify-questions></notify-questions>
+
+    <notify-contact-us id="contactus" class="mt-20"></notify-contact-us>
+    <notify-footer class="z-10"></notify-footer>
+  </div>
+</div>

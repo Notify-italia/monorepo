@@ -1,0 +1,11 @@
+<div class="h-full w-full relative" *ngIf="location$ | async as l">
+  <iframe
+    title="Google Maps Location"
+    [class]="mapClass"
+    loading="lazy"
+    allowfullscreen
+    referrerpolicy="no-referrer-when-downgrade"
+    [src]="l"
+  >
+  </iframe>
+</div>

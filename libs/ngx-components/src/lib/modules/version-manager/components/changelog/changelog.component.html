@@ -1,0 +1,74 @@
+<div class="modal-container" id="changelog" (click)="close()">
+  <div>
+    <div
+      class="modal-content content-transparent content-static bg-gradient-to-br from-cyan-500/70 to-cyan-900/50 p-5 border border-cyan-500"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="flex flex-col lg:flex-row lg:space-x-10">
+        <div class="flex flex-col">
+          <span
+            class="bg-cyan-700 w-20 p-1 px-4 rounded text-cyan-200 text-center border border-cyan-400"
+          >
+            {{ versionInfo.tag }}
+          </span>
+          <span class="mt-2 whitespace-nowrap">
+            {{ versionInfo.date | date : 'longDate' : 'it' }}
+          </span>
+        </div>
+        <div class="divider lg:divider-vertical"></div>
+        <div
+          class="flex flex-col w-full max-h-[60vh] lg:max-h-[80vh] overflow-y-auto space-y-5 px-5"
+        >
+          <p class="changelog-title">
+            {{ versionInfo.title }}
+          </p>
+          <p>
+            {{ versionInfo.description }}
+          </p>
+          <img
+            [src]="versionInfo.artPath"
+            class="w-full h-full object-contain rounded-lg"
+          />
+          <div class="flex flex-col space-y-12">
+            <div class="changelog-section" *ngIf="changelogSorted.new?.length">
+              <p>✨ Novità</p>
+              <ul>
+                @for (item of changelogSorted.new; track $index) {
+                <li>
+                  <span>•</span>
+                  <p [innerHTML]="item.safeHTML"></p>
+                </li>
+                }
+              </ul>
+            </div>
+            <div class="changelog-section" *ngIf="changelogSorted.improved">
+              <p>🦋 Miglioramenti</p>
+              <ul>
+                @for (item of changelogSorted.improved; track $index) {
+                <li>
+                  <span>•</span>
+                  <p [innerHTML]="item.safeHTML"></p>
+                </li>
+                }
+              </ul>
+            </div>
+            <div
+              class="changelog-section"
+              *ngIf="changelogSorted.fixed?.length"
+            >
+              <p>🐛 Bug Fix</p>
+              <ul>
+                @for (item of changelogSorted.fixed; track $index) {
+                <li>
+                  <span>•</span>
+                  <p [innerHTML]="item.safeHTML"></p>
+                </li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

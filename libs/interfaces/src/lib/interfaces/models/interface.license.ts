@@ -7,4 +7,5 @@ export interface INotifyLicense extends MongodbDocument {
   allowedAgents: number;
   //TODO gestire le features
   features: string[];
+  boughtCards: number;
 }

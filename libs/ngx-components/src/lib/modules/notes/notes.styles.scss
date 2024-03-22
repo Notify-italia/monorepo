@@ -1,0 +1,7 @@
+.note-module {
+  @apply p-4 w-full flex flex-col bg-gray-900/50 backdrop-blur-lg backdrop-brightness-75 rounded-lg h-full;
+}
+
+.note-title {
+  @apply w-full outline-none bg-transparent lg:text-xl font-semibold  text-gray-200  border-gray-500/50 placeholder-gray-50/10 my-auto;
+}

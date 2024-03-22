@@ -1,0 +1,12 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { AppTitleComponent, SvgBoxIconComponent } from '@notify/ngx-components';
+
+@Component({
+  selector: 'notify-footer',
+  standalone: true,
+  imports: [CommonModule, AppTitleComponent, SvgBoxIconComponent],
+  templateUrl: './footer.component.html',
+  styleUrl: './footer.component.scss',
+})
+export class FooterComponent {}

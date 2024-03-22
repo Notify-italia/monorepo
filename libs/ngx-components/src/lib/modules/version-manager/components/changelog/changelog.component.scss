@@ -1,0 +1,23 @@
+.changelog-title {
+  @apply text-3xl font-bold text-white;
+}
+
+.changelog-section {
+  @apply flex flex-col space-y-5;
+
+  & > p {
+    @apply changelog-title;
+  }
+
+  ul {
+    @apply space-y-2;
+
+    & > li {
+      @apply flex space-x-2 lg:text-lg text-gray-300;
+
+      & > span {
+        @apply text-cyan-200;
+      }
+    }
+  }
+}

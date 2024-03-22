@@ -1,22 +1,39 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import {
   LoadingComponent,
   PageHeaderComponent,
   ProfileFormComponent,
   ProfilePlayerFactory,
   ProfileViewComponent,
+  SaveIndicatorComponent,
   ShareProfileComponent,
 } from '@notify/ngx-components';
 
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   AppError,
   EnumNotifyUserType,
+  INotifyAgent,
   INotifyProfile,
 } from '@notify/interfaces';
-import { ProfileService } from '@notify/nfc-app-services';
-import { ToastrService } from 'ngx-toastr';
-import { Observable, Subject, catchError, tap } from 'rxjs';
+import {
+  AgentService,
+  AuthService,
+  CapacitorService,
+  ProfileService,
+  UtilsService,
+} from '@notify/nfc-app-services';
+import {
+  Observable,
+  Subject,
+  catchError,
+  debounceTime,
+  of,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { environment } from '../../../../src/environments/environment';
 
 type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
@@ -31,39 +48,54 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
     ShareProfileComponent,
     PageHeaderComponent,
     LoadingComponent,
+    SaveIndicatorComponent,
   ],
-  providers: [ProfilePlayerFactory],
+  providers: [ProfilePlayerFactory, CapacitorService, AgentService],
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProfileManagementComponent {
+export class ProfileManagementComponent implements OnDestroy {
   private _profileSubject$ = new Subject<IProfile>();
   public profile$: Observable<IProfile> = this._profileSubject$;
-
   public loading = false;
+  public baseUrl = environment.profilesUrl;
+
+  public destroy$ = new Subject<void>();
+
+  public debouncedNextProfile$: Subject<INotifyProfile> =
+    new Subject<IProfile>();
+
+  public get savedRedirects() {
+    return this._authService.user?.savedRedirects || [];
+  }
 
   constructor(
     private _profileService: ProfileService,
-    private _toastr: ToastrService,
-    private _playerFactroy: ProfilePlayerFactory
+    private _utilsService: UtilsService,
+    private _playerFactroy: ProfilePlayerFactory,
+    private _agentService: AgentService,
+    private _authService: AuthService,
+    private _domSanitizer: DomSanitizer
   ) {
     this._getProfile();
+
+    this.debouncedNextProfile$
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(500),
+        tap((profile) => this._profileSubject$.next(profile))
+      )
+      .subscribe();
   }
 
-  public playerUrl(profile: IProfile) {
-    return this._profileService.genPlayerUrl(
-      environment.publicUrl,
-      profile._id
-    );
+  public ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public updateProfileSubject(profile: INotifyProfile) {
-    this._profileSubject$.next(profile as IProfile);
-  }
-
-  public reloadForm() {
-    //TODO trovare un modo più elegante per ricaricare il form
-    location.reload();
+    this.debouncedNextProfile$.next(profile as IProfile);
   }
 
   public previewProfile(profile: INotifyProfile) {
@@ -76,18 +108,64 @@ export class ProfileManagementComponent {
       .patchProfile<EnumNotifyUserType.Agent>(profile)
       .pipe(
         tap((profile) => {
-          this._toastr.success('Profilo aggiornato', 'Successo');
-          this._profileSubject$.next(profile);
-          this.loading = false;
+          this.updateProfileSubject(profile);
+        }),
+        switchMap((p) => {
+          if (!this._authService.user) {
+            return of();
+          }
+
+          const savedRedirects: string[] = [
+            ...new Set([
+              ...(this._authService.user?.savedRedirects || []),
+              p.redirectUrl || '',
+            ]),
+          ].filter((r) => r);
+
+          return this._agentService
+            .patch(this._authService.user?._id || '', {
+              savedRedirects,
+            })
+            .pipe(
+              switchMap(() => {
+                return this._authService.refreshToken();
+              })
+            );
+        }),
+        catchError(async (err: AppError) =>
+          this._utilsService.errorHandler(err)
+        ),
+        tap(() => (this.loading = false))
+      )
+      .subscribe();
+  }
+
+  public normalizeURL(url: string | null) {
+    if (!url) {
+      url = 'https://notifyapp.it';
+    }
+
+    return this._domSanitizer.bypassSecurityTrustResourceUrl(
+      this._utilsService.populateWebProtocol('https://', url)
+    );
+  }
+
+  public removeSavedRedirect(redirect: string) {
+    this.loading = true;
+    const user = this._authService.user as unknown as INotifyAgent;
+
+    this._agentService
+      .patch(user?._id || '', {
+        savedRedirects: this.savedRedirects.filter((r) => r !== redirect),
+      })
+      .pipe(
+        switchMap(() => {
+          return this._authService.refreshToken();
         }),
         catchError(async (err: AppError) => {
-          this._toastr.error(
-            err?.error?.errors?.[0]?.message || 'Si è verificato un errore',
-            'Errore'
-          );
-          this.loading = false;
-          return err;
-        })
+          return this._utilsService.errorHandler(err);
+        }),
+        tap(() => (this.loading = false))
       )
       .subscribe();
   }
@@ -97,16 +175,12 @@ export class ProfileManagementComponent {
       .getProfile<EnumNotifyUserType.Agent>()
       .pipe(
         tap((profile) => {
-          console.log(profile);
           this._profileSubject$.next(profile);
         }),
         catchError(async (err: AppError) => {
-          this._toastr.error(
-            err?.error?.errors?.[0]?.message || 'Si è verificato un errore',
-            'Errore'
-          );
-          return err;
-        })
+          return this._utilsService.errorHandler(err);
+        }),
+        tap(() => (this.loading = false))
       )
       .subscribe();
   }

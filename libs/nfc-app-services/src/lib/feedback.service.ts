@@ -7,7 +7,7 @@ import { HttpService } from './http.service';
 export class FeedbackService {
   constructor(private http: HttpService) {}
 
-  public sendFeedback(body: Partial<INotifyFeedback>, feedbackKey: string) {
+  public postFeedback(body: Partial<INotifyFeedback>, feedbackKey: string) {
     return this.http
       .post<Partial<INotifyFeedback>, INotifyFeedback>(`/v1/feedback`, body)
       .pipe(
@@ -15,6 +15,23 @@ export class FeedbackService {
           this._saveToLocalStorage(feedback, feedbackKey);
         })
       );
+  }
+
+  public getFeedbacks(period: { from: Date; to: Date }, owner?: string) {
+    const params: {
+      from: string;
+      to: string;
+      owner?: string;
+    } = {
+      from: period.from.toISOString(),
+      to: period.to.toISOString(),
+    };
+
+    if (owner) {
+      params.owner = owner;
+    }
+
+    return this.http.get<INotifyFeedback[]>('/v1/feedback', params);
   }
 
   public getFeedbackFromLocalStorage(

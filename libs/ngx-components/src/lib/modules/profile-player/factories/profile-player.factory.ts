@@ -6,12 +6,17 @@ import { FullscreenMockupComponent } from '../components/fullscreen-mockup/fulls
 export class ProfilePlayerFactory {
   constructor(public vcr: ViewContainerRef) {}
 
-  public createPlayer(config: { profile: INotifyProfile; playerUrl?: string }) {
+  public createPlayer(config: {
+    profile: INotifyProfile;
+    baseUrl?: string;
+    hideShare?: boolean;
+  }) {
     const ref = this.vcr.createComponent(FullscreenMockupComponent);
 
     ref.setInput('cf', ref);
     ref.setInput('data', config.profile);
-    ref.setInput('playerUrl', config.playerUrl);
+    ref.setInput('baseUrl', config.baseUrl);
+    ref.setInput('hideShare', config.hideShare);
 
     return ref;
   }

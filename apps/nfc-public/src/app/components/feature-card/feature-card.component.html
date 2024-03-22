@@ -1,0 +1,15 @@
+<div
+  class="rounded-xl relative w-full h-full bg-secondary-500/5 backdrop-blur-xl border-2 border-secondary-500 px-4 flex flex-col justify-center ring-2 ring-secondary-500 shadow-lg shadow-secondary-700 overflow-hidden"
+>
+  <h2 class="text-xl md:text-2xl font-bold z-10">
+    {{ feature.title }}
+  </h2>
+
+  <p class="z-10 text-sm md:text-base mt-2">
+    {{ feature.description }}
+  </p>
+  <img
+    [src]="feature.image"
+    class="absolute w-full h-full top-0 left-0 z-0 opacity-30 object-cover brightness-50 pointer-events-none"
+  />
+</div>

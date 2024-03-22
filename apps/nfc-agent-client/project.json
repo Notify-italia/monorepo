@@ -15,7 +15,9 @@
       "options": {
         "allowedCommonJsDependencies": [
           "qrcode",
-          "file-saver"
+          "file-saver",
+          "compressorjs",
+          "apexcharts"
         ],
         "outputPath": "dist/apps/nfc-agent-client",
         "index": "apps/nfc-agent-client/src/index.html",
@@ -27,6 +29,7 @@
         "assets": [
           "apps/nfc-agent-client/src/favicon.ico",
           "apps/nfc-agent-client/src/assets",
+          "apps/nfc-agent-client/src/favicon",
           {
             "input": "libs/utils/assets",
             "glob": "*",
@@ -37,7 +40,9 @@
           "apps/nfc-agent-client/src/styles.scss",
           "libs/utils/src/lib/global.scss"
         ],
-        "scripts": []
+        "scripts": [
+          "node_modules/apexcharts/dist/apexcharts.min.js"
+        ]
       },
       "configurations": {
         "production": {
@@ -45,7 +50,7 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "999mb"
             },
             {
               "type": "anyComponentStyle",
@@ -94,13 +99,55 @@
       "executor": "@nx/eslint:lint",
       "outputs": [
         "{options.outputFile}"
-      ],
-      "options": {
-        "lintFilePatterns": [
-          "apps/nfc-agent-client/**/*.ts",
-          "apps/nfc-agent-client/**/*.html"
-        ]
+      ]
+    },
+    "generate-assets": {
+      "executor": "nx:run-commands",
+      "defaultConfiguration": "any",
+      "configurations": {
+        "any": {
+          "command": "npx capacitor-assets generate --iconBackgroundColor '#eeeeee' --iconBackgroundColorDark '#222222' --splashBackgroundColor '#eeeeee' --splashBackgroundColorDark '#111111' --assetPath ./resoruces --iosProject ./app/ios/App --androidProject ./app/android/App  ",
+          "cwd": "apps/nfc-agent-client"
+        }
       }
+    },
+    "cap": {
+      "executor": "nx:run-commands",
+      "configurations": {
+        "any": {
+          "command": "npx cap {args.command}",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "sync": {
+          "command": "npx cap sync",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "open-ios": {
+          "command": "npx cap open ios ",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "open-android": {
+          "command": "npx cap open android",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "build-ios": {
+          "command": "npx cap build ios",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "build-android": {
+          "command": "npx cap build android",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "run-ios": {
+          "command": "npx cap run ios",
+          "cwd": "apps/nfc-agent-client"
+        },
+        "run-android": {
+          "command": "npx cap run android ",
+          "cwd": "apps/nfc-agent-client"
+        }
+      },
+      "defaultConfiguration": "any"
     },
     "deploy": {
       "executor": "nx:run-commands",

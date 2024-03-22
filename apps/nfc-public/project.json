@@ -1,0 +1,117 @@
+{
+  "name": "nfc-public",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "notify",
+  "sourceRoot": "apps/nfc-public/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "allowedCommonJsDependencies": [
+          "qrcode",
+          "debug",
+          "apexcharts",
+          "xmlhttprequest-ssl"
+        ],
+        "outputPath": "dist/apps/nfc-public",
+        "index": "apps/nfc-public/src/index.html",
+        "browser": "apps/nfc-public/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/nfc-public/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/nfc-public/src/favicon.ico",
+          "apps/nfc-public/src/assets",
+          "apps/nfc-public/src/robots.txt",
+          "apps/nfc-public/src/sitemap.xml",
+          {
+            "input": "libs/utils/assets",
+            "glob": "*",
+            "output": "assets"
+          }
+        ],
+        "styles": [
+          "apps/nfc-public/src/styles.scss",
+          "libs/utils/src/lib/global.scss"
+        ],
+        "scripts": [],
+        "aot": true,
+        "server": "apps/nfc-public/src/main.server.ts",
+        "prerender": true,
+        "ssr": {
+          "entry": "apps/nfc-public/server.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "200mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "200mb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "nfc-public:build:production"
+        },
+        "development": {
+          "buildTarget": "nfc-public:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "nfc-public:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    },
+    "gulp": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "npx gulp --gulpfile ./apps/nfc-public/gulpfile.js compress-js",
+          "npx gulp --gulpfile ./apps/nfc-public/gulpfile.js minify-css"
+        ]
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "outputs": [],
+      "options": {
+        "command": "nx gulp nfc-public && cp ./apps/nfc-public/main.js ./dist/apps/nfc-public/server && cp ./apps/nfc-public/Dockerfile ./dist/apps/nfc-public && cp ./apps/nfc-public/captain-definition ./dist/apps/nfc-public && tar --strip-components=4 -cvf ./deploy.tar --exclude='*.map' ./dist/apps/nfc-public/* && caprover deploy -t ./deploy.tar -n notify -a public && rm ./deploy.tar"
+      }
+    }
+  }
+}

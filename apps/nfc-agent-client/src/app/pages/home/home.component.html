@@ -1,8 +1,20 @@
-<div class="flex flex-col lg:flex-row font-roboto min-h-screen overflow-hidden">
-  <notify-nav [topItems]="nav" [bottomItems]="bottomNav"></notify-nav>
+<div class="flex flex-col lg:flex-row font-work min-h-screen overflow-hidden">
+  <notify-nav
+    class="lg:my-auto lg:scale-95 box !rounded-xl z-[999]"
+    [topItems]="nav"
+    [bottomItems]="bottomNav"
+    [versionInfo]="{
+      currentVersion: currentVersionLabel,
+      currentVersionDate: currentVersionDate,
+    
+    }"
+    (versionClick)="handleVersionClick()"
+    subtitle=""
+  ></notify-nav>
 
   <div
-    class="p-2 h-full lg:max-h-screen lg:w-screen overflow-y-auto overflow-x-hidden my-5 lg:my-0"
+    class="p-4 lg:p-2 lg:py-4 h-full lg:max-h-screen lg:w-screen overflow-x-hidden"
+    [class.mt-safe]="capacitor.isNative"
   >
     <router-outlet class="w-full"></router-outlet>
   </div>

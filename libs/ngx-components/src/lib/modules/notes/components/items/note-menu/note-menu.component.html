@@ -1,0 +1,17 @@
+<div
+  class="fixed !h-14 w-[90%] lg:!w-[50%] flex justify-around items-center space-x-4 bottom-10"
+>
+  @for (item of itemTypes; track item.type) {
+  <button
+    (click)="itemClick.emit(item.type)"
+    class="flex !flex-row !items-center !justify-center note-module shadow-lg brightness-125 hover:brightness-[2] smooth space-x-4 button-click-animation !bg-slate-700/30"
+  >
+    <notify-svg-box-icon
+      [icon]="item.icon"
+      class="my-2"
+      [size]="6"
+    ></notify-svg-box-icon>
+    <span class="hidden lg:block">{{ item.label }} </span>
+  </button>
+  }
+</div>

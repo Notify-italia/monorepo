@@ -1,0 +1,167 @@
+<div class="page-layout">
+  <notify-page-header
+    title="Dettaglio Analytics"
+    subtitle="Analizza l'andamento dei tuoi utenti in Notify"
+    [buttons]="[
+      {
+        label: 'Indietro',
+        icon: [
+          'M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z'
+        ],
+        eventName: 'back'
+      }
+    ]"
+    (buttonClicked)="goBack()"
+  ></notify-page-header>
+
+  <div>
+    <div>
+      <div
+        class="flex flex-col lg:flex-row lg:space-x-2 w-full justify-around lg:items-start"
+      >
+        <!-- DESKTOP USER SELECT -->
+        <div class="lg:w-3/12 p-2 space-y-2 lg:h-full">
+          <notify-search-bar
+            [array$]="agents$"
+            [filterableFields]="filterableFields"
+            placeholder="Cerca tra gli utenti..."
+            (filteredArray)="agents = $event"
+          ></notify-search-bar>
+
+          <div class="max-h-48 lg:max-h-full overflow-y-auto">
+            <div class="divider !mb-4"></div>
+            @for (item of agents; track item._id) {
+            <notify-analyitics-detail-user-row
+              [item]="item"
+              (selectedItem)="selectedAgent.setValue($event)"
+              [selected]="selectedAgent.value?._id === item._id"
+              [hasSelected]="!!selectedAgent.value?._id"
+            ></notify-analyitics-detail-user-row>
+            } @if(!(agents$ |async)) {
+            <div class="loading-container">
+              <notify-loading></notify-loading>
+            </div>
+
+            }
+          </div>
+        </div>
+
+        <div class="divider lg:divider-horizontal"></div>
+
+        <div class="lg:p-2 w-full lg:w-9/12">
+          @if(selectedAgent.value) { @if(agentStats$ | async; as stats) {
+          <div
+            class="flex flex-col justify-around w-full h-full v-spacing flex-nowrap"
+          >
+            <div class="flex items-center space-x-2">
+              <notify-share-profile
+                *ngIf="stats.user.profile as profile"
+                [profile]="profile"
+                [baseUrl]="baseUrl"
+                class="w-full"
+              ></notify-share-profile>
+              <button
+                (click)="showProfile()"
+                class="box w-24 h-20 flex justify-center items-center hover:brightness-150 smooth"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              class="flex flex-col lg:flex-row w-full h-full h-spacing justify-evenly"
+            >
+              <div
+                class="flex flex-col justify-start w-full v-spacing flex-nowrap"
+              >
+                <notify-widget-area-chart
+                  class="w-full h-full dashboard-card"
+                  title="Visite"
+                  [series]="stats.visits"
+                  (timespanChange)="
+                    getProfileVisits(
+                      selectedAgent.value._id || '',
+                      $event
+                    ).subscribe()
+                  "
+                ></notify-widget-area-chart>
+                <notify-widget-feedback
+                  [value]="stats.totals.averageFeedback"
+                  [title]="'Feedbacks'"
+                  [advanced]="{
+                    enabled: true,
+                    feedbacks: stats.feedbacks
+                  }"
+                ></notify-widget-feedback>
+              </div>
+
+              <div
+                class="flex flex-col justify-start w-full lg:w-5/12 v-spacing"
+              >
+                <notify-widget-pie-chart
+                  title="Integrazioni"
+                  class="w-full"
+                  [series]="stats.totals.integrationsCountValues || []"
+                  [legendValues]="stats.totals.integrationsCountLabels || []"
+                ></notify-widget-pie-chart>
+                <notify-widget-counter
+                  class="dashboard-card animate__fadeInDown animate__animated"
+                  [ngStyle]="{
+                    'animation-delay': '0s'
+                  }"
+                  title="Visite totali"
+                  backgroundColor="transparent"
+                  elementsColor="#008FFB"
+                  [icon]="totalScansIcon"
+                  [count]="stats.totals.totalVisits"
+                  countSuffix="Visite"
+                ></notify-widget-counter>
+                <notify-widget-counter
+                  class="dashboard-card animate__fadeInDown animate__animated"
+                  [ngStyle]="{
+                    'animation-delay': '0.2s'
+                  }"
+                  title="Contatto Salvato"
+                  backgroundColor="transparent"
+                  elementsColor="#876756"
+                  [icon]="savedContactsIcon"
+                  [count]="stats.totals['profile:save'] || 0"
+                  countSuffix="Salvataggi"
+                ></notify-widget-counter>
+                <notify-widget-counter
+                  class="dashboard-card animate__fadeInDown animate__animated"
+                  [ngStyle]="{
+                    'animation-delay': '0.4s'
+                  }"
+                  title="Visite da rubrica"
+                  backgroundColor="transparent"
+                  elementsColor="#a7ed72"
+                  [icon]="returnFromContactBookIcon"
+                  [count]="stats.totals.percentReturn"
+                  countSuffix="% sul totale"
+                >
+                </notify-widget-counter>
+              </div>
+            </div>
+          </div>
+          } } @else{
+          <notify-no-items
+            title="Seleziona un utente"
+            subtitle="Selezione un utente per visualizzarne le statistiche"
+          ></notify-no-items>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

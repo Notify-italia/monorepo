@@ -16,6 +16,9 @@ export function itPhoneNumberValidators(
 
   const isMobile = regex.mobile.test(val);
   const isLandline = regex.landline.test(val);
+  const isNumeroVerde = val.startsWith('800') || val.startsWith('803');
 
-  return isMobile || isLandline ? null : { itPhoneNumber: true };
+  return isMobile || isLandline || isNumeroVerde
+    ? null
+    : { itPhoneNumber: true };
 }

@@ -1,0 +1,70 @@
+<!-- FEEDBACK -->
+@if (isAgent) {
+<button
+  type="button"
+  class="btn btn-wide border-none"
+  [ngStyle]="{ 'background-color': cssElementsColor }"
+  data-theme="notifytheme"
+  [disabled]="feedbackGiven()"
+  (click)="feedbackClicked.emit()"
+>
+  @if (feedbackGiven(); as fb) {
+  <div class="space-y-1">
+    <p
+      class="normal-case text-xs"
+      [ngStyle]="getContrastingColor(cssElementsColor, 'color')"
+    >
+      Feedback lasciato
+    </p>
+    <notify-rating
+      [rating]="fb.rating"
+      colorClass="bg-[{{ data?.colors?.background?.[0] }}]"
+      sizeClass="sm"
+    ></notify-rating>
+  </div>
+  } @else {
+  <svg
+    class="w-6 h-6"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    [ngStyle]="getContrastingColor(cssElementsColor, 'color')"
+  >
+    <path d="M0 0h24v24H0z" fill="none"></path>
+    <path
+      d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"
+    ></path>
+  </svg>
+  <p
+    class="normal-case"
+    [ngStyle]="getContrastingColor(cssElementsColor, 'color')"
+  >
+    Lascia un feedback
+  </p>
+  }
+</button>
+} @else {
+<button
+  *ngIf="data?.reviewRedirect"
+  type="button"
+  data-theme="notifytheme"
+  class="btn btn-wide btn-accent"
+  (click)="redirectToReview()"
+>
+  <svg
+    class="w-6 h-6"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+  >
+    <path
+      d="M0 0h24v24H0zm15.35 6.41l-1.77-1.77c-.2-.2-.51-.2-.71 0L6 11.53V14h2.47l6.88-6.88c.2-.19.2-.51 0-.71z"
+      fill="none"
+    ></path>
+    <path
+      d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 14v-2.47l6.88-6.88c.2-.2.51-.2.71 0l1.77 1.77c.2.2.2.51 0 .71L8.47 14H6zm12 0h-7.5l2-2H18v2z"
+    ></path>
+  </svg>
+  <p class="normal-case">Lascia una recensione</p>
+</button>
+}

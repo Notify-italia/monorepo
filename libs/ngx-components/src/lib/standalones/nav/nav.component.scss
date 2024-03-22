@@ -1,13 +1,13 @@
 ul {
-  @apply menu p-4 w-80 text-base-content;
+  @apply menu p-4 w-80 text-base-content space-y-4;
 
   & > li {
-    @apply menu-title text-gray-50 tracking-wider font-medium uppercase;
+    @apply text-gray-50  tracking-widest font-light;
   }
 }
 
 svg {
-  @apply w-8 h-8;
+  @apply w-6 h-6;
 }
 
 .nav-disabled {

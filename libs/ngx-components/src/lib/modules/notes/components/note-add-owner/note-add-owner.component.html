@@ -1,0 +1,63 @@
+<div class="modal-container" (click)="close()">
+  <div>
+    @if (enrichedUsers$ | async; as u) {
+    <div (click)="$event.stopPropagation()" class="modal-content">
+      <div class="w-full px-4">
+        <h2 class="text-3xl font-bold text-start text-white w-full">
+          Aggiungi editor
+        </h2>
+        <p class="text-base text-start w-full">
+          Aggiungi un tuo collega come editor per permettergli di visualizzare e
+          modificare questa nota.
+        </p>
+
+        <div class="divider"></div>
+
+        <form
+          [formGroup]="form"
+          autocomplete="off"
+          (submit)="submit()"
+          class="w-full flex flex-col justify-center items-center"
+        >
+          <notify-tailwind-select
+            class="w-full"
+            label="Collega"
+            [parent]="form"
+            [options]="u.formData.userSelect"
+            name="user"
+            placeholder="Seleziona un collega da aggiungere"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-select>
+          <!-- <notify-tailwind-checkbox
+            class="w-full"
+            label="Invia notifica"
+            [parent]="form"
+            name="sendNotification"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-checkbox> -->
+
+          <div class="divider"></div>
+
+          <div class="flex justify-end w-full">
+            <button
+              data-theme="notifytheme"
+              [disabled]="form.invalid"
+              class="btn w-full text-white/80 btn-primary bg-primary-500/40 brightness-90 z-10"
+            >
+              <span *ngIf="!loading">Aggiungi</span>
+              <span
+                [ngClass]="{
+                'loading': loading,
+              }"
+                *ngIf="loading"
+              ></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    } @else {
+    <notify-loading></notify-loading>
+    }
+  </div>
+</div>

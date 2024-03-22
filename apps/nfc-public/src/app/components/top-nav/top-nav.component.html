@@ -1,0 +1,22 @@
+<header class="max-content-width">
+  <div class="flex justify-between w-full p-5 h-24">
+    <a routerLink="/" class="h-14 w-14">
+      <notify-app-title
+        class="items-center pointer-events-none"
+        [compact]="true"
+      ></notify-app-title>
+    </a>
+
+    <div class="flex justify-end w-5/12 space-x-2 items-center h-full">
+      @for (item of options; track item.label) {
+      <a
+        [href]="item.path"
+        data-theme="notifytheme"
+        class="btn btn-link text-white no-underline"
+      >
+        {{ item.label }}
+      </a>
+      }
+    </div>
+  </div>
+</header>

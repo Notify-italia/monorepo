@@ -15,6 +15,7 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./pages/signin/signin.component').then((m) => m.SigninComponent),
   },
+
   {
     path: 'pages',
     component: HomeComponent,
@@ -23,9 +24,15 @@ export const appRoutes: Route[] = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'profile',
+        redirectTo: 'dashboard',
       },
-
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./pages/dashboard/dashboard.component').then(
+            (m) => m.DashboardComponent
+          ),
+      },
       {
         path: 'signout',
         loadComponent: () =>
@@ -39,6 +46,39 @@ export const appRoutes: Route[] = [
           import(
             './pages/profile-management/profile-management.component'
           ).then((m) => m.ProfileManagementComponent),
+      },
+      {
+        path: 'colleagues',
+        loadComponent: () =>
+          import('./pages/colleagues/colleagues.component').then(
+            (m) => m.ColleaguesComponent
+          ),
+      },
+      {
+        path: 'share',
+        loadComponent: () =>
+          import('./pages/share-files/share-files.component').then(
+            (m) => m.ShareFilesComponent
+          ),
+      },
+      {
+        path: 'notes',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./pages/notes/main/notes.component').then(
+                (m) => m.NotesComponent
+              ),
+          },
+          {
+            path: 'inspect',
+            loadComponent: () =>
+              import('./pages/notes/note-manager/note-manager.component').then(
+                (m) => m.NoteManagerComponent
+              ),
+          },
+        ],
       },
     ],
   },

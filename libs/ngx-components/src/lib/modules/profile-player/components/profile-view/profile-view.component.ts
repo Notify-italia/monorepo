@@ -1,19 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
 import {
-  EnumNotifyUserType,
-  INotifyFeedback,
-  INotifyProfile,
-} from '@notify/interfaces';
-import { FeedbackService, ProfileService } from '@notify/nfc-app-services';
-import { format } from 'date-fns';
-import { interval, map, startWith } from 'rxjs';
-import { AnimatedBgComponent } from '../../../../standalones/animated-bg/animated-bg.component';
-import { AvatarComponent } from '../../../../standalones/avatar/avatar.component';
+  FeedbackService,
+  ProfileService,
+  SvgboxService,
+  UtilsService,
+} from '@notify/nfc-app-services';
+import { WallpaperComponent } from '../../../../standalones/animated-bg/wallpaper.component';
+import { GoogleMapsComponent } from '../../../../standalones/google-maps/google-maps.component';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
 import { FeedbackFactory } from '../../factories';
+import { FeedbackButtonComponent } from '../feedback-button/feedback-button.component';
+import { MockupFillComponent } from '../mockup-fill/mockup-fill.component';
+import { ProfileIntegrationsComponent } from '../profile-integrations/profile-integrations.component';
 import { ProfileStaticLinksComponent } from '../profile-static-links/profile-static-links.component';
+import { ProfileUserInfoComponent } from '../profile-user-info/profile-user-info.component';
 import { RatingComponent } from '../rating/rating.component';
+
+export const defaultGradientStops = ['#0A2859', '#041127'];
 
 @Component({
   selector: 'notify-profile-view',
@@ -21,90 +26,77 @@ import { RatingComponent } from '../rating/rating.component';
   imports: [
     CommonModule,
     SvgBoxIconComponent,
-    AnimatedBgComponent,
-    AvatarComponent,
+    WallpaperComponent,
     ProfileStaticLinksComponent,
     RatingComponent,
+    GoogleMapsComponent,
+    ProfileIntegrationsComponent,
+    MockupFillComponent,
+    FeedbackButtonComponent,
+    ProfileUserInfoComponent,
   ],
-  providers: [FeedbackFactory, FeedbackService],
+  providers: [
+    FeedbackFactory,
+    FeedbackService,
+    SvgboxService,
+    UtilsService,
+    ProfileService,
+  ],
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss', '../profile.styles.scss'],
 })
-export class ProfileViewComponent {
+export class ProfileViewComponent implements OnInit {
   @Input() data?: INotifyProfile;
-  @Input({ required: true }) publicUrl = 'http://localhost:4200';
   @Input() mockup = false;
   @Input() feedbackKey = 'feedback';
 
-  public currentTime$ = interval(1000).pipe(
-    startWith(0),
-    map(() => format(new Date(), 'HH:mm'))
-  );
+  @Output() subAvatarClick = new EventEmitter<void>();
+  @Output() public integrationClicked = new EventEmitter<
+    INotifyProfile['customFields'][0]
+  >();
+  @Output() public feedbackClicked = new EventEmitter<void>();
+  @Output() public componentReady = new EventEmitter<void>();
 
-  public enumProfileTypes = EnumNotifyUserType;
-
-  constructor(
-    private _profileService: ProfileService,
-    private _feedbackFactory: FeedbackFactory,
-    private _feedbackService: FeedbackService
-  ) {}
-
-  public feedbackGiven(): INotifyFeedback | null {
-    if (!this.data?._id) {
-      return null;
-    }
-
-    const fb = this._feedbackService.getFeedbackFromLocalStorage(
-      this.data?.owner,
-      this.feedbackKey
-    );
-
-    return fb;
+  public get isAgent(): boolean {
+    return this.data?.type === EnumNotifyUserType.Agent;
   }
 
-  public prepareUrl(url: string): string {
-    return url?.startsWith('http') ? url : `https://${url}`;
+  public get isFeedbackEnabled(): boolean {
+    return this.data?.config?.feedbackEnabled || !this.isAgent;
   }
 
-  public showFeedback(): void {
-    if (!this.data) {
-      return;
+  public get cssGradientStops(): string {
+    const colors = this.data?.colors?.background;
+
+    if (this.data?.colors?.useCompanyColors) {
+      return (
+        this.data.company?.colors?.background.join(',') ||
+        defaultGradientStops.join(',')
+      );
     }
 
-    this._feedbackFactory.createFeedback({
-      profile: this.data,
-      feedbackKey: this.feedbackKey,
-    });
+    if (!colors?.length) {
+      return defaultGradientStops.join(',');
+    }
+
+    if (colors.length === 1) {
+      return [colors[0], colors[0]].join(',');
+    }
+
+    return colors.join(',');
   }
 
-  public saveContact(): void {
-    const d = this.data;
-
-    if (!d) {
-      console.log('no data');
-      return;
+  public get cssElementsColor(): string {
+    if (this.data?.colors?.useCompanyColors) {
+      return this.data.company?.colors?.elements || '#ffffff';
     }
 
-    const vcard = `BEGIN:VCARD
-VERSION:3.0
-N:${d.surname};${d.name};
-FN:${d.name} ${d.surname}
-ORG:${d.company?.name || d.name}
-TEL;TYPE=work,voice;VALUE=uri:${this._profileService.cleanPhoneNumber(
-      d.phoneNumber || ''
-    )}
-PHOTO;ENCODING=b:${d.avatar?.split(',')[1]}
-item2.URL;type=pref:${this._profileService.genPlayerUrl(this.publicUrl, d._id)}
-EMAIL:${d.email}
-END:VCARD`;
+    return this.data?.colors?.elements || '#ffffff';
+  }
 
-    //saving the file by creating an anchor tag and simulating a click on it
-    const a = document.createElement('a');
-    a.setAttribute(
-      'href',
-      'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard)
-    );
-    a.setAttribute('download', 'contact.vcf');
-    a.click();
+  constructor(public profileService: ProfileService) {}
+
+  public ngOnInit(): void {
+    this.componentReady.emit();
   }
 }

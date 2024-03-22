@@ -3,6 +3,11 @@
     {{ label | titlecase }}
   </label>
   <div class="relative mt-1">
+    <span
+      #Prefix
+      class="absolute z-10 bottom-[1.5ex] lg:bottom-[0.75rem] left-3 pointer-events-none opacity-75"
+      >{{ prefix }}</span
+    >
     <input
       #inputRef
       [id]="name"
@@ -11,18 +16,21 @@
       [formControlName]="name"
       [placeholder]="placeholder"
       [mask]="mask"
-      [prefix]="prefix"
       [suffix]="suffix"
       [thousandSeparator]="thousandSeparator"
       [patterns]="patterns"
-      class="input input-bordered w-full input-style"
+      class="input input-bordered w-full input-style backdrop-blur"
       [class.input-error]="showValidationErrors"
+      [ngStyle]="{
+        'padding-left': prefix.length ? Prefix.clientWidth + 15 + 'px' : 'auto'
+      }"
     />
 
-    <div class="action" *ngIf="!showToggleEye">
+    <div class="action" *ngIf="!showToggleEye && inputRef.value">
+      <!-- CLEAR -->
       <button
+        tabindex="-1"
         data-theme="notifytheme"
-        [disabled]="!inputRef.value"
         (click)="clearInputValue()"
         [ngClass]="{
           'text-red-500 border-red-500': showValidationErrors,
@@ -48,7 +56,9 @@
     </div>
 
     <div class="action" *ngIf="showToggleEye">
+      <!-- PASSWORD TOGGLE -->
       <button
+        tabindex="-1"
         (click)="togglePasswordVisibility()"
         class="hover:brightness-75 smooth disabled:brightness-50"
         [disabled]="!inputRef.value"
@@ -98,7 +108,7 @@
 
     <div
       *ngIf="showValidationErrors && !showToggleEye && !showClearInput"
-      class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
+      class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 mb-1"
     >
       <svg
         class="h-5 w-5 text-red-500"
@@ -117,7 +127,7 @@
   </div>
 
   <p
-    class="text-sm text-red-600 absolute -bottom-6 ml-1"
+    class="text-sm text-red-600 absolute ml-1 right-0 top-0"
     [id]="name + '-error'"
     *ngIf="showValidationErrors"
   >

@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, afterNextRender } from '@angular/core';
 
 export interface SvgBoxIcon {
-  expanded: string;
+  expanded?: string;
   name: string;
-  tags: string[];
+  tags?: string[];
   set: string;
-  score: number;
+  score?: number;
   prefix?: string;
+  placeholder?: string;
+  publicPrefix?: string;
 }
 
 @Injectable({
@@ -16,15 +18,20 @@ export class SvgboxService {
   public availableIcons: SvgBoxIcon[] = AVAILABLE_ICONS;
 
   constructor() {
-    this._loadScript();
+    afterNextRender(() => {
+      this._loadScript();
+    });
   }
 
   public iconUrl(icon: SvgBoxIcon) {
     return `https://s2.svgbox.net/${icon.set}.svg?ic=${icon.name}`;
   }
 
+  public getIcon(name: string): SvgBoxIcon | undefined {
+    return this.availableIcons.find((i) => i.name === name);
+  }
+
   private _loadScript() {
-    console.log('preparing to load...');
     const node = document.createElement('script');
     node.src = 'https://unpkg.com/external-svg-loader@latest/svg-loader.min.js';
     node.type = 'text/javascript';
@@ -36,212 +43,247 @@ export class SvgboxService {
 
 const AVAILABLE_ICONS: SvgBoxIcon[] = [
   {
-    expanded: 'Applepay',
+    expanded: 'Apple Pay',
     name: 'applepay',
-    tags: [],
+
     set: 'social',
     score: 1,
   },
 
   {
-    expanded: 'Appstore',
+    expanded: 'App Store',
     name: 'appstore',
-    tags: [],
+
     set: 'social',
     score: 12.5,
-    prefix: 'apps.apple.com/it/app/',
+    prefix: 'https://apps.apple.com/it/app/',
   },
 
   {
     expanded: 'Deviantart',
     name: 'deviantart',
-    tags: [],
+
     set: 'social',
     score: 1,
-    prefix: 'www.deviantart.com/',
+    prefix: 'https://deviantart.com/',
   },
 
   {
     expanded: 'Discord',
     name: 'discord',
-    tags: [],
+
     set: 'social',
     score: 14.285714285714286,
-    prefix: 'discord.gg/',
+    prefix: 'https://discord.gg/',
+    placeholder: 'discord.gg/...',
   },
   {
     expanded: 'Dribbble',
     name: 'dribbble',
-    tags: [],
+
     set: 'social',
     score: 1,
   },
   {
     expanded: 'Dropbox',
     name: 'dropbox',
-    tags: [],
+
     set: 'social',
     score: 20,
   },
   {
     expanded: 'Ebay',
     name: 'ebay',
-    tags: [],
+
     set: 'social',
     score: 1,
-    prefix: 'www.ebay.it/usr/',
+    prefix: 'https://ebay.it/usr/',
   },
   {
     expanded: 'Etsy',
     name: 'etsy',
-    tags: [],
+
     set: 'social',
     score: 25,
-    prefix: 'www.etsy.com/it/shop/',
+    prefix: 'https://etsy.com/it/shop/',
   },
   {
     expanded: 'Facebook',
     name: 'facebook',
-    tags: [],
+
     set: 'social',
     score: 1,
+    placeholder: 'https://facebook.com/people/...',
   },
   {
     expanded: 'Freelancer',
     name: 'freelancer',
-    tags: [],
+
     set: 'social',
     score: 1,
   },
   {
     expanded: 'Github',
     name: 'github',
-    tags: [],
+
     set: 'social',
     score: 1,
-    prefix: 'github.com/',
+    prefix: 'https://github.com/',
+    publicPrefix: '/',
+    placeholder: 'Percorso Git ',
   },
   {
     expanded: 'Glassdoor',
     name: 'glassdoor',
-    tags: [],
+
     set: 'social',
     score: 11.11111111111111,
   },
-  { expanded: 'Gmail', name: 'gmail', tags: [], set: 'social', score: 1 },
-  { expanded: 'Google', name: 'google', tags: [], set: 'social', score: 1 },
   {
-    expanded: 'Googlecalendar',
+    expanded: 'E-Mail',
+    name: 'gmail',
+
+    set: 'social',
+    score: 1,
+    prefix: 'mailto:',
+    placeholder: 'Inserisci un indirizzo email',
+  },
+  { expanded: 'Google', name: 'google', set: 'social', score: 1 },
+  {
+    expanded: 'Calendario Google',
     name: 'googlecalendar',
-    tags: [],
+
     set: 'social',
     score: 1,
   },
   {
-    expanded: 'Googledrive',
+    expanded: 'Google Drive',
     name: 'googledrive',
-    tags: [],
+
     set: 'social',
     score: 1,
   },
   {
-    expanded: 'Googlepay',
+    expanded: 'Google Pay',
     name: 'googlepay',
-    tags: [],
+
     set: 'social',
     score: 1,
   },
   {
-    expanded: 'Googleplay',
+    expanded: 'Play Store',
     name: 'googleplay',
-    tags: [],
+
     set: 'social',
     score: 1,
+  },
+  {
+    expanded: 'Sito Web',
+    name: 'globe',
+    prefix: 'https://',
+    publicPrefix: 'https://',
+    set: 'octicons',
   },
   {
     expanded: 'Instagram',
     name: 'instagram',
-    tags: [],
+
     set: 'social',
     score: 11.11111111111111,
+    prefix: 'https://instagram.com/',
+    placeholder: 'Il tuo nome utente',
+    publicPrefix: '@',
   },
   {
     expanded: 'Kickstarter',
     name: 'kickstarter',
-    tags: [],
+
     set: 'social',
     score: 9.090909090909092,
-    prefix: 'kickstarter.com/projects/',
+    prefix: 'https://kickstarter.com/projects/',
   },
-  { expanded: 'Line', name: 'line', tags: [], set: 'social', score: 1 },
+  { expanded: 'Line', name: 'line', set: 'social', score: 1 },
   {
     expanded: 'Linkedin',
     name: 'linkedin',
-    tags: [],
+
     set: 'social',
     score: 1,
-    prefix: 'linkedin.com/in/',
+
+    placeholder: 'https://linkedin.com/in/...',
   },
   {
-    expanded: 'Map',
+    expanded: 'Link',
+    name: 'link',
+
+    set: 'hero-solid',
+    placeholder: 'https://...',
+  },
+  {
+    expanded: 'Mappe',
     name: 'map',
-    tags: [],
+
     set: 'hero-solid',
     score: 100,
   },
-  { expanded: 'Meetup', name: 'meetup', tags: [], set: 'social', score: 1 },
+  { expanded: 'Meetup', name: 'meetup', set: 'social', score: 1 },
   {
     expanded: 'Messenger',
     name: 'messenger',
-    tags: [],
+
     set: 'social',
     score: 11.11111111111111,
   },
   {
     expanded: 'Myspace',
     name: 'myspace',
-    tags: [],
+
     set: 'social',
     score: 14.285714285714286,
   },
-  { expanded: 'Patreon', name: 'patreon', tags: [], set: 'social', score: 1 },
-  { expanded: 'Paypal', name: 'paypal', tags: [], set: 'social', score: 1 },
+  { expanded: 'Patreon', name: 'patreon', set: 'social', score: 1 },
+  { expanded: 'Paypal', name: 'paypal', set: 'social', score: 1 },
   {
-    expanded: 'Producthunt',
+    expanded: 'Product Hunt',
     name: 'producthunt',
-    tags: [],
+
     set: 'social',
     score: 1,
   },
-  { expanded: 'Reddit', name: 'reddit', tags: [], set: 'social', score: 1 },
+  { expanded: 'Reddit', name: 'reddit', set: 'social', score: 1 },
   {
     expanded: 'Signal',
     name: 'signal',
-    tags: [],
+
     set: 'social',
     score: 16.666666666666668,
   },
-  { expanded: 'Skype', name: 'skype', tags: [], set: 'social', score: 20 },
+  { expanded: 'Skype', name: 'skype', set: 'social', score: 20 },
   {
     expanded: 'Snapchat',
     name: 'snapchat',
-    tags: [],
+
     set: 'social',
     score: 12.5,
   },
   {
+    expanded: 'Condivisione',
+    name: 'share',
+    set: 'hero-solid',
+  },
+  {
     expanded: 'Telegram',
     name: 'telegram',
-    tags: [],
+
     set: 'social',
     score: 1,
   },
-  { expanded: 'Tiktok', name: 'tiktok', tags: [], set: 'social', score: 1 },
-  { expanded: 'Trello', name: 'trello', tags: [], set: 'social', score: 1 },
-  { expanded: 'Twitch', name: 'twitch', tags: [], set: 'social', score: 1 },
-  { expanded: 'Twitter', name: 'twitter', tags: [], set: 'social', score: 1 },
-  { expanded: 'Udacity', name: 'udacity', tags: [], set: 'social', score: 1 },
-  { expanded: 'Venmo', name: 'venmo', tags: [], set: 'social', score: 1 },
-  { expanded: 'Youtube', name: 'youtube', tags: [], set: 'social', score: 1 },
-  { expanded: 'Zoom', name: 'zoom', tags: [], set: 'social', score: 1 },
+  { expanded: 'Tiktok', name: 'tiktok', set: 'social', score: 1 },
+  { expanded: 'Trello', name: 'trello', set: 'social', score: 1 },
+  { expanded: 'Twitch', name: 'twitch', set: 'social', score: 1 },
+  { expanded: 'Twitter', name: 'twitter', set: 'social', score: 1 },
+  { expanded: 'Udacity', name: 'udacity', set: 'social', score: 1 },
+  { expanded: 'Venmo', name: 'venmo', set: 'social', score: 1 },
+  { expanded: 'Youtube', name: 'youtube', set: 'social', score: 1 },
+  { expanded: 'Zoom', name: 'zoom', set: 'social', score: 1 },
 ];

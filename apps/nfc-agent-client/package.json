@@ -1,0 +1,7 @@
+{
+    "name": "nfc-agent-client",
+    "devDependencies": {
+        "@capacitor/cli": "^5.6.0",
+        "@capacitor/assets": "^3.0.4"
+    }
+}
