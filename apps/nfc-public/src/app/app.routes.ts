@@ -14,6 +14,20 @@ export const appRoutes: Route[] = [
       ),
   },
   {
+    path: 'privacy',
+    loadComponent: () =>
+      import('./pages/privacy-policy/privacy-policy.component').then(
+        (m) => m.PrivacyPolicyComponent
+      ),
+  },
+  {
+    path: 'termini-e-condizioni',
+    loadComponent: () =>
+      import('./pages/terms-conditions/terms-conditions.component').then(
+        (m) => m.TermsConditionsComponent
+      ),
+  },
+  {
     path: '**',
     pathMatch: 'full',
     redirectTo: '',

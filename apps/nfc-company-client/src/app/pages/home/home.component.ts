@@ -17,8 +17,8 @@ import {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  public currentVersionLabel: string = 'v0.8.1';
-  public currentVersionDate: string = '2024-03-19';
+  public currentVersionLabel: string = 'v0.8.2';
+  public currentVersionDate: string = '2024-03-21';
 
   public latestChangelog: INotifyVersionInfo = {
     tag: 'v0.8.x',
@@ -67,7 +67,7 @@ export class HomeComponent {
       },
       {
         type: 'improvement',
-        message: `<b>Licenza</b>: Aggiunto un counter per tenere traccia delle tessere Notify acquistate`,
+        message: `<b>Pannello Profilo</b>: Il campo per il numero di telefono ora accetta anche numeri verdi.`,
       },
       {
         type: 'fix',
@@ -98,6 +98,10 @@ export class HomeComponent {
       {
         type: 'fix',
         message: `<b>Analytics</b>: Corretto un problema che impediva la visualizzazione del tema di un profilo se impostato sul tema aziendale (0.8.1)`,
+      },
+      {
+        type: 'improvement',
+        message: `<b>Pannello Profilo</b>: Corretto un problema che impediva la visualizzazione del tema di un profilo se impostato sul tema aziendale (0.8.1)`,
       },
     ],
   };
