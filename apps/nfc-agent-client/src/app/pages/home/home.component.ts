@@ -26,19 +26,24 @@ export class HomeComponent {
     date: '2024-03-22',
     title: '📝 Closed Beta',
     description:
-      "Notify entra in Closed Beta! Se sei qui, sei uno dei primi a testare l'applicazione. Grazie per il supporto 🚀! Puoi richiedere un invito per scaricare l'app nativa inviandoci un'email a supporto@notifyapp.it",
+      "Notify entra in Closed Beta! Se stai leggendo questo messaggio puoi richiedere un invito per scaricare l'app nativa inviandoci un'email a supporto@notifyapp.it",
     artPath:
       'https://s3-api.vps.notifyapp.it/assets/version-art/v0.9.0-agent.webp',
     changes: [
       {
         type: 'fix',
         message:
-          'Changelogs: Corretto un bug che causava lo scroll degli elementi sotto al changelog',
+          '<b>Changelogs</b>: Corretto un bug che causava lo scroll degli elementi sotto al changelog',
       },
       {
         type: 'improvement',
         message:
-          'Changelogs: Modificato il layout del changelog per renderlo più leggibile',
+          '<b>Changelogs</b>: Modificato il layout del changelog per renderlo più leggibile',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Menu di Navigazione</b>: Aggiunta una gesture, da mobile, per aprire il menu',
       },
     ],
   };

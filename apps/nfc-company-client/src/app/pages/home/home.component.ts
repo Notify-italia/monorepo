@@ -17,12 +17,12 @@ import {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  public currentVersionLabel: string = 'v0.8.2';
+  public currentVersionLabel: string = 'v0.8.3';
   public currentVersionDate: string = '2024-03-21';
 
   public latestChangelog: INotifyVersionInfo = {
     tag: 'v0.8.x',
-    date: '2024-03-19',
+    date: '2024-03-23',
     title: '🦾 Accessibilità e Usabilità',
     description:
       "La versione 0.8.0 introduce alcune migliorie all'accessibilità e all'usabilità dell'applicazione. Inoltre, sono state introdotte nuove funzionalità per la gestione degli utenti e per la visualizzazione dei changelogs.",
@@ -102,6 +102,21 @@ export class HomeComponent {
       {
         type: 'improvement',
         message: `<b>Pannello Profilo</b>: Corretto un problema che impediva la visualizzazione del tema di un profilo se impostato sul tema aziendale (0.8.1)`,
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Changelogs</b>: Corretto un bug che causava lo scroll degli elementi sotto al changelog (0.8.3)',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Changelogs</b>: Modificato il layout del changelog per renderlo più leggibile (0.8.3)',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Menu di Navigazione</b>: Aggiunta una gesture, da mobile, per aprire il menu (0.8.3)',
       },
     ],
   };

@@ -5,7 +5,7 @@
     <div
       class="flex items-center"
       [ngClass]="{
-      'mt-safe': capacitor.isNative,
+      'mt-safe ': capacitor.isNative,
     }"
     >
       <input
@@ -14,22 +14,23 @@
         class="drawer-toggle"
         #DrawerController
       />
-      <label class="btn btn-square btn-ghost lg:hidden mx-2" for="my-drawer">
+      <label class="btn btn-square btn-ghost lg:hidden" for="my-drawer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          fill="none"
+          class="inline-block !w-9 !h-9 text-white"
           viewBox="0 0 24 24"
-          class="inline-block !w-9 !h-9 stroke-current"
+          fill="none"
+          xmlns:v="https://vecta.io/nano"
         >
           <path
+            d="M5 8h8.75M5 12h14m-8.75 4H19"
+            stroke="currentColor"
             stroke-linecap="round"
             stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"
-          ></path>
+          />
         </svg>
       </label>
-      <div class="flex justify-center w-[66vw] mb-2 lg:w-fit lg:block">
+      <div class="flex justify-center w-[68vw] mb-2 lg:w-fit lg:block">
         <notify-app-title class="lg:hidden w-32"></notify-app-title>
       </div>
       <div class="drawer-content hidden lg:block h-screen">
@@ -54,7 +55,7 @@
   ></label>
 
   <div
-    class="flex flex-col justify-between bg-base-100 lg:bg-transparent h-full lg:rounded-xl"
+    class="flex flex-col justify-between bg-cyan-900 text-white lg:bg-transparent h-full lg:rounded-xl"
     [ngClass]="{
       'pt-10': capacitor.isNative,
 
@@ -136,7 +137,13 @@
         </li>
         }
       </ul>
-      <div *ngIf="versionInfo" class="m-2">
+      <div
+        *ngIf="versionInfo"
+        class="m-2"
+        [ngClass]="{
+        'pb-safe': capacitor.isNative,
+      }"
+      >
         <notify-version-label
           [currentVersion]="versionInfo.currentVersion"
           [currentVersionDate]="versionInfo.currentVersionDate"
