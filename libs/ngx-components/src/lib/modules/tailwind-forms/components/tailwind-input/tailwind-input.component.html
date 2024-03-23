@@ -5,7 +5,7 @@
   <div class="relative mt-1">
     <span
       #Prefix
-      class="absolute z-10 bottom-[1.5ex] lg:bottom-[0.75rem] left-3 pointer-events-none opacity-75"
+      class="absolute z-10 bottom-[1.5ex] lg:bottom-[0.70rem] left-3 pointer-events-none opacity-75"
       >{{ prefix }}</span
     >
     <input
@@ -19,7 +19,7 @@
       [suffix]="suffix"
       [thousandSeparator]="thousandSeparator"
       [patterns]="patterns"
-      class="input input-bordered w-full input-style backdrop-blur text-sm lg:text-base"
+      class="input input-bordered w-full input-style backdrop-blur text-sm lg:text-auto"
       [class.input-error]="showValidationErrors"
       [ngStyle]="{
         'padding-left': prefix.length ? Prefix.clientWidth + 15 + 'px' : 'auto'

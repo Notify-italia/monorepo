@@ -118,6 +118,21 @@ export class HomeComponent {
         message:
           '<b>Menu di Navigazione</b>: Aggiunta una gesture, da mobile, per aprire il menu (0.8.3)',
       },
+      {
+        type: 'fix',
+        message:
+          '<b>Profilo</b>: Corretto un bug che impediva la corretta visualizzazione della Bio (0.8.3)',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Pannello Profilo</b>: Modificato il comportamento dei pulsanti di gestione delle integrazioni (0.8.3)',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Pannello Profilo</b>: Corretto un bug che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL (0.8.3)',
+      },
     ],
   };
 

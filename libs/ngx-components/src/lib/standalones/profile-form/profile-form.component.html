@@ -9,9 +9,10 @@
       </h2>
       <div class="flex justify-center space-x-2 w-full">
         <button
-          class="btn w-6/12"
+          type="button"
+          class="btn w-6/12 pointer-events-none"
           [ngClass]="{
-            'btn-outline ': !form.value.redirectEnabled
+            'btn-outline pointer-events-auto': !form.value.redirectEnabled
           }"
           (click)="
             form.controls.redirectEnabled.setValue(!form.value.redirectEnabled)
@@ -34,9 +35,10 @@
           <span> URL</span>
         </button>
         <button
-          class="btn btn-outline w-6/12"
+          type="button"
+          class="btn btn-outline w-6/12 pointer-events-none"
           [ngClass]="{
-            'btn-outline ': form.value.redirectEnabled
+            'btn-outline pointer-events-auto': form.value.redirectEnabled
           }"
           (click)="
             form.controls.redirectEnabled.setValue(!form.value.redirectEnabled)
@@ -327,6 +329,7 @@
 
         <div class="field space-y-2" *ngIf="form.controls.customFields as cf">
           <button
+            type="button"
             notify-add-item
             class="w-full"
             type="button"
@@ -334,7 +337,9 @@
           ></button>
 
           @for (item of cf.controls; track item) {
-          <div class="flex items-center space-x-2">
+          <div
+            class="flex items-center space-x-2 group/customField relative pt-4"
+          >
             <notify-icon-selector
               class="items-end mt-6"
               [icon]="item.controls['iconName'].value"
@@ -357,12 +362,17 @@
               [validationErrors]="validationErrors"
             ></notify-tailwind-input>
             <!-- RIMUOVI SERVIZIO -->
-            <div class="mt-1 flex">
+            <div
+              class="bg-white/10 backdrop-blur-lg rounded-xl space-x-2 top-0 z-20 right-0 px-2 flex absolute opacity-0 pointer-events-none group-focus-within/customField:opacity-100 group-focus-within/customField:pointer-events-auto"
+            >
               <button
+                type="button"
+                tabindex="0"
                 notify-remove-item-button
                 (click)="removeCustomField(item)"
               ></button>
               <a
+                tabindex="0"
                 notify-test-item-button
                 target="_blank"
                 [href]="

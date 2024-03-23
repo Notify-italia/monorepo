@@ -50,6 +50,21 @@ export class HomeComponent {
         message:
           'Aumentato lo spazio utile per la visualizzazione delle varie pagine',
       },
+      {
+        type: 'fix',
+        message:
+          '<b>Profilo</b>: Corretto un bug che impediva la corretta visualizzazione della Bio',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Pannello Profilo</b>: Modificato il comportamento dei pulsanti di gestione delle integrazioni',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Pannello Profilo</b>: Corretto un bug che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL',
+      },
     ],
   };
 

@@ -209,7 +209,8 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
 
     set: 'social',
     score: 1,
-
+    prefix: 'https://www.linkedin.com/in/',
+    publicPrefix: 'linkedin.com/in/',
     placeholder: 'https://linkedin.com/in/...',
   },
   {

@@ -65,6 +65,13 @@ export class NavComponent {
     };
   }
 
+  private get _isUserWriting(): boolean {
+    return (
+      ['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '') &&
+      document.activeElement?.getAttribute('type') !== 'checkbox'
+    );
+  }
+
   constructor(
     public capacitor: CapacitorService,
     private _gestureCtrl: GestureController
@@ -76,7 +83,11 @@ export class NavComponent {
           threshold: 15,
           gestureName: 'openDrawer',
           onMove: (ev) => {
-            if (ev.deltaX > 85) {
+            if (this._isUserWriting) {
+              return;
+            }
+
+            if (ev.deltaX > 75) {
               this.drawerController.nativeElement.checked = true;
               this.drawerController.nativeElement.dispatchEvent(
                 new Event('change')
