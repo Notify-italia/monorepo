@@ -45,6 +45,11 @@ export class HomeComponent {
         message:
           '<b>Menu di Navigazione</b>: Aggiunta una gesture, da mobile, per aprire il menu',
       },
+      {
+        type: 'improvement',
+        message:
+          'Aumentato lo spazio utile per la visualizzazione delle varie pagine',
+      },
     ],
   };
 
