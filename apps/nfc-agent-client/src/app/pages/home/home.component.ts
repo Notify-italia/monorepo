@@ -61,6 +61,11 @@ export class HomeComponent {
           '<b>Pannello Profilo</b>: Modificato il comportamento dei pulsanti di gestione delle integrazioni',
       },
       {
+        type: 'new',
+        message:
+          'è ora possibile scrivere il proprio, quello aziendale o il profilo di un collega su un supporto NFC in completa autonomia, tramite Notify per iOS e Android',
+      },
+      {
         type: 'fix',
         message:
           '<b>Pannello Profilo</b>: Corretto un bug che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL',

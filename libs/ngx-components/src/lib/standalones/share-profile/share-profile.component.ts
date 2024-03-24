@@ -76,6 +76,12 @@ export class ShareProfileComponent {
   }
 
   public async writeNfc() {
-    this._nfcFactory.create({ value: this.baseUrl, profilesUrl: this.baseUrl });
+    this._nfcFactory.create({
+      userProfile: this.profile._id,
+      profilesUrl: this.baseUrl,
+      companyProfile:
+        this.profile.company?._id ||
+        (this.profile.company as unknown as string),
+    });
   }
 }

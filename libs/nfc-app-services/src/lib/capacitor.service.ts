@@ -5,6 +5,13 @@ import {
   ScreenBrightness,
 } from '@capacitor-community/screen-brightness';
 import { Capacitor } from '@capacitor/core';
+import {
+  Nfc,
+  NfcPlugin,
+  NfcTag,
+  NfcTagScannedEvent,
+  NfcUtils,
+} from '@capawesome-team/capacitor-nfc';
 
 @Injectable()
 export class CapacitorService {
@@ -12,6 +19,8 @@ export class CapacitorService {
   public isIOS = Capacitor.getPlatform() === 'ios';
   public isAndroid = Capacitor.getPlatform() === 'android';
   public isDesktop = Capacitor.getPlatform() === 'web';
+
+  public nfcUtils = new NfcUtils();
 
   public get brightness(): Promise<GetBrightnessReturnValue> {
     return new Promise<GetBrightnessReturnValue>((resolve, reject) => {
@@ -41,5 +50,51 @@ export class CapacitorService {
     });
   }
 
-  constructor() {}
+  public async scanNFCTag(
+    callback: (
+      Nfc: NfcPlugin,
+      tag: NfcTag | undefined,
+      source: 'scanSessionCanceled' | 'scanSessionError' | 'nfcTagScanned'
+    ) => unknown
+  ) {
+    if (!this.isNative) {
+      return;
+    }
+
+    const eventHandler = async (
+      resolve: () => void,
+      source: 'scanSessionCanceled' | 'scanSessionError' | 'nfcTagScanned',
+      event?: NfcTagScannedEvent
+    ) => {
+      await callback(Nfc, event?.nfcTag, source);
+      Nfc.stopScanSession();
+      Nfc.removeAllListeners();
+      resolve();
+    };
+
+    await new Promise<void>((resolve) => {
+      Nfc.addListener('scanSessionCanceled', async () => {
+        console.log('NFC Scan Session Canceled 🚀');
+        await eventHandler(resolve, 'scanSessionCanceled');
+      });
+
+      Nfc.addListener('scanSessionError', async () => {
+        console.log('NFC Scan Session Error 🚀');
+        await eventHandler(resolve, 'scanSessionError');
+      });
+
+      Nfc.addListener('nfcTagScanned', async (event) => {
+        console.log('NFC Tag Scanned 🚀');
+        await eventHandler(resolve, 'nfcTagScanned', event);
+      });
+
+      Nfc.startScanSession();
+    });
+  }
+
+  public prepareProfileNDEF(fullProfileUrl: string) {
+    return this.nfcUtils.createNdefUriRecord({
+      uri: fullProfileUrl,
+    }).record;
+  }
 }

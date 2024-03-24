@@ -3,59 +3,157 @@
     <div
       (click)="$event.stopPropagation()"
       class="rounded-xl px-4 py-10 bg-base-100 w-80 lg:w-[60%] flex flex-col items-center slide-in-blurred-top"
+      [ngClass]="{
+        'bg-transparent': ['scanning'].includes(progress.status) && !isAndroid ,
+      }"
     >
       @switch ( progress.status ) { @case ('scanning') {
-      <ng-container [ngTemplateOutlet]="Scanning"></ng-container>
+      <ng-container
+        [ngTemplateOutlet]="Scanning"
+        *ngIf="isAndroid"
+      ></ng-container>
       } @case ('found') {
-      <ng-container [ngTemplateOutlet]="Found"></ng-container>
+      <ng-container
+        [ngTemplateOutlet]="progress.isWritable ? Found : Error"
+      ></ng-container>
+      } @case ('writing') {
+      <ng-container
+        [ngTemplateOutlet]="isAndroid ? Writing : Found"
+      ></ng-container>
+      } @case ('written') {
+      <ng-container [ngTemplateOutlet]="Written"></ng-container>
+      } @case ('error') {
+      <ng-container [ngTemplateOutlet]="Error"></ng-container>
+
+      } @default {
+      <ng-container [ngTemplateOutlet]="Scanning"></ng-container>
       } }
     </div>
   </div>
+
+  <ng-template #Writing>
+    <div class="nfc-animation">
+      <span class="loading loading-dots w-full"></span>
+    </div>
+    <div class="text-center mt-4">
+      <h1 class="text-2xl font-bold">Avvicina il supporto</h1>
+      <p class="text-base-content">Per confermare la scrittura</p>
+    </div>
+  </ng-template>
+
+  <ng-template #Found>
+    <div class="nfc-animation">
+      <span class="loading loading-ball w-full"></span>
+    </div>
+    <div class="text-center mt-4">
+      <h1 class="text-2xl font-bold">Tessera trovata</h1>
+
+      <p class="text-base-content">
+        {{
+          companyProfile
+            ? 'Quale profilo vuoi scrivere su questo supporto?'
+            : ''
+        }}
+      </p>
+
+      <button
+        *ngIf="companyProfile as c"
+        data-theme="notifytheme"
+        class="btn bg-white text-black mt-4 w-full"
+        (click)="writeNFC(c)"
+      >
+        Profilo Aziendale
+      </button>
+
+      <button
+        *ngIf="userProfile as u"
+        data-theme="notifytheme"
+        class="btn btn-primary mt-4 w-full"
+        (click)="writeNFC(u)"
+      >
+        Questo Profilo
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #Scanning>
+    <div class="nfc-animation">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        xmlns:v="https://vecta.io/nano"
+      >
+        <path
+          d="M5 8l5 8m8.722 4.5a17 17 0 0 0 0-17M14.392 18a12 12 0 0 0 0-12"
+        />
+        <path d="M9.928 16a8 8 0 0 0 0-8m-4.856 8a8 8 0 0 1 0-8" />
+      </svg>
+    </div>
+    <div class="text-center mt-4">
+      <h1 class="text-2xl font-bold">Avvicina il supporto</h1>
+      <p class="text-base-content">Per salvare il tuo profilo tramite NFC</p>
+    </div>
+  </ng-template>
+
+  <ng-template #Written>
+    <div class="nfc-animation">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m4.5 12.75 6 6 9-13.5"
+        />
+      </svg>
+    </div>
+    <div class="text-center mt-4">
+      <h1 class="text-2xl font-bold">Scrittura Completata</h1>
+      <button
+        class="btn btn-primary mt-4 w-full"
+        data-theme="notifytheme"
+        (click)="close()"
+      >
+        Chiudi
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #Error>
+    <div class="nfc-animation nfc-error">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </div>
+    <div class="text-center mt-4">
+      <h1 class="text-2xl font-bold">Errore</h1>
+      <p class="text-base-content">
+        {{
+          progress.isWritable
+            ? 'Si è verificato un errore durante la scrittura'
+            : 'Questo supporto non è scrivibile'
+        }}
+      </p>
+
+      <button class="btn bg-white text-black mt-4 w-full" (click)="close()">
+        Chiudi
+      </button>
+    </div>
+  </ng-template>
 </div>
-
-<ng-template #Writing>
-  <div class="nfc-animation">
-    <span class="loading loading-dots w-full"></span>
-  </div>
-  <div class="text-center mt-4">
-    <h1 class="text-2xl font-bold">Sto scrivendo</h1>
-    <p class="text-base-content">Non rimuovere la tessera</p>
-  </div>
-</ng-template>
-
-<ng-template #Found>
-  <div class="nfc-animation">
-    <span class="loading loading-ball w-full"></span>
-  </div>
-  <div class="text-center mt-4">
-    <h1 class="text-2xl font-bold">Tessera trovata</h1>
-
-    <p class="text-base-content">Vuoi sovrascrivere il profilo?</p>
-    <button data-theme="notifytheme" class="btn btn-primary mt-4 w-full">
-      Sovrascrivi
-    </button>
-  </div>
-</ng-template>
-
-<ng-template #Scanning>
-  <div class="nfc-animation">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      xmlns:v="https://vecta.io/nano"
-    >
-      <path
-        d="M5 8l5 8m8.722 4.5a17 17 0 0 0 0-17M14.392 18a12 12 0 0 0 0-12"
-      />
-      <path d="M9.928 16a8 8 0 0 0 0-8m-4.856 8a8 8 0 0 1 0-8" />
-    </svg>
-  </div>
-  <div class="text-center mt-4">
-    <h1 class="text-2xl font-bold">Avvicina la tua tessera</h1>
-    <p class="text-base-content">Per salvare il tuo profilo tramite NFC</p>
-  </div>
-</ng-template>

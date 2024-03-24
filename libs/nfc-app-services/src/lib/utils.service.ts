@@ -74,6 +74,17 @@ export class UtilsService {
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
   }
 
+  public toggleScrollLock(lock: boolean) {
+    const html = document.getElementsByTagName('html')[0];
+
+    if (lock) {
+      html.classList.add('lock-scroll');
+      return;
+    }
+
+    html.classList.remove('lock-scroll');
+  }
+
   /**
    *La funzione `deepSearchKey` cerca ricorsivamente i campi in un oggetto in base a un determinato percorso.
    *@param obj -Un oggetto che contiene coppie chiave-valore, dove le chiavi sono stringhe e i valori

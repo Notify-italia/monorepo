@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, ComponentRef, Input, OnInit } from '@angular/core';
-import { Nfc, NfcTag, NfcUtils } from '@capawesome-team/capacitor-nfc';
+import { NfcTag, NfcUtils } from '@capawesome-team/capacitor-nfc';
 import { CapacitorService } from '@notify/nfc-app-services';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { BehaviorSubject, map } from 'rxjs';
 
 export interface INotifyNFCStatus {
-  status: 'scanning' | 'writing' | 'found';
+  status: 'scanning' | 'writing' | 'found' | 'written' | 'error';
   currentValue: NfcTag | null;
 }
 
@@ -18,11 +19,22 @@ export interface INotifyNFCStatus {
   styleUrls: ['./nfc-write.component.scss'],
 })
 export class NfcWriteComponent implements OnInit {
-  @Input() value = '';
+  @Input() userProfile = '';
+  @Input() companyProfile = '';
   @Input() profilesUrl = '';
   @Input() cf!: ComponentRef<NfcWriteComponent>;
 
   private _nfcUtils = new NfcUtils();
+  public isAndroid = this._capacitorService.isAndroid;
+
+  private get _profilePrefix() {
+    return `${this.profilesUrl}/profile?p=`;
+  }
+
+  private get _parentElement() {
+    return (this.cf.location.nativeElement as HTMLElement)
+      .parentElement as HTMLElement;
+  }
 
   public progressSubject$ = new BehaviorSubject<INotifyNFCStatus>({
     status: 'scanning',
@@ -37,7 +49,7 @@ export class NfcWriteComponent implements OnInit {
           .map((r) => {
             return this._nfcUtils
               .convertBytesToString({ bytes: r.payload || [] })
-              ?.text.includes(`${this.profilesUrl}/profile?p=`);
+              ?.text.includes(this._profilePrefix);
           })
           .filter((v) => v).length || 0) > 0;
 
@@ -48,37 +60,75 @@ export class NfcWriteComponent implements OnInit {
   constructor(private _capacitorService: CapacitorService) {}
 
   ngOnInit(): void {
+    disableBodyScroll(this._parentElement, {
+      reserveScrollBarGap: true,
+    });
     this.read();
   }
 
-  public writeNFC() {
+  public async writeNFC(value: string) {
     this.progressSubject$.next({
       status: 'writing',
       currentValue: this.progressSubject$.value.currentValue,
     });
-  }
 
-  public read() {
     if (!this._capacitorService.isNative) {
       return;
     }
 
-    return new Promise((resolve) => {
-      Nfc.addListener('nfcTagScanned', async (event) => {
-        await Nfc.stopScanSession();
-        resolve(event.nfcTag);
+    const ndef = this._capacitorService.prepareProfileNDEF(
+      this._profilePrefix + value + '&s=url'
+    );
+
+    await this._capacitorService.scanNFCTag(async (nfc) => {
+      try {
+        await nfc.write({
+          message: {
+            records: [ndef],
+          },
+        });
 
         this.progressSubject$.next({
-          status: 'found',
-          currentValue: event.nfcTag,
+          status: 'written',
+          currentValue: this.progressSubject$.value.currentValue,
         });
-      });
+      } catch (error) {
+        this.progressSubject$.next({
+          status: 'error',
+          currentValue: this.progressSubject$.value.currentValue,
+        });
+      }
+    });
+  }
 
-      Nfc.startScanSession();
+  public async read() {
+    if (!this._capacitorService.isNative) {
+      return;
+    }
+
+    await this._capacitorService.scanNFCTag((nfc, tag, source) => {
+      if (source === 'scanSessionCanceled') {
+        this.close();
+        return;
+      }
+
+      if (source === 'scanSessionError' || !tag) {
+        this.progressSubject$.next({
+          status: 'error',
+          currentValue: null,
+        });
+        return;
+      }
+
+      this.progressSubject$.next({
+        status: 'found',
+        currentValue: tag,
+      });
     });
   }
 
   public close() {
+    enableBodyScroll(this._parentElement);
     this.cf.destroy();
   }
 }

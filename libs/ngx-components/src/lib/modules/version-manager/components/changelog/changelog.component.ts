@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, ComponentRef, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { UtilsService } from '@notify/nfc-app-services';
 import { INotifyVersionInfo } from '../version-label/version-label.component';
 @Component({
   standalone: true,
   imports: [CommonModule],
+  providers: [UtilsService],
   templateUrl: './changelog.component.html',
   styleUrl: './changelog.component.scss',
 })
@@ -13,20 +14,18 @@ export class ChangelogComponent implements OnInit {
   @Input() versionInfo!: INotifyVersionInfo;
   @Input() cf!: ComponentRef<ChangelogComponent>;
 
-  private get _parentElement() {
-    return (this.cf.location.nativeElement as HTMLElement)
-      .parentElement as HTMLElement;
-  }
-
   close() {
-    enableBodyScroll(this._parentElement);
+    this._utilsService.toggleScrollLock(false);
     this.cf.destroy();
   }
 
-  constructor(private _domSanitizer: DomSanitizer) {}
+  constructor(
+    private _domSanitizer: DomSanitizer,
+    private _utilsService: UtilsService
+  ) {}
 
   ngOnInit(): void {
-    disableBodyScroll(this._parentElement);
+    this._utilsService.toggleScrollLock(true);
   }
 
   public get changelogSorted() {
