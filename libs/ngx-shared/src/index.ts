@@ -24,3 +24,4 @@ export * from './lib/standalones/spline-viewer/spline-viewer.component';
 export * from './lib/standalones/svg-box-icon/svg-box-icon.component';
 export * from './lib/standalones/swipe-available/swipe-available.component';
 export * from './lib/standalones/upload/upload.component';
+export * from './lib/validators';

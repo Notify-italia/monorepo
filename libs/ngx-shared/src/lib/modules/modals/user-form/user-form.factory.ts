@@ -1,5 +1,6 @@
-import { Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { EnumNotifyUserType, INotifyAccounts } from '@notify/interfaces';
+import { BaseFactory } from '../../../constructors/base.factory';
 import {
   IUserFormHiddenFields,
   IUserFormPasswordFieldConfig,
@@ -7,23 +8,18 @@ import {
 } from './user-form.component';
 
 @Injectable()
-export class UserFormFactory {
-  constructor(public vcr: ViewContainerRef) {}
-
+export class UserFormFactory extends BaseFactory {
   public create<T extends EnumNotifyUserType>(
     user?: INotifyAccounts[T],
     createdRoles?: string[],
     hiddenFields?: IUserFormHiddenFields,
     passwordFieldConfig?: IUserFormPasswordFieldConfig
   ) {
-    const ref = this.vcr.createComponent(UserFormComponent);
-
-    ref.setInput('cf', ref);
-    ref.setInput('user', user);
-
-    ref.setInput('createdRoles', createdRoles || []);
-
-    ref.setInput('hiddenFields', hiddenFields || []);
+    const ref = this._createComponent(UserFormComponent, {
+      user,
+      createdRoles: createdRoles || [],
+      hiddenFields: hiddenFields || [],
+    });
 
     if (passwordFieldConfig) {
       ref.setInput('passwordFieldConfig', passwordFieldConfig);

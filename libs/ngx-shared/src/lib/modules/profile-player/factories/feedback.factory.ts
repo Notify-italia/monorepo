@@ -1,18 +1,11 @@
-import { Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
+import { BaseFactory } from '../../../constructors/base.factory';
 import { FeedbackComponent } from '../components/feedback/feedback.component';
 
 @Injectable()
-export class FeedbackFactory {
-  constructor(public vcr: ViewContainerRef) {}
-
+export class FeedbackFactory extends BaseFactory {
   public create(config: { profile: INotifyProfile; feedbackKey: string }) {
-    const ref = this.vcr.createComponent(FeedbackComponent);
-
-    ref.setInput('profile', config.profile);
-    ref.setInput('cf', ref);
-    ref.setInput('feedbackKey', config.feedbackKey);
-
-    return ref;
+    return this._createComponent(FeedbackComponent, config);
   }
 }

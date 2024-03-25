@@ -7,7 +7,7 @@
       <notify-share-profile
         *ngIf="baseUrl && !hideShare"
         class="w-full h-full !scale-[75%] pointer-events-auto slide-in-left"
-        [profile]="data"
+        [profile]="profile"
         [baseUrl]="baseUrl"
         source="modal"
       ></notify-share-profile>
@@ -19,7 +19,7 @@
           <notify-profile-view
             class="h-full w-full"
             [mockup]="true"
-            [data]="data"
+            [data]="profile"
           ></notify-profile-view>
         </div>
       </div>

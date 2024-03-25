@@ -1,22 +1,15 @@
-import { Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { INotifyUser } from '@notify/interfaces';
 import { Observable } from 'rxjs';
+import { BaseFactory } from '../../../constructors/base.factory';
 import { NoteManageOwnersComponent } from '../components/note-manage-owners/note-manage-owners.component';
 
 @Injectable()
-export class ManageNoteOwnersFactory {
-  constructor(public vcr: ViewContainerRef) {}
-
+export class ManageNoteOwnersFactory extends BaseFactory {
   public create(config: {
     users$: Observable<INotifyUser[]>;
     skeletonRows: number;
   }) {
-    const ref = this.vcr.createComponent(NoteManageOwnersComponent);
-
-    ref.setInput('cf', ref);
-    ref.setInput('skeletonRows', config.skeletonRows);
-    ref.setInput('users$', config.users$);
-
-    return ref;
+    return this._createComponent(NoteManageOwnersComponent, config);
   }
 }

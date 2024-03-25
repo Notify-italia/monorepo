@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { PageLayoutBaseComponent } from '../layout.base.component';
+import { PageLayoutBaseComponent } from '../../constructors/layout.base.component';
 
 @Component({
   selector: 'notify-page-header',

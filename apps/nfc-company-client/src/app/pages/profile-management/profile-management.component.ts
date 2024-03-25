@@ -89,7 +89,7 @@ export class ProfileManagementComponent {
   }
 
   public previewProfile(profile: INotifyProfile) {
-    this._playerFactroy.createPlayer({ profile });
+    this._playerFactroy.create({ profile });
   }
 
   public saveProfile(profile: IProfile) {

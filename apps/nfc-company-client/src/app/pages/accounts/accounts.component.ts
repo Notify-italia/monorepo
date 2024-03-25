@@ -114,7 +114,7 @@ export class AccountsComponent implements OnInit {
       return;
     }
 
-    this._profileFactory.createPlayer({
+    this._profileFactory.create({
       profile,
       baseUrl: environment.profilesUrl,
     });

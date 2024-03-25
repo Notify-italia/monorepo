@@ -1,11 +1,10 @@
-import { Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
+import { BaseFactory } from '../../../constructors/base.factory';
 import { FileRecievedComponent } from '../components/file-recieved/file-recieved.component';
 
 @Injectable()
-export class FileRecievedFactory {
-  constructor(public vcr: ViewContainerRef) {}
-
+export class FileRecievedFactory extends BaseFactory {
   public create(
     file: {
       fileName: string;
@@ -13,12 +12,10 @@ export class FileRecievedFactory {
     },
     colors: INotifyProfile['colors']
   ) {
-    const ref = this.vcr.createComponent(FileRecievedComponent);
-    ref.setInput('cf', ref);
-    ref.setInput('fileName', file.fileName);
-    ref.setInput('fileData', file.fileData);
-    ref.setInput('colors', colors);
-
-    return ref;
+    return this._createComponent(FileRecievedComponent, {
+      fileName: file.fileName,
+      fileData: file.fileData,
+      colors,
+    });
   }
 }

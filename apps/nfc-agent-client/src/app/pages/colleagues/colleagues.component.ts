@@ -50,7 +50,7 @@ export class ColleaguesComponent {
             return;
           }
 
-          this._profileFactory.createPlayer({
+          this._profileFactory.create({
             profile: p,
             baseUrl: environment.profilesUrl,
           });

@@ -1,13 +1,10 @@
-import { Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BaseFactory } from '../../../constructors/base.factory';
 import { LicenseFormComponent } from '../components/license-form/license-form.component';
 
 @Injectable()
-export class LicenseFormFactory {
-  constructor(public vcr: ViewContainerRef) {}
-
+export class LicenseFormFactory extends BaseFactory {
   public create() {
-    const ref = this.vcr.createComponent(LicenseFormComponent);
-    ref.setInput('cf', ref);
-    return ref;
+    return this._createComponent(LicenseFormComponent);
   }
 }

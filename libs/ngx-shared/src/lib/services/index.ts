@@ -11,5 +11,3 @@ export * from './socket.service';
 export * from './stat.service';
 export * from './svgbox.service';
 export * from './utils.service';
-export * from './validators/validator.it-phone-number';
-export * from './validators/validator.password-match';

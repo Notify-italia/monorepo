@@ -1,24 +1,18 @@
-import { Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BaseFactory } from '../../../../constructors/base.factory';
 import { NfcWriteComponent } from '../components/nfc-write/nfc-write.component';
 
 @Injectable()
-export class NfcWriteFactory {
-  constructor(public vcr: ViewContainerRef) {}
-
+export class NfcWriteFactory extends BaseFactory {
   public create(config: {
     userProfile: string;
     companyProfile?: string;
     profilesUrl: string;
     blurBackground?: boolean;
   }) {
-    const ref = this.vcr.createComponent(NfcWriteComponent);
-
-    ref.setInput('userProfile', config.userProfile);
-    ref.setInput('companyProfile', config.companyProfile);
-    ref.setInput('cf', ref);
-    ref.setInput('profilesUrl', config.profilesUrl);
-    ref.setInput('blurBackground', config.blurBackground ?? true);
-
-    return ref;
+    return this._createComponent(NfcWriteComponent, {
+      ...config,
+      blurBackground: config.blurBackground ?? true,
+    });
   }
 }

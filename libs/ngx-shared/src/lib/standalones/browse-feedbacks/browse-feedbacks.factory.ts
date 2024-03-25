@@ -1,17 +1,13 @@
-import { Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { INotifyFeedback } from '@notify/interfaces';
+import { BaseFactory } from '../../constructors/base.factory';
 import { BrowseFeedbacksComponent } from './browse-feedbacks.component';
 
 @Injectable()
-export class BrowseFeedbacksFactory {
-  constructor(public vcr: ViewContainerRef) {}
-
+export class BrowseFeedbacksFactory extends BaseFactory {
   public create(feedbacks: INotifyFeedback[] = []) {
-    const ref = this.vcr.createComponent(BrowseFeedbacksComponent);
-
-    ref.setInput('cf', ref);
-    ref.setInput('feedbacks', feedbacks);
-
-    return ref;
+    return this._createComponent(BrowseFeedbacksComponent, {
+      feedbacks,
+    });
   }
 }

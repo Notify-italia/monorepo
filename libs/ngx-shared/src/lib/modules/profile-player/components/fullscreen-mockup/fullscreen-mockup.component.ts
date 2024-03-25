@@ -15,7 +15,7 @@ import { ProfileViewComponent } from '../profile-view/profile-view.component';
   styleUrls: ['./fullscreen-mockup.component.scss', '../profile.styles.scss'],
 })
 export class FullscreenMockupComponent {
-  @Input({ required: true }) data!: INotifyProfile;
+  @Input({ required: true }) profile!: INotifyProfile;
   @Input({ required: true }) baseUrl?: string;
   @Input() hideShare = false;
   @Input() cf!: ComponentRef<FullscreenMockupComponent>;

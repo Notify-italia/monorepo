@@ -203,7 +203,7 @@ export class AnalyticsDetailComponent implements OnDestroy {
     if (!this.selectedAgent.value?.profile) {
       return;
     }
-    return this._profilePlayer.createPlayer({
+    return this._profilePlayer.create({
       profile: this.selectedAgent.value.profile,
       baseUrl: this.baseUrl,
     });
