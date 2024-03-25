@@ -299,7 +299,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (!profile.redirectUrl || !profile.config.redirectEnabled) {
+    if (!profile.redirectUrl?.length || !profile.config.redirectEnabled) {
       return;
     }
 
