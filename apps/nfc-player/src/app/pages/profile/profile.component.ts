@@ -101,7 +101,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
             .subscribe()
         ),
         switchMap((p) => {
-          if (!p.config.redirectEnabled) {
+          if (!p.config.redirectEnabled || !p.redirectUrl?.length) {
             return of(p);
           }
           this._redirect(p);
@@ -299,15 +299,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (!profile.redirectUrl?.length || !profile.config.redirectEnabled) {
-      return;
-    }
-
     //create an "a" element to redirect the user to the redirect url
     const a = document.createElement('a');
     a.id = 'redirectToURL';
     a.classList.add('hidden');
-    a.href = this._utils.populateWebProtocol('https://', profile.redirectUrl);
+    a.href = this._utils.populateWebProtocol(
+      'https://',
+      profile.redirectUrl as string
+    );
     // a.target = '_blank';
 
     //click the "a" element
