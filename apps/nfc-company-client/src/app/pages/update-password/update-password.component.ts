@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { CompanyService, UtilsService } from '@notify/nfc-app-services';
-import { UpdatePasswordFormComponent } from '@notify/ngx-components';
+import { UpdatePasswordFormComponent } from '@notify/ngx-shared';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
 

@@ -22,7 +22,7 @@ import {
   WidgetCounterComponent,
   WidgetFeedbackComponent,
   WidgetProfileCardComponent,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import { startOfMonth } from 'date-fns';
 import { ApexAxisChartSeries } from 'ng-apexcharts';
 import { combineLatest, map } from 'rxjs';

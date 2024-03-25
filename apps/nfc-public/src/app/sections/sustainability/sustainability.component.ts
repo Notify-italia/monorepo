@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SplineViewerComponent } from '@notify/ngx-components';
+import { SplineViewerComponent } from '@notify/ngx-shared';
 import { BasePageComponent } from '../../components/base-page/base-page.component';
 
 @Component({

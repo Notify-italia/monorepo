@@ -12,7 +12,7 @@ import {
   NoItemsComponent,
   PageHeaderComponent,
   ShareFileFactory,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import { ToastrService } from 'ngx-toastr';
 import { tap } from 'rxjs';
 

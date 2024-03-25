@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterContentInit, Component, afterNextRender } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PixelService } from '@notify/nfc-app-services';
-import { CursorComponent, LoadingComponent } from '@notify/ngx-components';
+import { CursorComponent, LoadingComponent } from '@notify/ngx-shared';
 import { Subject, combineLatest, tap } from 'rxjs';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppError, INotifyAuth } from '@notify/interfaces';
 import { AuthService, UtilsService } from '@notify/nfc-app-services';
-import { AuthComponent, IAuthConfig } from '@notify/ngx-components';
+import { AuthComponent, IAuthConfig } from '@notify/ngx-shared';
 import { catchError, switchMap, tap } from 'rxjs';
 
 @Component({

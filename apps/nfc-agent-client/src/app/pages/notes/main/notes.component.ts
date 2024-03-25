@@ -8,7 +8,7 @@ import {
   LoadingComponent,
   NotesListComponent,
   PageHeaderComponent,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import { Observable, Subject, catchError, switchMap, tap } from 'rxjs';
 
 @Component({

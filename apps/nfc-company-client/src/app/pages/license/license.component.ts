@@ -12,7 +12,7 @@ import {
   LoadingComponent,
   NoItemsComponent,
   PageHeaderComponent,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import { catchError, switchMap, tap } from 'rxjs';
 
 @Component({

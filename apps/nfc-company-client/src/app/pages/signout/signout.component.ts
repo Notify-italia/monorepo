@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AuthService } from '@notify/nfc-app-services';
-import { LoadingComponent } from '@notify/ngx-components';
+import { LoadingComponent } from '@notify/ngx-shared';
 
 @Component({
   standalone: true,

@@ -7,7 +7,7 @@ import {
   INotifyVersionInfo,
   NavComponent,
   NavItem,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 
 @Component({
   standalone: true,

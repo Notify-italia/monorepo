@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { PageNotFoundComponent } from '@notify/ngx-components';
+import { PageNotFoundComponent } from '@notify/ngx-shared';
 import { ProfileComponent } from './pages/profile/profile.component';
 
 export const appRoutes: Route[] = [

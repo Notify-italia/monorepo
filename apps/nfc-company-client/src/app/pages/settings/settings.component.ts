@@ -14,7 +14,7 @@ import {
   PageHeaderComponent,
   UserFormComponent,
   UserFormFactory,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import { ToastrService } from 'ngx-toastr';
 import { OperatorFunction, catchError, switchMap, takeUntil, tap } from 'rxjs';
 

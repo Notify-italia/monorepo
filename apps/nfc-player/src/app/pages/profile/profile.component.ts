@@ -22,7 +22,7 @@ import {
   ProfileViewComponent,
   SwipeAvailableComponent,
   defaultGradientStops,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import {
   Observable,
   Subject,

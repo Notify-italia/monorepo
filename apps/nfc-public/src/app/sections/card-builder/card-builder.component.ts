@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, afterNextRender } from '@angular/core';
-import { UploadComponent } from '@notify/ngx-components';
+import { UploadComponent } from '@notify/ngx-shared';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
 import { ContactUsComponent } from '../contact-us/contact-us.component';
 

@@ -8,7 +8,7 @@ import {
   ProfileViewComponent,
   SaveIndicatorComponent,
   ShareProfileComponent,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';

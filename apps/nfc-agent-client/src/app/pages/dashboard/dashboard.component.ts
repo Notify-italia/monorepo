@@ -20,7 +20,7 @@ import {
   WidgetFeedbackComponent,
   WidgetNoteComponent,
   WidgetPieChartComponent,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import { ApexAxisChartSeries } from 'ng-apexcharts';
 import { Subject, combineLatest, map, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';

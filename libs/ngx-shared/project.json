@@ -1,31 +1,35 @@
 {
-  "name": "ngx-components",
+  "name": "ngx-shared",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/ngx-components/src",
+  "sourceRoot": "libs/ngx-shared/src",
   "prefix": "notify",
   "tags": [],
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nx/angular:ng-packagr-lite",
-      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/dist/{projectRoot}"
+      ],
       "options": {
-        "project": "libs/ngx-components/ng-package.json",
-        "tailwindConfig": "libs/ngx-components/tailwind.config.js"
+        "project": "libs/ngx-shared/ng-package.json",
+        "tailwindConfig": "libs/ngx-shared/tailwind.config.js"
       },
       "configurations": {
         "production": {
-          "tsConfig": "libs/ngx-components/tsconfig.lib.prod.json"
+          "tsConfig": "libs/ngx-shared/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "libs/ngx-components/tsconfig.lib.json"
+          "tsConfig": "libs/ngx-shared/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "outputs": [
+        "{options.outputFile}"
+      ]
     }
   }
 }

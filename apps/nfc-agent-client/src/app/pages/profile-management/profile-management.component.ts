@@ -8,7 +8,7 @@ import {
   ProfileViewComponent,
   SaveIndicatorComponent,
   ShareProfileComponent,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 
 import {
   AppError,

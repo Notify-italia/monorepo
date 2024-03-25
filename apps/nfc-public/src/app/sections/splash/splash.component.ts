@@ -4,7 +4,7 @@ import { SSRDirective, UtilsService } from '@notify/nfc-app-services';
 import {
   ProfileViewComponent,
   SplineViewerComponent,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import { BasePageComponent } from '../../components/base-page/base-page.component';
 
 @Component({

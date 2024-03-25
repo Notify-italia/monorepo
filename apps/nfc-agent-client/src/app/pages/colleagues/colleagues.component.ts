@@ -11,7 +11,7 @@ import {
   LoadingComponent,
   PageHeaderComponent,
   ProfilePlayerFactory,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import { catchError, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 

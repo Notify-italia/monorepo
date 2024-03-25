@@ -16,7 +16,7 @@ import {
   NoteDetailComponent,
   PageHeaderComponent,
   SvgBoxIconComponent,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import {
   Observable,
   Subject,

@@ -22,7 +22,7 @@ import {
   PageHeaderComponent,
   ProfilePlayerFactory,
   UserFormFactory,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import { ToastrService } from 'ngx-toastr';
 import {
   Observable,

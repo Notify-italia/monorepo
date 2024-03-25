@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ProfileService } from '@notify/nfc-app-services';
-import { ProfilePlayerFactory } from '@notify/ngx-components';
+import { ProfilePlayerFactory } from '@notify/ngx-shared';
 import { tap } from 'rxjs';
 import { environment } from '../../../environments/environment.prod';
 

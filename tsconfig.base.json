@@ -18,7 +18,7 @@
       "@notify/api-shared": ["libs/api-shared/src/index.ts"],
       "@notify/interfaces": ["libs/interfaces/src/index.ts"],
       "@notify/nfc-app-services": ["libs/nfc-app-services/src/index.ts"],
-      "@notify/ngx-components": ["libs/ngx-components/src/index.ts"],
+      "@notify/ngx-shared": ["libs/ngx-shared/src/index.ts"],
       "@notify/shared": ["shared/src/index.ts"],
       "@notify/utils": ["libs/utils/src/index.ts"]
     },
