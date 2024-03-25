@@ -1,4 +1,11 @@
-<div class="container" *ngIf="progress$ | async as progress" (click)="close()">
+<div
+  class="container pointer-events-auto"
+  [ngClass]="{
+    '!backdrop-blur-none': !blurBackground
+  }"
+  *ngIf="progress$ | async as progress"
+  (click)="close()"
+>
   <div>
     <div
       (click)="$event.stopPropagation()"

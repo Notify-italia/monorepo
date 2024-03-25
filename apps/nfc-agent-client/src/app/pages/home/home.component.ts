@@ -33,7 +33,7 @@ export class HomeComponent {
       {
         type: 'fix',
         message:
-          '<b>Changelogs</b>: Corretto un bug che causava lo scroll degli elementi sotto al changelog',
+          '<b>Changelogs</b>: Corretto un problema che causava lo scroll degli elementi sotto al changelog',
       },
       {
         type: 'improvement',
@@ -53,7 +53,7 @@ export class HomeComponent {
       {
         type: 'fix',
         message:
-          '<b>Profilo</b>: Corretto un bug che impediva la corretta visualizzazione della Bio',
+          '<b>Profilo</b>: Corretto un problema che impediva la corretta visualizzazione della Bio',
       },
       {
         type: 'improvement',
@@ -68,7 +68,12 @@ export class HomeComponent {
       {
         type: 'fix',
         message:
-          '<b>Pannello Profilo</b>: Corretto un bug che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL',
+          '<b>Pannello Profilo</b>: Corretto un problema che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Colleghi</b>: Corretto un problema che impediva la corretta visualizzazione di alcune opzioni di condivisione del profilo',
       },
     ],
   };

@@ -23,6 +23,7 @@ export class NfcWriteComponent implements OnInit {
   @Input() companyProfile = '';
   @Input() profilesUrl = '';
   @Input() cf!: ComponentRef<NfcWriteComponent>;
+  @Input() blurBackground = true;
 
   private _nfcUtils = new NfcUtils();
   public isAndroid = this._capacitorService.isAndroid;

@@ -9,6 +9,7 @@ export class NfcWriteFactory {
     userProfile: string;
     companyProfile?: string;
     profilesUrl: string;
+    blurBackground?: boolean;
   }) {
     const ref = this.vcr.createComponent(NfcWriteComponent);
 
@@ -16,6 +17,7 @@ export class NfcWriteFactory {
     ref.setInput('companyProfile', config.companyProfile);
     ref.setInput('cf', ref);
     ref.setInput('profilesUrl', config.profilesUrl);
+    ref.setInput('blurBackground', config.blurBackground ?? true);
 
     return ref;
   }
