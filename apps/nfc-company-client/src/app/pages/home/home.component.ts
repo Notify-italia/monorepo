@@ -18,11 +18,11 @@ import {
 })
 export class HomeComponent {
   public currentVersionLabel: string = 'v0.8.3';
-  public currentVersionDate: string = '2024-03-21';
+  public currentVersionDate: string = '2024-03-24';
 
   public latestChangelog: INotifyVersionInfo = {
     tag: 'v0.8.x',
-    date: '2024-03-23',
+    date: '2024-03-24',
     title: '🦾 Accessibilità e Usabilità',
     description:
       "La versione 0.8.0 introduce alcune migliorie all'accessibilità e all'usabilità dell'applicazione. Inoltre, sono state introdotte nuove funzionalità per la gestione degli utenti e per la visualizzazione dei changelogs.",
@@ -132,6 +132,10 @@ export class HomeComponent {
         type: 'fix',
         message:
           '<b>Pannello Profilo</b>: Corretto un bug che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL (0.8.3)',
+      },
+      {
+        type: 'improvement',
+        message: `<b>Analytics</b>: Il pannello di visualizzazione dei dati di un utente adesso segue lo scroll della pagina. (0.8.3)`,
       },
     ],
   };
