@@ -80,6 +80,7 @@
             [parent]="form"
             name="redirectUrl"
             [options]="savedRedirects"
+            [validationErrors]="validationErrors"
             (removeOption)="removeSavedRedirect.emit($event)"
           ></notify-tailwind-advanced-select>
         </div>

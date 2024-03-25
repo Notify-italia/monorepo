@@ -106,7 +106,7 @@ export class ProfileFormComponent implements OnInit {
   public validationErrors = {
     required: ' ',
     email: 'Email non valida',
-    pattern: 'Valore non valido',
+    pattern: ' ',
     itPhoneNumber: 'Numero di telefono non valido',
   };
 

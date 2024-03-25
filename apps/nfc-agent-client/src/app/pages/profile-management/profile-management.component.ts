@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {
   LoadingComponent,
   PageHeaderComponent,
@@ -10,7 +10,6 @@ import {
   ShareProfileComponent,
 } from '@notify/ngx-components';
 
-import { DomSanitizer } from '@angular/platform-browser';
 import {
   AppError,
   EnumNotifyUserType,
@@ -20,6 +19,7 @@ import {
 import {
   AgentService,
   AuthService,
+  CachedSrcDirective,
   CapacitorService,
   ProfileService,
   UtilsService,
@@ -49,11 +49,11 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
     PageHeaderComponent,
     LoadingComponent,
     SaveIndicatorComponent,
+    CachedSrcDirective,
   ],
   providers: [ProfilePlayerFactory, CapacitorService, AgentService],
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileManagementComponent implements OnDestroy {
   private _profileSubject$ = new Subject<IProfile>();
@@ -75,8 +75,7 @@ export class ProfileManagementComponent implements OnDestroy {
     private _utilsService: UtilsService,
     private _playerFactroy: ProfilePlayerFactory,
     private _agentService: AgentService,
-    private _authService: AuthService,
-    private _domSanitizer: DomSanitizer
+    private _authService: AuthService
   ) {
     this._getProfile();
 
@@ -145,9 +144,7 @@ export class ProfileManagementComponent implements OnDestroy {
       url = 'https://notifyapp.it';
     }
 
-    return this._domSanitizer.bypassSecurityTrustResourceUrl(
-      this._utilsService.populateWebProtocol('https://', url)
-    );
+    return this._utilsService.populateWebProtocol('https://', url);
   }
 
   public removeSavedRedirect(redirect: string) {
@@ -159,9 +156,7 @@ export class ProfileManagementComponent implements OnDestroy {
         savedRedirects: this.savedRedirects.filter((r) => r !== redirect),
       })
       .pipe(
-        switchMap(() => {
-          return this._authService.refreshToken();
-        }),
+        switchMap(() => this._authService.refreshToken()),
         catchError(async (err: AppError) => {
           return this._utilsService.errorHandler(err);
         }),

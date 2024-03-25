@@ -15,6 +15,7 @@ export type TailwindAdvancedSelectOption = string;
 @Component({
   selector: 'notify-tailwind-advanced-select',
   templateUrl: './tailwind-advanced-select.component.html',
+  styleUrl: './tailwind-advanced-select.component.scss',
 })
 export class TailwindAdvancedSelectComponent implements OnInit, OnChanges {
   @Input() parent!: FormGroup;

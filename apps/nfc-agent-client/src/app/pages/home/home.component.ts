@@ -70,6 +70,16 @@ export class HomeComponent {
         message:
           '<b>Colleghi</b>: Corretto un problema che impediva la corretta visualizzazione di alcune opzioni di condivisione del profilo',
       },
+      {
+        type: 'fix',
+        message:
+          'Corretto un problema che impediva la selezione degli elementi nei dropdown avanzati su Safari',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Pannello Profilo</b>: Corretto un problema che causava la ripetuta ricarica della pagina di preview di un URL',
+      },
     ],
   };
 
