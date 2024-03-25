@@ -1,12 +1,13 @@
 import chalk from 'chalk';
 import { Spinner } from 'cli-spinner';
-import { selectedApps } from '..';
+
 import {
   availableManifests,
   bufferToString,
+  selectedApps,
   whenVerbose,
   type INotifyAppManifest,
-} from './utils';
+} from './nut.utils';
 
 //dichiaro lo spinner del cli (globetto che gira mentre esegue il deploy)
 const spinner = new Spinner({
@@ -24,13 +25,6 @@ export const deployApps = async (production = false) => {
     : availableManifests.filter((manifest) => {
         return selectedApps.includes(manifest.appName);
       });
-
-  console.log(
-    chalk.blue(
-      'Deploying the following apps:',
-      mainfests.map((m) => m.appName).join(', ')
-    )
-  );
 
   spinner.start();
 

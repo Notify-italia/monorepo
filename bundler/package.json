@@ -13,6 +13,7 @@
   },
   "bin": {
     "notify-bundler": "index.ts",
-    "nb": "index.ts"
+    "nb": "index.ts",
+    "nut": "index.ts"
   }
 }

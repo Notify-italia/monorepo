@@ -1,4 +1,4 @@
-import { baseBundler, publishManifest } from './utils';
+import { baseBundler, publishManifest } from '../nut.utils';
 
 const manifest = publishManifest({
   appName: 'api',

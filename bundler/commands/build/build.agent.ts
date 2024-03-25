@@ -1,12 +1,13 @@
-import { $ } from 'bun';
 import chalk from 'chalk';
 import {
+  bufferToString,
+  executeShell,
   hasApp,
   printError,
   publishManifest,
   whenVerbose,
   type INotifyAvailableApps,
-} from './utils';
+} from '../nut.utils';
 
 const manifest = publishManifest({
   appName: 'agent',
@@ -15,17 +16,23 @@ const manifest = publishManifest({
   developContainer: 'ptc-profiles-agent-client',
 });
 
-export const runAgentClientBuild = async (config: { capSync: boolean }) => {
+export const runAgentClientBuild = async (config: {
+  capSync: boolean;
+  force?: boolean;
+}) => {
   if (
     !hasApp(manifest.appName as INotifyAvailableApps) &&
     !hasApp('native') &&
-    !hasApp('all')
+    !hasApp('all') &&
+    !config.force
   ) {
     return;
   }
 
   whenVerbose(chalk.blue(`Building ${manifest.appName}...`));
-  const { stderr, exitCode } = await $`nx build ${manifest.buildName} --prod`;
+  const { stderr, exitCode } = executeShell(
+    `nx build ${manifest.buildName} --prod`
+  );
 
   if (exitCode) {
     printError(stderr, manifest.appName);
@@ -36,7 +43,12 @@ export const runAgentClientBuild = async (config: { capSync: boolean }) => {
 
   if (config.capSync) {
     console.log(chalk.blue('Syncing Capacitor...'));
-    const { stderr, exitCode } = await $`nx run ${manifest.buildName}:cap:sync`;
+    const { stderr, exitCode, stdout } = executeShell(
+      `nx run ${manifest.buildName}:cap:sync`
+    );
+
+    whenVerbose(bufferToString(stdout));
+
     if (exitCode) {
       console.log(chalk.red('Capacitor sync failed'));
       console.log(stderr);
@@ -44,4 +56,6 @@ export const runAgentClientBuild = async (config: { capSync: boolean }) => {
     }
     console.log(chalk.green.bold('Capacitor sync successful'));
   }
+
+  return manifest;
 };
