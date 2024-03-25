@@ -16,6 +16,7 @@ import {
   HttpService,
   ProfileService,
   UtilsService,
+  providePageTitleService,
 } from '@notify/nfc-app-services';
 import { provideTailwindToasts } from '@notify/ngx-components';
 import { environment } from '../environments/environment';
@@ -40,6 +41,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideTailwindToasts(),
     provideHttpClient(),
+    providePageTitleService('Notify Aziende'),
     importProvidersFrom(
       JwtModule.forRoot({
         config: {

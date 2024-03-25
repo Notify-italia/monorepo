@@ -177,7 +177,7 @@ export class AnalyticsDetailComponent implements OnDestroy {
     this.selectedAgent.valueChanges
       .pipe(
         switchMap((agent) => {
-          document.title = `${agent?.profile?.name} ${agent?.profile?.surname} - Analytics - Notify`;
+          document.title = `${agent?.profile?.name} ${agent?.profile?.surname} - Analytics - Notify Aziende`;
           _router.navigate([], {
             relativeTo: _activatedRoute,
             queryParams: { a: agent?._id },

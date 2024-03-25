@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { PageTitleService } from '@notify/nfc-app-services';
 import { NavComponent } from '@notify/ngx-components';
 
 @Component({
@@ -9,4 +10,8 @@ import { NavComponent } from '@notify/ngx-components';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor(private _pageTitle: PageTitleService) {
+    this._pageTitle.init();
+  }
+}

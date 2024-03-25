@@ -13,6 +13,7 @@ export * from './lib/guards/redirect.guard';
 export * from './lib/guards/signin.guard';
 export * from './lib/http.service';
 export * from './lib/note.service';
+export * from './lib/page-title.service';
 export * from './lib/pixel/pixel.module';
 export * from './lib/profile.service';
 export * from './lib/socket.service';

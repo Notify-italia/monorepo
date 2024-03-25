@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import { Spinner } from 'cli-spinner';
 import {
   bufferToString,
   executeShell,
@@ -20,12 +21,20 @@ export const runAgentClientBuild = async (config: {
   capSync: boolean;
   force?: boolean;
 }) => {
+  const spinner = new Spinner({
+    text: `%s Building ${manifest.appName}...`,
+    stream: process.stdout,
+  })
+    .setSpinnerString(6)
+    .start();
+
   if (
     !hasApp(manifest.appName as INotifyAvailableApps) &&
     !hasApp('native') &&
     !hasApp('all') &&
     !config.force
   ) {
+    spinner.stop(true);
     return;
   }
 
@@ -36,26 +45,37 @@ export const runAgentClientBuild = async (config: {
 
   if (exitCode) {
     printError(stderr, manifest.appName);
+    spinner.stop(true);
     return;
   }
 
+  spinner.stop(true);
   console.log(chalk.green.bold(`${manifest.appName} build successful`));
 
-  if (config.capSync) {
-    console.log(chalk.blue('Syncing Capacitor...'));
-    const { stderr, exitCode, stdout } = executeShell(
-      `nx run ${manifest.buildName}:cap:sync`
-    );
-
-    whenVerbose(bufferToString(stdout));
-
-    if (exitCode) {
-      console.log(chalk.red('Capacitor sync failed'));
-      console.log(stderr);
-      return;
-    }
-    console.log(chalk.green.bold('Capacitor sync successful'));
+  if (!config.capSync) {
+    return manifest;
   }
 
+  spinner.setSpinnerTitle(`%s Syncing Capacitor...`).start();
+
+  _capSync();
+
+  spinner.stop(true);
+  console.log(chalk.green.bold('Capacitor sync successful'));
+
   return manifest;
+};
+
+const _capSync = () => {
+  const { stderr, exitCode, stdout } = executeShell(
+    `nx run ${manifest.buildName}:cap:sync`
+  );
+
+  whenVerbose(bufferToString(stdout));
+
+  if (!exitCode) {
+    return;
+  }
+  console.log(chalk.red('Capacitor sync failed'));
+  console.log(stderr);
 };

@@ -16,6 +16,7 @@ import {
   ProfileService,
   SocketService,
   UtilsService,
+  providePageTitleService,
 } from '@notify/nfc-app-services';
 import { provideTailwindToasts } from '@notify/ngx-components';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -37,6 +38,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideTailwindToasts(),
     provideHttpClient(),
+    providePageTitleService('Notify'),
     importProvidersFrom(
       JwtModule.forRoot({
         config: {

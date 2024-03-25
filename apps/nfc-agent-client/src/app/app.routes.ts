@@ -14,6 +14,9 @@ export const appRoutes: Route[] = [
     canActivate: [signInGuard],
     loadComponent: () =>
       import('./pages/signin/signin.component').then((m) => m.SigninComponent),
+    data: {
+      pageTitle: 'Accedi',
+    },
   },
 
   {
@@ -32,6 +35,9 @@ export const appRoutes: Route[] = [
           import('./pages/dashboard/dashboard.component').then(
             (m) => m.DashboardComponent
           ),
+        data: {
+          pageTitle: 'Dashboard',
+        },
       },
       {
         path: 'signout',
@@ -39,6 +45,9 @@ export const appRoutes: Route[] = [
           import('./pages/signout/signout.component').then(
             (m) => m.SignoutComponent
           ),
+        data: {
+          pageTitle: 'Esci',
+        },
       },
       {
         path: 'profile',
@@ -46,6 +55,9 @@ export const appRoutes: Route[] = [
           import(
             './pages/profile-management/profile-management.component'
           ).then((m) => m.ProfileManagementComponent),
+        data: {
+          pageTitle: 'Profilo',
+        },
       },
       {
         path: 'colleagues',
@@ -53,6 +65,9 @@ export const appRoutes: Route[] = [
           import('./pages/colleagues/colleagues.component').then(
             (m) => m.ColleaguesComponent
           ),
+        data: {
+          pageTitle: 'Colleghi',
+        },
       },
       {
         path: 'share',
@@ -60,6 +75,9 @@ export const appRoutes: Route[] = [
           import('./pages/share-files/share-files.component').then(
             (m) => m.ShareFilesComponent
           ),
+        data: {
+          pageTitle: 'Condividi Files',
+        },
       },
       {
         path: 'notes',
@@ -70,6 +88,9 @@ export const appRoutes: Route[] = [
               import('./pages/notes/main/notes.component').then(
                 (m) => m.NotesComponent
               ),
+            data: {
+              pageTitle: 'Note',
+            },
           },
           {
             path: 'inspect',
@@ -90,5 +111,8 @@ export const appRoutes: Route[] = [
   {
     path: '404',
     component: PageNotFoundComponent,
+    data: {
+      pageTitle: 'Pagina non trovata',
+    },
   },
 ];

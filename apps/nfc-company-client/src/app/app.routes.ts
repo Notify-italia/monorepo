@@ -14,12 +14,18 @@ export const appRoutes: Route[] = [
     canActivate: [signInGuard],
     loadComponent: () =>
       import('./pages/signin/signin.component').then((m) => m.SigninComponent),
+    data: {
+      pageTitle: 'Accedi',
+    },
   },
   {
     path: 'signup',
     canActivate: [signInGuard],
     loadComponent: () =>
       import('./pages/signup/signup.component').then((m) => m.SignupComponent),
+    data: {
+      pageTitle: 'Registrati',
+    },
   },
   {
     path: 'password',
@@ -36,6 +42,9 @@ export const appRoutes: Route[] = [
           import('./pages/recover-password/recover-password.component').then(
             (m) => m.RecoverPasswordComponent
           ),
+        data: {
+          pageTitle: 'Recupera password',
+        },
       },
       {
         path: 'update',
@@ -43,6 +52,9 @@ export const appRoutes: Route[] = [
           import('./pages/update-password/update-password.component').then(
             (m) => m.UpdatePasswordComponent
           ),
+        data: {
+          pageTitle: 'Aggiorna password',
+        },
       },
     ],
   },
@@ -63,6 +75,9 @@ export const appRoutes: Route[] = [
           import('./pages/accounts/accounts.component').then(
             (m) => m.AccountsComponent
           ),
+        data: {
+          pageTitle: 'Utenti',
+        },
       },
       {
         path: 'license',
@@ -70,6 +85,9 @@ export const appRoutes: Route[] = [
           import('./pages/license/license.component').then(
             (m) => m.LicenseComponent
           ),
+        data: {
+          pageTitle: 'Licenza',
+        },
       },
       {
         path: 'profile',
@@ -78,6 +96,9 @@ export const appRoutes: Route[] = [
           import(
             './pages/profile-management/profile-management.component'
           ).then((m) => m.ProfileManagementComponent),
+        data: {
+          pageTitle: 'Profilo',
+        },
       },
       {
         path: 'settings',
@@ -86,6 +107,9 @@ export const appRoutes: Route[] = [
           import('./pages/settings/settings.component').then(
             (m) => m.SettingsComponent
           ),
+        data: {
+          pageTitle: 'Impostazioni',
+        },
       },
 
       {
@@ -103,6 +127,9 @@ export const appRoutes: Route[] = [
               import('./pages/analytics/analytics.component').then(
                 (m) => m.AnalyticsComponent
               ),
+            data: {
+              pageTitle: 'Analytics',
+            },
           },
           {
             path: 'detail',
@@ -119,6 +146,9 @@ export const appRoutes: Route[] = [
           import('./pages/signout/signout.component').then(
             (m) => m.SignoutComponent
           ),
+        data: {
+          pageTitle: 'Esci',
+        },
       },
     ],
   },
@@ -130,5 +160,8 @@ export const appRoutes: Route[] = [
   {
     path: '404',
     component: PageNotFoundComponent,
+    data: {
+      pageTitle: 'Pagina non trovata',
+    },
   },
 ];

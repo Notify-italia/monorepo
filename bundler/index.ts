@@ -1,6 +1,7 @@
 #! /usr/bin/env bun
 import { program } from 'commander';
 import { buildApps } from './commands/build';
+
 import { runAgentClientBuild } from './commands/build/build.agent';
 import { deployApps } from './commands/nut.deploy';
 import {
