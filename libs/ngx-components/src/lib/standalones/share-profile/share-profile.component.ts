@@ -20,6 +20,7 @@ import { NfcWriteComponent } from '../../modules/modals/nfc/components/nfc-write
 export class ShareProfileComponent {
   @Input({ required: true }) public profile!: INotifyProfile;
   @Input({ required: true }) public baseUrl = 'http://localhost:4200/profile';
+  @Input({ required: true }) source: 'root' | 'modal' = 'root';
 
   public hasShare = !!navigator.share;
   public isNative = this.capacitor.isNative;
@@ -72,6 +73,7 @@ export class ShareProfileComponent {
       size: 350,
       title: 'Condividi Profilo',
       filename: this.profile.name || 'qrcode',
+      blurBackground: this.source === 'root',
     });
   }
 
@@ -79,6 +81,7 @@ export class ShareProfileComponent {
     this._nfcFactory.create({
       userProfile: this.profile._id,
       profilesUrl: this.baseUrl,
+      blurBackground: this.source === 'root',
       companyProfile:
         this.profile.company?._id ||
         (this.profile.company as unknown as string),

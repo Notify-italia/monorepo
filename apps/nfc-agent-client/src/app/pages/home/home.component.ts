@@ -31,11 +31,6 @@ export class HomeComponent {
       'https://s3-api.vps.notifyapp.it/assets/version-art/v0.9.0-agent.webp',
     changes: [
       {
-        type: 'fix',
-        message:
-          '<b>Changelogs</b>: Corretto un bug che causava lo scroll degli elementi sotto al changelog',
-      },
-      {
         type: 'improvement',
         message:
           '<b>Changelogs</b>: Modificato il layout del changelog per renderlo più leggibile',
@@ -53,7 +48,7 @@ export class HomeComponent {
       {
         type: 'fix',
         message:
-          '<b>Profilo</b>: Corretto un bug che impediva la corretta visualizzazione della Bio',
+          '<b>Profilo</b>: Corretto un problema che impediva la corretta visualizzazione della Bio',
       },
       {
         type: 'improvement',
@@ -68,7 +63,22 @@ export class HomeComponent {
       {
         type: 'fix',
         message:
-          '<b>Pannello Profilo</b>: Corretto un bug che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL',
+          '<b>Pannello Profilo</b>: Corretto un problema che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Colleghi</b>: Corretto un problema che impediva la corretta visualizzazione di alcune opzioni di condivisione del profilo',
+      },
+      {
+        type: 'fix',
+        message:
+          'Corretto un problema che impediva la selezione degli elementi nei dropdown avanzati su Safari',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Pannello Profilo</b>: Corretto un problema che causava la ripetuta ricarica della pagina di preview di un URL',
       },
     ],
   };

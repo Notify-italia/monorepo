@@ -11,6 +11,7 @@
         <notify-share-profile
           [profile]="profile"
           [baseUrl]="baseUrl"
+          source="root"
         ></notify-share-profile>
       </div>
       <notify-save-indicator
@@ -45,7 +46,7 @@
             *ngIf="profile.config.redirectEnabled"
           >
             <iframe
-              [src]="normalizeURL(profile.redirectUrl)"
+              [cachedSrc]="normalizeURL(profile.redirectUrl)"
               class="iphone-15-pro phone mockup-phone pointer-events-none"
               frameborder="0"
             ></iframe>

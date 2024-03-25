@@ -24,6 +24,7 @@ export class QrcodeComponent implements OnInit {
   @Input() size = 256;
   @Input() title = 'QR Code';
   @Input() filename = 'qrcode.png';
+  @Input() blurBackground = true;
 
   public isNative = this._capacitorService.isNative;
   private _storedBrightness: GetBrightnessReturnValue = { brightness: 0 };

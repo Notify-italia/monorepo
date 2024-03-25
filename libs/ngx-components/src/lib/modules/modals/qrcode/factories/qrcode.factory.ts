@@ -10,6 +10,7 @@ export class QrcodeFactory {
     title: string;
     size?: number;
     filename?: string;
+    blurBackground?: boolean;
   }) {
     const ref = this._vcr.createComponent(QrcodeComponent);
 
@@ -17,6 +18,7 @@ export class QrcodeFactory {
     ref.setInput('size', config.size);
     ref.setInput('title', config.title);
     ref.setInput('filename', config.filename);
+    ref.setInput('blurBackground', config.blurBackground ?? true);
     ref.setInput('cf', ref);
 
     return ref;

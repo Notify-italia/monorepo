@@ -104,11 +104,6 @@ export class HomeComponent {
         message: `<b>Pannello Profilo</b>: Corretto un problema che impediva la visualizzazione del tema di un profilo se impostato sul tema aziendale (0.8.1)`,
       },
       {
-        type: 'fix',
-        message:
-          '<b>Changelogs</b>: Corretto un bug che causava lo scroll degli elementi sotto al changelog (0.8.3)',
-      },
-      {
         type: 'improvement',
         message:
           '<b>Changelogs</b>: Modificato il layout del changelog per renderlo più leggibile (0.8.3)',
@@ -121,7 +116,7 @@ export class HomeComponent {
       {
         type: 'fix',
         message:
-          '<b>Profilo</b>: Corretto un bug che impediva la corretta visualizzazione della Bio (0.8.3)',
+          '<b>Profilo</b>: Corretto un problema che impediva la corretta visualizzazione della Bio (0.8.3)',
       },
       {
         type: 'improvement',
@@ -131,7 +126,17 @@ export class HomeComponent {
       {
         type: 'fix',
         message:
-          '<b>Pannello Profilo</b>: Corretto un bug che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL (0.8.3)',
+          '<b>Pannello Profilo</b>: Corretto un problema che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL (0.8.3)',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Colleghi</b>: Corretto un problema che impediva la corretta visualizzazione di alcune opzioni di condivisione del profilo',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Pannello Profilo</b>: Corretto un problema che causava la ripetuta ricarica della pagina di preview di un URL',
       },
       {
         type: 'improvement',
