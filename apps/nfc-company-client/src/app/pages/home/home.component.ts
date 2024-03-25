@@ -21,126 +21,41 @@ export class HomeComponent {
   public currentVersionDate: string = '2024-03-24';
 
   public latestChangelog: INotifyVersionInfo = {
-    tag: 'v0.8.x',
-    date: '2024-03-24',
+    tag: 'v0.8.3',
+    date: '2024-03-25',
     title: '🦾 Accessibilità e Usabilità',
     description:
       "La versione 0.8.0 introduce alcune migliorie all'accessibilità e all'usabilità dell'applicazione. Inoltre, sono state introdotte nuove funzionalità per la gestione degli utenti e per la visualizzazione dei changelogs.",
     artPath: 'https://s3-api.vps.notifyapp.it/assets/version-art/v0.8.0.webp',
     changes: [
       {
-        type: 'new',
-        message:
-          '<b>Changelogs</b>: è ora possibile visualizzare i changelogs della versione corrente (questo popup).',
-      },
-      {
         type: 'improvement',
-        message: `<b>Gestione Utenti</b>: è ora possibile modificare il profilo di un utente dall'account master.`,
+        message:
+          '<b>Changelogs</b>: Modificato il layout del changelog per renderlo più leggibile',
       },
       {
         type: 'improvement',
         message:
-          '<b>Pannello Profilo</b>: Migliorata la gestione dei salvataggi.',
-      },
-      {
-        type: 'improvement',
-        message:
-          '<b>Pannello Profilo</b>: Aggiunto un pulsante per testare le integrazioni senza doverle clickare/tappare dal profilo.',
-      },
-      {
-        type: 'improvement',
-        message:
-          '<b>Pannello Profilo</b>: Aggiunti i prefissi, ove possibile, per evidenziare il tipo di dato da inserire in una text-box.',
-      },
-      {
-        type: 'improvement',
-        message:
-          '<b>Analytics</b>: Modificate alcune labels per renderle più comprensibili.',
-      },
-      {
-        type: 'improvement',
-        message: `<b>Analytics</b>: Il top e il worst pick del mese ora rimandano alle analytics dell'utente invece che al suo priflo`,
-      },
-      {
-        type: 'improvement',
-        message: `<b>Analytics</b>: è ora possibile visualizzare il profilo di un utente direttamente dalle analytics.`,
-      },
-      {
-        type: 'improvement',
-        message: `<b>Pannello Profilo</b>: Il campo per il numero di telefono ora accetta anche numeri verdi.`,
+          '<b>Menu di Navigazione</b>: Aggiunta una gesture, da mobile, per aprire il menu',
       },
       {
         type: 'fix',
         message:
-          '<b>Selezione colori</b>: Risolto un problema con il focus dei tasti su iOS',
-      },
-      {
-        type: 'fix',
-        message:
-          '<b>Analytics</b>: Risolti alcuni problemi che impedivano la visualizzazione corretta di alcuni grafici.',
-      },
-      {
-        type: 'fix',
-        message: `<b>Profilo</b>: Corretto l'allineamento di alcuni elementi.`,
-      },
-      {
-        type: 'fix',
-        message: `<b>Impostazioni</b>: Il label dell'email ora è correttamente allineato.`,
-      },
-      {
-        type: 'fix',
-        message: `<b>Analytics</b>: Il top e il worst pick del mese non possono più essere la stessa persona`,
-      },
-      {
-        type: 'new',
-        message: `<b>Profilo</b>: Inserito il campo Partita IVA per le aziende (0.8.1)`,
-      },
-      {
-        type: 'fix',
-        message: `<b>Analytics</b>: Corretto un problema che impediva la visualizzazione del tema di un profilo se impostato sul tema aziendale (0.8.1)`,
-      },
-      {
-        type: 'improvement',
-        message: `<b>Pannello Profilo</b>: Corretto un problema che impediva la visualizzazione del tema di un profilo se impostato sul tema aziendale (0.8.1)`,
+          '<b>Profilo</b>: Corretto un problema che impediva la corretta visualizzazione della Bio',
       },
       {
         type: 'improvement',
         message:
-          '<b>Changelogs</b>: Modificato il layout del changelog per renderlo più leggibile (0.8.3)',
+          '<b>Pannello Profilo</b>: Modificato il comportamento dei pulsanti di gestione delle integrazioni',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Pannello Profilo</b>: Corretto un problema che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL',
       },
       {
         type: 'improvement',
-        message:
-          '<b>Menu di Navigazione</b>: Aggiunta una gesture, da mobile, per aprire il menu (0.8.3)',
-      },
-      {
-        type: 'fix',
-        message:
-          '<b>Profilo</b>: Corretto un problema che impediva la corretta visualizzazione della Bio (0.8.3)',
-      },
-      {
-        type: 'improvement',
-        message:
-          '<b>Pannello Profilo</b>: Modificato il comportamento dei pulsanti di gestione delle integrazioni (0.8.3)',
-      },
-      {
-        type: 'fix',
-        message:
-          '<b>Pannello Profilo</b>: Corretto un problema che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL (0.8.3)',
-      },
-      {
-        type: 'fix',
-        message:
-          '<b>Colleghi</b>: Corretto un problema che impediva la corretta visualizzazione di alcune opzioni di condivisione del profilo',
-      },
-      {
-        type: 'fix',
-        message:
-          '<b>Pannello Profilo</b>: Corretto un problema che causava la ripetuta ricarica della pagina di preview di un URL',
-      },
-      {
-        type: 'improvement',
-        message: `<b>Analytics</b>: Il pannello di visualizzazione dei dati di un utente adesso segue lo scroll della pagina. (0.8.3)`,
+        message: `<b>Analytics</b>: Il pannello di visualizzazione dei dati di un utente adesso segue lo scroll della pagina`,
       },
     ],
   };
