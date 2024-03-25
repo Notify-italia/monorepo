@@ -48,37 +48,9 @@
 
         <div class="divider lg:divider-horizontal"></div>
 
-        <div class="lg:p-2 w-full lg:w-9/12">
-          @if(selectedAgent.value) { @if(agentStats$ | async; as stats) {
-          <div
-            class="flex flex-col justify-around w-full h-full v-spacing flex-nowrap"
-          >
-            <div class="flex items-center space-x-2">
-              <notify-share-profile
-                *ngIf="stats.user.profile as profile"
-                [profile]="profile"
-                [baseUrl]="baseUrl"
-                source="root"
-                class="w-full"
-              ></notify-share-profile>
-              <button
-                (click)="showProfile()"
-                class="box w-24 h-20 flex justify-center items-center hover:brightness-150 smooth"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="w-6 h-6"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div>
+        <div class="lg:p-2 w-full lg:w-9/12 h-full">
+          <div class="w-full h-fit sticky top-5">
+            @if(selectedAgent.value) { @if(agentStats$ | async; as stats) {
             <div
               class="flex flex-col justify-around w-full h-full v-spacing flex-nowrap"
             >
@@ -87,8 +59,8 @@
                   *ngIf="stats.user.profile as profile"
                   [profile]="profile"
                   [baseUrl]="baseUrl"
-                  class="w-full"
                   source="root"
+                  class="w-full"
                 ></notify-share-profile>
                 <button
                   (click)="showProfile()"
@@ -184,13 +156,13 @@
                 </div>
               </div>
             </div>
+            } } @else{
+            <notify-no-items
+              title="Seleziona un utente"
+              subtitle="Selezione un utente per visualizzarne le statistiche"
+            ></notify-no-items>
+            }
           </div>
-          } } @else{
-          <notify-no-items
-            title="Seleziona un utente"
-            subtitle="Selezione un utente per visualizzarne le statistiche"
-          ></notify-no-items>
-          }
         </div>
       </div>
     </div>

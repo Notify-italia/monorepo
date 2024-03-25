@@ -73,7 +73,7 @@
           <div class="divider"></div>
           <h2
             class="text-2xl text-white font-bold"
-            *ngIf="data.bestUser || data.worstUser"
+            *ngIf="data.bestUser?.profile || data.worstUser?.profile"
           >
             Top/Worst Pick di {{ currentMonth | titlecase }}
           </h2>

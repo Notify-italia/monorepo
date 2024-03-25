@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import { Spinner } from 'cli-spinner';
 import type { Command } from 'commander';
 
 export const NotifyAvailableApps = [
@@ -23,6 +24,8 @@ export interface INotifyAppManifest {
 }
 
 export const availableManifests: INotifyAppManifest[] = [];
+
+const NUT_VERSION = '1.0.0';
 
 export let selectedApps: string[] = [];
 export let verboseEnabled: boolean = false;
@@ -51,7 +54,12 @@ export const baseBundler = async (
     return;
   }
 
-  whenVerbose(chalk.blue(`Building ${manifest.appName}...`));
+  const spinner = new Spinner({
+    text: `%s Building ${manifest.appName}...`,
+    stream: process.stdout,
+  })
+    .setSpinnerString(6)
+    .start();
 
   // This code snippet is using a ternary operator to conditionally execute a command based on the presence of the `command` parameter
   const { stdout, stderr, exitCode } = executeShell(command);
@@ -59,8 +67,10 @@ export const baseBundler = async (
   whenVerbose(bufferToString(stdout));
 
   if (exitCode) {
+    spinner.stop(true);
     printError(stderr, manifest.appName);
   }
+  spinner.stop(true);
 
   console.log(chalk.green.bold(`${manifest.appName} build successful`));
 
@@ -88,7 +98,9 @@ export const parseCommand = (
     appsOptional?: boolean;
   }
 ) => {
-  console.log(chalk.hex('#E8AF48').bold('N.U.T. - Notify Utility Tool 🥜'));
+  console.log(
+    chalk.hex('#E8AF48').bold(`N.U.T. - Notify Utility Tool 🥜 v${NUT_VERSION}`)
+  );
 
   selectedApps = program.args
     .filter((v) => NotifyAvailableApps.includes(v as INotifyAvailableApps))
@@ -115,12 +127,6 @@ export const parseCommand = (
     console.log(chalk.red('Available apps: company, agent, admin, app, all'));
 
     process.exit(1);
-  }
-
-  if (!config?.appsOptional) {
-    console.log(
-      chalk.blue('Selected apps:', chalk.bold.white(selectedApps.join(', ')))
-    );
   }
 
   return {
