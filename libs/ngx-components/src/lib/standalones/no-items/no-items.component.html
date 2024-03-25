@@ -1,7 +1,9 @@
 <!-- FILEPATH: /Users/vecho/Dev-Stuff/Projects/notify/libs/ngx-components/src/lib/standalones/no-items/no-items.component.html -->
 
 <div class="flex flex-col items-center justify-center h-full space-y-10">
-  <div class="flex flex-col space-y-2 items-center justify-center">
+  <div
+    class="flex flex-col space-y-2 items-center justify-center pointer-events-none"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
@@ -19,7 +21,7 @@
 
     <h2 class="text-xl lg:text-3xl font-bold mb-4">{{ title }}</h2>
     <p
-      class="lg:text-lg text-gray-500 text-center"
+      class="lg:text-lg text-gray-500 text-center p-2"
       [innerHTML]="subtitleHTML"
     ></p>
   </div>

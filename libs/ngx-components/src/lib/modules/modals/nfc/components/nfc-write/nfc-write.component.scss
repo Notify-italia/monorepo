@@ -12,4 +12,8 @@
   & > svg {
     @apply w-full h-full animate-pulse;
   }
+
+  &.nfc-error {
+    @apply bg-red-500;
+  }
 }

@@ -1,8 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { GestureController } from '@ionic/angular';
 import { CapacitorService } from '@notify/nfc-app-services';
-
 import { VersionLabelComponent } from '../../modules/version-manager';
 import { AppTitleComponent } from '../app-title/app-title.component';
 
@@ -29,6 +36,8 @@ export interface NavItem {
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent {
+  @ViewChild('DrawerController')
+  drawerController!: ElementRef<HTMLInputElement>;
   @Input({ required: true }) subtitle = '';
   @Input() bottomItems: NavItem[] = [
     {
@@ -41,6 +50,7 @@ export class NavComponent {
     },
   ];
   @Input({ required: true }) topItems: NavItem[] = [];
+  @Input() disableScrollOn?: HTMLElement;
   @Input() versionInfo!: {
     currentVersion: string;
     currentVersionDate: string | Date;
@@ -55,5 +65,49 @@ export class NavComponent {
     };
   }
 
-  constructor(public capacitor: CapacitorService) {}
+  private get _isUserWriting(): boolean {
+    return (
+      ['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '') &&
+      document.activeElement?.getAttribute('type') !== 'checkbox'
+    );
+  }
+
+  constructor(
+    public capacitor: CapacitorService,
+    private _gestureCtrl: GestureController
+  ) {
+    this._gestureCtrl
+      .create(
+        {
+          el: document.body,
+          threshold: 15,
+          gestureName: 'openDrawer',
+          onMove: (ev) => {
+            if (this._isUserWriting) {
+              return;
+            }
+
+            if (ev.deltaX > 75) {
+              this.drawerController.nativeElement.checked = true;
+              this.drawerController.nativeElement.dispatchEvent(
+                new Event('change')
+              );
+            }
+          },
+        },
+        true
+      )
+      .enable();
+  }
+
+  // public disableScroll(v: Event) {
+  //   const isChecked = (v.target as HTMLInputElement).checked;
+
+  //   if (isChecked) {
+  //     disableBodyScroll(document.body);
+  //     return;
+  //   }
+
+  //   enableBodyScroll(document.body);
+  // }
 }

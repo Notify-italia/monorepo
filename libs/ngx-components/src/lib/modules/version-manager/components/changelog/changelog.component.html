@@ -1,13 +1,13 @@
 <div class="modal-container" id="changelog" (click)="close()">
   <div>
     <div
-      class="modal-content content-transparent content-static bg-gradient-to-br from-cyan-500/70 to-cyan-900/50 p-5 border border-cyan-500"
+      class="modal-content content-transparent content-static bg-gradient-to-br from-gray-800/70 to-gray-900 p-5 border border-gray-600"
       (click)="$event.stopPropagation()"
     >
       <div class="flex flex-col lg:flex-row lg:space-x-10">
         <div class="flex flex-col">
           <span
-            class="bg-cyan-700 w-20 p-1 px-4 rounded text-cyan-200 text-center border border-cyan-400"
+            class="bg-cyan-700 w-20 p-1 px-4 rounded text-cyan-300 text-center"
           >
             {{ versionInfo.tag }}
           </span>
@@ -15,14 +15,14 @@
             {{ versionInfo.date | date : 'longDate' : 'it' }}
           </span>
         </div>
-        <div class="divider lg:divider-vertical"></div>
+        <div class="divider"></div>
         <div
-          class="flex flex-col w-full max-h-[60vh] lg:max-h-[80vh] overflow-y-auto space-y-5 px-5"
+          class="flex flex-col w-full max-h-[60vh] lg:max-h-[80vh] overflow-y-auto space-y-5 lg:px-5"
         >
           <p class="changelog-title">
             {{ versionInfo.title }}
           </p>
-          <p>
+          <p class="text-sm lg:text-base">
             {{ versionInfo.description }}
           </p>
           <img
@@ -35,18 +35,21 @@
               <ul>
                 @for (item of changelogSorted.new; track $index) {
                 <li>
-                  <span>•</span>
+                  <span></span>
                   <p [innerHTML]="item.safeHTML"></p>
                 </li>
                 }
               </ul>
             </div>
-            <div class="changelog-section" *ngIf="changelogSorted.improved">
+            <div
+              class="changelog-section"
+              *ngIf="changelogSorted.improved?.length"
+            >
               <p>🦋 Miglioramenti</p>
               <ul>
                 @for (item of changelogSorted.improved; track $index) {
                 <li>
-                  <span>•</span>
+                  <span></span>
                   <p [innerHTML]="item.safeHTML"></p>
                 </li>
                 }
@@ -60,7 +63,7 @@
               <ul>
                 @for (item of changelogSorted.fixed; track $index) {
                 <li>
-                  <span>•</span>
+                  <span></span>
                   <p [innerHTML]="item.safeHTML"></p>
                 </li>
                 }

@@ -17,12 +17,12 @@ import {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  public currentVersionLabel: string = 'v0.8.2';
-  public currentVersionDate: string = '2024-03-21';
+  public currentVersionLabel: string = 'v0.8.3';
+  public currentVersionDate: string = '2024-03-24';
 
   public latestChangelog: INotifyVersionInfo = {
     tag: 'v0.8.x',
-    date: '2024-03-19',
+    date: '2024-03-24',
     title: '🦾 Accessibilità e Usabilità',
     description:
       "La versione 0.8.0 introduce alcune migliorie all'accessibilità e all'usabilità dell'applicazione. Inoltre, sono state introdotte nuove funzionalità per la gestione degli utenti e per la visualizzazione dei changelogs.",
@@ -102,6 +102,40 @@ export class HomeComponent {
       {
         type: 'improvement',
         message: `<b>Pannello Profilo</b>: Corretto un problema che impediva la visualizzazione del tema di un profilo se impostato sul tema aziendale (0.8.1)`,
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Changelogs</b>: Corretto un bug che causava lo scroll degli elementi sotto al changelog (0.8.3)',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Changelogs</b>: Modificato il layout del changelog per renderlo più leggibile (0.8.3)',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Menu di Navigazione</b>: Aggiunta una gesture, da mobile, per aprire il menu (0.8.3)',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Profilo</b>: Corretto un bug che impediva la corretta visualizzazione della Bio (0.8.3)',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Pannello Profilo</b>: Modificato il comportamento dei pulsanti di gestione delle integrazioni (0.8.3)',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Pannello Profilo</b>: Corretto un bug che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL (0.8.3)',
+      },
+      {
+        type: 'improvement',
+        message: `<b>Analytics</b>: Il pannello di visualizzazione dei dati di un utente adesso segue lo scroll della pagina. (0.8.3)`,
       },
     ],
   };

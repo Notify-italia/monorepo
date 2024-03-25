@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   selector: '[notify-test-item-button]',
   standalone: true,
   template: `
-    <a type="button" class="btn btn-error my-auto btn-ghost !p-1">
+    <a type="button" class="btn btn-error my-auto btn-ghost !p-1 text-sm">
       <svg
         class="w-6 h-6"
         fill="none"
@@ -22,6 +22,7 @@ import { Component } from '@angular/core';
         <path d="M15 3h6v6"></path>
         <path d="M10 14 21 3"></path>
       </svg>
+      <span>Prova</span>
     </a>
   `,
 })

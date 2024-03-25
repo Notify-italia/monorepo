@@ -16,7 +16,11 @@
       @apply flex space-x-2 lg:text-lg text-gray-300;
 
       & > span {
-        @apply text-cyan-200;
+        @apply w-5 border border-cyan-400 h-[1px] my-auto;
+      }
+
+      & > p {
+        @apply text-sm lg:text-base;
       }
     }
   }

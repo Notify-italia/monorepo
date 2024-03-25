@@ -18,53 +18,57 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  public currentVersionLabel: string = 'v0.8.0';
-  public currentVersionDate: string = '2024-03-15';
+  public currentVersionLabel: string = 'v0.9.0';
+  public currentVersionDate: string = '2024-03-22';
 
   public latestChangelog: INotifyVersionInfo = {
-    tag: 'v0.8.0',
-    date: '2024-03-15',
-    title: '🦾 Accessibilità e Usabilità',
+    tag: 'v0.9.0',
+    date: '2024-03-22',
+    title: '📝 Closed Beta',
     description:
-      "La versione 0.8.0 introduce alcune migliorie all'accessibilità e all'usabilità dell'applicazione. Inoltre, sono state introdotte nuove funzionalità per la gestione degli utenti e per la visualizzazione dei changelogs.",
-    artPath: 'https://s3-api.vps.notifyapp.it/assets/version-art/v0.8.0.webp',
+      "Notify entra in Closed Beta! Se stai leggendo questo messaggio puoi richiedere un invito per scaricare l'app nativa inviandoci un'email a supporto@notifyapp.it",
+    artPath:
+      'https://s3-api.vps.notifyapp.it/assets/version-art/v0.9.0-agent.webp',
     changes: [
+      {
+        type: 'fix',
+        message:
+          '<b>Changelogs</b>: Corretto un bug che causava lo scroll degli elementi sotto al changelog',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Changelogs</b>: Modificato il layout del changelog per renderlo più leggibile',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Menu di Navigazione</b>: Aggiunta una gesture, da mobile, per aprire il menu',
+      },
+      {
+        type: 'improvement',
+        message:
+          'Aumentato lo spazio utile per la visualizzazione delle varie pagine',
+      },
+      {
+        type: 'fix',
+        message:
+          '<b>Profilo</b>: Corretto un bug che impediva la corretta visualizzazione della Bio',
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Pannello Profilo</b>: Modificato il comportamento dei pulsanti di gestione delle integrazioni',
+      },
       {
         type: 'new',
         message:
-          '<b>Changelogs</b>: Aggiunta la possibilità di visualizzare i changelogs della versione corrente (questo popup).',
-      },
-      {
-        type: 'improvement',
-        message:
-          '<b>Pannello Profilo</b>: Migliorata la gestione dei salvataggi.',
-      },
-      {
-        type: 'improvement',
-        message:
-          '<b>Pannello Profilo</b>: Aggiunto un pulsante per testare le integrazioni senza doverle clickare/tappare dal profilo.',
-      },
-      {
-        type: 'improvement',
-        message:
-          '<b>Pannello Profilo</b>: Aggiunti i prefissi, ove possibile, per evidenziare il tipo di dato da inserire in una text-box.',
+          'è ora possibile scrivere il proprio, quello aziendale o il profilo di un collega su un supporto NFC in completa autonomia, tramite Notify per iOS e Android',
       },
       {
         type: 'fix',
         message:
-          '<b>Selezione colori</b>: Risolto un problema con il focus dei tasti su iOS',
-      },
-      {
-        type: 'fix',
-        message: `<b>Profilo</b>: Corretto l'allineamento di alcuni elementi.`,
-      },
-      {
-        type: 'improvement',
-        message: `<b>Invio File</b>: Migliorata la velocità di disconnessione dei visitatori.`,
-      },
-      {
-        type: 'improvement',
-        message: `<b>Invio File</b>: Migliorate le istruzioni per l'invio dei file.`,
+          '<b>Pannello Profilo</b>: Corretto un bug che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL',
       },
     ],
   };

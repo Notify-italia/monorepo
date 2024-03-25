@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   template: `
     <button
       type="button"
-      class="btn btn-error my-auto btn-ghost text-red-500 !p-1"
+      class="btn btn-error my-auto btn-ghost text-red-500 !p-1 text-sm"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -23,6 +23,7 @@ import { Component } from '@angular/core';
           d="M6 18 18 6M6 6l12 12"
         />
       </svg>
+      <span>Rimuovi</span>
     </button>
   `,
 })
