@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { QRCodeModule } from 'angularx-qrcode';
 
 import { EnumNotifyProfileSources, INotifyProfile } from '@notify/interfaces';
-import { CapacitorService, ProfileService } from '@notify/nfc-app-services';
+import { CapacitorService, ProfileService } from '../../services';
 
 import { ToastrService } from 'ngx-toastr';
 import { QrcodeFactory } from '../../modules/modals';

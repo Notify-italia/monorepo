@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { SSRDirective } from '@notify/nfc-app-services';
+import { SSRDirective } from '@notify/ngx-shared';
 import { ApexNonAxisChartSeries, ApexOptions } from 'ng-apexcharts';
 import { ApexChartSsrComponent } from '../../../../standalones/apex-chart-ssr/apex-chart-ssr.component';
 

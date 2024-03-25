@@ -1,5 +1,6 @@
 export * from './lib/directives';
 export * from './lib/guards';
+export * from './lib/modules';
 export * from './lib/services';
 export * from './lib/standalones/animated-bg/wallpaper.component';
 export * from './lib/standalones/app-title/app-title.component';

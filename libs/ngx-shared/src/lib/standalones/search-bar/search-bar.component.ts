@@ -8,7 +8,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UtilsService } from '@notify/nfc-app-services';
+
 import {
   Observable,
   Subject,
@@ -18,6 +18,7 @@ import {
   startWith,
   takeUntil,
 } from 'rxjs';
+import { UtilsService } from '../../services';
 
 @Component({
   selector: 'notify-search-bar',

@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ComponentRef, HostListener, Input } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
-
-import { ProfileService } from '@notify/nfc-app-services';
+import { ProfileService } from '../../../../services';
 import { ShareProfileComponent } from '../../../../standalones/share-profile/share-profile.component';
 import { ProfileViewComponent } from '../profile-view/profile-view.component';
 

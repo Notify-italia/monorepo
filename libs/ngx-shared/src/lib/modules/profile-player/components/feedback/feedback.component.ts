@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, ComponentRef, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppError, INotifyProfile } from '@notify/interfaces';
-import { FeedbackService, UtilsService } from '@notify/nfc-app-services';
+
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
+import { FeedbackService, UtilsService } from '../../../../services';
 import { RatingComponent } from '../rating/rating.component';
 
 @Component({

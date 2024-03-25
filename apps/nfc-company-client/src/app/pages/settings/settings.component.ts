@@ -3,17 +3,15 @@ import { Component, ComponentRef } from '@angular/core';
 import { AppError } from '@notify/interfaces';
 import {
   AuthService,
+  AvatarComponent,
   CompanyService,
   EnumDicebearAvatarStyles,
-  UtilsService,
-} from '@notify/nfc-app-services';
-import {
-  AvatarComponent,
   IUserFormHiddenFields,
   IUserFormPasswordFieldConfig,
   PageHeaderComponent,
   UserFormComponent,
   UserFormFactory,
+  UtilsService,
 } from '@notify/ngx-shared';
 import { ToastrService } from 'ngx-toastr';
 import { OperatorFunction, catchError, switchMap, takeUntil, tap } from 'rxjs';

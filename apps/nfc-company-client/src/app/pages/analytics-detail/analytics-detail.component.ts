@@ -9,21 +9,19 @@ import {
   INotifyUser,
 } from '@notify/interfaces';
 import {
-  AgentService,
-  FeedbackService,
-  ProfileService,
-  StatService,
-  SvgBoxIcon,
-} from '@notify/nfc-app-services';
-import {
   AREA_CHART_DEFAULT_PERIOD,
+  AgentService,
   AvatarComponent,
+  FeedbackService,
   LoadingComponent,
   NoItemsComponent,
   PageHeaderComponent,
   ProfilePlayerFactory,
+  ProfileService,
   SearchBarComponent,
   ShareProfileComponent,
+  StatService,
+  SvgBoxIcon,
   TailwindFormsModule,
   WidgetAreaChartComponent,
   WidgetCounterComponent,

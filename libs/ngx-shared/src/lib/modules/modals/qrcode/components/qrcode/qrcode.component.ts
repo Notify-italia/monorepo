@@ -7,9 +7,9 @@ import {
   OnInit,
 } from '@angular/core';
 import { GetBrightnessReturnValue } from '@capacitor-community/screen-brightness';
-import { CapacitorService } from '@notify/nfc-app-services';
 import { QRCodeComponent, QRCodeModule } from 'angularx-qrcode';
 import { ToastrService } from 'ngx-toastr';
+import { CapacitorService } from '../../../../../services';
 
 @Component({
   standalone: true,

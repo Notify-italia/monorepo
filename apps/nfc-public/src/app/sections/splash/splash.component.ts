@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SSRDirective, UtilsService } from '@notify/nfc-app-services';
 import {
   ProfileViewComponent,
+  SSRDirective,
   SplineViewerComponent,
+  UtilsService,
 } from '@notify/ngx-shared';
 import { BasePageComponent } from '../../components/base-page/base-page.component';
 

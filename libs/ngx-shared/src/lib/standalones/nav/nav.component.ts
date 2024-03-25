@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { GestureController } from '@ionic/angular';
-import { CapacitorService } from '@notify/nfc-app-services';
+import { CapacitorService } from '@notify/ngx-shared';
 import { VersionLabelComponent } from '../../modules/version-manager';
 import { AppTitleComponent } from '../app-title/app-title.component';
 

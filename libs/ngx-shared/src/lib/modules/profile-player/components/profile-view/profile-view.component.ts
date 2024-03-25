@@ -6,7 +6,7 @@ import {
   ProfileService,
   SvgboxService,
   UtilsService,
-} from '@notify/nfc-app-services';
+} from '../../../../services';
 import { WallpaperComponent } from '../../../../standalones/animated-bg/wallpaper.component';
 import { GoogleMapsComponent } from '../../../../standalones/google-maps/google-maps.component';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';

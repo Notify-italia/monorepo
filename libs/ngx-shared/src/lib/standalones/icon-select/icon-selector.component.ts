@@ -11,7 +11,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SvgBoxIcon, SvgboxService } from '@notify/nfc-app-services';
+import { SvgBoxIcon, SvgboxService } from '@notify/ngx-shared';
 import {
   BehaviorSubject,
   Observable,

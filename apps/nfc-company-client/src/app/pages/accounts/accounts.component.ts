@@ -9,19 +9,17 @@ import {
   INotifyPartialAgent,
 } from '@notify/interfaces';
 import {
+  AccountsTableComponent,
   AgentService,
   AuthService,
   CompanyService,
-  ProfileService,
-  UtilsService,
-} from '@notify/nfc-app-services';
-import {
-  AccountsTableComponent,
   ConfirmModalFactory,
   LoadingComponent,
   PageHeaderComponent,
   ProfilePlayerFactory,
+  ProfileService,
   UserFormFactory,
+  UtilsService,
 } from '@notify/ngx-shared';
 import { ToastrService } from 'ngx-toastr';
 import {

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ComponentRef, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { UtilsService } from '@notify/nfc-app-services';
+import { UtilsService } from '../../../../services';
 import { INotifyVersionInfo } from '../version-label/version-label.component';
 @Component({
   standalone: true,

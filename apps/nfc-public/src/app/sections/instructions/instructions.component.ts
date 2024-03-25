@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, Component } from '@angular/core';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
-import { ProfileService, SSRDirective } from '@notify/nfc-app-services';
-import { ProfileViewComponent } from '@notify/ngx-shared';
+import {
+  ProfileService,
+  ProfileViewComponent,
+  SSRDirective,
+} from '@notify/ngx-shared';
 import { Observable, of } from 'rxjs';
 import { BasePageComponent } from '../../components/base-page/base-page.component';
 

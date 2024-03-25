@@ -146,7 +146,7 @@ SOFTWARE.
 
 @notify/interfaces
 
-@notify/nfc-app-services
+@notify/ngx-shared
 
 @notify/ngx-shared
 

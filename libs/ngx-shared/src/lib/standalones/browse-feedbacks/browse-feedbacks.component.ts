@@ -1,10 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ComponentRef, HostListener, Input } from '@angular/core';
 import { INotifyFeedback } from '@notify/interfaces';
-import {
-  EnumDicebearAvatarStyles,
-  UtilsService,
-} from '@notify/nfc-app-services';
+import { EnumDicebearAvatarStyles, UtilsService } from '../../services';
 
 @Component({
   standalone: true,

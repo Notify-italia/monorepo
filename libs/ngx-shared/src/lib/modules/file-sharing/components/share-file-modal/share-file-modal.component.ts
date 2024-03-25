@@ -7,8 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CapacitorService } from '@notify/nfc-app-services';
 import { Subject } from 'rxjs';
+import { CapacitorService } from '../../../../services';
 import { UploadComponent } from '../../../../standalones/upload/upload.component';
 import { QrcodeComponent } from '../../../modals';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';

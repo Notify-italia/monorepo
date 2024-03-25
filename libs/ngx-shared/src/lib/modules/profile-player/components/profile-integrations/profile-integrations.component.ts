@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
-import { SvgboxService, UtilsService } from '@notify/nfc-app-services';
+import { SvgboxService, UtilsService } from '../../../../services';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
 
 @Component({

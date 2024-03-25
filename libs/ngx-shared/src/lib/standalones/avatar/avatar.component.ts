@@ -7,10 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { DaisyUIAvatarMasks } from '@notify/interfaces';
-import {
-  EnumDicebearAvatarStyles,
-  UtilsService,
-} from '@notify/nfc-app-services';
+import { EnumDicebearAvatarStyles, UtilsService } from '../../services';
 
 interface AvatarConfig {
   src: string | null;

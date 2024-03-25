@@ -2,19 +2,17 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { EnumNotifyStatType, INotifyUser } from '@notify/interfaces';
 import {
+  AREA_CHART_DEFAULT_PERIOD,
   AuthService,
   CapacitorService,
+  LoadingComponent,
   NoteService,
+  PageHeaderComponent,
   ProfileService,
+  ShareProfileComponent,
   StatService,
   SvgBoxIcon,
   SvgboxService,
-} from '@notify/nfc-app-services';
-import {
-  AREA_CHART_DEFAULT_PERIOD,
-  LoadingComponent,
-  PageHeaderComponent,
-  ShareProfileComponent,
   WidgetAreaChartComponent,
   WidgetCounterComponent,
   WidgetFeedbackComponent,

@@ -18,7 +18,6 @@ import {
 } from 'date-fns';
 import { ApexChartSsrComponent } from '../../../../standalones/apex-chart-ssr/apex-chart-ssr.component';
 
-import { UtilsService } from '@notify/nfc-app-services';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -26,6 +25,7 @@ import {
   ApexOptions,
   ApexStroke,
 } from 'ng-apexcharts';
+import { UtilsService } from '../../../../services';
 
 export const AREA_CHART_DEFAULT_PERIOD = {
   from: startOfDay(subWeeks(new Date(), 1)),

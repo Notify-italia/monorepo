@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PageTitleService } from '@notify/nfc-app-services';
+import { PageTitleService } from '@notify/ngx-shared';
 import { NxWelcomeComponent } from './nx-welcome.component';
 
 @Component({

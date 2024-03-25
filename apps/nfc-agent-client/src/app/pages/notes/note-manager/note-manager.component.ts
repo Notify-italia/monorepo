@@ -3,19 +3,17 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppError, INotifyNote, INotifyUser } from '@notify/interfaces';
 import {
+  AddNoteOwnerFactory,
   AgentService,
   AuthService,
-  NoteService,
-  UtilsService,
-} from '@notify/nfc-app-services';
-import {
-  AddNoteOwnerFactory,
   ConfirmModalFactory,
   LoadingComponent,
   ManageNoteOwnersFactory,
   NoteDetailComponent,
+  NoteService,
   PageHeaderComponent,
   SvgBoxIconComponent,
+  UtilsService,
 } from '@notify/ngx-shared';
 import {
   Observable,

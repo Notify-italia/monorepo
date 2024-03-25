@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { INotifyAuth } from '@notify/interfaces';
-import { passwordMatchValidator } from '@notify/nfc-app-services';
+import { passwordMatchValidator } from '@notify/ngx-shared';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
 import { WallpaperComponent } from '../animated-bg/wallpaper.component';

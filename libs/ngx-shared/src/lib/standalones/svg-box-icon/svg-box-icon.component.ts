@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { SvgBoxIcon, SvgboxService } from '@notify/nfc-app-services';
+import { SvgBoxIcon, SvgboxService } from '@notify/ngx-shared';
 
 @Component({
   selector: 'notify-svg-box-icon',

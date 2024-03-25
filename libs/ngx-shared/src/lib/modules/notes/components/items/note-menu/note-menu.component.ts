@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { EnumNotifyNoteItemType } from '@notify/interfaces';
-import { SvgBoxIcon } from '@notify/nfc-app-services';
+import { SvgBoxIcon } from '@notify/ngx-shared';
 import { SvgBoxIconComponent } from '../../../../../standalones/svg-box-icon/svg-box-icon.component';
 
 @Component({

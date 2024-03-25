@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, ComponentRef, Input, OnInit } from '@angular/core';
 import { NfcTag, NfcUtils } from '@capawesome-team/capacitor-nfc';
-import { CapacitorService } from '@notify/nfc-app-services';
+
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { BehaviorSubject, map } from 'rxjs';
+import { CapacitorService } from '../../../../../services';
 
 export interface INotifyNFCStatus {
   status: 'scanning' | 'writing' | 'found' | 'written' | 'error';

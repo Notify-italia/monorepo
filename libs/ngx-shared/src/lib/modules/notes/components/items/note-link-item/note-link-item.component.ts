@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { INotifyNoteItemLink } from '@notify/interfaces';
-import { UtilsService } from '@notify/nfc-app-services';
+import { UtilsService } from '../../../../../services';
 import { TailwindFormsModule } from '../../../../tailwind-forms/tailwind-forms.module';
 import { NoteItemBase } from '../note-item.base';
 

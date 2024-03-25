@@ -9,18 +9,16 @@ import {
   INotifyProfile,
 } from '@notify/interfaces';
 import {
-  GesturesDirective,
-  ProfileService,
-  SocketService,
-  StatService,
-  UtilsService,
-} from '@notify/nfc-app-services';
-import {
   FeedbackFactory,
   FileRecievedFactory,
+  GesturesDirective,
   LoadingComponent,
+  ProfileService,
   ProfileViewComponent,
+  SocketService,
+  StatService,
   SwipeAvailableComponent,
+  UtilsService,
   defaultGradientStops,
 } from '@notify/ngx-shared';
 import {

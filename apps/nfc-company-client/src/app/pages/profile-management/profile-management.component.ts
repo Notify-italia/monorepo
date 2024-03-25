@@ -23,7 +23,7 @@ import {
   CompanyService,
   ProfileService,
   UtilsService,
-} from '@notify/nfc-app-services';
+} from '@notify/ngx-shared';
 import { Observable, Subject, catchError, of, switchMap, tap } from 'rxjs';
 import { environment } from '../../../../src/environments/environment';
 

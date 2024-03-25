@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, ActivationStart, Router } from '@angular/router';
+import { ActivationStart, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,6 @@ export class PageTitleService {
   constructor(
     @Inject('suffix') private _suffix: string,
     private _titleService: Title,
-    private _activatedRoute: ActivatedRoute,
     private _router: Router
   ) {}
 
@@ -18,7 +17,6 @@ export class PageTitleService {
       if (!(data instanceof ActivationStart)) {
         return;
       }
-      console.log('NavigationEnd', data.snapshot.data);
       this.setTitle(data.snapshot.data['pageTitle']);
     });
   }
@@ -36,9 +34,9 @@ export class PageTitleService {
 export const providePageTitleService = (suffix: string) => {
   return {
     provide: PageTitleService,
-    deps: [Title, ActivatedRoute, Router],
-    useFactory: (title: Title, ac: ActivatedRoute, router: Router) => {
-      return new PageTitleService(suffix, title, ac, router);
+    deps: [Title, Router],
+    useFactory: (title: Title, router: Router) => {
+      return new PageTitleService(suffix, title, router);
     },
   };
 };

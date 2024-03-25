@@ -14,7 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { INotifyAccount, INotifyPartialUser } from '@notify/interfaces';
-import { passwordMatchValidator } from '@notify/nfc-app-services';
+import { passwordMatchValidator } from '@notify/ngx-shared';
 import { Subject } from 'rxjs';
 import { TailwindFormsModule } from '../../tailwind-forms/tailwind-forms.module';
 

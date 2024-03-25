@@ -13,11 +13,9 @@ import {
   AgentService,
   AuthService,
   FeedbackService,
-  SvgBoxIcon,
-} from '@notify/nfc-app-services';
-import {
   LoadingComponent,
   PageHeaderComponent,
+  SvgBoxIcon,
   WidgetBarChartComponent,
   WidgetCounterComponent,
   WidgetFeedbackComponent,

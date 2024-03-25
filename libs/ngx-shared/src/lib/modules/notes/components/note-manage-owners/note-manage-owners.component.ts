@@ -8,7 +8,7 @@ import {
   inject,
 } from '@angular/core';
 import { INotifyUser } from '@notify/interfaces';
-import { AuthService } from '@notify/nfc-app-services';
+import { AuthService } from '@notify/ngx-shared';
 import { Observable, Subject } from 'rxjs';
 import { LoadingComponent } from '../../../../standalones/loading/loading.component';
 import { AccountsTableComponent } from '../../../accounts';

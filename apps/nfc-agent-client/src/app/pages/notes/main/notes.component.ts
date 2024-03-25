@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppError, INotifyNote } from '@notify/interfaces';
-import { NoteService, UtilsService } from '@notify/nfc-app-services';
 import {
   ConfirmModalFactory,
   LoadingComponent,
+  NoteService,
   NotesListComponent,
   PageHeaderComponent,
+  UtilsService,
 } from '@notify/ngx-shared';
 import { Observable, Subject, catchError, switchMap, tap } from 'rxjs';
 

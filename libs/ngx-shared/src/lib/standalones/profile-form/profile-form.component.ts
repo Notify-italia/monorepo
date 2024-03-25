@@ -19,7 +19,7 @@ import {
   CapacitorService,
   UtilsService,
   itPhoneNumberValidators,
-} from '@notify/nfc-app-services';
+} from '@notify/ngx-shared';
 import {
   Subject,
   combineLatest,

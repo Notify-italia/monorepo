@@ -23,7 +23,7 @@ import {
   CapacitorService,
   ProfileService,
   UtilsService,
-} from '@notify/nfc-app-services';
+} from '@notify/ngx-shared';
 import {
   Observable,
   Subject,

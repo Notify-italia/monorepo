@@ -11,8 +11,8 @@ import {
   HttpService,
   ProfileService,
   SocketService,
-} from '@notify/nfc-app-services';
-import { provideTailwindToasts } from '@notify/ngx-shared';
+  provideTailwindToasts,
+} from '@notify/ngx-shared';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';

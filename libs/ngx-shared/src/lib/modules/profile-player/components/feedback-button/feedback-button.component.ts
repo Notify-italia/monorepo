@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { INotifyFeedback, INotifyProfile } from '@notify/interfaces';
-import { FeedbackService } from '@notify/nfc-app-services';
+import { FeedbackService } from '../../../../services';
 import { RatingComponent } from '../rating/rating.component';
 
 @Component({
