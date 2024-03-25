@@ -31,11 +31,6 @@ export class HomeComponent {
       'https://s3-api.vps.notifyapp.it/assets/version-art/v0.9.0-agent.webp',
     changes: [
       {
-        type: 'fix',
-        message:
-          '<b>Changelogs</b>: Corretto un problema che causava lo scroll degli elementi sotto al changelog',
-      },
-      {
         type: 'improvement',
         message:
           '<b>Changelogs</b>: Modificato il layout del changelog per renderlo più leggibile',
