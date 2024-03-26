@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, ComponentRef, HostListener, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Subject } from 'rxjs';
+import { ModalBaseComponent } from '../../../../../constructors/modal.base.component';
 
 export interface IConfirmModalConfig {
   value: unknown;
@@ -18,28 +19,23 @@ export interface IConfirmModalConfig {
   templateUrl: './confirm.component.html',
   styleUrls: ['./confirm.component.scss'],
 })
-export class ConfirmComponent {
+export class ConfirmComponent extends ModalBaseComponent {
   @Input({ required: true }) public config!: IConfirmModalConfig;
   @Input() public loading = false;
-  @Input({ required: true }) public cf!: ComponentRef<ConfirmComponent>;
 
   public submitted = new Subject<IConfirmModalConfig['value']>();
 
-  public destroyed$ = new Subject<void>();
-
-  @HostListener('document:keydown.escape', ['$event'])
-  public close() {
+  override onClose() {
     this.submitted.next(null);
-    this.cf.destroy();
-    this.destroyed$.next();
   }
 
   public confirm() {
     this.submitted.next(this.config.value);
 
     if (this.config.closeOnConfirm) {
-      this.cf.destroy();
-      this.destroyed$.next();
+      this.close({
+        skipLifecycle: true,
+      });
     }
   }
 }

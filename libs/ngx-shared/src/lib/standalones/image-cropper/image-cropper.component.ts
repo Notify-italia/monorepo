@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  ComponentRef,
-  HostListener,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import Compressor from 'compressorjs';
 // import 'hammerjs';
 import {
@@ -14,6 +8,7 @@ import {
   ImageTransform,
 } from 'ngx-image-cropper';
 import { Subject } from 'rxjs';
+import { ModalBaseComponent } from '../../constructors/modal.base.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 
@@ -44,9 +39,11 @@ export interface IImageCropperConfig {
   templateUrl: './image-cropper.component.html',
   styleUrl: './image-cropper.component.scss',
 })
-export class ImageCropperComponent implements OnInit {
+export class ImageCropperComponent
+  extends ModalBaseComponent
+  implements OnInit
+{
   @Input({ required: true }) config!: IImageCropperConfig;
-  @Input() cf!: ComponentRef<ImageCropperComponent>;
 
   public value!: Blob;
   public transform: ImageTransform = {};
@@ -101,9 +98,7 @@ export class ImageCropperComponent implements OnInit {
     };
   }
 
-  @HostListener('document:keydown.escape')
-  close() {
-    this.cf.destroy();
+  override onClose(): void {
     this.destroyed.next();
   }
 

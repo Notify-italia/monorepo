@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, ComponentRef, HostListener, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { INotifyFeedback } from '@notify/interfaces';
+import { ModalBaseComponent } from '../../constructors/modal.base.component';
 import { EnumDicebearAvatarStyles, UtilsService } from '../../services';
 
 @Component({
@@ -10,15 +11,11 @@ import { EnumDicebearAvatarStyles, UtilsService } from '../../services';
   templateUrl: './browse-feedbacks.component.html',
   styleUrl: './browse-feedbacks.component.scss',
 })
-export class BrowseFeedbacksComponent {
-  @Input() cf!: ComponentRef<BrowseFeedbacksComponent>;
+export class BrowseFeedbacksComponent extends ModalBaseComponent {
   @Input() feedbacks: INotifyFeedback[] = [];
 
-  constructor(private _utils: UtilsService) {}
-
-  @HostListener(`document:keydown.escape`)
-  public close() {
-    this.cf.destroy();
+  constructor(private _utils: UtilsService) {
+    super();
   }
 
   public get sortedFeedbacks() {

@@ -1,14 +1,9 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  ComponentRef,
-  HostListener,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { GetBrightnessReturnValue } from '@capacitor-community/screen-brightness';
 import { QRCodeComponent, QRCodeModule } from 'angularx-qrcode';
 import { ToastrService } from 'ngx-toastr';
+import { ModalBaseComponent } from '../../../../../constructors/modal.base.component';
 import { CapacitorService } from '../../../../../services';
 
 @Component({
@@ -18,8 +13,7 @@ import { CapacitorService } from '../../../../../services';
   templateUrl: './qrcode.component.html',
   styleUrls: ['./qrcode.component.scss'],
 })
-export class QrcodeComponent implements OnInit {
-  @Input() cf!: ComponentRef<QrcodeComponent>;
+export class QrcodeComponent extends ModalBaseComponent implements OnInit {
   @Input({ required: true }) data = '';
   @Input() size = 256;
   @Input() title = 'QR Code';
@@ -38,7 +32,9 @@ export class QrcodeComponent implements OnInit {
   constructor(
     private _capacitorService: CapacitorService,
     private _toastr: ToastrService
-  ) {}
+  ) {
+    super();
+  }
 
   async ngOnInit() {
     this._storedBrightness = await this._capacitorService.brightness;
@@ -46,10 +42,8 @@ export class QrcodeComponent implements OnInit {
     this._capacitorService.setBrightness(1);
   }
 
-  @HostListener('document:keydown.escape')
-  close() {
+  override onClose() {
     this._capacitorService.setBrightness(this._storedBrightness.brightness);
-    this.cf.destroy();
   }
 
   saveAsImage(parent: QRCodeComponent) {

@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  ComponentRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -16,6 +9,7 @@ import {
 import { INotifyAccount, INotifyPartialUser } from '@notify/interfaces';
 
 import { Subject } from 'rxjs';
+import { ModalBaseComponent } from '../../../constructors/modal.base.component';
 import { passwordMatchValidator } from '../../../validators';
 import { TailwindFormsModule } from '../../tailwind-forms/tailwind-forms.module';
 
@@ -40,8 +34,7 @@ export interface IUserFormPasswordFieldConfig {
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
 })
-export class UserFormComponent implements OnInit {
-  @Input({ required: true }) public cf!: ComponentRef<UserFormComponent>;
+export class UserFormComponent extends ModalBaseComponent implements OnInit {
   @Input() public loading = false;
   @Input() public user: INotifyAccount | null = null;
   @Input() public createdRoles: string[] = [];
@@ -57,7 +50,6 @@ export class UserFormComponent implements OnInit {
   public submitted = new Subject<INotifyPartialUser>();
 
   public form!: FormGroup;
-  public destroyed$ = new Subject<void>();
 
   public get isLoading() {
     return this.loading;
@@ -75,8 +67,6 @@ export class UserFormComponent implements OnInit {
     passwordMatchValidator: 'I campi non corrispondono',
     minLength: 'Minimo 6 caratteri',
   };
-
-  constructor() {}
 
   ngOnInit(): void {
     this.cf.onDestroy(() => {
@@ -113,10 +103,6 @@ export class UserFormComponent implements OnInit {
 
   private _isRequired(field: IUserFormHiddenFields[0]) {
     return this.hiddenFields.includes(field) ? [] : [Validators.required];
-  }
-
-  close() {
-    this.cf.destroy();
   }
 
   submit() {

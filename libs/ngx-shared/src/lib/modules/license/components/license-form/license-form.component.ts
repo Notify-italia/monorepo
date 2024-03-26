@@ -1,13 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  ComponentRef,
-  ElementRef,
-  HostListener,
-  Input,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChildren } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -16,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
 
 @Component({
@@ -30,10 +23,8 @@ import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-bo
   templateUrl: './license-form.component.html',
   styleUrl: './license-form.component.scss',
 })
-export class LicenseFormComponent {
+export class LicenseFormComponent extends ModalBaseComponent {
   @ViewChildren('LicenseInput') licenseInputs!: QueryList<ElementRef>;
-
-  @Input() public cf!: ComponentRef<LicenseFormComponent>;
 
   public loading = false;
   public submitted = new Subject<string>();
@@ -57,11 +48,6 @@ export class LicenseFormComponent {
       name: `part${i}`,
       placeholder: 'ABCD1234',
     }));
-  }
-
-  @HostListener('document:keydown.escape', ['$event'])
-  public close(): void {
-    this.cf.destroy();
   }
 
   public submit(): void {

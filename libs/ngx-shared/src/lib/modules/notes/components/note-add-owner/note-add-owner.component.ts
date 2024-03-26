@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  ComponentRef,
-  HostListener,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -15,6 +9,7 @@ import {
 } from '@angular/forms';
 import { INotifyUser } from '@notify/interfaces';
 import { Observable, Subject, map } from 'rxjs';
+import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { LoadingComponent } from '../../../../standalones/loading/loading.component';
 import { ITailwindSelectOption } from '../../../tailwind-forms/components/tailwind-select/tailwind-select.component';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
@@ -32,9 +27,11 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
   templateUrl: './note-add-owner.component.html',
   styleUrl: './note-add-owner.component.scss',
 })
-export class NoteAddOwnerComponent implements OnInit {
+export class NoteAddOwnerComponent
+  extends ModalBaseComponent
+  implements OnInit
+{
   @Input() users$ = new Observable<INotifyUser[]>();
-  @Input() cf!: ComponentRef<NoteAddOwnerComponent>;
   @Input() loading = false;
 
   public submitted = new Subject<{
@@ -68,11 +65,6 @@ export class NoteAddOwnerComponent implements OnInit {
     user: new FormControl('', Validators.required),
     sendNotification: new FormControl(true),
   });
-
-  @HostListener('document:keydown.escape', ['$event'])
-  public close() {
-    this.cf.destroy();
-  }
 
   public mapUsers(u: INotifyUser[]) {
     return u.map((u) => {

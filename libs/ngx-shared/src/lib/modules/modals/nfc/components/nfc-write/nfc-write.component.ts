@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, ComponentRef, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NfcTag, NfcUtils } from '@capawesome-team/capacitor-nfc';
 
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { BehaviorSubject, map } from 'rxjs';
+import { ModalBaseComponent } from '../../../../../constructors/modal.base.component';
 import { CapacitorService } from '../../../../../services';
 
 export interface INotifyNFCStatus {
@@ -19,11 +20,10 @@ export interface INotifyNFCStatus {
   templateUrl: './nfc-write.component.html',
   styleUrls: ['./nfc-write.component.scss'],
 })
-export class NfcWriteComponent implements OnInit {
+export class NfcWriteComponent extends ModalBaseComponent implements OnInit {
   @Input() userProfile = '';
   @Input() companyProfile = '';
   @Input() profilesUrl = '';
-  @Input() cf!: ComponentRef<NfcWriteComponent>;
   @Input() blurBackground = true;
 
   private _nfcUtils = new NfcUtils();
@@ -59,7 +59,9 @@ export class NfcWriteComponent implements OnInit {
     })
   );
 
-  constructor(private _capacitorService: CapacitorService) {}
+  constructor(private _capacitorService: CapacitorService) {
+    super();
+  }
 
   ngOnInit(): void {
     disableBodyScroll(this._parentElement, {
@@ -129,8 +131,7 @@ export class NfcWriteComponent implements OnInit {
     });
   }
 
-  public close() {
+  override onClose(): void {
     enableBodyScroll(this._parentElement);
-    this.cf.destroy();
   }
 }

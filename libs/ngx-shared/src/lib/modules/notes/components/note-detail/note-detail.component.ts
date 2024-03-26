@@ -94,7 +94,6 @@ export class NoteDetailComponent implements OnInit, OnChanges {
     });
 
     ref.instance.submitted.subscribe((value) => {
-      console.log(value);
       if (!value) {
         return;
       }

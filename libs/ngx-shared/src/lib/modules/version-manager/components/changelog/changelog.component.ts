@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, ComponentRef, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { UtilsService } from '../../../../services';
 import { INotifyVersionInfo } from '../version-label/version-label.component';
 @Component({
@@ -10,19 +11,19 @@ import { INotifyVersionInfo } from '../version-label/version-label.component';
   templateUrl: './changelog.component.html',
   styleUrl: './changelog.component.scss',
 })
-export class ChangelogComponent implements OnInit {
+export class ChangelogComponent extends ModalBaseComponent implements OnInit {
   @Input() versionInfo!: INotifyVersionInfo;
-  @Input() cf!: ComponentRef<ChangelogComponent>;
 
-  close() {
+  override onClose() {
     this._utilsService.toggleScrollLock(false);
-    this.cf.destroy();
   }
 
   constructor(
     private _domSanitizer: DomSanitizer,
     private _utilsService: UtilsService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this._utilsService.toggleScrollLock(true);

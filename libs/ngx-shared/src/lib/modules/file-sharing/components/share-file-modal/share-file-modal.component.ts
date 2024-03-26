@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ComponentRef, HostListener, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,9 +8,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { CapacitorService } from '../../../../services';
 import { UploadComponent } from '../../../../standalones/upload/upload.component';
-import { QrcodeComponent } from '../../../modals';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
 
 @Component({
@@ -26,9 +26,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
   templateUrl: './share-file-modal.component.html',
   styleUrl: './share-file-modal.component.scss',
 })
-export class ShareFileModalComponent {
-  @Input() cf!: ComponentRef<QrcodeComponent>;
-
+export class ShareFileModalComponent extends ModalBaseComponent {
   public desktopMessage = `Fai click per caricare un file o trascinalo all'interno del riquadro`;
   public mobileMessage = `Tocca per caricare un file`;
 
@@ -39,15 +37,12 @@ export class ShareFileModalComponent {
     file: new FormControl(null, Validators.required),
   });
 
-  constructor(public _capacitor: CapacitorService) {}
+  constructor(public _capacitor: CapacitorService) {
+    super();
+  }
 
   public setUploadedFile(file: File | null) {
     this.form.controls.file.setValue(file);
-  }
-
-  @HostListener('document:keydown.escape')
-  close() {
-    this.cf.destroy();
   }
 
   public submit() {
@@ -57,6 +52,6 @@ export class ShareFileModalComponent {
 
     this.submitted.next(this.form.value.file);
 
-    this.cf.destroy();
+    this.close();
   }
 }

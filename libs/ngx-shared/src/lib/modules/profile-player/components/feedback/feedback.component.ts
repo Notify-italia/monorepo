@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, ComponentRef, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppError, INotifyProfile } from '@notify/interfaces';
 
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
+import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { FeedbackService, UtilsService } from '../../../../services';
 import { RatingComponent } from '../rating/rating.component';
 
@@ -16,8 +17,7 @@ import { RatingComponent } from '../rating/rating.component';
   templateUrl: './feedback.component.html',
   styleUrls: ['./feedback.component.scss', '../profile.styles.scss'],
 })
-export class FeedbackComponent implements OnInit {
-  @Input({ required: true }) cf!: ComponentRef<FeedbackComponent>;
+export class FeedbackComponent extends ModalBaseComponent implements OnInit {
   @Input({ required: true }) profile!: INotifyProfile;
   @Input({ required: true }) feedbackKey!: string;
 
@@ -29,7 +29,9 @@ export class FeedbackComponent implements OnInit {
     private _feedbackService: FeedbackService,
     private _toastr: ToastrService,
     private _utilsService: UtilsService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     disableBodyScroll(document.body);
@@ -59,9 +61,8 @@ export class FeedbackComponent implements OnInit {
       .subscribe();
   }
 
-  public close() {
+  override onClose() {
     enableBodyScroll(document.body);
-    this.cf.destroy();
   }
 
   public isSendDisabled() {

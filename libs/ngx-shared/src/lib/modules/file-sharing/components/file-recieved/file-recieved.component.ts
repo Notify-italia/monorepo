@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, ComponentRef, HostListener, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
+import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { defaultGradientStops } from '../../../profile-player';
 
 @Component({
@@ -9,7 +10,7 @@ import { defaultGradientStops } from '../../../profile-player';
   templateUrl: './file-recieved.component.html',
   styleUrl: './file-recieved.component.scss',
 })
-export class FileRecievedComponent {
+export class FileRecievedComponent extends ModalBaseComponent {
   @Input() fileName?: string;
   @Input() fileData?: Buffer;
   @Input() colors: INotifyProfile['colors'] = {
@@ -17,14 +18,6 @@ export class FileRecievedComponent {
     elements: 'white',
     useCompanyColors: false,
   };
-  @Input() cf!: ComponentRef<FileRecievedComponent>;
-
-  constructor() {}
-
-  @HostListener('document:keydown.escape')
-  close() {
-    this.cf.destroy();
-  }
 
   public downloadFile() {
     if (!this.fileData) {
