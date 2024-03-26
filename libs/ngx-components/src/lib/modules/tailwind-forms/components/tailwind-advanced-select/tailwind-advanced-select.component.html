@@ -1,9 +1,9 @@
-<div [formGroup]="parent" class="w-full">
+<div [formGroup]="parent" class="w-full z-[100]">
   <label [for]="name" class="block text-sm font-medium">
     {{ label | titlecase }}
   </label>
 
-  <button class="group/advancedSelect w-full" tabindex="0">
+  <button class="group/advancedSelect w-full" tabindex="0" type="button">
     <input
       #DropdownInput
       class="w-full select items-center flex text-white placeholder-slate-600 input-bordered"
@@ -22,7 +22,7 @@
       *ngIf="dropdownVisible"
       tabindex="0"
       [style.width.px]="DropdownInput.offsetWidth"
-      class="advanced-dropdown smooth smooth-fast group-focus-within/advancedSelect:translate-y-0 group-focus-within/advancedSelect:pointer-events-auto group-focus-within/advancedSelect:opacity-100"
+      class="advanced-dropdown smooth smooth-fast group-focus-within/advancedSelect:translate-y-0 group-focus-within/advancedSelect:pointer-events-auto group-focus-within/advancedSelect:opacity-100 z-[100]"
     >
       @for (item of filteredOptions; track item) {
       <li>
