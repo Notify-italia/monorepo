@@ -106,7 +106,7 @@
       "defaultConfiguration": "any",
       "configurations": {
         "any": {
-          "command": "npx capacitor-assets generate --iconBackgroundColor '#eeeeee' --iconBackgroundColorDark '#222222' --splashBackgroundColor '#eeeeee' --splashBackgroundColorDark '#111111' --assetPath ./resoruces --iosProject ./app/ios/App --androidProject ./app/android/App  ",
+          "command": "npx capacitor-assets generate --iconBackgroundColor '#eeeeee' --iconBackgroundColorDark '#222222' --splashBackgroundColor '#eeeeee' --splashBackgroundColorDark '#111111' --assetPath ./resoruces --iosProject ./app/ios/App --androidProject ./app/android/App",
           "cwd": "apps/nfc-agent-client"
         }
       }

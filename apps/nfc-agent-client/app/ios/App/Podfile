@@ -11,7 +11,13 @@ install! 'cocoapods', :disable_input_output_paths => true
 def capacitor_pods
   pod 'Capacitor', :path => '../../../../../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../../../../../node_modules/@capacitor/ios'
-
+  pod 'CapacitorCommunityMedia', :path => '../../../../../node_modules/@capacitor-community/media'
+  pod 'CapacitorCommunityScreenBrightness', :path => '../../../../../node_modules/@capacitor-community/screen-brightness'
+  pod 'CapacitorApp', :path => '../../../../../node_modules/@capacitor/app'
+  pod 'CapacitorFilesystem', :path => '../../../../../node_modules/@capacitor/filesystem'
+  pod 'CapacitorHaptics', :path => '../../../../../node_modules/@capacitor/haptics'
+  pod 'CapacitorStatusBar', :path => '../../../../../node_modules/@capacitor/status-bar'
+  pod 'CapawesomeTeamCapacitorNfc', :path => '../../../../../node_modules/@capawesome-team/capacitor-nfc'
 end
 
 target 'App' do

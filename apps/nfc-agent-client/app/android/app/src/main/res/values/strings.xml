@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Notify</string>
-    <string name="title_activity_main">Notify</string>
+    <string name="app_name">Notify Italia</string>
+    <string name="title_activity_main">Notify Italia</string>
     <string name="package_name">org.notify.agent.client</string>
     <string name="custom_url_scheme">org.notify.agent.client</string>
 </resources>
