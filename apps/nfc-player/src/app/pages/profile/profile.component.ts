@@ -11,6 +11,7 @@ import {
 import {
   FeedbackFactory,
   FileRecievedFactory,
+  FloatingButtonComponent,
   GesturesDirective,
   LoadingComponent,
   ProfileService,
@@ -41,6 +42,7 @@ import { environment } from '../../../environments/environment';
     GesturesDirective,
     SwipeAvailableComponent,
     LoadingComponent,
+    FloatingButtonComponent,
   ],
   providers: [FileRecievedFactory, StatService, FeedbackFactory, UtilsService],
   templateUrl: './profile.component.html',

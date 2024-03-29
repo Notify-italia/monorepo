@@ -33,8 +33,6 @@ router.post(
     async (req, res) => {
       const { email, password, role, enabled, feedbackEnabled } = req.body;
 
-      //TODO check se la company può ancora creare agenti
-
       const license = await LicenseManager.load({
         id: (req.currentUser?.license as unknown as INotifyLicense)?._id,
       });

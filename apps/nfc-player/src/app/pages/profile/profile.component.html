@@ -5,50 +5,40 @@
 
   <!-- TODO incapsula save contact e force close company -->
   <!-- SAVE CONTACT -->
-  <div class="fixed bottom-5 right-5 z-[999]" *ngIf="isAgent(p)">
-    <button class="floating-button" (click)="saveContact(p)">
-      <span class="lg:hidden"> Salva </span>
-      <svg
-        fill="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M19 1H8.99C7.89 1 7 1.9 7 3h10c1.1 0 2 .9 2 2v13l2 1V3c0-1.1-.9-2-2-2Z"
-        ></path>
-        <path d="M5 5h10c1.1 0 2 .9 2 2v16l-7-3-7 3V7c0-1.1.9-2 2-2Z"></path>
-      </svg>
 
-      <span class="hidden lg:block"> Scarica contatto </span>
-    </button>
-  </div>
+  <notify-floating-button
+    *ngIf="isAgent(p)"
+    (click)="saveContact(p)"
+    [offsets]="{
+      bottom: '1.25rem',
+      right: '1.25rem'
+    }"
+    [label]="{
+      lg: 'Scarica contatto',
+      base: 'Salva'
+    }"
+    [iconPath]="[
+      'M19 1H8.99C7.89 1 7 1.9 7 3h10c1.1 0 2 .9 2 2v13l2 1V3c0-1.1-.9-2-2-2Z',
+      'M5 5h10c1.1 0 2 .9 2 2v16l-7-3-7 3V7c0-1.1.9-2 2-2Z'
+    ]"
+  ></notify-floating-button>
 
   <!-- FORCE CLOSE COMPANY -->
-  <div
-    class="fixed bottom-7 right-36 z-[999] pointer-events-none smooth opacity-0"
+  <notify-floating-button
+    *ngIf="isAgent(p)"
+    (click)="forceHideCompanyProfile()"
     [ngClass]="{
       'opacity-100 pointer-events-auto': companyIsVisible
     }"
-  >
-    <button
-      class="floating-button fb-small"
-      (click)="forceHideCompanyProfile()"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
-        />
-      </svg>
-    </button>
-  </div>
+    class="pointer-events-none smooth opacity-0"
+    [offsets]="{
+      bottom: '1.75rem',
+      right: '9rem'
+    }"
+    [small]="true"
+    [iconRenderingMode]="'stroke'"
+    [iconPath]="['M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3']"
+  ></notify-floating-button>
 
   @if (isAgent(p)) {
   <div
