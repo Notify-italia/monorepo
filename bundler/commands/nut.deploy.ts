@@ -111,7 +111,7 @@ const _deployToCaprover = (
   if (!stringStdout.includes('Deployed successfully')) {
     spinner.stop(true);
     console.log(chalk.bgRed.white('Deployment failed for ' + manifest.appName));
-    whenVerbose(chalk.red(stderr));
+    console.log(chalk.red(stringStdout));
     process.exit(1);
   }
 
