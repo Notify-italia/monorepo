@@ -10,7 +10,6 @@
     "
   ></notify-page-header>
 
-  @if (profile$ | async; as profile) {
   <div>
     <div>
       <!-- BACK TO LIST -->
@@ -37,86 +36,16 @@
         </svg>
         <span>Torna alla lista</span>
       </button>
-      <div>
-        <notify-share-profile
-          [profile]="profile"
-          [baseUrl]="baseUrl"
-          source="root"
-        ></notify-share-profile>
-      </div>
-      <notify-save-indicator
-        [followPage]="true"
-        [isSaving]="loading"
-        [lastSave]="profile.updatedAt"
-        (save)="saveProfile(profile)"
-      ></notify-save-indicator>
-      <div
-        class="lg:flex justify-around lg:space-x-4 space-y-4 lg:space-y-0 items-start w-full"
-      >
-        <notify-profile-form
-          [profile]="profile"
-          [savedRedirects]="savedRedirects"
-          [loading]="loading"
-          (value)="updateProfileSubject($event)"
-          (submitForm)="saveProfile($event)"
-          (removeSavedRedirect)="removeSavedRedirect($event)"
-          class="w-full 2xl:w-6/12"
-        ></notify-profile-form>
-
-        <div class="w-6/12 p-2 flex justify-center relative">
-          <notify-profile-view
-            *ngIf="!profile.config.redirectEnabled"
-            [data]="profile"
-            [mockup]="true"
-            class="iphone-15-pro hidden lg:block absolute scale-75 2xl:scale-100 top-10"
-          ></notify-profile-view>
-
-          <div
-            class="hidden lg:flex absolute scale-75 2xl:scale-100 top-10 flex-col"
-            *ngIf="profile.config.redirectEnabled"
-          >
-            <iframe
-              [src]="normalizeURL(profile.redirectUrl)"
-              class="iphone-15-pro phone mockup-phone pointer-events-none"
-              frameborder="0"
-            ></iframe>
-            <small class="w-full text-center mx-auto">
-              Alcuni siti web potrebbero non essere visualizzati correttamente
-            </small>
-          </div>
-        </div>
-      </div>
-
-      <div
-        class="fixed bottom-5 right-5 lg:hidden z-50"
-        *ngIf="!profile.config.redirectEnabled"
-      >
-        <button class="floating-button" (click)="previewProfile(profile)">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </button>
-      </div>
+      <notify-profile-management-template-base
+        [profile$]="profile$"
+        [loading]="loading"
+        [providedProfile]="providedProfile"
+        [baseUrl]="baseUrl"
+        [savedRedirects]="savedRedirects"
+        (previewProfile)="previewProfile($event)"
+        (saveProfile)="saveProfile($event)"
+        (removeSavedRedirect)="removeSavedRedirect($event)"
+      ></notify-profile-management-template-base>
     </div>
   </div>
-  } @else {
-  <div class="loading-container">
-    <notify-loading></notify-loading>
-  </div>
-  }
-</div>
-<div
-  class="fixed bottom-0 left-0 lg:left-auto lg:right-0 scale-[0.4] opacity-50"
-  *ngIf="loading"
->
-  <notify-loading></notify-loading>
 </div>

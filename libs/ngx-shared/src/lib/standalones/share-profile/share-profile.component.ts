@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { QRCodeModule } from 'angularx-qrcode';
 
 import { EnumNotifyProfileSources, INotifyProfile } from '@notify/interfaces';
 import { CapacitorService, ProfileService } from '../../services';
@@ -8,11 +7,10 @@ import { CapacitorService, ProfileService } from '../../services';
 import { ToastrService } from 'ngx-toastr';
 import { QrcodeFactory } from '../../modules/modals';
 import { NfcWriteFactory } from '../../modules/modals/nfc';
-import { NfcWriteComponent } from '../../modules/modals/nfc/components/nfc-write/nfc-write.component';
 @Component({
   selector: 'notify-share-profile',
   standalone: true,
-  imports: [CommonModule, QRCodeModule, NfcWriteComponent],
+  imports: [CommonModule],
   providers: [NfcWriteFactory, CapacitorService, QrcodeFactory],
   templateUrl: './share-profile.component.html',
   styleUrls: ['./share-profile.component.scss'],

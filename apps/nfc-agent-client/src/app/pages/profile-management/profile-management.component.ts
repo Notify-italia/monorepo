@@ -1,42 +1,28 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import {
+  AgentService,
   LoadingComponent,
   PageHeaderComponent,
   ProfileFormComponent,
+  ProfileManagementBaseComponent,
   ProfilePlayerFactory,
+  ProfileService,
+  ProfileTemplateBaseComponent,
   ProfileViewComponent,
   SaveIndicatorComponent,
   ShareProfileComponent,
+  UtilsService,
 } from '@notify/ngx-shared';
 
+import { CommonModule } from '@angular/common';
 import {
-  AppError,
   EnumNotifyUserType,
   INotifyAgent,
   INotifyProfile,
 } from '@notify/interfaces';
-import {
-  AgentService,
-  AuthService,
-  CachedSrcDirective,
-  CapacitorService,
-  ProfileService,
-  UtilsService,
-} from '@notify/ngx-shared';
-import {
-  Observable,
-  Subject,
-  catchError,
-  debounceTime,
-  of,
-  switchMap,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { CachedSrcDirective } from '@notify/ngx-shared';
+import { tap } from 'rxjs';
 import { environment } from '../../../../src/environments/environment';
-
-type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
 
 @Component({
   selector: 'notify-profile-management',
@@ -50,104 +36,18 @@ type IProfile = INotifyProfile<EnumNotifyUserType.Agent>;
     LoadingComponent,
     SaveIndicatorComponent,
     CachedSrcDirective,
+    ProfileTemplateBaseComponent,
   ],
-  providers: [ProfilePlayerFactory, CapacitorService, AgentService],
+  providers: [ProfilePlayerFactory, AgentService, UtilsService, ProfileService],
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
 })
-export class ProfileManagementComponent implements OnDestroy {
-  private _profileSubject$ = new Subject<IProfile>();
-  public profile$: Observable<IProfile> = this._profileSubject$;
-  public loading = false;
-  public baseUrl = environment.profilesUrl;
-
-  public destroy$ = new Subject<void>();
-
-  public debouncedNextProfile$: Subject<INotifyProfile> =
-    new Subject<IProfile>();
-
-  public get savedRedirects() {
-    return this._authService.user?.savedRedirects || [];
+export class ProfileManagementComponent extends ProfileManagementBaseComponent {
+  constructor(private _agentService: AgentService) {
+    super(environment as unknown as { [key: string]: string });
   }
 
-  constructor(
-    private _profileService: ProfileService,
-    private _utilsService: UtilsService,
-    private _playerFactroy: ProfilePlayerFactory,
-    private _agentService: AgentService,
-    private _authService: AuthService
-  ) {
-    this._getProfile();
-
-    this.debouncedNextProfile$
-      .pipe(
-        takeUntil(this.destroy$),
-        debounceTime(500),
-        tap((profile) => this._profileSubject$.next(profile))
-      )
-      .subscribe();
-  }
-
-  public ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  public updateProfileSubject(profile: INotifyProfile) {
-    this.debouncedNextProfile$.next(profile as IProfile);
-  }
-
-  public previewProfile(profile: INotifyProfile) {
-    this._playerFactroy.create({ profile });
-  }
-
-  public saveProfile(profile: IProfile) {
-    this.loading = true;
-    this._profileService
-      .patchProfile<EnumNotifyUserType.Agent>(profile)
-      .pipe(
-        tap((profile) => {
-          this.updateProfileSubject(profile);
-        }),
-        switchMap((p) => {
-          if (!this._authService.user) {
-            return of();
-          }
-
-          const savedRedirects: string[] = [
-            ...new Set([
-              ...(this._authService.user?.savedRedirects || []),
-              p.redirectUrl || '',
-            ]),
-          ].filter((r) => r);
-
-          return this._agentService
-            .patch(this._authService.user?._id || '', {
-              savedRedirects,
-            })
-            .pipe(
-              switchMap(() => {
-                return this._authService.refreshToken();
-              })
-            );
-        }),
-        catchError(async (err: AppError) =>
-          this._utilsService.errorHandler(err)
-        ),
-        tap(() => (this.loading = false))
-      )
-      .subscribe();
-  }
-
-  public normalizeURL(url: string | null) {
-    if (!url) {
-      url = 'https://notifyapp.it';
-    }
-
-    return this._utilsService.populateWebProtocol('https://', url);
-  }
-
-  public removeSavedRedirect(redirect: string) {
+  override removeSavedRedirect(redirect: string) {
     this.loading = true;
     const user = this._authService.user as unknown as INotifyAgent;
 
@@ -155,27 +55,26 @@ export class ProfileManagementComponent implements OnDestroy {
       .patch(user?._id || '', {
         savedRedirects: this.savedRedirects.filter((r) => r !== redirect),
       })
-      .pipe(
-        switchMap(() => this._authService.refreshToken()),
-        catchError(async (err: AppError) => {
-          return this._utilsService.errorHandler(err);
-        }),
-        tap(() => (this.loading = false))
-      )
+      .pipe(this.refreshTokenPipe())
       .subscribe();
   }
 
-  private _getProfile() {
+  override updateSavedRedirects(profile: INotifyProfile) {
+    const savedRedirects = this.getSavedRedirects(profile);
+
+    return this._agentService.patch(this._authService.user?._id || '', {
+      savedRedirects,
+    });
+  }
+
+  override _getProfile() {
     this._profileService
       .getProfile<EnumNotifyUserType.Agent>()
       .pipe(
         tap((profile) => {
           this._profileSubject$.next(profile);
         }),
-        catchError(async (err: AppError) => {
-          return this._utilsService.errorHandler(err);
-        }),
-        tap(() => (this.loading = false))
+        this.errorHandlerPipe()
       )
       .subscribe();
   }
