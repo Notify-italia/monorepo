@@ -3,9 +3,7 @@
 >
   @if (profile$ | async; as p) {
 
-  <!-- TODO incapsula save contact e force close company -->
   <!-- SAVE CONTACT -->
-
   <notify-floating-button
     *ngIf="isAgent(p)"
     (click)="saveContact(p)"

@@ -14,8 +14,6 @@
     placeholder="Cerca per titolo o contenuto della nota"
     (filteredArray)="notes = $event"
   ></notify-search-bar>
-
-  <!-- TODO FILTERS -->
 </div>
 <div class="w-full flex flex-col justify-center space-y-4">
   @for (note of notes; track note._id) {
