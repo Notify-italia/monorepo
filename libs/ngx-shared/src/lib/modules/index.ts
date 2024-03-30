@@ -5,7 +5,7 @@ export * from './license';
 export * from './modals';
 export * from './notes';
 export * from './pixel';
-export * from './profile-player';
+export * from './profile';
 export * from './tailwind-forms/tailwind-forms.module';
 export * from './tailwind-toasts/tailwind-toasts.module';
 export * from './version-manager';

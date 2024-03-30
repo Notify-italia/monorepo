@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { INotifyFeedback } from '@notify/interfaces';
 import { BrowseFeedbacksFactory } from '../../../../standalones/browse-feedbacks/browse-feedbacks.factory';
-import { RatingComponent } from '../../../profile-player';
+import { RatingComponent } from '../../../profile';
 
 @Component({
   selector: 'notify-widget-feedback',

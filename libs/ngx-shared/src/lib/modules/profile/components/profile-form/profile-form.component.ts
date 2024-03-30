@@ -15,11 +15,7 @@ import {
   daisyUIAvatarMaks,
   daisyUIAvatarMaksIT,
 } from '@notify/interfaces';
-import {
-  CapacitorService,
-  UtilsService,
-  itPhoneNumberValidators,
-} from '@notify/ngx-shared';
+
 import {
   Subject,
   combineLatest,
@@ -28,10 +24,12 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
-import { IconSelectorComponent } from '../icon-select/icon-selector.component';
-import { ImageCropperFactory } from '../image-cropper/image-cropper.factory';
-import { UploadComponent } from '../upload/upload.component';
+import { TailwindFormsModule } from '../../../../modules/tailwind-forms/tailwind-forms.module';
+import { CapacitorService, UtilsService } from '../../../../services';
+import { IconSelectorComponent } from '../../../../standalones/icon-select/icon-selector.component';
+import { ImageCropperFactory } from '../../../../standalones/image-cropper/image-cropper.factory';
+import { UploadComponent } from '../../../../standalones/upload/upload.component';
+import { itPhoneNumberValidators } from '../../../../validators';
 import { AddButtonComponent } from './add-button.component';
 import { RemoveItemButtonComponent } from './remove-item-button';
 import { TestItemButtonComponent } from './test-item-button';

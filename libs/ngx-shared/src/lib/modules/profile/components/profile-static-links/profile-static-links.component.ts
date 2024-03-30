@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
-import { ProfileService } from '@notify/ngx-shared';
+import { ProfileService } from '../../../../services';
 
 @Component({
   selector: 'notify-profile-static-links',

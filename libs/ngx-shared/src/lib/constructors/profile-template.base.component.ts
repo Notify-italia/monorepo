@@ -3,14 +3,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
 import { Observable } from 'rxjs';
 import { CachedSrcDirective } from '../directives';
-import { ProfileViewComponent } from '../modules';
-import { CapacitorService, UtilsService } from '../services';
 import {
-  LoadingComponent,
   ProfileFormComponent,
-  SaveIndicatorComponent,
+  ProfileViewComponent,
   ShareProfileComponent,
-} from '../standalones';
+} from '../modules';
+import { CapacitorService, UtilsService } from '../services';
+import { LoadingComponent, SaveIndicatorComponent } from '../standalones';
 
 type IProfile = INotifyProfile;
 

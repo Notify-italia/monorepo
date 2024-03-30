@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
-import { EnumDicebearAvatarStyles } from '@notify/ngx-shared';
+
+import { EnumDicebearAvatarStyles } from '../../../../services';
 import { AvatarComponent } from '../../../../standalones/avatar/avatar.component';
 
 @Component({

@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { INotifyProfile } from '@notify/interfaces';
 import { AvatarComponent } from '../../../../standalones/avatar/avatar.component';
-import { ProfilePlayerFactory, RatingComponent } from '../../../profile-player';
+import { ProfilePlayerFactory, RatingComponent } from '../../../profile';
 
 @Component({
   selector: 'notify-widget-profile-card',

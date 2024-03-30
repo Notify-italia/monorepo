@@ -6,8 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { passwordMatchValidator } from '@notify/ngx-shared';
 import { AppTitleComponent } from '../../../../standalones/app-title/app-title.component';
+import { passwordMatchValidator } from '../../../../validators';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
 
 @Component({

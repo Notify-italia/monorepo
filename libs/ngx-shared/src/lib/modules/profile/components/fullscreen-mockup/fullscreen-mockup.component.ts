@@ -3,8 +3,8 @@ import { Component, Input } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
 import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { ProfileService } from '../../../../services';
-import { ShareProfileComponent } from '../../../../standalones/share-profile/share-profile.component';
 import { ProfileViewComponent } from '../profile-view/profile-view.component';
+import { ShareProfileComponent } from '../share-profile/share-profile.component';
 
 @Component({
   selector: 'notify-fullscreen-mockup',

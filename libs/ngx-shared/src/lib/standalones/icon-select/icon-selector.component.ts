@@ -11,7 +11,6 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SvgBoxIcon, SvgboxService } from '@notify/ngx-shared';
 import {
   BehaviorSubject,
   Observable,
@@ -21,6 +20,7 @@ import {
   startWith,
 } from 'rxjs';
 import { TailwindFormsModule } from '../../modules/tailwind-forms/tailwind-forms.module';
+import { SvgBoxIcon, SvgboxService } from '../../services';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 
 @Component({

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
 import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
-import { defaultGradientStops } from '../../../profile-player';
+import { defaultGradientStops } from '../../../profile';
 
 @Component({
   standalone: true,
