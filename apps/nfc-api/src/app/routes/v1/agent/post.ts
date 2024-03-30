@@ -31,22 +31,27 @@ router.post(
     .withMessage(AGENT_VALIDATION_MESSAGES.enabled as string),
   requestHandler(
     async (req, res) => {
+      //get the email, password, role, enabled, and feedbackEnabled from the request body
       const { email, password, role, enabled, feedbackEnabled } = req.body;
 
+      //load the license for the current user
       const license = await LicenseManager.load({
         id: (req.currentUser?.license as unknown as INotifyLicense)?._id,
       });
 
+      //get all the agents for the current user
       const companyagents = await AgentModel.find({
         owner: req.currentUser?._id,
       })
         .lean()
         .select('_id');
 
-      if (license.license.allowedAgents === companyagents.length) {
+      if (companyagents.length >= license.license.allowedAgents) {
+        //if the number of agents is greater than or equal to the allowed agents, throw an error
         throw new BadRequestError('Hai raggiunto il numero massimo di agenti');
       }
 
+      //create a new agent with the email, password, role, enabled, and feedbackEnabled
       const agent = await AgentModel.build(
         {
           email,
@@ -62,6 +67,7 @@ router.post(
 
       await agent?.save();
 
+      //send an email to the agent with the email, the current user's email, and the password
       await agentCreatedEmail(
         agent.email,
         req.currentUser?.email as string,

@@ -56,33 +56,41 @@ router.patch(
         req.currentUser.userType === EnumNotifyUserType.Agent &&
         req.currentUser._id !== id
       ) {
+        //if the current user is an agent and the current user id is not equal to the id in the query, throw an error
         throw new BadRequestError(
           'You are not authorized to perform this action'
         );
       }
 
+      //get the agent by its id
       const agent = await AgentModel.findById(id);
 
       if (!agent) {
+        //if the agent is not found, throw an error
         throw new BadRequestError('Agent not found');
       }
 
+      //update the agent with the email, password, role, enabled, and savedRedirects
       agent.email = email ?? agent.email;
       agent.password = password
         ? await Password.toHash(password)
         : agent.password;
 
       if (EnumNotifyUserType.Company === req.currentUser.userType) {
+        //if the current user type is a company, update the role and enabled
         agent.enabled = enabled ?? agent.enabled;
+
+        if (role) {
+          await ProfileModel.updateOne({ owner: agent._id }, { role });
+        }
       }
 
+      //update the savedRedirects
       agent.savedRedirects = savedRedirects ?? agent.savedRedirects;
 
-      if (role) {
-        await ProfileModel.updateOne({ owner: agent._id }, { role });
-      }
-
       if (feedbackEnabled !== undefined) {
+        //if feedbackEnabled is not undefined, update the feedbackEnabled
+        //* feedbackEnabled is a boolean value that determines if the agent can receive feedback
         await ProfileModel.updateOne(
           { owner: agent._id },
           { $set: { 'config.feedbackEnabled': feedbackEnabled } }
