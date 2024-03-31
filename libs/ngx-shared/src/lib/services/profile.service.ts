@@ -69,11 +69,14 @@ export class ProfileService {
               })
           );
 
+    const name = d.name || '';
+    const surname = d.surname || '';
+
     const vcard = `BEGIN:VCARD
 VERSION:3.0
-N:${d.surname};${d.name};
-FN:${d.name} ${d.surname}
-ORG:${d.company?.name || d.name}
+N:${surname};${name};
+FN:${name} ${surname}
+ORG:${d.company?.name || name}
 TEL;TYPE=work,voice;VALUE=uri:${this.cleanPhoneNumber(d.phoneNumber || '')}
 PHOTO;ENCODING=b:${avatar?.split(',')[1]}
 item2.URL;type=pref:${this.genPlayerUrl(
@@ -81,7 +84,7 @@ item2.URL;type=pref:${this.genPlayerUrl(
       d._id,
       EnumNotifyProfileSources.Contacts
     )}
-ADR;TYPE=work:;;${this.buildCompanyLocation(d?.company?.address)}
+ADR;TYPE=work:;;${this.buildCompanyLocation(d?.company?.address || d.address)}
 EMAIL:${d.email}
 END:VCARD`;
 
