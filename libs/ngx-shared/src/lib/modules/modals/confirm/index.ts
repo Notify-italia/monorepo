@@ -1,2 +1,2 @@
-export * from './components/confirm/confirm.component';
-export * from './factories/confirm-modal.factory';
+export * from './confirm-modal.factory';
+export * from './confirm.component';

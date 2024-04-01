@@ -5,8 +5,10 @@ import { EnumNotifyProfileSources, INotifyProfile } from '@notify/interfaces';
 import { CapacitorService, ProfileService } from '../../../../services';
 
 import { ToastrService } from 'ngx-toastr';
-import { QrcodeFactory } from '../../../../modules/modals';
-import { NfcWriteFactory } from '../../../../modules/modals/nfc';
+
+import { QrcodeFactory } from '../../../modals';
+import { NfcWriteFactory } from '../../../modals/nfc-write';
+
 @Component({
   selector: 'notify-share-profile',
   standalone: true,

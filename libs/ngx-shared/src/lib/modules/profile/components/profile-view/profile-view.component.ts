@@ -10,8 +10,9 @@ import {
 import { WallpaperComponent } from '../../../../standalones/animated-bg/wallpaper.component';
 import { GoogleMapsComponent } from '../../../../standalones/google-maps/google-maps.component';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
-import { FeedbackFactory } from '../../factories';
+
 import { FeedbackButtonComponent } from '../feedback-button/feedback-button.component';
+import { FeedbackFactory } from '../feedback/feedback.factory';
 import { MockupFillComponent } from '../mockup-fill/mockup-fill.component';
 import { ProfileIntegrationsComponent } from '../profile-integrations/profile-integrations.component';
 import { ProfileStaticLinksComponent } from '../profile-static-links/profile-static-links.component';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseFactory } from '../../../../constructors/base.factory';
-import { QrcodeComponent } from '../components/qrcode/qrcode.component';
+import { BaseFactory } from '../../../constructors';
+import { QrcodeComponent } from './qrcode.component';
 
 @Injectable()
 export class QrcodeFactory extends BaseFactory {

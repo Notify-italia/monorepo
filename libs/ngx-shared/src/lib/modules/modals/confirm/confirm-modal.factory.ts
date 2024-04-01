@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseFactory } from '../../../../constructors/base.factory';
-import {
-  ConfirmComponent,
-  IConfirmModalConfig,
-} from '../components/confirm/confirm.component';
+import { BaseFactory } from '../../../constructors';
+import { ConfirmComponent, IConfirmModalConfig } from './confirm.component';
 
 @Injectable()
 export class ConfirmModalFactory extends BaseFactory {

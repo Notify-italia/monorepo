@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { INotifyUser } from '@notify/interfaces';
 import { Observable } from 'rxjs';
-import { BaseFactory } from '../../../constructors/base.factory';
-import { NoteManageOwnersComponent } from '../components/note-manage-owners/note-manage-owners.component';
+import { BaseFactory } from '../../../../constructors/base.factory';
+import { NoteManageOwnersComponent } from './note-manage-owners.component';
 
 @Injectable()
 export class ManageNoteOwnersFactory extends BaseFactory {

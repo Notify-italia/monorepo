@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ModalBaseComponent } from '../../../../../constructors/modal.base.component';
+import { ModalBaseComponent } from '../../../constructors';
 
 export interface IConfirmModalConfig {
   value: unknown;

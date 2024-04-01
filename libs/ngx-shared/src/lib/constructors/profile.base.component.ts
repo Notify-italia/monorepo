@@ -12,7 +12,8 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { ProfilePlayerFactory } from '../modules';
+
+import { ProfilePlayerFactory } from '../modules/profile/components/fullscreen-mockup/profile-player.factory';
 import { AuthService, ProfileService, UtilsService } from '../services';
 
 @Component({

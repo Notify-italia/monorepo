@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
-import { BaseFactory } from '../../../constructors/base.factory';
-import { FeedbackComponent } from '../components/feedback/feedback.component';
+import { BaseFactory } from '../../../../constructors/base.factory';
+import { FeedbackComponent } from './feedback.component';
 
 @Injectable()
 export class FeedbackFactory extends BaseFactory {

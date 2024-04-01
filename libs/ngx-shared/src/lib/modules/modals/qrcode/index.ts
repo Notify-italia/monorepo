@@ -1,2 +1,2 @@
-export * from './components/qrcode/qrcode.component';
-export * from './factories/qrcode.factory';
+export * from './qrcode.component';
+export * from './qrcode.factory';

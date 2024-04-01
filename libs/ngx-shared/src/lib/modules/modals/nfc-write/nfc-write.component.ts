@@ -4,8 +4,8 @@ import { NfcTag, NfcUtils } from '@capawesome-team/capacitor-nfc';
 
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { BehaviorSubject, map } from 'rxjs';
-import { ModalBaseComponent } from '../../../../../constructors/modal.base.component';
-import { CapacitorService } from '../../../../../services';
+import { ModalBaseComponent } from '../../../constructors/modal.base.component';
+import { CapacitorService } from '../../../services';
 
 export interface INotifyNFCStatus {
   status: 'scanning' | 'writing' | 'found' | 'written' | 'error';

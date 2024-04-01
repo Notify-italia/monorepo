@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BaseFactory } from '../../../../constructors/base.factory';
-import { NfcWriteComponent } from '../components/nfc-write/nfc-write.component';
+import { BaseFactory } from '../../../constructors/base.factory';
+import { NfcWriteComponent } from './nfc-write.component';
 
 @Injectable()
 export class NfcWriteFactory extends BaseFactory {

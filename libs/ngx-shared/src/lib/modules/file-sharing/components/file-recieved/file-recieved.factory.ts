@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
-import { BaseFactory } from '../../../constructors/base.factory';
-import { FileRecievedComponent } from '../components/file-recieved/file-recieved.component';
+import { BaseFactory } from '../../../../constructors/base.factory';
+import { FileRecievedComponent } from './file-recieved.component';
 
 @Injectable()
 export class FileRecievedFactory extends BaseFactory {

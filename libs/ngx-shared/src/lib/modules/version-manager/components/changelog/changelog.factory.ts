@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BaseFactory } from '../../../constructors/base.factory';
-import { ChangelogComponent } from '../components/changelog/changelog.component';
-import { INotifyVersionInfo } from '../components/version-label/version-label.component';
+import { BaseFactory } from '../../../../constructors/base.factory';
+import { INotifyVersionInfo } from '../version-label/version-label.component';
+import { ChangelogComponent } from './changelog.component';
 
 @Injectable()
 export class ChangelogFactory extends BaseFactory {
