@@ -15,31 +15,36 @@ import {
 import { ProfilePlayerFactory } from '../modules';
 import { AuthService, ProfileService, UtilsService } from '../services';
 
-type IProfile = INotifyProfile;
-
 @Component({
   template: ``,
-
   standalone: true,
 })
 export class ProfileManagementBaseComponent implements OnDestroy {
+  /**
+   * Services
+   */
   public _profileService = inject(ProfileService);
   public _utilsService = inject(UtilsService);
   public _playerFactroy = inject(ProfilePlayerFactory);
   public _authService = inject(AuthService);
   public _activatedRoute = inject(ActivatedRoute);
 
-  public _profileSubject$ = new Subject<IProfile>();
-  public profile$: Observable<IProfile> = this._profileSubject$;
+  /**
+   * Rxjs Subjects and Observables
+   */
+  public _profileSubject$ = new Subject<INotifyProfile>();
+  public profile$: Observable<INotifyProfile> = this._profileSubject$;
+  public destroy$ = new Subject<void>();
+  public debouncedNextProfile$: Subject<INotifyProfile> =
+    new Subject<INotifyProfile>();
+
+  /**
+   * Variables
+   */
   public loading = false;
   public baseUrl = this._environment['profilesUrl'];
   public providedProfile =
     this._activatedRoute.snapshot.queryParamMap.get('p') || undefined;
-
-  public destroy$ = new Subject<void>();
-
-  public debouncedNextProfile$: Subject<INotifyProfile> =
-    new Subject<IProfile>();
 
   public get savedRedirects() {
     return this._authService.user?.savedRedirects || [];
@@ -48,25 +53,11 @@ export class ProfileManagementBaseComponent implements OnDestroy {
   constructor(
     @Inject('environment') private _environment: { [key: string]: string }
   ) {
-    this._getProfile();
+    this._fetchProfileSubscription();
 
-    this.debouncedNextProfile$
-      .pipe(
-        takeUntil(this.destroy$),
-        debounceTime(250),
-        tap((profile) => this._profileSubject$.next(profile))
-      )
-      .subscribe();
+    this._profileDebouncerSubscription();
 
-    this._activatedRoute.queryParams
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((params) => {
-        if (params['p'] !== this.providedProfile) {
-          //? questo è un workaround per forzare il refresh della pagina quando cambia il parametro p nella query string
-          //così da permettere il passaggio seamless dalla modifica di un profilo utente al proprio profilo se si è una company
-          location.reload();
-        }
-      });
+    this._providedProfileSubscription();
   }
 
   public ngOnDestroy() {
@@ -75,14 +66,14 @@ export class ProfileManagementBaseComponent implements OnDestroy {
   }
 
   public updateProfileSubject(profile: INotifyProfile) {
-    this.debouncedNextProfile$.next(profile as IProfile);
+    this.debouncedNextProfile$.next(profile as INotifyProfile);
   }
 
   public previewProfile(profile: INotifyProfile) {
     this._playerFactroy.create({ profile });
   }
 
-  public saveProfile(profile: IProfile) {
+  public saveProfile(profile: INotifyProfile) {
     this.loading = true;
 
     this._profileService
@@ -97,11 +88,14 @@ export class ProfileManagementBaseComponent implements OnDestroy {
       .subscribe();
   }
 
-  public updateSavedRedirects(profile: IProfile): Observable<unknown> {
+  /**
+   * To be overridden
+   */
+  public updateSavedRedirects(profile: INotifyProfile): Observable<unknown> {
     return of(profile);
   }
 
-  public getSavedRedirects(profile: IProfile) {
+  public getSavedRedirects(profile: INotifyProfile) {
     if (!this._authService.user) {
       return [];
     }
@@ -132,10 +126,39 @@ export class ProfileManagementBaseComponent implements OnDestroy {
       tap(() => (this.loading = false))
     );
   }
+  /**
+   * To be overridden
+   */
+  public _fetchProfileSubscription() {}
 
-  public _getProfile() {}
-
+  /**
+   * To be overridden
+   */
   public removeSavedRedirect(url: string): void {
+    // * scrivo url qui a caso giusto per rimuovere l'erore di ts di variabile inutilizzata
+    url;
     return;
+  }
+
+  private _profileDebouncerSubscription() {
+    this.debouncedNextProfile$
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(250),
+        tap((profile) => this._profileSubject$.next(profile))
+      )
+      .subscribe();
+  }
+
+  private _providedProfileSubscription() {
+    this._activatedRoute.queryParams
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        if (params['p'] !== this.providedProfile) {
+          //? questo è un workaround per forzare il refresh della pagina quando cambia il parametro p nella query string
+          //così da permettere il passaggio seamless dalla modifica di un profilo utente al proprio profilo se si è una company
+          location.reload();
+        }
+      });
   }
 }

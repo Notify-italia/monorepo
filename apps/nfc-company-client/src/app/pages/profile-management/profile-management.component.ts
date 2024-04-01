@@ -62,7 +62,7 @@ export class ProfileManagementComponent extends ProfileManagementBaseComponent {
     });
   }
 
-  override _getProfile() {
+  override _fetchProfileSubscription() {
     this._profileService
       .getProfile<EnumNotifyUserType.Agent>(this.providedProfile)
       .pipe(
