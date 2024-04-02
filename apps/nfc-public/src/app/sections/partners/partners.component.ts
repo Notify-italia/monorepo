@@ -56,7 +56,7 @@ export class PartnersComponent {
       .getProfile(id)
       .pipe(
         tap((v) =>
-          this._profilePlayer.createPlayer({
+          this._profilePlayer.create({
             profile: v,
             baseUrl: environment.profilesUrl,
             hideShare: true,

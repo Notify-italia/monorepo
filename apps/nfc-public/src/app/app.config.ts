@@ -22,7 +22,6 @@ export const appConfig: ApplicationConfig = {
         new HttpService(environment.apiUrl, environment.jwtTokenKey, http),
     },
     provideAnimations(),
-    // provideTailwindToasts(),
     provideToastr(),
     provideClarity({
       enabled: true,

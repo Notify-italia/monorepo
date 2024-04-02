@@ -188,15 +188,17 @@
         <div class="divider mx-5"></div>
         <!-- BIO -->
         <div class="field">
-          <label for="Biotextarea">Bio</label>
-          <textarea
-            id="Biotextarea"
-            formControlName="bio"
+          <notify-tailwind-textarea
+            [parent]="form"
             name="bio"
-            class="textarea w-full textarea-bordered backdrop-blur input-style resize-none"
-            cols="5"
-            placeholder="Inserisci una breve descrizione di te"
-          ></textarea>
+            [placeholder]="'Inserisci una breve descrizione di te'"
+            [validationErrors]="validationErrors"
+            class="w-full"
+            [allowResize]="{
+              vertical: true
+            }"
+            [cols]="5"
+          ></notify-tailwind-textarea>
         </div>
       </div>
 
