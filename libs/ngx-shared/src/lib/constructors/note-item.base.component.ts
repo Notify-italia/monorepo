@@ -16,7 +16,7 @@ export const NOTE_DEBOUNCE_TIME = 1000;
   template: '',
 })
 // eslint-disable-next-line @angular-eslint/component-class-suffix
-export class NoteItemBase implements OnInit, OnDestroy {
+export class NoteItemBaseComponent implements OnInit, OnDestroy {
   @Input() item!: INotifyNote['items'][0];
   @Input() note?: INotifyNote;
 
@@ -29,7 +29,6 @@ export class NoteItemBase implements OnInit, OnDestroy {
   public validationErrors = {
     required: ' ',
   };
-  constructor() {}
 
   ngOnInit(): void {
     this.componentInit();

@@ -9,9 +9,9 @@ import {
 } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { INotifyNoteItemLink } from '@notify/interfaces';
+import { NoteItemBaseComponent } from '../../../../../constructors/note-item.base.component';
 import { UtilsService } from '../../../../../services';
 import { TailwindFormsModule } from '../../../../tailwind-forms/tailwind-forms.module';
-import { NoteItemBase } from '../note-item.base';
 
 @Component({
   selector: 'notify-note-link-item',
@@ -25,7 +25,7 @@ import { NoteItemBase } from '../note-item.base';
   templateUrl: './note-link-item.component.html',
   styleUrls: ['./note-link-item.component.scss', '../../../notes.styles.scss'],
 })
-export class NoteLinkItemComponent extends NoteItemBase {
+export class NoteLinkItemComponent extends NoteItemBaseComponent {
   public formVisible = false;
 
   public get redirectUrl() {
