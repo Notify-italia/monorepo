@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { BasePageComponent } from '../../components/base-page/base-page.component';
+import { SSRBaseComponent } from '@notify/ngx-shared';
 
 @Component({
   selector: 'notify-questions',
@@ -10,7 +10,7 @@ import { BasePageComponent } from '../../components/base-page/base-page.componen
   templateUrl: './questions.component.html',
   styleUrl: './questions.component.scss',
 })
-export class QuestionsComponent extends BasePageComponent {
+export class QuestionsComponent extends SSRBaseComponent {
   public get itemHalved() {
     return {
       first: this.items.slice(0, this.items.length / 2),

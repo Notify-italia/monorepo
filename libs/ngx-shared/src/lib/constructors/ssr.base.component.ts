@@ -7,6 +7,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
   template: ``,
   styles: ``,
 })
-export class BasePageComponent {
+export class SSRBaseComponent {
   @Output() public componentStable = new EventEmitter<void>();
 }

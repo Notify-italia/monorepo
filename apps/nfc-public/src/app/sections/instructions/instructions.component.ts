@@ -4,10 +4,10 @@ import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
 import {
   ProfileService,
   ProfileViewComponent,
+  SSRBaseComponent,
   SSRDirective,
 } from '@notify/ngx-shared';
 import { Observable, of } from 'rxjs';
-import { BasePageComponent } from '../../components/base-page/base-page.component';
 
 @Component({
   selector: 'notify-instructions',
@@ -18,7 +18,7 @@ import { BasePageComponent } from '../../components/base-page/base-page.componen
   styleUrl: './instructions.component.scss',
 })
 export class InstructionsComponent
-  extends BasePageComponent
+  extends SSRBaseComponent
   implements AfterContentInit
 {
   public isProfileReady = false;

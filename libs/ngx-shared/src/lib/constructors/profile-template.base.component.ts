@@ -104,7 +104,8 @@ type IProfile = INotifyProfile;
     SaveIndicatorComponent,
   ],
   providers: [
-    UtilsService, //per qualche ragione vuole per forza il provide di CapacitorService
+    UtilsService,
+    //per qualche ragione vuole per forza il provide di CapacitorService
     CapacitorService,
   ],
   standalone: true,
