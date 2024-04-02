@@ -1,2 +1,2 @@
-export * from './validator.it-phone-number';
-export * from './validator.password-match';
+export * from './it-phone-number.validator';
+export * from './password-match.validator';
