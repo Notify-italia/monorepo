@@ -25,7 +25,14 @@
           <p class="text-sm lg:text-base">
             {{ versionInfo.description }}
           </p>
+          <object
+            class="w-full h-full !border-none skeleton aspect-[2/1]"
+            #VersionArtSkeleton
+            width="1200px"
+            height="600px"
+          ></object>
           <img
+            (load)="VersionArtSkeleton?.setAttribute('hidden', 'true')"
             [src]="versionInfo.artPath"
             class="w-full h-full object-contain rounded-lg"
           />
