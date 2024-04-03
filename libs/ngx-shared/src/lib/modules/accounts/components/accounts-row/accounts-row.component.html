@@ -14,8 +14,9 @@
       <notify-avatar
         [avatarConfig]="{
           src: user.profile?.avatar || '',
+          mask: user.profile?.config?.avatarMask || 'circle',
           size: '14',
-          mask: 'circle',
+          backgroundColor: user.profile?.colors?.elements || '',
           placeholderSeed: user.profile?._id || ''
         }"
       ></notify-avatar>
