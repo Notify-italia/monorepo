@@ -30,16 +30,14 @@
           ></notify-tailwind-input>
 
           <div class="flex flex-col space-y-1">
-            <label for="message" class="text-sm font-medium"
-              >Parlaci di te</label
-            >
-            <textarea
-              formControlName="message"
-              cols="30"
-              rows="3"
-              class="textarea textarea-bordered input-style backdrop-blur"
+            <notify-tailwind-textarea
+              [parent]="form"
+              label="Parlaci di te"
+              name="message"
               placeholder="Descrivi il tuo business e le tue esigenze..."
-            ></textarea>
+              [cols]="30"
+              [rows]="3"
+            ></notify-tailwind-textarea>
           </div>
 
           <div

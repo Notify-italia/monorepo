@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/nfc-api-services/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx-bun/nx:build",
@@ -17,15 +18,12 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/api-shared",
           "libs/nfc-api-services/**/*.ts",
           "libs/nfc-api-services/package.json"
         ]
       }
     }
-  },
-  "tags": []
+  }
 }

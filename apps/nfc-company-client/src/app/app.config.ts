@@ -17,8 +17,8 @@ import {
   ProfileService,
   UtilsService,
   providePageTitleService,
-} from '@notify/nfc-app-services';
-import { provideTailwindToasts } from '@notify/ngx-components';
+  provideTailwindToasts,
+} from '@notify/ngx-shared';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 

@@ -1,0 +1,155 @@
+<div
+  class="drawer drawer-open z-[500] fixed lg:static bg-primary/5 backdrop-blur-xl lg:rounded-xl"
+>
+  <div class="navbar p-0 min-h-10 lg:h-full w-full m-2 lg:m-0">
+    <div
+      class="flex items-center"
+      [ngClass]="{
+      'mt-safe ': capacitor.isNative,
+    }"
+    >
+      <input
+        id="my-drawer"
+        type="checkbox"
+        class="drawer-toggle"
+        #DrawerController
+      />
+      <label class="btn btn-square btn-ghost lg:hidden" for="my-drawer">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="inline-block !w-9 !h-9 text-white"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns:v="https://vecta.io/nano"
+        >
+          <path
+            d="M5 8h8.75M5 12h14m-8.75 4H19"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </label>
+      <div class="flex justify-center w-[68vw] mb-2 lg:w-fit lg:block">
+        <notify-app-title class="lg:hidden w-32"></notify-app-title>
+      </div>
+      <div class="drawer-content hidden lg:block h-screen">
+        <!-- DESKTOP SIDEBAR -->
+        <ng-container [ngTemplateOutlet]="SidebarContent"></ng-container>
+      </div>
+
+      <div class="drawer-side lg:hidden">
+        <!-- MOBILE SIDEBAR -->
+        <ng-container [ngTemplateOutlet]="SidebarContent"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="h-14 lg:hidden"></div>
+
+<ng-template #SidebarContent>
+  <label
+    for="my-drawer"
+    aria-label="close sidebar"
+    class="drawer-overlay"
+  ></label>
+
+  <div
+    class="flex flex-col justify-between bg-cyan-900 text-white lg:bg-transparent h-full lg:rounded-xl"
+    [ngClass]="{
+      'pt-10': capacitor.isNative,
+
+    }"
+  >
+    <div class="flex flex-col items-center">
+      <div class="p-4 py-5 mt-5 lg:mt-8 w-48 lg:w-64">
+        <notify-app-title
+          [subtitle]="subtitle"
+          routerLink="/pages/dashboard"
+          class="cursor-pointer"
+        ></notify-app-title>
+      </div>
+
+      <div class="divider px-4 mt-5 lg:mt-8"></div>
+
+      <span class="w-full text-start px-4 mt-5 font-light text-sm"
+        >Navigazione</span
+      >
+      <ul>
+        <!-- Sidebar content here -->
+        @for (item of availableItems.top; track item.path) {
+        <li [class.nav-disabled]="item.disabled">
+          <a
+            #sidebarItem
+            [routerLink]="item.path"
+            routerLinkActive="btn-active pointer-events-none"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex space-x-2 smooth smooth-slow"
+            (click)="sidebarItem.blur(); DrawerController.click()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              @for (p of item.icon; track p) {
+              <path fill-rule="evenodd" [attr.d]="p" />
+              }
+            </svg>
+
+            <span>{{ item.label | titlecase }}</span>
+          </a>
+        </li>
+        }
+      </ul>
+    </div>
+
+    <div>
+      <span class="w-full text-start px-4 mt-5 font-light text-sm"
+        >Sistema</span
+      >
+      <ul>
+        <!-- Sidebar content here -->
+        @for(item of availableItems.bottom; track item.path) {
+        <li [class.nav-disabled]="item.disabled">
+          <a
+            #bottomSidebarItem
+            [routerLink]="item.path"
+            routerLinkActive="btn-active pointer-events-none"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="flex space-x-2 {{ item.style }}"
+            (click)="bottomSidebarItem.blur(); DrawerController.click()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                *ngFor="let p of item.icon"
+                [attr.d]="p"
+                fill-rule="evenodd"
+              />
+            </svg>
+
+            <span>{{ item.label }}</span>
+          </a>
+        </li>
+        }
+      </ul>
+      <div
+        *ngIf="versionInfo"
+        class="m-2"
+        [ngClass]="{
+        'pb-safe': capacitor.isNative,
+      }"
+      >
+        <notify-version-label
+          [currentVersion]="versionInfo.currentVersion"
+          [currentVersionDate]="versionInfo.currentVersionDate"
+          (versionClick)="versionClick.emit()"
+        ></notify-version-label>
+      </div>
+    </div>
+  </div>
+</ng-template>

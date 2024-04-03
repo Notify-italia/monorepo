@@ -2,16 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AppError, INotifyAgent } from '@notify/interfaces';
 import {
-  AgentService,
-  ProfileService,
-  UtilsService,
-} from '@notify/nfc-app-services';
-import {
   AccountsTableComponent,
+  AgentService,
   LoadingComponent,
   PageHeaderComponent,
   ProfilePlayerFactory,
-} from '@notify/ngx-components';
+  ProfileService,
+  UtilsService,
+} from '@notify/ngx-shared';
 import { catchError, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -52,7 +50,7 @@ export class ColleaguesComponent {
             return;
           }
 
-          this._profileFactory.createPlayer({
+          this._profileFactory.create({
             profile: p,
             baseUrl: environment.profilesUrl,
           });

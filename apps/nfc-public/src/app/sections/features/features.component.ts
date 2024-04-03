@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { UtilsService } from '@notify/nfc-app-services';
-import { SvgBoxIconComponent } from '@notify/ngx-components';
+import { SvgBoxIconComponent, UtilsService } from '@notify/ngx-shared';
 import { FeatureCardComponent } from '../../components/feature-card/feature-card.component';
 
 @Component({

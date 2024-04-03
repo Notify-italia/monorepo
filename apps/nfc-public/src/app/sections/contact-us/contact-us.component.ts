@@ -6,11 +6,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpService, PixelService } from '@notify/nfc-app-services';
 import {
+  HttpService,
+  PixelService,
   SplineViewerComponent,
   TailwindFormsModule,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import { ToastrService } from 'ngx-toastr';
 import { Attachment } from 'nodemailer/lib/mailer';
 

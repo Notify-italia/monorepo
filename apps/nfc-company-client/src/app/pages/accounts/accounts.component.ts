@@ -9,20 +9,18 @@ import {
   INotifyPartialAgent,
 } from '@notify/interfaces';
 import {
+  AccountsTableComponent,
   AgentService,
   AuthService,
   CompanyService,
-  ProfileService,
-  UtilsService,
-} from '@notify/nfc-app-services';
-import {
-  AccountsTableComponent,
   ConfirmModalFactory,
   LoadingComponent,
   PageHeaderComponent,
   ProfilePlayerFactory,
+  ProfileService,
   UserFormFactory,
-} from '@notify/ngx-components';
+  UtilsService,
+} from '@notify/ngx-shared';
 import { ToastrService } from 'ngx-toastr';
 import {
   Observable,
@@ -116,7 +114,7 @@ export class AccountsComponent implements OnInit {
       return;
     }
 
-    this._profileFactory.createPlayer({
+    this._profileFactory.create({
       profile,
       baseUrl: environment.profilesUrl,
     });

@@ -9,28 +9,26 @@ import {
   INotifyUser,
 } from '@notify/interfaces';
 import {
-  AgentService,
-  FeedbackService,
-  ProfileService,
-  StatService,
-  SvgBoxIcon,
-} from '@notify/nfc-app-services';
-import {
   AREA_CHART_DEFAULT_PERIOD,
+  AgentService,
   AvatarComponent,
+  FeedbackService,
   LoadingComponent,
   NoItemsComponent,
   PageHeaderComponent,
   ProfilePlayerFactory,
+  ProfileService,
   SearchBarComponent,
   ShareProfileComponent,
+  StatService,
+  SvgBoxIcon,
   TailwindFormsModule,
   WidgetAreaChartComponent,
   WidgetCounterComponent,
   WidgetFeedbackComponent,
   WidgetNoteComponent,
   WidgetPieChartComponent,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import { ApexAxisChartSeries } from 'ng-apexcharts';
 import { Observable, Subject, combineLatest, map, switchMap, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -205,7 +203,7 @@ export class AnalyticsDetailComponent implements OnDestroy {
     if (!this.selectedAgent.value?.profile) {
       return;
     }
-    return this._profilePlayer.createPlayer({
+    return this._profilePlayer.create({
       profile: this.selectedAgent.value.profile,
       baseUrl: this.baseUrl,
     });

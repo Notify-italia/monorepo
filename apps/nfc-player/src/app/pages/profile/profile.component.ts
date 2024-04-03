@@ -9,20 +9,19 @@ import {
   INotifyProfile,
 } from '@notify/interfaces';
 import {
-  GesturesDirective,
-  ProfileService,
-  SocketService,
-  StatService,
-  UtilsService,
-} from '@notify/nfc-app-services';
-import {
   FeedbackFactory,
   FileRecievedFactory,
+  FloatingButtonComponent,
+  GesturesDirective,
   LoadingComponent,
+  ProfileService,
   ProfileViewComponent,
+  SocketService,
+  StatService,
   SwipeAvailableComponent,
+  UtilsService,
   defaultGradientStops,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import {
   Observable,
   Subject,
@@ -43,6 +42,7 @@ import { environment } from '../../../environments/environment';
     GesturesDirective,
     SwipeAvailableComponent,
     LoadingComponent,
+    FloatingButtonComponent,
   ],
   providers: [FileRecievedFactory, StatService, FeedbackFactory, UtilsService],
   templateUrl: './profile.component.html',

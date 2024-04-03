@@ -1,0 +1,28 @@
+<div class="modal-container !z-[999]" (click)="close()">
+  <div>
+    <div
+      class="pointer-events-none lg:space-y-2 flex flex-col justify-center"
+      (click)="$event.stopPropagation()"
+    >
+      <notify-share-profile
+        *ngIf="baseUrl && !hideShare"
+        class="w-full h-full !scale-[75%] pointer-events-auto slide-in-left"
+        [profile]="profile"
+        [baseUrl]="baseUrl"
+        source="modal"
+      ></notify-share-profile>
+
+      <div
+        class="scale-[65%] lg:scale-[75%] pointer-events-auto !-my-[9rem] lg:!-my-20 z-0"
+      >
+        <div class="iphone-15-pro slide-in-left">
+          <notify-profile-view
+            class="h-full w-full"
+            [mockup]="true"
+            [data]="profile"
+          ></notify-profile-view>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

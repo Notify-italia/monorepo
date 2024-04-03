@@ -1,0 +1,41 @@
+<div
+  class="fixed z-[999]"
+  [ngStyle]="{
+    bottom: offsets?.bottom,
+    right: offsets?.right,
+    left: offsets?.left,
+    top: offsets?.top
+  }"
+>
+  <button
+    class="floating-button"
+    [ngClass]="{ 'fb-small': small }"
+    (click)="buttonClicked.emit()"
+  >
+    <span *ngIf="label?.lg as v" class="hidden lg:block"> {{ v }} </span>
+    <span *ngIf="label?.base as v" class="lg:hidden"> {{ v }} </span>
+    <svg
+      *ngIf="iconRenderingMode === 'fill'"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      @for (item of iconPath; track $index) {
+      <path [attr.d]="item"></path>
+      }
+    </svg>
+
+    <svg
+      *ngIf="iconRenderingMode === 'stroke'"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+    >
+      @for (item of iconPath; track $index) {
+      <path [attr.d]="item"></path>
+      }
+    </svg>
+  </button>
+</div>

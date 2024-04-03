@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CompanyService, UtilsService } from '@notify/nfc-app-services';
-import { RecoverPasswordFormComponent } from '@notify/ngx-components';
+import {
+  CompanyService,
+  RecoverPasswordFormComponent,
+  UtilsService,
+} from '@notify/ngx-shared';
 import { catchError, tap } from 'rxjs';
 
 @Component({

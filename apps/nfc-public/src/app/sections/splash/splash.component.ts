@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SSRDirective, UtilsService } from '@notify/nfc-app-services';
 import {
   ProfileViewComponent,
+  SSRBaseComponent,
+  SSRDirective,
   SplineViewerComponent,
-} from '@notify/ngx-components';
-import { BasePageComponent } from '../../components/base-page/base-page.component';
+  UtilsService,
+} from '@notify/ngx-shared';
 
 @Component({
   selector: 'notify-splash',
@@ -21,4 +22,4 @@ import { BasePageComponent } from '../../components/base-page/base-page.componen
   styleUrl: './splash.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SplashComponent extends BasePageComponent {}
+export class SplashComponent extends SSRBaseComponent {}

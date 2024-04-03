@@ -1,6 +1,9 @@
 import { Route } from '@angular/router';
-import { authGuard, signInGuard } from '@notify/nfc-app-services';
-import { PageNotFoundComponent } from '@notify/ngx-components';
+import {
+  PageNotFoundComponent,
+  authGuard,
+  signInGuard,
+} from '@notify/ngx-shared';
 import { HomeComponent } from './pages/home/home.component';
 
 export const appRoutes: Route[] = [

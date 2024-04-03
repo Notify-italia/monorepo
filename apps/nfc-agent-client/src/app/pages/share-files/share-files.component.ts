@@ -3,16 +3,14 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ISocketUserInfo } from '@notify/interfaces';
 import {
   AuthService,
-  ProfileService,
-  SocketService,
-} from '@notify/nfc-app-services';
-import {
   DeviceCardComponent,
   LoadingComponent,
   NoItemsComponent,
   PageHeaderComponent,
+  ProfileService,
   ShareFileFactory,
-} from '@notify/ngx-components';
+  SocketService,
+} from '@notify/ngx-shared';
 import { ToastrService } from 'ngx-toastr';
 import { tap } from 'rxjs';
 

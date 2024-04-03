@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '@notify/nfc-app-services';
 import {
+  AuthService,
   ChangelogFactory,
   INotifyVersionInfo,
   NavComponent,
   NavItem,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 
 @Component({
   standalone: true,

@@ -2,25 +2,23 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { EnumNotifyStatType, INotifyUser } from '@notify/interfaces';
 import {
+  AREA_CHART_DEFAULT_PERIOD,
   AuthService,
   CapacitorService,
+  LoadingComponent,
   NoteService,
+  PageHeaderComponent,
   ProfileService,
+  ShareProfileComponent,
   StatService,
   SvgBoxIcon,
   SvgboxService,
-} from '@notify/nfc-app-services';
-import {
-  AREA_CHART_DEFAULT_PERIOD,
-  LoadingComponent,
-  PageHeaderComponent,
-  ShareProfileComponent,
   WidgetAreaChartComponent,
   WidgetCounterComponent,
   WidgetFeedbackComponent,
   WidgetNoteComponent,
   WidgetPieChartComponent,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import { ApexAxisChartSeries } from 'ng-apexcharts';
 import { Subject, combineLatest, map, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';

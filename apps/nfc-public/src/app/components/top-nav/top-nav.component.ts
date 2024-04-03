@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppTitleComponent } from '@notify/ngx-components';
+import { AppTitleComponent } from '@notify/ngx-shared';
 
 @Component({
   selector: 'notify-top-nav',

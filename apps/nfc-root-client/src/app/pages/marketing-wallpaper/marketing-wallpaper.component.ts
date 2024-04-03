@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { AppTitleComponent, WallpaperComponent } from '@notify/ngx-components';
+import { AppTitleComponent, WallpaperComponent } from '@notify/ngx-shared';
 
 @Component({
   standalone: true,

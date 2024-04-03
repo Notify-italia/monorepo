@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { INotifyAgent } from '@notify/interfaces';
-import { AvatarComponent } from '@notify/ngx-components';
+import { AvatarComponent } from '@notify/ngx-shared';
 
 @Component({
   selector: 'notify-analyitics-detail-user-row',

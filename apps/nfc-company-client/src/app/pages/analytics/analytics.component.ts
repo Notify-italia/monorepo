@@ -13,16 +13,14 @@ import {
   AgentService,
   AuthService,
   FeedbackService,
-  SvgBoxIcon,
-} from '@notify/nfc-app-services';
-import {
   LoadingComponent,
   PageHeaderComponent,
+  SvgBoxIcon,
   WidgetBarChartComponent,
   WidgetCounterComponent,
   WidgetFeedbackComponent,
   WidgetProfileCardComponent,
-} from '@notify/ngx-components';
+} from '@notify/ngx-shared';
 import { startOfMonth } from 'date-fns';
 import { ApexAxisChartSeries } from 'ng-apexcharts';
 import { combineLatest, map } from 'rxjs';

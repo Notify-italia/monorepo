@@ -8,7 +8,6 @@ const router = Router();
 
 router.post(
   '/',
-  //TODO validazione
   requestHandler(
     async (req: Request<{ email: string; password: string }>, res) => {
       if (req.body.CSV?.data?.length) {

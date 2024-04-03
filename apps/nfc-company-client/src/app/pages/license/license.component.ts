@@ -4,15 +4,13 @@ import { INotifyLicense } from '@notify/interfaces';
 import {
   AuthService,
   CompanyService,
-  UtilsService,
-} from '@notify/nfc-app-services';
-import {
   LicenseFormFactory,
   LicenseInfoComponent,
   LoadingComponent,
   NoItemsComponent,
   PageHeaderComponent,
-} from '@notify/ngx-components';
+  UtilsService,
+} from '@notify/ngx-shared';
 import { catchError, switchMap, tap } from 'rxjs';
 
 @Component({

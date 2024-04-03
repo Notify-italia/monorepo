@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, afterNextRender } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { LoadingComponent } from '@notify/ngx-components';
+import { LoadingComponent } from '@notify/ngx-shared';
 
 @Component({
   standalone: true,

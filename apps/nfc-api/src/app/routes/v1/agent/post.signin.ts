@@ -14,10 +14,13 @@ router.post(
   ...userSignInValidation(AGENT_VALIDATION_MESSAGES),
   requestHandler(
     async (req: Request<{ email: string; password: string }>, res) => {
+      //get the email, password from the request body
       const { email, password } = req.body;
 
+      //sign in the user with the email and password
       const user = await signIn({ email, password }, EnumNotifyUserType.Agent);
 
+      //send the user to the client
       res.status(200).send(user);
     }
   )

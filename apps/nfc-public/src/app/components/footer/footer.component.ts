@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AppTitleComponent, SvgBoxIconComponent } from '@notify/ngx-components';
+import { AppTitleComponent, SvgBoxIconComponent } from '@notify/ngx-shared';
 
 @Component({
   selector: 'notify-footer',
