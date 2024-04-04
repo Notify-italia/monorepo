@@ -31,6 +31,11 @@
         "{workspaceRoot}/.eslintignore",
         "{workspaceRoot}/eslint.config.js"
       ]
+    },
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "namedInputs": {
@@ -64,5 +69,10 @@
   },
   "nxCloudAccessToken": "NTBjMTY4MDgtYjcxYy00ZDgyLTlkODYtYzgxMTFiOGVhNWM2fHJlYWQtd3JpdGU=",
   "useInferencePlugins": false,
-  "defaultBase": "main"
+  "defaultBase": "main",
+  "release": {
+    "version": {
+      "preVersionCommand": "npx nx run-many -t build"
+    }
+  }
 }

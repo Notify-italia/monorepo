@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { validationResult } from 'express-validator';
-import { RequestValidationError } from '../services/errors/errors';
+import { RequestValidationError } from '../../../../../apps/nfc-api/src/app/services/errors/errors';
 
 export const validateRequest = <T>(
   req: Request<T>,

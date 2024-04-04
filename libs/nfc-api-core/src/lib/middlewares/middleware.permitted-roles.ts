@@ -1,7 +1,7 @@
 import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
 import { NextFunction, Request, Response } from 'express';
-import { wLog } from '../../main';
-import { BadRequestError } from '../services/errors/errors';
+import { BadRequestError } from '../../../../../apps/nfc-api/src/app/services/errors/errors';
+import { wLog } from '../../../../../apps/nfc-api/src/main';
 
 export const permittedRoles = <T>(roles: EnumNotifyUserType[]) => {
   return (req: Request<T>, res: Response, next: NextFunction) => {

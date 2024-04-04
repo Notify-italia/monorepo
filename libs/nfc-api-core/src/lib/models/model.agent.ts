@@ -1,5 +1,5 @@
 import { ModifyDeep } from '@notify/api-shared';
-import { EnumNotifyUserType, INotifyCompany } from '@notify/interfaces';
+import { EnumNotifyUserType, INotifyAgent } from '@notify/interfaces';
 import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
   Document,
@@ -9,67 +9,77 @@ import mongoose, {
   Types,
   model,
 } from 'mongoose';
-import { Password } from '../services/users/service.password';
+import { Password } from '../../../../../apps/nfc-api/src/app/services/users/service.password';
 import { ProfileModel } from './model.profile';
 
 /**
  * tipo per facilitare la tipizzazione dei parametri in input delle varie funzioni che hanno bisogno di un oggetto installazione modificabile
  */
-export type CompanyDocument = Document<unknown, unknown, Company> &
-  Company &
+export type AgentDocument = Document<unknown, unknown, Agent> &
+  Agent &
   Required<{
     _id: mongoose.Types.ObjectId;
   }>;
 
-export const COMPANY_VALIDATION_MESSAGES: {
-  [key in keyof Partial<Company>]: ErrorMessage;
+export const AGENT_VALIDATION_MESSAGES: {
+  [key in keyof Partial<Agent>]: ErrorMessage;
 } = {
-  _id: "L'id dell'azienda non è valido",
+  _id: "L'id del sollecito deve essere un valido id mongoDB",
   email: 'Inserire una email valida',
   password: 'Inserire una password valida',
-  createdRoles: 'Errore durante la modifica dei ruoli',
-  license: 'Errore durante la modifica della licenza',
-  savedRedirects: 'Errore durante la modifica dei redirect',
+  enabled: 'Inserire un valore valido',
+  savedRedirects: 'Errore nel formato dei redirect salvati',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
-export interface Company
+export interface Agent
   extends ModifyDeep<
-    INotifyCompany,
+    INotifyAgent,
     {
       _id: Types.ObjectId;
       createdAt: Date;
       updatedAt: Date;
-      license: Types.ObjectId;
+      owner: Types.ObjectId;
     }
   > {}
 
 // 2. Crea un'interfaccia che rappresenti i metodi statici del Model
 //    nb: serve solo se ci sono metodi statici!
-interface CompanyModel extends Model<Company> {
-  build(doc: Partial<Company>): Promise<HydratedDocument<Company>>;
+interface AgentModel extends Model<Agent> {
+  build(
+    doc: Partial<Agent>,
+    profileData: {
+      role: string;
+      feedbackEnabled: boolean;
+    },
+    skipProfile?: boolean
+  ): Promise<HydratedDocument<Agent>>;
 }
 
 // 3. Crea uno Schema corrispondente all'interfaccia del documento definita al punto 1
 //    nb: l'interfaccia del documento avrà anche _id e __v, che non devono essere
 //        aggiunte nel Schema!
-const CompanySchema = new Schema<Company, CompanyModel>(
+const AgentSchema = new Schema<Agent, AgentModel>(
   {
     email: {
       type: String,
-      required: [true, COMPANY_VALIDATION_MESSAGES.email as string],
+      required: [true, AGENT_VALIDATION_MESSAGES.email as string],
       unique: true,
     },
     password: {
       type: String,
-      required: [true, COMPANY_VALIDATION_MESSAGES.password as string],
+      required: [true, AGENT_VALIDATION_MESSAGES.password as string],
     },
-    license: {
+    enabled: {
+      type: Boolean,
+      default: true,
+    },
+    owner: {
       type: Schema.Types.ObjectId,
-      default: null,
-      ref: 'License',
+      required: true,
+      ref: 'Company',
     },
-    createdRoles: {
+    savedRedirects: {
       type: [String],
       default: [],
     },
@@ -77,32 +87,28 @@ const CompanySchema = new Schema<Company, CompanyModel>(
       type: Object,
       default: {},
     },
-    savedRedirects: {
-      type: [String],
-      default: [],
-    },
   },
   {
     timestamps: true,
     toObject: {
-      virtuals: true,
       transform(doc, ret) {
         delete ret.password;
         delete ret.__v;
       },
+      virtuals: true,
     },
     toJSON: {
-      virtuals: true,
       transform(doc, ret) {
         delete ret.password;
         delete ret.__v;
       },
+      virtuals: true,
     },
   }
 );
 // Quando ci sono riferimenti ad ID di altri documenti, usa `Schema.Types.ObjectId`
 
-CompanySchema.virtual('profile', {
+AgentSchema.virtual('profile', {
   ref: 'Profile',
   localField: '_id',
   foreignField: 'owner',
@@ -110,35 +116,45 @@ CompanySchema.virtual('profile', {
 });
 
 // 4. Aggiungi qui, se ci sono, gli hook da eseguire prima o dopo una operazione di CRUD (create, read, update, delete)
-CompanySchema.pre('save', async function (done) {
+AgentSchema.pre('save', function (done) {
   done();
 });
 
 // 5. Aggiungi un metodo statico build per creare il nuovo Model
-CompanySchema.statics.build = async (doc: Partial<Company>) => {
-  const company = new CompanyModel(doc);
-  company.password = await Password.toHash(company.password as string);
+AgentSchema.statics.build = async (
+  doc: Partial<Agent>,
+  profileData: {
+    role: string;
+    feedbackEnabled: boolean;
+  },
+  skipProfile = false
+) => {
+  const agent = new AgentModel(doc);
+  agent.password = await Password.toHash(doc.password as string);
 
-  //creates a profile for the company
+  if (skipProfile) {
+    return agent;
+  }
+
+  //creates a profile for the agent
   await ProfileModel.build({
-    email: company.email,
-    type: EnumNotifyUserType.Company,
-    owner: company._id,
+    email: agent.email,
+    type: EnumNotifyUserType.Agent,
+    owner: agent._id,
     config: {
-      avatarMask: 'squircle',
-      whatsappEnabled: false,
+      avatarMask: 'circle',
+      whatsappEnabled: true,
       phoneCallEnabled: true,
-      smsEnabled: true,
       emailEnabled: true,
+      smsEnabled: true,
       redirectEnabled: false,
+      feedbackEnabled: profileData.feedbackEnabled,
     },
+    ...profileData,
   }).save();
 
-  return company;
+  return agent;
 };
 
 // 6. Esporta il Model creato con la funzione model di mongoose
-export const CompanyModel = model<Company, CompanyModel>(
-  'Company',
-  CompanySchema
-);
+export const AgentModel = model<Agent, AgentModel>('Agent', AgentSchema);

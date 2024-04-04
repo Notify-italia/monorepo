@@ -1,7 +1,9 @@
 import cors from 'cors';
 import express from 'express';
 import http from 'http';
-import { logRequest } from './middlewares/middleware.logs';
+
+import { managedLoggerMiddleware } from '@notify/nfc-api-core';
+import { wLog } from '../main';
 import { api } from './routes';
 import { NotFoundError } from './services/errors/errors';
 import { errorHandler } from './services/errors/middlewares/error-handler';
@@ -10,7 +12,7 @@ const app = express();
 
 app.use(express.json({ limit: '50mb' }));
 
-app.use(logRequest);
+app.use(managedLoggerMiddleware(wLog));
 
 app.use(
   cors({
