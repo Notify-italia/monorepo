@@ -6,6 +6,7 @@ export * from './service.jwt';
 export * from './service.license';
 export * from './service.managed-logs';
 export * from './service.profile';
+export * from './service.socket-connections-manager';
 export * from './service.stat';
 export * from './service.utils';
 export * from './service.validation';

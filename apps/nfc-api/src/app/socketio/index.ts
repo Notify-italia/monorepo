@@ -1,67 +1,43 @@
-import { EnumSocketIOSystemEvents, ISocketUserInfo } from '@notify/interfaces';
+import { ISocketUserInfo } from '@notify/interfaces';
 import { Server, Socket } from 'socket.io';
-import { server } from '..';
+
+import { SocketsConnectionsManager } from '@notify/nfc-api-core';
+import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 import { socketEventDisconnect } from './events/socket.disconnect';
 import { socketEventSendFile } from './events/socket.send-file';
-import {
-  SocketsConnectionsManager,
-  getHeaders,
-  ownerRoom,
-  profileRoom,
-  selfRoom,
-} from './service.socket';
+import { getHeaders, ownerRoom, profileRoom, selfRoom } from './service.socket';
 
-const io = new Server(server, {
-  cors: {
-    origin: '*',
-  },
-  transports: ['websocket', 'polling'],
-  perMessageDeflate: true,
-  httpCompression: true,
-  maxHttpBufferSize: 1e8, //100MB
-  pingInterval: 10000,
-  pingTimeout: 5000,
-});
+export const socketEvents = (
+  io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>,
+  socket: Socket,
+  connections: SocketsConnectionsManager
+) => {
+  const headers = getHeaders(socket);
 
-const listen = async (callback: Function) => {
-  const connections = new SocketsConnectionsManager(io);
+  const parsedUser: ISocketUserInfo = JSON.parse(
+    headers.userinfo as unknown as string
+  );
 
-  io.on(EnumSocketIOSystemEvents.Connection, async (socket: Socket) => {
-    const headers = getHeaders(socket);
+  //get the profile room from the given id
+  const _profileRoom = profileRoom(headers.profile);
 
-    const parsedUser: ISocketUserInfo = JSON.parse(
-      headers.userinfo as unknown as string
-    );
+  //get the self room from the given id
+  const _selfRoom = selfRoom(parsedUser.id);
 
-    //get the profile room from the given id
-    const _profileRoom = profileRoom(headers.profile);
+  //join the profile room
+  socket.join(_profileRoom);
 
-    //get the self room from the given id
-    const _selfRoom = selfRoom(parsedUser.id);
+  //join its own room
+  socket.join(_selfRoom);
 
-    //join the profile room
-    socket.join(_profileRoom);
+  if (headers.owner) {
+    //if the owner is present, join the owner room
+    const _ownerRoom = ownerRoom(headers.owner);
+    socket.join(_ownerRoom);
+  }
 
-    //join its own room
-    socket.join(_selfRoom);
+  connections.add(parsedUser, _profileRoom);
 
-    if (headers.owner) {
-      //if the owner is present, join the owner room
-      const _ownerRoom = ownerRoom(headers.owner);
-      socket.join(_ownerRoom);
-    }
-
-    connections.add(parsedUser, _profileRoom);
-
-    socketEventDisconnect(io, socket, connections);
-    socketEventSendFile(io, socket);
-  });
-
-  return callback();
+  socketEventDisconnect(io, socket, connections);
+  socketEventSendFile(io, socket);
 };
-
-const socketIOServer = {
-  listen,
-};
-
-export { socketIOServer };
