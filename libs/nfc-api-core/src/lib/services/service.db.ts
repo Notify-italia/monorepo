@@ -1,6 +1,6 @@
 import { connect } from 'mongoose';
-import { wLog } from '../../main';
-import { genericErrorHandler } from './errors/errors/generic-error-handler';
+import { genericErrorHandler } from '../errors/generic-error-handler';
+import { wLog } from '../services';
 import { declareEnvs } from './service.envs';
 
 const { MONGO_URI } = declareEnvs(['MONGO_URI']);

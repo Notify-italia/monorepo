@@ -1,8 +1,8 @@
+import { body } from 'express-validator';
 import {
   AGENT_VALIDATION_MESSAGES,
   COMPANY_VALIDATION_MESSAGES,
-} from '@notify/nfc-api-core';
-import { body } from 'express-validator';
+} from '../models';
 
 export const userSignInValidation = (
   messagesProvider:

@@ -1,13 +1,13 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
 import {
   AGENT_VALIDATION_MESSAGES,
+  BadRequestError,
   PROFILE_VALIDATION_MESSAGES,
   ProfileModel,
+  getAgentOwnerProfile,
   injectAuth,
+  requestHandler,
 } from '@notify/nfc-api-core';
-import { BadRequestError } from 'apps/nfc-api/src/app/services/errors/errors';
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
-import { getAgentOwnerProfile } from 'apps/nfc-api/src/app/services/service.profile';
 import { Request, Response, Router } from 'express';
 import { query } from 'express-validator';
 

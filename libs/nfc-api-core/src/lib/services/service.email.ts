@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import { Attachment } from 'nodemailer/lib/mailer';
-import { wLog } from '../../main';
-import { BadRequestError } from './errors/errors';
+import { BadRequestError } from '../errors';
+import { wLog } from '../services';
 import { declareEnvs, isProduction } from './service.envs';
 
 const {

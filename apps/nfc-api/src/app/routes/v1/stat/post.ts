@@ -1,8 +1,8 @@
-import { STAT_VALIDATION_MESSAGES } from '@notify/nfc-api-core';
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
+import { STAT_VALIDATION_MESSAGES, requestHandler } from '@notify/nfc-api-core';
+
+import { StatManager } from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { body } from 'express-validator';
-import { StatManager } from '../../../services/service.stat';
 
 //boilderplate for a post request to create an agent
 const router = Router();

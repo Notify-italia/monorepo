@@ -1,9 +1,11 @@
-import { LICENSE_VALIDATION_MESSAGES } from '@notify/nfc-api-core';
+import {
+  LICENSE_VALIDATION_MESSAGES,
+  LicenseManager,
+  requestHandler,
+} from '@notify/nfc-api-core';
 import { isDate } from 'date-fns';
 import { Router } from 'express';
 import { body } from 'express-validator';
-import { requestHandler } from '../../../services/errors/middlewares/bun.request';
-import { LicenseManager } from '../../../services/service.license';
 
 const router = Router();
 

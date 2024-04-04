@@ -1,4 +1,4 @@
-import { RequiredEnvVariableError } from './errors/errors';
+import { RequiredEnvVariableError } from '../errors';
 
 export const declareEnvs = (envs: string[]) => {
   envs.forEach((name) => {

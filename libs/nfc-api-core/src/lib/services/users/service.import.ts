@@ -3,16 +3,16 @@ import {
   INotifyCompany,
   INotifyProfile,
 } from '@notify/interfaces';
+import csv from 'csv-parser';
+import fs from 'fs';
+import { Types } from 'mongoose';
+import { BadRequestError } from '../../errors';
 import {
   AgentDocument,
   AgentModel,
   ProfileDocument,
   ProfileModel,
-} from '@notify/nfc-api-core';
-import csv from 'csv-parser';
-import * as fs from 'fs';
-import { Types } from 'mongoose';
-import { BadRequestError } from '../errors/errors';
+} from '../../models';
 import { agentCreatedEmail } from '../service.email';
 import { asyncForEach } from '../service.utils';
 
@@ -208,7 +208,7 @@ export class ImportManager {
       throw new BadRequestError('Nessun file CSV fornito');
     }
 
-    let csvObject: { [key: string]: string }[] = [];
+    const csvObject: { [key: string]: string }[] = [];
     let results: { agent: AgentDocument; profile: ProfileDocument }[] = [];
 
     await new Promise((r) =>

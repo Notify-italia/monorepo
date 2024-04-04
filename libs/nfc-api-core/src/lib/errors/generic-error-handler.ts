@@ -1,9 +1,9 @@
 //aggiungere funzione che manda email di conferma operazione all'email che ha richiesto il servizio.
 
-import { wLog } from '../../../../main';
+import { wLog } from '../services';
 import { BadRequestError } from './bad-request-error';
 
-export const genericErrorHandler = async (error: Error, inviaMail = true) => {
+export const genericErrorHandler = async (error: Error) => {
   wLog(JSON.stringify(error), 'error');
 
   const message =

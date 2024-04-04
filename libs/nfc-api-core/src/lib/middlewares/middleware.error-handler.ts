@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { wLog } from '../../../../main';
+
 import { CustomError } from '../errors/custom-error';
+import { wLog } from '../services';
 
 // Per come funzionano i middleware in Express, si veda:
 // http://expressjs.com/en/guide/using-middleware.html#using-middleware

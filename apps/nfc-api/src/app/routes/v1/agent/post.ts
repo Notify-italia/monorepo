@@ -2,17 +2,17 @@ import { EnumNotifyUserType, INotifyLicense } from '@notify/interfaces';
 import {
   AGENT_VALIDATION_MESSAGES,
   AgentModel,
+  BadRequestError,
+  LicenseManager,
   PROFILE_VALIDATION_MESSAGES,
+  agentCreatedEmail,
+  requestHandler,
+  userSignInValidation,
+  wLog,
 } from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { Types } from 'mongoose';
-import { wLog } from '../../../../main';
-import { BadRequestError } from '../../../services/errors/errors';
-import { requestHandler } from '../../../services/errors/middlewares/bun.request';
-import { agentCreatedEmail } from '../../../services/service.email';
-import { LicenseManager } from '../../../services/service.license';
-import { userSignInValidation } from '../../../services/service.validation';
 
 //boilderplate for a post request to create an agent
 const router = Router();

@@ -1,5 +1,8 @@
-import { NOTE_VALIDATION_MESSAGES, NoteModel } from '@notify/nfc-api-core';
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
+import {
+  NOTE_VALIDATION_MESSAGES,
+  NoteModel,
+  requestHandler,
+} from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { query } from 'express-validator';
 

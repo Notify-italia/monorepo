@@ -1,13 +1,8 @@
 import { EnumNotifyUserType, INotifyStat } from '@notify/interfaces';
-import {
-  AgentModel,
-  CompanyModel,
-  StatDocument,
-  StatModel,
-} from '@notify/nfc-api-core';
 import { endOfDay, startOfDay } from 'date-fns';
 import { FilterQuery, Types } from 'mongoose';
-import { BadRequestError } from './errors/errors';
+import { BadRequestError } from '../errors';
+import { AgentModel, CompanyModel, StatDocument, StatModel } from '../models';
 import { genericUserQuery } from './users/service.query';
 
 export class StatManager {

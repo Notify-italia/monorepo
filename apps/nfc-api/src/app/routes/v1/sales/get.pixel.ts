@@ -1,8 +1,6 @@
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
+import { declareEnvs, requestHandler, sendEmail } from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { query } from 'express-validator';
-import { sendEmail } from '../../../services/service.email';
-import { declareEnvs } from '../../../services/service.envs';
 
 const { ENABLE_PIXEL_ROUTE } = declareEnvs(['ENABLE_PIXEL_ROUTE']);
 

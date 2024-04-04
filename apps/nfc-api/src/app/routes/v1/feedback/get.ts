@@ -1,15 +1,15 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
 import {
   AgentModel,
+  BadRequestError,
   FeedbackDocument,
   FeedbackModel,
   STAT_VALIDATION_MESSAGES,
+  requestHandler,
 } from '@notify/nfc-api-core';
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { Router } from 'express';
 import { query } from 'express-validator';
 import { FilterQuery } from 'mongoose';
-import { BadRequestError } from '../../../services/errors/errors';
 
 //boilderplate for a post request to create an agent
 const router = Router();

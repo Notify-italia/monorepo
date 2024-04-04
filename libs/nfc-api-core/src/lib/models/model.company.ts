@@ -9,7 +9,8 @@ import mongoose, {
   Types,
   model,
 } from 'mongoose';
-import { Password } from '../../../../../apps/nfc-api/src/app/services/users/service.password';
+
+import { Password } from '../services/users/service.password';
 import { ProfileModel } from './model.profile';
 
 /**

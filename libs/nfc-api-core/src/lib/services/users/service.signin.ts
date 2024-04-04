@@ -1,6 +1,6 @@
 import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
-import { wLog } from 'apps/nfc-api/src/main';
-import { BadRequestError } from '../errors/errors';
+import { wLog } from '..';
+import { BadRequestError } from '../../errors';
 import { signToken } from '../service.jwt';
 import { Password } from './service.password';
 import { genericUserQuery } from './service.query';

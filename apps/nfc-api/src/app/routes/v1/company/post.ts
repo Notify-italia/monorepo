@@ -1,13 +1,13 @@
 import {
+  BadRequestError,
   COMPANY_VALIDATION_MESSAGES,
   CompanyModel,
+  requestHandler,
+  sendEmail,
+  userSignInValidation,
+  wLog,
 } from '@notify/nfc-api-core';
 import { Request, Router } from 'express';
-import { wLog } from '../../../../main';
-import { BadRequestError } from '../../../services/errors/errors';
-import { requestHandler } from '../../../services/errors/middlewares/bun.request';
-import { sendEmail } from '../../../services/service.email';
-import { userSignInValidation } from '../../../services/service.validation';
 
 //boilderplate for a post request to create an agent
 const router = Router();

@@ -5,16 +5,16 @@ import {
   INotifyProfile,
 } from '@notify/interfaces';
 import {
+  BadRequestError,
   PROFILE_VALIDATION_MESSAGES,
   ProfileDocument,
   ProfileModel,
+  S3Upload,
+  getAgentOwnerProfile,
+  requestHandler,
 } from '@notify/nfc-api-core';
 import { Request, Router } from 'express';
 import { query } from 'express-validator';
-import { BadRequestError } from '../../../services/errors/errors';
-import { requestHandler } from '../../../services/errors/middlewares/bun.request';
-import { S3Upload } from '../../../services/service.bucket';
-import { getAgentOwnerProfile } from '../../../services/service.profile';
 
 const router = Router();
 

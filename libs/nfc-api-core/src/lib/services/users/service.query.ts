@@ -1,12 +1,12 @@
 import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
+import { Document, FilterQuery, Model } from 'mongoose';
+import { BadRequestError } from '../../errors';
 import {
   AgentDocument,
   AgentModel,
   CompanyDocument,
   CompanyModel,
-} from '@notify/nfc-api-core';
-import { Document, FilterQuery, Model } from 'mongoose';
-import { BadRequestError } from '../errors/errors';
+} from '../../models';
 
 /**
  * The `AccountTypes` type is a union of the `AgentDocument` and `CompanyDocument` types.
@@ -30,8 +30,8 @@ export type UserDocType<T> = T extends EnumNotifyUserType.Agent
  * an array of documents.
  */
 export type QueryDbReturnType<T, FindOne> = FindOne extends true
-  ? Document<unknown, {}, T> & T
-  : (Document<unknown, {}, T> & T)[];
+  ? Document<unknown, object, T> & T
+  : (Document<unknown, object, T> & T)[];
 
 export const genericUserQuery = async <
   FindOne extends boolean,

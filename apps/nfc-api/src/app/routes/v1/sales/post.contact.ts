@@ -1,10 +1,12 @@
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
-import { wLog } from 'apps/nfc-api/src/main';
+import {
+  BadRequestError,
+  requestHandler,
+  sendEmail,
+  wLog,
+} from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { Attachment } from 'nodemailer/lib/mailer';
-import { BadRequestError } from '../../../services/errors/errors';
-import { sendEmail } from '../../../services/service.email';
 
 //boilderplate for a post request to create an agent
 const router = Router();

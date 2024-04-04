@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
-import { BadRequestError } from './errors/errors';
+
+import { BadRequestError } from '../errors';
 import { declareEnvs } from './service.envs';
 
 const { JWT_KEY } = declareEnvs(['JWT_KEY']);

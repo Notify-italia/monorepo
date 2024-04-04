@@ -3,10 +3,10 @@ import {
   AgentModel,
   FEEDBACK_VALIDATION_MESSAGES,
   FeedbackModel,
+  requestHandler,
 } from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { body } from 'express-validator';
-import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 
 const router = Router();
 

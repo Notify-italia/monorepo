@@ -1,5 +1,4 @@
-import { NoteModel } from '@notify/nfc-api-core';
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
+import { NoteModel, requestHandler } from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { Schema, Types } from 'mongoose';
 

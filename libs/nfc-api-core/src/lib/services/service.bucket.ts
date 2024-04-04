@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/bun';
 import * as fileType from 'file-type';
 import fs from 'fs';
 import * as Minio from 'minio';
-import { wLog } from '../../main';
+import { wLog } from '../services';
 import { declareEnvs } from './service.envs';
 
 const { S3_ACCESS_KEY, S3_SECRET, S3_BUCKET, S3_ENDPOINT, S3_SSL } =

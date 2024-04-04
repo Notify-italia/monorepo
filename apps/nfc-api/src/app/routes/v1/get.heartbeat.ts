@@ -1,4 +1,4 @@
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
+import { requestHandler } from '@notify/nfc-api-core';
 import { Router } from 'express';
 
 //boilderplate for a post request to create an agent
