@@ -1,11 +1,11 @@
 import { ISocketUserInfo } from '@notify/interfaces';
 import { Server, Socket } from 'socket.io';
 
-import { SocketsConnectionsManager } from '@notify/nfc-api-core';
+import { SocketsConnectionsManager, getHeaders } from '@notify/nfc-api-core';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 import { socketEventDisconnect } from './events/socket.disconnect';
 import { socketEventSendFile } from './events/socket.send-file';
-import { getHeaders, ownerRoom, profileRoom, selfRoom } from './service.socket';
+import { ownerRoom, profileRoom, selfRoom } from './service.socket';
 
 export const socketEvents = (
   io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>,
