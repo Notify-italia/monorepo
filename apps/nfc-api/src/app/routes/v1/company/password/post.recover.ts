@@ -1,8 +1,10 @@
 import { INotifyCompany } from '@notify/interfaces';
+import {
+  CompanyModel,
+  LICENSE_VALIDATION_MESSAGES,
+} from '@notify/nfc-api-core';
 import { isProduction } from 'apps/nfc-api/src/app/services/service.envs';
 import { Router } from 'express';
-import { CompanyModel } from '../../../../models/model.company';
-import { LICENSE_VALIDATION_MESSAGES } from '../../../../models/model.license';
 import { requestHandler } from '../../../../services/errors/middlewares/bun.request';
 import { sendEmail } from '../../../../services/service.email';
 import { signToken } from '../../../../services/service.jwt';

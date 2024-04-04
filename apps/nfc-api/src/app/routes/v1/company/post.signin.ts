@@ -1,6 +1,6 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
+import { COMPANY_VALIDATION_MESSAGES } from '@notify/nfc-api-core';
 import { Request, Router } from 'express';
-import { COMPANY_VALIDATION_MESSAGES } from '../../../models/model.company';
 import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 import { userSignInValidation } from '../../../services/service.validation';
 import { signIn } from '../../../services/users/service.signin';

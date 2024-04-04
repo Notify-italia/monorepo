@@ -1,5 +1,5 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
-import { AGENT_VALIDATION_MESSAGES } from '../../../models/model.agent';
+import { AGENT_VALIDATION_MESSAGES } from '@notify/nfc-api-core';
 import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 
 import { Request, Router } from 'express';

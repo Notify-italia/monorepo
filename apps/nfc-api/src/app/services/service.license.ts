@@ -1,11 +1,12 @@
-import * as crypto from 'crypto';
-import { wLog } from '../../main';
-import { Company, CompanyModel } from '../models/model.company';
 import {
+  Company,
+  CompanyModel,
   LICENSE_VALIDATION_MESSAGES,
   LicenseDocument,
   LicenseModel,
-} from '../models/model.license';
+} from '@notify/nfc-api-core';
+import * as crypto from 'crypto';
+import { wLog } from '../../main';
 import { BadRequestError } from './errors/errors';
 
 export class LicenseManager {

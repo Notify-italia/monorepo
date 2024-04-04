@@ -1,14 +1,14 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
+import {
+  AgentModel,
+  FeedbackDocument,
+  FeedbackModel,
+  STAT_VALIDATION_MESSAGES,
+} from '@notify/nfc-api-core';
 import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { Router } from 'express';
 import { query } from 'express-validator';
 import { FilterQuery } from 'mongoose';
-import { AgentModel } from '../../../models/model.agent';
-import {
-  FeedbackDocument,
-  FeedbackModel,
-} from '../../../models/model.feedback';
-import { STAT_VALIDATION_MESSAGES } from '../../../models/model.stat';
 import { BadRequestError } from '../../../services/errors/errors';
 
 //boilderplate for a post request to create an agent

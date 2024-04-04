@@ -1,15 +1,15 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
-import { AGENT_VALIDATION_MESSAGES } from 'apps/nfc-api/src/app/models/model.agent';
 import {
+  AGENT_VALIDATION_MESSAGES,
   PROFILE_VALIDATION_MESSAGES,
   ProfileModel,
-} from 'apps/nfc-api/src/app/models/model.profile';
+  injectAuth,
+} from '@notify/nfc-api-core';
 import { BadRequestError } from 'apps/nfc-api/src/app/services/errors/errors';
 import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { getAgentOwnerProfile } from 'apps/nfc-api/src/app/services/service.profile';
 import { Request, Response, Router } from 'express';
 import { query } from 'express-validator';
-import { injectAuth } from '../../../middlewares/middleware.require-auth';
 
 //boilderplate for a post request to create an agent
 const router = Router();

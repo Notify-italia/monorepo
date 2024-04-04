@@ -1,10 +1,7 @@
+import { NOTE_VALIDATION_MESSAGES, NoteModel } from '@notify/nfc-api-core';
 import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
 import { Router } from 'express';
 import { body, query } from 'express-validator';
-import {
-  NOTE_VALIDATION_MESSAGES,
-  NoteModel,
-} from '../../../models/model.note';
 import { BadRequestError } from '../../../services/errors/errors';
 
 //boilderplate for a post request to create an agent

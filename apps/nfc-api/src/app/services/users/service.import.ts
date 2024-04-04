@@ -3,11 +3,15 @@ import {
   INotifyCompany,
   INotifyProfile,
 } from '@notify/interfaces';
+import {
+  AgentDocument,
+  AgentModel,
+  ProfileDocument,
+  ProfileModel,
+} from '@notify/nfc-api-core';
 import csv from 'csv-parser';
 import * as fs from 'fs';
 import { Types } from 'mongoose';
-import { AgentDocument, AgentModel } from '../../models/model.agent';
-import { ProfileDocument, ProfileModel } from '../../models/model.profile';
 import { BadRequestError } from '../errors/errors';
 import { agentCreatedEmail } from '../service.email';
 import { asyncForEach } from '../service.utils';

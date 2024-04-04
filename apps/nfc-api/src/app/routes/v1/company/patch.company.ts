@@ -1,11 +1,11 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
-import { Router } from 'express';
-import { body } from 'express-validator';
 import {
   COMPANY_VALIDATION_MESSAGES,
   CompanyDocument,
   CompanyModel,
-} from '../../../models/model.company';
+} from '@notify/nfc-api-core';
+import { Router } from 'express';
+import { body } from 'express-validator';
 import { BadRequestError } from '../../../services/errors/errors';
 import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 import { asyncForEach } from '../../../services/service.utils';

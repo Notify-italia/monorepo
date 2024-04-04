@@ -1,10 +1,12 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
+import {
+  permittedRoles,
+  requireAuth,
+  validateRequest,
+} from '@notify/nfc-api-core';
 import * as Sentry from '@sentry/bun';
 import { NextFunction, Request, Response } from 'express';
 import { wLog } from '../../../../main';
-import { permittedRoles } from '../../../middlewares/middleware.permitted-roles';
-import { requireAuth } from '../../../middlewares/middleware.require-auth';
-import { validateRequest } from '../../../middlewares/middleware.validate-request';
 import { CustomError } from '../errors';
 //express middleware
 export const requestHandler = <T>(

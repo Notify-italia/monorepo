@@ -4,13 +4,13 @@ import {
   INotifyAgent,
   INotifyProfile,
 } from '@notify/interfaces';
-import { Request, Router } from 'express';
-import { query } from 'express-validator';
 import {
   PROFILE_VALIDATION_MESSAGES,
   ProfileDocument,
   ProfileModel,
-} from '../../../models/model.profile';
+} from '@notify/nfc-api-core';
+import { Request, Router } from 'express';
+import { query } from 'express-validator';
 import { BadRequestError } from '../../../services/errors/errors';
 import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 import { S3Upload } from '../../../services/service.bucket';

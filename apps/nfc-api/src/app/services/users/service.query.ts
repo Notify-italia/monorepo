@@ -1,7 +1,11 @@
 import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
+import {
+  AgentDocument,
+  AgentModel,
+  CompanyDocument,
+  CompanyModel,
+} from '@notify/nfc-api-core';
 import { Document, FilterQuery, Model } from 'mongoose';
-import { AgentDocument, AgentModel } from '../../models/model.agent';
-import { CompanyDocument, CompanyModel } from '../../models/model.company';
 import { BadRequestError } from '../errors/errors';
 
 /**

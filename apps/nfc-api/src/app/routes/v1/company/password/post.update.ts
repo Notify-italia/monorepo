@@ -1,14 +1,14 @@
+import {
+  CompanyDocument,
+  CompanyModel,
+  LICENSE_VALIDATION_MESSAGES,
+} from '@notify/nfc-api-core';
 import { BadRequestError } from 'apps/nfc-api/src/app/services/errors/errors';
 import { sendEmail } from 'apps/nfc-api/src/app/services/service.email';
 import { Password } from 'apps/nfc-api/src/app/services/users/service.password';
 import { format } from 'date-fns';
 import { Router } from 'express';
 import { body } from 'express-validator';
-import {
-  CompanyDocument,
-  CompanyModel,
-} from '../../../../models/model.company';
-import { LICENSE_VALIDATION_MESSAGES } from '../../../../models/model.license';
 import { requestHandler } from '../../../../services/errors/middlewares/bun.request';
 import {
   INVALID_JWT_TOKEN,

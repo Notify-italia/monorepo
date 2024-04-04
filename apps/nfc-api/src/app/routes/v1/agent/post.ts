@@ -1,13 +1,13 @@
 import { EnumNotifyUserType, INotifyLicense } from '@notify/interfaces';
+import {
+  AGENT_VALIDATION_MESSAGES,
+  AgentModel,
+  PROFILE_VALIDATION_MESSAGES,
+} from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { Types } from 'mongoose';
 import { wLog } from '../../../../main';
-import {
-  AGENT_VALIDATION_MESSAGES,
-  AgentModel,
-} from '../../../models/model.agent';
-import { PROFILE_VALIDATION_MESSAGES } from '../../../models/model.profile';
 import { BadRequestError } from '../../../services/errors/errors';
 import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 import { agentCreatedEmail } from '../../../services/service.email';

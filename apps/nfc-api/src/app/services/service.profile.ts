@@ -1,7 +1,7 @@
 import { INotifyCompany, INotifyProfile } from '@notify/interfaces';
+import { AgentModel } from '@notify/nfc-api-core';
 import { Types } from 'mongoose';
 import { wLog } from '../../main';
-import { AgentModel } from '../models/model.agent';
 
 /**
  * The function `companyProfile` retrieves the profile of a company associated with an agent, given the

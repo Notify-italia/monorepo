@@ -1,11 +1,11 @@
 import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
+import { CompanyModel } from '@notify/nfc-api-core';
 import { NextFunction, Request, Response } from 'express';
 import { JwtPayload, verify as JwtVerify, VerifyErrors } from 'jsonwebtoken';
 import { NotAuthorizedError } from '../../../../../apps/nfc-api/src/app/services/errors/errors';
 import { declareEnvs } from '../../../../../apps/nfc-api/src/app/services/service.envs';
 import { LicenseManager } from '../../../../../apps/nfc-api/src/app/services/service.license';
 import { wLog } from '../../../../../apps/nfc-api/src/main';
-import { CompanyModel } from '../models/model.company';
 
 const { JWT_KEY } = declareEnvs(['JWT_KEY']);
 

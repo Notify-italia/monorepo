@@ -1,14 +1,12 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
-import { Router } from 'express';
-import { body, query } from 'express-validator';
 import {
   AGENT_VALIDATION_MESSAGES,
   AgentModel,
-} from '../../../models/model.agent';
-import {
   PROFILE_VALIDATION_MESSAGES,
   ProfileModel,
-} from '../../../models/model.profile';
+} from '@notify/nfc-api-core';
+import { Router } from 'express';
+import { body, query } from 'express-validator';
 import { BadRequestError } from '../../../services/errors/errors';
 import { requestHandler } from '../../../services/errors/middlewares/bun.request';
 import { userSignInValidation } from '../../../services/service.validation';
