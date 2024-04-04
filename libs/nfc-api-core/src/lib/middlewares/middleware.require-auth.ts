@@ -1,7 +1,6 @@
 import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
 import { NextFunction, Request, Response } from 'express';
 import { JwtPayload, verify as JwtVerify, VerifyErrors } from 'jsonwebtoken';
-
 import { NotAuthorizedError } from '../errors';
 import { CompanyModel } from '../models';
 import { mLog } from '../services';

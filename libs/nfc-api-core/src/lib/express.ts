@@ -29,7 +29,5 @@ export const expressRouter = (api: express.Router) => {
   // sempre nel solito formato al client
   app.use(errorHandler);
 
-  const server = http.createServer(app);
-
-  return server;
+  return http.createServer(app);
 };
