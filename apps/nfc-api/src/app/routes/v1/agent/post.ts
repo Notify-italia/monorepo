@@ -6,9 +6,9 @@ import {
   LicenseManager,
   PROFILE_VALIDATION_MESSAGES,
   agentCreatedEmail,
+  mLog,
   requestHandler,
   userSignInValidation,
-  wLog,
 } from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { body } from 'express-validator';
@@ -61,7 +61,7 @@ router.post(
         },
         { role, feedbackEnabled }
       ).catch((err) => {
-        wLog(err, 'error');
+        mLog(err, 'error');
         throw new BadRequestError('Email già in uso');
       });
 

@@ -1,7 +1,7 @@
 import { LogManager, log } from '@notify/api-shared';
-const logManager = LogManager.init([], 100);
+export const managedLogs = LogManager.init([], 100);
 
-export const wLog = (...args: Parameters<typeof log>) => {
-  args.push(logManager);
+export const mLog = (...args: Parameters<typeof log>) => {
+  args.push(managedLogs);
   log(...args);
 };

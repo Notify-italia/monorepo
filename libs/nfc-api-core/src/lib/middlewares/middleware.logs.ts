@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { wLog } from '../services';
+import { mLog } from '../services';
 
 export const managedLogsMiddleware = (
   req: Request,
@@ -8,7 +8,7 @@ export const managedLogsMiddleware = (
 ) => {
   const route = `${req.method} ${req.path}`;
   const timestamp = new Date().toISOString();
-  wLog(`${timestamp} | ${req.ip} > ${route}`, 'info');
+  mLog(`${timestamp} | ${req.ip} > ${route}`, 'info');
 
   next();
 };

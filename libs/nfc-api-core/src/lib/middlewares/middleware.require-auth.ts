@@ -4,7 +4,7 @@ import { JwtPayload, verify as JwtVerify, VerifyErrors } from 'jsonwebtoken';
 
 import { NotAuthorizedError } from '../errors';
 import { CompanyModel } from '../models';
-import { wLog } from '../services';
+import { mLog } from '../services';
 import { declareEnvs } from '../services/service.envs';
 import { LicenseManager } from '../services/service.license';
 
@@ -36,7 +36,7 @@ const verifyJwt = (
       },
       (error, decode) => {
         if (error) {
-          wLog(error.message, 'error');
+          mLog(error.message, 'error');
           return reject(error);
         }
 
@@ -82,11 +82,11 @@ export const injectAuth = async <T>(
   const payload = (await verifyJwt(token, JWT_KEY, ignoreExpiration).catch(
     (error) => {
       if (error && error.name === 'TokenExpiredError') {
-        wLog(error.message, 'error');
+        mLog(error.message, 'error');
         return null;
       }
 
-      wLog(error.message, 'error');
+      mLog(error.message, 'error');
       return null;
     }
   )) as INotifyUser;
@@ -146,7 +146,7 @@ const _getAgentLicense = async (user: INotifyUser) => {
   const company = await CompanyModel.findById(user.owner);
 
   if (!company) {
-    wLog('User has no company', 'warning');
+    mLog('User has no company', 'warning');
     return null;
   }
 

@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import { Attachment } from 'nodemailer/lib/mailer';
 import { BadRequestError } from '../errors';
-import { wLog } from '../services';
+import { mLog } from '../services';
 import { declareEnvs, isProduction } from './service.envs';
 
 const {
@@ -80,7 +80,7 @@ export const sendEmail = async (config: {
       attachments,
     })
     .catch((error) => {
-      wLog('error', error);
+      mLog('error', error);
     });
 
   return email;
@@ -111,7 +111,7 @@ export const agentCreatedEmail = async (
     <p>Cordiali saluti,<br>
     Il team Notify`,
   }).catch((err) => {
-    wLog(err, 'error');
+    mLog(err, 'error');
     throw new BadRequestError(
       `Errore durante l'invio della email di conferma crezione per l'utente "${email}"`
     );

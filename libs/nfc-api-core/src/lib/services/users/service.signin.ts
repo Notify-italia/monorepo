@@ -1,5 +1,5 @@
 import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
-import { wLog } from '..';
+import { mLog } from '..';
 import { BadRequestError } from '../../errors';
 import { signToken } from '../service.jwt';
 import { Password } from './service.password';
@@ -32,24 +32,24 @@ export const signIn = async (
   );
 
   if (!user) {
-    wLog('utente non trovato', 'error');
+    mLog('utente non trovato', 'error');
     //if the user is not found, it will throw an error
     return _throwError();
   }
 
   if (!(await _comparePassword(user.password as string, provided.password))) {
-    wLog('password non corrispondente', 'error');
+    mLog('password non corrispondente', 'error');
     //if the password does not match, it will throw an error
     return _throwError();
   }
 
   if (userType === EnumNotifyUserType.Agent && !user.enabled) {
-    wLog('utente non attivo', 'error');
+    mLog('utente non attivo', 'error');
     return _throwError();
   }
 
   if (populate?.length) {
-    wLog('populating', 'info');
+    mLog('populating', 'info');
     await user.populate(populate);
   }
 

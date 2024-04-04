@@ -1,7 +1,7 @@
 import { INotifyCompany, INotifyProfile } from '@notify/interfaces';
 import { Types } from 'mongoose';
 import { AgentModel } from '../models';
-import { wLog } from '../services';
+import { mLog } from '../services';
 
 /**
  * The function `companyProfile` retrieves the profile of a company associated with an agent, given the
@@ -22,7 +22,7 @@ export const getAgentOwnerProfile = async (agentId: Types.ObjectId) => {
     .lean();
 
   if (!agent) {
-    wLog('Agent not found, user is not an agent?', 'warning');
+    mLog('Agent not found, user is not an agent?', 'warning');
     return undefined;
   }
 

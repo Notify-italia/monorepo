@@ -1,8 +1,8 @@
 import {
   BadRequestError,
+  mLog,
   requestHandler,
   sendEmail,
-  wLog,
 } from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { body } from 'express-validator';
@@ -38,7 +38,7 @@ router.post(
       </p>`,
       attachments: attacchementsMapped,
     }).catch((err) => {
-      wLog(err, 'error');
+      mLog(err, 'error');
       throw new BadRequestError("Errore nell'invio della mail");
     });
 
@@ -53,7 +53,7 @@ router.post(
     <p>Resta sintonizzato!</p>
     <p>Cordiali saluti,<br>Il Team di Notify 🚀</p>`,
     }).catch((err) => {
-      wLog(err, 'error');
+      mLog(err, 'error');
       throw new BadRequestError("Errore nell'invio della mail");
     });
 

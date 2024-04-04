@@ -7,7 +7,7 @@ import {
   LicenseDocument,
   LicenseModel,
 } from '../models';
-import { wLog } from '../services';
+import { mLog } from '../services';
 
 export class LicenseManager {
   public get license(): LicenseDocument {
@@ -20,7 +20,7 @@ export class LicenseManager {
     const company = await CompanyModel.findById(id);
 
     if (!company) {
-      wLog(
+      mLog(
         `company with id: ${id} not found while activating license with publicKey: ${this._license.publicKey}`,
         'error'
       );
@@ -71,7 +71,7 @@ export class LicenseManager {
     });
 
     if (isAssigned) {
-      wLog(
+      mLog(
         `license with publicKey: ${publicKey} is already assigned to company with id: ${isAssigned._id}`,
         'error'
       );

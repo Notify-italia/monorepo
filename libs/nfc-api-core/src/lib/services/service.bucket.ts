@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/bun';
 import * as fileType from 'file-type';
 import fs from 'fs';
 import * as Minio from 'minio';
-import { wLog } from '../services';
+import { mLog } from '../services';
 import { declareEnvs } from './service.envs';
 
 const { S3_ACCESS_KEY, S3_SECRET, S3_BUCKET, S3_ENDPOINT, S3_SSL } =
@@ -59,7 +59,7 @@ export const S3Upload = async (config: {
 
   await Bun.write(_localPath, Body);
 
-  wLog(
+  mLog(
     `Uploading file to ${_s3Path} with size of ${Body.length} bytes`,
     'info'
   );
@@ -74,12 +74,12 @@ export const S3Upload = async (config: {
       )
       .catch((err) => {
         const message = `Error uploading file: ${JSON.stringify(err)} `;
-        wLog(message, 'error');
+        mLog(message, 'error');
         Sentry.captureException(message);
       });
   } catch (err) {
     const message = `Error uploading file: ${JSON.stringify(err)} `;
-    wLog(message, 'error');
+    mLog(message, 'error');
     Sentry.captureException(message);
   }
 

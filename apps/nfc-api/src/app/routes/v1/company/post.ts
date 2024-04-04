@@ -2,10 +2,10 @@ import {
   BadRequestError,
   COMPANY_VALIDATION_MESSAGES,
   CompanyModel,
+  mLog,
   requestHandler,
   sendEmail,
   userSignInValidation,
-  wLog,
 } from '@notify/nfc-api-core';
 import { Request, Router } from 'express';
 
@@ -21,7 +21,7 @@ router.post(
 
       const company = await CompanyModel.build({ email, password }).catch(
         (err) => {
-          wLog(err, 'error');
+          mLog(err, 'error');
           throw new BadRequestError('Email già in uso');
         }
       );

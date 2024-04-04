@@ -1,4 +1,4 @@
-import { connectToDatabase, wLog } from '@notify/nfc-api-core';
+import { connectToDatabase, mLog } from '@notify/nfc-api-core';
 import * as Sentry from '@sentry/bun';
 import { declareEnvs } from 'libs/nfc-api-core/src/lib/services/service.envs';
 import { server } from './app';
@@ -13,7 +13,7 @@ Sentry.init({
   tracesSampleRate: 1.0, // Capture 100% of the transactions
 });
 
-wLog(
+mLog(
   `Starting with Bun version ${Bun.version} with BUN_ENV ${BUN_ENV}`,
   'start'
 );
@@ -21,9 +21,9 @@ wLog(
 connectToDatabase();
 
 server.listen(port, () => {
-  wLog(`listening on port http://localhost:${port}`, 'info');
+  mLog(`listening on port http://localhost:${port}`, 'info');
 });
 
 socketIOServer.listen(() =>
-  wLog(`Listening socket.io on port ${port}`, 'info')
+  mLog(`Listening socket.io on port ${port}`, 'info')
 );

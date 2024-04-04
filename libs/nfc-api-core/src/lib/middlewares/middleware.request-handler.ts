@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/bun';
 import { NextFunction, Request, Response } from 'express';
 import { permittedRoles, requireAuth, validateRequest } from '.';
 import { CustomError } from '../errors';
-import { wLog } from '../services';
+import { mLog } from '../services';
 //express middleware
 export const requestHandler = <T>(
   func: (req: Request<T>, res: Response) => Promise<void>,
@@ -45,7 +45,7 @@ const _ehReq = <T>(
 ) => {
   return async (req: Request<T>, res: Response, next: NextFunction) => {
     await func(req, res, next)?.catch((err: CustomError) => {
-      wLog(err.message, 'error');
+      mLog(err.message, 'error');
 
       Sentry.captureException(err);
 
