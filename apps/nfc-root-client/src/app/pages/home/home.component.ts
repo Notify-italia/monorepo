@@ -23,9 +23,9 @@ export class HomeComponent {
       path: '/stats',
     },
     {
-      label: 'Aziende',
+      label: 'Clienti',
       icon: [],
-      path: '/companies',
+      path: '/customers',
     },
     {
       label: 'Licenze',
