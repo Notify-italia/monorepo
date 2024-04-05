@@ -123,7 +123,11 @@ export class AuthService {
       return null;
     }
 
-    return this._jwt.decodeToken(token) as INotifyUser;
+    try {
+      return this._jwt.decodeToken(token) as INotifyUser;
+    } catch (e) {
+      return null;
+    }
   }
 
   public setToken(token: string) {
