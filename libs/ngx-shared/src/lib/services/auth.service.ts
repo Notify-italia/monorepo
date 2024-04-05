@@ -114,7 +114,7 @@ export class AuthService {
       throw new Error('Missing token');
     }
 
-    this._setToken(user.token);
+    this.setToken(user.token);
     this.currentUser$.next(this._decodeToken(user.token));
   }
 
@@ -126,7 +126,7 @@ export class AuthService {
     return this._jwt.decodeToken(token) as INotifyUser;
   }
 
-  private _setToken(token: string) {
+  public setToken(token: string) {
     localStorage.setItem(this._tokenPath, token);
   }
 }

@@ -25,7 +25,7 @@ export class AccountsRowComponent {
 
   @Output() public inspectUser = new EventEmitter<void>();
   @Output() public editProfile = new EventEmitter<void>();
-  @Output() public showUserForm = new EventEmitter<void>();
+  @Output() public editUser = new EventEmitter<void>();
   @Output() public deleteUser = new EventEmitter<void>();
   @Output() public inspectAnalytics = new EventEmitter<void>();
 

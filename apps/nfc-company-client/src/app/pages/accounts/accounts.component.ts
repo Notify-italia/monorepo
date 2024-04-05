@@ -162,7 +162,7 @@ export class AccountsComponent implements OnInit {
       .subscribe();
   }
 
-  public showUserForm(agent?: INotifyAgent) {
+  public editUser(agent?: INotifyAgent) {
     const ref = this._userFormFactory.create<EnumNotifyUserType.Agent>(
       agent,
       this.company.createdRoles

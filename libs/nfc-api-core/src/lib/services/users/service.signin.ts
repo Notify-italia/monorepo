@@ -68,7 +68,13 @@ export const signIn = async (
  * userType and _id.
  * @returns an object that includes the user data, a token, and the user type.
  */
-export const refreshToken = async (u: INotifyUser, populate = '') => {
+export const refreshToken = async (
+  u: {
+    _id: string;
+    userType: EnumNotifyUserType;
+  },
+  populate = ''
+) => {
   const user = await genericUserQuery<true>(u.userType, { _id: u._id }, true);
 
   if (!user) {

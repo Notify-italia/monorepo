@@ -21,14 +21,14 @@
         disabled: true
       }
     ]"
-    (buttonClicked)="showUserForm()"
+    (buttonClicked)="editUser()"
   ></notify-page-header>
 
   <notify-accounts-table
     [users$]="agents$"
     [maxAgents]="maxAgents"
     (inspectUser)="inspectProfile($event.profile)"
-    (showUserForm)="showUserForm($event)"
+    (editUser)="editUser($event)"
     (deleteUser)="deleteUser($event)"
     (inspectAnalytics)="inspectAnalytics($event)"
     (editProfile)="editProfile($event)"

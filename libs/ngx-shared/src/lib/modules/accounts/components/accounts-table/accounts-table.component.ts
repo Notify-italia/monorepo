@@ -62,7 +62,7 @@ export class AccountsTableComponent {
   }
 
   @Output() public inspectUser = new EventEmitter<INotifyAccount>();
-  @Output() public showUserForm = new EventEmitter<INotifyAccount>();
+  @Output() public editUser = new EventEmitter<INotifyAccount>();
   @Output() public deleteUser = new EventEmitter<INotifyAccount>();
   @Output() public rowClicked = new EventEmitter<INotifyAccount>();
   @Output() public editProfile = new EventEmitter<INotifyAccount>();

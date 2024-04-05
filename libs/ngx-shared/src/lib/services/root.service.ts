@@ -1,5 +1,9 @@
 import { Inject, Injectable, inject } from '@angular/core';
-import { INotifyAgent, INotifyCompany } from '@notify/interfaces';
+import {
+  EnumNotifyUserType,
+  INotifyAgent,
+  INotifyCompany,
+} from '@notify/interfaces';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -26,6 +30,18 @@ export class RootService {
     return this.httpService.get<
       INotifyCompany<true> & { users: INotifyAgent[] }
     >(`/v1/customer`, { id });
+  }
+
+  public loginAsUser(id: string, type: EnumNotifyUserType) {
+    return this.httpService.post<
+      {
+        id: string;
+        type: EnumNotifyUserType;
+      },
+      {
+        token: string;
+      }
+    >(`/v1/customer/generate-token`, { id, type });
   }
 }
 
