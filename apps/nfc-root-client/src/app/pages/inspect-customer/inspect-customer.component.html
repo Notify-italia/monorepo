@@ -1,0 +1,60 @@
+@if (customer$ |async; as user) {
+<div class="flex w-full justify-around text-white">
+  <div class="flex flex-col mt-10">
+    <div class="flex justify-between w-full">
+      <div>
+        <h1 class="font-bold 2xl:text-5xl">
+          {{ user.profile?.name }}
+        </h1>
+        <h2 class="text-xl font-light">
+          {{ user.email }}
+        </h2>
+        <h2 class="font-light">
+          Creato il {{ user.createdAt | date : 'medium' : 'it' }}
+        </h2>
+      </div>
+      <button
+        (click)="showProfile(user.profile)"
+        class="box w-24 h-20 flex justify-center items-center hover:brightness-150 smooth"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
+    </div>
+    <div class="w-full mt-10">
+      <notify-license-info [license]="user.license"></notify-license-info>
+    </div>
+
+    <div class="border p-4 rounded-xl mt-10 shadow">
+      <h3 class="text-lg">Redirects salvati</h3>
+      <ul class="list-disc list-inside">
+        @for (item of user.savedRedirects; track $index) {
+        <li class="list-item">
+          <a href="{{ item }}" target="_blank" class="text-blue-300 link">
+            {{ item }}
+          </a>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="flex flex-col max-h-[95vh] overflow-auto">
+    <notify-accounts-table
+      [users$]="user.users$"
+      [config]="tableConfig"
+      (inspectUser)="showProfile($event.profile, user.profile)"
+    ></notify-accounts-table>
+  </div>
+</div>
+}

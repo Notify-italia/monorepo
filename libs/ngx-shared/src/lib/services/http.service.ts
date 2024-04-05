@@ -1,6 +1,15 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpParams,
+  provideHttpClient,
+} from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { ObservableInput, catchError } from 'rxjs';
+
+export enum HttpServiceTokenType {
+  Bearer = 'bearer',
+  XApiKey = 'x-api-key',
+}
 
 @Injectable()
 export class HttpService {
@@ -11,7 +20,9 @@ export class HttpService {
   constructor(
     @Inject('apiUrl') private apiUrl: string,
     @Inject('tokenPath') private tokenPath: string,
-    private http: HttpClient
+    private http: HttpClient,
+    @Inject('tokenType')
+    private tokenType: HttpServiceTokenType = HttpServiceTokenType.Bearer
   ) {}
 
   public patch<Req, Res>(
@@ -47,9 +58,14 @@ export class HttpService {
   }
 
   private _genHeaders(params?: Record<string, unknown>) {
+    const headers: { [key: string]: string } =
+      this.tokenType === 'x-api-key'
+        ? { 'x-api-key': this.token || '' }
+        : { Authorization: `Bearer ${this.token}` };
+
     return {
       params: new HttpParams({ fromObject: params as Record<string, string> }),
-      headers: { Authorization: `Bearer ${this.token}` },
+      headers,
     };
   }
 
@@ -66,3 +82,17 @@ export class HttpService {
     });
   }
 }
+
+export const provideHttpService = (
+  apiUrl: string,
+  tokenPath: string,
+  tokenType?: HttpServiceTokenType
+) => [
+  provideHttpClient(),
+  {
+    provide: HttpService,
+    deps: [HttpClient],
+    useFactory: (http: HttpClient) =>
+      new HttpService(apiUrl, tokenPath, http, tokenType),
+  },
+];

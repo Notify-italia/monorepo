@@ -48,7 +48,13 @@
               "maximumError": "400mb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/nfc-root-client/src/environments/environment.ts",
+              "with": "apps/nfc-root-client/src/environments/environment.prod.ts"
+            }
+          ]
         },
         "development": {
           "buildOptimizer": false,

@@ -12,7 +12,7 @@ import { EnumDicebearAvatarStyles, UtilsService } from '../../services';
 interface AvatarConfig {
   src: string | null;
   size: string;
-  mask: DaisyUIAvatarMasks;
+  mask: DaisyUIAvatarMasks | null;
   placeholderSeed: string;
   backgroundColor?: string;
   placeholderStyle?: EnumDicebearAvatarStyles;

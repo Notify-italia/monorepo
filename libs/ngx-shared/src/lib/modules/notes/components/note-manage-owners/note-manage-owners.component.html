@@ -17,9 +17,7 @@
           <notify-accounts-table
             [users$]="usersSubject$"
             [config]="{
-              allowDelete: true,
-              allowEdit: false,
-              allowInspect: false,
+              allowedActions: ['delete'],
               hiddenColumns: ['createdAt', 'role', 'select-item'],
               clickableRow: false,
             }"

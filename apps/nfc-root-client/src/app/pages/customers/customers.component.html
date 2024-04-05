@@ -1,0 +1,5 @@
+<notify-accounts-table
+  [users$]="customers$"
+  [config]="tableConfig"
+  (inspectUser)="inspectCustomer($event._id)"
+></notify-accounts-table>

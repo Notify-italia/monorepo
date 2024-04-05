@@ -57,7 +57,7 @@ export class AccountsComponent implements OnInit {
   public agentsSubject$ = new Subject<INotifyAgent[]>();
   public agents$: Observable<INotifyAgent[]> = this.agentsSubject$;
 
-  public agents: number = 0;
+  public agents = 0;
 
   public get maxAgents(): number {
     const user = this._authService.user as unknown as INotifyCompany<true>;

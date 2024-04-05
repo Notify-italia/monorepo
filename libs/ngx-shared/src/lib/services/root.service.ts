@@ -1,16 +1,36 @@
-import { Injectable } from '@angular/core';
-
-const AUTH_LS_KEY = 'auth';
+import { Inject, Injectable, inject } from '@angular/core';
+import { INotifyAgent, INotifyCompany } from '@notify/interfaces';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RootService {
+  private httpService = inject(HttpService);
+
   public get authKey() {
-    return localStorage.getItem(AUTH_LS_KEY);
+    return localStorage.getItem(this.tokenPath);
   }
 
+  constructor(@Inject('tokenPath') private tokenPath: string) {}
+
   public setAuthentication(data: string) {
-    localStorage.setItem(AUTH_LS_KEY, data);
+    localStorage.setItem(this.tokenPath, data);
+  }
+
+  public getCustomers(config: { page: number; items: number }) {
+    return this.httpService.get<INotifyCompany<true>>('/v1/customers', config);
+  }
+
+  public getCustomer(id: string) {
+    return this.httpService.get<
+      INotifyCompany<true> & { users: INotifyAgent[] }
+    >(`/v1/customer`, { id });
   }
 }
+
+export const provideRootService = (tokenPath: string) => ({
+  provide: RootService,
+  useFactory: () => new RootService(tokenPath),
+  deps: [HttpService],
+});

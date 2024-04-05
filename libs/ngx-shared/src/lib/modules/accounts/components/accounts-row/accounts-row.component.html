@@ -6,7 +6,7 @@
 <td
   *ngIf="!isRowDisabled('name')"
   [ngClass]="{
-    'opacity-50': !user.enabled
+    'opacity-50': !user.enabled && user.enabled !== undefined
   }"
 >
   <div class="flex items-center gap-3">
@@ -14,7 +14,7 @@
       <notify-avatar
         [avatarConfig]="{
           src: user.profile?.avatar || '',
-          mask: user.profile?.config?.avatarMask || 'circle',
+          mask: user.profile?.config?.avatarMask || null,
           size: '14',
           backgroundColor: user.profile?.colors?.elements || '',
           placeholderSeed: user.profile?._id || ''
@@ -48,10 +48,10 @@
   <div class="space-x-4 py-2 px-4 rounded-2xl backdrop-brightness-110 w-fit">
     <!-- INSPECT PROFILE -->
     <button
-      *ngIf="config.allowInspect"
+      *ngIf="isActionAllowed('inspect')"
       class="action-btn action-primary"
       data-theme="notifytheme"
-      (click)="inspectProfile.emit()"
+      (click)="inspectUser.emit()"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@
       </svg>
     </button>
     <button
-      *ngIf="config.allowInspect"
+      *ngIf="isActionAllowed('analytics')"
       class="action-btn action-accent"
       data-theme="notifytheme"
       (click)="inspectAnalytics.emit()"
@@ -89,7 +89,7 @@
     </button>
     <!-- EDIT USER -->
     <button
-      *ngIf="config.allowEdit"
+      *ngIf="isActionAllowed('edit')"
       class="action-btn action-info"
       data-theme="notifytheme"
       (click)="showUserForm.emit()"
@@ -107,7 +107,7 @@
     </button>
     <!-- EDIT USER PROFILE -->
     <button
-      *ngIf="config.allowEdit"
+      *ngIf="isActionAllowed('personalize')"
       class="action-btn action-warning"
       data-theme="notifytheme"
       (click)="editProfile.emit()"
@@ -127,7 +127,7 @@
     </button>
     <!-- DELETE USER -->
     <button
-      *ngIf="config.allowDelete"
+      *ngIf="isActionAllowed('delete')"
       class="action-btn action-error"
       data-theme="notifytheme"
       (click)="deleteUser.emit()"

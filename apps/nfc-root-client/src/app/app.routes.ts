@@ -21,6 +21,22 @@ export const appRoutes: Route[] = [
     path: 'pages',
     component: HomeComponent,
     canActivate: [authKeyGuard],
+    children: [
+      {
+        path: 'customers',
+        loadComponent: () =>
+          import('./pages/customers/customers.component').then(
+            (m) => m.CustomersComponent
+          ),
+      },
+      {
+        path: 'customer',
+        loadComponent: () =>
+          import('./pages/inspect-customer/inspect-customer.component').then(
+            (m) => m.InspectCustomerComponent
+          ),
+      },
+    ],
   },
   {
     path: 'marketing',

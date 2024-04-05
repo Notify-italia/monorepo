@@ -1,4 +1,4 @@
-import { AgentModel, CompanyModel, requestHandler } from '@notify/nfc-api-core';
+import { CompanyModel, requestHandler } from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { query } from 'express-validator';
 
@@ -16,34 +16,13 @@ router.get(
 
       console.log(`page: ${page}, items: ${items}`);
 
-      const companies = await CompanyModel.find({
-        license: { $ne: null },
-      })
+      const companies = await CompanyModel.find()
         .skip((page - 1) * items)
         .limit(items)
         .populate('license profile')
         .lean();
 
-      console.log(`found ${companies.length} companies`);
-
-      const companyUsers = await AgentModel.find({
-        owner: { $in: companies.map((company) => company._id) },
-      })
-        .populate('profile')
-        .lean();
-
-      console.log(`found ${companyUsers.length} users`);
-
-      res.send(
-        companies.map((company) => {
-          return {
-            ...company,
-            users: companyUsers.filter(
-              (user) => String(user.owner) === String(company._id)
-            ),
-          };
-        })
-      );
+      res.send(companies);
     },
     {
       errorMessage: 'ERRORE!',

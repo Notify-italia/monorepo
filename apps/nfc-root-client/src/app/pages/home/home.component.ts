@@ -25,7 +25,7 @@ export class HomeComponent {
     {
       label: 'Clienti',
       icon: [],
-      path: '/customers',
+      path: '/pages/customers',
     },
     {
       label: 'Licenze',

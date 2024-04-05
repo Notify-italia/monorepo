@@ -27,15 +27,13 @@
   <notify-accounts-table
     [users$]="agents$"
     [maxAgents]="maxAgents"
-    (inspectProfile)="inspectProfile($event)"
+    (inspectUser)="inspectProfile($event.profile)"
     (showUserForm)="showUserForm($event)"
     (deleteUser)="deleteUser($event)"
     (inspectAnalytics)="inspectAnalytics($event)"
     (editProfile)="editProfile($event)"
     [config]="{
-      allowInspect: true,
-      allowEdit: true,
-      allowDelete: true,
+      allowedActions: ['inspect', 'edit', 'delete', 'analytics', 'personalize'],
       displayLeftAccounts: true,
       hiddenColumns: ['select-item']
     }"
