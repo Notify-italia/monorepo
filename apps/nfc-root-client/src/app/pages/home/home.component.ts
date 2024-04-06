@@ -17,32 +17,33 @@ import {
 })
 export class HomeComponent {
   public nav: NavItem[] = [
-    {
-      label: 'statistiche',
-      icon: [],
-      path: '/stats',
-    },
+    // {
+    //   label: 'statistiche',
+    //   icon: [],
+    //   path: '/stats',
+    // },
     {
       label: 'Clienti',
       icon: [],
       path: '/pages/customers',
     },
-    {
-      label: 'Licenze',
-      icon: [],
-      path: '/licenses',
-    },
-    {
-      label: 'Risorse',
-      icon: [],
-      path: '/resoruces',
-    },
+    // {
+    //   label: 'Licenze',
+    //   icon: [],
+    //   path: '/licenses',
+    // },
+    // {
+    //   label: 'Risorse',
+    //   icon: [],
+    //   path: '/resoruces',
+    // },
   ];
 
   public bottomNav: NavItem[] = [
     {
       label: 'Esci',
       icon: [],
+      disabled: true,
       path: '/',
     },
   ];

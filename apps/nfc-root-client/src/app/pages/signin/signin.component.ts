@@ -16,7 +16,7 @@ export class SigninComponent {
 
   public config = {
     submitLabel: "Entra nell'app",
-    pageSubtitle: 'CMS',
+    pageSubtitle: 'Backoffice',
     pageTitle: "Effettua l'accesso",
     signupRoute: '',
     forgotPasswordRoute: '',
