@@ -228,10 +228,12 @@ export class AnalyticsComponent {
     const agentsPerVisitSeries: ApexAxisChartSeries = [
       {
         name: 'Visite',
-        data: Object.keys(totalAgentsVisits).map((agent) => ({
-          x: this._cleanUserEmail(agent),
-          y: agentsPerVisit[agent],
-        })),
+        data: Object.keys(totalAgentsVisits)
+          .map((agent) => ({
+            x: this._cleanUserEmail(agent),
+            y: agentsPerVisit[agent],
+          }))
+          .sort((a, b) => b.y - a.y),
       },
       {
         name: 'Salvataggi',
