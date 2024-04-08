@@ -23,7 +23,7 @@ export class HomeComponent {
       path: '/pages/dashboard',
     },
     {
-      label: 'Clienti',
+      label: 'Aziende',
       icon: [],
       path: '/pages/customers',
     },
