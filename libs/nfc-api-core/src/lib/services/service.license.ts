@@ -33,6 +33,20 @@ export class LicenseManager {
     await company.save();
   }
 
+  public async patch(conf: {
+    expirationDate: Date;
+    allowedAgents: number;
+    boughtCards: number;
+  }): Promise<void> {
+    this._license.expirationDate = conf.expirationDate;
+    this._license.allowedAgents =
+      conf.allowedAgents || this._license.allowedAgents || 1;
+    this._license.boughtCards =
+      conf.boughtCards || this._license.boughtCards || 0;
+
+    await this._license.save();
+  }
+
   public static async load(options: { publicKey?: string; id?: string }) {
     if (options.id) {
       return await this._findWithId(options.id);

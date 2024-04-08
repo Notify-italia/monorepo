@@ -27,11 +27,11 @@ export class HomeComponent {
       icon: [],
       path: '/pages/customers',
     },
-    // {
-    //   label: 'Licenze',
-    //   icon: [],
-    //   path: '/licenses',
-    // },
+    {
+      label: 'Licenze',
+      icon: [],
+      path: '/pages/licenses',
+    },
     // {
     //   label: 'Risorse',
     //   icon: [],

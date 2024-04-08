@@ -32,6 +32,10 @@ export class RootService {
     >(`/v1/customer`, { id });
   }
 
+  public getLicenses(config: { page: number; items: number }) {
+    return this.httpService.get<INotifyCompany<true>>('/v1/licenses', config);
+  }
+
   public getDashboard() {
     return this.httpService.get<{
       companies: number;
