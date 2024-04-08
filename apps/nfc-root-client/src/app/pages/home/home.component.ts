@@ -17,11 +17,11 @@ import {
 })
 export class HomeComponent {
   public nav: NavItem[] = [
-    // {
-    //   label: 'statistiche',
-    //   icon: [],
-    //   path: '/stats',
-    // },
+    {
+      label: 'Dashboard',
+      icon: [],
+      path: '/pages/dashboard',
+    },
     {
       label: 'Clienti',
       icon: [],

@@ -24,8 +24,9 @@ export class CustomersComponent {
     items: 100,
   }) as unknown as Observable<INotifyUser[]>;
   public tableConfig: IAccountsTableConfig = {
-    allowedActions: ['inspect', 'delete'],
-    hiddenColumns: ['select-item', 'role'],
+    allowedActions: [],
+    clickableRow: true,
+    hiddenColumns: ['select-item', 'role', 'actions'],
   };
 
   public inspectCustomer(id: string) {

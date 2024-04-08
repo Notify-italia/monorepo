@@ -50,7 +50,7 @@ export class InspectCustomerComponent {
     );
 
   public tableConfig: IAccountsTableConfig = {
-    allowedActions: ['inspect', 'delete', 'edit'],
+    allowedActions: ['inspect', 'edit'],
     hiddenColumns: ['select-item'],
   };
 

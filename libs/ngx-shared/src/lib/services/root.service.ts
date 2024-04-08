@@ -32,6 +32,17 @@ export class RootService {
     >(`/v1/customer`, { id });
   }
 
+  public getDashboard() {
+    return this.httpService.get<{
+      companies: number;
+      activeCompanies: number;
+      agents: number;
+      profileVisit: number;
+      provileSave: number;
+      boughtCards: number;
+    }>('/v1/dashboard');
+  }
+
   public loginAsUser(id: string, type: EnumNotifyUserType) {
     return this.httpService.post<
       {

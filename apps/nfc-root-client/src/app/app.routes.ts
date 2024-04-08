@@ -30,6 +30,13 @@ export const appRoutes: Route[] = [
           ),
       },
       {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./pages/dashboard/dashboard.component').then(
+            (m) => m.DashboardComponent
+          ),
+      },
+      {
         path: 'customer',
         loadComponent: () =>
           import('./pages/inspect-customer/inspect-customer.component').then(
