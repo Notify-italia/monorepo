@@ -1,8 +1,15 @@
 <notify-custom-table-core
   [iterable$]="licenses$"
   [config]="{
-    filterableFields: ['publicKey'],
+    filterableFields: ['publicKey','company.profile.name',
+    'company.profile.surname',
+    'company.email'],
     skeletonRows: 20,
+    style:{
+      transparentBackground:true,
+      alternateRows:true
+    },
+    clickableRows: true,
     columns: [
       {
         id: 'public-key',
@@ -32,6 +39,7 @@
         id: 'expirationDate',
         label: 'Data Scadenza',
         value: {
+          minWidth: 8,
           valueType: 'badge',
           style: [
             {
@@ -53,6 +61,24 @@
           fieldName: 'expirationDate',
           transformer: dateTransform
         },
+      },
+      {
+        id: 'assignedTo',
+        label: 'Assegnato a',
+        value: {
+          valueType: 'avatar',
+          avatarSize: '14',
+          fields: {
+            src: 'company.profile.avatar',
+            mask: 'company.profile.config.avatarMask',
+            backgroundColor: 'company.profile.colors.elements',
+            placeholderSeed: 'company.profile._id',
+            userName: 'company.profile.name',
+            userSurname: 'company.profile.surname',
+            userEmail: 'company.email'
+          }
+        }
+
       },
       {
         id: 'createdAt',

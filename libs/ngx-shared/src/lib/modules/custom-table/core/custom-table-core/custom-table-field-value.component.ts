@@ -4,6 +4,7 @@ import {
   CustomTableValueBaseComponent,
   INotifyCustomTableValueBase,
 } from '../../../../constructors/custom-table-value.base.component';
+import { UtilsService } from '../../../../services';
 
 export interface ICTFieldvalue extends INotifyCustomTableValueBase {
   valueType: 'field';
@@ -13,6 +14,7 @@ export interface ICTFieldvalue extends INotifyCustomTableValueBase {
   selector: 'notify-custom-table-field-value',
   standalone: true,
   imports: [CommonModule],
+  providers: [UtilsService],
   template: ` <p>
     {{ iterateValue }}
   </p>`,

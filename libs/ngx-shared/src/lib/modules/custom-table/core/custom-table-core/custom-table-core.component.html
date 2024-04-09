@@ -28,8 +28,8 @@
             }
           : {}"
       >
-        <div class="overflow-x-auto">
-          <table class="table w-full">
+        <div class="overflow-x-auto w-full">
+          <table class="table w-full 2xl:table-fixed">
             <!-- head -->
             <thead>
               <tr>
@@ -70,9 +70,16 @@
               </tr>
 
               } } @else { @for (iterate of filteredIterable; track $index) {
-              <tr>
+              <tr
+                (click)="config.clickableRows ? handleRowClick(iterate) : null"
+                class="h-20 table-row"
+                [ngClass]="{
+                  'even:bg-white/5': config.style?.alternateRows,
+              'cursor-pointer hover:brightness-150 hover:bg-white/20 smooth': config.clickableRows,
+            }"
+              >
                 @for (item of config.columns; track $index) {
-                <td *ngIf="!item.hidden">
+                <td *ngIf="!item.hidden" class="">
                   @switch (item.value.valueType) { @case ('field') {
                   <notify-custom-table-field-value
                     [value]="item.value"
@@ -83,6 +90,12 @@
                     [value]="item.value"
                     [iterate]="iterate"
                   ></notify-custom-table-badge-value>
+
+                  } @case ('avatar') {
+                  <notify-custom-table-avatar-value
+                    [value]="item.value"
+                    [iterate]="iterate"
+                  ></notify-custom-table-avatar-value>
 
                   } }
                 </td>

@@ -19,18 +19,34 @@ export class LicensesComponent {
   });
 
   public dateTransform(date: string): string {
+    if (!date) {
+      return 'Senza Scadenza';
+    }
+
     return format(new Date(date), 'dd/MM/yyyy HH:mm');
   }
 
   public isExpired(iterate: INotifyLicense): boolean {
+    if (!iterate.expirationDate) {
+      return false;
+    }
+
     return new Date(iterate.expirationDate) < new Date();
   }
 
   public isNotExpired(iterate: INotifyLicense): boolean {
+    if (!iterate.expirationDate) {
+      return false;
+    }
+
     return new Date(iterate.expirationDate) > new Date();
   }
 
   public isExpiring(iterate: INotifyLicense): boolean {
+    if (!iterate.expirationDate) {
+      return false;
+    }
+
     return (
       new Date(iterate.expirationDate) > new Date() &&
       new Date(iterate.expirationDate) < addMonths(new Date(), 1)

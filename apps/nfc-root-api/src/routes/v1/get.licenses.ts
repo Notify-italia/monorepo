@@ -1,4 +1,8 @@
-import { LicenseModel, requestHandler } from '@notify/nfc-api-core';
+import {
+  CompanyModel,
+  LicenseModel,
+  requestHandler,
+} from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { query } from 'express-validator';
 
@@ -21,7 +25,23 @@ router.get(
         .limit(items)
         .lean();
 
-      res.send(licenses);
+      const companies = await CompanyModel.find({
+        license: { $in: licenses.map((license) => license._id) },
+      })
+        .populate('profile')
+        .lean();
+
+      res.send(
+        licenses.map((license) => {
+          const company = companies.find(
+            (company) => company.license.toString() === license._id.toString()
+          );
+          return {
+            ...license,
+            company,
+          };
+        })
+      );
     },
     {
       errorMessage: 'ERRORE!',

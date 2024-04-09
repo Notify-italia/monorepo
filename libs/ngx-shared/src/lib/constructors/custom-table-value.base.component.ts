@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
+import { UtilsService } from '../services';
 
 export interface INotifyCustomTableValueBase {
   valueType: string;
@@ -8,10 +9,11 @@ export interface INotifyCustomTableValueBase {
 }
 
 @Component({
-  standalone: true,
   template: '',
 })
 export class CustomTableValueBaseComponent {
+  public _utils = inject(UtilsService);
+
   @Input({ required: true }) value!: INotifyCustomTableValueBase;
   @Input({ required: true }) iterate!: Record<string, unknown>;
 
@@ -19,7 +21,9 @@ export class CustomTableValueBaseComponent {
     if (!this.value.fieldName) {
       return '';
     }
-    return this._applyTransformer(this.iterate[this.value.fieldName]);
+    return this._applyTransformer(
+      this._utils.deepSearchKey(this.iterate, this.value.fieldName)[0]
+    );
   }
 
   private _applyTransformer(value: unknown): string {
