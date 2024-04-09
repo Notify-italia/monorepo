@@ -1,0 +1,99 @@
+<div>
+  <div>
+    <div>
+      <div class="p-4">
+        <notify-search-bar
+          [array$]="iterable$"
+          [filterableFields]="config.filterableFields"
+          helpLabel="Cerca utenti"
+          placeholder="Nome, Cognome, Email, N. Telefono, Ruolo, Data di creazione, ecc..."
+          (filteredArray)="filteredIterable = $event"
+        ></notify-search-bar>
+      </div>
+
+      <notify-no-items
+        *ngIf="filteredIterable && !filteredIterable?.length"
+        [title]="noItemsMessages.title"
+        [subtitle]="noItemsMessages.subtitle"
+      >
+      </notify-no-items>
+      <!-- TABLE -->
+      <div
+        *ngIf="filteredIterable?.length"
+        class="box w-full h-full p-4"
+        [ngStyle]="
+        config.style?.transparentBackground
+          ? {
+              'background-color': 'transparent',
+            }
+          : {}"
+      >
+        <div class="overflow-x-auto">
+          <table class="table w-full">
+            <!-- head -->
+            <thead>
+              <tr>
+                @for (item of config.columns; track $index) {
+                <th *ngIf="!item.hidden" class="text-left text-white">
+                  {{ item.label }}
+                </th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              @if (!filteredIterable) {
+
+              <!-- skeletons -->
+              @for (item of iterableSkeletonRows; track $index) {
+              <tr>
+                <!-- <td *ngIf="!isColumnHidden('select-item')">
+                  <div class="skeleton w-8 h-8 rounded-full"></div>
+                </td>
+                <td *ngIf="!isColumnHidden('name')">
+                  <div class="flex space-x-2">
+                    <div class="skeleton rounded-full shrink-0 w-14 h-14"></div>
+                    <div class="flex flex-col justify-center space-y-2">
+                      <div class="skeleton w-32 h-4"></div>
+                      <div class="skeleton w-32 h-4"></div>
+                    </div>
+                  </div>
+                </td>
+                <td *ngIf="!isColumnHidden('role')">
+                  <div class="skeleton w-32 h-4"></div>
+                </td>
+                <td *ngIf="!isColumnHidden('createdAt')">
+                  <div class="skeleton w-32 h-4"></div>
+                </td>
+                <td *ngIf="!isColumnHidden('actions')">
+                  <div class="skeleton w-20 h-12"></div>
+                </td> -->
+              </tr>
+
+              } } @else { @for (iterate of filteredIterable; track $index) {
+              <tr>
+                @for (item of config.columns; track $index) {
+                <td *ngIf="!item.hidden">
+                  @switch (item.value.valueType) { @case ('field') {
+                  <notify-custom-table-field-value
+                    [value]="item.value"
+                    [iterate]="iterate"
+                  ></notify-custom-table-field-value>
+                  } @case ('badge') {
+                  <notify-custom-table-badge-value
+                    [value]="item.value"
+                    [iterate]="iterate"
+                  ></notify-custom-table-badge-value>
+
+                  } }
+                </td>
+                }
+              </tr>
+              } }
+            </tbody>
+            <!-- foot -->
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

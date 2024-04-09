@@ -1,0 +1,68 @@
+<notify-custom-table-core
+  [iterable$]="licenses$"
+  [config]="{
+    filterableFields: ['publicKey'],
+    skeletonRows: 20,
+    columns: [
+      {
+        id: 'public-key',
+        label: 'Chiave Pubblica',
+        value: {
+          valueType: 'field',
+          fieldName: 'publicKey'
+        }
+      },
+      {
+        id: 'boughtCards',
+        label: 'Tessere',
+        value: {
+          valueType: 'field',
+          fieldName: 'boughtCards'
+        }
+      },
+      {
+        id: 'allowedAgents',
+        label: 'Utenti Abilitati',
+        value: {
+          valueType: 'field',
+          fieldName: 'allowedAgents'
+        }
+      },
+      {
+        id: 'expirationDate',
+        label: 'Data Scadenza',
+        value: {
+          valueType: 'badge',
+          style: [
+            {
+              condition: isExpired,
+              text: '#fffff',
+              bg: '#f44336'
+            },
+            {
+              condition: isExpiring,
+              text: '#fffff',
+              bg: '#ff9800'
+            },
+            {
+              condition: isNotExpired,
+              text: '#fffff',
+              bg: '#4caf50'
+            }
+          ],
+          fieldName: 'expirationDate',
+          transformer: dateTransform
+        },
+      },
+      {
+        id: 'createdAt',
+        label: 'Data Creazione',
+        value: {
+          valueType: 'field',
+          fieldName: 'createdAt',
+          transformer: dateTransform
+        }
+      }
+    ]
+  }"
+></notify-custom-table-core>

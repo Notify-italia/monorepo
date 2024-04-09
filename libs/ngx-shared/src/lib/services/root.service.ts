@@ -3,6 +3,7 @@ import {
   EnumNotifyUserType,
   INotifyAgent,
   INotifyCompany,
+  INotifyLicense,
 } from '@notify/interfaces';
 import { HttpService } from './http.service';
 
@@ -33,7 +34,7 @@ export class RootService {
   }
 
   public getLicenses(config: { page: number; items: number }) {
-    return this.httpService.get<INotifyCompany<true>>('/v1/licenses', config);
+    return this.httpService.get<INotifyLicense[]>('/v1/licenses', config);
   }
 
   public getDashboard() {
