@@ -6,15 +6,16 @@ import { NoItemsComponent, SearchBarComponent } from '../../../../standalones';
 import {
   CustomTableAvatarValueComponent,
   ICTAvatarvalue,
-} from './custom-table-avatar-value.component';
+} from '../widgets/custom-table-avatar-value.component';
 import {
   CustomTableBadgeValueComponent,
   ICTBadgevalue,
-} from './custom-table-badge-value.component';
+} from '../widgets/custom-table-badge-value.component';
 import {
   CustomTableFieldValueComponent,
   ICTFieldvalue,
-} from './custom-table-field-value.component';
+} from '../widgets/custom-table-field-value.component';
+import { CustomTableSkeletonComponent } from '../widgets/custom-table-skeleton.component';
 
 export interface INotifyCustomTableConfig {
   filterableFields: string[];
@@ -53,6 +54,7 @@ interface ICTActionsvalue extends INotifyCustomTableValueBase {
     CustomTableFieldValueComponent,
     CustomTableBadgeValueComponent,
     CustomTableAvatarValueComponent,
+    CustomTableSkeletonComponent,
   ],
   templateUrl: './custom-table-core.component.html',
   styleUrl: './custom-table-core.component.scss',
@@ -67,13 +69,13 @@ export class CustomTableCoreComponent {
 
   @Output() public rowClick = new EventEmitter<Record<string, unknown>>();
 
-  public filteredIterable: Record<string, unknown>[] = [];
-
-  public get iterableSkeletonRows(): number[] {
-    return Array.from({ length: this.config?.skeletonRows ?? 0 });
-  }
+  public filteredIterable: Record<string, unknown>[] | null = null;
 
   public handleRowClick(iterate: Record<string, unknown>) {
     this.rowClick.emit(iterate);
+  }
+
+  public get iterableSkeletonRows(): number[] {
+    return Array.from({ length: this.config.skeletonRows ?? 0 });
   }
 }
