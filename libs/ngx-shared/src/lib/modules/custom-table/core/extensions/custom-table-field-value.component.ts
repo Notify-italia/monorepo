@@ -6,8 +6,9 @@ import {
 } from '../../../../constructors/custom-table-value.base.component';
 import { UtilsService } from '../../../../services';
 
-export interface ICTFieldvalue extends INotifyCustomTableValueBase {
+export interface ICTFieldValue extends INotifyCustomTableValueBase {
   valueType: 'field';
+  skeletonLength: number;
 }
 
 @Component({
@@ -20,5 +21,5 @@ export interface ICTFieldvalue extends INotifyCustomTableValueBase {
   </p>`,
 })
 export class CustomTableFieldValueComponent extends CustomTableValueBaseComponent {
-  override value!: ICTFieldvalue;
+  override value!: ICTFieldValue;
 }

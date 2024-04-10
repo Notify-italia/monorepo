@@ -1,0 +1,91 @@
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  CustomTableValueBaseComponent,
+  INotifyCustomTableValueBase,
+} from '../../../../constructors/custom-table-value.base.component';
+import { UtilsService } from '../../../../services';
+import { AvatarComponent } from '../../../../standalones';
+
+export interface ICTActionsvalue extends INotifyCustomTableValueBase {
+  valueType: 'actions';
+  actions: {
+    eventName: string;
+    path: string[];
+    svgType: 'solid' | 'outlined';
+    color:
+      | 'primary'
+      | 'secondary'
+      | 'error'
+      | 'warning'
+      | 'success'
+      | 'info'
+      | 'neutral'
+      | 'accent';
+  }[];
+}
+@Component({
+  standalone: true,
+  selector: 'notify-custom-table-actions-value',
+  imports: [CommonModule, AvatarComponent],
+  providers: [UtilsService],
+  template: `
+    <div
+      class="space-x-4 py-2 px-4 rounded-2xl"
+      [ngClass]="
+      {
+        'bg-white/5': value.actions.length > 1,
+      }"
+      (click)="$event.stopPropagation()"
+    >
+      @for (action of value.actions; track $index) {
+      <button
+        class="action-btn {{ 'action-' + this.value.actions[0].color }}"
+        data-theme="notifytheme"
+        (click)="actionClicked.emit(action)"
+      >
+        <svg
+          *ngIf="action.svgType === 'outlined'"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          @for (path of action.path; track $index) {
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            [attr.d]="path"
+          />
+
+          }
+        </svg>
+
+        <svg
+          *ngIf="action.svgType === 'solid'"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="w-6 h-6"
+        >
+          @for (path of action.path; track $index) {
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            [attr.d]="path"
+          />
+
+          }
+        </svg>
+      </button>
+      }
+    </div>
+  `,
+})
+export class CustomTableActionsComponent extends CustomTableValueBaseComponent {
+  override value!: ICTActionsvalue;
+
+  @Output() actionClicked = new EventEmitter<ICTActionsvalue['actions'][0]>();
+}

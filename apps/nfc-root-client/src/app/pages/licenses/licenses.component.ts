@@ -52,4 +52,45 @@ export class LicensesComponent {
       new Date(iterate.expirationDate) < addMonths(new Date(), 1)
     );
   }
+
+  public rowClicked(license: INotifyLicense): void {
+    console.log(license);
+  }
+
+  public actionClicked(action: { event: string; data: INotifyLicense }): void {
+    if (action.event === 'copy') {
+      navigator.clipboard.writeText(action.data.publicKey);
+    }
+  }
+
+  public sortExpirationDate(a: INotifyLicense, b: INotifyLicense): number {
+    if (!a.expirationDate && !b.expirationDate) {
+      return 0;
+    }
+
+    if (!a.expirationDate) {
+      return 1;
+    }
+
+    if (!b.expirationDate) {
+      return 1;
+    }
+
+    return (
+      new Date(a.expirationDate).getTime() -
+      new Date(b.expirationDate).getTime()
+    );
+  }
+
+  public sortCreationDate(a: INotifyLicense, b: INotifyLicense): number {
+    return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+  }
+
+  public sortBoughtCards(a: INotifyLicense, b: INotifyLicense): number {
+    return a.boughtCards - b.boughtCards;
+  }
+
+  public sortAllowedAgents(a: INotifyLicense, b: INotifyLicense): number {
+    return a.allowedAgents - b.allowedAgents;
+  }
 }

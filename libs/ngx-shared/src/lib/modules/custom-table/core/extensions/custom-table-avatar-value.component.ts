@@ -28,7 +28,7 @@ export interface ICTAvatarvalue extends INotifyCustomTableValueBase {
   imports: [CommonModule, AvatarComponent],
   providers: [UtilsService],
   template: ` <div
-    class="flex items-center gap-3"
+    class="flex items-center gap-3 "
     *ngIf="iteratedValues as values"
   >
     <div class="w-14 h-14">

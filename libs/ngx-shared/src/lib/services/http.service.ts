@@ -4,6 +4,7 @@ import {
   provideHttpClient,
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { UnknownObject } from '@notify/interfaces';
 import { ObservableInput, catchError } from 'rxjs';
 
 export enum HttpServiceTokenType {
@@ -45,7 +46,7 @@ export class HttpService {
       .pipe(this._unauthorized());
   }
 
-  public get<T>(url: string, params?: Record<string, unknown>) {
+  public get<T>(url: string, params?: UnknownObject) {
     return this.http
       .get<T>(`${this.apiUrl}${url}`, this._genHeaders(params))
       .pipe(this._unauthorized());
@@ -57,7 +58,7 @@ export class HttpService {
       .pipe(this._unauthorized());
   }
 
-  private _genHeaders(params?: Record<string, unknown>) {
+  private _genHeaders(params?: UnknownObject) {
     const headers: { [key: string]: string } =
       this.tokenType === 'x-api-key'
         ? { 'x-api-key': this.token || '' }

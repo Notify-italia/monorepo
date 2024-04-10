@@ -7,44 +7,55 @@
           [filterableFields]="config.filterableFields"
           helpLabel="Cerca utenti"
           placeholder="Nome, Cognome, Email, N. Telefono, Ruolo, Data di creazione, ecc..."
-          (filteredArray)="filteredIterable = $event"
+          (filteredArray)="handleFilteredArray($event)"
         ></notify-search-bar>
       </div>
 
+      @if (computedIterable$ | async; as iterable) {
       <notify-no-items
-        *ngIf="filteredIterable && !filteredIterable?.length"
+        *ngIf="iterable && !iterable?.length"
         [title]="noItemsMessages.title"
         [subtitle]="noItemsMessages.subtitle"
       >
       </notify-no-items>
       <!-- TABLE -->
-      <div
-        class="box w-full h-full p-4"
-        [ngStyle]="
-        config.style?.transparentBackground
-          ? {
-              'background-color': 'transparent',
-            }
-          : {}"
-      >
-        <div class="overflow-x-auto w-full">
-          <table class="table w-full 2xl:table-fixed">
+      <div class="w-full h-full p-4">
+        <div
+          class="relative overflow-x-auto shadow-md sm:rounded-lg bg-primary-500/10"
+          [ngClass]="{
+            '!bg-transparent': config.style?.transparentBackground
+          }"
+        >
+          <table
+            class="w-full text-sm text-left table-auto"
+            *ngIf="!iterable || iterable.length"
+          >
             <!-- head -->
-            <thead>
+            <thead class="text-sm py-2 bg-gray-700/20 text-white uppercase">
               <tr>
                 @for (item of config.columns; track $index) {
-                <th *ngIf="!item.hidden" class="text-left text-white">
-                  {{ item.label }}
+                <th *ngIf="!item.hidden" class="px-6 py-3" scope="col">
+                  <div class="flex space-x-2 items-center">
+                    <span> {{ item.label }}</span>
+                    <notify-custom-table-sorter
+                      [column]="item.id"
+                      [sorter]="item.sorter"
+                      [resetSort]="activeSorter"
+                      (sortChange)="
+                        sorter$.next($event); activeSorter.next(item.id)
+                      "
+                    ></notify-custom-table-sorter>
+                  </div>
                 </th>
                 }
               </tr>
             </thead>
 
             <tbody>
-              @if (!filteredIterable) { @for (item of iterableSkeletonRows;
-              track $index) {
+              @if (!iterable) { @for (item of iterableSkeletonRows; track
+              $index) {
               <tr notify-custom-table-skeleton [columns]="config.columns"></tr>
-              } } @else { @for (iterate of filteredIterable; track $index) {
+              } } @else { @for (iterate of iterable; track $index) {
               <tr
                 (click)="config.clickableRows ? handleRowClick(iterate) : null"
                 class="h-20 table-row"
@@ -54,7 +65,7 @@
             }"
               >
                 @for (item of config.columns; track $index) {
-                <td *ngIf="!item.hidden" class="">
+                <td *ngIf="!item.hidden" class="px-6">
                   @switch (item.value.valueType) { @case ('field') {
                   <notify-custom-table-field-value
                     [value]="item.value"
@@ -72,6 +83,12 @@
                     [iterate]="iterate"
                   ></notify-custom-table-avatar-value>
 
+                  } @case ('actions') {
+                  <notify-custom-table-actions-value
+                    [value]="item.value"
+                    [iterate]="iterate"
+                    (actionClicked)="handleActionClick($event, iterate)"
+                  ></notify-custom-table-actions-value>
                   } }
                 </td>
                 }
@@ -83,6 +100,7 @@
           </table>
         </div>
       </div>
+      }
     </div>
   </div>
 </div>
