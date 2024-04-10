@@ -63,6 +63,25 @@ export class RootService {
       }
     >(`/v1/customer/generate-token`, { id, type });
   }
+
+  public patchLicense(data: Partial<INotifyLicense>, id: string) {
+    return this.httpService.patch<Partial<INotifyLicense>, INotifyLicense>(
+      `/v1/license`,
+      { ...data },
+      { id }
+    );
+  }
+
+  public postLicense(data: Partial<INotifyLicense>) {
+    return this.httpService.post<Partial<INotifyLicense>, INotifyLicense>(
+      `/v1/license`,
+      { ...data }
+    );
+  }
+
+  public deleteLicense(id: string) {
+    return this.httpService.delete(`/v1/license`, { id });
+  }
 }
 
 export const provideRootService = (tokenPath: string) => ({

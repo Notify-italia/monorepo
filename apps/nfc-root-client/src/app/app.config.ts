@@ -1,4 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
 import {
   provideRouter,
   withEnabledBlockingInitialNavigation,
@@ -21,6 +22,7 @@ export const appConfig: ApplicationConfig = {
       HttpServiceTokenType.XApiKey
     ),
     provideRootService(environment.apiKeyKey),
+    provideAnimations(),
     provideTailwindToasts(),
   ],
 };

@@ -1,6 +1,6 @@
 <div class="mb-4">
   <ng-container [formGroup]="parent">
-    <label [for]="name" class="block text-sm font-medium text-gray-700">
+    <label [for]="name" class="block text-sm font-medium">
       {{ label | titlecase }}
     </label>
 
@@ -19,7 +19,7 @@
       (keyup)="handleKeyPress($event)"
       readonly
       [(ngModel)]="datepickerValue"
-      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 group-focus-within:outline-none group-focus-within:ring-app-main-color-500 group-focus-within:border-app-main-color sm:text-sm"
+      class="input input-bordered w-full input-style backdrop-blur text-sm lg:text-auto"
       [placeholder]="placeholder || '01/01/1970'"
       [ngClass]="{
         'border-red-300 text-red-900 placeholder-red-300 group-focus-within:ring-red-500 group-focus-within:border-red-500':
@@ -27,10 +27,10 @@
       }"
     />
 
-    <button class="absolute top-0 right-0 px-3 my-auto py-2.5" type="button">
+    <button class="absolute top-0 right-0 px-3 my-auto py-3" type="button">
       <svg
         (click)="clearValue()"
-        class="h-5 w-5 my-auto"
+        class="h-6 w-6 my-auto"
         [class.text-gray-600]="!showValidationErrors"
         [class.text-red-500]="showValidationErrors"
         fill="none"

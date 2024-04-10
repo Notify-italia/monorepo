@@ -60,7 +60,7 @@ export class LicenseFormComponent extends ModalBaseComponent {
 
     this.submitted.next(`${part0}-${part1}-${part2}-${part3}`.toUpperCase());
 
-    this.cf.destroy();
+    this.close();
   }
 
   public handlePaste(event: ClipboardEvent, index: number, maxLength: number) {

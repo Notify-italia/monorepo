@@ -24,7 +24,7 @@ router.post(
     async (req, res) => {
       const { allowedAgents, expirationDate, boughtCards } = req.body;
 
-      const license = await LicenseManager.generate({
+      const { license } = await LicenseManager.generate({
         allowedAgents,
         expirationDate,
         boughtCards,

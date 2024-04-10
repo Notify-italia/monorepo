@@ -1,22 +1,66 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { INotifyPopulatedLicense } from '@notify/interfaces';
-import { CustomTableComponent, RootService } from '@notify/ngx-shared';
+import {
+  CustomTableComponent,
+  LicenseFormFullFactory,
+  RootService,
+} from '@notify/ngx-shared';
 import { addMonths, format } from 'date-fns';
+import { ToastrService } from 'ngx-toastr';
+import { Observable, Subject, switchMap, tap } from 'rxjs';
 
 @Component({
   standalone: true,
   imports: [CommonModule, CustomTableComponent],
+  providers: [LicenseFormFullFactory],
   templateUrl: './licenses.component.html',
   styleUrl: './licenses.component.scss',
 })
-export class LicensesComponent {
+export class LicensesComponent implements OnInit {
   private _rootService = inject(RootService);
+  private _licenseFormFull = inject(LicenseFormFullFactory);
+  private _toastr = inject(ToastrService);
 
-  public licenses$ = this._rootService.getLicenses({
-    items: 1000,
-    page: 1,
-  });
+  public licensesSubject$ = new Subject<INotifyPopulatedLicense[]>();
+  public licenses$: Observable<INotifyPopulatedLicense[]> =
+    this.licensesSubject$;
+
+  public openLicenseForm(license?: INotifyPopulatedLicense): void {
+    const ref = license
+      ? this._licenseFormFull.create(license)
+      : this._licenseFormFull.create();
+
+    ref.instance.deleteLicense
+      .pipe(switchMap((v) => this._rootService.deleteLicense(v)))
+      .subscribe();
+
+    ref.instance.submitted
+      .pipe(
+        switchMap((v) =>
+          license
+            ? this._rootService.patchLicense(v, license._id)
+            : this._rootService.postLicense(v).pipe(
+                tap((v) => {
+                  navigator.clipboard.writeText(v.publicKey);
+                  this._getLicenses();
+                  this._toastr.success('Chiave copiata negli appunti');
+                })
+              )
+        )
+      )
+      .subscribe();
+  }
+
+  public ngOnInit(): void {
+    this._getLicenses();
+  }
+
+  private _getLicenses(): void {
+    this._rootService.getLicenses({ items: 1000, page: 1 }).subscribe((v) => {
+      this.licensesSubject$.next(v);
+    });
+  }
 
   public dateTransform(date: string): string {
     if (!date) {
@@ -54,7 +98,7 @@ export class LicensesComponent {
   }
 
   public rowClicked(license: INotifyPopulatedLicense): void {
-    console.log(license);
+    this.openLicenseForm(license);
   }
 
   public actionClicked(action: {
