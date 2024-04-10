@@ -31,6 +31,7 @@ export interface INotifyCustomTableConfig {
   columns: INotifyCustomTableColumn[];
   clickableRows?: boolean;
   skeletonRows: number;
+  defaultSorter?: string;
   style?: {
     transparentBackground?: boolean;
     alternateRows?: boolean;

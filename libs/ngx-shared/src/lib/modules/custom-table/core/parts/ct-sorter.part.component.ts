@@ -73,6 +73,7 @@ export class CustomTableSorterComponent implements OnInit {
   @Input() public column = '';
   @Input() public iterable: UnknownObject[] = [];
   @Input() public sorter?: INotifyCustomTableSorter;
+  @Input() public defaultSorter?: string;
   @Input() resetSort = new Subject<string>();
   @Input() componentDestroyed = new Subject<void>();
 
@@ -81,6 +82,11 @@ export class CustomTableSorterComponent implements OnInit {
   public currentSort: 'none' | 'asc' | 'desc' = 'none';
 
   public ngOnInit(): void {
+    if (this.defaultSorter === this.column) {
+      this.currentSort = 'asc';
+      this._sort();
+    }
+
     this.resetSort.pipe(takeUntil(this.componentDestroyed)).subscribe((v) => {
       if (v === this.column) {
         return;

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { INotifyLicense } from '@notify/interfaces';
+import { INotifyPopulatedLicense } from '@notify/interfaces';
 import { CustomTableComponent, RootService } from '@notify/ngx-shared';
 import { addMonths, format } from 'date-fns';
 
@@ -26,7 +26,7 @@ export class LicensesComponent {
     return format(new Date(date), 'dd/MM/yyyy HH:mm');
   }
 
-  public isExpired(iterate: INotifyLicense): boolean {
+  public isExpired(iterate: INotifyPopulatedLicense): boolean {
     if (!iterate.expirationDate) {
       return false;
     }
@@ -34,7 +34,7 @@ export class LicensesComponent {
     return new Date(iterate.expirationDate) < new Date();
   }
 
-  public isNotExpired(iterate: INotifyLicense): boolean {
+  public isNotExpired(iterate: INotifyPopulatedLicense): boolean {
     if (!iterate.expirationDate) {
       return false;
     }
@@ -42,7 +42,7 @@ export class LicensesComponent {
     return new Date(iterate.expirationDate) > new Date();
   }
 
-  public isExpiring(iterate: INotifyLicense): boolean {
+  public isExpiring(iterate: INotifyPopulatedLicense): boolean {
     if (!iterate.expirationDate) {
       return false;
     }
@@ -53,17 +53,23 @@ export class LicensesComponent {
     );
   }
 
-  public rowClicked(license: INotifyLicense): void {
+  public rowClicked(license: INotifyPopulatedLicense): void {
     console.log(license);
   }
 
-  public actionClicked(action: { event: string; data: INotifyLicense }): void {
+  public actionClicked(action: {
+    event: string;
+    data: INotifyPopulatedLicense;
+  }): void {
     if (action.event === 'copy') {
       navigator.clipboard.writeText(action.data.publicKey);
     }
   }
 
-  public sortExpirationDate(a: INotifyLicense, b: INotifyLicense): number {
+  public sortExpirationDate(
+    a: INotifyPopulatedLicense,
+    b: INotifyPopulatedLicense
+  ): number {
     if (!a.expirationDate && !b.expirationDate) {
       return 0;
     }
@@ -82,15 +88,40 @@ export class LicensesComponent {
     );
   }
 
-  public sortCreationDate(a: INotifyLicense, b: INotifyLicense): number {
+  public sortCreationDate(
+    a: INotifyPopulatedLicense,
+    b: INotifyPopulatedLicense
+  ): number {
     return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
   }
 
-  public sortBoughtCards(a: INotifyLicense, b: INotifyLicense): number {
+  public sortBoughtCards(
+    a: INotifyPopulatedLicense,
+    b: INotifyPopulatedLicense
+  ): number {
     return (a.boughtCards || 0) - (b.boughtCards || 0);
   }
 
-  public sortAllowedAgents(a: INotifyLicense, b: INotifyLicense): number {
+  public sortAllowedAgents(
+    a: INotifyPopulatedLicense,
+    b: INotifyPopulatedLicense
+  ): number {
     return (a.allowedAgents || 0) - (b.allowedAgents || 0);
+  }
+
+  public sortAssignedTo(
+    a: INotifyPopulatedLicense,
+    b: INotifyPopulatedLicense
+  ): number {
+    const aName = a.company?.profile?.name || '';
+    const bName = b.company?.profile?.name || '';
+
+    if (!aName) {
+      return 1;
+    }
+    if (!bName) {
+      return -1;
+    }
+    return aName.localeCompare(bName);
   }
 }

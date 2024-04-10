@@ -33,7 +33,7 @@
             <thead
               class="text-sm py-2 bg-gray-700/20 text-white uppercase"
               notify-custom-table-header
-              [columns]="config.columns"
+              [config]="config"
               (sorter$)="sorter$.next($event)"
             ></thead>
 
@@ -95,7 +95,7 @@
             <thead
               class="text-sm py-2 bg-gray-700/20 text-white uppercase w-full"
               notify-custom-table-header
-              [columns]="config.columns"
+              [config]="config"
               (sorter$)="sorter$.next($event)"
             ></thead>
 

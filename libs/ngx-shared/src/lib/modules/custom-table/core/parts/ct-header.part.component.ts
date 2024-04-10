@@ -13,7 +13,7 @@ import {
   imports: [CommonModule, CustomTableSorterComponent],
   template: `
     <tr>
-      @for (item of columns; track $index) {
+      @for (item of config.columns; track $index) {
       <th *ngIf="!item.hidden" class="px-6 py-3" scope="col">
         <div class="flex space-x-2 items-center">
           <span> {{ item.label }}</span>
@@ -21,6 +21,7 @@ import {
             [column]="item.id"
             [sorter]="item.sorter"
             [resetSort]="activeSorter"
+            [defaultSorter]="config.defaultSorter"
             (sortChange)="sorter$.emit($event); activeSorter.next(item.id)"
           ></notify-custom-table-sorter>
         </div>
@@ -30,7 +31,7 @@ import {
   `,
 })
 export class CustomTableHeaderComponent {
-  @Input() columns!: INotifyCustomTableConfig['columns'];
+  @Input() config!: INotifyCustomTableConfig;
   @Output() sorter$ = new EventEmitter<INotifyCustomTableSorter>();
 
   public activeSorter = new Subject<string>();

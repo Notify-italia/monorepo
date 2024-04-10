@@ -1,4 +1,5 @@
 import { MongodbDocument } from '../interface.mongodb';
+import { INotifyCompany } from './interface.company';
 
 export interface INotifyLicense extends MongodbDocument {
   expirationDate: Date;
@@ -9,3 +10,7 @@ export interface INotifyLicense extends MongodbDocument {
   features: string[];
   boughtCards: number;
 }
+
+export type INotifyPopulatedLicense = INotifyLicense & {
+  company: INotifyCompany<true>;
+};
