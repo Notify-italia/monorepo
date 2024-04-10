@@ -32,22 +32,32 @@ export class LicensesComponent implements OnInit {
       : this._licenseFormFull.create();
 
     ref.instance.deleteLicense
-      .pipe(switchMap((v) => this._rootService.deleteLicense(v)))
+      .pipe(
+        switchMap((v) => this._rootService.deleteLicense(v)),
+        tap(() => {
+          this._toastr.warning('Licenza eliminata');
+          this._getLicenses();
+        })
+      )
       .subscribe();
 
     ref.instance.submitted
       .pipe(
         switchMap((v) =>
           license
-            ? this._rootService.patchLicense(v, license._id)
+            ? this._rootService.patchLicense(v, license._id).pipe(
+                tap(() => {
+                  this._toastr.success('Licenza modificata');
+                })
+              )
             : this._rootService.postLicense(v).pipe(
                 tap((v) => {
                   navigator.clipboard.writeText(v.publicKey);
-                  this._getLicenses();
                   this._toastr.success('Chiave copiata negli appunti');
                 })
               )
-        )
+        ),
+        tap(() => this._getLicenses())
       )
       .subscribe();
   }
@@ -68,6 +78,13 @@ export class LicensesComponent implements OnInit {
     }
 
     return format(new Date(date), 'dd/MM/yyyy HH:mm');
+  }
+
+  public numberTransform(value: number): string {
+    if (!value) {
+      return '0';
+    }
+    return value.toString();
   }
 
   public isExpired(iterate: INotifyPopulatedLicense): boolean {
@@ -105,8 +122,9 @@ export class LicensesComponent implements OnInit {
     event: string;
     data: INotifyPopulatedLicense;
   }): void {
-    if (action.event === 'copy') {
+    if (action.event === 'copyPublicKey') {
       navigator.clipboard.writeText(action.data.publicKey);
+      this._toastr.info('Chiave copiata negli appunti');
     }
   }
 

@@ -144,14 +144,14 @@ export class UtilsService {
 
     //if the value is an array, stringify it
     if (
-      (value as string)
+      String(value)
         ?.toUpperCase()
         .match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/)
     ) {
       return format(new Date(value as string), 'dd/MM/yyyy');
     }
 
-    return (value as string)?.toLowerCase();
+    return String(value)?.toLowerCase();
   }
 
   public populateWebProtocol(protocol: string, data: string) {

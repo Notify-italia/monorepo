@@ -33,6 +33,10 @@ export class LicenseManager {
     await company.save();
   }
 
+  public async delete() {
+    await LicenseModel.findOneAndRemove({ _id: this._license._id });
+  }
+
   public async patch(conf: {
     expirationDate: Date;
     allowedAgents: number;
@@ -60,7 +64,7 @@ export class LicenseManager {
   }
 
   private static async _findWithId(id: string): Promise<LicenseManager> {
-    const license = await LicenseModel.findById(id);
+    const license = (await LicenseModel.findById(id)) as LicenseDocument;
 
     if (!license || !license.enabled) {
       throw new BadRequestError(
@@ -72,7 +76,9 @@ export class LicenseManager {
   }
 
   private static async _find(publicKey: string): Promise<LicenseManager> {
-    const license = await LicenseModel.findOne({ publicKey });
+    const license = (await LicenseModel.findOne({
+      publicKey,
+    })) as LicenseDocument;
 
     if (!license || !license.enabled) {
       throw new BadRequestError(
@@ -102,13 +108,13 @@ export class LicenseManager {
     allowedAgents: number;
     boughtCards: number;
   }): Promise<LicenseManager> {
-    const l = await LicenseModel.build({
+    const l = (await LicenseModel.build({
       expirationDate: conf.expirationDate,
       enabled: true,
       publicKey: this._generatePublicKey(),
       allowedAgents: conf.allowedAgents,
       boughtCards: conf.boughtCards,
-    });
+    })) as LicenseDocument;
 
     await l.save();
 
