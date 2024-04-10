@@ -16,7 +16,7 @@ export type INotifyCustomTableSorter =
   providers: [UtilsService],
   styles: `
   svg {
-    @apply h-4 w-4;
+    @apply h-5 w-5;
   }
   `,
   template: `

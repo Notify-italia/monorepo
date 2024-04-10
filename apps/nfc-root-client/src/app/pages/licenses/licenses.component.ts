@@ -87,10 +87,10 @@ export class LicensesComponent {
   }
 
   public sortBoughtCards(a: INotifyLicense, b: INotifyLicense): number {
-    return a.boughtCards - b.boughtCards;
+    return (a.boughtCards || 0) - (b.boughtCards || 0);
   }
 
   public sortAllowedAgents(a: INotifyLicense, b: INotifyLicense): number {
-    return a.allowedAgents - b.allowedAgents;
+    return (a.allowedAgents || 0) - (b.allowedAgents || 0);
   }
 }
