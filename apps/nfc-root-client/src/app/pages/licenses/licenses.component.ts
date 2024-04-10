@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { INotifyLicense } from '@notify/interfaces';
-import { CustomTableCoreComponent, RootService } from '@notify/ngx-shared';
+import { CustomTableComponent, RootService } from '@notify/ngx-shared';
 import { addMonths, format } from 'date-fns';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, CustomTableCoreComponent],
+  imports: [CommonModule, CustomTableComponent],
   templateUrl: './licenses.component.html',
   styleUrl: './licenses.component.scss',
 })

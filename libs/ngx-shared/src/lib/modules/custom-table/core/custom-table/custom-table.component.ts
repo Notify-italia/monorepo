@@ -1,29 +1,30 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UnknownObject } from '@notify/interfaces';
-import { BehaviorSubject, Observable, Subject, combineLatest, map } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
 import { NoItemsComponent, SearchBarComponent } from '../../../../standalones';
 import {
   CustomTableActionsComponent,
   ICTActionsvalue,
-} from '../extensions/custom-table-actions-value.component';
+} from '../parts/ct-actions-value.part.component';
 import {
   CustomTableAvatarValueComponent,
   ICTAvatarvalue,
-} from '../extensions/custom-table-avatar-value.component';
+} from '../parts/ct-avatar-value.part.component';
 import {
   CustomTableBadgeValueComponent,
   ICTBadgevalue,
-} from '../extensions/custom-table-badge-value.component';
+} from '../parts/ct-badge-value.part.component';
 import {
   CustomTableFieldValueComponent,
   ICTFieldValue,
-} from '../extensions/custom-table-field-value.component';
-import { CustomTableSkeletonComponent } from '../extensions/custom-table-skeleton.component';
+} from '../parts/ct-field-value.part.component';
+import { CustomTableHeaderComponent } from '../parts/ct-header.part.component';
+import { CustomTableSkeletonComponent } from '../parts/ct-skeleton.part.component';
 import {
   CustomTableSorterComponent,
   INotifyCustomTableSorter,
-} from '../extensions/custom-table-sorter.component';
+} from '../parts/ct-sorter.part.component';
 
 export interface INotifyCustomTableConfig {
   filterableFields: string[];
@@ -46,7 +47,7 @@ interface INotifyCustomTableColumn {
 }
 
 @Component({
-  selector: 'notify-custom-table-core',
+  selector: 'notify-custom-table',
   standalone: true,
   imports: [
     CommonModule,
@@ -58,10 +59,11 @@ interface INotifyCustomTableColumn {
     CustomTableSkeletonComponent,
     CustomTableActionsComponent,
     CustomTableSorterComponent,
+    CustomTableHeaderComponent,
   ],
-  templateUrl: './custom-table-core.component.html',
+  templateUrl: './custom-table.component.html',
 })
-export class CustomTableCoreComponent implements OnInit {
+export class CustomTableComponent implements OnInit {
   @Input({ required: true }) public config!: INotifyCustomTableConfig;
   @Input() iterable$ = new Observable<unknown[]>();
   @Input() public noItemsMessages = {
@@ -80,8 +82,6 @@ export class CustomTableCoreComponent implements OnInit {
   public computedIterable$ = new Observable<UnknownObject[] | null>();
   public sorter$ = new BehaviorSubject<INotifyCustomTableSorter>(() => 0);
   public filteredIterable$ = new BehaviorSubject<UnknownObject[] | null>(null);
-
-  public activeSorter = new Subject<string>();
 
   public get iterableSkeletonRows(): number[] {
     return Array.from({ length: this.config.skeletonRows ?? 0 });

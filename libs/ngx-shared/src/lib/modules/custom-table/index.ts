@@ -1,1 +1,1 @@
-export * from './core/custom-table-core/custom-table-core.component';
+export * from './core/custom-table/custom-table.component';

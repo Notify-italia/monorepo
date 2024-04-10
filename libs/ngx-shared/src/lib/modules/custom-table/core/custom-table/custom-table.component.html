@@ -30,32 +30,15 @@
             class="w-full text-sm text-left table-auto"
             *ngIf="!iterable || iterable.length"
           >
-            <!-- head -->
-            <thead class="text-sm py-2 bg-gray-700/20 text-white uppercase">
-              <tr>
-                @for (item of config.columns; track $index) {
-                <th *ngIf="!item.hidden" class="px-6 py-3" scope="col">
-                  <div class="flex space-x-2 items-center">
-                    <span> {{ item.label }}</span>
-                    <notify-custom-table-sorter
-                      [column]="item.id"
-                      [sorter]="item.sorter"
-                      [resetSort]="activeSorter"
-                      (sortChange)="
-                        sorter$.next($event); activeSorter.next(item.id)
-                      "
-                    ></notify-custom-table-sorter>
-                  </div>
-                </th>
-                }
-              </tr>
-            </thead>
+            <thead
+              class="text-sm py-2 bg-gray-700/20 text-white uppercase"
+              notify-custom-table-header
+              [columns]="config.columns"
+              (sorter$)="sorter$.next($event)"
+            ></thead>
 
             <tbody>
-              @if (!iterable) { @for (item of iterableSkeletonRows; track
-              $index) {
-              <tr notify-custom-table-skeleton [columns]="config.columns"></tr>
-              } } @else { @for (iterate of iterable; track $index) {
+              @for (iterate of iterable; track $index) {
               <tr
                 (click)="config.clickableRows ? handleRowClick(iterate) : null"
                 class="h-20 table-row"
@@ -93,7 +76,33 @@
                 </td>
                 }
               </tr>
-              } }
+              }
+            </tbody>
+
+            <!-- foot -->
+          </table>
+        </div>
+      </div>
+      } @else {
+      <div class="w-full h-full p-4">
+        <div
+          class="relative overflow-x-auto shadow-md sm:rounded-lg bg-primary-500/10"
+          [ngClass]="{
+            '!bg-transparent': config.style?.transparentBackground
+          }"
+        >
+          <table class="w-full text-sm text-left table-auto">
+            <thead
+              class="text-sm py-2 bg-gray-700/20 text-white uppercase w-full"
+              notify-custom-table-header
+              [columns]="config.columns"
+              (sorter$)="sorter$.next($event)"
+            ></thead>
+
+            <tbody>
+              @for (item of iterableSkeletonRows; track $index) {
+              <tr notify-custom-table-skeleton [columns]="config.columns"></tr>
+              }
             </tbody>
 
             <!-- foot -->

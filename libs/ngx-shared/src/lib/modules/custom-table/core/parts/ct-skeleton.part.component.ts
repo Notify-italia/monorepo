@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { UtilsService } from '../../../../services';
 import { AvatarComponent } from '../../../../standalones';
-import { INotifyCustomTableConfig } from '../custom-table-core/custom-table-core.component';
+import { INotifyCustomTableConfig } from '../custom-table/custom-table.component';
 
 @Component({
   standalone: true,
