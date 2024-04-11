@@ -5,6 +5,7 @@ import { getCustomersRouter } from './get.customers';
 import { getDashboardRouter } from './get.dashboard';
 import { getHeartbeatRouter } from './get.heartbeat';
 import { getLicensesRouter } from './get.licenses';
+import { patchLicenseRouter } from './patch.license';
 import { postCustomerGenerateTokenRouter } from './post.customer.generate-token';
 import { postLicenseRouter } from './post.license';
 import { postTestRouter } from './post.test-route';
@@ -18,6 +19,7 @@ router.use('/dashboard', getDashboardRouter);
 router.use('/customer', getCustomerRouter);
 router.use('/licenses', getLicensesRouter);
 router.use('/license', postLicenseRouter);
+router.use('/license', patchLicenseRouter);
 router.use('/license', deleteLicenseRouter);
 router.use('/customer/generate-token', postCustomerGenerateTokenRouter);
 

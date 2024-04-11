@@ -16,7 +16,7 @@ import {
       @for (item of config.columns; track $index) {
       <th *ngIf="!item.hidden" class="px-6 py-3" scope="col">
         <div class="flex space-x-2 items-center">
-          <span> {{ item.label }}</span>
+          <span class=" whitespace-nowrap"> {{ item.label }}</span>
           <notify-custom-table-sorter
             [column]="item.id"
             [sorter]="item.sorter"

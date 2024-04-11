@@ -41,32 +41,50 @@ export class LicenseManager {
     expirationDate: Date;
     allowedAgents: number;
     boughtCards: number;
+    enabled: boolean;
   }): Promise<void> {
     this._license.expirationDate = conf.expirationDate;
+
     this._license.allowedAgents =
       conf.allowedAgents || this._license.allowedAgents || 1;
+
     this._license.boughtCards =
-      conf.boughtCards || this._license.boughtCards || 0;
+      conf.boughtCards ?? this._license.boughtCards ?? 0;
+
+    this.license.enabled = conf.enabled ?? this.license.enabled ?? true;
 
     await this._license.save();
   }
 
-  public static async load(options: { publicKey?: string; id?: string }) {
+  public static async load(options: {
+    publicKey?: string;
+    id?: string;
+    ignoreDisabled?: boolean;
+  }) {
     if (options.id) {
-      return await this._findWithId(options.id);
+      return await this._findWithId(
+        options.id,
+        options.ignoreDisabled ?? false
+      );
     }
 
     if (options.publicKey) {
-      return await this._find(options.publicKey);
+      return await this._find(
+        options.publicKey,
+        options.ignoreDisabled ?? false
+      );
     }
 
     throw new BadRequestError(LICENSE_VALIDATION_MESSAGES.publicKey as string);
   }
 
-  private static async _findWithId(id: string): Promise<LicenseManager> {
+  private static async _findWithId(
+    id: string,
+    ignoreDisabled: boolean
+  ): Promise<LicenseManager> {
     const license = (await LicenseModel.findById(id)) as LicenseDocument;
 
-    if (!license || !license.enabled) {
+    if (!license || (!license.enabled && !ignoreDisabled)) {
       throw new BadRequestError(
         LICENSE_VALIDATION_MESSAGES.publicKey as string
       );
@@ -75,12 +93,15 @@ export class LicenseManager {
     return new LicenseManager(license);
   }
 
-  private static async _find(publicKey: string): Promise<LicenseManager> {
+  private static async _find(
+    publicKey: string,
+    ignoreDisabled: boolean
+  ): Promise<LicenseManager> {
     const license = (await LicenseModel.findOne({
       publicKey,
     })) as LicenseDocument;
 
-    if (!license || !license.enabled) {
+    if (!license || (!license.enabled && !ignoreDisabled)) {
       throw new BadRequestError(
         LICENSE_VALIDATION_MESSAGES.publicKey as string
       );

@@ -9,7 +9,7 @@ import { body, query } from 'express-validator';
 
 const router = Router();
 
-router.post(
+router.patch(
   '/',
   body('allowedAgents')
     .optional()
@@ -23,22 +23,28 @@ router.post(
     .optional()
     .custom((value) => !isNaN(value) && value >= 0)
     .withMessage(LICENSE_VALIDATION_MESSAGES.boughtCards as string),
+  body('enabled')
+    .optional()
+    .isBoolean()
+    .withMessage(LICENSE_VALIDATION_MESSAGES.enabled as string),
   query('id')
     .isMongoId()
     .withMessage(LICENSE_VALIDATION_MESSAGES._id as string),
   requestHandler(
     async (req, res) => {
-      const { allowedAgents, expirationDate, boughtCards } = req.body;
+      const { allowedAgents, expirationDate, boughtCards, enabled } = req.body;
       const { id } = req.query;
 
       const license = await LicenseManager.load({
         id: id as string,
+        ignoreDisabled: true,
       });
 
       await license.patch({
         allowedAgents,
         expirationDate,
         boughtCards,
+        enabled,
       });
 
       res.status(200).send(license);

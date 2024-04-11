@@ -87,6 +87,10 @@ export class LicensesComponent implements OnInit {
     return value.toString();
   }
 
+  public booleanTransform(value: boolean): string {
+    return value ? '✅' : '❌';
+  }
+
   public isExpired(iterate: INotifyPopulatedLicense): boolean {
     if (!iterate.expirationDate) {
       return false;

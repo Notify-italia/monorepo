@@ -30,7 +30,7 @@ export class LicenseFormFullComponent
   public ngOnInit(): void {
     this.form = new FormGroup({
       expirationDate: new FormControl(this.license?.expirationDate || null, []),
-      enabled: new FormControl(this.license?.enabled ?? false, []),
+      enabled: new FormControl(this.license?.enabled ?? true, []),
       allowedAgents: new FormControl(this.license?.allowedAgents ?? 0, [
         Validators.required,
       ]),
