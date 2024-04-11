@@ -75,6 +75,32 @@
 
   <div class="divider"></div>
 
+  <div class="space-y-4 flex flex-col">
+    <notify-widget-counter
+      [backgroundColor]="'purple'"
+      title="Profili visitati"
+      [icon]="{
+        name: 'show_chart',
+        set: 'materialui'
+      }"
+      elementsColor="'white'"
+      [count]="user.usersStatsMapped['profile:visit']"
+    ></notify-widget-counter>
+
+    <notify-widget-counter
+      [backgroundColor]="'red'"
+      title="Profili Salvati"
+      [icon]="{
+        name: 'save',
+        set: 'hero-solid'
+      }"
+      elementsColor="'white'"
+      [count]="user.usersStatsMapped['profile:save']"
+    ></notify-widget-counter>
+  </div>
+
+  <div class="divider"></div>
+
   <div class="flex flex-col xl:max-h-[95vh] overflow-auto w-full">
     <notify-accounts-table
       [users$]="user.users$"

@@ -2,11 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
+  EnumNotifyStatType,
   EnumNotifyUserType,
   INotifyAgent,
   INotifyCompany,
   INotifyLicense,
   INotifyProfile,
+  INotifyUserStats,
 } from '@notify/interfaces';
 import {
   AccountsTableComponent,
@@ -18,10 +20,17 @@ import {
   ProfilePlayerFactory,
   ProfileViewComponent,
   RootService,
+  WidgetCounterComponent,
 } from '@notify/ngx-shared';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, map, of, switchMap, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
+
+type INotifyGetCustomerResponse = INotifyCompany<true> & {
+  users: INotifyAgent[];
+  users$: Observable<INotifyAgent[]>;
+  usersStatsMapped: INotifyUserStats;
+};
 
 @Component({
   standalone: true,
@@ -32,6 +41,7 @@ import { environment } from '../../../environments/environment';
     LicenseInfoComponent,
     LoadingComponent,
     AppTitleComponent,
+    WidgetCounterComponent,
   ],
   providers: [ProfilePlayerFactory, LicenseFormFullFactory],
   templateUrl: './inspect-customer.component.html',
@@ -46,18 +56,9 @@ export class InspectCustomerComponent {
 
   public userTypes = EnumNotifyUserType;
 
-  public customerSubject$ = new Subject<
-    INotifyCompany<true> & {
-      users: INotifyAgent[];
-      users$: Observable<INotifyAgent[]>;
-    }
-  >();
-  public customer$: Observable<
-    INotifyCompany<true> & {
-      users: INotifyAgent[];
-      users$: Observable<INotifyAgent[]>;
-    }
-  > = this.customerSubject$;
+  public customerSubject$ = new Subject<INotifyGetCustomerResponse>();
+  public customer$: Observable<INotifyGetCustomerResponse> =
+    this.customerSubject$;
 
   public tableConfig: IAccountsTableConfig = {
     allowedActions: ['inspect', 'edit'],
@@ -141,6 +142,21 @@ export class InspectCustomerComponent {
           return {
             ...customer,
             users$: of(customer.users),
+            usersStatsMapped: customer.users.reduce(
+              (acc: INotifyUserStats, user) => {
+                const stats = Object.keys(
+                  user.statsTotals
+                ) as EnumNotifyStatType[];
+
+                stats.forEach((stat) => {
+                  acc[stat] = acc[stat] || 0;
+                  acc[stat] += user.statsTotals[stat];
+                });
+
+                return acc;
+              },
+              {} as INotifyUserStats
+            ),
           };
         }),
         tap((customer) => {
