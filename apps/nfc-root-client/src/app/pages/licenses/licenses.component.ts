@@ -136,16 +136,12 @@ export class LicensesComponent implements OnInit {
     a: INotifyPopulatedLicense,
     b: INotifyPopulatedLicense
   ): number {
-    if (!a.expirationDate && !b.expirationDate) {
-      return 0;
-    }
-
     if (!a.expirationDate) {
       return 1;
     }
 
     if (!b.expirationDate) {
-      return 1;
+      return -1;
     }
 
     return (
