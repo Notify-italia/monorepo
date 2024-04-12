@@ -1,0 +1,117 @@
+@if (customer$ |async; as user) {
+<div class="flex w-full justify-around flex-col text-white">
+  <div class="flex flex-col mt-10">
+    <div class="flex space-x-4 w-full">
+      <div class="flex flex-col space-y-2">
+        <button
+          (click)="showProfile(user.profile)"
+          class="box w-64 h-10 py-2 flex justify-around space-x-2 items-center hover:brightness-150 smooth"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          <span>Visualizza Profilo</span>
+        </button>
+        <button
+          (click)="loginAsUser(user._id, userTypes.Company)"
+          class="box w-64 h-10 py-2 flex justify-around space-x-2 items-center hover:brightness-150 smooth"
+        >
+          <notify-app-title
+            [compact]="true"
+            class="w-6 h-6 brightness-[10]"
+          ></notify-app-title>
+          <span>Login su Notify</span>
+        </button>
+        <button
+          (click)="openLicenseForm(user.license, user)"
+          class="box w-64 h-10 py-2 flex justify-around space-x-2 items-center hover:brightness-150 smooth"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
+              clip-rule="evenodd"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375Zm9.586 4.594a.75.75 0 0 0-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 0 0-1.06 1.06l1.5 1.5a.75.75 0 0 0 1.116-.062l3-3.75Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+
+          <span>Gestisci Licenza</span>
+        </button>
+      </div>
+      <div class="w-full flex flex-col justify-center">
+        <h1 class="font-bold text-5xl">
+          {{ user.profile?.name }}
+        </h1>
+        <h2 class="text-xl font-light">
+          {{ user.email }}
+        </h2>
+        <h2 class="font-light">
+          Creato il {{ user.createdAt | date : 'medium' : 'it' }}
+        </h2>
+      </div>
+    </div>
+    <div class="w-full mt-10 flex flex-col">
+      <notify-license-info [license]="user.license"></notify-license-info>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="space-y-4 flex flex-col">
+    <notify-widget-counter
+      [backgroundColor]="'purple'"
+      title="Profili visitati"
+      [icon]="{
+        name: 'show_chart',
+        set: 'materialui'
+      }"
+      elementsColor="'white'"
+      [count]="user.usersStatsMapped['profile:visit']"
+    ></notify-widget-counter>
+
+    <notify-widget-counter
+      [backgroundColor]="'red'"
+      title="Profili Salvati"
+      [icon]="{
+        name: 'save',
+        set: 'hero-solid'
+      }"
+      elementsColor="'white'"
+      [count]="user.usersStatsMapped['profile:save']"
+    ></notify-widget-counter>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="flex flex-col xl:max-h-[95vh] overflow-auto w-full">
+    <notify-accounts-table
+      [users$]="user.users$"
+      [config]="tableConfig"
+      (inspectUser)="showProfile($event.profile, user.profile)"
+      (editUser)="loginAsUser($event._id, userTypes.Agent)"
+    ></notify-accounts-table>
+  </div>
+</div>
+} @else {
+<div class="loading-container">
+  <notify-loading></notify-loading>
+</div>
+}

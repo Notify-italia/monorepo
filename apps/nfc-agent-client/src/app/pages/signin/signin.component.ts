@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppError, INotifyAuth } from '@notify/interfaces';
 import { AuthComponent, AuthService, UtilsService } from '@notify/ngx-shared';
 import { catchError, tap } from 'rxjs';
@@ -25,8 +26,22 @@ export class SigninComponent {
 
   constructor(
     private _auth: AuthService,
-    private _utilsService: UtilsService
-  ) {}
+    private _utilsService: UtilsService,
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router
+  ) {
+    const token = this._activatedRoute.snapshot.queryParamMap.get('t');
+
+    if (!token) {
+      return;
+    }
+
+    this._auth.setToken(token);
+    this._router.navigate(['/']);
+    setTimeout(() => {
+      location.reload();
+    }, 100);
+  }
 
   public signin(data: INotifyAuth) {
     this.loading = true;

@@ -4,17 +4,17 @@ import {
   INotifyAgent,
   INotifyProfile,
 } from '@notify/interfaces';
-import { Request, Router } from 'express';
-import { query } from 'express-validator';
 import {
+  BadRequestError,
   PROFILE_VALIDATION_MESSAGES,
   ProfileDocument,
   ProfileModel,
-} from '../../../models/model.profile';
-import { BadRequestError } from '../../../services/errors/errors';
-import { requestHandler } from '../../../services/errors/middlewares/bun.request';
-import { S3Upload } from '../../../services/service.bucket';
-import { getAgentOwnerProfile } from '../../../services/service.profile';
+  S3Upload,
+  getAgentOwnerProfile,
+  requestHandler,
+} from '@notify/nfc-api-core';
+import { Request, Router } from 'express';
+import { query } from 'express-validator';
 
 const router = Router();
 

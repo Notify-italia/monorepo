@@ -7,7 +7,6 @@
 export const log = (
   msg: string,
   type: 'success' | 'info' | 'error' | 'start' | 'warning' | 'end',
-
   manager?: LogManager
 ) => {
   let color = 'white';

@@ -28,6 +28,7 @@ export interface IAuthConfig {
   signupRoute?: string;
   forgotPasswordRoute?: string;
   isSignup?: boolean;
+  hideEmail?: boolean;
 }
 
 @Component({
@@ -98,6 +99,10 @@ export class AuthComponent implements OnInit, OnDestroy {
         'confirmPassword',
         new FormControl('', this._passwordValidators)
       );
+    }
+
+    if (this.config.hideEmail) {
+      this.form.controls.email.disable();
     }
 
     this.form.controls.password.valueChanges

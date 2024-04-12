@@ -1,12 +1,17 @@
 import { INotifyCompany } from '@notify/interfaces';
-import { isProduction } from 'apps/nfc-api/src/app/services/service.envs';
+import {
+  CompanyModel,
+  LICENSE_VALIDATION_MESSAGES,
+  isProduction,
+  requestHandler,
+} from '@notify/nfc-api-core';
 import { Router } from 'express';
-import { CompanyModel } from '../../../../models/model.company';
-import { LICENSE_VALIDATION_MESSAGES } from '../../../../models/model.license';
-import { requestHandler } from '../../../../services/errors/middlewares/bun.request';
-import { sendEmail } from '../../../../services/service.email';
-import { signToken } from '../../../../services/service.jwt';
-import { userSignInValidation } from '../../../../services/service.validation';
+
+import {
+  sendEmail,
+  signToken,
+  userSignInValidation,
+} from '@notify/nfc-api-core';
 
 const router = Router();
 

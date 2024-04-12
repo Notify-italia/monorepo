@@ -1,12 +1,12 @@
 import { EnumNotifyStatType } from '@notify/interfaces';
-import { Router } from 'express';
-import { body } from 'express-validator';
-import { AgentModel } from '../../../models/model.agent';
 import {
+  AgentModel,
   FEEDBACK_VALIDATION_MESSAGES,
   FeedbackModel,
-} from '../../../models/model.feedback';
-import { requestHandler } from '../../../services/errors/middlewares/bun.request';
+  requestHandler,
+} from '@notify/nfc-api-core';
+import { Router } from 'express';
+import { body } from 'express-validator';
 
 const router = Router();
 

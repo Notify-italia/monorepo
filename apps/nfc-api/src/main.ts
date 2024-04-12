@@ -1,25 +1,26 @@
-import { LogManager, log } from '@notify/api-shared';
+import {
+  connectToDatabase,
+  expressRouter,
+  initSocketio,
+  mLog,
+} from '@notify/nfc-api-core';
 import * as Sentry from '@sentry/bun';
-import { server } from './app';
-import { connectToDatabase } from './app/services/service.db';
-import { declareEnvs } from './app/services/service.envs';
-import { socketIOServer } from './app/socketio';
+import { declareEnvs } from 'libs/nfc-api-core/src/lib/services/service.envs';
+import { api } from './app/routes';
+import { socketEvents } from './app/socketio';
 
 const { SENTRY_DSN, BUN_ENV, PORT } = declareEnvs(['SENTRY_DSN', 'BUN_ENV']);
-const logManager = LogManager.init([], 100);
+
 const port = PORT || 3000;
+
+const server = expressRouter(api);
 
 Sentry.init({
   dsn: SENTRY_DSN,
   tracesSampleRate: 1.0, // Capture 100% of the transactions
 });
 
-export const wLog = (...args: Parameters<typeof log>) => {
-  args.push(logManager);
-  log(...args);
-};
-
-wLog(
+mLog(
   `Starting with Bun version ${Bun.version} with BUN_ENV ${BUN_ENV}`,
   'start'
 );
@@ -27,9 +28,9 @@ wLog(
 connectToDatabase();
 
 server.listen(port, () => {
-  wLog(`listening on port http://localhost:${port}`, 'info');
+  mLog(`listening on port http://localhost:${port}`, 'info');
 });
 
-socketIOServer.listen(() =>
-  wLog(`Listening socket.io on port ${port}`, 'info')
+initSocketio(server, socketEvents).listen(() =>
+  mLog(`Listening socket.io on port ${port}`, 'info')
 );

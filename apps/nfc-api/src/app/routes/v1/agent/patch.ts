@@ -1,18 +1,16 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
-import { Router } from 'express';
-import { body, query } from 'express-validator';
 import {
   AGENT_VALIDATION_MESSAGES,
   AgentModel,
-} from '../../../models/model.agent';
-import {
+  BadRequestError,
   PROFILE_VALIDATION_MESSAGES,
+  Password,
   ProfileModel,
-} from '../../../models/model.profile';
-import { BadRequestError } from '../../../services/errors/errors';
-import { requestHandler } from '../../../services/errors/middlewares/bun.request';
-import { userSignInValidation } from '../../../services/service.validation';
-import { Password } from '../../../services/users/service.password';
+  requestHandler,
+  userSignInValidation,
+} from '@notify/nfc-api-core';
+import { Router } from 'express';
+import { body, query } from 'express-validator';
 
 //boilderplate for a post request to create an agent
 const router = Router();

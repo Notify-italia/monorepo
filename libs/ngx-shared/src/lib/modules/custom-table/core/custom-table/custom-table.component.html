@@ -1,0 +1,115 @@
+<div>
+  <div>
+    <div>
+      <div class="p-4">
+        <notify-search-bar
+          [array$]="iterable$"
+          [filterableFields]="config.filterableFields"
+          helpLabel="Cerca utenti"
+          placeholder="Nome, Cognome, Email, N. Telefono, Ruolo, Data di creazione, ecc..."
+          (filteredArray)="handleFilteredArray($event)"
+        ></notify-search-bar>
+      </div>
+
+      @if (computedIterable$ | async; as iterable) {
+      <notify-no-items
+        *ngIf="iterable && !iterable?.length"
+        [title]="noItemsMessages.title"
+        [subtitle]="noItemsMessages.subtitle"
+      >
+      </notify-no-items>
+      <!-- TABLE -->
+      <div class="w-full h-full p-4">
+        <div
+          class="relative overflow-x-auto shadow-md sm:rounded-lg bg-primary-500/10"
+          [ngClass]="{
+            '!bg-transparent': config.style?.transparentBackground
+          }"
+        >
+          <table
+            class="w-full text-sm text-left table-auto"
+            *ngIf="!iterable || iterable.length"
+          >
+            <thead
+              class="text-sm py-2 bg-gray-700/20 text-white uppercase"
+              notify-custom-table-header
+              [config]="config"
+              (sorter$)="sorter$.next($event)"
+            ></thead>
+
+            <tbody>
+              @for (iterate of iterable; track $index) {
+              <tr
+                (click)="config.clickableRows ? handleRowClick(iterate) : null"
+                class="h-20 table-row"
+                [ngClass]="{
+                  'even:bg-white/5': config.style?.alternateRows,
+              'cursor-pointer hover:brightness-150 hover:bg-white/20 smooth': config.clickableRows,
+            }"
+              >
+                @for (item of config.columns; track $index) {
+                <td *ngIf="!item.hidden" class="px-6">
+                  @switch (item.value.valueType) { @case ('field') {
+                  <notify-custom-table-field-value
+                    [value]="item.value"
+                    [iterate]="iterate"
+                  ></notify-custom-table-field-value>
+                  } @case ('badge') {
+                  <notify-custom-table-badge-value
+                    [value]="item.value"
+                    [iterate]="iterate"
+                  ></notify-custom-table-badge-value>
+
+                  } @case ('avatar') {
+                  <notify-custom-table-avatar-value
+                    [value]="item.value"
+                    [iterate]="iterate"
+                  ></notify-custom-table-avatar-value>
+
+                  } @case ('actions') {
+                  <notify-custom-table-actions-value
+                    [value]="item.value"
+                    [iterate]="iterate"
+                    (actionClicked)="handleActionClick($event, iterate)"
+                  ></notify-custom-table-actions-value>
+                  } }
+                </td>
+                }
+              </tr>
+              }
+            </tbody>
+
+            <!-- foot -->
+          </table>
+        </div>
+      </div>
+      } @else {
+      <div class="w-full h-full p-4">
+        <div
+          class="relative overflow-x-auto shadow-md sm:rounded-lg bg-primary-500/10"
+          [ngClass]="{
+            '!bg-transparent': config.style?.transparentBackground
+          }"
+        >
+          <table class="w-full text-sm text-left table-auto">
+            <thead
+              class="text-sm py-2 bg-gray-700/20 text-white uppercase w-full"
+              notify-custom-table-header
+              [config]="config"
+              (sorter$)="sorter$.next($event)"
+            ></thead>
+
+            <tbody>
+              @for (item of iterableSkeletonRows; track $index) {
+              <tr notify-custom-table-skeleton [columns]="config.columns"></tr>
+              }
+            </tbody>
+
+            <!-- foot -->
+          </table>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>

@@ -21,7 +21,12 @@
         "tsConfig": "apps/nfc-root-client/tsconfig.app.json",
         "assets": [
           "apps/nfc-root-client/src/favicon.ico",
-          "apps/nfc-root-client/src/assets"
+          "apps/nfc-root-client/src/assets",
+          {
+            "input": "libs/utils/assets",
+            "glob": "*",
+            "output": "assets"
+          }
         ],
         "styles": [
           "apps/nfc-root-client/src/styles.scss",
@@ -35,7 +40,7 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "100mb"
             },
             {
               "type": "anyComponentStyle",
@@ -43,7 +48,13 @@
               "maximumError": "400mb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/nfc-root-client/src/environments/environment.ts",
+              "with": "apps/nfc-root-client/src/environments/environment.prod.ts"
+            }
+          ]
         },
         "development": {
           "buildOptimizer": false,

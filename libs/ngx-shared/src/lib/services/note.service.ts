@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { INotifyNote } from '@notify/interfaces';
+import { INotifyNote, UnknownObject } from '@notify/interfaces';
 import { HttpService } from './http.service';
 
 @Injectable()
@@ -7,10 +7,7 @@ export class NoteService {
   constructor(private http: HttpService) {}
 
   public postNote() {
-    return this.http.post<Record<string, unknown>, INotifyNote>(
-      '/v1/notes',
-      {}
-    );
+    return this.http.post<UnknownObject, INotifyNote>('/v1/notes', {});
   }
 
   public getNote(id: string) {

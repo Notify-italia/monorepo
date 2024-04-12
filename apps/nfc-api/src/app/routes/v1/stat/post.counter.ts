@@ -1,9 +1,9 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
+import { STAT_VALIDATION_MESSAGES, requestHandler } from '@notify/nfc-api-core';
+
+import { StatManager } from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { body } from 'express-validator';
-import { STAT_VALIDATION_MESSAGES } from '../../../models/model.stat';
-import { StatManager } from '../../../services/service.stat';
 
 //boilderplate for a post request to create an agent
 const router = Router();

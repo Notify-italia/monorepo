@@ -18,16 +18,14 @@ import {
 export class AccountsRowComponent {
   @Input({ required: true }) public user!: INotifyAgent;
   @Input() public config: IAccountsTableConfig = {
-    allowDelete: true,
-    allowEdit: true,
-    allowInspect: true,
+    allowedActions: ['inspect', 'edit', 'delete', 'analytics', 'personalize'],
     displayLeftAccounts: true,
     hiddenColumns: [],
   };
 
-  @Output() public inspectProfile = new EventEmitter<void>();
+  @Output() public inspectUser = new EventEmitter<void>();
   @Output() public editProfile = new EventEmitter<void>();
-  @Output() public showUserForm = new EventEmitter<void>();
+  @Output() public editUser = new EventEmitter<void>();
   @Output() public deleteUser = new EventEmitter<void>();
   @Output() public inspectAnalytics = new EventEmitter<void>();
 
@@ -36,5 +34,9 @@ export class AccountsRowComponent {
 
   public isRowDisabled(row: IAccountsTableRow): boolean {
     return this.config.hiddenColumns?.includes(row) || false;
+  }
+
+  public isActionAllowed(action: IAccountsTableConfig['allowedActions'][0]) {
+    return this.config.allowedActions?.includes(action) || false;
   }
 }

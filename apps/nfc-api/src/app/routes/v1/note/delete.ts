@@ -1,10 +1,10 @@
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
-import { Router } from 'express';
-import { query } from 'express-validator';
 import {
   NOTE_VALIDATION_MESSAGES,
   NoteModel,
-} from '../../../models/model.note';
+  requestHandler,
+} from '@notify/nfc-api-core';
+import { Router } from 'express';
+import { query } from 'express-validator';
 
 //boilderplate for a post request to create an agent
 const router = Router();

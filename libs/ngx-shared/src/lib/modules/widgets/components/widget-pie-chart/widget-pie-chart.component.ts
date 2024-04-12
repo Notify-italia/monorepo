@@ -12,7 +12,7 @@ import { ApexChartSsrComponent } from '../../../../standalones/apex-chart-ssr/ap
   styleUrls: ['./widget-pie-chart.component.scss', '../../widgets.styles.scss'],
 })
 export class WidgetPieChartComponent {
-  @Input() title: string = '';
+  @Input() title = '';
   @Input() series: ApexNonAxisChartSeries = [];
   @Input() disableExport = false;
   @Input() legendValues: string[] = [];
@@ -35,7 +35,7 @@ export class WidgetPieChartComponent {
     },
     chart: {
       type: 'donut',
-      height: 225,
+      height: 250,
       toolbar: {
         show: true,
       },
@@ -56,7 +56,7 @@ export class WidgetPieChartComponent {
     plotOptions: {
       pie: {
         donut: {
-          size: '82%',
+          size: '85%',
           labels: {
             show: true,
             name: {

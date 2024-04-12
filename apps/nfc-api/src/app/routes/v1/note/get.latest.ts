@@ -1,6 +1,5 @@
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
+import { NoteModel, requestHandler } from '@notify/nfc-api-core';
 import { Router } from 'express';
-import { NoteModel } from '../../../models/model.note';
 
 //boilderplate for a post request to create an agent
 const router = Router();

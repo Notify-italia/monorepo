@@ -14,14 +14,30 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'signin',
-    canActivate: [signInGuard],
-    loadComponent: () =>
-      import('./pages/signin/signin.component').then((m) => m.SigninComponent),
-    data: {
-      pageTitle: 'Accedi',
-    },
+    children: [
+      {
+        path: '',
+        canActivate: [signInGuard],
+        loadComponent: () =>
+          import('./pages/signin/signin.component').then(
+            (m) => m.SigninComponent
+          ),
+        data: {
+          pageTitle: 'Accedi',
+        },
+      },
+      {
+        path: 'force',
+        loadComponent: () =>
+          import('./pages/signin/signin.component').then(
+            (m) => m.SigninComponent
+          ),
+        data: {
+          pageTitle: 'Accedi',
+        },
+      },
+    ],
   },
-
   {
     path: 'pages',
     component: HomeComponent,

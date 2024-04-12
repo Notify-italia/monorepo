@@ -1,0 +1,47 @@
+{
+  "name": "nfc-root-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/nfc-root-api/src",
+  "targets": {
+    "build": {
+      "executor": "@nx-bun/nx:build",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "entrypoints": [
+          "apps/nfc-root-api/src/main.ts"
+        ],
+        "outputPath": "dist/nfc-root-api",
+        "tsConfig": "apps/nfc-root-api/tsconfig.app.json",
+        "smol": true,
+        "bun": true,
+        "minify": true,
+        "complie": true,
+        "target": "bun"
+      }
+    },
+    "serve": {
+      "executor": "@nx-bun/nx:run",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "nfc-root-api:build",
+        "tsConfig": "apps/nfc-root-api/tsconfig.app.json",
+        "watch": true,
+        "hot": true,
+        "bun": true,
+        "smol": false
+      }
+    },
+    "test": {
+      "executor": "@nx-bun/nx:test",
+      "options": {
+        "smol": false,
+        "bail": true,
+        "tsConfig": "apps/nfc-root-api/tsconfig.json",
+        "bun": true
+      }
+    }
+  }
+}

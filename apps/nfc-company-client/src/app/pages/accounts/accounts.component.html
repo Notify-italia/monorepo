@@ -21,21 +21,19 @@
         disabled: true
       }
     ]"
-    (buttonClicked)="showUserForm()"
+    (buttonClicked)="editUser()"
   ></notify-page-header>
 
   <notify-accounts-table
     [users$]="agents$"
     [maxAgents]="maxAgents"
-    (inspectProfile)="inspectProfile($event)"
-    (showUserForm)="showUserForm($event)"
+    (inspectUser)="inspectProfile($event.profile)"
+    (editUser)="editUser($event)"
     (deleteUser)="deleteUser($event)"
     (inspectAnalytics)="inspectAnalytics($event)"
     (editProfile)="editProfile($event)"
     [config]="{
-      allowInspect: true,
-      allowEdit: true,
-      allowDelete: true,
+      allowedActions: ['inspect', 'edit', 'delete', 'analytics', 'personalize'],
       displayLeftAccounts: true,
       hiddenColumns: ['select-item']
     }"

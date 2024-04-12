@@ -26,6 +26,7 @@
       *ngIf="config.src || placeholderAvatar[avatarType] as avatar"
       [src]="config.isBase64 ? avatar : avatar"
       alt="User Avatar"
+      loading="lazy"
       [ngClass]="{
         'mask object-cover ': config.mask?.length,
         'opacity-0 absolute': !loaded[avatarType],

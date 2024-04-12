@@ -1,6 +1,57 @@
 import { Route } from '@angular/router';
+import { authKeyGuard, missingAuthKeyGuard } from '@notify/ngx-shared';
+import { HomeComponent } from './pages/home/home.component';
 
 export const appRoutes: Route[] = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/pages',
+  },
+  {
+    path: 'signin',
+    canActivate: [missingAuthKeyGuard],
+    loadComponent: () =>
+      import('./pages/signin/signin.component').then((m) => m.SigninComponent),
+    data: {
+      pageTitle: 'Accedi',
+    },
+  },
+  {
+    path: 'pages',
+    component: HomeComponent,
+    canActivate: [authKeyGuard],
+    children: [
+      {
+        path: 'customers',
+        loadComponent: () =>
+          import('./pages/customers/customers.component').then(
+            (m) => m.CustomersComponent
+          ),
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./pages/dashboard/dashboard.component').then(
+            (m) => m.DashboardComponent
+          ),
+      },
+      {
+        path: 'customer',
+        loadComponent: () =>
+          import('./pages/inspect-customer/inspect-customer.component').then(
+            (m) => m.InspectCustomerComponent
+          ),
+      },
+      {
+        path: 'licenses',
+        loadComponent: () =>
+          import('./pages/licenses/licenses.component').then(
+            (m) => m.LicensesComponent
+          ),
+      },
+    ],
+  },
   {
     path: 'marketing',
     children: [

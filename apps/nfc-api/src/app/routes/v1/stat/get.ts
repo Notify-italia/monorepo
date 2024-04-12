@@ -4,13 +4,15 @@ import {
   INotifyStat,
   INotifyUser,
 } from '@notify/interfaces';
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
+import {
+  AgentModel,
+  STAT_VALIDATION_MESSAGES,
+  StatManager,
+  requestHandler,
+} from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { query } from 'express-validator';
 import { Types } from 'mongoose';
-import { AgentModel } from '../../../models/model.agent';
-import { STAT_VALIDATION_MESSAGES } from '../../../models/model.stat';
-import { StatManager } from '../../../services/service.stat';
 
 //boilderplate for a post request to create an agent
 const router = Router();

@@ -1,5 +1,4 @@
 import { registerLocaleData } from '@angular/common';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
 import it from '@angular/common/locales/it';
 import {
   APP_INITIALIZER,
@@ -16,6 +15,7 @@ import {
   HttpService,
   ProfileService,
   UtilsService,
+  provideHttpService,
   providePageTitleService,
   provideTailwindToasts,
 } from '@notify/ngx-shared';
@@ -40,7 +40,6 @@ export const appConfig: ApplicationConfig = {
     ),
     provideAnimations(),
     provideTailwindToasts(),
-    provideHttpClient(),
     providePageTitleService('Notify Aziende'),
     importProvidersFrom(
       JwtModule.forRoot({
@@ -51,12 +50,7 @@ export const appConfig: ApplicationConfig = {
     ),
     UtilsService,
     ProfileService,
-    {
-      provide: HttpService,
-      deps: [HttpClient],
-      useFactory: (http: HttpClient) =>
-        new HttpService(environment.apiUrl, environment.jwtTokenKey, http),
-    },
+    provideHttpService(environment.apiUrl, environment.jwtTokenKey),
     {
       provide: AuthService,
       deps: [HttpService, JwtHelperService],

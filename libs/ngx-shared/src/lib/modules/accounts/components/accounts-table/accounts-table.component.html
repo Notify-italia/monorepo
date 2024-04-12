@@ -81,9 +81,9 @@
                     
                   }"
                 [config]="config"
-                (inspectProfile)="inspectProfile.emit(user.profile)"
+                (inspectUser)="inspectUser.emit(user)"
                 (inspectAnalytics)="inspectAnalytics.emit(user)"
-                (showUserForm)="showUserForm.emit(user)"
+                (editUser)="editUser.emit(user)"
                 (deleteUser)="deleteUser.emit(user)"
                 (editProfile)="editProfile.emit(user)"
               ></tr>

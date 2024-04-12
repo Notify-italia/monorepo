@@ -1,10 +1,13 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
+import {
+  LICENSE_VALIDATION_MESSAGES,
+  requestHandler,
+} from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { Types } from 'mongoose';
-import { LICENSE_VALIDATION_MESSAGES } from '../../../models/model.license';
-import { requestHandler } from '../../../services/errors/middlewares/bun.request';
-import { LicenseManager } from '../../../services/service.license';
+
+import { LicenseManager } from '@notify/nfc-api-core';
 
 const router = Router();
 

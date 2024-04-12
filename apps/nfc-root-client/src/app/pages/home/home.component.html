@@ -1,0 +1,12 @@
+<div class="flex flex-col lg:flex-row font-work min-h-screen overflow-hidden">
+  <notify-nav
+    class="lg:my-auto lg:scale-95 box !rounded-xl z-[999]"
+    [topItems]="nav"
+    [bottomItems]="bottomNav"
+    subtitle="Backoffice"
+  ></notify-nav>
+
+  <div class="p-1 lg:py-4 h-full lg:max-h-screen lg:w-screen overflow-x-hidden">
+    <router-outlet class="w-full"></router-outlet>
+  </div>
+</div>

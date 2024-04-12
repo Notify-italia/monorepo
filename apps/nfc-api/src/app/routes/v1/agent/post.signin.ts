@@ -1,10 +1,11 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
-import { AGENT_VALIDATION_MESSAGES } from '../../../models/model.agent';
-import { requestHandler } from '../../../services/errors/middlewares/bun.request';
+import {
+  AGENT_VALIDATION_MESSAGES,
+  requestHandler,
+} from '@notify/nfc-api-core';
 
+import { signIn, userSignInValidation } from '@notify/nfc-api-core';
 import { Request, Router } from 'express';
-import { userSignInValidation } from '../../../services/service.validation';
-import { signIn } from '../../../services/users/service.signin';
 
 //boilderplate for a post request to create an agent
 const router = Router();

@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { INotifyAgent, INotifyProfile } from '@notify/interfaces';
+import {
+  INotifyAccount,
+  INotifyAgent,
+  INotifyCompany,
+} from '@notify/interfaces';
 import { Observable } from 'rxjs';
 import { LoadingComponent } from '../../../../standalones/loading/loading.component';
 import { NoItemsComponent } from '../../../../standalones/no-items/no-items.component';
@@ -15,13 +19,17 @@ export type IAccountsTableRow =
   | 'actions';
 
 export interface IAccountsTableConfig {
-  allowDelete?: boolean;
-  allowEdit?: boolean;
-  allowInspect?: boolean;
   displayLeftAccounts?: boolean;
   hiddenColumns?: IAccountsTableRow[];
   clickableRow?: boolean;
   transparentBackgroundColor?: boolean;
+  allowedActions: (
+    | 'edit'
+    | 'personalize'
+    | 'delete'
+    | 'inspect'
+    | 'analytics'
+  )[];
 }
 
 @Component({
@@ -38,7 +46,9 @@ export interface IAccountsTableConfig {
   styleUrls: ['./accounts-table.component.scss'],
 })
 export class AccountsTableComponent {
-  @Input({ required: true }) public users$!: Observable<INotifyAgent[]>;
+  @Input({ required: true }) public users$!: Observable<
+    (INotifyAgent | INotifyCompany)[]
+  >;
   @Input() public maxAgents: number | null = null;
   @Input({ required: true }) public config!: IAccountsTableConfig;
   @Input() public noItemsMessages = {
@@ -51,14 +61,14 @@ export class AccountsTableComponent {
     return new Array(this.skeletonRows).map((_, i) => i);
   }
 
-  @Output() public inspectProfile = new EventEmitter<INotifyProfile>();
-  @Output() public showUserForm = new EventEmitter<INotifyAgent>();
-  @Output() public deleteUser = new EventEmitter<INotifyAgent>();
-  @Output() public rowClicked = new EventEmitter<INotifyAgent>();
-  @Output() public editProfile = new EventEmitter<INotifyAgent>();
-  @Output() public inspectAnalytics = new EventEmitter<INotifyAgent>();
+  @Output() public inspectUser = new EventEmitter<INotifyAccount>();
+  @Output() public editUser = new EventEmitter<INotifyAccount>();
+  @Output() public deleteUser = new EventEmitter<INotifyAccount>();
+  @Output() public rowClicked = new EventEmitter<INotifyAccount>();
+  @Output() public editProfile = new EventEmitter<INotifyAccount>();
+  @Output() public inspectAnalytics = new EventEmitter<INotifyAccount>();
 
-  public users: INotifyAgent[] | null = null;
+  public users: INotifyAccount[] | null = null;
 
   public isRowDisabled(row: IAccountsTableRow): boolean {
     return this.config.hiddenColumns?.includes(row) || false;

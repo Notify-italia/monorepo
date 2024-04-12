@@ -1,6 +1,5 @@
 import { EnumSOcketIOProfileEvents, ISocketIo } from '@notify/interfaces';
 import { Socket } from 'socket.io';
-
 import { selfRoom } from '../service.socket';
 
 export const socketEventSendFile = async (io: ISocketIo, socket: Socket) => {

@@ -4,6 +4,7 @@ import {
   HostListener,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChanges,
   ViewChild,
@@ -11,13 +12,16 @@ import {
 import { FormGroup } from '@angular/forms';
 
 import { format, getMonth, getYear, isDate } from 'date-fns';
+import { Subject, takeUntil } from 'rxjs';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
 
 @Component({
   selector: 'notify-tailwind-datepicker',
   templateUrl: './tailwind-datepicker.component.html',
 })
-export class TailwindDatepickerComponent implements OnInit, OnChanges {
+export class TailwindDatepickerComponent
+  implements OnInit, OnChanges, OnDestroy
+{
   @Input() parent!: FormGroup;
   @Input() label!: string;
   @Input() name!: string;
@@ -29,6 +33,8 @@ export class TailwindDatepickerComponent implements OnInit, OnChanges {
   @ViewChild('datepickerElement') datepickerElement!: ElementRef;
   @ViewChild('dateInput') dateInput!: ElementRef;
   @ViewChild('container') container!: ElementRef;
+
+  public destroy$ = new Subject<void>();
 
   public MONTH_NAMES = [
     'Gennaio',
@@ -78,6 +84,10 @@ export class TailwindDatepickerComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.lifeCycle();
+
+    this.parent.controls[this.name].valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => this.lifeCycle());
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -92,10 +102,19 @@ export class TailwindDatepickerComponent implements OnInit, OnChanges {
     this.lifeCycle();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   private lifeCycle() {
     this.getNoOfDays();
 
     const value = this.parent.get(this.name)?.value;
+
+    if (!value) {
+      this.datepickerValue = '';
+    }
 
     if (isDate(value) || this.isIsoDate(value)) {
       const dateValue = new Date(value);

@@ -1,6 +1,16 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpParams,
+  provideHttpClient,
+} from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { UnknownObject } from '@notify/interfaces';
 import { ObservableInput, catchError } from 'rxjs';
+
+export enum HttpServiceTokenType {
+  Bearer = 'bearer',
+  XApiKey = 'x-api-key',
+}
 
 @Injectable()
 export class HttpService {
@@ -11,7 +21,9 @@ export class HttpService {
   constructor(
     @Inject('apiUrl') private apiUrl: string,
     @Inject('tokenPath') private tokenPath: string,
-    private http: HttpClient
+    private http: HttpClient,
+    @Inject('tokenType')
+    private tokenType: HttpServiceTokenType = HttpServiceTokenType.Bearer
   ) {}
 
   public patch<Req, Res>(
@@ -34,7 +46,7 @@ export class HttpService {
       .pipe(this._unauthorized());
   }
 
-  public get<T>(url: string, params?: Record<string, unknown>) {
+  public get<T>(url: string, params?: UnknownObject) {
     return this.http
       .get<T>(`${this.apiUrl}${url}`, this._genHeaders(params))
       .pipe(this._unauthorized());
@@ -46,10 +58,15 @@ export class HttpService {
       .pipe(this._unauthorized());
   }
 
-  private _genHeaders(params?: Record<string, unknown>) {
+  private _genHeaders(params?: UnknownObject) {
+    const headers: { [key: string]: string } =
+      this.tokenType === 'x-api-key'
+        ? { 'x-api-key': this.token || '' }
+        : { Authorization: `Bearer ${this.token}` };
+
     return {
       params: new HttpParams({ fromObject: params as Record<string, string> }),
-      headers: { Authorization: `Bearer ${this.token}` },
+      headers,
     };
   }
 
@@ -66,3 +83,17 @@ export class HttpService {
     });
   }
 }
+
+export const provideHttpService = (
+  apiUrl: string,
+  tokenPath: string,
+  tokenType?: HttpServiceTokenType
+) => [
+  provideHttpClient(),
+  {
+    provide: HttpService,
+    deps: [HttpClient],
+    useFactory: (http: HttpClient) =>
+      new HttpService(apiUrl, tokenPath, http, tokenType),
+  },
+];

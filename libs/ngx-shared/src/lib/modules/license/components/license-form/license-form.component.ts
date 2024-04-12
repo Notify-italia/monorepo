@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { UnknownObject } from '@notify/interfaces';
 import { Subject } from 'rxjs';
 import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
@@ -59,7 +60,7 @@ export class LicenseFormComponent extends ModalBaseComponent {
 
     this.submitted.next(`${part0}-${part1}-${part2}-${part3}`.toUpperCase());
 
-    this.cf.destroy();
+    this.close();
   }
 
   public handlePaste(event: ClipboardEvent, index: number, maxLength: number) {
@@ -88,7 +89,7 @@ export class LicenseFormComponent extends ModalBaseComponent {
 
     //for each part, update the corresponding input
     parts.forEach((part, i) => {
-      const currentInput = (this.form.controls as Record<string, unknown>)[
+      const currentInput = (this.form.controls as UnknownObject)[
         `part${index + i}`
       ] as FormControl;
 
@@ -105,7 +106,7 @@ export class LicenseFormComponent extends ModalBaseComponent {
     index: number,
     maxLength: number
   ) {
-    const currentInput = (this.form.controls as Record<string, unknown>)[
+    const currentInput = (this.form.controls as UnknownObject)[
       `part${index}`
     ] as FormControl;
     const cValue = currentInput.value;

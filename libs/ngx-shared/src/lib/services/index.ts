@@ -7,6 +7,7 @@ export * from './http.service';
 export * from './note.service';
 export * from './page-title.service';
 export * from './profile.service';
+export * from './root.service';
 export * from './socket.service';
 export * from './stat.service';
 export * from './svgbox.service';

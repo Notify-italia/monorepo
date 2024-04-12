@@ -1,18 +1,18 @@
 import { EnumNotifyUserType, INotifyLicense } from '@notify/interfaces';
-import { Router } from 'express';
-import { body } from 'express-validator';
-import { Types } from 'mongoose';
-import { wLog } from '../../../../main';
 import {
   AGENT_VALIDATION_MESSAGES,
   AgentModel,
-} from '../../../models/model.agent';
-import { PROFILE_VALIDATION_MESSAGES } from '../../../models/model.profile';
-import { BadRequestError } from '../../../services/errors/errors';
-import { requestHandler } from '../../../services/errors/middlewares/bun.request';
-import { agentCreatedEmail } from '../../../services/service.email';
-import { LicenseManager } from '../../../services/service.license';
-import { userSignInValidation } from '../../../services/service.validation';
+  BadRequestError,
+  LicenseManager,
+  PROFILE_VALIDATION_MESSAGES,
+  agentCreatedEmail,
+  mLog,
+  requestHandler,
+  userSignInValidation,
+} from '@notify/nfc-api-core';
+import { Router } from 'express';
+import { body } from 'express-validator';
+import { Types } from 'mongoose';
 
 //boilderplate for a post request to create an agent
 const router = Router();
@@ -61,7 +61,7 @@ router.post(
         },
         { role, feedbackEnabled }
       ).catch((err) => {
-        wLog(err, 'error');
+        mLog(err, 'error');
         throw new BadRequestError('Email già in uso');
       });
 

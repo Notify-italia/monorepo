@@ -1,16 +1,19 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
-import { Router } from 'express';
-import { body } from 'express-validator';
 import {
+  BadRequestError,
   COMPANY_VALIDATION_MESSAGES,
   CompanyDocument,
   CompanyModel,
-} from '../../../models/model.company';
-import { BadRequestError } from '../../../services/errors/errors';
-import { requestHandler } from '../../../services/errors/middlewares/bun.request';
-import { asyncForEach } from '../../../services/service.utils';
-import { userSignInValidation } from '../../../services/service.validation';
-import { Password } from '../../../services/users/service.password';
+  requestHandler,
+} from '@notify/nfc-api-core';
+import { Router } from 'express';
+import { body } from 'express-validator';
+
+import {
+  Password,
+  asyncForEach,
+  userSignInValidation,
+} from '@notify/nfc-api-core';
 
 const router = Router();
 

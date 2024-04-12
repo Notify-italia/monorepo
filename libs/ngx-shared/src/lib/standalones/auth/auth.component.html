@@ -28,6 +28,7 @@
         (ngSubmit)="submit()"
       >
         <notify-tailwind-input
+          *ngIf="!config.hideEmail"
           [parent]="form"
           class="w-full"
           name="email"

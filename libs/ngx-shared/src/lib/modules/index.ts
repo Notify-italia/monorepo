@@ -1,4 +1,5 @@
 export * from './accounts';
+export * from './custom-table';
 export * from './file-sharing';
 export * from './forgot-password';
 export * from './license';

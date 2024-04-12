@@ -1,13 +1,13 @@
-import { Request, Router } from 'express';
-import { wLog } from '../../../../main';
 import {
+  BadRequestError,
   COMPANY_VALIDATION_MESSAGES,
   CompanyModel,
-} from '../../../models/model.company';
-import { BadRequestError } from '../../../services/errors/errors';
-import { requestHandler } from '../../../services/errors/middlewares/bun.request';
-import { sendEmail } from '../../../services/service.email';
-import { userSignInValidation } from '../../../services/service.validation';
+  mLog,
+  requestHandler,
+  sendEmail,
+  userSignInValidation,
+} from '@notify/nfc-api-core';
+import { Request, Router } from 'express';
 
 //boilderplate for a post request to create an agent
 const router = Router();
@@ -21,7 +21,7 @@ router.post(
 
       const company = await CompanyModel.build({ email, password }).catch(
         (err) => {
-          wLog(err, 'error');
+          mLog(err, 'error');
           throw new BadRequestError('Email già in uso');
         }
       );

@@ -2,8 +2,8 @@ import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
 import {
   AGENT_VALIDATION_MESSAGES,
   AgentModel,
-} from 'apps/nfc-api/src/app/models/model.agent';
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
+  requestHandler,
+} from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { query } from 'express-validator';
 import { isValidObjectId } from 'mongoose';

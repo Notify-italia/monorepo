@@ -1,10 +1,12 @@
-import { requestHandler } from 'apps/nfc-api/src/app/services/errors/middlewares/bun.request';
-import { wLog } from 'apps/nfc-api/src/main';
+import {
+  BadRequestError,
+  mLog,
+  requestHandler,
+  sendEmail,
+} from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { body } from 'express-validator';
 import { Attachment } from 'nodemailer/lib/mailer';
-import { BadRequestError } from '../../../services/errors/errors';
-import { sendEmail } from '../../../services/service.email';
 
 //boilderplate for a post request to create an agent
 const router = Router();
@@ -36,7 +38,7 @@ router.post(
       </p>`,
       attachments: attacchementsMapped,
     }).catch((err) => {
-      wLog(err, 'error');
+      mLog(err, 'error');
       throw new BadRequestError("Errore nell'invio della mail");
     });
 
@@ -51,7 +53,7 @@ router.post(
     <p>Resta sintonizzato!</p>
     <p>Cordiali saluti,<br>Il Team di Notify 🚀</p>`,
     }).catch((err) => {
-      wLog(err, 'error');
+      mLog(err, 'error');
       throw new BadRequestError("Errore nell'invio della mail");
     });
 
