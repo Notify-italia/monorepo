@@ -1,7 +1,7 @@
 <div
   class="relative font-work"
   [ngClass]="{
-    'h-full !w-full mockup-phone': mockup,
+    'h-full !w-full mockup-phone ': mockup,
     'min-h-screen w-full ': !mockup
   }"
 >
@@ -9,71 +9,49 @@
   <notify-mockup-fill *ngIf="mockup" class="w-full"></notify-mockup-fill>
 
   <div
+    *ngIf="!isOssidiana"
+    notify-profile-default-view
     class="main-container py-10 pb-20"
     [ngStyle]="{
       background: 'linear-gradient(' + cssGradientStops + ')'
     }"
     [ngClass]="{
-      'display h-full pt-20': mockup,
+      'display pt-20 ': mockup,
       'h-full  min-h-screen  w-screen': !mockup,
     }"
-  >
-    <div class="flex justify-center p-4" *ngIf="isFeedbackEnabled">
-      <!-- FEEDBACK -->
-      <notify-feedback-button
-        [data]="data"
-        [cssElementsColor]="cssElementsColor"
-        (feedbackClicked)="feedbackClicked.emit($event)"
-        [isAgent]="isAgent"
-        [feedbackKey]="feedbackKey"
-      ></notify-feedback-button>
-    </div>
-    <div class="main-child" [class.opacity-50]="!data">
-      <div class="section h-fit w-full space-y-8">
-        <div class="section space-y-2">
-          <notify-profile-user-info
-            [data]="data"
-            [cssElementsColor]="cssElementsColor"
-            [isAgent]="isAgent"
-            (subAvatarClick)="subAvatarClick.emit()"
-          ></notify-profile-user-info>
+    [cssGradientStops]="cssGradientStops"
+    [data]="data"
+    [cssElementsColor]="cssElementsColor"
+    [isAgent]="isAgent"
+    [isFeedbackEnabled]="isFeedbackEnabled"
+    [feedbackKey]="feedbackKey"
+    [mockup]="mockup"
+    (feedbackClicked)="feedbackClicked.emit()"
+    (subAvatarClick)="subAvatarClick.emit()"
+    (integrationClicked)="integrationClicked.emit($event)"
+  ></div>
 
-          <!-- STATIC LINKS -->
-          <notify-profile-static-links
-            [data]="data"
-            class="w-full"
-            [color]="cssElementsColor"
-          ></notify-profile-static-links>
-        </div>
-      </div>
-
-      <div class="section w-full mb-2">
-        <div class="divider mx-5" *ngIf="data?.customFields?.length"></div>
-        <notify-profile-integrations
-          class="w-full"
-          [data]="data?.customFields"
-          [color]="cssElementsColor"
-          (integrationClicked)="integrationClicked.emit($event)"
-        ></notify-profile-integrations>
-
-        @if (!isAgent) {
-        <div
-          class="section w-full"
-          *ngIf="profileService.buildCompanyLocation(data?.address) as p"
-        >
-          <div
-            class="module module-blur !py-2 text-center my-1.5 text-sm"
-            [ngStyle]="{ color: cssElementsColor }"
-          >
-            {{ p | titlecase }}
-          </div>
-          <notify-google-maps
-            [address]="p"
-            class="!w-[90%]"
-          ></notify-google-maps>
-        </div>
-        }
-      </div>
-    </div>
-  </div>
+  <div
+    *ngIf="isOssidiana"
+    notify-profile-ossidiana-view
+    class="main-container py-10 pb-20 px-5"
+    style="
+      background: url('/assets/ossidiana-card-bg.png');
+      background-size: cover;
+    "
+    [ngClass]="{
+      'display pt-20  ': mockup,
+      'h-full min-h-screen  w-screen': !mockup,
+    }"
+    [cssGradientStops]="cssGradientStops"
+    [data]="data"
+    [cssElementsColor]="cssElementsColor"
+    [isAgent]="isAgent"
+    [isFeedbackEnabled]="isFeedbackEnabled"
+    [feedbackKey]="feedbackKey"
+    [mockup]="mockup"
+    (feedbackClicked)="feedbackClicked.emit()"
+    (subAvatarClick)="subAvatarClick.emit()"
+    (integrationClicked)="integrationClicked.emit($event)"
+  ></div>
 </div>

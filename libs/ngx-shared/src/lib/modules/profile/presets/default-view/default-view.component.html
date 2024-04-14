@@ -1,0 +1,46 @@
+<div class="flex justify-center p-4" *ngIf="isFeedbackEnabled">
+  <!-- FEEDBACK -->
+  <notify-feedback-button
+    [data]="data"
+    [cssElementsColor]="cssElementsColor"
+    (feedbackClicked)="feedbackClicked.emit()"
+    [isAgent]="isAgent"
+    [feedbackKey]="feedbackKey"
+  ></notify-feedback-button>
+</div>
+<div class="main-child" [class.opacity-50]="!data">
+  <notify-profile-user-info
+    [data]="data"
+    [cssElementsColor]="cssElementsColor"
+    [isAgent]="isAgent"
+    (subAvatarClick)="subAvatarClick.emit()"
+  ></notify-profile-user-info>
+
+  <!-- STATIC LINKS -->
+  <notify-profile-static-links
+    [data]="data"
+    class="w-full"
+    [color]="cssElementsColor"
+  ></notify-profile-static-links>
+
+  <div class="divider mx-5" *ngIf="data?.customFields?.length"></div>
+
+  <notify-profile-integrations
+    [data]="data?.customFields"
+    [color]="cssElementsColor"
+    (integrationClicked)="integrationClicked.emit($event)"
+  ></notify-profile-integrations>
+
+  <div
+    class="section w-full px-5"
+    *ngIf="profileService.buildCompanyLocation(data?.address) as p"
+  >
+    <div
+      class="module module-blur !py-2 text-center my-1.5 text-sm"
+      [ngStyle]="{ color: cssElementsColor }"
+    >
+      {{ p | titlecase }}
+    </div>
+    <notify-google-maps [address]="p" class="!w-[90%]"></notify-google-maps>
+  </div>
+</div>

@@ -7,17 +7,11 @@ import {
   SvgboxService,
   UtilsService,
 } from '../../../../services';
-import { WallpaperComponent } from '../../../../standalones/animated-bg/wallpaper.component';
-import { GoogleMapsComponent } from '../../../../standalones/google-maps/google-maps.component';
-import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
 
-import { FeedbackButtonComponent } from '../feedback-button/feedback-button.component';
+import { ProfileDefaultViewComponent } from '../../presets/default-view/default-view.component';
+import { ProfileOssidianaViewComponent } from '../../presets/ossidiana-view/ossidiana-view.component';
 import { FeedbackFactory } from '../feedback/feedback.factory';
 import { MockupFillComponent } from '../mockup-fill/mockup-fill.component';
-import { ProfileIntegrationsComponent } from '../profile-integrations/profile-integrations.component';
-import { ProfileStaticLinksComponent } from '../profile-static-links/profile-static-links.component';
-import { ProfileUserInfoComponent } from '../profile-user-info/profile-user-info.component';
-import { RatingComponent } from '../rating/rating.component';
 
 export const defaultGradientStops = ['#0A2859', '#041127'];
 
@@ -26,15 +20,9 @@ export const defaultGradientStops = ['#0A2859', '#041127'];
   standalone: true,
   imports: [
     CommonModule,
-    SvgBoxIconComponent,
-    WallpaperComponent,
-    ProfileStaticLinksComponent,
-    RatingComponent,
-    GoogleMapsComponent,
-    ProfileIntegrationsComponent,
+    ProfileDefaultViewComponent,
     MockupFillComponent,
-    FeedbackButtonComponent,
-    ProfileUserInfoComponent,
+    ProfileOssidianaViewComponent,
   ],
   providers: [
     FeedbackFactory,
@@ -64,6 +52,17 @@ export class ProfileViewComponent implements OnInit {
 
   public get isFeedbackEnabled(): boolean {
     return this.data?.config?.feedbackEnabled || !this.isAgent;
+  }
+
+  //TODO questa cosa è temporanea, va rimossa appena ci sarà la personalizzazione avanzata del profilo
+  public get isOssidiana(): boolean {
+    const ids = [
+      '66084f260d1d685e63ecd722', //luca
+      '660850080d1d685e63ecd88f', //giulio
+      '660850a70d1d685e63ecd915', //Matteo
+    ];
+
+    return ids.includes(this.data?._id || '');
   }
 
   public get cssGradientStops(): string {

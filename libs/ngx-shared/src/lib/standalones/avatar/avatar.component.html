@@ -1,4 +1,4 @@
-<div class="flex h-fit w-fit relative" *ngIf="cleanedConfigs as c">
+<div class="flex relative" *ngIf="cleanedConfigs as c">
   <ng-container
     [ngTemplateOutlet]="AvatarRenderer"
     [ngTemplateOutletContext]="{ config: c.main, avatarType: 'main' }"
