@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {
   EnumNotifyStatType,
   INotifyAgent,
+  INotifyProfile,
   INotifyStat,
   INotifyUser,
 } from '@notify/interfaces';
@@ -13,13 +14,14 @@ import {
   AgentService,
   AvatarComponent,
   FeedbackService,
+  INotifyShareItemConfig,
   LoadingComponent,
   NoItemsComponent,
   PageHeaderComponent,
   ProfilePlayerFactory,
   ProfileService,
   SearchBarComponent,
-  ShareProfileComponent,
+  ShareItemComponent,
   StatService,
   SvgBoxIcon,
   TailwindFormsModule,
@@ -34,13 +36,20 @@ import { Observable, Subject, combineLatest, map, switchMap, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AnalyiticsDetailRowComponent } from '../../components/analyitics-detail-row/analyitics-detail-row.component';
 
+export type hidratedAgent = INotifyAgent & {
+  shareConfig: INotifyShareItemConfig | null;
+};
+type hidratedUser = INotifyUser & {
+  shareConfig: INotifyShareItemConfig | null;
+};
+
 @Component({
   standalone: true,
   imports: [
     CommonModule,
     PageHeaderComponent,
     LoadingComponent,
-    ShareProfileComponent,
+    ShareItemComponent,
     WidgetCounterComponent,
     WidgetAreaChartComponent,
     WidgetFeedbackComponent,
@@ -58,7 +67,7 @@ import { AnalyiticsDetailRowComponent } from '../../components/analyitics-detail
     WidgetPieChartComponent,
     TailwindFormsModule,
     ReactiveFormsModule,
-    ShareProfileComponent,
+    ShareItemComponent,
   ],
   providers: [AgentService, StatService, FeedbackService, ProfilePlayerFactory],
   templateUrl: './analytics-detail.component.html',
@@ -72,14 +81,18 @@ export class AnalyticsDetailComponent implements OnDestroy {
     map(([agents, profile]) => {
       return agents.map((agent) => {
         if (!agent.profile) {
-          return agent;
+          return { ...agent, shareConfig: null } as hidratedAgent;
         }
 
         agent.profile.company = profile;
-        return agent;
+
+        return {
+          ...agent,
+          shareConfig: this._shareConfig(agent.profile),
+        } as hidratedAgent;
       });
     }),
-    tap((agents) => {
+    tap((agents: hidratedAgent[]) => {
       const a = this._activatedRoute.snapshot.queryParamMap.get('a');
       if (!a) {
         return;
@@ -109,8 +122,8 @@ export class AnalyticsDetailComponent implements OnDestroy {
   );
 
   public baseUrl = environment.profilesUrl;
-  public selectedAgent = new FormControl<INotifyAgent>({} as INotifyAgent);
-  public agents: INotifyAgent[] = [];
+  public selectedAgent = new FormControl<hidratedAgent>({} as hidratedAgent);
+  public agents: hidratedAgent[] = [];
   public filterableFields = [
     'email',
     'profile.email',
@@ -138,10 +151,10 @@ export class AnalyticsDetailComponent implements OnDestroy {
       )
     ),
     totals: this.selectedAgent.valueChanges.pipe(
-      map((agent) => this._statService.userCounters(agent as INotifyUser))
+      map((agent) => this._statService.userCounters(agent as hidratedUser))
     ),
     user: this.selectedAgent.valueChanges.pipe(
-      map((agent) => agent as INotifyUser)
+      map((agent) => agent as hidratedUser)
     ),
   });
 
@@ -223,5 +236,36 @@ export class AnalyticsDetailComponent implements OnDestroy {
         }),
         tap((s) => this.areaChartScans$.next(s))
       );
+  }
+
+  private _shareConfig(profile: INotifyProfile): INotifyShareItemConfig {
+    const companyNfcItem = profile.company
+      ? [
+          {
+            value: profile.company._id,
+            label: 'Profilo Aziendale',
+          },
+        ]
+      : [];
+
+    return {
+      type: 'profile',
+      id: profile._id,
+      baseUrl: this.baseUrl || '',
+      isInModal: true,
+      qrcode: {
+        title: 'Condividi il profilo',
+        fileName: profile.name || 'Profilo',
+      },
+      nfc: {
+        items: [
+          {
+            value: profile._id,
+            label: 'Questo Profilo',
+          },
+          ...companyNfcItem,
+        ],
+      },
+    };
   }
 }

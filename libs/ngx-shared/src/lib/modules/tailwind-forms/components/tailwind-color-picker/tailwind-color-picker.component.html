@@ -2,6 +2,7 @@
 <div [formGroup]="parent" class="flex space-x-2 my-auto w-full" tabindex="0">
   <button
     class="relative group/colorPicker w-full focus-within:pointer-events-none"
+    type="button"
     tabindex="0"
   >
     <div
@@ -18,7 +19,7 @@
           'border-2 border-red-500': hasErrors && touched
         }"
       ></button>
-      <label class="font-bold pointer-events-none" *ngIf="label?.length">{{
+      <label class="font-bold pointer-events-none" *ngIf="label.length">{{
         label
       }}</label>
     </div>

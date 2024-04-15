@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { CachedSrcDirective } from '../directives';
 import {
+  INotifyShareItemConfig,
   ProfileFormComponent,
   ProfileViewComponent,
-  ShareProfileComponent,
+  ShareItemComponent,
 } from '../modules';
 import { CapacitorService, UtilsService } from '../services';
 import { LoadingComponent, SaveIndicatorComponent } from '../standalones';
@@ -17,13 +18,12 @@ type IProfile = INotifyProfile;
   selector: 'notify-profile-management-template-base',
   template: `
     <div class="space-y-4">
-      @if (profile$ | async; as profile) {
+      @if (hidratedProfile$ | async; as profile) {
 
-      <notify-share-profile
-        [profile]="profile"
-        [baseUrl]="baseUrl"
+      <notify-share-item
+        [config]="profile.shareConfig"
         source="root"
-      ></notify-share-profile>
+      ></notify-share-item>
 
       <notify-save-indicator
         [followPage]="true"
@@ -100,7 +100,7 @@ type IProfile = INotifyProfile;
     CachedSrcDirective,
     ProfileViewComponent,
     ProfileFormComponent,
-    ShareProfileComponent,
+    ShareItemComponent,
     SaveIndicatorComponent,
   ],
   providers: [
@@ -110,19 +110,31 @@ type IProfile = INotifyProfile;
   ],
   standalone: true,
 })
-export class ProfileTemplateBaseComponent {
+export class ProfileTemplateBaseComponent implements OnInit {
   @Input({ required: true }) profile$!: Observable<IProfile>;
   @Input({ required: true }) loading = false;
   @Input({ required: true }) baseUrl = '';
   @Input({ required: true }) savedRedirects: string[] = [];
-  @Input({ required: true }) providedProfile: string | undefined;
 
   @Output() previewProfile = new EventEmitter<INotifyProfile>();
   @Output() saveProfile = new EventEmitter<INotifyProfile>();
   @Output() updateProfileSubject = new EventEmitter<INotifyProfile>();
   @Output() removeSavedRedirect = new EventEmitter<string>();
 
+  public hidratedProfile$ = new Observable<
+    IProfile & { shareConfig: INotifyShareItemConfig }
+  >();
+
   constructor(private _utilsService: UtilsService) {}
+
+  ngOnInit() {
+    this.hidratedProfile$ = this.profile$.pipe(
+      map((profile) => ({
+        ...profile,
+        shareConfig: this._shareConfig(profile),
+      }))
+    );
+  }
 
   public normalizeURL(url: string | null) {
     if (!url) {
@@ -130,5 +142,36 @@ export class ProfileTemplateBaseComponent {
     }
 
     return this._utilsService.populateWebProtocol('https://', url);
+  }
+
+  private _shareConfig(profile: INotifyProfile): INotifyShareItemConfig {
+    const companyNfcItem = profile.company
+      ? [
+          {
+            value: profile.company._id,
+            label: 'Profilo Aziendale',
+          },
+        ]
+      : [];
+
+    return {
+      type: 'profile',
+      id: profile._id,
+      baseUrl: this.baseUrl || '',
+      isInModal: true,
+      qrcode: {
+        title: 'Condividi il profilo',
+        fileName: profile.name || 'Profilo',
+      },
+      nfc: {
+        items: [
+          {
+            value: profile._id,
+            label: 'Questo Profilo',
+          },
+          ...companyNfcItem,
+        ],
+      },
+    };
   }
 }

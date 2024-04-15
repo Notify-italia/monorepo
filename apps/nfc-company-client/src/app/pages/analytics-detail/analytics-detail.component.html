@@ -55,13 +55,12 @@
               class="flex flex-col justify-around w-full h-full v-spacing flex-nowrap"
             >
               <div class="flex items-center space-x-2">
-                <notify-share-profile
-                  *ngIf="stats.user.profile as profile"
-                  [profile]="profile"
-                  [baseUrl]="baseUrl"
+                <notify-share-item
+                  *ngIf="selectedAgent.value.shareConfig as config"
+                  [config]="config"
                   source="root"
                   class="w-full"
-                ></notify-share-profile>
+                ></notify-share-item>
                 <button
                   (click)="showProfile()"
                   class="box w-24 h-20 flex justify-center items-center hover:brightness-150 smooth"

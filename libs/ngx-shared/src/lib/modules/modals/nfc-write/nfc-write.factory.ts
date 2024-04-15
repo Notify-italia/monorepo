@@ -5,10 +5,14 @@ import { NfcWriteComponent } from './nfc-write.component';
 @Injectable()
 export class NfcWriteFactory extends BaseFactory {
   public create(config: {
-    userProfile: string;
-    companyProfile?: string;
-    profilesUrl: string;
-    blurBackground?: boolean;
+    items: {
+      value: string;
+      label: string;
+    }[];
+    questionLabel?: string;
+    confirmationLabel?: string;
+    blurBackground: boolean;
+    playerBaseUrl: string;
   }) {
     return this._createComponent(NfcWriteComponent, {
       ...config,

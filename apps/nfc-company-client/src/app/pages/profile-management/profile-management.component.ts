@@ -10,7 +10,7 @@ import {
   ProfileTemplateBaseComponent,
   ProfileViewComponent,
   SaveIndicatorComponent,
-  ShareProfileComponent,
+  ShareItemComponent,
 } from '@notify/ngx-shared';
 
 import { RouterLink } from '@angular/router';
@@ -26,7 +26,7 @@ import { environment } from '../../../../src/environments/environment';
     CommonModule,
     ProfileFormComponent,
     ProfileViewComponent,
-    ShareProfileComponent,
+    ShareItemComponent,
     PageHeaderComponent,
     LoadingComponent,
     RouterLink,

@@ -12,6 +12,7 @@ import {
   NoteDetailComponent,
   NoteService,
   PageHeaderComponent,
+  ShareItemComponent,
   SvgBoxIconComponent,
   UtilsService,
 } from '@notify/ngx-shared';
@@ -26,8 +27,6 @@ import {
   tap,
 } from 'rxjs';
 
-//TODO inverti il nome di questa pagina e "note-detail"
-
 @Component({
   standalone: true,
   imports: [
@@ -36,6 +35,7 @@ import {
     LoadingComponent,
     NoteDetailComponent,
     SvgBoxIconComponent,
+    ShareItemComponent,
   ],
   providers: [
     NoteService,

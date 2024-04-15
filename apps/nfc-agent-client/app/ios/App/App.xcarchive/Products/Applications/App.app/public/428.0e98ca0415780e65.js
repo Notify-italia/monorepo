@@ -1,1 +1,333 @@
-"use strict";(self.webpackChunknfc_agent_client=self.webpackChunknfc_agent_client||[]).push([[428],{8284:(P,_,a)=>{a.r(_),a.d(_,{DashboardComponent:()=>w});var d=a(1368),m=a(7368),s=a(2732),r=a(5188),g=a(5657),p=a(6040),u=a(4704),C=a(9212),f=a(2020),t=a(9868);function v(n,i){if(1&n&&t.wR5(0,"notify-widget-note",16),2&n){const e=t.GaO();t.E7m("note",e.latestNote)}}const E=()=>({"animation-delay":"0s"}),y=()=>({"animation-delay":"0.2s"}),D=()=>({"animation-delay":"0.4s"}),h=()=>[];function I(n,i){if(1&n){const e=t.KQA();t.I0R(0,"div")(1,"div")(2,"div",2)(3,"div",3)(4,"div",4)(5,"div",4),t.wR5(6,"notify-share-profile",5),t.yuY(7,v,1,1,"notify-widget-note",6),t.C$Y()(),t.wR5(8,"div",7),t.I0R(9,"div",4),t.wR5(10,"notify-widget-counter",8)(11,"notify-widget-counter",9)(12,"notify-widget-counter",10),t.C$Y(),t.I0R(13,"div",11)(14,"notify-widget-area-chart",12),t.qCj("timespanChange",function(c){t.usT(e);const l=t.GaO();return t.CGJ(l.getProfileVisits(c).subscribe())}),t.C$Y(),t.I0R(15,"div",13),t.wR5(16,"notify-widget-feedback",14)(17,"notify-widget-pie-chart",15),t.C$Y()()()()()()}if(2&n){const e=t.GaO();t.yG2(6),t.E7m("profile",i.profile)("baseUrl",e.baseUrl),t.yG2(1),t.E7m("ngIf",!e.production),t.yG2(3),t.E7m("ngStyle",t.q4q(19,E))("icon",e.totalScansIcon)("count",i.user.totalVisits),t.yG2(1),t.E7m("ngStyle",t.q4q(20,y))("icon",e.savedContactsIcon)("count",i.user["profile:save"]||0),t.yG2(1),t.E7m("ngStyle",t.q4q(21,D))("icon",e.returnFromContactBookIcon)("count",i.user.percentReturn),t.yG2(2),t.E7m("series",i.areaChart)("disableExport",e.isNative),t.yG2(2),t.E7m("value",i.user.averageFeedback)("totalFeedbacksCount",i.user["profile:feedback:count"]),t.yG2(1),t.E7m("series",i.user.integrationsCountValues||t.q4q(22,h))("legendValues",i.user.integrationsCountLabels||t.q4q(23,h))("disableExport",e.isNative)}}function b(n,i){1&n&&(t.I0R(0,"div",17),t.wR5(1,"notify-loading"),t.C$Y())}let w=(()=>{class n{constructor(e,o,c,l,S){this._profileService=e,this._statService=o,this._authService=c,this._noteService=l,this._capacitorService=S,this.areaChartScans$=new g.E,this.dashboard$=(0,p.E)({latestNote:this._noteService.getLatestNote(),profile:this._profileService.getProfile(),user:this._authService.currentUser$.pipe((0,u.k)(O=>this._statService.userCounters(O))),areaChart:this.areaChartScans$}),this.isNative=this._capacitorService.isNative,this.baseUrl=f.O.profilesUrl,this.production=f.O.production,this.totalScansIcon={expanded:"Condivisione",name:"connect_without_contact",set:"materialui"},this.returnFromContactBookIcon={expanded:"Merge",name:"git-merge",set:"octicons"},this.savedContactsIcon={expanded:"Contatti",name:"contacts",set:"materialui"},this.getProfileVisits(r.aq).subscribe()}getProfileVisits(e){return this._statService.getStat(m._6.ProfileVisit,e).pipe((0,u.k)(o=>[{name:"Visite",data:o.map(l=>({x:new Date(l.period.from),y:l.value}))}]),(0,C.y)(o=>this.areaChartScans$.next(o)))}static#t=this.\u0275fac=function(o){return new(o||n)(t.GI1(s.xX),t.GI1(s.Et),t.GI1(s.oj),t.GI1(s.Ah),t.GI1(s.e))};static#e=this.\u0275cmp=t.In1({type:n,selectors:[["ng-component"]],standalone:!0,features:[t.M5G([s.Et,s.Ah,s.YN,s.e]),t.UHJ],decls:5,vars:3,consts:[[1,"page-layout"],["title","Dashboard","subtitle","Visualizza le informazioni principali del tuo account"],[1,"flex","flex-col","lg:flex-row","lg:justify-between","h-spacing"],[1,"v-spacing","lg:w-full"],[1,"dashboard-cards-container","h-spacing"],[1,"w-full",3,"profile","baseUrl"],["class","w-full h-20",3,"note",4,"ngIf"],[1,"divider"],["title","Visite totali","backgroundColor","transparent","elementsColor","#008FFB","countSuffix","Visite",1,"dashboard-card","animate__fadeInDown","animate__animated",3,"ngStyle","icon","count"],["title","Salvati in rubrica","backgroundColor","transparent","elementsColor","#876756","countSuffix","Salvataggi",1,"dashboard-card","animate__fadeInDown","animate__animated",3,"ngStyle","icon","count"],["title","Visite da rubrica","backgroundColor","transparent","elementsColor","#a7ed72","countSuffix","% sul totale",1,"dashboard-card","animate__fadeInDown","animate__animated",3,"ngStyle","icon","count"],[1,"flex","flex-col","lg:flex-row","w-full","lg:h-[32rem]","2xl:h-[33rem]","h-spacing"],["title","Visite",1,"w-full","h-full","dashboard-card",3,"series","disableExport","timespanChange"],[1,"flex","flex-col","lg:w-5/12","h-full","items-center","v-spacing"],[1,"flex","w-full","dashboard-card","animate__fadeInRight","animate__animated",3,"value","totalFeedbacksCount"],["title","Integrazioni",1,"w-full","h-full",3,"series","legendValues","disableExport"],[1,"w-full","h-20",3,"note"],[1,"loading-container"]],template:function(o,c){if(1&o&&(t.I0R(0,"div",0),t.wR5(1,"notify-page-header",1),t.yuY(2,I,18,24,"div"),t.wVc(3,"async"),t.yuY(4,b,2,0),t.C$Y()),2&o){let l;t.yG2(2),t.C0Y(2,(l=t.kDX(3,1,c.dashboard$))?2:4,l)}},dependencies:[d.MD,d.u_,d.Qt,d.a,r.Qh,r.kN,r.Y1,r.UY,r.Cm,r._S,r.k8,r.i6]})}return n})()}}]);
+'use strict';
+(self.webpackChunknfc_agent_client =
+  self.webpackChunknfc_agent_client || []).push([
+  [428],
+  {
+    8284: (P, _, a) => {
+      a.r(_), a.d(_, { DashboardComponent: () => w });
+      var d = a(1368),
+        m = a(7368),
+        s = a(2732),
+        r = a(5188),
+        g = a(5657),
+        p = a(6040),
+        u = a(4704),
+        C = a(9212),
+        f = a(2020),
+        t = a(9868);
+      function v(n, i) {
+        if ((1 & n && t.wR5(0, 'notify-widget-note', 16), 2 & n)) {
+          const e = t.GaO();
+          t.E7m('note', e.latestNote);
+        }
+      }
+      const E = () => ({ 'animation-delay': '0s' }),
+        y = () => ({ 'animation-delay': '0.2s' }),
+        D = () => ({ 'animation-delay': '0.4s' }),
+        h = () => [];
+      function I(n, i) {
+        if (1 & n) {
+          const e = t.KQA();
+          t.I0R(0, 'div')(1, 'div')(2, 'div', 2)(3, 'div', 3)(4, 'div', 4)(
+            5,
+            'div',
+            4
+          ),
+            t.wR5(6, 'notify-share-item', 5),
+            t.yuY(7, v, 1, 1, 'notify-widget-note', 6),
+            t.C$Y()(),
+            t.wR5(8, 'div', 7),
+            t.I0R(9, 'div', 4),
+            t.wR5(10, 'notify-widget-counter', 8)(
+              11,
+              'notify-widget-counter',
+              9
+            )(12, 'notify-widget-counter', 10),
+            t.C$Y(),
+            t.I0R(13, 'div', 11)(14, 'notify-widget-area-chart', 12),
+            t.qCj('timespanChange', function (c) {
+              t.usT(e);
+              const l = t.GaO();
+              return t.CGJ(l.getProfileVisits(c).subscribe());
+            }),
+            t.C$Y(),
+            t.I0R(15, 'div', 13),
+            t.wR5(16, 'notify-widget-feedback', 14)(
+              17,
+              'notify-widget-pie-chart',
+              15
+            ),
+            t.C$Y()()()()()();
+        }
+        if (2 & n) {
+          const e = t.GaO();
+          t.yG2(6),
+            t.E7m('profile', i.profile)('baseUrl', e.baseUrl),
+            t.yG2(1),
+            t.E7m('ngIf', !e.production),
+            t.yG2(3),
+            t.E7m('ngStyle', t.q4q(19, E))('icon', e.totalScansIcon)(
+              'count',
+              i.user.totalVisits
+            ),
+            t.yG2(1),
+            t.E7m('ngStyle', t.q4q(20, y))('icon', e.savedContactsIcon)(
+              'count',
+              i.user['profile:save'] || 0
+            ),
+            t.yG2(1),
+            t.E7m('ngStyle', t.q4q(21, D))('icon', e.returnFromContactBookIcon)(
+              'count',
+              i.user.percentReturn
+            ),
+            t.yG2(2),
+            t.E7m('series', i.areaChart)('disableExport', e.isNative),
+            t.yG2(2),
+            t.E7m('value', i.user.averageFeedback)(
+              'totalFeedbacksCount',
+              i.user['profile:feedback:count']
+            ),
+            t.yG2(1),
+            t.E7m('series', i.user.integrationsCountValues || t.q4q(22, h))(
+              'legendValues',
+              i.user.integrationsCountLabels || t.q4q(23, h)
+            )('disableExport', e.isNative);
+        }
+      }
+      function b(n, i) {
+        1 & n && (t.I0R(0, 'div', 17), t.wR5(1, 'notify-loading'), t.C$Y());
+      }
+      let w = (() => {
+        class n {
+          constructor(e, o, c, l, S) {
+            (this._profileService = e),
+              (this._statService = o),
+              (this._authService = c),
+              (this._noteService = l),
+              (this._capacitorService = S),
+              (this.areaChartScans$ = new g.E()),
+              (this.dashboard$ = (0, p.E)({
+                latestNote: this._noteService.getLatestNote(),
+                profile: this._profileService.getProfile(),
+                user: this._authService.currentUser$.pipe(
+                  (0, u.k)((O) => this._statService.userCounters(O))
+                ),
+                areaChart: this.areaChartScans$,
+              })),
+              (this.isNative = this._capacitorService.isNative),
+              (this.baseUrl = f.O.profilesUrl),
+              (this.production = f.O.production),
+              (this.totalScansIcon = {
+                expanded: 'Condivisione',
+                name: 'connect_without_contact',
+                set: 'materialui',
+              }),
+              (this.returnFromContactBookIcon = {
+                expanded: 'Merge',
+                name: 'git-merge',
+                set: 'octicons',
+              }),
+              (this.savedContactsIcon = {
+                expanded: 'Contatti',
+                name: 'contacts',
+                set: 'materialui',
+              }),
+              this.getProfileVisits(r.aq).subscribe();
+          }
+          getProfileVisits(e) {
+            return this._statService.getStat(m._6.ProfileVisit, e).pipe(
+              (0, u.k)((o) => [
+                {
+                  name: 'Visite',
+                  data: o.map((l) => ({
+                    x: new Date(l.period.from),
+                    y: l.value,
+                  })),
+                },
+              ]),
+              (0, C.y)((o) => this.areaChartScans$.next(o))
+            );
+          }
+          static #t = (this.ɵfac = function (o) {
+            return new (o || n)(
+              t.GI1(s.xX),
+              t.GI1(s.Et),
+              t.GI1(s.oj),
+              t.GI1(s.Ah),
+              t.GI1(s.e)
+            );
+          });
+          static #e = (this.ɵcmp = t.In1({
+            type: n,
+            selectors: [['ng-component']],
+            standalone: !0,
+            features: [t.M5G([s.Et, s.Ah, s.YN, s.e]), t.UHJ],
+            decls: 5,
+            vars: 3,
+            consts: [
+              [1, 'page-layout'],
+              [
+                'title',
+                'Dashboard',
+                'subtitle',
+                'Visualizza le informazioni principali del tuo account',
+              ],
+              [
+                1,
+                'flex',
+                'flex-col',
+                'lg:flex-row',
+                'lg:justify-between',
+                'h-spacing',
+              ],
+              [1, 'v-spacing', 'lg:w-full'],
+              [1, 'dashboard-cards-container', 'h-spacing'],
+              [1, 'w-full', 3, 'profile', 'baseUrl'],
+              ['class', 'w-full h-20', 3, 'note', 4, 'ngIf'],
+              [1, 'divider'],
+              [
+                'title',
+                'Visite totali',
+                'backgroundColor',
+                'transparent',
+                'elementsColor',
+                '#008FFB',
+                'countSuffix',
+                'Visite',
+                1,
+                'dashboard-card',
+                'animate__fadeInDown',
+                'animate__animated',
+                3,
+                'ngStyle',
+                'icon',
+                'count',
+              ],
+              [
+                'title',
+                'Salvati in rubrica',
+                'backgroundColor',
+                'transparent',
+                'elementsColor',
+                '#876756',
+                'countSuffix',
+                'Salvataggi',
+                1,
+                'dashboard-card',
+                'animate__fadeInDown',
+                'animate__animated',
+                3,
+                'ngStyle',
+                'icon',
+                'count',
+              ],
+              [
+                'title',
+                'Visite da rubrica',
+                'backgroundColor',
+                'transparent',
+                'elementsColor',
+                '#a7ed72',
+                'countSuffix',
+                '% sul totale',
+                1,
+                'dashboard-card',
+                'animate__fadeInDown',
+                'animate__animated',
+                3,
+                'ngStyle',
+                'icon',
+                'count',
+              ],
+              [
+                1,
+                'flex',
+                'flex-col',
+                'lg:flex-row',
+                'w-full',
+                'lg:h-[32rem]',
+                '2xl:h-[33rem]',
+                'h-spacing',
+              ],
+              [
+                'title',
+                'Visite',
+                1,
+                'w-full',
+                'h-full',
+                'dashboard-card',
+                3,
+                'series',
+                'disableExport',
+                'timespanChange',
+              ],
+              [
+                1,
+                'flex',
+                'flex-col',
+                'lg:w-5/12',
+                'h-full',
+                'items-center',
+                'v-spacing',
+              ],
+              [
+                1,
+                'flex',
+                'w-full',
+                'dashboard-card',
+                'animate__fadeInRight',
+                'animate__animated',
+                3,
+                'value',
+                'totalFeedbacksCount',
+              ],
+              [
+                'title',
+                'Integrazioni',
+                1,
+                'w-full',
+                'h-full',
+                3,
+                'series',
+                'legendValues',
+                'disableExport',
+              ],
+              [1, 'w-full', 'h-20', 3, 'note'],
+              [1, 'loading-container'],
+            ],
+            template: function (o, c) {
+              if (
+                (1 & o &&
+                  (t.I0R(0, 'div', 0),
+                  t.wR5(1, 'notify-page-header', 1),
+                  t.yuY(2, I, 18, 24, 'div'),
+                  t.wVc(3, 'async'),
+                  t.yuY(4, b, 2, 0),
+                  t.C$Y()),
+                2 & o)
+              ) {
+                let l;
+                t.yG2(2), t.C0Y(2, (l = t.kDX(3, 1, c.dashboard$)) ? 2 : 4, l);
+              }
+            },
+            dependencies: [
+              d.MD,
+              d.u_,
+              d.Qt,
+              d.a,
+              r.Qh,
+              r.kN,
+              r.Y1,
+              r.UY,
+              r.Cm,
+              r._S,
+              r.k8,
+              r.i6,
+            ],
+          }));
+        }
+        return n;
+      })();
+    },
+  },
+]);
