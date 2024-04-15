@@ -47,36 +47,38 @@ export const S3Upload = async (config: {
   path: string;
   extension?: string;
 }) => {
+  //rimuovo l'estensione dal nome del file
+  config.name = _removeFilenameExtension(config.name);
+
   if (!config.extension) {
+    //se non è stato fornito un'estensione, provo a prenderla dal file
     config.extension = (await getFileType(config.src))?.ext;
   }
+
+  //assegno il nome del file, composto da nome e estensione
+  const name = `${config.name}.${config.extension}`;
 
   //converto il base64 in buffer, rimuovendo il prefisso
   const Body = await _getBlob(config.src);
 
   const _localPath = `./tmp/buckets/${bucket}/${config.path}/${config.name}.${config.extension}`;
-  const _s3Path = `${bucket}/${config.path}/${config.name}.${config.extension}`;
+
+  //_s3Path è il path del file su s3
+  const _s3Path = `${config.path}/${name}`;
+  //s3Path è il path completo del file su s3, comprensivo del bucket
+  const s3Path = `${bucket}/${_s3Path}`;
 
   await Bun.write(_localPath, Body);
 
-  mLog(
-    `Uploading file to ${_s3Path} with size of ${Body.length} bytes`,
-    'info'
-  );
+  mLog(`Uploading file to ${s3Path} with size of ${Body.length} bytes`, 'info');
 
   try {
     //provo fare l'upload nello sapce del file
-    await s3
-      .fPutObject(
-        bucket,
-        `${config.path}/${config.name}.${config.extension}`,
-        _localPath
-      )
-      .catch((err) => {
-        const message = `Error uploading file: ${JSON.stringify(err)} `;
-        mLog(message, 'error');
-        Sentry.captureException(message);
-      });
+    await s3.fPutObject(bucket, _s3Path, _localPath).catch((err) => {
+      const message = `Error uploading file: ${JSON.stringify(err)} `;
+      mLog(message, 'error');
+      Sentry.captureException(message);
+    });
   } catch (err) {
     const message = `Error uploading file: ${JSON.stringify(err)} `;
     mLog(message, 'error');
@@ -85,13 +87,26 @@ export const S3Upload = async (config: {
 
   fs.unlinkSync(_localPath);
 
-  return `https://${endpoint}/${_s3Path}`;
+  return `https://${endpoint}/${s3Path}`;
+};
+
+export const S3Delete = async (config: { path: string; name: string }) => {
+  try {
+    await s3.removeObject(bucket, `${config.path}/${config.name}`);
+  } catch (err) {
+    const message = `Error deleting file: ${JSON.stringify(err)} `;
+    mLog(message, 'error');
+    Sentry.captureException(message);
+  }
 };
 
 export const getFileType = async (file: string) => {
   const blob = await fetch(file).then((r) => r.blob());
 
   return await fileType.fileTypeFromBlob(blob);
+};
+const _removeFilenameExtension = (filename: string) => {
+  return filename.split('.').slice(0, -1).join('.');
 };
 
 const _getBlob = async (file: string) => {

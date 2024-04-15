@@ -130,7 +130,9 @@ export class ProfileManagementBaseComponent implements OnDestroy {
   /**
    * To be overridden
    */
-  public _fetchProfileSubscription() {}
+  public _fetchProfileSubscription() {
+    return;
+  }
 
   /**
    * To be overridden

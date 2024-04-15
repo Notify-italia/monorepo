@@ -2,7 +2,7 @@
   <notify-loading></notify-loading>
 </div>
 
-<div class="page-layout">
+<div class="page-layout min-h-[90vh]">
   <notify-page-header
     title="Gestisci nota"
     subtitle="Visualizza e modifica i dati della nota"
@@ -16,7 +16,7 @@
         <button
           [disabled]="loading"
           type="button"
-          class="utils-button !bg-complimentary-400/30 smooth"
+          class="utils-button !bg-complimentary-400/50 !border-complimentary-300/70 smooth !shadow min-w-52"
           (click)="goBack()"
         >
           <svg
@@ -40,7 +40,7 @@
           [disabled]="loading"
           (click)="deleteNote()"
           type="button"
-          class="utils-button !bg-red-500 !text-white smooth"
+          class="utils-button !bg-red-500 !border-red-600 smooth min-w-52"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -13,15 +13,14 @@ import {
   INotifyNoteHeader,
   INotifyNoteItemValue,
 } from '@notify/interfaces';
+import { Subject } from 'rxjs';
 import { SaveIndicatorComponent } from '../../../../standalones';
 import { NoItemsComponent } from '../../../../standalones/no-items/no-items.component';
 import { ConfirmModalFactory } from '../../../modals';
 import { INotifyShareItemConfig, ShareItemComponent } from '../../../profile';
-import { NoteChecklistItemComponent } from '../items/note-checklist-item/note-checklist-item.component';
 import { NoteHeaderComponent } from '../items/note-header/note-header.component';
-import { NoteLinkItemComponent } from '../items/note-link-item/note-link-item.component';
+import { NoteItemComponent } from '../items/note-item.component';
 import { NoteMenuComponent } from '../items/note-menu/note-menu.component';
-import { NoteTextItemComponent } from '../items/note-text-item/note-text-item.component';
 import { NoteOwnersWidgetComponent } from '../note-owners-widget/note-owners-widget.component';
 
 @Component({
@@ -31,9 +30,7 @@ import { NoteOwnersWidgetComponent } from '../note-owners-widget/note-owners-wid
     CommonModule,
     NoteHeaderComponent,
     NoteMenuComponent,
-    NoteTextItemComponent,
-    NoteLinkItemComponent,
-    NoteChecklistItemComponent,
+    NoteItemComponent,
     NoItemsComponent,
     NoteOwnersWidgetComponent,
     ShareItemComponent,
@@ -51,6 +48,8 @@ export class NoteDetailComponent implements OnInit, OnChanges {
   @Output() noteChanged = new EventEmitter<INotifyNote>();
   @Output() addOwner = new EventEmitter<void>();
   @Output() manageOwners = new EventEmitter<void>();
+
+  public itemDeleted$ = new Subject<number>();
 
   public currentNote!: INotifyNote;
   public EnumNotifyNoteItemType = EnumNotifyNoteItemType;
@@ -99,7 +98,6 @@ export class NoteDetailComponent implements OnInit, OnChanges {
 
   public itemChanged(item: INotifyNoteItemValue | null, index: number) {
     this.currentNote.items[index].value = item;
-
     this.noteChanged.emit(this.currentNote);
   }
 
@@ -112,23 +110,7 @@ export class NoteDetailComponent implements OnInit, OnChanges {
   }
 
   public deleteItem(index: number) {
-    const ref = this._confirmModal.create({
-      title: 'Elimina Oggetto',
-      description: 'Sei sicuro di voler eliminare questo oggetto?',
-      confirmText: 'Elimina',
-      cancelText: 'Annulla',
-      closeOnConfirm: true,
-      confirmClass: this._confirmModal.deleteBtn,
-      value: true,
-    });
-
-    ref.instance.submitted.subscribe((value) => {
-      if (!value) {
-        return;
-      }
-
-      this.currentNote.items.splice(index, 1);
-      this.noteChanged.emit(this.currentNote);
-    });
+    this.currentNote.items.splice(index, 1);
+    this.noteChanged.emit(this.currentNote);
   }
 }

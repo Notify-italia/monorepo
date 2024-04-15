@@ -6,7 +6,8 @@ export type INotifyNoteItemValue =
   | INotifyNoteItemChecklist
   | INotifyNoteItemFiles
   | INotifyNoteItemLink
-  | INotifyNoteHeader;
+  | INotifyNoteHeader
+  | INotifyNoteItemPhoto;
 
 export interface INotifyNote extends MongodbDocument {
   owners: INotifyUser['_id'][];
@@ -19,6 +20,7 @@ export interface INotifyNote extends MongodbDocument {
 export interface INotifyNoteItem {
   type: EnumNotifyNoteItemType;
   value: INotifyNoteItemValue | null;
+  _id?: string;
 }
 
 export enum EnumNotifyNoteItemType {
@@ -27,6 +29,7 @@ export enum EnumNotifyNoteItemType {
   Files = 'files',
   Link = 'link',
   AudioRecord = 'audio-record',
+  Photo = 'photo',
 }
 
 export interface INotifyNoteHeader {
@@ -44,6 +47,15 @@ export interface INotifyNoteItemChecklist {
 
 export interface INotifyNoteItemFiles {
   files: INotifyNoteItemFile[];
+}
+
+export interface INotifyNoteItemPhoto {
+  url: string;
+  comments: {
+    text: string;
+    createdAt: Date;
+    user: INotifyUser;
+  }[];
 }
 
 export interface INotifyNoteItemFile {

@@ -33,4 +33,36 @@ export class NoteService {
   public deleteNote(id: string) {
     return this.http.delete<INotifyNote>(`/v1/notes`, { id });
   }
+
+  public uploadFile(
+    file: string | ArrayBuffer | null,
+    note: string,
+    item: string,
+    name: string
+  ) {
+    return this.http.post<
+      {
+        file: string | ArrayBuffer | null;
+        note: string;
+        item: string;
+        name: string;
+      },
+      {
+        url: string;
+      }
+    >('/v1/notes/file', {
+      file,
+      note,
+      item,
+      name,
+    });
+  }
+
+  public deleteFile(note: string, item: string, name: string) {
+    return this.http.delete<INotifyNote>(`/v1/notes/file`, {
+      note,
+      item,
+      name,
+    });
+  }
 }
