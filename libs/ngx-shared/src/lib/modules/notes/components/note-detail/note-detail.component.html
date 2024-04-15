@@ -4,6 +4,20 @@
     (itemClick)="addItem($event)"
   ></notify-note-menu>
 
+  <div class="flex justify-center w-full space-x-2 items-center">
+    <notify-share-item
+      [config]="shareConfig"
+      class="w-full"
+      [compact]="true"
+    ></notify-share-item>
+
+    <notify-save-indicator
+      class="w-full"
+      [isSaving]="loading"
+      [lastSave]="note.updatedAt"
+    ></notify-save-indicator>
+  </div>
+
   <notify-note-header
     [note]="currentNote"
     (formValue)="headerChanged($any($event))"

@@ -13,8 +13,10 @@ import {
   INotifyNoteHeader,
   INotifyNoteItemValue,
 } from '@notify/interfaces';
+import { SaveIndicatorComponent } from '../../../../standalones';
 import { NoItemsComponent } from '../../../../standalones/no-items/no-items.component';
 import { ConfirmModalFactory } from '../../../modals';
+import { INotifyShareItemConfig, ShareItemComponent } from '../../../profile';
 import { NoteChecklistItemComponent } from '../items/note-checklist-item/note-checklist-item.component';
 import { NoteHeaderComponent } from '../items/note-header/note-header.component';
 import { NoteLinkItemComponent } from '../items/note-link-item/note-link-item.component';
@@ -34,6 +36,8 @@ import { NoteOwnersWidgetComponent } from '../note-owners-widget/note-owners-wid
     NoteChecklistItemComponent,
     NoItemsComponent,
     NoteOwnersWidgetComponent,
+    ShareItemComponent,
+    SaveIndicatorComponent,
   ],
   providers: [ConfirmModalFactory],
   templateUrl: './note-detail.component.html',
@@ -41,6 +45,8 @@ import { NoteOwnersWidgetComponent } from '../note-owners-widget/note-owners-wid
 })
 export class NoteDetailComponent implements OnInit, OnChanges {
   @Input({ required: true }) note!: INotifyNote;
+  @Input({ required: true }) baseUrl!: string;
+  @Input() loading = false;
 
   @Output() noteChanged = new EventEmitter<INotifyNote>();
   @Output() addOwner = new EventEmitter<void>();
@@ -48,6 +54,29 @@ export class NoteDetailComponent implements OnInit, OnChanges {
 
   public currentNote!: INotifyNote;
   public EnumNotifyNoteItemType = EnumNotifyNoteItemType;
+
+  public get shareConfig(): INotifyShareItemConfig {
+    return {
+      type: 'note',
+      id: this.note._id,
+      baseUrl: this.baseUrl,
+      isInModal: false,
+      qrcode: {
+        fileName: this.note.title,
+        title: 'Condividi questa nota',
+      },
+      nfc: {
+        items: [
+          {
+            label: 'Scrivi questa nota',
+            value: this.note._id,
+          },
+        ],
+        questionLabel: 'Condividi questa nota',
+        confirmationLabel: 'Condividi',
+      },
+    };
+  }
 
   constructor(private _confirmModal: ConfirmModalFactory) {}
 

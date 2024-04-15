@@ -1,10 +1,16 @@
-<div class="w-full h-54 p-4 flex justify-around items-center box">
+<div
+  class="w-full h-54 flex justify-around items-center box"
+  [ngClass]="compactConditionalClasses.container"
+>
   <div class="tooltip" data-tip="Condividi" *ngIf="hasShare">
-    <button class="btn btn-circle" (click)="share()">
+    <button
+      class="btn btn-circle"
+      [ngClass]="compactConditionalClasses.button"
+      (click)="share()"
+    >
       <svg
-        width="24"
-        height="24"
         xmlns="http://www.w3.org/2000/svg"
+        [ngClass]="compactConditionalClasses.svg"
         viewBox="0 0 24 24"
         fill="currentColor"
       >
@@ -16,12 +22,16 @@
     </button>
   </div>
   <div class="tooltip" data-tip="Copia URL">
-    <button class="btn btn-circle" (click)="copyToClipboard()">
+    <button
+      class="btn btn-circle btn-sm"
+      [ngClass]="compactConditionalClasses.button"
+      (click)="copyToClipboard()"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
+        [ngClass]="compactConditionalClasses.svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        class="w-6 h-6"
       >
         <path
           fill-rule="evenodd"
@@ -32,12 +42,16 @@
     </button>
   </div>
   <div class="tooltip" data-tip="Mostra QR">
-    <button class="btn btn-circle" (click)="openQRCode()">
+    <button
+      class="btn btn-circle"
+      [ngClass]="compactConditionalClasses.button"
+      (click)="openQRCode()"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
+        [ngClass]="compactConditionalClasses.svg"
         viewBox="0 0 24 24"
         fill="currentColor"
-        class="w-6 h-6"
       >
         <path
           fill-rule="evenodd"
@@ -57,14 +71,15 @@
     <!-- [disabled]="!capacitor.isNative" -->
     <button
       class="btn btn-circle"
+      [ngClass]="compactConditionalClasses.button"
       (click)="writeNfc()"
       [disabled]="!capacitor.isNative"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
+        [ngClass]="compactConditionalClasses.svg"
         viewBox="0 0 380 380"
         fill="currentColor"
-        class="w-6 h-6"
         xmlns:v="https://vecta.io/nano"
       >
         <path

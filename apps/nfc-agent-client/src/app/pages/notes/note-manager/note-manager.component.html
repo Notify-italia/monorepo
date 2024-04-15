@@ -62,7 +62,9 @@
         [note]="n"
         (noteChanged)="saveNote($event)"
         (addOwner)="addOwner(n)"
+        [baseUrl]="playerUrl"
         (manageOwners)="manageOwners(n)"
+        [loading]="loading"
       ></notify-note-detail>
     </div>
   </div>

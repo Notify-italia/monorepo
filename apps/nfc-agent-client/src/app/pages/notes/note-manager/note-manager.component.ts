@@ -12,7 +12,6 @@ import {
   NoteDetailComponent,
   NoteService,
   PageHeaderComponent,
-  ShareItemComponent,
   SvgBoxIconComponent,
   UtilsService,
 } from '@notify/ngx-shared';
@@ -26,6 +25,7 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   standalone: true,
@@ -35,7 +35,6 @@ import {
     LoadingComponent,
     NoteDetailComponent,
     SvgBoxIconComponent,
-    ShareItemComponent,
   ],
   providers: [
     NoteService,
@@ -52,11 +51,12 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
   public id = this._activeRoute.snapshot.queryParams['id'];
 
   public noteSubject$ = new Subject<INotifyNote>();
-  public note$?: Observable<INotifyNote> = this.noteSubject$;
+  public note$?: Observable<INotifyNote> = this.noteSubject$.pipe();
 
   private _destroy$ = new Subject<void>();
 
   public loading = false;
+  public playerUrl = environment.profilesUrl;
 
   constructor(
     private _router: Router,

@@ -31,6 +31,9 @@ type IProfile = INotifyProfile;
         [lastSave]="profile.updatedAt"
         (save)="saveProfile.emit(profile)"
       ></notify-save-indicator>
+
+      <div class="divider"></div>
+
       <div
         class="lg:flex justify-around lg:space-x-4 space-y-4 lg:space-y-0 items-start w-full"
       >

@@ -36,14 +36,40 @@ export interface INotifyShareItemConfig {
   styles: `button {
     @apply bg-primary-500/20 text-white/80 border-none;
   }
+
+  svg {
+    @apply w-6 h-6;
+  }
   `,
   templateUrl: './share-item.component.html',
 })
 export class ShareItemComponent {
   @Input() public config!: INotifyShareItemConfig;
+  @Input() public compact = false;
 
   public hasShare = !!navigator.share;
   public isNative = this.capacitor.isNative;
+
+  public get compactConditionalClasses() {
+    // height: 2rem/* 32px */;
+    // min-height: 2rem/* 32px */;
+    // padding-left: 0.75rem/* 12px */;
+    // padding-right: 0.75rem/* 12px */;
+    // font-size: 0.875rem/* 14px */;
+    const { compact } = this;
+    return {
+      container: {
+        'p-4 ': !compact,
+        'p-2': compact,
+      },
+      button: {
+        'h-[2.5rem] min-h-[2.5rem] text-[0.875rem] w-[2.5rem]': compact,
+      },
+      svg: {
+        '!w-4 !h-4': compact,
+      },
+    };
+  }
 
   constructor(
     private _toastr: ToastrService,
