@@ -145,10 +145,10 @@ export class InspectCustomerComponent {
             usersStatsMapped: customer.users.reduce(
               (acc: INotifyUserStats, user) => {
                 const stats = Object.keys(
-                  user.statsTotals
+                  user.statsTotals || {}
                 ) as EnumNotifyStatType[];
 
-                stats.forEach((stat) => {
+                stats?.forEach((stat) => {
                   acc[stat] = acc[stat] || 0;
                   acc[stat] += user.statsTotals[stat];
                 });
