@@ -34,7 +34,7 @@
       class="w-full flex flex-col justify-around items-center space-y-2 mb-4"
     >
       @if(!advanced?.enabled) {
-      <div class="flex items-center text-lg">
+      <div class="flex items-center justify-center text-lg w-full">
         <svg
           class="w-6 h-6 text-yellow-300 me-1"
           aria-hidden="true"
@@ -50,7 +50,7 @@
           {{ value | number : '1.2-2' }}
         </p>
         <span class="w-1 h-1 mx-1.5 rounded-full bg-gray-400"></span>
-        <a class="text-sm font-medium text-white items-center"
+        <a class="text-sm font-medium text-white items-center truncate"
           >{{ totalFeedbacksCount }} feedbacks ricevuti</a
         >
       </div>

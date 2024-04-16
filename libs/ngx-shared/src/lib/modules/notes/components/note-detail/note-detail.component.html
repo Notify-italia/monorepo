@@ -17,6 +17,7 @@
       class="w-full"
       [isSaving]="loading"
       [lastSave]="note.updatedAt"
+      (save)="noteChanged.emit(currentNote)"
     ></notify-save-indicator>
   </div>
 
