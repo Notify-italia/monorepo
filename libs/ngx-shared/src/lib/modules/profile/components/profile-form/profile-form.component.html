@@ -226,41 +226,6 @@
         </div>
       </div>
 
-      <!-- INDIRIZZO -->
-      @if (isCompany) {
-      <div class="section box p-4">
-        <div class="divider divider-start">Indirizzo</div>
-        <div class="field flex w-full !space-y-0 space-x-2">
-          <notify-tailwind-input
-            [parent]="form"
-            name="street"
-            label="Via/Piazza"
-            class="w-5/12"
-            placeholder="Via Lorenzo Ciulli"
-            [validationErrors]="validationErrors"
-          ></notify-tailwind-input>
-
-          <notify-tailwind-input
-            [parent]="form"
-            name="number"
-            label="civico"
-            class="w-3/12"
-            placeholder="40"
-            [validationErrors]="validationErrors"
-          ></notify-tailwind-input>
-
-          <notify-tailwind-input
-            [parent]="form"
-            name="city"
-            label="Città"
-            placeholder="Prato"
-            class="w-4/12"
-            [validationErrors]="validationErrors"
-          ></notify-tailwind-input>
-        </div>
-      </div>
-      }
-
       <div class="section box p-4">
         <div class="divider divider-start">Contatti</div>
         <!-- EMAIL -->
@@ -389,6 +354,41 @@
           }
         </div>
       </div>
+
+      <!-- INDIRIZZO -->
+      @if (isCompany) {
+      <div class="section box p-4">
+        <div class="divider divider-start">Indirizzo</div>
+        <div class="field flex w-full !space-y-0 space-x-2">
+          <notify-tailwind-input
+            [parent]="form"
+            name="street"
+            label="Via/Piazza"
+            class="w-5/12"
+            placeholder="Via Lorenzo Ciulli"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-input>
+
+          <notify-tailwind-input
+            [parent]="form"
+            name="number"
+            label="civico"
+            class="w-3/12"
+            placeholder="40"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-input>
+
+          <notify-tailwind-input
+            [parent]="form"
+            name="city"
+            label="Città"
+            placeholder="Prato"
+            class="w-4/12"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-input>
+        </div>
+      </div>
+      }
     </div>
   </div>
 </form>

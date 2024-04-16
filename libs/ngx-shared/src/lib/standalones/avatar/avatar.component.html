@@ -20,29 +20,33 @@
 </div>
 
 <ng-template #AvatarRenderer let-config="config" let-avatarType="avatarType">
-  <div class="overflow-hidden relative flex">
-    <img
-      (load)="setLoaded(avatarType)"
+  <div class="overflow-hidden relative shrink-0">
+    <div
       *ngIf="config.src || placeholderAvatar[avatarType] as avatar"
-      [src]="config.isBase64 ? avatar : avatar"
-      alt="User Avatar"
-      loading="lazy"
       [ngClass]="{
-        'mask object-cover ': config.mask?.length,
-        'opacity-0 absolute': !loaded[avatarType],
-      }"
-      class="mask-{{ config.mask }} object-contain smooth"
-      [style.background-color]="config?.mask ? config.backgroundColor : ''"
+      'mask  ': config.mask?.length,
+      'opacity-0 absolute': !loaded[avatarType],
+    }"
       [ngStyle]="{
-        width: config.size/4 + 'rem',
-        height: config.size/4 + 'rem',
-      }"
-    />
+      width: config.size / 4 + 'rem',
+      height: config.size / 4 + 'rem',
+    }"
+      class="mask-{{ config.mask }}  smooth"
+    >
+      <img
+        (load)="setLoaded(avatarType)"
+        [src]="config.isBase64 ? avatar : avatar"
+        alt="User Avatar"
+        loading="lazy"
+        class="w-full h-full object-contain"
+        [style.background-color]="config?.mask ? config.backgroundColor : ''"
+      />
+    </div>
     <div
       *ngIf="!loaded[avatarType]"
       class="mask mask-{{
         config.mask
-      }} object-cover smooth bg-gray-600 animate-pulse"
+      }} object-contain smooth bg-gray-600 animate-pulse "
       [ngStyle]="{
       width: config.size/4 + 'rem',
       height: config.size/4 + 'rem',

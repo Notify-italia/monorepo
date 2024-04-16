@@ -23,7 +23,7 @@ export class ProfileUserInfoComponent {
 
   public get hasLongName() {
     return (
-      (this.data?.name?.length || 0) + (this.data?.surname?.length || 0) >= 18
+      (this.data?.name?.length || 0) + (this.data?.surname?.length || 0) >= 16
     );
   }
 }
