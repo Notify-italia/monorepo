@@ -7,17 +7,20 @@ import {
   OnInit,
   SimpleChanges,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import { UtilsService } from '../../../../services';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
 
 @Component({
   selector: 'notify-tailwind-dropzone',
   templateUrl: './tailwind-dropzone.component.html',
+  providers: [UtilsService],
   styles: `
     .dropzone {
-      @apply border-2 border-gray-400 border-dashed bg-none rounded-md text-white flex flex justify-center items-center;
+      @apply border-2 border-current border-dashed bg-none rounded-md text-white flex flex justify-center items-center text-current;
 
       }
       `,
@@ -25,6 +28,8 @@ import { TailwindFormsService } from '../../services/tailwind-forms.service';
 export class TailwindDropzoneComponent
   implements OnChanges, OnInit, AfterViewInit
 {
+  private _utilsService = inject(UtilsService);
+
   @Input() parent!: FormArray;
   @Input() label =
     'Carica i tuoi files trascinandoli qui o facendo click/tap su questa area.';
@@ -33,6 +38,7 @@ export class TailwindDropzoneComponent
   @Input() cdnConfig!: {
     postEndpoint: string;
     authorization: { [key: string]: string };
+    body: { [key: string]: string };
   };
 
   @Input() validationErrors!: { [key: string]: string };
@@ -50,6 +56,7 @@ export class TailwindDropzoneComponent
       cancelReset: null,
       headers: this.cdnConfig.authorization,
       dictDefaultMessage: this.label,
+      params: this.cdnConfig.body,
     };
   }
 

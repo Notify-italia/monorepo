@@ -67,6 +67,22 @@ export class UtilsService {
     return [ab];
   }
 
+  public async arrayBufferToBase64(buffer: ArrayBuffer) {
+    //arraybuffer to blob
+    const blob = new Blob([buffer]);
+
+    const result = new Promise<string | ArrayBuffer | null>((resolve) => {
+      //blob to base64 without using FileReader
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = () => {
+        return resolve(reader.result);
+      };
+    });
+
+    return result;
+  }
+
   public errorHandler<T>(error: AppError, returnValue?: T) {
     this._toastr.error(
       error?.error?.errors?.[0]?.message || 'Si è verificato un errore',

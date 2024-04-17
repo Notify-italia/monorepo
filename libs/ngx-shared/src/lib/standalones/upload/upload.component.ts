@@ -7,19 +7,24 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  inject,
 } from '@angular/core';
 import { NgxDropzoneChangeEvent, NgxDropzoneModule } from 'ngx-dropzone';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
+import { UtilsService } from '../../services';
 
 @Component({
   selector: 'notify-upload',
   standalone: true,
   imports: [NgxDropzoneModule, CommonModule],
+  providers: [UtilsService],
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss'],
 })
 export class UploadComponent implements OnChanges, OnDestroy, OnInit {
+  private _utilsService = inject(UtilsService);
+
   @Input() disabled = false;
   @Input() acceptedFiles = '*';
 
@@ -70,7 +75,7 @@ export class UploadComponent implements OnChanges, OnDestroy, OnInit {
     this.file = file;
 
     const buffer = await this.file.arrayBuffer();
-    const srcBlob = await this._arrayBufferToBase64(buffer);
+    const srcBlob = await this._utilsService.arrayBufferToBase64(buffer);
     this.blob = srcBlob;
 
     this.fileChanged.emit({
@@ -87,21 +92,5 @@ export class UploadComponent implements OnChanges, OnDestroy, OnInit {
       file: this.file,
       blob: this.blob,
     });
-  }
-
-  private async _arrayBufferToBase64(buffer: ArrayBuffer) {
-    //arraybuffer to blob
-    const blob = new Blob([buffer]);
-
-    const result = new Promise<string | ArrayBuffer | null>((resolve) => {
-      //blob to base64 without using FileReader
-      const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      reader.onloadend = () => {
-        return resolve(reader.result);
-      };
-    });
-
-    return result;
   }
 }
