@@ -11,7 +11,7 @@
   <div
     *ngIf="!isOssidiana && !isNewEra"
     notify-profile-default-view
-    class="main-container py-10 pb-20"
+    class="main-container py-10 pb-20 px-5"
     [ngStyle]="{
       background: 'linear-gradient(' + cssGradientStops + ')'
     }"
@@ -34,7 +34,7 @@
   <div
     *ngIf="isOssidiana"
     notify-profile-ossidiana-view
-    class="main-container py-10 pb-20"
+    class="main-container py-10 pb-20 px-5"
     style="
       background: url('/assets/ossidiana-card-bg.png');
       background-size: cover;
@@ -57,7 +57,7 @@
   <div
     *ngIf="isNewEra"
     notify-profile-newera-view
-    class="main-container py-10 pb-20"
+    class="main-container py-10 pb-20 px-5"
     [ngStyle]="{
       background: 'linear-gradient(' + cssGradientStops + ')'
     }"
