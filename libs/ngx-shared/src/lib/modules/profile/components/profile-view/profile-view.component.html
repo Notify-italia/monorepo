@@ -9,9 +9,9 @@
   <notify-mockup-fill *ngIf="mockup" class="w-full"></notify-mockup-fill>
 
   <div
-    *ngIf="!isOssidiana"
+    *ngIf="!isOssidiana && !isNewEra"
     notify-profile-default-view
-    class="main-container py-10 pb-20 px-5"
+    class="main-container py-10 pb-20"
     [ngStyle]="{
       background: 'linear-gradient(' + cssGradientStops + ')'
     }"
@@ -34,11 +34,33 @@
   <div
     *ngIf="isOssidiana"
     notify-profile-ossidiana-view
-    class="main-container py-10 pb-20 px-5"
+    class="main-container py-10 pb-20"
     style="
       background: url('/assets/ossidiana-card-bg.png');
       background-size: cover;
     "
+    [ngClass]="{
+      'display pt-20  ': mockup,
+      'h-full min-h-screen  w-screen': !mockup,
+    }"
+    [cssGradientStops]="cssGradientStops"
+    [data]="data"
+    [cssElementsColor]="cssElementsColor"
+    [isAgent]="isAgent"
+    [isFeedbackEnabled]="isFeedbackEnabled"
+    [feedbackKey]="feedbackKey"
+    [mockup]="mockup"
+    (feedbackClicked)="feedbackClicked.emit()"
+    (subAvatarClick)="subAvatarClick.emit()"
+    (integrationClicked)="integrationClicked.emit($event)"
+  ></div>
+  <div
+    *ngIf="isNewEra"
+    notify-profile-newera-view
+    class="main-container py-10 pb-20"
+    [ngStyle]="{
+      background: 'linear-gradient(' + cssGradientStops + ')'
+    }"
     [ngClass]="{
       'display pt-20  ': mockup,
       'h-full min-h-screen  w-screen': !mockup,

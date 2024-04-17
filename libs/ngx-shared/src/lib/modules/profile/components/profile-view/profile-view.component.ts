@@ -9,6 +9,7 @@ import {
 } from '../../../../services';
 
 import { ProfileDefaultViewComponent } from '../../presets/default-view/default-view.component';
+import { ProfileNewEraViewComponent } from '../../presets/newera-view/newera-view.component';
 import { ProfileOssidianaViewComponent } from '../../presets/ossidiana-view/ossidiana-view.component';
 import { FeedbackFactory } from '../feedback/feedback.factory';
 import { MockupFillComponent } from '../mockup-fill/mockup-fill.component';
@@ -23,6 +24,7 @@ export const defaultGradientStops = ['#0A2859', '#041127'];
     ProfileDefaultViewComponent,
     MockupFillComponent,
     ProfileOssidianaViewComponent,
+    ProfileNewEraViewComponent,
   ],
   providers: [
     FeedbackFactory,
@@ -61,6 +63,12 @@ export class ProfileViewComponent implements OnInit {
       '660850080d1d685e63ecd88f', //giulio
       '660850a70d1d685e63ecd915', //Matteo
     ];
+
+    return ids.includes(this.data?._id || '');
+  }
+
+  public get isNewEra(): boolean {
+    const ids = ['660c6cf57cb125be66b84962'];
 
     return ids.includes(this.data?._id || '');
   }
