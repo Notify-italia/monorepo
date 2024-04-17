@@ -14,6 +14,10 @@ export enum HttpServiceTokenType {
 
 @Injectable()
 export class HttpService {
+  public get apiBaseUrl(): string {
+    return this.apiUrl;
+  }
+
   private get token() {
     return localStorage.getItem(this.tokenPath);
   }
@@ -32,7 +36,7 @@ export class HttpService {
     params?: Record<string, string>
   ) {
     return this.http
-      .patch<Res>(`${this.apiUrl}${url}`, body, this._genHeaders(params))
+      .patch<Res>(`${this.apiUrl}${url}`, body, this.genHeaders(params))
       .pipe(this._unauthorized());
   }
 
@@ -42,23 +46,23 @@ export class HttpService {
     params?: Record<string, string>
   ) {
     return this.http
-      .post<Resposnse>(`${this.apiUrl}${url}`, body, this._genHeaders(params))
+      .post<Resposnse>(`${this.apiUrl}${url}`, body, this.genHeaders(params))
       .pipe(this._unauthorized());
   }
 
   public get<T>(url: string, params?: UnknownObject) {
     return this.http
-      .get<T>(`${this.apiUrl}${url}`, this._genHeaders(params))
+      .get<T>(`${this.apiUrl}${url}`, this.genHeaders(params))
       .pipe(this._unauthorized());
   }
 
   public delete<T>(url: string, params?: Record<string, string>) {
     return this.http
-      .delete<T>(`${this.apiUrl}${url}`, this._genHeaders(params))
+      .delete<T>(`${this.apiUrl}${url}`, this.genHeaders(params))
       .pipe(this._unauthorized());
   }
 
-  private _genHeaders(params?: UnknownObject) {
+  public genHeaders(params?: UnknownObject) {
     const headers: { [key: string]: string } =
       this.tokenType === 'x-api-key'
         ? { 'x-api-key': this.token || '' }

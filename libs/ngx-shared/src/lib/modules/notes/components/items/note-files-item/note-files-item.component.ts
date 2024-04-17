@@ -1,15 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormArray,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 import { INotifyNoteItemFiles, INotifyNoteItemLink } from '@notify/interfaces';
 import { NoteItemBaseComponent } from '../../../../../constructors/note-item.base.component';
-import { UtilsService } from '../../../../../services';
+import {
+  AuthService,
+  NoteService,
+  UtilsService,
+} from '../../../../../services';
 import { UploadComponent } from '../../../../../standalones';
 import { TailwindFormsModule } from '../../../../tailwind-forms/tailwind-forms.module';
 
@@ -22,17 +25,26 @@ import { TailwindFormsModule } from '../../../../tailwind-forms/tailwind-forms.m
     ReactiveFormsModule,
     UploadComponent,
   ],
+  providers: [NoteService],
   templateUrl: './note-files-item.component.html',
   styleUrls: ['./note-files-item.component.scss', '../../../notes.styles.scss'],
 })
 export class NoteFilesItemComponent extends NoteItemBaseComponent {
-  public formVisible = false;
+  public _noteService = inject(NoteService);
+  public authService = inject(AuthService);
+  private _utilsService = inject(UtilsService);
 
-  constructor(
-    private _domSanitizer: DomSanitizer,
-    private _utilsService: UtilsService
-  ) {
+  public formVisible = false;
+  constructor() {
     super();
+  }
+
+  public get files(): FormArray {
+    return this.form.get('files') as FormArray;
+  }
+
+  public get cdnPostEndpoint(): string {
+    return `${this._utilsService.apiUrl}/${this._noteService.uploadFileEndpoint}`;
   }
 
   override componentInit(): void {

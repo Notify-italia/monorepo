@@ -4,6 +4,8 @@ import { HttpService } from './http.service';
 
 @Injectable()
 export class NoteService {
+  public uploadFileEndpoint = '/v1/notes/file';
+
   constructor(private http: HttpService) {}
 
   public postNote() {
@@ -50,7 +52,7 @@ export class NoteService {
       {
         url: string;
       }
-    >('/v1/notes/file', {
+    >(this.uploadFileEndpoint, {
       file,
       note,
       item,
@@ -59,7 +61,7 @@ export class NoteService {
   }
 
   public deleteFile(note: string, item: string, name: string) {
-    return this.http.delete<INotifyNote>(`/v1/notes/file`, {
+    return this.http.delete<INotifyNote>(this.uploadFileEndpoint, {
       note,
       item,
       name,

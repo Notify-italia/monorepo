@@ -18,6 +18,10 @@ export class AuthService {
     this._decodeToken(this.token)
   );
 
+  public get authHeaders() {
+    return this._http.genHeaders().headers;
+  }
+
   public get token() {
     return localStorage.getItem(this._tokenPath) || '';
   }

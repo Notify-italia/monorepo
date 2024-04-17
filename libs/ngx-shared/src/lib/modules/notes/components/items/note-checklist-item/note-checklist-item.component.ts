@@ -54,7 +54,12 @@ export class NoteChecklistItemComponent extends NoteItemBaseComponent {
                 ]),
                 checked: new FormControl(item.checked),
               })
-          ) ?? []
+          ) ?? [
+            new FormGroup({
+              description: new FormControl('', Validators.required),
+              checked: new FormControl(false),
+            }),
+          ]
         ),
       })
     );
@@ -62,26 +67,55 @@ export class NoteChecklistItemComponent extends NoteItemBaseComponent {
 
   @HostListener('keydown.enter', ['$event'])
   public addItem() {
-    (this.form.get('items') as FormArray).push(
+    const index = this._getActiveElementIndex();
+
+    (this.form.get('items') as FormArray).insert(
+      index + 1,
       new FormGroup({
         description: new FormControl('', Validators.required),
         checked: new FormControl(false),
       })
     );
     setTimeout(() => {
-      this._focusLastInput();
+      this._focusInput(index + 1);
     }, 1);
   }
 
+  @HostListener('keydown.backspace', ['$event'])
   public removeItem(index: number) {
-    if (isNaN(index)) {
-      index = (this.form.get('items') as FormArray).length - 1;
+    if (!isNaN(index)) {
+      const arr = this.form.get('items') as FormArray;
+      arr.removeAt(index);
     }
+
+    index = this._getActiveElementIndex();
+
+    if (this.form.get('items')?.value[index].description.length) {
+      return;
+    }
+
     const arr = this.form.get('items') as FormArray;
     arr.removeAt(index);
+    (document.activeElement as HTMLInputElement)?.blur();
+
+    setTimeout(() => {
+      this._focusInput(index - 1);
+    }, 1);
   }
 
-  private _focusLastInput() {
-    this.inputs.last.nativeElement.focus({ preventScroll: false });
+  private _focusInput(index: number) {
+    this.inputs
+      .toArray()
+      [index]?.nativeElement?.focus({ preventScroll: false });
+  }
+
+  private _getActiveElementIndex() {
+    const dataIndex = parseInt(
+      document.activeElement?.getAttribute('data-index') || ''
+    );
+
+    return isNaN(dataIndex)
+      ? this.form.controls['items'].value.length - 1
+      : dataIndex;
   }
 }

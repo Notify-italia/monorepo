@@ -31,6 +31,7 @@ router.get(
         }
 
         res.status(200).send(note);
+        return;
       }
 
       const notes = await NoteModel.find({

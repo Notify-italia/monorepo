@@ -3,6 +3,7 @@ import { AppError } from '@notify/interfaces';
 import { format } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
+import { HttpService } from './http.service';
 
 export enum EnumDicebearAvatarStyles {
   Bottts = 'bottts',
@@ -36,7 +37,11 @@ export enum EnumDicebearAvatarStyles {
 
 @Injectable()
 export class UtilsService {
-  constructor(private _toastr: ToastrService) {}
+  public get apiUrl(): string {
+    return this._http.apiBaseUrl;
+  }
+
+  constructor(private _toastr: ToastrService, private _http: HttpService) {}
 
   public diceBearAvatar(config: {
     style: EnumDicebearAvatarStyles;

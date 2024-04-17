@@ -11,6 +11,7 @@
 
       <button
         class="btn btn-square text-green-500 btn-ghost"
+        type="button"
         (click)="addItem()"
       >
         <svg
@@ -53,6 +54,7 @@
             tabindex="-1"
           />
           <input
+            [attr.data-index]="$index"
             #DescriptionInput
             class="note-title !text-base smooth !font-medium my-auto"
             [ngClass]="{

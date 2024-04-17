@@ -1,9 +1,21 @@
-<div class="note-module !flex-row group/linkPadlock !h-56">
-  <form [formGroup]="form" class="main-container" *ngIf="formVisible">
-    <div
-      class="flex flex-col justify-around w-full space-y-2 items-center scale-90 h-full"
-    >
-      <notify-upload></notify-upload>
+<div class="note-module !flex-row group/linkPadlock !w-full">
+  <form [formGroup]="form" class="main-container !w-full" *ngIf="formVisible">
+    <div class="flex flex-col w-full space-y-2 items-center h-full">
+      <notify-tailwind-input
+        [parent]="form"
+        name="title"
+        class="w-full"
+        label="Titolo"
+        placeholder="Inserisci un titolo"
+      ></notify-tailwind-input>
+      <notify-tailwind-dropzone
+        class="w-full h-full"
+        [parent]="files"
+        [cdnConfig]="{
+          postEndpoint: cdnPostEndpoint,
+          authorization: authService.authHeaders
+        }"
+      ></notify-tailwind-dropzone>
     </div>
   </form>
 

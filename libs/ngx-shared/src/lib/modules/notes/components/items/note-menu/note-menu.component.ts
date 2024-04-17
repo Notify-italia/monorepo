@@ -51,14 +51,14 @@ export class NoteMenuComponent {
         name: 'photo',
       },
     },
-    // {
-    //   type: EnumNotifyNoteItemType.Files,
-    //   label: 'Files',
-    //   icon: {
-    //     set: 'materialui',
-    //     name: 'attach_file',
-    //   },
-    // },
+    {
+      type: EnumNotifyNoteItemType.Files,
+      label: 'Files',
+      icon: {
+        set: 'materialui',
+        name: 'attach_file',
+      },
+    },
     // {
     //   type: EnumNotifyNoteItemType.AudioRecord,
     //   label: 'Audio',
