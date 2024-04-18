@@ -95,6 +95,13 @@ import { NoteTextItemComponent } from './note-text-item/note-text-item.component
     ></notify-note-photo-item>
 
     } }
+
+    <small class=" absolute right-5 bottom-2 text-end">
+      <span class="text-xs text-gray-500">
+        Ultima modifica:
+        {{ item.updatedAt | date : 'dd/MM/yyyy HH:mm' }}</span
+      >
+    </small>
   </div>`,
 })
 export class NoteItemComponent {

@@ -61,6 +61,7 @@ const _itemsSchema = new Schema(
   },
   {
     _id: true,
+    timestamps: true,
   }
 );
 

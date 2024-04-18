@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
-  FormArray,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -42,17 +41,10 @@ export class NotePhotoItemComponent extends NoteItemBaseComponent {
   override componentInit(): void {
     this.initForm(
       new FormGroup({
+        title: new FormControl(this.itemValue?.title || 'Foto', [
+          Validators.required,
+        ]),
         url: new FormControl(this.itemValue?.url, [Validators.required]),
-        comments: new FormArray(
-          this.itemValue?.comments?.map(
-            (c) =>
-              new FormGroup({
-                text: new FormControl(c.text),
-                createdAt: new FormControl(c.createdAt || new Date()),
-                user: new FormControl(c.user._id),
-              })
-          ) || []
-        ),
       })
     );
 
@@ -60,13 +52,13 @@ export class NotePhotoItemComponent extends NoteItemBaseComponent {
   }
 
   override itemDeleted() {
-    if (!this.itemValue.url) {
+    if (!this.itemValue?.url) {
       return of(true);
     }
 
     const itemName = this.itemValue.url.split('/').pop() || '';
 
-    return this._noteService.deleteFile(
+    return this._noteService.deleteItem(
       this.note._id,
       this.item._id || '',
       itemName

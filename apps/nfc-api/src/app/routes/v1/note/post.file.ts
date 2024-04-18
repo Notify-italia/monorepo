@@ -29,7 +29,7 @@ router.post(
         file = _fileToBase64(faFile);
 
         if (!name) {
-          name = faFile.originalname.replace(/\s/g, '-').toLowerCase();
+          name = faFile.originalname;
         }
       }
 

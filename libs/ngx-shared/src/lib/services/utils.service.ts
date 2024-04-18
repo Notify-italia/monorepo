@@ -214,4 +214,18 @@ export class UtilsService {
 
     return '2xl';
   }
+
+  public asyncForEach<T = unknown>(
+    array: T[],
+    callback: (item: T, index: number, array: T[]) => Promise<void>
+  ) {
+    return new Promise<void>((resolve) => {
+      array.forEach(async (item, index, array) => {
+        await callback(item, index, array);
+        if (index === array.length - 1) {
+          resolve();
+        }
+      });
+    });
+  }
 }

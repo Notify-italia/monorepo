@@ -20,7 +20,9 @@ export interface INotifyNote extends MongodbDocument {
 export interface INotifyNoteItem {
   type: EnumNotifyNoteItemType;
   value: INotifyNoteItemValue | null;
-  _id?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  _id: string;
 }
 
 export enum EnumNotifyNoteItemType {
@@ -51,17 +53,15 @@ export interface INotifyNoteItemFiles {
 }
 
 export interface INotifyNoteItemPhoto {
+  title: string;
   url: string;
-  comments: {
-    text: string;
-    createdAt: Date;
-    user: INotifyUser;
-  }[];
 }
 
 export interface INotifyNoteItemFile {
   name: string;
   url: string;
+  size: number;
+  type: string;
 }
 
 export interface INotifyNoteItemLink {

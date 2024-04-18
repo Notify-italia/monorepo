@@ -1,26 +1,50 @@
+import { HttpClient } from '@angular/common/http';
 import {
+  AfterViewInit,
   Component,
   Input,
   OnChanges,
   OnInit,
   SimpleChanges,
+  ViewChild,
+  inject,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import {
+  DropzoneConfigInterface,
+  DropzoneDirective,
+} from 'ngx-dropzone-wrapper';
 import { UtilsService } from '../../../../services';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
+
+export interface INotifyTailwindDropzoneCdnConfig {
+  postEndpoint: string;
+  deleteEndpoint: string;
+  authorization: { [key: string]: string };
+  body: { [key: string]: string };
+  deleteSchema: {
+    name: string;
+  };
+  deleteExtraParams: {
+    [key: string]: string;
+  };
+  responseSchema: {
+    value: string;
+  };
+}
 
 @Component({
   selector: 'notify-tailwind-dropzone',
   templateUrl: './tailwind-dropzone.component.html',
   providers: [UtilsService],
-  styles: `
-    .dropzone {
-      @apply border-2 border-current border-dashed bg-none rounded-md text-white flex flex justify-center items-center text-current;
-      }
-      `,
+  styleUrls: ['./tailwind-dropzone.component.scss'],
 })
-export class TailwindDropzoneComponent implements OnInit, OnChanges {
+export class TailwindDropzoneComponent
+  implements OnInit, OnChanges, AfterViewInit
+{
+  private _utilsService = inject(UtilsService);
+  private _httpService = inject(HttpClient);
+
   @Input() parent!: FormGroup;
   @Input() labels: {
     defaultMessage: string;
@@ -31,7 +55,8 @@ export class TailwindDropzoneComponent implements OnInit, OnChanges {
     removeFileConfirmation: string;
     cancelUploadConfirmation: string;
   } = {
-    defaultMessage: 'Trascina i file o fai click/tap qui per caricarli',
+    defaultMessage:
+      'Trascina i file o fai click/tap qui per caricarli (massimo 10 files)',
     invalidFileType: 'Tipo di file non valido',
     cancelUpload: 'Annulla caricamento',
     uploadCanceled: 'Caricamento annullato',
@@ -40,23 +65,20 @@ export class TailwindDropzoneComponent implements OnInit, OnChanges {
     cancelUploadConfirmation: 'Sei sicuro di voler annullare il caricamento?',
   };
   @Input() name!: string;
-  @Input() schema: { value: string; filename: string } = {
+  @Input() schema = {
     value: 'url',
-    filename: 'name',
+    name: 'name',
+    size: 'size',
+    type: 'type',
   };
   @Input() acceptedFiles!: string;
   @Input() maxFileSize = 10;
-  @Input() cdnConfig!: {
-    postEndpoint: string;
-    authorization: { [key: string]: string };
-    body: { [key: string]: string };
-    responseSchema: {
-      value: string;
-    };
-  };
+  @Input() cdnConfig!: INotifyTailwindDropzoneCdnConfig;
 
   @Input() validationErrors!: { [key: string]: string };
   @Input() maxFiles = 10;
+
+  @ViewChild(DropzoneDirective) dropzoneDirective!: DropzoneDirective;
 
   public dropzoneConfig?: DropzoneConfigInterface;
 
@@ -64,6 +86,10 @@ export class TailwindDropzoneComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this._setDropzoneConfig();
+  }
+
+  ngAfterViewInit() {
+    this.appendFiles();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -74,6 +100,61 @@ export class TailwindDropzoneComponent implements OnInit, OnChanges {
           this.validationErrors
         );
     }
+  }
+
+  public async appendFiles() {
+    const currentFiles: {
+      dataURL: string;
+      name: string;
+      size: number;
+      type: string;
+    }[] = this.parent.controls[this.name].value.map(
+      (v: Record<string, unknown>) => ({
+        dataURL: v[this.schema.value],
+        name: v[this.schema.name],
+        size: v[this.schema.size],
+        type: v[this.schema.type],
+      })
+    );
+
+    const dz = this.dropzoneDirective.dropzone();
+
+    await this._utilsService.asyncForEach(currentFiles, async (file) => {
+      dz.files.push(file);
+      dz.emit('addedfile', file);
+      if (!file.type.includes('image')) {
+        dz.emit('complete', file);
+        return;
+      }
+
+      const dataURL = (await fetch(file.dataURL)
+        .then((res) => res.blob())
+        .then(
+          (blob) =>
+            new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.onload = () => resolve(reader.result as string);
+              reader.onerror = reject;
+              reader.readAsDataURL(blob);
+            })
+        )) as string;
+
+      file.dataURL = dataURL;
+
+      dz.createThumbnailFromUrl(
+        file,
+        dz.options.thumbnailWidth,
+        dz.options.thumbnailHeight,
+        dz.options.thumbnailMethod,
+        true,
+        (thumbnail: Event) => {
+          dz.emit('thumbnail', file, thumbnail);
+          dz.emit('complete', file);
+        }
+      );
+    });
+
+    dz.options.maxFiles = this.maxFiles - currentFiles.length;
   }
 
   public onFileAdded(
@@ -90,8 +171,34 @@ export class TailwindDropzoneComponent implements OnInit, OnChanges {
     this.parent.controls[this.name].setValue(
       currentFiles.concat({
         [this.schema.value]: event[1][this.cdnConfig.responseSchema.value],
-        [this.schema.filename]: event[0].name,
+        [this.schema.name]: event[0].name,
+        [this.schema.size]: event[0].size,
+        [this.schema.type]: event[0].type,
       })
+    );
+  }
+
+  public onFileRemoved(event: File) {
+    const currentFiles = this.parent.controls[this.name].value;
+
+    console.log('event', {
+      [this.cdnConfig.deleteSchema.name]: event.name,
+      ...this.cdnConfig.deleteExtraParams,
+    });
+    this._httpService
+      .delete(this.cdnConfig.deleteEndpoint, {
+        params: {
+          [this.cdnConfig.deleteSchema.name]: event.name,
+          ...this.cdnConfig.deleteExtraParams,
+        },
+        headers: this.cdnConfig.authorization,
+      })
+      .subscribe();
+
+    this.parent.controls[this.name].setValue(
+      currentFiles.filter(
+        (file: Record<string, unknown>) => file[this.schema.name] !== event.name
+      )
     );
   }
 
@@ -139,7 +246,11 @@ export class TailwindDropzoneComponent implements OnInit, OnChanges {
       dictMaxFilesExceeded: this.labels.maxFilesExceeded,
       dictRemoveFileConfirmation: this.labels.removeFileConfirmation,
       dictCancelUploadConfirmation: this.labels.cancelUploadConfirmation,
+      dictResponseError: 'Errore durante il caricamento',
+      dictFileTooBig: 'Il file è troppo pesante',
+      dictRemoveFile: 'Rimuovi',
+      addRemoveLinks: true,
       params: this.cdnConfig.body,
-    };
+    } as DropzoneConfigInterface;
   }
 }

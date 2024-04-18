@@ -56,7 +56,7 @@ export class HttpService {
       .pipe(this._unauthorized());
   }
 
-  public delete<T>(url: string, params?: Record<string, string>) {
+  public delete<T>(url: string, params?: Record<string, string | undefined>) {
     return this.http
       .delete<T>(`${this.apiUrl}${url}`, this.genHeaders(params))
       .pipe(this._unauthorized());

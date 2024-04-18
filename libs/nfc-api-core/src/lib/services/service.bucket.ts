@@ -93,7 +93,12 @@ export const S3Upload = async (config: {
 
 export const S3Delete = async (config: { path: string; name: string }) => {
   try {
-    await s3.removeObject(bucket, `${config.path}/${config.name}`);
+    mLog(`Deleting file at ${config.path}/${config.name}`, 'warning');
+
+    await s3.removeObject(bucket, `${config.path}/${config.name}`, {
+      forceDelete: true,
+    });
+    return `https://${endpoint}/${config.path}/${config.name}`;
   } catch (err) {
     const message = `Error deleting file: ${JSON.stringify(err)} `;
     mLog(message, 'error');

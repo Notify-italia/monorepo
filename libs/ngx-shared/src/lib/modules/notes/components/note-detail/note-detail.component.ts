@@ -13,6 +13,7 @@ import {
   INotifyNoteHeader,
   INotifyNoteItemValue,
 } from '@notify/interfaces';
+import mongoose from 'mongoose';
 import { Subject } from 'rxjs';
 import { SaveIndicatorComponent } from '../../../../standalones';
 import { NoItemsComponent } from '../../../../standalones/no-items/no-items.component';
@@ -77,8 +78,6 @@ export class NoteDetailComponent implements OnInit, OnChanges {
     };
   }
 
-  constructor(private _confirmModal: ConfirmModalFactory) {}
-
   ngOnInit() {
     this.currentNote = this.note;
   }
@@ -97,20 +96,31 @@ export class NoteDetailComponent implements OnInit, OnChanges {
   }
 
   public itemChanged(item: INotifyNoteItemValue | null, index: number) {
+    if (!item || !this.currentNote.items[index]) {
+      return;
+    }
     this.currentNote.items[index].value = item;
     this.noteChanged.emit(this.currentNote);
   }
 
   public addItem(itemType: EnumNotifyNoteItemType) {
-    this.currentNote.items.push({
+    const _cnote = Object.assign({}, this.currentNote);
+
+    _cnote.items.push({
       type: itemType,
       value: null,
+      _id: this._generateMongoID(),
     });
-    this.noteChanged.emit(this.currentNote);
+
+    this.noteChanged.emit(_cnote);
   }
 
   public deleteItem(index: number) {
     this.currentNote.items.splice(index, 1);
     this.noteChanged.emit(this.currentNote);
+  }
+
+  public _generateMongoID(): string {
+    return new mongoose.Types.ObjectId().toHexString();
   }
 }

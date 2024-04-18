@@ -1,4 +1,16 @@
-<div class="note-module !flex-row !h-96 group/linkPadlock">
+<div
+  class="note-module has-footer !h-96 group/linkPadlock flex flex-col space-y-4"
+>
+  <form [formGroup]="form" class="w-full mt-1.5">
+    <input
+      class="note-title bg-red-500 !w-full max-w-[95%]"
+      type="text"
+      placeholder="Titolo Checklist..."
+      formControlName="title"
+      [maxlength]="100"
+    />
+  </form>
+
   @if (!form.value?.url) {
   <div class="flex justify-center items-center w-full h-full">
     <notify-upload

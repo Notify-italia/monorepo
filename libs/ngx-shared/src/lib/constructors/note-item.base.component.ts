@@ -47,10 +47,12 @@ export class NoteItemBaseComponent implements OnInit, OnDestroy {
 
     this.itemDeleted$
       .pipe(
-        takeUntil(this.destroy$),
-        switchMap(() => this.itemDeleted())
+        switchMap(() => this.itemDeleted()),
+        takeUntil(this.destroy$)
       )
       .subscribe();
+
+    this.componentReady();
 
     return;
   }

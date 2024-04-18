@@ -1,4 +1,4 @@
-<div class="note-module" *ngIf="form">
+<div class="note-module has-footer" *ngIf="form">
   <form [formGroup]="form">
     <div class="flex justify-between w-[90%] lg:w-[95%] items-center -mt-1.5">
       <input
@@ -70,7 +70,7 @@
         <button
           tabindex="-1"
           [disabled]="form.value.items.length === 1"
-          class="btn btn-ghost btn-error -mr-2 btn-square text-gray-500"
+          class="btn btn-ghost btn-error btn-square text-gray-500"
           (click)="removeItem($index)"
         >
           <svg

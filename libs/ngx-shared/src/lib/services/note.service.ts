@@ -60,8 +60,8 @@ export class NoteService {
     });
   }
 
-  public deleteFile(note: string, item: string, name: string) {
-    return this.http.delete<INotifyNote>(this.uploadFileEndpoint, {
+  public deleteItem(note: string, item: string, name: string) {
+    return this.http.delete<{ url: string }>(this.uploadFileEndpoint, {
       note,
       item,
       name,
