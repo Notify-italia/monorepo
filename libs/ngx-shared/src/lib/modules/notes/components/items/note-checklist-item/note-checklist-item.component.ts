@@ -83,6 +83,10 @@ export class NoteChecklistItemComponent extends NoteItemBaseComponent {
 
   @HostListener('keydown.backspace', ['$event'])
   public removeItem(index: number) {
+    if (this.form.get('items')?.value.length === 1) {
+      return;
+    }
+
     if (!isNaN(index)) {
       const arr = this.form.get('items') as FormArray;
       arr.removeAt(index);
@@ -101,6 +105,28 @@ export class NoteChecklistItemComponent extends NoteItemBaseComponent {
     setTimeout(() => {
       this._focusInput(index - 1);
     }, 1);
+  }
+
+  @HostListener('keydown.arrowup', ['$event'])
+  public focusPreviousInput() {
+    const index = this._getActiveElementIndex() - 1;
+
+    if (this.form.controls['items'].value[index].checked) {
+      return;
+    }
+
+    this._focusInput(index);
+  }
+
+  @HostListener('keydown.arrowdown', ['$event'])
+  public focusNextInput() {
+    const index = this._getActiveElementIndex() + 1;
+
+    if (this.form.controls['items'].value[index].checked) {
+      return;
+    }
+
+    this._focusInput(index);
   }
 
   private _focusInput(index: number) {
