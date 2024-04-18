@@ -46,6 +46,7 @@ export interface INotifyNoteItemChecklist {
 }
 
 export interface INotifyNoteItemFiles {
+  title: string;
   files: INotifyNoteItemFile[];
 }
 

@@ -3,7 +3,7 @@ import { deleteNoteRouter } from './delete';
 import { deleteNoteFileRouter } from './delete.file';
 import { getNoteRouter } from './get';
 import { getLatestNoteRouter } from './get.latest';
-import { getPublicNoteRouter } from './get.public-note';
+import { getPublicNoteRouter } from './get.public';
 import { patchNoteRouter } from './patch';
 import { postNoteRouter } from './post';
 import { postNoteFileRouter } from './post.file';

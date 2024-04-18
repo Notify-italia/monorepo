@@ -20,10 +20,18 @@ router.post(
       let { file, note, item, name } = req.body;
 
       if (!file) {
-        file = req.file;
-      }
+        const faFile = (
+          req.files as {
+            [fieldname: string]: Express.Multer.File[];
+          }
+        ).file[0];
 
-      console.log(file, note, item, name);
+        file = _fileToBase64(faFile);
+
+        if (!name) {
+          name = faFile.originalname.replace(/\s/g, '-').toLowerCase();
+        }
+      }
 
       const url = await S3Upload({
         src: file,
@@ -42,3 +50,7 @@ router.post(
 );
 
 export { router as postNoteFileRouter };
+
+const _fileToBase64 = (file: Express.Multer.File) => {
+  return `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
+};

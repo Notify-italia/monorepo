@@ -6,7 +6,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { INotifyNoteItemFiles, INotifyNoteItemLink } from '@notify/interfaces';
+import { INotifyNoteItemFiles } from '@notify/interfaces';
 import { NoteItemBaseComponent } from '../../../../../constructors/note-item.base.component';
 import {
   AuthService,
@@ -34,9 +34,12 @@ export class NoteFilesItemComponent extends NoteItemBaseComponent {
   public authService = inject(AuthService);
   private _utilsService = inject(UtilsService);
 
-  public formVisible = false;
   constructor() {
     super();
+  }
+
+  public get itemValue() {
+    return this.item.value as INotifyNoteItemFiles;
   }
 
   public get files(): FormArray {
@@ -48,22 +51,11 @@ export class NoteFilesItemComponent extends NoteItemBaseComponent {
   }
 
   override componentInit(): void {
-    const itemValue = this.item.value as INotifyNoteItemFiles;
-
     this.initForm(
       new FormGroup({
-        files: new FormArray(
-          (itemValue?.files || []).map(
-            (file) =>
-              new FormGroup({
-                name: new FormControl(file.name),
-                url: new FormControl(file.url),
-              })
-          )
-        ),
+        title: new FormControl(this.itemValue?.title ?? 'Collezione di files'),
+        files: new FormControl(this.itemValue?.files || []),
       })
     );
-
-    this.formVisible = !(this.item.value as INotifyNoteItemLink)?.url;
   }
 }

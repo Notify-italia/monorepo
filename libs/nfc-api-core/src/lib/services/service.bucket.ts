@@ -47,13 +47,14 @@ export const S3Upload = async (config: {
   path: string;
   extension?: string;
 }) => {
-  //rimuovo l'estensione dal nome del file
-  config.name = _removeFilenameExtension(config.name);
-
-  if (!config.extension) {
+  if (_filenameHasExtension(config.name) && !config.extension) {
+    config.extension = config.name.split('.').pop();
+  } else {
     //se non è stato fornito un'estensione, provo a prenderla dal file
     config.extension = (await getFileType(config.src))?.ext;
   }
+  //rimuovo l'estensione dal nome del file
+  config.name = _removeFilenameExtension(config.name);
 
   //assegno il nome del file, composto da nome e estensione
   const name = `${config.name}.${config.extension}`;
@@ -111,4 +112,8 @@ const _removeFilenameExtension = (filename: string) => {
 
 const _getBlob = async (file: string) => {
   return await fetch(file).then((r) => r.blob());
+};
+
+const _filenameHasExtension = (filename: string) => {
+  return filename.split('.').length > 1;
 };

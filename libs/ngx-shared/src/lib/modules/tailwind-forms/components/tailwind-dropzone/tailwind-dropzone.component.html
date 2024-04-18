@@ -1,4 +1,7 @@
 <div
-  [dropzone]="dropzoneConfig"
+  *ngIf="dropzoneConfig as config"
+  #DropzoneContainer
+  [dropzone]="config"
   class="dropzone input-style w-full h-full"
+  (success)="onFileAdded($event)"
 ></div>
