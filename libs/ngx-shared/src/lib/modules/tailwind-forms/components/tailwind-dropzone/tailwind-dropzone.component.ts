@@ -35,6 +35,8 @@ export interface INotifyTailwindDropzoneCdnConfig {
   };
 }
 
+type DropzoneFile = File & { previewTemplate: HTMLElement; dataURL: string };
+
 @Component({
   selector: 'notify-tailwind-dropzone',
   templateUrl: './tailwind-dropzone.component.html',
@@ -92,7 +94,7 @@ export class TailwindDropzoneComponent
   }
 
   ngAfterViewInit() {
-    this.appendFiles();
+    this.appendStoredFiles();
   }
 
   ngOnDestroy() {
@@ -110,7 +112,7 @@ export class TailwindDropzoneComponent
     }
   }
 
-  public async appendFiles() {
+  public async appendStoredFiles() {
     const currentFiles: {
       dataURL: string;
       name: string;
@@ -127,9 +129,10 @@ export class TailwindDropzoneComponent
 
     const dz = this.dropzoneDirective.dropzone();
 
-    await this._utilsService.asyncForEach(currentFiles, async (file) => {
+    await this._utilsService.asyncForEach(currentFiles, async (file, index) => {
       dz.files.push(file);
       dz.emit('addedfile', file);
+      this._appendDownloadButton(dz.files[index], file.dataURL);
       if (!file.type.includes('image')) {
         dz.emit('complete', file);
         return;
@@ -162,12 +165,14 @@ export class TailwindDropzoneComponent
       );
     });
 
-    dz.options.maxFiles = this.maxFiles - currentFiles.length;
+    dz.on('queuecomplete', () => {
+      dz.options.maxFiles = this.maxFiles - currentFiles.length;
+    });
   }
 
   public onFileAdded(
     event: [
-      File,
+      File & { previewTemplate: HTMLElement },
       {
         [key: string]: string;
       },
@@ -183,6 +188,11 @@ export class TailwindDropzoneComponent
         [this.schema.size]: event[0].size,
         [this.schema.type]: event[0].type,
       })
+    );
+
+    this._appendDownloadButton(
+      event[0] as DropzoneFile,
+      event[1][this.cdnConfig.responseSchema.value]
     );
   }
 
@@ -258,8 +268,20 @@ export class TailwindDropzoneComponent
       dictResponseError: 'Errore durante il caricamento',
       dictFileTooBig: 'Il file è troppo pesante',
       dictRemoveFile: 'Rimuovi',
+
       addRemoveLinks: true,
+      clickable: true,
       params: this.cdnConfig.body,
     } as DropzoneConfigInterface;
+  }
+
+  private _appendDownloadButton(file: DropzoneFile, url: string) {
+    const a = document.createElement('a');
+
+    a.setAttribute('href', url);
+    a.setAttribute('class', 'dz-remove');
+    a.setAttribute('target', '_blank');
+    a.innerHTML = 'Scarica';
+    file.previewTemplate.appendChild(a);
   }
 }
