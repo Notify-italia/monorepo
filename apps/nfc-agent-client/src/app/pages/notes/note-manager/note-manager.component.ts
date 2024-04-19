@@ -6,6 +6,7 @@ import {
   AddNoteOwnerFactory,
   AgentService,
   AuthService,
+  CompanyService,
   ConfirmModalFactory,
   LoadingComponent,
   ManageNoteOwnersFactory,
@@ -19,6 +20,7 @@ import {
   Observable,
   Subject,
   catchError,
+  combineLatest,
   map,
   of,
   switchMap,
@@ -43,6 +45,7 @@ import { environment } from '../../../../environments/environment';
     AddNoteOwnerFactory,
     AgentService,
     ManageNoteOwnersFactory,
+    CompanyService,
   ],
   templateUrl: './note-manager.component.html',
   styleUrl: './note-manager.component.scss',
@@ -67,7 +70,8 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
     private _agentService: AgentService,
     private _addNoteOwner: AddNoteOwnerFactory,
     private _manageNoteOwners: ManageNoteOwnersFactory,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _companyService: CompanyService
   ) {}
 
   goBack() {
@@ -109,13 +113,7 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
   }
 
   public addOwner(note: INotifyNote) {
-    const agents$ = this._agentService.getAgents().pipe(
-      map((agents) =>
-        agents.filter((agent) => {
-          return !note?.owners?.includes(agent._id);
-        })
-      )
-    ) as Observable<INotifyUser[]>;
+    const agents$ = this._getAvailableUsers(note);
 
     const ref = this._addNoteOwner.create({
       users$: agents$,
@@ -141,10 +139,12 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
   }
 
   public manageOwners(note: INotifyNote) {
-    const users$ = this._getAgents(note);
+    const users$ = this._getOwners(note);
+
+    // const company$ = this._getCompany(note);
 
     const ref = this._manageNoteOwners.create({
-      users$,
+      users$: users$.pipe(),
       skeletonRows: note.owners.length - 1,
     });
 
@@ -171,7 +171,7 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
           this._updateNoteSubject(n);
 
           //eseguo il refresh del subject degli utenti
-          ref.instance.refreshUserSubject(this._getAgents(n));
+          ref.instance.refreshUserSubject(this._getOwners(n));
         }),
         catchError((err: AppError) => this._utilsService.errorHandler(err)),
         tap(() => (ref.instance.loading = false))
@@ -189,7 +189,7 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  private _getAgents(note: INotifyNote) {
+  private _getOwners(note: INotifyNote) {
     const filteredOwners = note.owners.filter(
       (owner) => owner !== this._authService.user?._id
     );
@@ -198,9 +198,45 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
       return of([]);
     }
 
-    return this._agentService.getAgents(filteredOwners) as Observable<
+    const agents = this._agentService.getAgents(filteredOwners) as Observable<
       INotifyUser[]
     >;
+
+    const company = note.owners.includes(
+      this._authService.user?.owner as string
+    )
+      ? this._companyService.getCompany(this._authService.user?.owner as string)
+      : of(null);
+
+    return combineLatest([agents, company]).pipe(
+      map(([users, company]) => {
+        return [...users, company as INotifyUser];
+      })
+    );
+  }
+
+  private _getAvailableUsers(note: INotifyNote) {
+    return combineLatest([
+      this._agentService.getAgents(),
+      this._companyService.getCompany(this._authService.user?.owner as string),
+    ]).pipe(
+      map(([users, company]) => {
+        return [...users, company as INotifyUser];
+      }),
+      map((agents) =>
+        agents
+          .filter((agent) => {
+            return !note?.owners?.includes(agent._id);
+          })
+          .map((user) => ({
+            ...user,
+            profile: {
+              ...user.profile,
+              surname: user.profile?.surname || '',
+            },
+          }))
+      )
+    ) as Observable<INotifyUser[]>;
   }
 
   public deleteNote() {
