@@ -8,7 +8,6 @@ import {
   NavComponent,
   NavItem,
 } from '@notify/ngx-shared';
-import { environment } from '../../../environments/environment';
 
 @Component({
   standalone: true,
@@ -18,8 +17,8 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  public currentVersionLabel: string = 'v0.9.0';
-  public currentVersionDate: string = '2024-03-22';
+  public currentVersionLabel = 'v0.9.0';
+  public currentVersionDate = '2024-03-22';
 
   public latestChangelog: INotifyVersionInfo = {
     tag: 'v0.9.0',
@@ -106,7 +105,6 @@ export class HomeComponent {
       ],
     },
     {
-      hidden: environment.production,
       label: 'Note',
       path: '/pages/notes',
       icon: [

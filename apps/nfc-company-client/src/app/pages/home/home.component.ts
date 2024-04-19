@@ -17,8 +17,8 @@ import {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  public currentVersionLabel: string = 'v0.8.3';
-  public currentVersionDate: string = '2024-03-24';
+  public currentVersionLabel = 'v0.8.3';
+  public currentVersionDate = '2024-03-24';
 
   public latestChangelog: INotifyVersionInfo = {
     tag: 'v0.8.3',
@@ -75,6 +75,14 @@ export class HomeComponent {
       path: '/pages/profile',
       icon: [
         'M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z',
+      ],
+    },
+    {
+      label: 'Note',
+      path: '/pages/notes',
+      icon: [
+        'M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z',
+        'M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z',
       ],
     },
     // {

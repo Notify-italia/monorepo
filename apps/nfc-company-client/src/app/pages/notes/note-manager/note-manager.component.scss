@@ -1,0 +1,7 @@
+.utils-button {
+  @apply btn  w-28 lg:w-44 lg:space-x-2 flex items-center justify-center  flex-nowrap hover:brightness-150 whitespace-nowrap text-white;
+
+  & svg {
+    @apply w-6 h-6;
+  }
+}

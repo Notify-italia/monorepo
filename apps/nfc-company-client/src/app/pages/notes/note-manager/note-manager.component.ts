@@ -141,7 +141,7 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
   }
 
   public manageOwners(note: INotifyNote) {
-    const users$ = this._getAgents(note);
+    const users$ = this._getAgents$(note);
 
     const ref = this._manageNoteOwners.create({
       users$,
@@ -171,7 +171,7 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
           this._updateNoteSubject(n);
 
           //eseguo il refresh del subject degli utenti
-          ref.instance.refreshUserSubject(this._getAgents(n));
+          ref.instance.refreshUserSubject(this._getAgents$(n));
         }),
         catchError((err: AppError) => this._utilsService.errorHandler(err)),
         tap(() => (ref.instance.loading = false))
@@ -189,7 +189,7 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  private _getAgents(note: INotifyNote) {
+  private _getAgents$(note: INotifyNote) {
     const filteredOwners = note.owners.filter(
       (owner) => owner !== this._authService.user?._id
     );

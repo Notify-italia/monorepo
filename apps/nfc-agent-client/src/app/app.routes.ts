@@ -104,7 +104,7 @@ export const appRoutes: Route[] = [
           {
             path: '',
             loadComponent: () =>
-              import('./pages/notes/main/notes.component').then(
+              import('./pages/notes/list/notes.component').then(
                 (m) => m.NotesComponent
               ),
             data: {

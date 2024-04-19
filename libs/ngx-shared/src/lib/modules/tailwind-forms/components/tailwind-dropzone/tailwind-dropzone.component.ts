@@ -4,6 +4,7 @@ import {
   Component,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChanges,
   ViewChild,
@@ -14,6 +15,7 @@ import {
   DropzoneConfigInterface,
   DropzoneDirective,
 } from 'ngx-dropzone-wrapper';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { UtilsService } from '../../../../services';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
 
@@ -40,7 +42,7 @@ export interface INotifyTailwindDropzoneCdnConfig {
   styleUrls: ['./tailwind-dropzone.component.scss'],
 })
 export class TailwindDropzoneComponent
-  implements OnInit, OnChanges, AfterViewInit
+  implements OnInit, OnChanges, AfterViewInit, OnDestroy
 {
   private _utilsService = inject(UtilsService);
   private _httpService = inject(HttpClient);
@@ -81,6 +83,7 @@ export class TailwindDropzoneComponent
   @ViewChild(DropzoneDirective) dropzoneDirective!: DropzoneDirective;
 
   public dropzoneConfig?: DropzoneConfigInterface;
+  public destroy$ = new Subject<void>();
 
   constructor(private tailwindFormService: TailwindFormsService) {}
 
@@ -90,6 +93,11 @@ export class TailwindDropzoneComponent
 
   ngAfterViewInit() {
     this.appendFiles();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -181,10 +189,6 @@ export class TailwindDropzoneComponent
   public onFileRemoved(event: File) {
     const currentFiles = this.parent.controls[this.name].value;
 
-    console.log('event', {
-      [this.cdnConfig.deleteSchema.name]: event.name,
-      ...this.cdnConfig.deleteExtraParams,
-    });
     this._httpService
       .delete(this.cdnConfig.deleteEndpoint, {
         params: {
@@ -193,13 +197,18 @@ export class TailwindDropzoneComponent
         },
         headers: this.cdnConfig.authorization,
       })
-      .subscribe();
-
-    this.parent.controls[this.name].setValue(
-      currentFiles.filter(
-        (file: Record<string, unknown>) => file[this.schema.name] !== event.name
+      .pipe(
+        takeUntil(this.destroy$),
+        tap(() =>
+          this.parent.controls[this.name].setValue(
+            currentFiles.filter(
+              (file: Record<string, unknown>) =>
+                file[this.schema.name] !== event.name
+            )
+          )
+        )
       )
-    );
+      .subscribe();
   }
 
   get hasErrors() {

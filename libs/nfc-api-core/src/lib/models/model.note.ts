@@ -1,6 +1,5 @@
 import { ModifyDeep } from '@notify/api-shared';
 import { INotifyNote } from '@notify/interfaces';
-import { format } from 'date-fns';
 import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
   Document,
@@ -72,7 +71,7 @@ const NoteSchema = new Schema<Note, NoteModel>(
   {
     title: {
       type: String,
-      default: `Nota del ${format(new Date(), 'dd/MM/yyyy HH:mm')}`,
+      default: `Nuova nota in coworking`,
     },
     color: {
       type: String,
