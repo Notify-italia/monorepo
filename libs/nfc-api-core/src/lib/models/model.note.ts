@@ -57,10 +57,18 @@ const _itemsSchema = new Schema(
       type: String,
       default: '',
     },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   {
     _id: true,
-    timestamps: true,
+    timestamps: false,
   }
 );
 

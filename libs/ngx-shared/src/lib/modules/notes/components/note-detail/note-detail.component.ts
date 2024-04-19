@@ -90,8 +90,11 @@ export class NoteDetailComponent implements OnInit, OnChanges {
     if (!value) {
       return;
     }
+    //aggiorno il titolo e il colore della nota
     this.currentNote.title = value.title;
     this.currentNote.color = value.color;
+
+    //emetto l'evento di aggiornamento della nota
     this.noteChanged.emit(this.currentNote);
   }
 
@@ -99,24 +102,36 @@ export class NoteDetailComponent implements OnInit, OnChanges {
     if (!item || !this.currentNote.items[index]) {
       return;
     }
+
+    //aggiorno la value e la data di aggiornamento dell'item
     this.currentNote.items[index].value = item;
+    this.currentNote.items[index].updatedAt = new Date();
+
+    //emetto l'evento di aggiornamento della nota
     this.noteChanged.emit(this.currentNote);
   }
 
   public addItem(itemType: EnumNotifyNoteItemType) {
+    //clono la nota corrente
     const _cnote = Object.assign({}, this.currentNote);
 
+    //aggiungo un nuovo item alla nota
     _cnote.items.push({
       type: itemType,
       value: null,
       _id: this._generateMongoID(),
+      createdAt: new Date(),
     });
 
+    //emetto l'evento di aggiornamento della nota
     this.noteChanged.emit(_cnote);
   }
 
   public deleteItem(index: number) {
+    //rimuovo l'item dalla nota
     this.currentNote.items.splice(index, 1);
+
+    //emetto l'evento di aggiornamento della nota
     this.noteChanged.emit(this.currentNote);
   }
 
