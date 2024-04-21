@@ -42,7 +42,7 @@ export class NoteItemBaseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.componentInit();
 
-    this.form.valueChanges
+    this.form?.valueChanges
       .pipe(takeUntil(this.destroy$), debounceTime(NOTE_DEBOUNCE_TIME))
       .subscribe((formValue) => this.formChanged.emit(formValue));
 

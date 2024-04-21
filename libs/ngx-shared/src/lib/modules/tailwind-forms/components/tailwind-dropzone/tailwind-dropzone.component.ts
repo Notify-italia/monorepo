@@ -59,8 +59,7 @@ export class TailwindDropzoneComponent
     removeFileConfirmation: string;
     cancelUploadConfirmation: string;
   } = {
-    defaultMessage:
-      'Trascina i file o fai click/tap qui per caricarli (massimo 10 files)',
+    defaultMessage: 'Trascina i file o fai click/tap qui per caricarli',
     invalidFileType: 'Tipo di file non valido',
     cancelUpload: 'Annulla caricamento',
     uploadCanceled: 'Caricamento annullato',
@@ -76,7 +75,7 @@ export class TailwindDropzoneComponent
     type: 'type',
   };
   @Input() acceptedFiles!: string;
-  @Input() maxFileSize = 10;
+  @Input() maxFileSize = 15;
   @Input() cdnConfig!: INotifyTailwindDropzoneCdnConfig;
 
   @Input() validationErrors!: { [key: string]: string };

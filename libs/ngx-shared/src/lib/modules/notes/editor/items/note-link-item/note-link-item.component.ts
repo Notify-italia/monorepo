@@ -10,6 +10,7 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import { INotifyNoteItemLink } from '@notify/interfaces';
 import { NoteItemBaseComponent } from '../../../../../constructors/note-item.base.component';
+import { CachedSrcDirective } from '../../../../../directives';
 import { UtilsService } from '../../../../../services';
 import { TailwindFormsModule } from '../../../../tailwind-forms/tailwind-forms.module';
 
@@ -21,6 +22,7 @@ import { TailwindFormsModule } from '../../../../tailwind-forms/tailwind-forms.m
     FormsModule,
     ReactiveFormsModule,
     TailwindFormsModule,
+    CachedSrcDirective,
   ],
   templateUrl: './note-link-item.component.html',
   styleUrls: ['./note-link-item.component.scss', '../../../notes.styles.scss'],
@@ -35,9 +37,7 @@ export class NoteLinkItemComponent extends NoteItemBaseComponent {
       return null;
     }
 
-    return this._domSanitizer.bypassSecurityTrustResourceUrl(
-      this._utilsService.populateWebProtocol('https://', url)
-    );
+    return this._utilsService.populateWebProtocol('https://', url);
   }
 
   constructor(

@@ -1,7 +1,42 @@
 <div
-  class="h-screen w-screen p-2"
+  class="min-h-screen w-screen p-2"
   [style.background-color]="note.color"
   [style.color]="textColor"
 >
-  a
+  <h1
+    class="font-extrabold text-3xl my-5 w-full text-center font-bebasNeue tracking-wider"
+  >
+    {{ note.title }}
+  </h1>
+
+  <div class="divider mt-0"></div>
+  <div class="flex justify-center w-full">
+    <div
+      class="flex flex-col w-full lg:max-w-[50rem] h-full !text-current/20 font-work space-y-8"
+    >
+      @for (item of note.items; track $index) { @switch (item.type) { @case
+      (enumNoteItemTypes.Link) {
+      <notify-note-link-item
+        [item]="item"
+        [note]="note"
+      ></notify-note-link-item>
+      } @case (enumNoteItemTypes.Photo) {
+      <notify-note-photo-item
+        [item]="item"
+        [note]="note"
+      ></notify-note-photo-item>
+      } @case (enumNoteItemTypes.Text) {
+      <notify-note-text-item
+        [item]="item"
+        [note]="note"
+      ></notify-note-text-item>
+      } @case (enumNoteItemTypes.Checklist) {
+
+      <notify-note-checklist-item
+        [item]="item"
+        [note]="note"
+      ></notify-note-checklist-item>
+      } }}
+    </div>
+  </div>
 </div>
