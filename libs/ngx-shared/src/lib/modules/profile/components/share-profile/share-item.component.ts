@@ -120,8 +120,12 @@ export class ShareItemComponent {
 
   private _genPlayerUrl(source: EnumNotifyProfileSources) {
     const _source = this.config.type === 'profile' ? `&s=${source}` : '';
+
+    const queryKey = this.config.type.charAt(0);
+
     return (
-      `${this.config.baseUrl}/${this.config.type}?p=${this.config.id}` + _source
+      `${this.config.baseUrl}/${this.config.type}?${queryKey}=${this.config.id}` +
+      _source
     );
   }
 }

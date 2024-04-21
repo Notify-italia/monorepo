@@ -89,6 +89,7 @@ const NoteSchema = new Schema<Note, NoteModel>(
       {
         type: Schema.Types.ObjectId,
         required: [true, NOTE_VALIDATION_MESSAGES.owners],
+        ref: Schema.Types.Mixed,
       },
     ],
     items: [_itemsSchema],

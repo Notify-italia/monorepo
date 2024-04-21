@@ -1,7 +1,11 @@
+import { EnumNotifyUserType } from '@notify/interfaces';
 import {
+  AgentDocument,
   BadRequestError,
+  CompanyDocument,
   NOTE_VALIDATION_MESSAGES,
   NoteModel,
+  genericUserQuery,
   requestHandler,
 } from '@notify/nfc-api-core';
 import { Router } from 'express';
@@ -23,6 +27,26 @@ router.get(
     if (!note) {
       throw new BadRequestError('Nota non trovata');
     }
+
+    const agents = await genericUserQuery<false, AgentDocument>(
+      EnumNotifyUserType.Agent,
+      {
+        _id: { $in: note.owners },
+      },
+      false,
+      'profile'
+    );
+
+    const company = await genericUserQuery<true, CompanyDocument>(
+      EnumNotifyUserType.Company,
+      {
+        _id: { $in: note.owners },
+      },
+      true,
+      'profile'
+    );
+
+    note.owners = [...agents, company];
 
     res.send(note);
   })

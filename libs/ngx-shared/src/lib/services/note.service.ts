@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { INotifyNote, UnknownObject } from '@notify/interfaces';
+import { INotifyNote, INotifyUser, UnknownObject } from '@notify/interfaces';
 import { HttpService } from './http.service';
 
 @Injectable()
@@ -14,6 +14,14 @@ export class NoteService {
 
   public getNote(id: string) {
     return this.http.get<INotifyNote>(`/v1/notes`, { id });
+  }
+
+  public getNotePublic(id: string) {
+    return this.http.get<
+      INotifyNote & {
+        owners: INotifyUser[];
+      }
+    >(`/v1/notes/public`, { id });
   }
 
   public getLatestNote() {

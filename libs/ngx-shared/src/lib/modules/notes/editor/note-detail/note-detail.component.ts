@@ -61,6 +61,7 @@ export class NoteDetailComponent implements OnInit, OnChanges {
       id: this.note._id,
       baseUrl: this.baseUrl,
       isInModal: false,
+
       qrcode: {
         fileName: this.note.title,
         title: 'Condividi questa nota',
