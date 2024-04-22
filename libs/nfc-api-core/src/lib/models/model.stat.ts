@@ -20,12 +20,15 @@ export type StatDocument = Document<unknown, unknown, Stat> &
   }>;
 
 export const STAT_VALIDATION_MESSAGES: {
-  [key in keyof Partial<Stat>]: ErrorMessage;
+  [key in keyof Partial<Stat>]: ErrorMessage | { [key: string]: ErrorMessage };
 } = {
   _id: 'ID non valido',
   type: 'Tipo statistica non valido',
   owner: 'ID proprietario non valido',
-  period: 'Periodo non valido',
+  period: {
+    from: 'Data di inizio periodo non valida',
+    to: 'Data di fine periodo non valida',
+  },
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB

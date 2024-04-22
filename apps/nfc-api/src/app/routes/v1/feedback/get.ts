@@ -23,14 +23,11 @@ router.get(
   query('from')
     .isISO8601()
     .custom((v, { req }) => new Date(v) < new Date(req.query?.to))
-    .withMessage(STAT_VALIDATION_MESSAGES.period as string),
+    .withMessage((STAT_VALIDATION_MESSAGES.period as { from: string }).from),
   query('to')
     .isISO8601()
-    .custom(
-      (v, { req }) =>
-        new Date(v) > new Date(req.query?.from) && new Date(v) < new Date()
-    )
-    .withMessage(STAT_VALIDATION_MESSAGES.period as string),
+    .custom((v, { req }) => new Date(v) > new Date(req.query?.from))
+    .withMessage((STAT_VALIDATION_MESSAGES.period as { to: string }).to),
   requestHandler(
     async (req, res) => {
       //get the owner, from and to from the request query
