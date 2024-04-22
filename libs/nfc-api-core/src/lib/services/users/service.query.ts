@@ -29,7 +29,7 @@ export type UserDocType<T> = T extends EnumNotifyUserType.Agent
  * @returns a type based on the `FindOne` parameter. If `FindOne` is true, it will return a single document. If `FindOne` is false, it will return
  * an array of documents.
  */
-export type QueryDbReturnType<T, FindOne> = FindOne extends true
+export type QueryDbReturnType<T, FindOne> = FindOne extends boolean
   ? Document<unknown, object, T> & T
   : (Document<unknown, object, T> & T)[];
 
@@ -39,7 +39,8 @@ export const genericUserQuery = async <
 >(
   userType: EnumNotifyUserType,
   query: FilterQuery<T | UserDocType<typeof userType>>,
-  findOne = false
+  findOne = false,
+  populate?: string
 ) => {
   type _ReturnType = Promise<QueryDbReturnType<INotifyUser, FindOne>>;
 
@@ -52,11 +53,13 @@ export const genericUserQuery = async <
 
   if (!findOne) {
     //If findOne is false, it will return an array of documents
-    return (await model.find(query)) as unknown as _ReturnType;
+    return (await model
+      .find(query)
+      .populate(populate || '')) as unknown as _ReturnType;
   }
 
   //If findOne is true, it will return a single document
-  return model.findOne(query);
+  return model.findOne(query).populate(populate || '');
 };
 
 const _getModel = (targetDb: string): Model<any> | undefined => {

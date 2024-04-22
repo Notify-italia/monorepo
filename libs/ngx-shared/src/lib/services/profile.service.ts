@@ -23,14 +23,6 @@ export class ProfileService {
     return `${d.street} ${d.number}, ${d.city}`;
   }
 
-  public genPlayerUrl(
-    publicUrl: string,
-    id: string,
-    source?: EnumNotifyProfileSources
-  ) {
-    return `${publicUrl}/profile?p=${id}` + (source ? `&s=${source}` : '');
-  }
-
   public patchProfile<T extends EnumNotifyUserType>(
     body: INotifyProfile,
     id?: string
@@ -79,11 +71,9 @@ FN:${name} ${surname}
 ORG:${d.company?.name || name}
 TEL;TYPE=work,voice;VALUE=uri:${this.cleanPhoneNumber(d.phoneNumber || '')}
 PHOTO;ENCODING=b:${avatar?.split(',')[1]}
-item2.URL;type=pref:${this.genPlayerUrl(
-      publicUrl,
-      d._id,
-      EnumNotifyProfileSources.Contacts
-    )}
+item2.URL;type=pref:${
+      `${publicUrl}/profile?p=${d._id}` + EnumNotifyProfileSources.Contacts
+    }
 ADR;TYPE=work:;;${this.buildCompanyLocation(d?.company?.address || d.address)}
 EMAIL:${d.email}
 END:VCARD`;

@@ -1,0 +1,7 @@
+@if (note$ | async ; as note) {
+<notify-note-view [note]="note"></notify-note-view>
+} @else {
+<div class="h-screen">
+  <notify-loading></notify-loading>
+</div>
+}

@@ -1,6 +1,5 @@
 import { ModifyDeep } from '@notify/api-shared';
 import { INotifyNote } from '@notify/interfaces';
-import { format } from 'date-fns';
 import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
   Document,
@@ -58,9 +57,18 @@ const _itemsSchema = new Schema(
       type: String,
       default: '',
     },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   {
-    _id: false,
+    _id: true,
+    timestamps: false,
   }
 );
 
@@ -71,7 +79,7 @@ const NoteSchema = new Schema<Note, NoteModel>(
   {
     title: {
       type: String,
-      default: `Nota del ${format(new Date(), 'dd/MM/yyyy HH:mm')}`,
+      default: `Nuova nota in coworking`,
     },
     color: {
       type: String,
@@ -81,6 +89,7 @@ const NoteSchema = new Schema<Note, NoteModel>(
       {
         type: Schema.Types.ObjectId,
         required: [true, NOTE_VALIDATION_MESSAGES.owners],
+        ref: Schema.Types.Mixed,
       },
     ],
     items: [_itemsSchema],

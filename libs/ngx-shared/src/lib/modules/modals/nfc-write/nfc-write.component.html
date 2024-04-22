@@ -55,31 +55,19 @@
     <div class="text-center mt-4">
       <h1 class="text-2xl font-bold">Tessera trovata</h1>
 
-      <p class="text-base-content">
-        {{
-          companyProfile
-            ? 'Quale profilo vuoi scrivere su questo supporto?'
-            : ''
-        }}
+      <p class="text-base-content" *ngIf="items.length > 1">
+        {{ questionLabel }}
       </p>
 
+      @for (item of items; track $index) {
       <button
-        *ngIf="companyProfile as c"
         data-theme="notifytheme"
         class="btn bg-white text-black mt-4 w-full"
-        (click)="writeNFC(c)"
+        (click)="writeNFC(item.value)"
       >
-        Profilo Aziendale
+        {{ item.label }}
       </button>
-
-      <button
-        *ngIf="userProfile as u"
-        data-theme="notifytheme"
-        class="btn btn-primary mt-4 w-full"
-        (click)="writeNFC(u)"
-      >
-        Questo Profilo
-      </button>
+      }
     </div>
   </ng-template>
 

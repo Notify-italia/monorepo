@@ -1,0 +1,21 @@
+<div class="note-module has-footer !flex-row group/linkPadlock !w-full">
+  <form [formGroup]="form" class="main-container !w-full">
+    <div class="flex flex-col w-full space-y-5 h-full mt-1">
+      <input
+        class="note-title max-w-[95%]"
+        type="text"
+        placeholder="Titolo Checklist..."
+        formControlName="title"
+        [maxlength]="100"
+      />
+
+      <notify-tailwind-dropzone
+        *ngIf="cdnConfig as config"
+        class="w-full h-full"
+        name="files"
+        [parent]="form"
+        [cdnConfig]="config"
+      ></notify-tailwind-dropzone>
+    </div>
+  </form>
+</div>

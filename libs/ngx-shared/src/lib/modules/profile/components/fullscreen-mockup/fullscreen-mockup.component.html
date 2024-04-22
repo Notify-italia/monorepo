@@ -4,13 +4,12 @@
       class="pointer-events-none lg:space-y-2 flex flex-col justify-center"
       (click)="$event.stopPropagation()"
     >
-      <notify-share-profile
+      <notify-share-item
         *ngIf="baseUrl && !hideShare"
         class="w-full h-full !scale-[75%] pointer-events-auto slide-in-left"
-        [profile]="profile"
-        [baseUrl]="baseUrl"
+        [config]="shareConfig"
         source="modal"
-      ></notify-share-profile>
+      ></notify-share-item>
 
       <div
         class="scale-[65%] lg:scale-[75%] pointer-events-auto !-my-[9rem] lg:!-my-20 z-0"

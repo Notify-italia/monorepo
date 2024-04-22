@@ -1,0 +1,26 @@
+<form
+  class="note-module has-footer max-h-[50rem] overflow-auto"
+  [formGroup]="form"
+>
+  <div>
+    <div class="w-[90%] overflow-x-auto lg:overflow-x-visible lg:w-full">
+      <ngx-editor-menu
+        [editor]="editor"
+        [toolbar]="[
+          ['bold', 'italic'],
+          ['underline', 'strike'],
+          ['code', 'blockquote'],
+          ['align_left', 'align_center', 'align_right', 'align_justify'],
+          ['horizontal_rule', 'format_clear']
+        ]"
+      >
+      </ngx-editor-menu>
+    </div>
+    <div class="divider"></div>
+    <ngx-editor
+      [editor]="editor"
+      formControlName="content"
+      [placeholder]="'Inserisci del testo...'"
+    ></ngx-editor>
+  </div>
+</form>

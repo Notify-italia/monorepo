@@ -1,0 +1,63 @@
+<div class="flex flex-col justify-center w-full h-full space-y-2">
+  <notify-note-menu
+    class="flex justify-center z-50"
+    (itemClick)="addItem($event)"
+  ></notify-note-menu>
+
+  <div
+    class="flex flex-col lg:flex-row justify-center w-full space-y-2 lg:space-y-0 lg:space-x-2 items-center"
+  >
+    <notify-share-item
+      [config]="shareConfig"
+      class="w-full"
+      [compact]="true"
+    ></notify-share-item>
+
+    <notify-save-indicator
+      class="w-full"
+      [isSaving]="loading"
+      [lastSave]="note.updatedAt"
+      (save)="noteChanged.emit(currentNote)"
+    ></notify-save-indicator>
+  </div>
+
+  <notify-note-header
+    [note]="currentNote"
+    (formChanged)="headerChanged($any($event))"
+    class="z-20"
+  ></notify-note-header>
+
+  <div
+    class="w-full h-full flex flex-col space-y-2 !text-white"
+    [ngStyle]="{
+    color: currentNote.color,
+  }"
+  >
+    <notify-note-owners-widget
+      [owners]="note.owners"
+      (addOwner)="addOwner.emit()"
+      (manageOwners)="manageOwners.emit()"
+    ></notify-note-owners-widget>
+
+    <div class="divider"></div>
+
+    @for (item of currentNote.items; track i; let i = $index) {
+    <notify-note-item
+      [index]="i"
+      [item]="item"
+      [currentNote]="currentNote"
+      (itemChanged)="itemChanged($event, i)"
+      (itemDeleted)="deleteItem(i)"
+    ></notify-note-item>
+    } @if (!currentNote.items.length) {
+    <notify-no-items
+      class="h-[30vh] lg:h-[40vh]"
+      title="Nessun Elemento"
+      subtitle="Usa uno degli elementi nella Items Bar sottostante per aggiungerne."
+    ></notify-no-items>
+
+    }
+
+    <div class="h-14"></div>
+  </div>
+</div>

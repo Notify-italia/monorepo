@@ -1,0 +1,53 @@
+<div
+  class="note-module has-footer !h-96 group/linkPadlock flex flex-col space-y-4"
+>
+  <form [formGroup]="form" class="w-full mt-1.5">
+    <input
+      class="note-title bg-red-500 !w-full max-w-[95%]"
+      type="text"
+      placeholder="Titolo Foto..."
+      formControlName="title"
+      [maxlength]="100"
+    />
+  </form>
+
+  @if (!form.value?.url) {
+  <div class="flex justify-center items-center w-full h-full">
+    <notify-upload
+      class="w-full h-full"
+      [file]="null"
+      acceptedFiles="image/*"
+      uploadLabel="Carica una foto trascinandola all'interno del riquadro o facendo click"
+      (fileChanged)="handleFileUpload($event)"
+    ></notify-upload>
+  </div>
+  } @else {
+  <img
+    [src]="form.value.url"
+    class="h-full w-full object-contain rounded-md mx-auto overflow-hidden bg-white z-0 pointer-events-none"
+  />
+  <div
+    class="flex justify-end my-auto h-full items-end text-blue-500 absolute right-2 -top-12 z-10"
+  >
+    <button
+      class="btn btn-ghost btn-square lg:pointer-events-none lg:group-hover/linkPadlock:pointer-events-auto lg:translate-x-10 group-hover/linkPadlock:translate-x-0 lg:opacity-0 group-hover/linkPadlock:opacity-100 smooth"
+      (click)="copyUrlToClipboard()"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
+        />
+      </svg>
+    </button>
+  </div>
+  }
+</div>

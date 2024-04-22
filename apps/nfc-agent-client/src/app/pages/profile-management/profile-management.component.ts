@@ -10,7 +10,7 @@ import {
   ProfileTemplateBaseComponent,
   ProfileViewComponent,
   SaveIndicatorComponent,
-  ShareProfileComponent,
+  ShareItemComponent,
   UtilsService,
 } from '@notify/ngx-shared';
 
@@ -31,7 +31,7 @@ import { environment } from '../../../../src/environments/environment';
     CommonModule,
     ProfileFormComponent,
     ProfileViewComponent,
-    ShareProfileComponent,
+    ShareItemComponent,
     PageHeaderComponent,
     LoadingComponent,
     SaveIndicatorComponent,

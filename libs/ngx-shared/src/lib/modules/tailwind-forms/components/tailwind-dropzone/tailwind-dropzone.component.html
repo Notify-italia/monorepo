@@ -1,0 +1,7 @@
+<div
+  *ngIf="dropzoneConfig as config"
+  [dropzone]="config"
+  class="dropzone input-style w-full h-80 overflow-x-auto overflow-y-hidden"
+  (success)="onFileAdded($event)"
+  (removedFile)="onFileRemoved($event)"
+></div>

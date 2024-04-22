@@ -132,7 +132,28 @@ export const appRoutes: Route[] = [
           pageTitle: 'Impostazioni',
         },
       },
-
+      {
+        path: 'notes',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./pages/notes/list/notes.component').then(
+                (m) => m.NotesComponent
+              ),
+            data: {
+              pageTitle: 'Note',
+            },
+          },
+          {
+            path: 'inspect',
+            loadComponent: () =>
+              import('./pages/notes/note-manager/note-manager.component').then(
+                (m) => m.NoteManagerComponent
+              ),
+          },
+        ],
+      },
       {
         path: 'analytics',
         canActivate: [licenseGuard],

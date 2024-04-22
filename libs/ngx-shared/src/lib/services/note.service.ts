@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { INotifyNote, UnknownObject } from '@notify/interfaces';
+import { INotifyNote, INotifyUser, UnknownObject } from '@notify/interfaces';
 import { HttpService } from './http.service';
 
 @Injectable()
 export class NoteService {
+  public uploadFileEndpoint = '/v1/notes/file';
+
   constructor(private http: HttpService) {}
 
   public postNote() {
@@ -12,6 +14,14 @@ export class NoteService {
 
   public getNote(id: string) {
     return this.http.get<INotifyNote>(`/v1/notes`, { id });
+  }
+
+  public getNotePublic(id: string) {
+    return this.http.get<
+      INotifyNote & {
+        owners: INotifyUser[];
+      }
+    >(`/v1/notes/public`, { id });
   }
 
   public getLatestNote() {
@@ -32,5 +42,37 @@ export class NoteService {
 
   public deleteNote(id: string) {
     return this.http.delete<INotifyNote>(`/v1/notes`, { id });
+  }
+
+  public uploadFile(
+    file: string | ArrayBuffer | null,
+    note: string,
+    item: string,
+    name: string
+  ) {
+    return this.http.post<
+      {
+        file: string | ArrayBuffer | null;
+        note: string;
+        item: string;
+        name: string;
+      },
+      {
+        url: string;
+      }
+    >(this.uploadFileEndpoint, {
+      file,
+      note,
+      item,
+      name,
+    });
+  }
+
+  public deleteItem(note: string, item: string, name: string) {
+    return this.http.delete<{ url: string }>(this.uploadFileEndpoint, {
+      note,
+      item,
+      name,
+    });
   }
 }

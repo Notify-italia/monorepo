@@ -21,17 +21,15 @@ export interface INotifyNFCStatus {
   styleUrls: ['./nfc-write.component.scss'],
 })
 export class NfcWriteComponent extends ModalBaseComponent implements OnInit {
-  @Input() userProfile = '';
-  @Input() companyProfile = '';
-  @Input() profilesUrl = '';
+  @Input() items: { value: string; label: string }[] = [];
+  @Input() questionLabel = '';
+  @Input() confirmationLabel = '';
+  @Input() playerBaseUrl = '';
+
   @Input() blurBackground = true;
 
   private _nfcUtils = new NfcUtils();
   public isAndroid = this._capacitorService.isAndroid;
-
-  private get _profilePrefix() {
-    return `${this.profilesUrl}/profile?p=`;
-  }
 
   private get _parentElement() {
     return (this.cf.location.nativeElement as HTMLElement)
@@ -51,7 +49,7 @@ export class NfcWriteComponent extends ModalBaseComponent implements OnInit {
           .map((r) => {
             return this._nfcUtils
               .convertBytesToString({ bytes: r.payload || [] })
-              ?.text.includes(this._profilePrefix);
+              ?.text.includes(this.playerBaseUrl);
           })
           .filter((v) => v).length || 0) > 0;
 
@@ -80,9 +78,7 @@ export class NfcWriteComponent extends ModalBaseComponent implements OnInit {
       return;
     }
 
-    const ndef = this._capacitorService.prepareProfileNDEF(
-      this._profilePrefix + value + '&s=url'
-    );
+    const ndef = this._capacitorService.prepareProfileNDEF(value);
 
     await this._capacitorService.scanNFCTag(async (nfc) => {
       try {

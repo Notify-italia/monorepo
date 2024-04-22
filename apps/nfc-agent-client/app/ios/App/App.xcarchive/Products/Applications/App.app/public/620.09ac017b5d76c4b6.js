@@ -1,1 +1,398 @@
-"use strict";(self.webpackChunknfc_agent_client=self.webpackChunknfc_agent_client||[]).push([[620],{3620:(T,h,a)=>{a.r(h),a.d(h,{ProfileManagementComponent:()=>I});var d=a(1528),u=a(1368),l=a(5188),c=a(2732),p=a(5657),g=a(3616),P=a(4680),f=a(9212),v=a(4987),C=a(2700),m=a(9144),y=a(2020),e=a(9868),E=a(4476);function R(r,s){if(1&r&&e.wR5(0,"notify-profile-view",10),2&r){const t=e.GaO();e.E7m("data",t)("mockup",!0)}}function M(r,s){if(1&r&&(e.I0R(0,"div",11),e.wR5(1,"iframe",12),e.I0R(2,"small",13),e.OEk(3," Alcuni siti web potrebbero non essere visualizzati correttamente "),e.C$Y()()),2&r){const t=e.GaO(),o=e.GaO();e.yG2(1),e.E7m("src",o.normalizeURL(t.redirectUrl),e.CaN)}}function x(r,s){if(1&r){const t=e.KQA();e.I0R(0,"div",14)(1,"button",15),e.qCj("click",function(){e.usT(t);const i=e.GaO(),n=e.GaO();return e.CGJ(n.previewProfile(i))}),e.S2Z(),e.I0R(2,"svg",16),e.wR5(3,"path",17),e.C$Y()()()}}function O(r,s){if(1&r){const t=e.KQA();e.I0R(0,"div")(1,"div")(2,"div"),e.wR5(3,"notify-share-profile",2),e.C$Y(),e.I0R(4,"notify-save-indicator",3),e.qCj("save",function(){const n=e.usT(t),_=e.GaO();return e.CGJ(_.saveProfile(n))}),e.C$Y(),e.I0R(5,"div",4)(6,"notify-profile-form",5),e.qCj("value",function(i){e.usT(t);const n=e.GaO();return e.CGJ(n.updateProfileSubject(i))})("submitForm",function(i){e.usT(t);const n=e.GaO();return e.CGJ(n.saveProfile(i))})("removeSavedRedirect",function(i){e.usT(t);const n=e.GaO();return e.CGJ(n.removeSavedRedirect(i))}),e.C$Y(),e.I0R(7,"div",6),e.yuY(8,R,1,2,"notify-profile-view",7)(9,M,4,1,"div",8),e.C$Y()(),e.yuY(10,x,4,0,"div",9),e.C$Y()()}if(2&r){const t=e.GaO();e.yG2(3),e.E7m("profile",s)("baseUrl",t.baseUrl),e.yG2(1),e.E7m("followPage",!0)("isSaving",t.loading)("lastSave",s.updatedAt),e.yG2(2),e.E7m("profile",s)("savedRedirects",t.savedRedirects)("loading",t.loading),e.yG2(2),e.E7m("ngIf",!s.config.redirectEnabled),e.yG2(1),e.E7m("ngIf",s.config.redirectEnabled),e.yG2(1),e.E7m("ngIf",!s.config.redirectEnabled)}}function S(r,s){1&r&&(e.I0R(0,"div",18),e.wR5(1,"notify-loading"),e.C$Y())}let I=(()=>{class r{get savedRedirects(){return this._authService.user?.savedRedirects||[]}constructor(t,o,i,n,_,b){this._profileService=t,this._utilsService=o,this._playerFactroy=i,this._agentService=n,this._authService=_,this._domSanitizer=b,this._profileSubject$=new p.E,this.profile$=this._profileSubject$,this.loading=!1,this.baseUrl=y.O.profilesUrl,this.destroy$=new p.E,this.debouncedNextProfile$=new p.E,this._getProfile(),this.debouncedNextProfile$.pipe((0,g.a)(this.destroy$),(0,P.o)(500),(0,f.y)(G=>this._profileSubject$.next(G))).subscribe()}ngOnDestroy(){this.destroy$.next(),this.destroy$.complete()}updateProfileSubject(t){this.debouncedNextProfile$.next(t)}previewProfile(t){this._playerFactroy.createPlayer({profile:t})}saveProfile(t){var o=this;this.loading=!0,this._profileService.patchProfile(t).pipe((0,f.y)(i=>{this.updateProfileSubject(i)}),(0,v.G)(i=>{if(!this._authService.user)return(0,C.of)();const n=[...new Set([...this._authService.user?.savedRedirects||[],i.redirectUrl||""])].filter(_=>_);return this._agentService.patch(this._authService.user?._id||"",{savedRedirects:n}).pipe((0,v.G)(()=>this._authService.refreshToken()))}),(0,m.a)(function(){var i=(0,d.c)(function*(n){return o._utilsService.errorHandler(n)});return function(n){return i.apply(this,arguments)}}()),(0,f.y)(()=>this.loading=!1)).subscribe()}normalizeURL(t){return t||(t="https://notifyapp.it"),this._domSanitizer.bypassSecurityTrustResourceUrl(this._utilsService.populateWebProtocol("https://",t))}removeSavedRedirect(t){var o=this;this.loading=!0;const i=this._authService.user;this._agentService.patch(i?._id||"",{savedRedirects:this.savedRedirects.filter(n=>n!==t)}).pipe((0,v.G)(()=>this._authService.refreshToken()),(0,m.a)(function(){var n=(0,d.c)(function*(_){return o._utilsService.errorHandler(_)});return function(_){return n.apply(this,arguments)}}()),(0,f.y)(()=>this.loading=!1)).subscribe()}_getProfile(){var t=this;this._profileService.getProfile().pipe((0,f.y)(o=>{this._profileSubject$.next(o)}),(0,m.a)(function(){var o=(0,d.c)(function*(i){return t._utilsService.errorHandler(i)});return function(i){return o.apply(this,arguments)}}()),(0,f.y)(()=>this.loading=!1)).subscribe()}static#e=this.\u0275fac=function(o){return new(o||r)(e.GI1(c.xX),e.GI1(c.ey),e.GI1(l.UL),e.GI1(c.Qh),e.GI1(c.oj),e.GI1(E.mI))};static#t=this.\u0275cmp=e.In1({type:r,selectors:[["notify-profile-management"]],standalone:!0,features:[e.M5G([l.UL,c.e,c.Qh]),e.UHJ],decls:5,vars:4,consts:[[1,"page-layout","overflow-auto"],["subtitle","Modifica e condividi il tuo profilo personale",3,"title"],[3,"profile","baseUrl"],[3,"followPage","isSaving","lastSave","save"],[1,"lg:flex","justify-around","lg:space-x-4","space-y-4","lg:space-y-0","items-start","w-full"],[1,"w-full","2xl:w-6/12",3,"profile","savedRedirects","loading","value","submitForm","removeSavedRedirect"],[1,"w-6/12","p-2","flex","justify-center","relative"],["class","iphone-15-pro hidden lg:block absolute scale-75 2xl:scale-100 top-10",3,"data","mockup",4,"ngIf"],["class","hidden lg:flex absolute scale-75 2xl:scale-100 top-10 flex-col",4,"ngIf"],["class","fixed bottom-5 right-5 lg:hidden z-50",4,"ngIf"],[1,"iphone-15-pro","hidden","lg:block","absolute","scale-75","2xl:scale-100","top-10",3,"data","mockup"],[1,"hidden","lg:flex","absolute","scale-75","2xl:scale-100","top-10","flex-col"],["frameborder","0",1,"iphone-15-pro","phone","mockup-phone","pointer-events-none",3,"src"],[1,"w-full","text-center","mx-auto"],[1,"fixed","bottom-5","right-5","lg:hidden","z-50"],[1,"floating-button",3,"click"],["xmlns","http://www.w3.org/2000/svg","viewBox","0 0 24 24","fill","currentColor",1,"w-6","h-6"],["fill-rule","evenodd","d","M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z","clip-rule","evenodd"],[1,"loading-container"]],template:function(o,i){if(1&o&&(e.I0R(0,"div",0),e.wR5(1,"notify-page-header",1),e.yuY(2,O,11,11,"div"),e.wVc(3,"async"),e.yuY(4,S,2,0),e.C$Y()),2&o){let n;e.yG2(1),e.E7m("title","Gestione Profilo"),e.yG2(1),e.C0Y(2,(n=e.kDX(3,2,i.profile$))?2:4,n)}},dependencies:[u.MD,u.u_,u.a,l.eI,l.W5,l.Y1,l.Qh,l.kN,l.wZ],changeDetection:0})}return r})()}}]);
+'use strict';
+(self.webpackChunknfc_agent_client =
+  self.webpackChunknfc_agent_client || []).push([
+  [620],
+  {
+    3620: (T, h, a) => {
+      a.r(h), a.d(h, { ProfileManagementComponent: () => I });
+      var d = a(1528),
+        u = a(1368),
+        l = a(5188),
+        c = a(2732),
+        p = a(5657),
+        g = a(3616),
+        P = a(4680),
+        f = a(9212),
+        v = a(4987),
+        C = a(2700),
+        m = a(9144),
+        y = a(2020),
+        e = a(9868),
+        E = a(4476);
+      function R(r, s) {
+        if ((1 & r && e.wR5(0, 'notify-profile-view', 10), 2 & r)) {
+          const t = e.GaO();
+          e.E7m('data', t)('mockup', !0);
+        }
+      }
+      function M(r, s) {
+        if (
+          (1 & r &&
+            (e.I0R(0, 'div', 11),
+            e.wR5(1, 'iframe', 12),
+            e.I0R(2, 'small', 13),
+            e.OEk(
+              3,
+              ' Alcuni siti web potrebbero non essere visualizzati correttamente '
+            ),
+            e.C$Y()()),
+          2 & r)
+        ) {
+          const t = e.GaO(),
+            o = e.GaO();
+          e.yG2(1), e.E7m('src', o.normalizeURL(t.redirectUrl), e.CaN);
+        }
+      }
+      function x(r, s) {
+        if (1 & r) {
+          const t = e.KQA();
+          e.I0R(0, 'div', 14)(1, 'button', 15),
+            e.qCj('click', function () {
+              e.usT(t);
+              const i = e.GaO(),
+                n = e.GaO();
+              return e.CGJ(n.previewProfile(i));
+            }),
+            e.S2Z(),
+            e.I0R(2, 'svg', 16),
+            e.wR5(3, 'path', 17),
+            e.C$Y()()();
+        }
+      }
+      function O(r, s) {
+        if (1 & r) {
+          const t = e.KQA();
+          e.I0R(0, 'div')(1, 'div')(2, 'div'),
+            e.wR5(3, 'notify-share-item', 2),
+            e.C$Y(),
+            e.I0R(4, 'notify-save-indicator', 3),
+            e.qCj('save', function () {
+              const n = e.usT(t),
+                _ = e.GaO();
+              return e.CGJ(_.saveProfile(n));
+            }),
+            e.C$Y(),
+            e.I0R(5, 'div', 4)(6, 'notify-profile-form', 5),
+            e.qCj('value', function (i) {
+              e.usT(t);
+              const n = e.GaO();
+              return e.CGJ(n.updateProfileSubject(i));
+            })('submitForm', function (i) {
+              e.usT(t);
+              const n = e.GaO();
+              return e.CGJ(n.saveProfile(i));
+            })('removeSavedRedirect', function (i) {
+              e.usT(t);
+              const n = e.GaO();
+              return e.CGJ(n.removeSavedRedirect(i));
+            }),
+            e.C$Y(),
+            e.I0R(7, 'div', 6),
+            e.yuY(8, R, 1, 2, 'notify-profile-view', 7)(9, M, 4, 1, 'div', 8),
+            e.C$Y()(),
+            e.yuY(10, x, 4, 0, 'div', 9),
+            e.C$Y()();
+        }
+        if (2 & r) {
+          const t = e.GaO();
+          e.yG2(3),
+            e.E7m('profile', s)('baseUrl', t.baseUrl),
+            e.yG2(1),
+            e.E7m('followPage', !0)('isSaving', t.loading)(
+              'lastSave',
+              s.updatedAt
+            ),
+            e.yG2(2),
+            e.E7m('profile', s)('savedRedirects', t.savedRedirects)(
+              'loading',
+              t.loading
+            ),
+            e.yG2(2),
+            e.E7m('ngIf', !s.config.redirectEnabled),
+            e.yG2(1),
+            e.E7m('ngIf', s.config.redirectEnabled),
+            e.yG2(1),
+            e.E7m('ngIf', !s.config.redirectEnabled);
+        }
+      }
+      function S(r, s) {
+        1 & r && (e.I0R(0, 'div', 18), e.wR5(1, 'notify-loading'), e.C$Y());
+      }
+      let I = (() => {
+        class r {
+          get savedRedirects() {
+            return this._authService.user?.savedRedirects || [];
+          }
+          constructor(t, o, i, n, _, b) {
+            (this._profileService = t),
+              (this._utilsService = o),
+              (this._playerFactroy = i),
+              (this._agentService = n),
+              (this._authService = _),
+              (this._domSanitizer = b),
+              (this._profileSubject$ = new p.E()),
+              (this.profile$ = this._profileSubject$),
+              (this.loading = !1),
+              (this.baseUrl = y.O.profilesUrl),
+              (this.destroy$ = new p.E()),
+              (this.debouncedNextProfile$ = new p.E()),
+              this._getProfile(),
+              this.debouncedNextProfile$
+                .pipe(
+                  (0, g.a)(this.destroy$),
+                  (0, P.o)(500),
+                  (0, f.y)((G) => this._profileSubject$.next(G))
+                )
+                .subscribe();
+          }
+          ngOnDestroy() {
+            this.destroy$.next(), this.destroy$.complete();
+          }
+          updateProfileSubject(t) {
+            this.debouncedNextProfile$.next(t);
+          }
+          previewProfile(t) {
+            this._playerFactroy.createPlayer({ profile: t });
+          }
+          saveProfile(t) {
+            var o = this;
+            (this.loading = !0),
+              this._profileService
+                .patchProfile(t)
+                .pipe(
+                  (0, f.y)((i) => {
+                    this.updateProfileSubject(i);
+                  }),
+                  (0, v.G)((i) => {
+                    if (!this._authService.user) return (0, C.of)();
+                    const n = [
+                      ...new Set([
+                        ...(this._authService.user?.savedRedirects || []),
+                        i.redirectUrl || '',
+                      ]),
+                    ].filter((_) => _);
+                    return this._agentService
+                      .patch(this._authService.user?._id || '', {
+                        savedRedirects: n,
+                      })
+                      .pipe((0, v.G)(() => this._authService.refreshToken()));
+                  }),
+                  (0, m.a)(
+                    (function () {
+                      var i = (0, d.c)(function* (n) {
+                        return o._utilsService.errorHandler(n);
+                      });
+                      return function (n) {
+                        return i.apply(this, arguments);
+                      };
+                    })()
+                  ),
+                  (0, f.y)(() => (this.loading = !1))
+                )
+                .subscribe();
+          }
+          normalizeURL(t) {
+            return (
+              t || (t = 'https://notifyapp.it'),
+              this._domSanitizer.bypassSecurityTrustResourceUrl(
+                this._utilsService.populateWebProtocol('https://', t)
+              )
+            );
+          }
+          removeSavedRedirect(t) {
+            var o = this;
+            this.loading = !0;
+            const i = this._authService.user;
+            this._agentService
+              .patch(i?._id || '', {
+                savedRedirects: this.savedRedirects.filter((n) => n !== t),
+              })
+              .pipe(
+                (0, v.G)(() => this._authService.refreshToken()),
+                (0, m.a)(
+                  (function () {
+                    var n = (0, d.c)(function* (_) {
+                      return o._utilsService.errorHandler(_);
+                    });
+                    return function (_) {
+                      return n.apply(this, arguments);
+                    };
+                  })()
+                ),
+                (0, f.y)(() => (this.loading = !1))
+              )
+              .subscribe();
+          }
+          _getProfile() {
+            var t = this;
+            this._profileService
+              .getProfile()
+              .pipe(
+                (0, f.y)((o) => {
+                  this._profileSubject$.next(o);
+                }),
+                (0, m.a)(
+                  (function () {
+                    var o = (0, d.c)(function* (i) {
+                      return t._utilsService.errorHandler(i);
+                    });
+                    return function (i) {
+                      return o.apply(this, arguments);
+                    };
+                  })()
+                ),
+                (0, f.y)(() => (this.loading = !1))
+              )
+              .subscribe();
+          }
+          static #e = (this.ɵfac = function (o) {
+            return new (o || r)(
+              e.GI1(c.xX),
+              e.GI1(c.ey),
+              e.GI1(l.UL),
+              e.GI1(c.Qh),
+              e.GI1(c.oj),
+              e.GI1(E.mI)
+            );
+          });
+          static #t = (this.ɵcmp = e.In1({
+            type: r,
+            selectors: [['notify-profile-management']],
+            standalone: !0,
+            features: [e.M5G([l.UL, c.e, c.Qh]), e.UHJ],
+            decls: 5,
+            vars: 4,
+            consts: [
+              [1, 'page-layout', 'overflow-auto'],
+              [
+                'subtitle',
+                'Modifica e condividi il tuo profilo personale',
+                3,
+                'title',
+              ],
+              [3, 'profile', 'baseUrl'],
+              [3, 'followPage', 'isSaving', 'lastSave', 'save'],
+              [
+                1,
+                'lg:flex',
+                'justify-around',
+                'lg:space-x-4',
+                'space-y-4',
+                'lg:space-y-0',
+                'items-start',
+                'w-full',
+              ],
+              [
+                1,
+                'w-full',
+                '2xl:w-6/12',
+                3,
+                'profile',
+                'savedRedirects',
+                'loading',
+                'value',
+                'submitForm',
+                'removeSavedRedirect',
+              ],
+              [1, 'w-6/12', 'p-2', 'flex', 'justify-center', 'relative'],
+              [
+                'class',
+                'iphone-15-pro hidden lg:block absolute scale-75 2xl:scale-100 top-10',
+                3,
+                'data',
+                'mockup',
+                4,
+                'ngIf',
+              ],
+              [
+                'class',
+                'hidden lg:flex absolute scale-75 2xl:scale-100 top-10 flex-col',
+                4,
+                'ngIf',
+              ],
+              ['class', 'fixed bottom-5 right-5 lg:hidden z-50', 4, 'ngIf'],
+              [
+                1,
+                'iphone-15-pro',
+                'hidden',
+                'lg:block',
+                'absolute',
+                'scale-75',
+                '2xl:scale-100',
+                'top-10',
+                3,
+                'data',
+                'mockup',
+              ],
+              [
+                1,
+                'hidden',
+                'lg:flex',
+                'absolute',
+                'scale-75',
+                '2xl:scale-100',
+                'top-10',
+                'flex-col',
+              ],
+              [
+                'frameborder',
+                '0',
+                1,
+                'iphone-15-pro',
+                'phone',
+                'mockup-phone',
+                'pointer-events-none',
+                3,
+                'src',
+              ],
+              [1, 'w-full', 'text-center', 'mx-auto'],
+              [1, 'fixed', 'bottom-5', 'right-5', 'lg:hidden', 'z-50'],
+              [1, 'floating-button', 3, 'click'],
+              [
+                'xmlns',
+                'http://www.w3.org/2000/svg',
+                'viewBox',
+                '0 0 24 24',
+                'fill',
+                'currentColor',
+                1,
+                'w-6',
+                'h-6',
+              ],
+              [
+                'fill-rule',
+                'evenodd',
+                'd',
+                'M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z',
+                'clip-rule',
+                'evenodd',
+              ],
+              [1, 'loading-container'],
+            ],
+            template: function (o, i) {
+              if (
+                (1 & o &&
+                  (e.I0R(0, 'div', 0),
+                  e.wR5(1, 'notify-page-header', 1),
+                  e.yuY(2, O, 11, 11, 'div'),
+                  e.wVc(3, 'async'),
+                  e.yuY(4, S, 2, 0),
+                  e.C$Y()),
+                2 & o)
+              ) {
+                let n;
+                e.yG2(1),
+                  e.E7m('title', 'Gestione Profilo'),
+                  e.yG2(1),
+                  e.C0Y(2, (n = e.kDX(3, 2, i.profile$)) ? 2 : 4, n);
+              }
+            },
+            dependencies: [u.MD, u.u_, u.a, l.eI, l.W5, l.Y1, l.Qh, l.kN, l.wZ],
+            changeDetection: 0,
+          }));
+        }
+        return r;
+      })();
+    },
+  },
+]);

@@ -1,15 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { EnumNotifyStatType, INotifyUser } from '@notify/interfaces';
+import {
+  EnumNotifyStatType,
+  INotifyProfile,
+  INotifyUser,
+} from '@notify/interfaces';
 import {
   AREA_CHART_DEFAULT_PERIOD,
   AuthService,
   CapacitorService,
+  INotifyShareItemConfig,
   LoadingComponent,
   NoteService,
   PageHeaderComponent,
   ProfileService,
-  ShareProfileComponent,
+  ShareItemComponent,
   StatService,
   SvgBoxIcon,
   SvgboxService,
@@ -29,7 +34,7 @@ import { environment } from '../../../environments/environment';
     CommonModule,
     PageHeaderComponent,
     LoadingComponent,
-    ShareProfileComponent,
+    ShareItemComponent,
     WidgetCounterComponent,
     WidgetAreaChartComponent,
     WidgetFeedbackComponent,
@@ -45,7 +50,12 @@ export class DashboardComponent {
 
   public dashboard$ = combineLatest({
     latestNote: this._noteService.getLatestNote(),
-    profile: this._profileService.getProfile(),
+    profile: this._profileService.getProfile().pipe(
+      map((profile) => ({
+        ...profile,
+        shareConfig: this._shareConfig(profile),
+      }))
+    ),
     user: this._authService.currentUser$.pipe(
       map((user) => this._statService.userCounters(user as INotifyUser))
     ),
@@ -97,5 +107,36 @@ export class DashboardComponent {
         }),
         tap((s) => this.areaChartScans$.next(s))
       );
+  }
+
+  private _shareConfig(profile: INotifyProfile): INotifyShareItemConfig {
+    const companyNfcItem = profile.company
+      ? [
+          {
+            value: profile.company._id,
+            label: 'Profilo Aziendale',
+          },
+        ]
+      : [];
+
+    return {
+      type: 'profile',
+      id: profile._id,
+      baseUrl: this.baseUrl || '',
+      isInModal: true,
+      qrcode: {
+        title: 'Condividi il profilo',
+        fileName: profile.name || 'Profilo',
+      },
+      nfc: {
+        items: [
+          {
+            value: profile._id,
+            label: 'Questo Profilo',
+          },
+          ...companyNfcItem,
+        ],
+      },
+    };
   }
 }

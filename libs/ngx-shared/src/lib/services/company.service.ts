@@ -43,4 +43,8 @@ export class CompanyService {
       }
     );
   }
+
+  public getCompany(id: string) {
+    return this.http.get<INotifyCompany>(`/v1/company`, { id });
+  }
 }

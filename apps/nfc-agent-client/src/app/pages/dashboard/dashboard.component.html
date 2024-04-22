@@ -10,12 +10,11 @@
         <div class="v-spacing lg:w-full">
           <div class="dashboard-cards-container h-spacing">
             <div class="dashboard-cards-container h-spacing">
-              <notify-share-profile
+              <notify-share-item
                 class="w-full"
-                [profile]="data.profile"
-                [baseUrl]="baseUrl"
+                [config]="data.profile.shareConfig"
                 source="root"
-              ></notify-share-profile>
+              ></notify-share-item>
 
               <notify-widget-note
                 [note]="data.latestNote"

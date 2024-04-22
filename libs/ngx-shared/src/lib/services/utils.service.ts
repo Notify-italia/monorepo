@@ -3,6 +3,7 @@ import { AppError } from '@notify/interfaces';
 import { format } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
 import { of } from 'rxjs';
+import { HttpService } from './http.service';
 
 export enum EnumDicebearAvatarStyles {
   Bottts = 'bottts',
@@ -36,7 +37,11 @@ export enum EnumDicebearAvatarStyles {
 
 @Injectable()
 export class UtilsService {
-  constructor(private _toastr: ToastrService) {}
+  public get apiUrl(): string {
+    return this._http.apiBaseUrl;
+  }
+
+  constructor(private _toastr: ToastrService, private _http: HttpService) {}
 
   public diceBearAvatar(config: {
     style: EnumDicebearAvatarStyles;
@@ -60,6 +65,22 @@ export class UtilsService {
     }
 
     return [ab];
+  }
+
+  public async arrayBufferToBase64(buffer: ArrayBuffer) {
+    //arraybuffer to blob
+    const blob = new Blob([buffer]);
+
+    const result = new Promise<string | ArrayBuffer | null>((resolve) => {
+      //blob to base64 without using FileReader
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = () => {
+        return resolve(reader.result);
+      };
+    });
+
+    return result;
   }
 
   public errorHandler<T>(error: AppError, returnValue?: T) {
@@ -192,5 +213,19 @@ export class UtilsService {
     }
 
     return '2xl';
+  }
+
+  public asyncForEach<T = unknown>(
+    array: T[],
+    callback: (item: T, index: number, array: T[]) => Promise<void>
+  ) {
+    return new Promise<void>((resolve) => {
+      array.forEach(async (item, index, array) => {
+        await callback(item, index, array);
+        if (index === array.length - 1) {
+          resolve();
+        }
+      });
+    });
   }
 }

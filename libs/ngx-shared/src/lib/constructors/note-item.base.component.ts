@@ -8,7 +8,14 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { INotifyNote, INotifyNoteItemValue } from '@notify/interfaces';
-import { Subject, debounceTime, takeUntil } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  debounceTime,
+  of,
+  switchMap,
+  takeUntil,
+} from 'rxjs';
 
 export const NOTE_DEBOUNCE_TIME = 1000;
 
@@ -18,9 +25,10 @@ export const NOTE_DEBOUNCE_TIME = 1000;
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export class NoteItemBaseComponent implements OnInit, OnDestroy {
   @Input() item!: INotifyNote['items'][0];
-  @Input() note?: INotifyNote;
+  @Input({ required: true }) note!: INotifyNote;
+  @Input() itemDeleted$ = new Subject<void>();
 
-  @Output() formValue = new EventEmitter<INotifyNoteItemValue>();
+  @Output() formChanged = new EventEmitter<INotifyNoteItemValue>();
   @Output() deleteNoteItem = new EventEmitter<void>();
 
   public form!: FormGroup;
@@ -33,9 +41,18 @@ export class NoteItemBaseComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.componentInit();
 
-    this.form.valueChanges
+    this.form?.valueChanges
       .pipe(takeUntil(this.destroy$), debounceTime(NOTE_DEBOUNCE_TIME))
-      .subscribe((formValue) => this.formValue.emit(formValue));
+      .subscribe((formValue) => this.formChanged.emit(formValue));
+
+    this.itemDeleted$
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap(() => this.itemDeleted())
+      )
+      .subscribe();
+
+    this.componentReady();
 
     return;
   }
@@ -50,6 +67,10 @@ export class NoteItemBaseComponent implements OnInit, OnDestroy {
 
   public componentReady(): void {
     return;
+  }
+
+  public itemDeleted(): Observable<unknown> {
+    return of();
   }
 
   public initForm(value: FormGroup): void {

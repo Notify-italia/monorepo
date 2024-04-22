@@ -1,5 +1,9 @@
 .note-module {
-  @apply p-4 w-full flex flex-col bg-gray-900/50 backdrop-blur-lg backdrop-brightness-75 rounded-lg h-full;
+  @apply p-4 w-full flex flex-col bg-gray-900/50 backdrop-blur-lg backdrop-brightness-75 rounded-xl h-full;
+
+  &.has-footer {
+    @apply pb-10;
+  }
 }
 
 .note-title {
