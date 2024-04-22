@@ -11,14 +11,13 @@ import {
   inject,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { UtilsService } from '../../../../services';
 import {
   DropzoneConfigInterface,
   DropzoneDirective,
-} from 'ngx-dropzone-wrapper';
-import { Subject, takeUntil, tap } from 'rxjs';
-import { UtilsService } from '../../../../services';
+} from '../../../../standalones/dropzone/public-api';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
-
 export interface INotifyTailwindDropzoneCdnConfig {
   postEndpoint: string;
   deleteEndpoint: string;
@@ -35,11 +34,7 @@ export interface INotifyTailwindDropzoneCdnConfig {
   };
 }
 
-type DropzoneFile = File & {
-  previewTemplate: HTMLElement;
-  dataURL: string;
-  status: string;
-};
+type DropzoneFile = Dropzone.DropzoneFile;
 
 @Component({
   selector: 'notify-tailwind-dropzone',
@@ -90,7 +85,7 @@ export class TailwindDropzoneComponent
   public dropzoneConfig?: DropzoneConfigInterface;
   public destroy$ = new Subject<void>();
 
-  public dzApi?: any;
+  public dzApi!: Dropzone;
 
   constructor(private tailwindFormService: TailwindFormsService) {}
 
@@ -119,31 +114,26 @@ export class TailwindDropzoneComponent
   }
 
   public async appendStoredFiles() {
-    const currentFiles: {
-      dataURL: string;
-      name: string;
-      size: number;
-      type: string;
-    }[] = this.parent.controls[this.name].value.map(
-      (v: Record<string, unknown>) => ({
-        status: 'success',
-        dataURL: v[this.schema.value],
-        name: v[this.schema.name],
-        size: v[this.schema.size],
-        type: v[this.schema.type],
-      })
-    );
+    const currentFiles: Dropzone.DropzoneFile[] = this.parent.controls[
+      this.name
+    ].value.map((v: Record<string, unknown>) => ({
+      status: 'success',
+      dataURL: v[this.schema.value],
+      name: v[this.schema.name],
+      size: v[this.schema.size],
+      type: v[this.schema.type],
+    }));
 
     await this._utilsService.asyncForEach(currentFiles, async (file, index) => {
       this.dzApi.files.push(file);
       this.dzApi.emit('addedfile', file);
-      this._appendDownloadButton(this.dzApi.files[index], file.dataURL);
+      this._appendDownloadButton(this.dzApi.files[index], file.dataURL || '');
       if (!file.type.includes('image')) {
         this.dzApi.emit('complete', file);
         return;
       }
 
-      const dataURL = (await fetch(file.dataURL)
+      const dataURL = (await fetch(file.dataURL || '')
         .then((res) => res.blob())
         .then(
           (blob) =>
