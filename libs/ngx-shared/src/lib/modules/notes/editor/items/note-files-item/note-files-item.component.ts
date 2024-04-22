@@ -62,8 +62,12 @@ export class NoteFilesItemComponent extends NoteItemBaseComponent {
   }
 
   override itemDeleted() {
+    if (!this.itemValue?.files) {
+      return of();
+    }
+
     this._utilsService.asyncForEach(
-      this.itemValue.files,
+      this.itemValue?.files,
       async (file, index) => {
         await firstValueFrom(
           of(file).pipe(

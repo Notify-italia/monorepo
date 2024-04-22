@@ -35,7 +35,11 @@ export interface INotifyTailwindDropzoneCdnConfig {
   };
 }
 
-type DropzoneFile = File & { previewTemplate: HTMLElement; dataURL: string };
+type DropzoneFile = File & {
+  previewTemplate: HTMLElement;
+  dataURL: string;
+  status: string;
+};
 
 @Component({
   selector: 'notify-tailwind-dropzone',
@@ -86,6 +90,8 @@ export class TailwindDropzoneComponent
   public dropzoneConfig?: DropzoneConfigInterface;
   public destroy$ = new Subject<void>();
 
+  public dzApi?: any;
+
   constructor(private tailwindFormService: TailwindFormsService) {}
 
   ngOnInit(): void {
@@ -93,6 +99,7 @@ export class TailwindDropzoneComponent
   }
 
   ngAfterViewInit() {
+    this.dzApi = this.dropzoneDirective.dropzone();
     this.appendStoredFiles();
   }
 
@@ -119,6 +126,7 @@ export class TailwindDropzoneComponent
       type: string;
     }[] = this.parent.controls[this.name].value.map(
       (v: Record<string, unknown>) => ({
+        status: 'success',
         dataURL: v[this.schema.value],
         name: v[this.schema.name],
         size: v[this.schema.size],
@@ -126,14 +134,12 @@ export class TailwindDropzoneComponent
       })
     );
 
-    const dz = this.dropzoneDirective.dropzone();
-
     await this._utilsService.asyncForEach(currentFiles, async (file, index) => {
-      dz.files.push(file);
-      dz.emit('addedfile', file);
-      this._appendDownloadButton(dz.files[index], file.dataURL);
+      this.dzApi.files.push(file);
+      this.dzApi.emit('addedfile', file);
+      this._appendDownloadButton(this.dzApi.files[index], file.dataURL);
       if (!file.type.includes('image')) {
-        dz.emit('complete', file);
+        this.dzApi.emit('complete', file);
         return;
       }
 
@@ -151,27 +157,27 @@ export class TailwindDropzoneComponent
 
       file.dataURL = dataURL;
 
-      dz.createThumbnailFromUrl(
+      this.dzApi.createThumbnailFromUrl(
         file,
-        dz.options.thumbnailWidth,
-        dz.options.thumbnailHeight,
-        dz.options.thumbnailMethod,
+        this.dzApi.options.thumbnailWidth,
+        this.dzApi.options.thumbnailHeight,
+        this.dzApi.options.thumbnailMethod,
         true,
         (thumbnail: Event) => {
-          dz.emit('thumbnail', file, thumbnail);
-          dz.emit('complete', file);
+          this.dzApi.emit('thumbnail', file, thumbnail);
+          this.dzApi.emit('complete', file);
         }
       );
     });
 
-    dz.on('queuecomplete', () => {
-      dz.options.maxFiles = this.maxFiles - currentFiles.length;
+    this.dzApi.on('queuecomplete', () => {
+      this.dzApi.options.maxFiles = this.maxFiles - currentFiles.length;
     });
   }
 
   public onFileAdded(
     event: [
-      File & { previewTemplate: HTMLElement },
+      DropzoneFile,
       {
         [key: string]: string;
       },
@@ -190,12 +196,17 @@ export class TailwindDropzoneComponent
     );
 
     this._appendDownloadButton(
-      event[0] as DropzoneFile,
+      event[0],
       event[1][this.cdnConfig.responseSchema.value]
     );
+
+    console.log(this.dzApi);
   }
 
   public onFileRemoved(event: File) {
+    console.warn(
+      `File with name ${event.name} has been removed from the dropzone.`
+    );
     const currentFiles = this.parent.controls[this.name].value;
 
     this._httpService
@@ -267,7 +278,6 @@ export class TailwindDropzoneComponent
       dictResponseError: 'Errore durante il caricamento',
       dictFileTooBig: 'Il file è troppo pesante',
       dictRemoveFile: 'Rimuovi',
-
       addRemoveLinks: true,
       clickable: true,
       params: this.cdnConfig.body,

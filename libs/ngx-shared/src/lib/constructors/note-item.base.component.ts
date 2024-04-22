@@ -15,7 +15,6 @@ import {
   of,
   switchMap,
   takeUntil,
-  tap,
 } from 'rxjs';
 
 export const NOTE_DEBOUNCE_TIME = 1000;
@@ -48,7 +47,6 @@ export class NoteItemBaseComponent implements OnInit, OnDestroy {
 
     this.itemDeleted$
       .pipe(
-        tap(() => console.error(`ITEM DELETED: ${this.item._id}`)),
         takeUntil(this.destroy$),
         switchMap(() => this.itemDeleted())
       )
