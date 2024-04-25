@@ -1,6 +1,6 @@
 import { INotifyCompany, INotifyProfile } from '@notify/interfaces';
 import { Types } from 'mongoose';
-import { AgentModel } from '../models';
+import { AgentModel, NoteModel, ProfileDocument } from '../models';
 import { mLog } from '../services';
 
 /**
@@ -29,4 +29,15 @@ export const getAgentOwnerProfile = async (agentId: Types.ObjectId) => {
   return (
     agent.owner as unknown as INotifyCompany & { profile: INotifyProfile }
   ).profile;
+};
+
+export const populateProfileNote = async (
+  profile: INotifyProfile | ProfileDocument
+) => {
+  const note = await NoteModel.findById(profile.note).lean();
+
+  return {
+    ...((profile as ProfileDocument).toJSON() || profile),
+    note,
+  };
 };

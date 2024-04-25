@@ -11,6 +11,7 @@ import {
   ProfileModel,
   S3Upload,
   getAgentOwnerProfile,
+  populateProfileNote,
   requestHandler,
 } from '@notify/nfc-api-core';
 import { Request, Router } from 'express';
@@ -44,7 +45,7 @@ router.patch(
         await _editProfile(profile, body);
 
         res.status(200).send({
-          ...profile.toObject(),
+          ...(await populateProfileNote(profile)),
           __v: undefined,
           company: await getAgentOwnerProfile(profile.owner),
         });
@@ -75,7 +76,7 @@ router.patch(
       await _editProfile(profile, body);
 
       res.status(200).send({
-        ...profile.toObject(),
+        ...(await populateProfileNote(profile)),
         __v: undefined,
         company: await getAgentOwnerProfile(profile.owner),
       });

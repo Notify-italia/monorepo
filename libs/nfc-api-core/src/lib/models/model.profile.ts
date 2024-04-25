@@ -199,6 +199,17 @@ const ProfileSchema = new Schema<Profile, ProfileModel>(
         default: false,
       },
     },
+    note: {
+      type: Schema.Types.ObjectId,
+      default: null,
+      ref: 'Note',
+    },
+    noteOptions: {
+      showTitle: {
+        type: Boolean,
+        default: true,
+      },
+    },
   },
   {
     timestamps: true,

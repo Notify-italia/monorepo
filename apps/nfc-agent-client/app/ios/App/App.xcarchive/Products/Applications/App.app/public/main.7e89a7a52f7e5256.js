@@ -18705,14 +18705,12 @@
               );
             }
             addItem() {
-              this.form
-                .get('items')
-                .push(
-                  new xi({
-                    description: new Rn('', st.required),
-                    checked: new Rn(!1),
-                  })
-                ),
+              this.form.get('items').push(
+                new xi({
+                  description: new Rn('', st.required),
+                  checked: new Rn(!1),
+                })
+              ),
                 setTimeout(() => {
                   this._focusLastInput();
                 }, 1);
@@ -42697,7 +42695,7 @@
         }
         return e;
       })();
-      const _B = ['notify-test-item-button', ''];
+      const _B = ['notify-open-item-button', ''];
       let RG = (() => {
         class e {
           static #e = (this.ɵfac = function (n) {
@@ -42705,7 +42703,7 @@
           });
           static #t = (this.ɵcmp = l.In1({
             type: e,
-            selectors: [['', 'notify-test-item-button', '']],
+            selectors: [['', 'notify-open-item-button', '']],
             standalone: !0,
             features: [l.UHJ],
             attrs: _B,
@@ -44032,7 +44030,7 @@
               ],
               [1, 'mt-1', 'flex'],
               ['notify-remove-item-button', '', 3, 'click'],
-              ['notify-test-item-button', '', 'target', '_blank', 3, 'href'],
+              ['notify-open-item-button', '', 'target', '_blank', 3, 'href'],
               ['class', 'flex items-center space-x-2'],
             ],
             template: function (n, r) {
@@ -80549,15 +80547,13 @@
             });
         })(A6 || (A6 = {})),
         Math.pow(2, -24);
-      new Array(32)
-        .fill()
-        .map(() => ({
-          count: 0,
-          bounds: new Float32Array(6),
-          rightCacheBounds: new Float32Array(6),
-          leftCacheBounds: new Float32Array(6),
-          candidate: 0,
-        })),
+      new Array(32).fill().map(() => ({
+        count: 0,
+        bounds: new Float32Array(6),
+        rightCacheBounds: new Float32Array(6),
+        leftCacheBounds: new Float32Array(6),
+        candidate: 0,
+      })),
         new Float32Array(6);
       var pf = class {
         constructor() {

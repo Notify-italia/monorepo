@@ -1,5 +1,6 @@
 import { MongodbDocument } from '../interface.mongodb';
 import { EnumNotifyUserType, INotifyUser } from '../interface.user';
+import { NotifyPopulatedNote } from './interface.note';
 
 export interface INotifyProfile<
   T extends EnumNotifyUserType = EnumNotifyUserType
@@ -42,6 +43,10 @@ export interface INotifyProfile<
     background: string[];
     elements: string;
     useCompanyColors: T extends EnumNotifyUserType.Agent ? boolean : null;
+  };
+  note: NotifyPopulatedNote;
+  noteOptions?: {
+    showTitle: boolean;
   };
 }
 

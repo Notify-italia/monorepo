@@ -18,7 +18,7 @@ import { DynamicModuleLoaderService } from '../../../../services/dynamic-module-
   styles: `
   ::ng-deep ngx-editor {
     .NgxEditor {
-      @apply bg-transparent border-none;
+      @apply bg-transparent border-none text-current;
     }
   }
   

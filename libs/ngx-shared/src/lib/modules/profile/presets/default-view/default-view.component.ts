@@ -7,6 +7,7 @@ import {
   WallpaperComponent,
 } from '../../../../../lib/standalones';
 import { ProfileService } from '../../../../services';
+import { NoteViewComponent } from '../../../notes';
 import { FeedbackButtonComponent } from '../../components/feedback-button/feedback-button.component';
 import { MockupFillComponent } from '../../components/mockup-fill/mockup-fill.component';
 import { ProfileIntegrationsComponent } from '../../components/profile-integrations/profile-integrations.component';
@@ -27,6 +28,7 @@ import { RatingComponent } from '../../components/rating/rating.component';
     MockupFillComponent,
     FeedbackButtonComponent,
     ProfileUserInfoComponent,
+    NoteViewComponent,
   ],
   providers: [ProfileService],
   selector: '[notify-profile-default-view]',
@@ -48,4 +50,11 @@ export class ProfileDefaultViewComponent {
   >();
   @Output() feedbackClicked = new EventEmitter<void>();
   @Output() subAvatarClick = new EventEmitter<void>();
+
+  public get noteOptions() {
+    return {
+      ...(this.data?.noteOptions ?? { showTitle: true }),
+      textColor: this.cssElementsColor,
+    };
+  }
 }

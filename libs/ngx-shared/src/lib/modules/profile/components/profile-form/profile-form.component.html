@@ -340,7 +340,7 @@
               ></button>
               <a
                 tabindex="0"
-                notify-test-item-button
+                notify-open-item-button
                 target="_blank"
                 [href]="
                   getUrl(
@@ -389,6 +389,48 @@
         </div>
       </div>
       }
+
+      <div class="section box p-4 w-full">
+        <div class="divider divider-start">Collega una nota</div>
+
+        <notify-tailwind-select
+          [parent]="form"
+          name="note"
+          class="w-full"
+          label="Nota"
+          placeholder="Nessuna Nota"
+          [options]="notes"
+          [validationErrors]="validationErrors"
+        ></notify-tailwind-select>
+        <div class="flex w-full justify-around">
+          <a
+            tabindex="0"
+            notify-open-item-button
+            [routerLink]="['/pages/notes/inspect']"
+            [queryParams]="{
+              id: form.value.note,
+              returnUrl: '/pages/profile/edit'
+            }"
+          ></a>
+          <button
+            type="button"
+            tabindex="0"
+            notify-remove-item-button
+            (click)="removeNote()"
+          ></button>
+        </div>
+        <div class="divider !mt-0"></div>
+
+        @if (form.value.note) {
+        <notify-tailwind-checkbox
+          [parent]="form"
+          name="noteShowTitle"
+          label="titolo della nota"
+          [validationErrors]="validationErrors"
+        ></notify-tailwind-checkbox>
+
+        }
+      </div>
     </div>
   </div>
 </form>

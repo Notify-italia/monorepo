@@ -6,6 +6,7 @@ import {
   Subject,
   catchError,
   debounceTime,
+  map,
   of,
   pipe,
   switchMap,
@@ -14,7 +15,22 @@ import {
 } from 'rxjs';
 
 import { ProfilePlayerFactory } from '../modules/profile/components/fullscreen-mockup/profile-player.factory';
-import { AuthService, ProfileService, UtilsService } from '../services';
+import { ITailwindSelectOption } from '../modules/tailwind-forms/components/tailwind-select/tailwind-select.component';
+import {
+  AgentService,
+  AuthService,
+  NoteService,
+  ProfileService,
+  UtilsService,
+} from '../services';
+
+export const ProfileManagementBaseComponentProviders = [
+  ProfilePlayerFactory,
+  AgentService,
+  UtilsService,
+  ProfileService,
+  NoteService,
+];
 
 @Component({
   template: ``,
@@ -29,6 +45,7 @@ export class ProfileManagementBaseComponent implements OnDestroy {
   public _playerFactroy = inject(ProfilePlayerFactory);
   public _authService = inject(AuthService);
   public _activatedRoute = inject(ActivatedRoute);
+  public _noteService = inject(NoteService);
 
   /**
    * Rxjs Subjects and Observables
@@ -38,7 +55,16 @@ export class ProfileManagementBaseComponent implements OnDestroy {
   public destroy$ = new Subject<void>();
   public debouncedNextProfile$: Subject<INotifyProfile> =
     new Subject<INotifyProfile>();
-
+  public notes$: Observable<ITailwindSelectOption[]> = this._noteService
+    .getNotes()
+    .pipe(
+      map((notes) =>
+        notes.map((note) => ({
+          name: note.title,
+          value: note._id,
+        }))
+      )
+    );
   /**
    * Variables
    */

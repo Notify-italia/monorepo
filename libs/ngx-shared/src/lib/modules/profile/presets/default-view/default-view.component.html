@@ -43,4 +43,8 @@
     </div>
     <notify-google-maps [address]="p" class="!w-[90%]"></notify-google-maps>
   </div>
+
+  <div class="section w-full" *ngIf="data?.note as n">
+    <notify-note-view [note]="n" [options]="noteOptions"></notify-note-view>
+  </div>
 </div>

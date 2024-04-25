@@ -44,7 +44,7 @@ export { router as getProfileRouter };
 const _profilePlayerFlow = async <T>(req: Request<T>, res: Response) => {
   const { id } = req.query;
 
-  const profile = await ProfileModel.findById(id).lean();
+  const profile = await ProfileModel.findById(id).populate('note').lean();
 
   if (!profile) {
     throw new BadRequestError(PROFILE_VALIDATION_MESSAGES._id as string);
@@ -60,7 +60,9 @@ const _profilePlayerFlow = async <T>(req: Request<T>, res: Response) => {
 const _agentFlow = async <T>(req: Request<T>, res: Response) => {
   const profile = await ProfileModel.findOne({
     owner: req.currentUser._id,
-  }).lean();
+  })
+    .populate('note')
+    .lean();
 
   if (!profile) {
     throw new BadRequestError(PROFILE_VALIDATION_MESSAGES._id as string);

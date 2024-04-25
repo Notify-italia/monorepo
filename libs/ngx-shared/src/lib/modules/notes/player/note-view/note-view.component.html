@@ -1,10 +1,10 @@
 <div
   class="min-h-screen w-full p-2 overflow-x-hidden flex flex-col items-center"
-  [style.background-color]="note.color"
-  [style.color]="textColor"
+  [style.color]="options?.textColor"
 >
   <h1
     class="font-extrabold text-3xl my-5 w-full text-center font-bebasNeue tracking-wider"
+    *ngIf="options?.showTitle"
   >
     {{ note.title }}
   </h1>

@@ -26,4 +26,17 @@ export class NotesListComponent {
   @Output() public editNote = new EventEmitter<INotifyNote['_id']>();
 
   public notes: INotifyNote[] | null = null;
+
+  public skeletonRows = Array.from({ length: 5 });
+
+  public cssClasses = {
+    rows: {
+      item: 'flex justify-between w-full box p-4 min-h-16 hover:brightness-150 smooth cursor-pointer',
+      color: 'w-8 h-8 rounded-full p-2',
+      flexCol: 'flex flex-col',
+      flexRowSpaced: 'flex items-center space-x-4',
+      h1: 'text-lg font-bold truncate w-40 lg:w-96 xl:w-[50rem]',
+      subtitle: 'text-sm text-gray-500',
+    },
+  };
 }

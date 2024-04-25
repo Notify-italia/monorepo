@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
-  selector: '[notify-test-item-button]',
+  selector: '[notify-open-item-button]',
   standalone: true,
   template: `
     <a type="button" class="btn btn-error my-auto btn-ghost !p-1 text-sm">
@@ -22,8 +22,8 @@ import { Component } from '@angular/core';
         <path d="M15 3h6v6"></path>
         <path d="M10 14 21 3"></path>
       </svg>
-      <span>Prova</span>
+      <span>Apri</span>
     </a>
   `,
 })
-export class TestItemButtonComponent {}
+export class OpenItemButtonComponent {}

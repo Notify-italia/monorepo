@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { INotifyProfile } from '@notify/interfaces';
+import { INotifyProfile, NotifyPopulatedNote } from '@notify/interfaces';
 import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { ProfileService } from '../../../../services';
 import { ProfileViewComponent } from '../profile-view/profile-view.component';
@@ -19,7 +19,9 @@ import {
   styleUrls: ['./fullscreen-mockup.component.scss', '../profile.styles.scss'],
 })
 export class FullscreenMockupComponent extends ModalBaseComponent {
-  @Input({ required: true }) profile!: INotifyProfile;
+  @Input({ required: true }) profile!: INotifyProfile & {
+    note?: NotifyPopulatedNote;
+  };
   @Input({ required: true }) baseUrl?: string;
   @Input() hideShare = false;
 

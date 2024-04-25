@@ -5,13 +5,11 @@ import {
   PageHeaderComponent,
   ProfileFormComponent,
   ProfileManagementBaseComponent,
-  ProfilePlayerFactory,
-  ProfileService,
+  ProfileManagementBaseComponentProviders,
   ProfileTemplateBaseComponent,
   ProfileViewComponent,
   SaveIndicatorComponent,
   ShareItemComponent,
-  UtilsService,
 } from '@notify/ngx-shared';
 
 import { CommonModule } from '@angular/common';
@@ -38,7 +36,7 @@ import { environment } from '../../../../src/environments/environment';
     CachedSrcDirective,
     ProfileTemplateBaseComponent,
   ],
-  providers: [ProfilePlayerFactory, AgentService, UtilsService, ProfileService],
+  providers: ProfileManagementBaseComponentProviders,
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
 })

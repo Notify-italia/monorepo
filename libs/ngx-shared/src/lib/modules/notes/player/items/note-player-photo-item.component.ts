@@ -17,10 +17,15 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
     AvatarComponent,
   ],
   template: `
-    <p>
-      <span class="font-bold text-xl">{{ itemValue.title }}</span>
-    </p>
-    <img [src]="itemValue.url" class="w-full h-full object-cover rounded-lg" />
+    <div class="flex flex-col space-y-2">
+      <p>
+        <span class="font-bold text-xl">{{ itemValue.title }}</span>
+      </p>
+      <img
+        [src]="itemValue.url"
+        class="w-full h-full object-cover rounded-lg"
+      />
+    </div>
   `,
   styleUrls: ['../../notes.styles.scss'],
 })

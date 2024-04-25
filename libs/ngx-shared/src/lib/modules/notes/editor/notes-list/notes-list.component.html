@@ -20,20 +20,20 @@
 <div class="w-full flex flex-col justify-center space-y-4">
   @for (note of notes; track note._id) {
   <div
-    class="flex justify-between w-full box p-4 min-h-16 hover:brightness-150 smooth cursor-pointer"
+    [class]="cssClasses.rows.item"
     (click)="editNote.emit(note._id); $event.stopPropagation()"
   >
-    <div class="flex items-center space-x-4">
+    <div [class]="cssClasses.rows.flexRowSpaced">
       <div
-        class="w-8 h-8 rounded-full p-2"
+        [class]="cssClasses.rows.color"
         [ngStyle]="{ 'background-color': note.color }"
       ></div>
-      <div class="flex flex-col">
-        <h1 class="text-lg font-bold truncate w-40 lg:w-96 xl:w-[50rem]">
+      <div [class]="cssClasses.rows.flexCol">
+        <h1 [class]="cssClasses.rows.h1">
           {{ note.title || '‎ ' }}
         </h1>
         <div>
-          <p class="text-sm text-gray-500">
+          <p [class]="cssClasses.rows.subtitle">
             {{ note.items.length || 0 }} elementi |
             {{ note.updatedAt | date : 'short' : '' : 'it' }}
           </p>
@@ -64,8 +64,22 @@
     </div>
   </div>
   } @if (!notes) {
-  <div class="h-[40vh] md:h-[60vh]">
-    <notify-loading></notify-loading>
+  <div class="w-full flex flex-col justify-center space-y-4">
+    @for (item of skeletonRows; track $index) {
+    <div [class]="cssClasses.rows.item">
+      <div [class]="cssClasses.rows.flexRowSpaced">
+        <div class="{{ cssClasses.rows.color }} skeleton !rounded-full "></div>
+        <div class="{{ cssClasses.rows.flexCol }} space-y-4">
+          <h1 class="{{ cssClasses.rows.h1 }} skeleton h-4 p-2.5 !w-80"></h1>
+          <div>
+            <p
+              class="{{ cssClasses.rows.subtitle }} skeleton h-3 w-[12.4rem]"
+            ></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
   </div>
 
   } @else if (notes && !notes.length) {

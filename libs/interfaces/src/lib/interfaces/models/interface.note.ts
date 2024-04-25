@@ -17,6 +17,8 @@ export interface INotifyNote extends MongodbDocument {
   items: INotifyNoteItem[];
 }
 
+export type NotifyPopulatedNote = INotifyNote & { owners: INotifyUser[] };
+
 export interface INotifyNoteItem {
   type: EnumNotifyNoteItemType;
   value: INotifyNoteItemValue | null;

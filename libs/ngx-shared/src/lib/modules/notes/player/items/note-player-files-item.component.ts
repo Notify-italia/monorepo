@@ -15,13 +15,10 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
     TailwindFormsModule,
   ],
   template: `
-    <div class=" w-full overflow-x-hidden ">
-      <span class="font-bold text-xl">{{ itemValue.title }}</span>
+    <div class=" w-full overflow-x-hidden flex flex-col space-y-2">
+      <span class="font-bold text-xl ">{{ itemValue.title }}</span>
 
-      <div
-        id="carousel-{{ item._id }}"
-        class="carousel carousel-center w-full h-full p-4 space-x-5 bg-white/20 backdrop-blur shadow-lg rounded-xl "
-      >
+      <div id="carousel-{{ item._id }}" class="flex  w-full h-full space-x-2 ">
         @for (i of itemFiles;track $index) {
         <div
           class="flex flex-col items-center justify-center smooth cursor-pointer"
@@ -38,7 +35,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
                 (load)="Skeleton.hidden = true"
                 [src]="i.thumb"
                 [alt]="i.name"
-                class="w-fit h-full rounded-lg max-w-40 lg:min-w-96 max-h-28 lg:max-h-72 object-contain"
+                class="w-fit h-full rounded-lg max-w-40 max-h-28 object-contain !text-current"
                 [ngClass]="{
                   'w-72 h-72': !i.isImage
                 }"
@@ -49,7 +46,9 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
               ></div>
             </a>
           </div>
-          <p class="text-center text-xs font-light truncate">{{ i.name }}</p>
+          <p class="text-center text-xs font-light max-w-36  truncate">
+            {{ i.name }}
+          </p>
         </div>
 
         }

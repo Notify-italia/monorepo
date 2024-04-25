@@ -14,6 +14,7 @@
         (previewProfile)="previewProfile($event)"
         (saveProfile)="saveProfile($event)"
         (removeSavedRedirect)="removeSavedRedirect($event)"
+        [notes]="(notes$ | async) || []"
       ></notify-profile-management-template-base>
     </div>
   </div>

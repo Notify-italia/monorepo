@@ -12,10 +12,12 @@ import {
   EnumNotifyUserType,
   INotifyProfile,
   INotifyUser,
+  NotifyPopulatedNote,
   daisyUIAvatarMaks,
   daisyUIAvatarMaksIT,
 } from '@notify/interfaces';
 
+import { RouterModule } from '@angular/router';
 import {
   Subject,
   combineLatest,
@@ -30,9 +32,10 @@ import { IconSelectorComponent } from '../../../../standalones/icon-select/icon-
 import { ImageCropperFactory } from '../../../../standalones/image-cropper/image-cropper.factory';
 import { UploadComponent } from '../../../../standalones/upload/upload.component';
 import { itPhoneNumberValidators } from '../../../../validators';
+import { ITailwindSelectOption } from '../../../tailwind-forms/components/tailwind-select/tailwind-select.component';
 import { AddButtonComponent } from './add-button.component';
 import { RemoveItemButtonComponent } from './remove-item-button';
-import { TestItemButtonComponent } from './test-item-button';
+import { OpenItemButtonComponent } from './test-item-button';
 
 type ProfileForm = FormGroup<{
   name: FormControl<INotifyProfile['name']>;
@@ -57,6 +60,8 @@ type ProfileForm = FormGroup<{
   useCompanyColors: FormControl<boolean | null>;
   redirectEnabled: FormControl<boolean | null>;
   redirectUrl: FormControl<string | null>;
+  note: FormControl<string | null>;
+  noteShowTitle: FormControl<boolean | null>;
 }>;
 
 @Component({
@@ -70,7 +75,8 @@ type ProfileForm = FormGroup<{
     IconSelectorComponent,
     AddButtonComponent,
     RemoveItemButtonComponent,
-    TestItemButtonComponent,
+    OpenItemButtonComponent,
+    RouterModule,
   ],
   providers: [ImageCropperFactory],
   templateUrl: './profile-form.component.html',
@@ -80,6 +86,7 @@ export class ProfileFormComponent implements OnInit {
   @Input({ required: true }) public profile!: INotifyProfile;
   @Input() public loading = false;
   @Input() public savedRedirects: INotifyUser['savedRedirects'] = [];
+  @Input() public notes: ITailwindSelectOption[] = [];
 
   @Output() public value = new EventEmitter<INotifyProfile>();
   @Output() public submitForm = new EventEmitter<INotifyProfile>();
@@ -176,7 +183,7 @@ export class ProfileFormComponent implements OnInit {
   private _buildForm(): ProfileForm {
     const pColors = this.profile?.colors;
 
-    const f = new FormGroup({
+    const f = new FormGroup<ProfileForm['controls']>({
       avatar: new FormControl(this.profile.avatar || '', []),
       name: new FormControl(this.profile.name || ''),
       surname: new FormControl(this.profile?.surname || ''),
@@ -212,8 +219,12 @@ export class ProfileFormComponent implements OnInit {
       elementsColor: new FormControl(pColors?.elements || '#ffffff'),
       useCompanyColors: new FormControl(pColors?.useCompanyColors || false, []),
       redirectEnabled: new FormControl(
-        this.profile.config.redirectEnabled || false,
+        this.profile.config.redirectEnabled ?? false,
         []
+      ),
+      note: new FormControl(this.profile.note?._id || '', []),
+      noteShowTitle: new FormControl(
+        this.profile.noteOptions?.showTitle ?? true
       ),
       redirectUrl: new FormControl(this.profile.redirectUrl || '', [
         Validators.pattern(/^([a-z0-9]+:+(\/\/)?)?[\w-]+(\.[\w-]+)+[#?]?.*$/i),
@@ -301,6 +312,10 @@ export class ProfileFormComponent implements OnInit {
     this.controls.customFields.removeAt(index);
   }
 
+  public removeNote() {
+    this.controls.note.setValue('');
+  }
+
   public removeColor(item: FormGroup) {
     const index = this.controls.backgroundColors.value.indexOf(item.value);
 
@@ -345,6 +360,10 @@ export class ProfileFormComponent implements OnInit {
         feedbackEnabled: this.profile.config.feedbackEnabled,
       },
       address,
+      note: (form.note as unknown as NotifyPopulatedNote) || null,
+      noteOptions: {
+        showTitle: !!form.noteShowTitle,
+      },
       reviewRedirect: form.reviewRedirect || null,
       customFields:
         form.customFields?.map((item) => {

@@ -9,6 +9,7 @@ import {
   ProfileViewComponent,
   ShareItemComponent,
 } from '../modules';
+import { ITailwindSelectOption } from '../modules/tailwind-forms/components/tailwind-select/tailwind-select.component';
 import { CapacitorService, UtilsService } from '../services';
 import { LoadingComponent, SaveIndicatorComponent } from '../standalones';
 
@@ -44,6 +45,7 @@ type IProfile = INotifyProfile;
           (value)="updateProfileSubject.emit($event)"
           (submitForm)="saveProfile.emit($event)"
           (removeSavedRedirect)="removeSavedRedirect.emit($event)"
+          [notes]="notes"
           class="w-full 2xl:w-6/12"
         ></notify-profile-form>
 
@@ -118,6 +120,7 @@ export class ProfileTemplateBaseComponent implements OnInit {
   @Input({ required: true }) loading = false;
   @Input({ required: true }) baseUrl = '';
   @Input({ required: true }) savedRedirects: string[] = [];
+  @Input({ required: true }) notes: ITailwindSelectOption[] = [];
 
   @Output() previewProfile = new EventEmitter<INotifyProfile>();
   @Output() saveProfile = new EventEmitter<INotifyProfile>();
