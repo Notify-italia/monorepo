@@ -90,10 +90,7 @@ export class UserFormComponent extends ModalBaseComponent implements OnInit {
         ..._pwValidators,
         passwordMatchValidator,
       ]),
-      role: new FormControl<string>(
-        this.user?.profile?.role || '',
-        this._isRequired('role')
-      ),
+      role: new FormControl<string>(this.user?.profile?.role || ''),
       feedbackEnabled: new FormControl<boolean>(
         this.user?.profile?.config?.feedbackEnabled ?? true,
         []
