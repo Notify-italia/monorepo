@@ -8,13 +8,13 @@ import {
 } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withRouterConfig } from '@angular/router';
-import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { JwtModule } from '@auth0/angular-jwt';
 import { EnumNotifyUserType } from '@notify/interfaces';
 import {
   AuthService,
-  HttpService,
   ProfileService,
   UtilsService,
+  provideAuthService,
   provideHttpService,
   providePageTitleService,
   provideTailwindToasts,
@@ -51,17 +51,10 @@ export const appConfig: ApplicationConfig = {
     UtilsService,
     ProfileService,
     provideHttpService(environment.apiUrl, environment.jwtTokenKey),
-    {
-      provide: AuthService,
-      deps: [HttpService, JwtHelperService],
-      useFactory: (http: HttpService, jwt: JwtHelperService) =>
-        new AuthService(
-          environment.jwtTokenKey,
-          EnumNotifyUserType.Company,
-          http,
-          jwt
-        ),
-    },
+    provideAuthService({
+      jwtTokenKey: environment.jwtTokenKey,
+      userType: EnumNotifyUserType.Company,
+    }),
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,

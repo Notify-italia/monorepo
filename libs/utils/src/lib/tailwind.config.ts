@@ -73,6 +73,8 @@ const tailwindConfig = {
     require('tailwindcss-dotted-background'),
     require('tailwindcss-animated'),
     require('tailwindcss-intersect'),
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require('tailwind-scrollbar')({ nocompatible: true }),
   ],
   daisyui: {
     themes: <unknown[]>[],

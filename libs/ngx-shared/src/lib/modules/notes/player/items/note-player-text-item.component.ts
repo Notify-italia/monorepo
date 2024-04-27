@@ -10,7 +10,6 @@ import { INotifyNoteItemText } from '@notify/interfaces';
 import { Editor, NgxEditorModule } from 'ngx-editor';
 import { NoteItemBaseComponent } from '../../../../constructors/note-item.base.component';
 import { DynamicModuleLoaderService } from '../../../../services/dynamic-module-loader.service';
-
 @Component({
   selector: 'notify-note-text-item',
   standalone: true,
@@ -18,7 +17,7 @@ import { DynamicModuleLoaderService } from '../../../../services/dynamic-module-
   styles: `
   ::ng-deep ngx-editor {
     .NgxEditor {
-      @apply bg-transparent border-none text-current;
+      @apply bg-transparent border-none text-current pointer-events-none;
     }
   }
   

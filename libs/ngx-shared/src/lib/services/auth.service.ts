@@ -138,3 +138,15 @@ export class AuthService {
     localStorage.setItem(this._tokenPath, token);
   }
 }
+
+export const provideAuthService = (config: {
+  jwtTokenKey: string;
+  userType: EnumNotifyUserType;
+}) => {
+  return {
+    provide: AuthService,
+    deps: [HttpService, JwtHelperService],
+    useFactory: (http: HttpService, jwt: JwtHelperService) =>
+      new AuthService(config.jwtTokenKey, config.userType, http, jwt),
+  };
+};

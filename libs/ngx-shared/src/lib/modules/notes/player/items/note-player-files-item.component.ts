@@ -18,7 +18,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
     <div class=" w-full overflow-x-hidden flex flex-col space-y-2 z-0">
       <span class="font-bold text-xl ">{{ itemValue.title }}</span>
 
-      <div class="flex overflow-x-auto w-full">
+      <div class="flex overflow-x-auto w-full notify-scrollbar">
         @for (item of itemFiles; track $index) {
         <a class="file-container smooth" [href]="item.url">
           @switch (item.fileType) { @case ('image') {
