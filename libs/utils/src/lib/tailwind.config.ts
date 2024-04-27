@@ -13,6 +13,7 @@ const tailwindConfig = {
         bebasNeue: ['Bebas Neue', 'sans-serif'],
         caveat: ['Caveat', 'cursive'],
         rocaTwoBold: ['Roca Two Bold', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
       },
       dropShadow: {
         glow: [

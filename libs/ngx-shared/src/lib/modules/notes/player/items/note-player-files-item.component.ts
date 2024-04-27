@@ -15,45 +15,70 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
     TailwindFormsModule,
   ],
   template: `
-    <div class=" w-full overflow-x-hidden flex flex-col space-y-2">
+    <div class=" w-full overflow-x-hidden flex flex-col space-y-2 z-0">
       <span class="font-bold text-xl ">{{ itemValue.title }}</span>
 
-      <div id="carousel-{{ item._id }}" class="flex  w-full h-full space-x-2 ">
-        @for (i of itemFiles;track $index) {
-        <div
-          class="flex flex-col items-center justify-center smooth cursor-pointer"
-          (click)="goToItem($index)"
-          [class.opacity-50]="$index !== currentItem"
-        >
-          <div class="carousel-item" id="slide-{{ item._id }}-{{ $index }}">
-            <a
-              [href]="i.url"
-              target="_blank"
-              [class.pointer-events-none]="$index !== currentItem"
-            >
-              <img
-                (load)="Skeleton.hidden = true"
-                [src]="i.thumb"
-                [alt]="i.name"
-                class="w-fit h-full rounded-lg max-w-40 max-h-28 object-contain !text-current"
-                [ngClass]="{
-                  'w-72 h-72': !i.isImage
-                }"
-              />
-              <div
-                #Skeleton
-                class="object-cover smooth bg-gray-600 animate-pulse w-96 h-72 rounded-lg absolute"
-              ></div>
-            </a>
-          </div>
-          <p class="text-center text-xs font-light max-w-36  truncate">
-            {{ i.name }}
-          </p>
-        </div>
+      <div class="flex overflow-x-auto w-full">
+        @for (item of itemFiles; track $index) {
+        <a class="file-container smooth" [href]="item.url">
+          @switch (item.fileType) { @case ('image') {
+          <img class="w-full h-full object-cover" src="{{ item.url }}" alt="" />
+          } @case ('document') {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-8 h-8"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625ZM7.5 15a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 7.5 15Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H8.25Z"
+              clip-rule="evenodd"
+            />
+            <path
+              d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z"
+            />
+          </svg>
 
+          } @default {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625Z"
+            />
+            <path
+              d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z"
+            />
+          </svg>
+
+          } }
+          <p class="text-xs truncate w-full text-center">
+            {{ item.name }}
+          </p>
+        </a>
         }
       </div>
     </div>
+  `,
+  styles: `
+
+
+  .file-container {
+    @apply w-40 h-40 flex-shrink-0 flex-grow-0 flex-shrink-0 rounded-2xl overflow-hidden relative flex flex-col justify-center items-center mx-2 bg-white/20 p-2 lg:hover:scale-95 cursor-pointer;
+
+    & img {
+      @apply p-1 rounded-xl object-cover z-0 w-full h-full;
+    }
+
+    & svg {
+  @apply w-20 h-full
+}
+
+  }
+
   `,
   styleUrls: ['../../notes.styles.scss'],
 })
@@ -67,46 +92,18 @@ export class NotePlayerFilesItemComponent extends NoteItemBaseComponent {
   public get itemFiles() {
     return this.itemValue.files.map((f) => ({
       ...f,
-      thumb: this._getThumbnail(f),
       isImage: f.type.startsWith('image'),
+      fileType: this._getFileType(f),
     }));
   }
 
-  public goToItem(index: number) {
-    this.currentItem = index;
-    this._scrollToCurrentItem();
-  }
-
-  private _getThumbnail(file: INotifyNoteItemFile) {
+  private _getFileType(file: INotifyNoteItemFile) {
     if (file.type.startsWith('image')) {
-      return file.url;
+      return 'image';
     }
-
-    //is pdf
-    if (file.type.startsWith('application/pdf')) {
-      return 'https://s3-api.vps.notifyapp.it/assets/files-icon/pdf.png';
+    if (file.type.startsWith('application/pdf') || file.type.endsWith('.pdf')) {
+      return 'document';
     }
-    return 'https://s3-api.vps.notifyapp.it/assets/files-icon/generic.png';
-  }
-
-  private _scrollToCurrentItem() {
-    //slide to current item in carousel WITHOUT using scrollIntoView
-    const slide = document.getElementById(
-      `slide-${this.item._id}-${this.currentItem}`
-    );
-
-    if (!slide) {
-      return;
-    }
-
-    const carousel = document.getElementById(`carousel-${this.item._id}`);
-
-    if (!carousel) {
-      return;
-    }
-    carousel.scrollTo({
-      left: slide.offsetLeft - carousel.clientWidth / 2 + slide.clientWidth / 2,
-      behavior: 'smooth',
-    });
+    return 'other';
   }
 }
