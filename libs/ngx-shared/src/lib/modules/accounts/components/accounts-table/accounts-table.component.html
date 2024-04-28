@@ -70,7 +70,7 @@
             <tbody>
               @if (users?.length) {
               <!-- row 1 -->
-              @for (user of users; track user._id) {
+              @for (user of users; track user?._id) {
               <tr
                 (click)="config.clickableRow ? rowClicked.emit(user) : null"
                 notify-accounts-row

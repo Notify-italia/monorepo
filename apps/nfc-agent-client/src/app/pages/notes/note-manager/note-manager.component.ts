@@ -210,6 +210,10 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
 
     return combineLatest([agents, company]).pipe(
       map(([users, company]) => {
+        if (!company) {
+          return users;
+        }
+
         return [...users, company as INotifyUser];
       })
     );
