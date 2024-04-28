@@ -35,7 +35,7 @@ export class NotesListComponent {
       color: 'w-8 h-8 rounded-full p-2',
       flexCol: 'flex flex-col',
       flexRowSpaced: 'flex items-center space-x-4',
-      h1: 'text-lg font-bold truncate w-40 lg:w-96 xl:w-[50rem]',
+      h1: 'text-lg font-bold truncate w-56 lg:w-96 xl:w-[50rem]',
       subtitle: 'text-sm text-gray-500',
     },
   };

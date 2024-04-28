@@ -12,7 +12,7 @@
         <button
           [disabled]="loading"
           type="button"
-          class="utils-button !bg-complimentary-400/50 !border-complimentary-300/70 smooth !shadow min-w-52"
+          class="utils-button !bg-complimentary-400/50 !border-complimentary-300/70 smooth !shadow"
           (click)="goBack()"
         >
           <svg
@@ -28,7 +28,7 @@
               d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
             />
           </svg>
-          <span>Torna alla lista</span>
+          <span>Indietro</span>
         </button>
 
         <!-- DELETE NOTE -->
@@ -36,7 +36,7 @@
           [disabled]="loading"
           (click)="deleteNote()"
           type="button"
-          class="utils-button !bg-red-500 !border-red-600 smooth min-w-52"
+          class="utils-button !bg-red-500 !border-red-600 smooth"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,7 @@
             />
           </svg>
 
-          <span>Elimina Nota</span>
+          <span>Elimina</span>
         </button>
       </div>
 

@@ -21,63 +21,58 @@ export class HomeComponent {
   public currentVersionDate = '2024-03-22';
 
   public latestChangelog: INotifyVersionInfo = {
-    tag: 'v0.9.0',
-    date: '2024-03-22',
-    title: '📝 Closed Beta',
+    tag: 'v0.9.1',
+    date: '2024-04-28',
+    title: '📓 Migliorie Note-voli',
     description:
-      "Notify entra in Closed Beta! Se stai leggendo questo messaggio puoi richiedere un invito per scaricare l'app nativa inviandoci un'email a supporto@notifyapp.it",
+      'Le note tornano in Notify con nuove funzionalità e miglioramenti. Ora di nuovo possibile creare, modificare e cancellare note, condividere note con colleghi e molto altro. Scopri tutte le novità di questa versione!',
     artPath:
-      'https://s3-api.vps.notifyapp.it/assets/version-art/v0.9.0-agent.webp',
+      'https://s3-api.vps.notifyapp.it/assets/version-art/v0.9.1-agent.webp',
     changes: [
       {
-        type: 'improvement',
+        type: 'new',
         message:
-          '<b>Changelogs</b>: Modificato il layout del changelog per renderlo più leggibile',
-      },
-      {
-        type: 'improvement',
-        message:
-          '<b>Menu di Navigazione</b>: Aggiunta una gesture, da mobile, per aprire il menu',
-      },
-      {
-        type: 'improvement',
-        message:
-          'Aumentato lo spazio utile per la visualizzazione delle varie pagine',
-      },
-      {
-        type: 'fix',
-        message:
-          '<b>Profilo</b>: Corretto un problema che impediva la corretta visualizzazione della Bio',
-      },
-      {
-        type: 'improvement',
-        message:
-          '<b>Pannello Profilo</b>: Modificato il comportamento dei pulsanti di gestione delle integrazioni',
+          "<b>Note</b>: è ora possibile usare l'elemento 'Foto' per aggiungere immagini alle note, per rendere più chiare e dettagliate le informazioni.",
       },
       {
         type: 'new',
         message:
-          'è ora possibile scrivere il proprio, quello aziendale o il profilo di un collega su un supporto NFC in completa autonomia, tramite Notify per iOS e Android',
+          "<b>Note</b>: è ora possibile usare l'elemento 'Files' per allegare vari files ad una nota, i files possono essere di qualsiasi tipo.",
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Note</b>: è stato migliorato il layout del dettaglio delle note e della lista, per una migliore esperienza utente.',
+      },
+      {
+        type: 'improvement',
+        message:
+          "<b>Note</b>: L'elemento 'Checklist' offre nuove shortcut da tastiera, permettendo di spostarsi tra gli elementi, rimuoverli e aggiungerne di nuovi.",
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Pannello Profilo</b>: è ora possibile mostrare una nota sul proprio profilo, al di sotto delle informazioni personali.',
+      },
+      {
+        type: 'improvement',
+        message: `<b>Pannello Profilo</b>: il riquadro dello stato di salvataggio delle modifiche adesso è sempre visibile`,
+      },
+      {
+        type: 'improvement',
+        message: `<b>Pannello Profilo</b>: Migliorata la visualizzazione della preview del profilo`,
       },
       {
         type: 'fix',
-        message:
-          '<b>Pannello Profilo</b>: Corretto un problema che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL',
+        message: `Risolti alcuni problemi di stabilità dell'applicazione`,
       },
       {
         type: 'fix',
-        message:
-          '<b>Colleghi</b>: Corretto un problema che impediva la corretta visualizzazione di alcune opzioni di condivisione del profilo',
+        message: `Risolti alcuni problemi di visualizzazione del grafico "Integrazioni" nella dashboard`,
       },
       {
         type: 'fix',
-        message:
-          'Corretto un problema che impediva la selezione degli elementi nei dropdown avanzati su Safari',
-      },
-      {
-        type: 'fix',
-        message:
-          '<b>Pannello Profilo</b>: Corretto un problema che causava la ripetuta ricarica della pagina di preview di un URL',
+        message: `Risolti un problema che causava, nelle note, uno sfondo verde non corretto durante la visualizzazione degli editors`,
       },
     ],
   };

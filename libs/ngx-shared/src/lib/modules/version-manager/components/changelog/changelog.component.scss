@@ -16,7 +16,7 @@
       @apply flex space-x-2 lg:text-lg text-gray-300;
 
       & > span {
-        @apply w-5 border border-cyan-400 h-[1px] my-auto;
+        @apply w-4 border border-cyan-400 h-[1px] my-auto shrink-0;
       }
 
       & > p {
