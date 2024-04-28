@@ -17,8 +17,8 @@ import {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  public currentVersionLabel = 'v0.9.0';
-  public currentVersionDate = '2024-03-22';
+  public currentVersionLabel = 'v0.9.1';
+  public currentVersionDate = '2024-04-28';
 
   public latestChangelog: INotifyVersionInfo = {
     tag: 'v0.9.1',
@@ -38,6 +38,11 @@ export class HomeComponent {
         type: 'new',
         message:
           "<b>Note</b>: è ora possibile usare l'elemento 'Files' per allegare vari files ad una nota, i files possono essere di qualsiasi tipo.",
+      },
+      {
+        type: 'improvement',
+        message:
+          "<b>Note</b>: è ora possibile aggiungere come editor l'account aziendale, oltre a quello dei colleghi",
       },
       {
         type: 'improvement',

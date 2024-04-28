@@ -17,45 +17,72 @@ import {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  public currentVersionLabel = 'v0.8.3';
-  public currentVersionDate = '2024-03-24';
+  public currentVersionLabel = 'v0.8.4';
+  public currentVersionDate = '2024-04-28';
 
   public latestChangelog: INotifyVersionInfo = {
-    tag: 'v0.8.3',
-    date: '2024-03-25',
-    title: '🦾 Accessibilità e Usabilità',
+    tag: 'v0.8.4',
+    date: '2024-04-28',
+    title: '📓 Migliorie Note-voli',
     description:
-      "La versione 0.8.0 introduce alcune migliorie all'accessibilità e all'usabilità dell'applicazione. Inoltre, sono state introdotte nuove funzionalità per la gestione degli utenti e per la visualizzazione dei changelogs.",
-    artPath: 'https://s3-api.vps.notifyapp.it/assets/version-art/v0.8.0.webp',
+      'Le note tornano in Notify con nuove funzionalità e miglioramenti. Ora di nuovo possibile creare, modificare e cancellare note, condividere note con colleghi e molto altro. Scopri tutte le novità di questa versione!',
+    artPath:
+      'https://s3-api.vps.notifyapp.it/assets/version-art/v0.8.4-company.webp',
     changes: [
       {
-        type: 'improvement',
+        type: 'new',
         message:
-          '<b>Changelogs</b>: Modificato il layout del changelog per renderlo più leggibile',
+          "<b>Note</b>: è ora possibile gestire le note dall'account aziendale e aggiungere come editor gli utenti dell'azienda",
+      },
+      {
+        type: 'new',
+        message:
+          "<b>Note</b>: è ora possibile usare l'elemento 'Foto' per aggiungere immagini alle note, per rendere più chiare e dettagliate le informazioni.",
+      },
+      {
+        type: 'new',
+        message:
+          "<b>Note</b>: è ora possibile usare l'elemento 'Files' per allegare vari files ad una nota, i files possono essere di qualsiasi tipo.",
       },
       {
         type: 'improvement',
         message:
-          '<b>Menu di Navigazione</b>: Aggiunta una gesture, da mobile, per aprire il menu',
+          "<b>Note</b>: è ora possibile aggiungere come editor l'account aziendale, oltre a quello dei colleghi",
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Note</b>: è stato migliorato il layout del dettaglio delle note e della lista, per una migliore esperienza utente.',
+      },
+      {
+        type: 'improvement',
+        message:
+          "<b>Note</b>: L'elemento 'Checklist' offre nuove shortcut da tastiera, permettendo di spostarsi tra gli elementi, rimuoverli e aggiungerne di nuovi.",
+      },
+      {
+        type: 'improvement',
+        message:
+          '<b>Pannello Profilo</b>: è ora possibile mostrare una nota sul proprio profilo, al di sotto delle informazioni personali.',
+      },
+      {
+        type: 'improvement',
+        message: `<b>Pannello Profilo</b>: il riquadro dello stato di salvataggio delle modifiche adesso è sempre visibile`,
+      },
+      {
+        type: 'improvement',
+        message: `<b>Pannello Profilo</b>: Migliorata la visualizzazione della preview del profilo`,
       },
       {
         type: 'fix',
-        message:
-          '<b>Profilo</b>: Corretto un problema che impediva la corretta visualizzazione della Bio',
-      },
-      {
-        type: 'improvement',
-        message:
-          '<b>Pannello Profilo</b>: Modificato il comportamento dei pulsanti di gestione delle integrazioni',
+        message: `Risolti alcuni problemi di stabilità dell'applicazione`,
       },
       {
         type: 'fix',
-        message:
-          '<b>Pannello Profilo</b>: Corretto un problema che causava il passaggio indesiderato tra la moodalità contatto e la modalità URL',
+        message: `Risolti alcuni problemi di visualizzazione del grafico "Integrazioni" nelle analytics`,
       },
       {
-        type: 'improvement',
-        message: `<b>Analytics</b>: Il pannello di visualizzazione dei dati di un utente adesso segue lo scroll della pagina`,
+        type: 'fix',
+        message: `Risolti un problema che causava, nelle note, uno sfondo verde non corretto durante la visualizzazione degli editors`,
       },
     ],
   };
