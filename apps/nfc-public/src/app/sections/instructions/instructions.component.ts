@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, Component } from '@angular/core';
-import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
+import {
+  EnumNotifyUserType,
+  INotifyProfile,
+  NotifyPopulatedNote,
+} from '@notify/interfaces';
 import {
   ProfileService,
   ProfileViewComponent,
@@ -97,4 +101,5 @@ const _DEMO_PROFILE: INotifyProfile<EnumNotifyUserType.Company> = {
     useCompanyColors: null,
   },
   redirectUrl: 'notifyapp.it',
+  note: null as unknown as NotifyPopulatedNote,
 };
