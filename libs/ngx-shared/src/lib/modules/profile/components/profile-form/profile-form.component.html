@@ -390,7 +390,12 @@
       </div>
       }
 
-      <div class="section box p-4 w-full">
+      <div
+        class="section box p-4 w-full"
+        [ngClass]="{
+          'opacity-50 pointer-events-none': !notes.length
+        }"
+      >
         <div class="divider divider-start">Collega una nota</div>
 
         <notify-tailwind-select
@@ -402,6 +407,8 @@
           [options]="notes"
           [validationErrors]="validationErrors"
         ></notify-tailwind-select>
+
+        @if (form.value.note) {
         <div class="flex w-full justify-around">
           <a
             tabindex="0"
@@ -420,8 +427,6 @@
           ></button>
         </div>
         <div class="divider !mt-0"></div>
-
-        @if (form.value.note) {
         <notify-tailwind-checkbox
           [parent]="form"
           name="noteShowTitle"
