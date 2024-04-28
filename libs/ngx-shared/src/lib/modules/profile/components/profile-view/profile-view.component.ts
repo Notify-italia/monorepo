@@ -56,6 +56,14 @@ export class ProfileViewComponent implements OnInit {
     return this.data?.config?.feedbackEnabled || !this.isAgent;
   }
 
+  public get viewNgClass() {
+    return {
+      'display pt-20 notify-scrollbar scrollbar-absolute scrollbar-white':
+        this.mockup,
+      'h-full  min-h-screen  w-screen': !this.mockup,
+    };
+  }
+
   //TODO questa cosa è temporanea, va rimossa appena ci sarà la personalizzazione avanzata del profilo
   public get isOssidiana(): boolean {
     const ids = [

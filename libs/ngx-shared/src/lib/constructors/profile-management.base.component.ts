@@ -55,16 +55,15 @@ export class ProfileManagementBaseComponent implements OnDestroy {
   public destroy$ = new Subject<void>();
   public debouncedNextProfile$: Subject<INotifyProfile> =
     new Subject<INotifyProfile>();
-  public notes$: Observable<ITailwindSelectOption[]> = this._noteService
-    .getNotes()
-    .pipe(
-      map((notes) =>
-        notes.map((note) => ({
-          name: note.title,
-          value: note._id,
-        }))
-      )
-    );
+  public notes$ = this._noteService.getNotes();
+  public notesSelect$: Observable<ITailwindSelectOption[]> = this.notes$.pipe(
+    map((notes) =>
+      notes.map((note) => ({
+        name: note.title,
+        value: note._id,
+      }))
+    )
+  );
   /**
    * Variables
    */

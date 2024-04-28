@@ -184,9 +184,12 @@
 .notify-scrollbar {
   @apply scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-current scrollbar-track-transparent;
   overflow: auto;
-  scrollbar-gutter: stable both-edges;
   &.scrollbar-white {
     @apply scrollbar-thumb-white;
+  }
+
+  &.scrollbar-absolute {
+    scrollbar-gutter: stable both-edges;
   }
 }
 
@@ -272,8 +275,4 @@
   100% {
     transform: scale(1);
   }
-}
-
-.scroll-lock {
-  overflow: hidden;
 }

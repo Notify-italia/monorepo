@@ -44,6 +44,7 @@
         (previewProfile)="previewProfile($event)"
         (saveProfile)="saveProfile($event)"
         (removeSavedRedirect)="removeSavedRedirect($event)"
+        [notes]="(sharedNotesSelect$ | async) || []"
       ></notify-profile-management-template-base>
     </div>
   </div>

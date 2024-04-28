@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
+  AgentService,
   CachedSrcDirective,
   LoadingComponent,
+  NoteService,
   PageHeaderComponent,
   ProfileFormComponent,
   ProfileManagementBaseComponent,
@@ -16,7 +18,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
 import { CompanyService, UtilsService } from '@notify/ngx-shared';
-import { tap } from 'rxjs';
+import { combineLatest, map, take, tap } from 'rxjs';
 import { environment } from '../../../../src/environments/environment';
 
 @Component({
@@ -34,12 +36,32 @@ import { environment } from '../../../../src/environments/environment';
     CachedSrcDirective,
     ProfileTemplateBaseComponent,
   ],
-  providers: [ProfilePlayerFactory, UtilsService, CompanyService],
+  providers: [
+    ProfilePlayerFactory,
+    UtilsService,
+    CompanyService,
+    NoteService,
+    AgentService,
+  ],
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
 })
 export class ProfileManagementComponent extends ProfileManagementBaseComponent {
-  constructor(private _companyService: CompanyService) {
+  public sharedNotesSelect$ = combineLatest([this.profile$, this.notes$]).pipe(
+    take(1),
+    map(([a, notes]) => notes.filter((n) => n.owners.includes(a.owner || ''))),
+    map((notes) =>
+      notes.map((note) => ({
+        name: note.title,
+        value: note._id,
+      }))
+    )
+  );
+
+  constructor(
+    private _companyService: CompanyService,
+    private _agentService: AgentService
+  ) {
     super(environment as unknown as { [key: string]: string });
   }
 

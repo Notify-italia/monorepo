@@ -1,25 +1,15 @@
+<notify-save-indicator
+  class="w-full"
+  [isSaving]="loading"
+  [lastSave]="note.updatedAt"
+  [followPage]="true"
+  (save)="noteChanged.emit(currentNote)"
+></notify-save-indicator>
 <div class="flex flex-col justify-center w-full h-full space-y-2">
   <notify-note-menu
     class="flex justify-center z-50"
     (itemClick)="addItem($event)"
   ></notify-note-menu>
-
-  <div
-    class="flex flex-col lg:flex-row justify-center w-full space-y-2 lg:space-y-0 lg:space-x-2 items-center"
-  >
-    <notify-share-item
-      [config]="shareConfig"
-      class="w-full"
-      [compact]="true"
-    ></notify-share-item>
-
-    <notify-save-indicator
-      class="w-full"
-      [isSaving]="loading"
-      [lastSave]="note.updatedAt"
-      (save)="noteChanged.emit(currentNote)"
-    ></notify-save-indicator>
-  </div>
 
   <notify-note-header
     [note]="currentNote"

@@ -15,10 +15,7 @@
     [ngStyle]="{
       background: 'linear-gradient(' + cssGradientStops + ')'
     }"
-    [ngClass]="{
-      'display pt-20 notify-scrollbar scrollbar-white': mockup,
-      'h-full  min-h-screen  w-screen': !mockup,
-    }"
+    [ngClass]="viewNgClass"
     [cssGradientStops]="cssGradientStops"
     [data]="data"
     [cssElementsColor]="cssElementsColor"
@@ -39,10 +36,7 @@
       background: url('/assets/ossidiana-card-bg.png');
       background-size: cover;
     "
-    [ngClass]="{
-      'display pt-20 notify-scrollbar scrollbar-white ': mockup,
-      'h-full min-h-screen  w-screen': !mockup,
-    }"
+    [ngClass]="viewNgClass"
     [cssGradientStops]="cssGradientStops"
     [data]="data"
     [cssElementsColor]="cssElementsColor"
@@ -61,10 +55,7 @@
     [ngStyle]="{
       background: 'linear-gradient(' + cssGradientStops + ')'
     }"
-    [ngClass]="{
-      'display pt-20  notify-scrollbar scrollbar-white': mockup,
-      'h-full min-h-screen  w-screen': !mockup,
-    }"
+    [ngClass]="viewNgClass"
     [cssGradientStops]="cssGradientStops"
     [data]="data"
     [cssElementsColor]="cssElementsColor"

@@ -15,10 +15,10 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
     TailwindFormsModule,
   ],
   template: `
-    <div class=" w-full overflow-x-hidden flex flex-col space-y-2 z-0">
+    <div class=" w-full  space-y-2 z-0">
       <span class="font-bold text-xl ">{{ itemValue.title }}</span>
 
-      <div class="flex overflow-x-auto w-full notify-scrollbar">
+      <div class="flex !w-full notify-scrollbar  space-x-2 ">
         @for (item of itemFiles; track $index) {
         <a class="file-container smooth" [href]="item.url">
           @switch (item.fileType) { @case ('image') {
@@ -67,7 +67,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
 
 
   .file-container {
-    @apply w-40 h-40 flex-shrink-0 flex-grow-0 flex-shrink-0 rounded-2xl overflow-hidden relative flex flex-col justify-center items-center mx-2 bg-white/20 p-2 lg:hover:scale-95 cursor-pointer;
+    @apply w-40 h-40 flex-shrink-0 flex-grow-0 flex-shrink-0 rounded-2xl overflow-hidden relative flex flex-col justify-center items-center  bg-white/20 p-2 lg:hover:scale-95 cursor-pointer;
 
     & img {
       @apply p-1 rounded-xl object-cover z-0 w-full h-full;
