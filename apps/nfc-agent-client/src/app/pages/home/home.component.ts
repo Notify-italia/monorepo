@@ -77,7 +77,11 @@ export class HomeComponent {
       },
       {
         type: 'fix',
-        message: `Risolti un problema che causava, nelle note, uno sfondo verde non corretto durante la visualizzazione degli editors`,
+        message: `Risolto un problema che causava, nelle note, uno sfondo verde non corretto durante la visualizzazione degli editors`,
+      },
+      {
+        type: 'fix',
+        message: `<b>Profilo:</b> Risolto un problema che causava una non corretta visualizzazione delle integrazioni se erano 2`,
       },
     ],
   };

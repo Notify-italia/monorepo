@@ -1,0 +1,13 @@
+diff --git a/node_modules/@nx-bun/nx/package.json b/node_modules/@nx-bun/nx/package.json
+index b400f50..c9dd1ef 100644
+--- a/node_modules/@nx-bun/nx/package.json
++++ b/node_modules/@nx-bun/nx/package.json
+@@ -6,7 +6,7 @@
+     "tslib": "^2.3.0"
+   },
+   "peerDependencies": {
+-    "@nx/devkit": ">16.8.0 <18"
++    "@nx/devkit": ">=16.8.0"
+   },
+   "repository": {
+     "url": "https://github.com/Jordan-Hall/nx-bun/tree/master/packages/nx-bun",

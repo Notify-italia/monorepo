@@ -1,9 +1,9 @@
 <div
-  class="flex !w-full section !flex-row module !p-0 module-clear justify-evenly flex-wrap mx-auto"
+  class="flex !w-full section !flex-row module !p-0 module-clear justify-center"
   *ngIf="data?.length as cfLength"
   [ngClass]="{
     'flex-nowrap': cfLength < 3,
-    'module-blur flex-wrap': cfLength >= 3
+    'module-blur flex-wrap !justify-evenly': cfLength >= 3
   }"
 >
   @for (item of data; track item.value) {

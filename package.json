@@ -5,7 +5,8 @@
   "scripts": {
     "cap-ios": "nx run nfc-agent-client:cap:open-ios",
     "cap-android": "nx run nfc-agent-client:cap:open-android",
-    "cap-sync": "nx build nfc-agent-client --prod && nx run nfc-agent-client:cap:sync"
+    "cap-sync": "nx build nfc-agent-client --prod && nx run nfc-agent-client:cap:sync",
+    "postinstall": "patch-package"
   },
   "private": true,
   "dependencies": {
@@ -137,6 +138,7 @@
     "jsonc-eslint-parser": "^2.1.0",
     "ng-packagr": "17.3.0",
     "nx": "18.2.2",
+    "patch-package": "^8.0.0",
     "postcss": "^8.4.5",
     "postcss-import": "~14.1.0",
     "postcss-preset-env": "~7.5.0",
