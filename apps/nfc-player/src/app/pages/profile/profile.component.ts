@@ -150,7 +150,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   public handleHorizontalSwipe($event: number, profile: INotifyProfile) {
-    if (!this.isAgent(profile)) {
+    if (!this.isAgent(profile) || profile.note) {
       return;
     }
 

@@ -15,12 +15,18 @@ export class ProfileService {
     return phoneNumber.replace(/[^0-9]/g, '');
   }
 
-  public buildCompanyLocation(d?: INotifyProfile['address']) {
+  public buildCompanyLocation(p?: INotifyProfile) {
+    const d = p?.address;
     if (!d || !d.street || !d.number || !d.city) {
       return null;
     }
 
-    return `${d.street} ${d.number}, ${d.city}`;
+    const _address = `${d.street} ${d.number}, ${d.city}`;
+
+    return {
+      address: `${_address} ${p.name || ''}`.replace(' ', '+').toLowerCase(),
+      label: _address,
+    };
   }
 
   public patchProfile<T extends EnumNotifyUserType>(
@@ -74,7 +80,7 @@ PHOTO;ENCODING=b:${avatar?.split(',')[1]}
 item2.URL;type=pref:${
       `${publicUrl}/profile?p=${d._id}` + EnumNotifyProfileSources.Contacts
     }
-ADR;TYPE=work:;;${this.buildCompanyLocation(d?.company?.address || d.address)}
+ADR;TYPE=work:;;${this.buildCompanyLocation(d?.company)?.label}
 EMAIL:${d.email}
 END:VCARD`;
 

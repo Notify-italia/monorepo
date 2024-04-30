@@ -33,15 +33,18 @@
 
   <div
     class="section w-full"
-    *ngIf="profileService.buildCompanyLocation(data?.address) as p"
+    *ngIf="profileService.buildCompanyLocation(data) as p"
   >
     <div
       class="module module-blur !py-2 text-center my-1.5 text-sm"
       [ngStyle]="{ color: cssElementsColor }"
     >
-      {{ p | titlecase }}
+      {{ p.label | titlecase }}
     </div>
-    <notify-google-maps [address]="p" class="!w-[90%]"></notify-google-maps>
+    <notify-google-maps
+      [address]="p.address"
+      class="!w-[90%]"
+    ></notify-google-maps>
   </div>
 
   <div class="section w-full" *ngIf="data?.note as n">

@@ -15,17 +15,17 @@ import { DynamicModuleLoaderService } from '../../../../services/dynamic-module-
   standalone: true,
   imports: [CommonModule, NgxEditorModule, ReactiveFormsModule],
   styles: `
-  ::ng-deep ngx-editor {
-    .NgxEditor {
-      @apply bg-transparent border-none text-current pointer-events-none;
-    }
+  ::ng-deep .NgxEditor {    
+    background-color: transparent !important;
+    border: none !important;
+    color: currentColor !important;
+    pointer-events: none !important;
   }
   
   `,
   template: `
     <ngx-editor [editor]="editor" [formControl]="fcContent"></ngx-editor>
   `,
-  styleUrls: ['../../notes.styles.scss'],
 })
 export class NotePlayerTextItemComponent extends NoteItemBaseComponent {
   public get itemValue() {

@@ -84,6 +84,14 @@ export class HomeComponent {
         type: 'fix',
         message: `Risolti un problema che causava, nelle note, uno sfondo verde non corretto durante la visualizzazione degli editors`,
       },
+      {
+        type: 'fix',
+        message: `La mappa dell'indirizzo aziendale adesso riporta correttamente all'azienda di appartenenza su Google Maps`,
+      },
+      {
+        type: 'improvement',
+        message: `<b>Changelog</b>: Aggiunto un pulsante per chiudere il modale del changelog`,
+      },
     ],
   };
 

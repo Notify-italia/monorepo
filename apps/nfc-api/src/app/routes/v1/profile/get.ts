@@ -80,7 +80,9 @@ const _agentFlow = async <T>(req: Request<T>, res: Response) => {
 const _companyFlow = async <T>(req: Request<T>, res: Response) => {
   const profile = await ProfileModel.findOne({
     owner: req.currentUser._id,
-  }).lean();
+  })
+    .populate('note')
+    .lean();
 
   if (!profile) {
     throw new BadRequestError(PROFILE_VALIDATION_MESSAGES._id as string);

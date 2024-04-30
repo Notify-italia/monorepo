@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./google-maps.component.scss'],
 })
 export class GoogleMapsComponent implements OnInit, OnChanges {
-  @Input() address: string = '';
+  @Input() address = '';
   @Input() mapClass = 'rounded-lg w-full h-full';
 
   public location$ = new BehaviorSubject<SafeResourceUrl>('');

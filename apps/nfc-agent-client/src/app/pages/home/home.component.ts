@@ -68,8 +68,16 @@ export class HomeComponent {
         message: `<b>Pannello Profilo</b>: Migliorata la visualizzazione della preview del profilo`,
       },
       {
+        type: 'improvement',
+        message: `<b>Changelog</b>: Aggiunto un pulsante per chiudere il modale del changelog`,
+      },
+      {
         type: 'fix',
         message: `Risolti alcuni problemi di stabilità dell'applicazione`,
+      },
+      {
+        type: 'fix',
+        message: `La mappa dell'indirizzo aziendale adesso riporta correttamente all'azienda di appartenenza su Google Maps`,
       },
       {
         type: 'fix',
