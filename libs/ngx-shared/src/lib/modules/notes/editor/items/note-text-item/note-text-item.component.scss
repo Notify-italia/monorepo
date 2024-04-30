@@ -4,6 +4,16 @@
   }
 }
 
+::ng-deep .NgxEditor__Content {
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+}
+
 ::ng-deep ngx-editor-menu {
   .NgxEditor__MenuBar {
     @apply bg-transparent flex-nowrap overflow-visible;
