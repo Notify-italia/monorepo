@@ -113,6 +113,8 @@ export class ShareItemComponent {
   public async writeNfc() {
     this._nfcFactory.create({
       ...this.config.nfc,
+      questionLabel:
+        this.config.nfc.questionLabel || this._defaultNFCQuestionLabel(),
       blurBackground: !this.config.isInModal,
       playerBaseUrl: this.config.baseUrl,
     });
@@ -127,5 +129,14 @@ export class ShareItemComponent {
       `${this.config.baseUrl}/${this.config.type}?${queryKey}=${this.config.id}` +
       _source
     );
+  }
+
+  private _defaultNFCQuestionLabel() {
+    switch (this.config.type) {
+      case 'profile':
+        return 'Quale profile vuoi scrivere sul supporto NFC?';
+      case 'note':
+        return '';
+    }
   }
 }
