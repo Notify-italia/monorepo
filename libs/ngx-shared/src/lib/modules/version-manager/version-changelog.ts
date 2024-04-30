@@ -19,6 +19,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
     type: 'improvement',
     message:
+      "<b>Note</b>: è ora possibile aggiungere liste ordinate e non all'elemento 'Testo'",
+  },
+  {
+    type: 'improvement',
+    message:
       '<b>Pannello Profilo</b>: è ora possibile mostrare una nota sul proprio profilo, al di sotto delle informazioni personali.',
   },
   {
