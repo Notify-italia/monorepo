@@ -1,3 +1,5 @@
+import TailwindScrollbar from 'tailwind-scrollbar';
+
 const tailwindConfig = {
   theme: {
     extend: {
@@ -73,8 +75,7 @@ const tailwindConfig = {
     require('tailwindcss-dotted-background'),
     require('tailwindcss-animated'),
     require('tailwindcss-intersect'),
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require('tailwind-scrollbar')({ nocompatible: true }),
+    TailwindScrollbar({ nocompatible: true }),
   ],
   daisyui: {
     themes: <unknown[]>[],

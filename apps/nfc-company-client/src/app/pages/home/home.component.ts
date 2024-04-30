@@ -4,9 +4,9 @@ import { RouterModule } from '@angular/router';
 import {
   AuthService,
   ChangelogFactory,
-  INotifyVersionInfo,
   NavComponent,
   NavItem,
+  companyChangelog,
 } from '@notify/ngx-shared';
 
 @Component({
@@ -20,80 +20,7 @@ export class HomeComponent {
   public currentVersionLabel = 'v0.8.4';
   public currentVersionDate = '2024-04-28';
 
-  public latestChangelog: INotifyVersionInfo = {
-    tag: 'v0.8.4',
-    date: '2024-04-28',
-    title: '📓 Migliorie Note-voli',
-    description:
-      'Le note tornano in Notify con nuove funzionalità e miglioramenti. Ora di nuovo possibile creare, modificare e cancellare note, condividere note con colleghi e molto altro. Scopri tutte le novità di questa versione!',
-    artPath:
-      'https://s3-api.vps.notifyapp.it/assets/version-art/v0.8.4-company.webp',
-    changes: [
-      {
-        type: 'new',
-        message:
-          "<b>Note</b>: è ora possibile gestire le note dall'account aziendale e aggiungere come editor gli utenti dell'azienda",
-      },
-      {
-        type: 'new',
-        message:
-          "<b>Note</b>: è ora possibile usare l'elemento 'Foto' per aggiungere immagini alle note, per rendere più chiare e dettagliate le informazioni.",
-      },
-      {
-        type: 'new',
-        message:
-          "<b>Note</b>: è ora possibile usare l'elemento 'Files' per allegare vari files ad una nota, i files possono essere di qualsiasi tipo.",
-      },
-      {
-        type: 'improvement',
-        message:
-          "<b>Note</b>: è ora possibile aggiungere come editor l'account aziendale, oltre a quello dei colleghi",
-      },
-      {
-        type: 'improvement',
-        message:
-          '<b>Note</b>: è stato migliorato il layout del dettaglio delle note e della lista, per una migliore esperienza utente.',
-      },
-      {
-        type: 'improvement',
-        message:
-          "<b>Note</b>: L'elemento 'Checklist' offre nuove shortcut da tastiera, permettendo di spostarsi tra gli elementi, rimuoverli e aggiungerne di nuovi.",
-      },
-      {
-        type: 'improvement',
-        message:
-          '<b>Pannello Profilo</b>: è ora possibile mostrare una nota sul proprio profilo, al di sotto delle informazioni personali.',
-      },
-      {
-        type: 'improvement',
-        message: `<b>Pannello Profilo</b>: il riquadro dello stato di salvataggio delle modifiche adesso è sempre visibile`,
-      },
-      {
-        type: 'improvement',
-        message: `<b>Pannello Profilo</b>: Migliorata la visualizzazione della preview del profilo`,
-      },
-      {
-        type: 'fix',
-        message: `Risolti alcuni problemi di stabilità dell'applicazione`,
-      },
-      {
-        type: 'fix',
-        message: `Risolti alcuni problemi di visualizzazione del grafico "Integrazioni" nelle analytics`,
-      },
-      {
-        type: 'fix',
-        message: `Risolti un problema che causava, nelle note, uno sfondo verde non corretto durante la visualizzazione degli editors`,
-      },
-      {
-        type: 'fix',
-        message: `La mappa dell'indirizzo aziendale adesso riporta correttamente all'azienda di appartenenza su Google Maps`,
-      },
-      {
-        type: 'improvement',
-        message: `<b>Changelog</b>: Aggiunto un pulsante per chiudere il modale del changelog`,
-      },
-    ],
-  };
+  public latestChangelog = companyChangelog;
 
   public nav: NavItem[] = [
     {

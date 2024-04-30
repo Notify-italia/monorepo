@@ -36,7 +36,7 @@ type IProfile = INotifyProfile;
       <div class="divider"></div>
 
       <div
-        class="lg:flex justify-around lg:space-x-4 space-y-4 lg:space-y-0 items-start w-full"
+        class="flex flex-col lg:flex-row items-center lg:items-stretch lg:justify-around lg:space-x-4 space-y-4 lg:space-y-0 w-full h-full "
       >
         <notify-profile-form
           [profile]="profile"
@@ -46,30 +46,35 @@ type IProfile = INotifyProfile;
           (submitForm)="saveProfile.emit($event)"
           (removeSavedRedirect)="removeSavedRedirect.emit($event)"
           [notes]="notes"
-          class="w-full 2xl:w-6/12"
+          class="w-full 2xl:w-6/12 "
         ></notify-profile-form>
 
-        <div class="w-6/12 p-2 flex justify-center relative">
-          <notify-profile-view
-            *ngIf="!profile.config.redirectEnabled"
-            [data]="profile"
-            [mockup]="true"
-            class="iphone-15-pro hidden lg:block absolute scale-75 2xl:scale-100 top-10"
-          ></notify-profile-view>
-
+        <div
+          class="lg:w-6/12  relative flex justify-center "
+          [ngClass]="profile.config.redirectEnabled ? 'h-fit' : 'max-h-max '"
+        >
+          @if (profile.config.redirectEnabled) {
           <div
-            class="hidden lg:flex absolute scale-75 2xl:scale-100 top-10 flex-col"
+            class="flex scale-90  lg:scale-75 2xl:scale-100 top-10 flex-col h-fit w-full"
             *ngIf="profile.config.redirectEnabled"
           >
             <iframe
               [cachedSrc]="normalizeURL(profile.redirectUrl)"
-              class="iphone-15-pro phone mockup-phone pointer-events-none"
+              class="iphone-15-pro phone mockup-phone pointer-events-none "
               frameborder="0"
             ></iframe>
             <small class="w-full text-center mx-auto">
               Alcuni siti web potrebbero non essere visualizzati correttamente
             </small>
           </div>
+          } @else {
+          <notify-profile-view
+            *ngIf="!profile.config.redirectEnabled"
+            [data]="profile"
+            [mockup]="true"
+            class="iphone-15-pro hidden lg:block  sticky scale-75 2xl:scale-100 -top-5 2xl:top-20"
+          ></notify-profile-view>
+          }
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 <form
-  class="flex flex-col items-center space-y-4 w-full smooth min-h-screen overflow-clip"
+  class="flex flex-col items-center space-y-4 w-full smooth overflow-clip"
   [formGroup]="form"
 >
   <div class="relative w-full">
@@ -90,7 +90,7 @@
     <div
       class="form-type-container smooth"
       [ngClass]="{
-        ' opacity-0 pointer-events-none  h-0': form.value.redirectEnabled
+        ' opacity-0 pointer-events-none !h-0': form.value.redirectEnabled
       }"
     >
       <div class="section box p-4">
