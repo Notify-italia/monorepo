@@ -4,7 +4,7 @@ import { Router } from 'express';
 
 //boilderplate for a post request to create an agent
 const router = Router();
-const excludedCompany = '655805c8f5638dc5ef4b358f';
+const excludedCompany = ['65c23f35c92682d98233e50f' , '655805c8f5638dc5ef4b358f'];
 
 router.get(
   '/',
@@ -12,7 +12,7 @@ router.get(
     async (req, res) => {
       const companies: INotifyCompany<true>[] = await CompanyModel.find({
         license: { $ne: null },
-        _id: { $ne: excludedCompany },
+        _id: { $nin: excludedCompany },
       })
         .populate('license')
         .lean();
