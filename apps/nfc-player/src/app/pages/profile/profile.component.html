@@ -70,7 +70,11 @@
       <div>
         Condivisione files: <span class="font-bold">{{ socketId }}</span>
       </div>
-      <div>Provided by <span class="font-bold">Notify</span></div>
+      <div>
+        <a href="https://notifyapp.it" target="_blank">
+          Provided by <span class="font-bold">Notify</span>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -90,6 +94,9 @@
       transform: 'translate(0%, 0%) scale(' + profileScale + ')',
       filter: 'blur(' + (100 - profileScale * 100) + 'px)'
     }"
+    [ngClass]="{
+      'max-h-screen fixed': companyIsVisible
+    }"
   >
     <notify-profile-view
       (integrationClicked)="handleIntegrationClicked($event, p)"
@@ -104,8 +111,11 @@
   <!-- MOBILE COMPANY PLAYER -->
   <div
     *ngIf="p?.company as pCompany"
-    class="absolute top-0 left-0 smooth z-50 w-full !ease-linear !duration-100 player-responsive lg:hidden will-change-transform"
+    class="top-0 left-0 smooth z-50 w-full !ease-linear !duration-100 player-responsive lg:hidden will-change-transform !h-full"
     [ngStyle]="{ transform: 'translateX(' + companyProfileX + 'vw)' }"
+    [ngClass]="{
+      absolute: !companyIsVisible,
+    }"
   >
     <notify-profile-view
       (integrationClicked)="handleIntegrationClicked($event, pCompany)"

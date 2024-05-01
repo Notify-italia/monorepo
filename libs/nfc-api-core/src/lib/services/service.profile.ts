@@ -17,6 +17,7 @@ export const getAgentOwnerProfile = async (agentId: Types.ObjectId) => {
       populate: {
         path: 'profile',
         model: 'Profile',
+        populate: 'note',
       },
     })
     .lean();
