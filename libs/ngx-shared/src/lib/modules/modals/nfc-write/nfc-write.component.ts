@@ -78,7 +78,9 @@ export class NfcWriteComponent extends ModalBaseComponent implements OnInit {
       return;
     }
 
-    const ndef = this._capacitorService.prepareProfileNDEF(value);
+    console.log(`writing nfc with value: ${value}`);
+
+    const ndef = this._capacitorService.prepareURINDEF(value);
 
     await this._capacitorService.scanNFCTag(async (nfc) => {
       try {
@@ -93,6 +95,7 @@ export class NfcWriteComponent extends ModalBaseComponent implements OnInit {
           currentValue: this.progressSubject$.value.currentValue,
         });
       } catch (error) {
+        console.log('error writing nfc', error);
         this.progressSubject$.next({
           status: 'error',
           currentValue: this.progressSubject$.value.currentValue,

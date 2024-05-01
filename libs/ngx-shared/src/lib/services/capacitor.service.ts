@@ -109,9 +109,9 @@ export class CapacitorService {
     });
   }
 
-  public prepareProfileNDEF(fullProfileUrl: string) {
+  public prepareURINDEF(uri: string) {
     return this.nfcUtils.createNdefUriRecord({
-      uri: fullProfileUrl,
+      uri,
     }).record;
   }
 }

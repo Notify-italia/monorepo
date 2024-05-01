@@ -113,6 +113,10 @@ export class ShareItemComponent {
   public async writeNfc() {
     this._nfcFactory.create({
       ...this.config.nfc,
+      items: this.config.nfc.items.map((item) => ({
+        ...item,
+        value: this._genPlayerUrl(EnumNotifyProfileSources.NFC, item.value),
+      })),
       questionLabel:
         this.config.nfc.questionLabel || this._defaultNFCQuestionLabel(),
       blurBackground: !this.config.isInModal,
@@ -120,14 +124,15 @@ export class ShareItemComponent {
     });
   }
 
-  private _genPlayerUrl(source: EnumNotifyProfileSources) {
+  private _genPlayerUrl(source: EnumNotifyProfileSources, id?: string) {
     const _source = this.config.type === 'profile' ? `&s=${source}` : '';
 
     const queryKey = this.config.type.charAt(0);
 
     return (
-      `${this.config.baseUrl}/${this.config.type}?${queryKey}=${this.config.id}` +
-      _source
+      `${this.config.baseUrl}/${this.config.type}?${queryKey}=${
+        id || this.config.id
+      }` + _source
     );
   }
 
