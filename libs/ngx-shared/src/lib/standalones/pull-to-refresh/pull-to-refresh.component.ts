@@ -5,12 +5,13 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
   Output,
   Renderer2,
   ViewChild,
   inject,
 } from '@angular/core';
-import { GestureController, GestureDetail } from '@ionic/angular';
+import { Gesture, GestureController, GestureDetail } from '@ionic/angular';
 import { IonSpinner } from '@ionic/angular/standalone';
 import { Spinner, SpinnerOptions } from 'spin.js';
 import { CapacitorService } from '../../services';
@@ -23,10 +24,10 @@ import { CapacitorService } from '../../services';
   templateUrl: './pull-to-refresh.component.html',
   styleUrl: './pull-to-refresh.component.scss',
 })
-export class PullToRefreshComponent implements AfterViewInit {
+export class PullToRefreshComponent implements AfterViewInit, OnDestroy {
   @ViewChild('Spinner') spinner!: ElementRef<HTMLDivElement>;
 
-  private _capacitorService = inject(CapacitorService);
+  public capacitorService = inject(CapacitorService);
   private _gestureCtrl = inject(GestureController);
   private _renderer = inject(Renderer2);
 
@@ -35,26 +36,32 @@ export class PullToRefreshComponent implements AfterViewInit {
 
   startY = 0;
   currentY = 0;
-  threshold = 100; // Soglia di pull down in pixel
+  threshold = 150; // Soglia di pull down in pixel
   change = 0;
   thresholdPassed = false;
   scrollValue = 0;
 
+  private _gestureController: Gesture;
+
   constructor() {
-    this._gestureCtrl
-      .create(
-        {
-          el: document.body,
-          threshold: 15,
-          direction: 'y',
-          gestureName: 'pullToRefresh',
-          onStart: (event) => this.onTouchStart(event),
-          onMove: (event) => this.onTouchMove(event),
-          onEnd: () => this.onTouchEnd(),
-        },
-        true
-      )
-      .enable();
+    this._gestureController = this._gestureCtrl.create(
+      {
+        el: document.body.querySelector('notify-root') as HTMLElement,
+        threshold: 15,
+
+        direction: 'y',
+        gestureName: 'pull-to-refresh',
+        onStart: (event) => this.onTouchStart(event),
+        onMove: (event) => this.onTouchMove(event),
+        onEnd: () => this.onTouchEnd(),
+      },
+      true
+    );
+
+    if (!this.capacitorService.isNative) {
+      return;
+    }
+    this._gestureController.enable(true);
 
     this._renderer.listen('window', 'scroll', () => {
       this.scrollValue = window.scrollY;
@@ -63,6 +70,11 @@ export class PullToRefreshComponent implements AfterViewInit {
         this.startY = this.currentY;
       }
     });
+  }
+
+  ngOnDestroy() {
+    this._gestureController.enable(false);
+    this._gestureController.destroy();
   }
 
   ngAfterViewInit() {
@@ -80,19 +92,20 @@ export class PullToRefreshComponent implements AfterViewInit {
 
   onTouchMove(event: GestureDetail) {
     this.currentY = event.currentY;
+
     if (this.scrollValue) {
       return;
     }
 
-    this.change = event.currentY - this.startY;
+    this.change = event.currentY - this.startY - this.scrollValue;
 
     const _threhsold = this.thresholdPassed;
 
     const result = this._hasPassedThreshold();
 
     if (result && !_threhsold) {
-      this._capacitorService.triggerHapticFeedback(
-        this._capacitorService.impactStyles.Medium
+      this.capacitorService.triggerHapticFeedback(
+        this.capacitorService.impactStyles.Medium
       );
     }
   }

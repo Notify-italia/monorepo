@@ -95,8 +95,8 @@ export class UtilsService {
     return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
   }
 
-  public toggleScrollLock(lock: boolean) {
-    const html = document.getElementsByTagName('html')[0];
+  public toggleScrollLock(lock: boolean, element?: HTMLElement) {
+    const html = element ?? document.getElementsByTagName('html')[0];
 
     if (lock) {
       html.classList.add('lock-scroll');

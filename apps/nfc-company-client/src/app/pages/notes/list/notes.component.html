@@ -16,11 +16,17 @@
 
   <div>
     <div>
-      <notify-notes-list
-        [notes$]="notes$"
-        (editNote)="editNote($event)"
-        (deleteNote)="deleteNote($event)"
-      ></notify-notes-list>
+      <div class="flex flex-col">
+        <notify-pull-to-refresh
+          [loading]="loading"
+          (refresh)="getNotes().subscribe()"
+        ></notify-pull-to-refresh>
+        <notify-notes-list
+          [notes$]="notes$"
+          (editNote)="editNote($event)"
+          (deleteNote)="deleteNote($event)"
+        ></notify-notes-list>
+      </div>
     </div>
   </div>
 </div>

@@ -85,6 +85,10 @@ export const agentChangelog: INotifyVersionInfo = {
       type: 'fix',
       message: `Risolti alcuni problemi di visualizzazione del grafico "Integrazioni" nella dashboard`,
     },
+    {
+      type: 'new',
+      message: `Aggiunta una gesture di pull-to-refresh in varie pagine dell'applicazione`,
+    },
   ],
 };
 

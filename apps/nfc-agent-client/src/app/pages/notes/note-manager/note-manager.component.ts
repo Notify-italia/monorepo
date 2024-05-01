@@ -13,6 +13,7 @@ import {
   NoteDetailComponent,
   NoteService,
   PageHeaderComponent,
+  PullToRefreshComponent,
   SvgBoxIconComponent,
   UtilsService,
 } from '@notify/ngx-shared';
@@ -37,6 +38,7 @@ import { environment } from '../../../../environments/environment';
     LoadingComponent,
     NoteDetailComponent,
     SvgBoxIconComponent,
+    PullToRefreshComponent,
   ],
   providers: [
     NoteService,
@@ -83,13 +85,7 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
       return;
     }
 
-    return this._noteService
-      .getNote(this.id)
-      .pipe(
-        tap((note) => this._updateNoteSubject(note)),
-        catchError((err: AppError) => this._goBackErrorhandler(err))
-      )
-      .subscribe();
+    this.getNote();
   }
 
   ngOnDestroy(): void {
@@ -272,6 +268,16 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
           this.loading = false;
           instance.close();
         })
+      )
+      .subscribe();
+  }
+
+  public getNote() {
+    this._noteService
+      .getNote(this.id)
+      .pipe(
+        tap((note) => this._updateNoteSubject(note)),
+        catchError((err: AppError) => this._goBackErrorhandler(err))
       )
       .subscribe();
   }

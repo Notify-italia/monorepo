@@ -1,5 +1,6 @@
 <div
-  class="w-full h-0 pointer-events-none flex justify-center items-start overflow-hidden"
+  *ngIf="capacitorService.isNative"
+  class="w-full h-0 pointer-events-none flex justify-center items-start overflow-hidden smooth smooth-fast smooth-linear will-change-container"
   [ngClass]="{
     '!h-12 !opacity-100': loading,
   }"
@@ -13,7 +14,7 @@
     #Spinner
     class="relative h-full w-full opacity-80"
     [ngClass]="{
-    'rotate-[360deg] smooth smooth-slow': change > threshold && !loading,
+    'rotate-[360deg] smooth smooth-slow smooth-ease-out': change > threshold && !loading,
     'spinner': loading,
   }"
   ></div>

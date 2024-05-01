@@ -10,3 +10,7 @@
 .spinner {
   animation: spin 0.8s linear infinite;
 }
+
+.will-change-container {
+  will-change: height, transform;
+}
