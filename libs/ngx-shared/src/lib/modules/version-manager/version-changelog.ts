@@ -67,8 +67,8 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
 ];
 
 export const agentChangelog: INotifyVersionInfo = {
-  tag: 'v0.9.1',
-  date: '2024-04-28',
+  tag: 'v0.9.1.1',
+  date: '2024-05-01',
   title: '📓 Migliorie Note-voli',
   description:
     'Le note tornano in Notify con nuove funzionalità e miglioramenti. Ora di nuovo possibile creare, modificare e cancellare note, condividere note con colleghi e molto altro. Scopri tutte le novità di questa versione!',
@@ -93,8 +93,8 @@ export const agentChangelog: INotifyVersionInfo = {
 };
 
 export const companyChangelog: INotifyVersionInfo = {
-  tag: 'v0.8.4',
-  date: '2024-04-28',
+  tag: 'v0.8.4.1',
+  date: '2024-05-01',
   title: '📓 Migliorie Note-voli',
   description:
     'Le note tornano in Notify con nuove funzionalità e miglioramenti. Ora di nuovo possibile creare, modificare e cancellare note, condividere note con colleghi e molto altro. Scopri tutte le novità di questa versione!',

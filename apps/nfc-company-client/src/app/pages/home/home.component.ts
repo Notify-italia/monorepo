@@ -17,8 +17,8 @@ import {
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  public currentVersionLabel = 'v0.8.4';
-  public currentVersionDate = '2024-04-28';
+  public currentVersionLabel = companyChangelog.tag;
+  public currentVersionDate = companyChangelog.date;
 
   public latestChangelog = companyChangelog;
 
