@@ -8,6 +8,7 @@ import {
   NoteService,
   NotesListComponent,
   PageHeaderComponent,
+  PullToRefreshComponent,
   UtilsService,
 } from '@notify/ngx-shared';
 import { Observable, Subject, catchError, switchMap, tap } from 'rxjs';
@@ -19,6 +20,7 @@ import { Observable, Subject, catchError, switchMap, tap } from 'rxjs';
     PageHeaderComponent,
     LoadingComponent,
     NotesListComponent,
+    PullToRefreshComponent,
   ],
   providers: [NoteService, UtilsService, ConfirmModalFactory],
   templateUrl: './notes.component.html',
@@ -27,6 +29,8 @@ import { Observable, Subject, catchError, switchMap, tap } from 'rxjs';
 export class NotesComponent implements OnInit {
   private _noteSubject$ = new Subject<INotifyNote[]>();
   public notes$: Observable<INotifyNote[]> = this._noteSubject$;
+
+  loading = false;
 
   constructor(
     private _router: Router,
@@ -62,6 +66,7 @@ export class NotesComponent implements OnInit {
   }
 
   public getNotes() {
+    this.loading = true;
     return this._noteService.getNotes().pipe(
       tap((v) => {
         this._noteSubject$.next(
@@ -72,6 +77,9 @@ export class NotesComponent implements OnInit {
       }),
       catchError((err: AppError) => {
         return this._utilsService.errorHandler(err);
+      }),
+      tap(() => {
+        this.loading = false;
       })
     );
   }

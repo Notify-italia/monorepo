@@ -13,6 +13,7 @@ export * from './nav/nav.component';
 export * from './no-items/no-items.component';
 export * from './page-header/page-header.component';
 export * from './page-not-found/page-not-found.component';
+export * from './pull-to-refresh/pull-to-refresh.component';
 export * from './save-indicator/save-indicator.component';
 export * from './search-bar/search-bar.component';
 export * from './spline-viewer/spline-viewer.component';

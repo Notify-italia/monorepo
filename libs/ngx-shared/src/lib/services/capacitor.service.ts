@@ -5,6 +5,7 @@ import {
   ScreenBrightness,
 } from '@capacitor-community/screen-brightness';
 import { Capacitor } from '@capacitor/core';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import {
   Nfc,
   NfcPlugin,
@@ -30,6 +31,22 @@ export class CapacitorService {
       return ScreenBrightness.getBrightness()
         .then((brightness: GetBrightnessReturnValue) => resolve(brightness))
         .catch((error) => reject(error));
+    });
+  }
+
+  public get impactStyles() {
+    return ImpactStyle;
+  }
+
+  public triggerHapticFeedback(style: ImpactStyle) {
+    if (!this.isNative) {
+      return;
+    }
+
+    // iOS
+    Haptics.impact({ style }).catch((error) => {
+      console.error(`Error triggering haptic feedback: ${error}`); // Android
+      Haptics.vibrate();
     });
   }
 

@@ -1,1 +1,20 @@
-<p>pull-to-refresh works!</p>
+<div
+  class="w-full h-0 pointer-events-none flex justify-center items-start overflow-hidden"
+  [ngClass]="{
+    '!h-12 !opacity-100': loading,
+  }"
+  [ngStyle]="{
+    opacity: change / 100,
+    height: change + 'px',
+    
+  }"
+>
+  <div
+    #Spinner
+    class="relative h-full w-full opacity-80"
+    [ngClass]="{
+    'rotate-[360deg] smooth smooth-slow': change > threshold && !loading,
+    'spinner': loading,
+  }"
+  ></div>
+</div>
