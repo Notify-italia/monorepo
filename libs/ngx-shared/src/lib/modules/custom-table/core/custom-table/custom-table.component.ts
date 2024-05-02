@@ -2,7 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UnknownObject } from '@notify/interfaces';
 import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
-import { NoItemsComponent, SearchBarComponent } from '../../../../standalones';
+import {
+  LoadingComponent,
+  NoItemsComponent,
+  SearchBarComponent,
+} from '../../../../standalones';
 import {
   CustomTableActionsComponent,
   ICTActionsValue,
@@ -61,6 +65,7 @@ interface INotifyCustomTableColumn {
     CustomTableActionsComponent,
     CustomTableSorterComponent,
     CustomTableHeaderComponent,
+    LoadingComponent,
   ],
   templateUrl: './custom-table.component.html',
 })

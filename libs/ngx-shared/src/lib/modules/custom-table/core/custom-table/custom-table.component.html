@@ -83,7 +83,12 @@
           </table>
         </div>
       </div>
+      } @else { @if(!iterableSkeletonRows.length) {
+      <div class="py-2">
+        <notify-loading></notify-loading>
+      </div>
       } @else {
+
       <div class="w-full h-full p-4">
         <div
           class="relative overflow-x-auto shadow-md sm:rounded-lg bg-primary-500/10"
@@ -109,7 +114,7 @@
           </table>
         </div>
       </div>
-      }
+      } }
     </div>
   </div>
 </div>

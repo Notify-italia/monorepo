@@ -17,7 +17,13 @@ export const agentChangelog: INotifyVersionInfo = {
   title: '',
   description: '',
   artPath: _getVersionArt('v0.9.2-agent'),
-  changes: [..._sharedChanges],
+  changes: [
+    ..._sharedChanges,
+    {
+      type: 'improvement',
+      message: 'Migliorata la tabella che visualizza i colleghi',
+    },
+  ],
 };
 
 export const companyChangelog: INotifyVersionInfo = {
@@ -26,5 +32,11 @@ export const companyChangelog: INotifyVersionInfo = {
   title: '',
   description: '',
   artPath: _getVersionArt('v0.8.5-company'),
-  changes: [..._sharedChanges],
+  changes: [
+    ..._sharedChanges,
+    {
+      type: 'improvement',
+      message: 'Migliorata la tabella che visualizza gli utenti',
+    },
+  ],
 };

@@ -45,7 +45,7 @@ export class AvatarComponent implements OnChanges {
   public isMainAvatarLoaded = false;
   public isSubAvatarLoaded = false;
 
-  public scrambleCache = `?c=${Date.now()}`;
+  public scrambleCache = `?cz=${Date.now()}`;
 
   public get loaded(): { [key: string]: boolean } {
     return {
@@ -113,6 +113,6 @@ export class AvatarComponent implements OnChanges {
     this.isSubAvatarLoaded = true;
   }
   public ngOnChanges(): void {
-    this.scrambleCache = `?c=${Date.now()}`;
+    this.scrambleCache = `?cz=${Date.now()}`;
   }
 }
