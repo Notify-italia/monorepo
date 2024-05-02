@@ -78,6 +78,10 @@ export class PullToRefreshComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    if (!this.spinner?.nativeElement) {
+      return;
+    }
+
     new Spinner(_spinnerOptions).spin(this.spinner.nativeElement);
     // this.spinner.nativeElement.appendChild(this._spinner.el as HTMLElement);
   }

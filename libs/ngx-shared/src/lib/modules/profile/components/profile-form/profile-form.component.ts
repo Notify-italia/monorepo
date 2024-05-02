@@ -273,22 +273,25 @@ export class ProfileFormComponent implements OnInit {
     );
   }
 
-  public setUploadedFile(file: string | ArrayBuffer | null) {
+  public setUploadedFile(file: File | null) {
     if (!file) {
       this.controls.avatar.setValue(file);
       return;
     }
 
     const ref = this._imageCropper.create({
-      imageData: file as string,
-      aspectRatio: 1,
+      imageData: file,
       minHeight: 200,
       minWidth: 200,
       roundCropper: true,
       containWithinAspectRatio: true,
+      resize: {
+        width: 800,
+        height: 800,
+      },
     });
 
-    ref.instance.destroyed
+    ref.instance.destroyed$
       .pipe(
         tap(() => this.setAvatarFile(this.form.controls.avatar.value || ''))
       )
@@ -296,7 +299,7 @@ export class ProfileFormComponent implements OnInit {
 
     ref.instance.submitted
       .pipe(
-        takeUntil(ref.instance.destroyed),
+        takeUntil(ref.instance.destroyed$),
         tap((imageData) => {
           this.controls.avatar.setValue(imageData || '');
 

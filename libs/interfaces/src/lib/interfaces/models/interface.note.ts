@@ -13,7 +13,6 @@ export interface INotifyNote extends MongodbDocument {
   owners: INotifyUser['_id'][];
   title: string;
   color: string;
-  watchers: INotifyUser['_id'][];
   items: INotifyNoteItem[];
 }
 

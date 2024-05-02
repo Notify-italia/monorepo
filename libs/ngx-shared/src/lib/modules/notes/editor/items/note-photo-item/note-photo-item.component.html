@@ -19,6 +19,7 @@
       acceptedFiles="image/*"
       uploadLabel="Carica una foto trascinandola all'interno del riquadro o facendo click"
       (fileChanged)="handleFileUpload($event)"
+      [removeFile$]="removeFile$"
     ></notify-upload>
   </div>
   } @else {

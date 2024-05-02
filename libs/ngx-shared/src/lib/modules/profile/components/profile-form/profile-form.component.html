@@ -210,7 +210,7 @@
           [uploadLabel]="capacitor.isNative ? mobileMessage : desktopMessage"
           [acceptedFiles]="'image/*'"
           [file]="avatarFile"
-          (fileChanged)="setUploadedFile($event.blob)"
+          (fileChanged)="setUploadedFile($event.file)"
           [removeFile$]="removeAvatar$"
         ></notify-upload>
 

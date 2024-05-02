@@ -111,7 +111,18 @@ export const getFileType = async (file: string) => {
 
   return await fileType.fileTypeFromBlob(blob);
 };
+
+export const getPathFromUrl = (url: string) => {
+  const path = url.replace(`https://${endpoint}/${bucket}`, '');
+
+  return path.split('/').slice(0, -1).join('/');
+};
+
 const _removeFilenameExtension = (filename: string) => {
+  if (!filename.includes('.')) {
+    return filename;
+  }
+
   return filename.split('.').slice(0, -1).join('.');
 };
 

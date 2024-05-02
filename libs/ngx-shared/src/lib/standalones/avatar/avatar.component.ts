@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DaisyUIAvatarMasks } from '@notify/interfaces';
 import { EnumDicebearAvatarStyles, UtilsService } from '../../services';
 
@@ -26,7 +20,7 @@ interface AvatarConfig {
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.scss'],
 })
-export class AvatarComponent implements OnChanges {
+export class AvatarComponent {
   @Input() avatarConfig: AvatarConfig = {
     src: null,
     size: 'w-10 h-10',
@@ -52,7 +46,6 @@ export class AvatarComponent implements OnChanges {
     };
   }
 
-  public scrambleCache = `?c=${Date.now()}`;
   public get cleanedConfigs() {
     const isMainUri =
       this.avatarConfig.src && this.avatarConfig.src.includes('http');
@@ -61,7 +54,7 @@ export class AvatarComponent implements OnChanges {
 
     const main = {
       src: isMainUri
-        ? this.avatarConfig.src + this.scrambleCache
+        ? this.avatarConfig.src + `?c=${Date.now()}`
         : this.avatarConfig.src,
       size: this.avatarConfig.size,
       mask: this.avatarConfig.mask,
@@ -72,7 +65,7 @@ export class AvatarComponent implements OnChanges {
 
     const sub = {
       src: isSubUri
-        ? this.subAvatarConfig?.src + this.scrambleCache
+        ? this.subAvatarConfig?.src + `?c=${Date.now()}`
         : this.subAvatarConfig?.src,
       size: this.subAvatarConfig?.size,
       mask: this.subAvatarConfig?.mask,
@@ -110,9 +103,5 @@ export class AvatarComponent implements OnChanges {
     }
 
     this.isSubAvatarLoaded = true;
-  }
-
-  ngOnChanges() {
-    this.scrambleCache = `?c=${Date.now()}`;
   }
 }

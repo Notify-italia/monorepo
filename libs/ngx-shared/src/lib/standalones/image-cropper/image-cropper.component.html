@@ -1,38 +1,26 @@
 <div class="modal-container">
   <div>
     <div class="modal-content">
-      <h1 class="text-2xl font-medium w-full text-start text-white">
+      <h1 class="text-2xl font-bold w-full text-start text-white">
         Ritaglia immagine
       </h1>
 
       <div class="divider"></div>
 
       <div
+        class="min-h-[400px] min-w-[400px]"
         [ngClass]="{
           'opacity-0 pointer-events-none absolute': loading
         }"
       >
-        <image-cropper
-          *ngIf="config as c"
-          class="rounded overflow-scroll !w-[400px] !h-[400px]"
-          [containWithinAspectRatio]="!!c.containWithinAspectRatio"
-          [aspectRatio]="config.aspectRatio || 1 / 1"
-          [imageBase64]="config.imageData"
-          [cropperMinWidth]="c.minWidth || 100"
-          [cropperMinHeight]="c.minHeight || 100"
-          [roundCropper]="!!c.roundCropper"
-          [alignImage]="c.alignImage || 'center'"
-          [allowMoveImage]="false"
-          [resizeToWidth]="c.resize?.width || 0"
-          [resizeToHeight]="c.resize?.height || 0"
-          [maintainAspectRatio]="!!c.aspectRatio"
-          [onlyScaleDown]="!!c.onlyScaleDown"
-          [format]="c.format || 'webp'"
-          (imageCropped)="imageCropped($event)"
-          (imageLoaded)="loading = false"
-          [(transform)]="transform"
-          (loadImageFailed)="loadImageFailed()"
-        ></image-cropper>
+        <img-cropper
+          #IMGCropper
+          class="rounded !w-full !h-full"
+          *ngIf="cropperSettings as c"
+          [settings]="cropperSettings"
+          [image]="value"
+          (imageSet)="loading = false"
+        ></img-cropper>
       </div>
 
       @if(loading){
@@ -40,55 +28,6 @@
         <notify-loading></notify-loading>
       </div>
       }
-
-      <div class="flex justify-around w-full mt-4">
-        <button
-          class="btn btn-ghost btn-circle"
-          data-theme="notifytheme"
-          (click)="flipHorizontal()"
-        >
-          <notify-svg-box-icon
-            [size]="8"
-            [icon]="{ name: 'flip', set: 'materialui' }"
-          ></notify-svg-box-icon>
-        </button>
-        <button
-          class="btn btn-ghost btn-circle"
-          data-theme="notifytheme"
-          (click)="flipVertical()"
-        >
-          <notify-svg-box-icon
-            class="rotate-90"
-            [size]="8"
-            [icon]="{ name: 'flip', set: 'materialui' }"
-          ></notify-svg-box-icon>
-        </button>
-
-        <div class="divider divider-vertical"></div>
-
-        <button
-          class="btn btn-ghost btn-circle"
-          data-theme="notifytheme"
-          (click)="rotateRight()"
-        >
-          <notify-svg-box-icon
-            class="rotate-90"
-            [size]="8"
-            [icon]="{ name: 'rotate_right', set: 'materialui' }"
-          ></notify-svg-box-icon>
-        </button>
-        <button
-          class="btn btn-ghost btn-circle"
-          data-theme="notifytheme"
-          (click)="rotateLeft()"
-        >
-          <notify-svg-box-icon
-            class="rotate-90"
-            [size]="8"
-            [icon]="{ name: 'rotate_left', set: 'materialui' }"
-          ></notify-svg-box-icon>
-        </button>
-      </div>
 
       <div class="divider"></div>
 

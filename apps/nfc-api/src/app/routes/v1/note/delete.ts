@@ -1,6 +1,15 @@
 import {
+  INotifyNote,
+  INotifyNoteItemFiles,
+  INotifyNoteItemPhoto,
+} from '@notify/interfaces';
+import {
+  BadRequestError,
   NOTE_VALIDATION_MESSAGES,
   NoteModel,
+  S3Delete,
+  asyncForEach,
+  getPathFromUrl,
   requestHandler,
 } from '@notify/nfc-api-core';
 import { Router } from 'express';
@@ -18,10 +27,29 @@ router.delete(
     async (req, res) => {
       const { id } = req.query;
 
+      const note = await NoteModel.findOne({
+        _id: id,
+        owners: { $in: req.currentUser._id },
+      }).lean();
+
+      if (!note) {
+        throw new BadRequestError('Nota non trovata');
+      }
+
       await NoteModel.deleteOne({
         _id: id,
         owners: { $in: req.currentUser._id },
       });
+
+      await asyncForEach(
+        _noteCdnUrls(note as unknown as INotifyNote),
+        async (file) => {
+          await S3Delete({
+            path: getPathFromUrl(file),
+            name: file.split('/').pop() || '',
+          });
+        }
+      );
 
       res.status(201).send({ success: true });
     },
@@ -34,3 +62,18 @@ router.delete(
 );
 
 export { router as deleteNoteRouter };
+
+const _noteCdnUrls = (note: INotifyNote) => {
+  const files = note.items
+    .filter((item) => ['files'].includes(item.type))
+    .map((item) =>
+      (item.value as INotifyNoteItemFiles).files.map((file) => file.url).flat()
+    )
+    .flat();
+
+  const photos = note.items
+    .filter((item) => item.type === 'photo')
+    .map((item) => (item.value as INotifyNoteItemPhoto).url);
+
+  return [...files, ...photos];
+};

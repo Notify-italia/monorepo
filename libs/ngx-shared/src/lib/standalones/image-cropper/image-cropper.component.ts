@@ -1,20 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import Compressor from 'compressorjs';
-// import 'hammerjs';
 import {
-  ImageCroppedEvent,
-  ImageCropperModule,
-  ImageTransform,
-} from 'ngx-image-cropper';
+  AfterViewInit,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import Compressor from 'compressorjs';
+
+import {
+  CropperSettings,
+  ImageCropperComponent as ImgCropperComponent,
+  ImageCropperModule as ImgCropperModule,
+} from 'ngx-img-cropper';
 import { Subject } from 'rxjs';
 import { ModalBaseComponent } from '../../constructors/modal.base.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 
 export interface IImageCropperConfig {
-  imageData: string;
-  aspectRatio?: number;
+  imageData: File;
   format?: 'png' | 'jpeg' | 'webp';
   minWidth?: number;
   minHeight?: number;
@@ -32,74 +37,77 @@ export interface IImageCropperConfig {
   standalone: true,
   imports: [
     CommonModule,
-    ImageCropperModule,
     SvgBoxIconComponent,
     LoadingComponent,
+    ImgCropperModule,
   ],
   templateUrl: './image-cropper.component.html',
   styleUrl: './image-cropper.component.scss',
 })
 export class ImageCropperComponent
   extends ModalBaseComponent
-  implements OnInit
+  implements AfterViewInit, OnInit
 {
+  @ViewChild('IMGCropper') cropper!: ImgCropperComponent;
+
   @Input({ required: true }) config!: IImageCropperConfig;
 
-  public value!: Blob;
-  public transform: ImageTransform = {};
+  public value!: {
+    original: string;
+    image: string; // base64
+    size: number; // bytes
+    type: string; // image/png
+  };
 
   public loading = true;
 
   public submitted = new Subject<string>();
-  public destroyed = new Subject<void>();
 
-  public async ngOnInit() {
-    this.value = await this._base64ToBlob(this.config.imageData);
+  public cropperSettings?: CropperSettings;
+
+  public ngOnInit(): void {
+    this.cropperSettings = new CropperSettings();
+
+    this.cropperSettings.canvasHeight = 400;
+    this.cropperSettings.canvasWidth = 400;
+
+    this.cropperSettings.rounded = !!this.config.roundCropper;
+    this.cropperSettings.minWidth = this.config.minWidth || 100;
+    this.cropperSettings.minHeight = this.config.minHeight || 100;
+
+    this.cropperSettings.croppedWidth = this.config.resize?.width || 0;
+    this.cropperSettings.croppedHeight = this.config.resize?.height || 0;
+    this.cropperSettings.preserveSize = !this.config.resize;
+    this.cropperSettings.keepAspect = !!this.config.resize;
+    this.cropperSettings.noFileInput = true;
+    this.cropperSettings.fileType = `image/${this.config.format || 'webp'}`;
   }
 
-  loadImageFailed() {
-    console.log('Load failed');
-    this.close();
-  }
+  public async ngAfterViewInit() {
+    const image = new Image();
+    const reader = new FileReader();
 
-  flipHorizontal() {
-    this.transform = {
-      ...this.transform,
-      flipH: !this.transform.flipH,
+    reader.onloadend = async (e) => {
+      image.src = e.target?.result as string;
+
+      if (!image) {
+        return;
+      }
+
+      this.cropper.setImage(image);
+      this.value = {
+        original: image.src,
+        image: image.src,
+        size: this.config.imageData.size,
+        type: this.config.imageData.type,
+      };
     };
-  }
 
-  flipVertical() {
-    this.transform = {
-      ...this.transform,
-      flipV: !this.transform.flipV,
-    };
-  }
-
-  rotateLeft() {
-    if (!this.transform.rotate) {
-      this.transform.rotate = 0;
-    }
-
-    this.transform = {
-      ...this.transform,
-      rotate: this.transform.rotate - 90,
-    };
-  }
-
-  rotateRight() {
-    if (!this.transform.rotate) {
-      this.transform.rotate = 0;
-    }
-
-    this.transform = {
-      ...this.transform,
-      rotate: this.transform.rotate + 90,
-    };
+    reader.readAsDataURL(this.config.imageData);
   }
 
   override onClose(): void {
-    this.destroyed.next();
+    this.destroyed$.next();
   }
 
   async submit() {
@@ -111,8 +119,10 @@ export class ImageCropperComponent
   }
 
   private async _compressImage() {
+    const imgBlob = await this._base64ToBlob(this.value.image);
+
     const result = new Promise<File>((resolve) => {
-      new Compressor(this.value, {
+      new Compressor(imgBlob, {
         quality: 0.6,
         width: 800,
         height: 800,
@@ -126,14 +136,6 @@ export class ImageCropperComponent
     });
 
     return result;
-  }
-
-  async imageCropped(event: ImageCroppedEvent) {
-    if (!event.blob) {
-      return;
-    }
-
-    this.value = event.blob;
   }
 
   private async _arrayBufferToBase64(buffer: ArrayBuffer) {
