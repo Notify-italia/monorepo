@@ -139,7 +139,7 @@ export class AccountsTableComponent implements OnInit, OnChanges {
           id: 'name',
           label: 'Nome',
           hidden: this._isRowDisabled('name'),
-          sorter: (a, b) => a.profile.name.localeCompare(b.profile.name),
+          sorter: (a, b) => a.profile?.name?.localeCompare(b.profile?.name),
           value: <ICTAvatarValue>{
             valueType: 'avatar',
             avatarSize: '14',
@@ -164,7 +164,7 @@ export class AccountsTableComponent implements OnInit, OnChanges {
             valueType: 'field',
             skeletonLength: 10,
             fieldName: 'createdAt',
-            transformer: (value) => format(new Date(value), 'dd/MM/yyyy'),
+            transformer: (value) => format(new Date(value), 'dd/MM/yyyy HH:mm'),
           },
         },
         {

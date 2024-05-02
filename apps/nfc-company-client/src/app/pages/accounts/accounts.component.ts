@@ -152,7 +152,7 @@ export class AccountsComponent implements OnInit {
         switchMap(() => this.getAgents()),
         tap(() => {
           ref.destroy();
-          this._toastr.success('Utente eliminato!', 'OK');
+          this._toastr.warning(`${agent.email} Eliminato dagli utenti`, 'OK');
         }),
         catchError((error: AppError) => {
           ref.instance.loading = false;

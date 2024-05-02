@@ -101,11 +101,6 @@ export class CustomTableAvatarValueComponent
       )[0] as string,
     };
 
-    if (!result.src && !result.userName) {
-      this.iteratedValues = null;
-      return;
-    }
-
     this.iteratedValues = result;
   }
 }
