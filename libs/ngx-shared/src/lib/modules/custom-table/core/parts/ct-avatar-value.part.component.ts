@@ -8,7 +8,7 @@ import {
 import { UtilsService } from '../../../../services';
 import { AvatarComponent } from '../../../../standalones';
 
-export interface ICTAvatarvalue extends INotifyCustomTableValueBase {
+export interface ICTAvatarValue extends INotifyCustomTableValueBase {
   valueType: 'avatar';
   avatarSize: string;
   fields: {
@@ -46,7 +46,7 @@ export class CustomTableAvatarValueComponent
   extends CustomTableValueBaseComponent
   implements OnInit, OnChanges
 {
-  override value!: ICTAvatarvalue;
+  override value!: ICTAvatarValue;
 
   public iteratedValues: {
     src: string;

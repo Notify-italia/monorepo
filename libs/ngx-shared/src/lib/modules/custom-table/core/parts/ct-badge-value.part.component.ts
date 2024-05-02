@@ -39,7 +39,7 @@ export class CustomTableBadgeValueComponent extends CustomTableValueBaseComponen
     bg: string;
     text: string;
   } {
-    const currentStyle = this.value.style.find((style) =>
+    const currentStyle = this.value.style?.find((style) =>
       style.condition(this.iterate)
     );
     return {
