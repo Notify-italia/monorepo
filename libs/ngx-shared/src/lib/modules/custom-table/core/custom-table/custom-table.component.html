@@ -1,12 +1,15 @@
 <div>
   <div>
     <div>
-      <div class="p-4">
+      <div class="p-4 pt-0">
         <notify-search-bar
           [array$]="iterable$"
-          [filterableFields]="config.filterableFields"
-          helpLabel="Cerca utenti"
-          placeholder="Nome, Cognome, Email, N. Telefono, Ruolo, Data di creazione, ecc..."
+          [filterableFields]="config.searchBar.filterableFields || []"
+          [helpLabel]="config.searchBar.helpLabel || 'Cerca'"
+          [placeholder]="
+            config.searchBar.placeholder ||
+            'Scrivi qualsiasi cosa per ottenere i risultati...'
+          "
           (filteredArray)="handleFilteredArray($event)"
         ></notify-search-bar>
       </div>
@@ -19,7 +22,10 @@
       >
       </notify-no-items>
       <!-- TABLE -->
-      <div class="w-full h-full p-4">
+      <div class="w-full h-full p-4 pt-0">
+        <div class="flex justify-end mb-2 px-1">
+          <small>{{ iterable.length }} elementi visualizzati</small>
+        </div>
         <div
           class="relative overflow-x-auto shadow-md sm:rounded-lg bg-primary-500/10"
           [ngClass]="{

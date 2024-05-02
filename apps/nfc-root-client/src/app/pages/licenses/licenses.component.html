@@ -24,9 +24,11 @@
   (actionClicked)="actionClicked($event)"
   (rowClick)="rowClicked($event)"
   [config]="{
-    filterableFields: ['publicKey','company.profile.name',
+    searchBar: {
+      filterableFields: ['publicKey','company.profile.name',
     'company.profile.surname',
     'company.email', 'allowedAgents', 'boughtCards'],
+    },
     skeletonRows: 20,
     defaultSorter: 'assignedTo',
     style:{

@@ -31,8 +31,13 @@ import {
 } from '../parts/ct-sorter.part.component';
 
 export interface INotifyCustomTableConfig {
-  filterableFields: string[];
   columns: INotifyCustomTableColumn[];
+  searchBar: {
+    filterableFields: string[];
+    helpLabel?: string;
+    placeholder?: string;
+    debounceTime?: number;
+  };
   clickableRows?: boolean;
   skeletonRows: number;
   defaultSorter?: string;

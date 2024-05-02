@@ -16,9 +16,6 @@ import {
 import { format } from 'date-fns';
 import { Observable } from 'rxjs';
 import { CustomTableComponent, INotifyCustomTableConfig } from '..';
-import { LoadingComponent } from '../../../standalones/loading/loading.component';
-import { NoItemsComponent } from '../../../standalones/no-items/no-items.component';
-import { SearchBarComponent } from '../../../standalones/search-bar/search-bar.component';
 import { ICTActionsValue } from '../core/parts/ct-actions-value.part.component';
 import { ICTAvatarValue } from '../core/parts/ct-avatar-value.part.component';
 import { ICTBadgevalue } from '../core/parts/ct-badge-value.part.component';
@@ -48,21 +45,26 @@ export interface IAccountsTableConfig {
 @Component({
   selector: 'notify-accounts-table',
   standalone: true,
-  imports: [
-    CommonModule,
-    SearchBarComponent,
-    LoadingComponent,
-    NoItemsComponent,
-    CustomTableComponent,
-  ],
-  template: `<notify-custom-table
-    *ngIf="customTableConfig as c"
-    class="!w-full h-full"
-    [iterable$]="users$"
-    [config]="c"
-    (rowClick)="rowClicked.emit($event)"
-    (actionClicked)="emitAction($event.event, $event.data)"
-  ></notify-custom-table> `,
+  imports: [CommonModule, CustomTableComponent],
+  template: `
+    <div class="flex flex-col">
+      <div class="w-full flex justify-end px-4 -mb-10">
+        <div class="badge badge-warning">
+          {{ maxAgents }} Accounts gestibili
+        </div>
+      </div>
+
+      <notify-custom-table
+        *ngIf="customTableConfig as c"
+        class="!w-full h-full "
+        [iterable$]="users$"
+        [config]="c"
+        (rowClick)="rowClicked.emit($event)"
+        [noItemsMessages]="noItemsMessages"
+        (actionClicked)="emitAction($event.event, $event.data)"
+      ></notify-custom-table>
+    </div>
+  `,
 })
 export class AccountsTableComponent implements OnInit, OnChanges {
   @Input({ required: true }) public users$!: Observable<
@@ -117,6 +119,20 @@ export class AccountsTableComponent implements OnInit, OnChanges {
       style: {
         transparentBackground: this.config.transparentBackgroundColor,
         alternateRows: true,
+      },
+      searchBar: {
+        filterableFields: [
+          'email',
+          'profile.email',
+          'profile.name',
+          'profile.surname',
+          'profile.email',
+          'profile.phone',
+          'profile.customFields.iconName',
+          'profile.customFields.value',
+          'createdAt',
+          'profile.role',
+        ],
       },
       columns: [
         {
@@ -220,18 +236,6 @@ export class AccountsTableComponent implements OnInit, OnChanges {
             ],
           },
         },
-      ],
-      filterableFields: [
-        'email',
-        'profile.email',
-        'profile.name',
-        'profile.surname',
-        'profile.email',
-        'profile.phone',
-        'profile.customFields.iconName',
-        'profile.customFields.value',
-        'createdAt',
-        'profile.role',
       ],
     };
   }
