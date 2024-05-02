@@ -72,8 +72,8 @@ export class ImageCropperComponent
     this.cropperSettings.canvasWidth = 400;
 
     this.cropperSettings.rounded = !!this.config.roundCropper;
-    this.cropperSettings.minWidth = this.config.minWidth || 100;
-    this.cropperSettings.minHeight = this.config.minHeight || 100;
+    this.cropperSettings.minWidth = this.config.minWidth || 10;
+    this.cropperSettings.minHeight = this.config.minHeight || 10;
 
     this.cropperSettings.croppedWidth = this.config.resize?.width || 0;
     this.cropperSettings.croppedHeight = this.config.resize?.height || 0;

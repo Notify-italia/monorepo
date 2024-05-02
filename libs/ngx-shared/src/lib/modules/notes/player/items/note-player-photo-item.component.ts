@@ -17,7 +17,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
     AvatarComponent,
   ],
   template: `
-    <div class="flex flex-col space-y-2">
+    <div class="flex flex-col space-y-2" *ngIf="itemValue.url?.length">
       <p>
         <span class="font-bold text-xl">{{ itemValue.title }}</span>
       </p>

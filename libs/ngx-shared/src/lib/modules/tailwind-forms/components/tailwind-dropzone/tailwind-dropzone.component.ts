@@ -189,8 +189,6 @@ export class TailwindDropzoneComponent
       event[0],
       event[1][this.cdnConfig.responseSchema.value]
     );
-
-    console.log(this.dzApi);
   }
 
   public onFileRemoved(event: File) {

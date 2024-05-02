@@ -127,11 +127,12 @@ export class ProfileFormComponent implements OnInit {
     return this.form.controls;
   }
 
-  private set _avatarFile(value: string) {
+  private set _avatarFileFromUrl(value: string) {
     const base64regex =
       /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
 
     if (!value) {
+      this.avatarFile = new File([], '');
       return;
     }
 
@@ -244,7 +245,7 @@ export class ProfileFormComponent implements OnInit {
       pColors?.background?.[1] || '#041127'
     );
 
-    this._avatarFile = f.controls.avatar.value || '';
+    this._avatarFileFromUrl = f.controls.avatar.value || '';
 
     return f;
   }
@@ -293,7 +294,10 @@ export class ProfileFormComponent implements OnInit {
 
     ref.instance.destroyed$
       .pipe(
-        tap(() => (this._avatarFile = this.form.controls.avatar.value || ''))
+        tap(
+          () =>
+            (this._avatarFileFromUrl = this.form.controls.avatar.value || '')
+        )
       )
       .subscribe();
 
@@ -303,7 +307,7 @@ export class ProfileFormComponent implements OnInit {
         tap((imageData) => {
           this.controls.avatar.setValue(imageData || '');
 
-          this.setAvatarFile(imageData);
+          this.setAvatarFromBase64(imageData);
         })
       )
       .subscribe();
@@ -329,7 +333,7 @@ export class ProfileFormComponent implements OnInit {
     return this._utils.populateWebProtocol(protocol, url);
   }
 
-  public setAvatarFile(data: string) {
+  public setAvatarFromBase64(data: string) {
     this.avatarFile = new File(this._utils.stringToArrayBuffer(data), '', {
       type: 'image/png',
     });
