@@ -27,7 +27,7 @@ export class NotesListComponent {
 
   public notes: INotifyNote[] | null = null;
 
-  public skeletonRows = Array.from({ length: 5 });
+  public skeletonRows = Array.from({ length: 4 });
 
   public cssClasses = {
     rows: {
