@@ -127,7 +127,7 @@ export class ProfileFormComponent implements OnInit {
     return this.form.controls;
   }
 
-  private set _initialAvatarFile(value: string) {
+  private set _avatarFile(value: string) {
     const base64regex =
       /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
 
@@ -244,7 +244,7 @@ export class ProfileFormComponent implements OnInit {
       pColors?.background?.[1] || '#041127'
     );
 
-    this._initialAvatarFile = f.controls.avatar.value || '';
+    this._avatarFile = f.controls.avatar.value || '';
 
     return f;
   }
@@ -293,7 +293,7 @@ export class ProfileFormComponent implements OnInit {
 
     ref.instance.destroyed$
       .pipe(
-        tap(() => this.setAvatarFile(this.form.controls.avatar.value || ''))
+        tap(() => (this._avatarFile = this.form.controls.avatar.value || ''))
       )
       .subscribe();
 

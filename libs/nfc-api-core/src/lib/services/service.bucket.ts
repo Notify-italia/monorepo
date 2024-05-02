@@ -88,7 +88,7 @@ export const S3Upload = async (config: {
 
   fs.unlinkSync(_localPath);
 
-  return `https://${endpoint}/${s3Path}`;
+  return `https://${endpoint}/${s3Path}?c=${new Date().getTime()}`;
 };
 
 export const S3Delete = async (config: { path: string; name: string }) => {
@@ -98,7 +98,9 @@ export const S3Delete = async (config: { path: string; name: string }) => {
     await s3.removeObject(bucket, `${config.path}/${config.name}`, {
       forceDelete: true,
     });
-    return `https://${endpoint}/${config.path}/${config.name}`;
+    return `https://${endpoint}/${config.path}/${
+      config.name
+    }?c=${new Date().getTime()}`;
   } catch (err) {
     const message = `Error deleting file: ${JSON.stringify(err)} `;
     mLog(message, 'error');
@@ -113,9 +115,13 @@ export const getFileType = async (file: string) => {
 };
 
 export const getPathFromUrl = (url: string) => {
-  const path = url.replace(`https://${endpoint}/${bucket}`, '');
+  const path = url.replace(`https://${endpoint}/${bucket}`, '').split('?')[0];
 
   return path.split('/').slice(0, -1).join('/');
+};
+
+export const getFilenameFromUrl = (url: string) => {
+  return url.split('/').pop()?.split('?')[0] as string;
 };
 
 const _removeFilenameExtension = (filename: string) => {

@@ -9,6 +9,7 @@ import {
   NoteModel,
   S3Delete,
   asyncForEach,
+  getFilenameFromUrl,
   getPathFromUrl,
   requestHandler,
 } from '@notify/nfc-api-core';
@@ -46,7 +47,7 @@ router.delete(
         async (file) => {
           await S3Delete({
             path: getPathFromUrl(file),
-            name: file.split('/').pop() || '',
+            name: getFilenameFromUrl(file),
           });
         }
       );
@@ -67,13 +68,15 @@ const _noteCdnUrls = (note: INotifyNote) => {
   const files = note.items
     .filter((item) => ['files'].includes(item.type))
     .map((item) =>
-      (item.value as INotifyNoteItemFiles).files.map((file) => file.url).flat()
+      ((item.value as INotifyNoteItemFiles)?.files || [])
+        .map((file) => file.url)
+        .flat()
     )
     .flat();
 
   const photos = note.items
     .filter((item) => item.type === 'photo')
-    .map((item) => (item.value as INotifyNoteItemPhoto).url);
+    .map((item) => (item.value as INotifyNoteItemPhoto)?.url);
 
-  return [...files, ...photos];
+  return [...files, ...photos].filter((file) => file);
 };
