@@ -19,6 +19,7 @@ import {
 
 import { RouterModule } from '@angular/router';
 import {
+  Observable,
   Subject,
   combineLatest,
   debounceTime,
@@ -62,6 +63,7 @@ type ProfileForm = FormGroup<{
   redirectUrl: FormControl<string | null>;
   note: FormControl<string | null>;
   noteShowTitle: FormControl<boolean | null>;
+  feedbackEnabled: FormControl<boolean | null>;
 }>;
 
 @Component({
@@ -88,9 +90,12 @@ export class ProfileFormComponent implements OnInit {
   @Input() public savedRedirects: INotifyUser['savedRedirects'] = [];
   @Input() public notes: ITailwindSelectOption[] = [];
 
+  @Input() public applyGoogleReviewLink$ = new Observable<string>();
+
   @Output() public value = new EventEmitter<INotifyProfile>();
   @Output() public submitForm = new EventEmitter<INotifyProfile>();
   @Output() public removeSavedRedirect = new EventEmitter<string>();
+  @Output() public generateGoogleReviewLink = new EventEmitter<string>();
 
   public removeAvatar$ = new Subject<void>();
   private _destroy$ = new Subject<void>();
@@ -179,6 +184,13 @@ export class ProfileFormComponent implements OnInit {
         })
       )
       .subscribe();
+
+    this.applyGoogleReviewLink$
+      .pipe(
+        takeUntil(this._destroy$),
+        tap((url) => this.form.controls.reviewRedirect.setValue(url))
+      )
+      .subscribe();
   }
 
   private _buildForm(): ProfileForm {
@@ -230,6 +242,9 @@ export class ProfileFormComponent implements OnInit {
       redirectUrl: new FormControl(this.profile.redirectUrl || '', [
         Validators.pattern(/^([a-z0-9]+:+(\/\/)?)?[\w-]+(\.[\w-]+)+[#?]?.*$/i),
       ]),
+      feedbackEnabled: new FormControl(
+        this.profile.config.feedbackEnabled ?? false
+      ),
     });
 
     this.profile.customFields?.forEach((item) => {
@@ -364,7 +379,7 @@ export class ProfileFormComponent implements OnInit {
         emailEnabled: !!form.emailEnabled,
         smsEnabled: !!form.smsEnabled,
         redirectEnabled: !!form.redirectEnabled,
-        feedbackEnabled: this.profile.config.feedbackEnabled,
+        feedbackEnabled: !!form.feedbackEnabled,
       },
       address,
       note: (form.note as unknown as NotifyPopulatedNote) || null,

@@ -45,7 +45,7 @@
 </button>
 } @else {
 <button
-  *ngIf="data?.reviewRedirect"
+  *ngIf="data?.reviewRedirect && data?.config?.feedbackEnabled"
   type="button"
   data-theme="notifytheme"
   class="btn btn-wide btn-accent"

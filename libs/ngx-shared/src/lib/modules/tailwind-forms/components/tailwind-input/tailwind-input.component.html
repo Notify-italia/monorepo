@@ -21,6 +21,9 @@
       [patterns]="patterns"
       class="input input-bordered w-full input-style backdrop-blur text-sm lg:text-auto"
       [class.input-error]="showValidationErrors"
+      [ngClass]="{
+        'pointer-events-none border-dashed !bg-base-100/20': readOnly
+      }"
       [ngStyle]="{
         'padding-left': prefix.length ? Prefix.clientWidth + 15 + 'px' : 'auto'
       }"
@@ -29,6 +32,7 @@
     <div class="action" *ngIf="!showToggleEye && inputRef.value">
       <!-- CLEAR -->
       <button
+        *ngIf="showClearInput"
         tabindex="-1"
         data-theme="notifytheme"
         (click)="clearInputValue()"

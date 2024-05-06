@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, catchError, map, tap } from 'rxjs';
 import { CachedSrcDirective } from '../directives';
 import {
   INotifyShareItemConfig,
@@ -45,6 +45,8 @@ type IProfile = INotifyProfile;
           (value)="updateProfileSubject.emit($event)"
           (submitForm)="saveProfile.emit($event)"
           (removeSavedRedirect)="removeSavedRedirect.emit($event)"
+          [applyGoogleReviewLink$]="applyGoogleReviewLink$"
+          (generateGoogleReviewLink)="generateGoogleReviewLink($event)"
           [notes]="notes"
           class="w-full 2xl:w-6/12 "
         ></notify-profile-form>
@@ -132,6 +134,8 @@ export class ProfileTemplateBaseComponent implements OnInit {
   @Output() updateProfileSubject = new EventEmitter<INotifyProfile>();
   @Output() removeSavedRedirect = new EventEmitter<string>();
 
+  public applyGoogleReviewLink$ = new Subject<string>();
+
   public hidratedProfile$ = new Observable<
     IProfile & { shareConfig: INotifyShareItemConfig }
   >();
@@ -145,6 +149,20 @@ export class ProfileTemplateBaseComponent implements OnInit {
         shareConfig: this._shareConfig(profile),
       }))
     );
+  }
+
+  public generateGoogleReviewLink(place: string) {
+    return this._utilsService
+      .getGooglePlaceId(place)
+      .pipe(
+        tap((placeId) => {
+          this.applyGoogleReviewLink$.next(
+            `https://g.page/r/${placeId.result}/review`
+          );
+        }),
+        catchError((err) => this._utilsService.errorHandler(err, null))
+      )
+      .subscribe();
   }
 
   public normalizeURL(url: string | null) {
