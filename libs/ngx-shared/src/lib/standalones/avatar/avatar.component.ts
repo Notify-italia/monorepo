@@ -40,12 +40,14 @@ export class AvatarComponent implements OnChanges {
     placeholderSeed: '',
   };
 
+  @Input() scrambleCacheOnChange = false;
+
   @Output() subAvatarClick = new EventEmitter<void>();
 
   public isMainAvatarLoaded = false;
   public isSubAvatarLoaded = false;
 
-  public scrambleCache = `?cz=${Date.now()}`;
+  private _scrambleCache = `?cz=${Date.now()}`;
 
   public get loaded(): { [key: string]: boolean } {
     return {
@@ -62,7 +64,7 @@ export class AvatarComponent implements OnChanges {
 
     const main = {
       src: isMainUri
-        ? this.avatarConfig.src + this.scrambleCache
+        ? this.avatarConfig.src + this._scrambleCache
         : this.avatarConfig.src,
       size: this.avatarConfig.size,
       mask: this.avatarConfig.mask,
@@ -73,7 +75,7 @@ export class AvatarComponent implements OnChanges {
 
     const sub = {
       src: isSubUri
-        ? this.subAvatarConfig?.src + this.scrambleCache
+        ? this.subAvatarConfig?.src + this._scrambleCache
         : this.subAvatarConfig?.src,
       size: this.subAvatarConfig?.size,
       mask: this.subAvatarConfig?.mask,
@@ -113,6 +115,10 @@ export class AvatarComponent implements OnChanges {
     this.isSubAvatarLoaded = true;
   }
   public ngOnChanges(): void {
-    this.scrambleCache = `?cz=${Date.now()}`;
+    if (!this.scrambleCacheOnChange) {
+      return;
+    }
+
+    this._scrambleCache = `?cz=${Date.now()}`;
   }
 }

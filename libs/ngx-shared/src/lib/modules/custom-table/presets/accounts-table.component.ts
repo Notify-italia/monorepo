@@ -143,6 +143,7 @@ export class AccountsTableComponent implements OnInit, OnChanges {
           value: <ICTAvatarValue>{
             valueType: 'avatar',
             avatarSize: '14',
+            scrambleCacheOnChange: false,
             fields: {
               src: 'profile.avatar',
               mask: 'profile.config.avatarMask',
