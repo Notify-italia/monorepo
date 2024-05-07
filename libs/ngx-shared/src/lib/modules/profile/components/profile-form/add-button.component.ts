@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
   imports: [CommonModule],
   template: ` <button
     data-theme="notifytheme"
-    class="btn w-full text-white/80 btn-primary bg-primary-500/40 brightness-90 z-10"
+    class="btn w-full text-white btn-primary bg-primary-500/40 brightness-90 z-10 "
     type="button"
   >
     <svg

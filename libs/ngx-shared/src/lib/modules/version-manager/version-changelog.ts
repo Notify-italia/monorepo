@@ -40,7 +40,18 @@ export const companyChangelog: INotifyVersionInfo = {
     ..._sharedChanges,
     {
       type: 'improvement',
-      message: 'Migliorata la tabella che visualizza gli utenti',
+      message:
+        '<b>Gestione Utenti</b>: Migliorata la tabella che visualizza gli utenti',
+    },
+    {
+      type: 'fix',
+      message:
+        'Risolto un problema che impediva la visualizzazione del grafico visite dopo il cambio di utente selezionato',
+    },
+    {
+      type: 'improvement',
+      message:
+        '<b>Pannello Profilo</b>: è ora possibile ottenere automaticamente il link per la recensione su Google',
     },
   ],
 };

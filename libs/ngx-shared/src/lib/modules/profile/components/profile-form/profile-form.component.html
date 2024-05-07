@@ -254,7 +254,7 @@
           @if (form.value.reviewRedirect?.length) {
           <div class="flex w-full items-end space-x-2">
             <notify-tailwind-input
-              *ngIf="form.value.reviewRedirect?.length"
+              #ReviewRedirect
               [parent]="form"
               name="reviewRedirect"
               label="Reindirizzamento recensioni"
@@ -266,19 +266,27 @@
             >
             </notify-tailwind-input>
             <button
-              class="btn btn-square btn-error btn-outline"
-              (click)="form.controls.reviewRedirect.setValue('')"
+              (click)="
+                generateGoogleReviewLink.emit(
+                  form.value.name + ' ' + form.value.city
+                )
+              "
+              class="btn text-white btn-primary bg-primary-500/40 brightness-90 z-10"
+              data-theme="notifytheme"
+              [disabled]="!form.value.name?.length || !form.value.city?.length"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
+                fill="none"
                 viewBox="0 0 24 24"
-                fill="currentColor"
+                stroke-width="1.5"
+                stroke="currentColor"
                 class="w-6 h-6"
               >
                 <path
-                  fill-rule="evenodd"
-                  d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
-                  clip-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
                 />
               </svg>
             </button>
@@ -293,7 +301,7 @@
             "
             class="btn w-full btn-primary"
             data-theme="notifytheme"
-            [disabled]="!form.value.name"
+            [disabled]="!form.value.name?.length || !form.value.city?.length"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -341,7 +349,7 @@
             *ngIf="isCompany && form.value.reviewRedirect?.length"
             [parent]="form"
             name="feedbackEnabled"
-            label="Pulsante recensioni"
+            label="Lascia una recensione"
             [validationErrors]="validationErrors"
           ></notify-tailwind-checkbox>
         </div>

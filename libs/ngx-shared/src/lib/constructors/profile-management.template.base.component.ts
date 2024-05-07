@@ -157,7 +157,7 @@ export class ProfileTemplateBaseComponent implements OnInit {
       .pipe(
         tap((placeId) => {
           this.applyGoogleReviewLink$.next(
-            `https://g.page/r/${placeId.result}/review`
+            `https://search.google.com/local/writereview?placeid=${placeId.result}`
           );
         }),
         catchError((err) => this._utilsService.errorHandler(err, null))

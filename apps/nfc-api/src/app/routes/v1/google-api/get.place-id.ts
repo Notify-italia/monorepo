@@ -53,8 +53,7 @@ router.get(
       const data: IGooglePlaceResponse = await response.json();
 
       if (!data?.places?.length) {
-        res.send({ result: 'MOCK' });
-        // throw new BadRequestError('Nessun risultato trovato');
+        throw new BadRequestError('Nessun risultato trovato');
       }
 
       res.send({ result: data.places[0].id });

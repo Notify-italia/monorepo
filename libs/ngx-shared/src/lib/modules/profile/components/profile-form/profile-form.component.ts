@@ -132,6 +132,10 @@ export class ProfileFormComponent implements OnInit {
     return this.form.controls;
   }
 
+  public get reviewRedirectContainsGoogle() {
+    return this.controls.reviewRedirect.value?.includes('google');
+  }
+
   private set _avatarFileFromUrl(value: string) {
     const base64regex =
       /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
