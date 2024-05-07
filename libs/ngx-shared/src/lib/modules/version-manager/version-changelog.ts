@@ -9,6 +9,10 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
     type: 'improvement',
     message: `Migliorato il componente di ritaglio delle immagini`,
   },
+  {
+    type: 'improvement',
+    message: `Il pannello laterale su desktop è stato reso più compatto`,
+  },
 ];
 
 export const agentChangelog: INotifyVersionInfo = {
