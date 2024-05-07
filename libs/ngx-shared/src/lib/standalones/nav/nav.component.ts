@@ -21,6 +21,7 @@ export interface NavItem {
   icon: string[];
   disabled?: boolean;
   hidden?: boolean;
+  canContainChildren?: boolean;
 }
 
 @Component({

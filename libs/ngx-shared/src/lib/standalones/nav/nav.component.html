@@ -109,7 +109,7 @@
             #sidebarItem
             [routerLink]="item.path"
             routerLinkActive="btn-active pointer-events-none"
-            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLinkActiveOptions]="{ exact: !item.canContainChildren }"
             class="flex space-x-2 smooth smooth-slow"
             (click)="sidebarItem.blur(); DrawerController.click()"
           >
@@ -145,7 +145,7 @@
             #bottomSidebarItem
             [routerLink]="item.path"
             routerLinkActive="btn-active pointer-events-none"
-            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLinkActiveOptions]="{ exact: !item.canContainChildren }"
             class="flex space-x-2 {{ item.style }}"
             (click)="bottomSidebarItem.blur(); DrawerController.click()"
           >
@@ -161,9 +161,9 @@
               />
             </svg>
 
-            <span class="desktop-show-on-hover smooth h-5">{{
-              item.label | titlecase
-            }}</span>
+            <span class="desktop-show-on-hover smooth h-5"
+              >{{ item.label | titlecase }}
+            </span>
           </a>
         </li>
         }
