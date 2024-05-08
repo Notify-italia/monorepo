@@ -30,7 +30,7 @@
       tabindex="0"
       class="absolute -translate-y-10 opacity-0 pointer-events-none group-focus-within/colorPicker:translate-y-0 group-focus-within/colorPicker:opacity-100 group-focus-within/colorPicker:pointer-events-auto py-2 px-4 rounded-lg bg-white border my-2 smooth max-w-80 lg:max-w-96 overflow-auto z-50"
     >
-      <div class="grid grid-cols-6 grid-rows-4 w-44 grid-flow-row">
+      <div class="grid grid-cols-6 grid-rows-4 w-44 grid-flow-row items-center">
         @for (c of colors; track color) {
         <button
           remove-focus
@@ -47,6 +47,35 @@
           (click)="parent.get(name)?.setValue(c)"
         ></button>
         }
+
+        <div class="col-span-4 items-center flex justify-end !-mr-1.5">
+          <input
+            type="color"
+            #ColorPicker
+            class="opacity-0 pointer-events-none"
+            (input)="parent.get(name)?.setValue($any($event.target)?.value)"
+          />
+          <button
+            class="btn btn-circle btn-sm bg-gray-50 border-2 border-gray-400"
+            (click)="ColorPicker.click()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-5 h-5"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.25 4.125c0-1.036.84-1.875 1.875-1.875h5.25c1.036 0 1.875.84 1.875 1.875V17.25a4.5 4.5 0 1 1-9 0V4.125Zm4.5 14.25a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z"
+                clip-rule="evenodd"
+              />
+              <path
+                d="M10.719 21.75h9.156c1.036 0 1.875-.84 1.875-1.875v-5.25c0-1.036-.84-1.875-1.875-1.875h-.14l-8.742 8.743c-.09.089-.18.175-.274.257ZM12.738 17.625l6.474-6.474a1.875 1.875 0 0 0 0-2.651L15.5 4.787a1.875 1.875 0 0 0-2.651 0l-.1.099V17.25c0 .126-.003.251-.01.375Z"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </button>

@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { ColorPickerModule } from 'ngx-color-picker';
-
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { TailwindAdvancedSelectComponent } from './components/tailwind-advanced-select/tailwind-advanced-select.component';
 import { TailwindCheckboxComponent } from './components/tailwind-checkbox/tailwind-checkbox.component';
@@ -49,7 +47,6 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     RouterModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    ColorPickerModule,
     RemoveFocusDirective,
     DropzoneModule,
   ],

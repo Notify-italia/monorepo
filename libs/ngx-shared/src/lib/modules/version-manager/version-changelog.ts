@@ -14,6 +14,10 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
     message: `La Sidebar su desktop è ora più compatta e mostra solo le icone dei menu`,
   },
   {
+    type: 'improvement',
+    message: `Nella la selezione di un colore è ora possibile selezionare un colore personalizzato`,
+  },
+  {
     type: 'new',
     message: `<b>Pannello Profilo</b> è ora possibile modificare l'url del proprio profilo Notify`,
   },
