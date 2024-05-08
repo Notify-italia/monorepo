@@ -5,7 +5,7 @@ import {
   PageHeaderComponent,
   ProfileFormComponent,
   ProfileManagementBaseComponent,
-  ProfileManagementBaseComponentProviders,
+  ProfileManagementBaseProviders,
   ProfileTemplateBaseComponent,
   ProfileViewComponent,
   SaveIndicatorComponent,
@@ -36,7 +36,7 @@ import { environment } from '../../../../src/environments/environment';
     CachedSrcDirective,
     ProfileTemplateBaseComponent,
   ],
-  providers: ProfileManagementBaseComponentProviders,
+  providers: ProfileManagementBaseProviders,
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
 })

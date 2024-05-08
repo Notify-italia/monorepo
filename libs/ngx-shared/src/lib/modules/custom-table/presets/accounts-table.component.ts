@@ -28,18 +28,19 @@ export type IAccountsTableRow =
   | 'select-item'
   | 'actions';
 
+type AllowedAction =
+  | 'editUser'
+  | 'personalizeUser'
+  | 'deleteUser'
+  | 'inspectUser'
+  | 'inspectAnalytics';
+
 export interface IAccountsTableConfig {
   displayLeftAccounts?: boolean;
   hiddenColumns?: IAccountsTableRow[];
   clickableRow?: boolean;
   transparentBackgroundColor?: boolean;
-  allowedActions: (
-    | 'edit'
-    | 'personalize'
-    | 'delete'
-    | 'inspect'
-    | 'analytics'
-  )[];
+  allowedActions?: AllowedAction[];
 }
 
 @Component({
@@ -234,7 +235,15 @@ export class AccountsTableComponent implements OnInit, OnChanges {
                 color: 'error',
                 eventName: 'deleteUser',
               },
-            ],
+            ].filter((action) => {
+              if (!this.config.allowedActions?.length) {
+                return true;
+              }
+
+              return this.config.allowedActions.includes(
+                action.eventName as AllowedAction
+              );
+            }),
           },
         },
       ],

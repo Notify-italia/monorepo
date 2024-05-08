@@ -20,14 +20,16 @@ import { ITailwindSelectOption } from '../modules/tailwind-forms/components/tail
 import {
   AgentService,
   AuthService,
+  CompanyService,
   NoteService,
   ProfileService,
   UtilsService,
 } from '../services';
 
-export const ProfileManagementBaseComponentProviders = [
+export const ProfileManagementBaseProviders = [
   ProfilePlayerFactory,
   AgentService,
+  CompanyService,
   UtilsService,
   ProfileService,
   NoteService,
@@ -162,9 +164,28 @@ export class ProfileManagementBaseComponent implements OnDestroy {
       baseUrl: `${this.baseUrl}/p/`,
     });
 
+    ref.instance.checkAvailability
+      .pipe(
+        takeUntil(ref.instance.destroyed$),
+        debounceTime(250),
+        switchMap((profileIdentifier) => {
+          return this._profileService.checkProfileIdentifier(profileIdentifier);
+        }),
+        tap((v) => {
+          if (!v.available) {
+            ref.instance.valid = 'error';
+            return;
+          }
+
+          ref.instance.valid = 'success';
+        }),
+        catchError((err) => this._utilsService.errorHandler(err))
+      )
+      .subscribe();
+
     ref.instance.submitted
       .pipe(
-        takeUntil(this.destroy$),
+        takeUntil(ref.instance.destroyed$),
         switchMap((v) => {
           ref.instance.loading = true;
           return this._profileService

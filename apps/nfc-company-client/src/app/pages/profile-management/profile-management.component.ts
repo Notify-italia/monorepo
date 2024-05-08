@@ -4,11 +4,10 @@ import {
   AgentService,
   CachedSrcDirective,
   LoadingComponent,
-  NoteService,
   PageHeaderComponent,
   ProfileFormComponent,
   ProfileManagementBaseComponent,
-  ProfilePlayerFactory,
+  ProfileManagementBaseProviders,
   ProfileTemplateBaseComponent,
   ProfileViewComponent,
   SaveIndicatorComponent,
@@ -17,7 +16,7 @@ import {
 
 import { RouterLink } from '@angular/router';
 import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
-import { CompanyService, UtilsService } from '@notify/ngx-shared';
+import { CompanyService } from '@notify/ngx-shared';
 import { combineLatest, map, take, tap } from 'rxjs';
 import { environment } from '../../../../src/environments/environment';
 
@@ -36,13 +35,7 @@ import { environment } from '../../../../src/environments/environment';
     CachedSrcDirective,
     ProfileTemplateBaseComponent,
   ],
-  providers: [
-    ProfilePlayerFactory,
-    UtilsService,
-    CompanyService,
-    NoteService,
-    AgentService,
-  ],
+  providers: ProfileManagementBaseProviders,
   templateUrl: './profile-management.component.html',
   styleUrls: ['./profile-management.component.scss'],
 })

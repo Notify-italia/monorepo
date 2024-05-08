@@ -47,6 +47,19 @@ export class ProfileService {
     );
   }
 
+  public checkProfileIdentifier(profileIdentifier: string) {
+    return this.http.post<
+      {
+        profileIdentifier: string;
+      },
+      {
+        available: boolean;
+      }
+    >(`/v1/profile/check-identifier`, {
+      profileIdentifier,
+    });
+  }
+
   public async saveContact(d: INotifyProfile, publicUrl: string) {
     if (!d) {
       return;
