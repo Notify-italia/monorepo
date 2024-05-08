@@ -53,7 +53,7 @@ export const companyChangelog: INotifyVersionInfo = {
   date: '2024-05-01',
   title: '',
   description: '',
-  artPath: _getVersionArt('v0.8.5-company'),
+  artPath: _getVersionArt('v1.0.0'),
   changes: [
     ..._sharedChanges,
     {
