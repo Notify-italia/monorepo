@@ -19,22 +19,21 @@
         <div
           class="flex flex-col w-full max-h-[60vh] lg:max-h-[80vh] overflow-y-auto notify-scrollbar space-y-5 lg:px-5"
         >
-          <p class="changelog-title">
-            {{ versionInfo.title }}
-          </p>
-          <p class="text-sm lg:text-base">
-            {{ versionInfo.description }}
-          </p>
+          <p class="changelog-title" [innerHTML]="titleHTML"></p>
+          <p class="text-sm lg:text-base" [innerHTML]="descriptionHTML"></p>
           <object
             class="w-full h-full !border-none skeleton aspect-[2/1]"
             #VersionArtSkeleton
             width="1200px"
             height="600px"
           ></object>
+
           <img
             (load)="VersionArtSkeleton?.setAttribute('hidden', 'true')"
+            #VersionImg
             [src]="versionInfo.artPath"
-            class="w-full h-full object-contain rounded-lg"
+            [ngClass]="{ 'opacity-100 h-full': VersionImg.complete }"
+            class="w-full object-contain rounded-lg opacity-0 h-0"
           />
           <div class="flex flex-col space-y-12">
             <div class="changelog-section" *ngIf="changelogSorted.new?.length">

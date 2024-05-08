@@ -29,6 +29,16 @@ export class ChangelogComponent extends ModalBaseComponent implements OnInit {
     this._utilsService.toggleScrollLock(true);
   }
 
+  public get titleHTML() {
+    return this._domSanitizer.bypassSecurityTrustHtml(this.versionInfo.title);
+  }
+
+  public get descriptionHTML() {
+    return this._domSanitizer.bypassSecurityTrustHtml(
+      this.versionInfo.description
+    );
+  }
+
   public get changelogSorted() {
     const changes = this.versionInfo.changes
       .sort((a, b) => a.message.localeCompare(b.message))

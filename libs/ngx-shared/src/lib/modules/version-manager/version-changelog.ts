@@ -4,6 +4,10 @@ const _getVersionArt = (tag: string) => {
   return `https://s3-api.vps.notifyapp.it/assets/version-art/${tag}.webp`;
 };
 
+const _sharedDescription = `Notify entra ufficialmente in produzione! 🚀 <br/> Scarica l'app dagli stores ufficiali Android e iOS tramite i seguenti links
+<br/><br/><a class="link link-hover font-medium text-white" href='https://play.google.com/store/apps/details?id=org.notify.agent.client' target='_blank'>Google Play</a> <br/> <a   class="link link-hover font-medium text-white" href='https://apps.apple.com/it/app/notify/id1580247021' target='_blank'>App Store</a>
+`;
+
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
     type: 'improvement',
@@ -19,7 +23,7 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
   },
   {
     type: 'new',
-    message: `<b>Pannello Profilo</b> è ora possibile modificare l'url del proprio profilo Notify`,
+    message: `<b>Pannello Profilo</b> è ora possibile modificare l'URL del proprio profilo Notify`,
   },
   {
     type: 'fix',
@@ -35,9 +39,9 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
 
 export const agentChangelog: INotifyVersionInfo = {
   tag: 'v1.0.0',
-  date: '2024-05-01',
-  title: '',
-  description: '',
+  date: '2024-05-10',
+  description: _sharedDescription,
+  title: 'Release 1.0!',
   artPath: _getVersionArt('v1.0.0'),
   changes: [
     ..._sharedChanges,
@@ -45,14 +49,19 @@ export const agentChangelog: INotifyVersionInfo = {
       type: 'improvement',
       message: 'Migliorata la tabella che visualizza i colleghi',
     },
+    {
+      type: 'fix',
+      message:
+        "Le integrazioni dirette con il dispositivo nell'app sono ora in italiano",
+    },
   ],
 };
 
 export const companyChangelog: INotifyVersionInfo = {
   tag: 'v1.0.0',
-  date: '2024-05-01',
-  title: '',
-  description: '',
+  date: '2024-05-10',
+  description: _sharedDescription,
+  title: 'Release 1.0!',
   artPath: _getVersionArt('v1.0.0'),
   changes: [
     ..._sharedChanges,
