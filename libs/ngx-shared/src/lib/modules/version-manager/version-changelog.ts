@@ -20,6 +20,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
     type: 'fix',
     message:
+      '<b>Profilo</b>: Risolto un problema che impediva la corretta assegnazione del testo di alcuni elementi',
+  },
+  {
+    type: 'fix',
+    message:
       'Risolti alcuni problemi minori e migliorata la stabilità generale del sistema',
   },
 ];
