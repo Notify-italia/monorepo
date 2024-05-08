@@ -2,14 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UnknownObject } from '@notify/interfaces';
 import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
-import { NoItemsComponent, SearchBarComponent } from '../../../../standalones';
+import {
+  LoadingComponent,
+  NoItemsComponent,
+  SearchBarComponent,
+} from '../../../../standalones';
 import {
   CustomTableActionsComponent,
-  ICTActionsvalue,
+  ICTActionsValue,
 } from '../parts/ct-actions-value.part.component';
 import {
   CustomTableAvatarValueComponent,
-  ICTAvatarvalue,
+  ICTAvatarValue,
 } from '../parts/ct-avatar-value.part.component';
 import {
   CustomTableBadgeValueComponent,
@@ -27,8 +31,13 @@ import {
 } from '../parts/ct-sorter.part.component';
 
 export interface INotifyCustomTableConfig {
-  filterableFields: string[];
   columns: INotifyCustomTableColumn[];
+  searchBar: {
+    filterableFields: string[];
+    helpLabel?: string;
+    placeholder?: string;
+    debounceTime?: number;
+  };
   clickableRows?: boolean;
   skeletonRows: number;
   defaultSorter?: string;
@@ -44,7 +53,7 @@ interface INotifyCustomTableColumn {
   hidden?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sorter?: INotifyCustomTableSorter;
-  value: ICTFieldValue | ICTBadgevalue | ICTAvatarvalue | ICTActionsvalue;
+  value: ICTFieldValue | ICTBadgevalue | ICTAvatarValue | ICTActionsValue;
 }
 
 @Component({
@@ -61,6 +70,7 @@ interface INotifyCustomTableColumn {
     CustomTableActionsComponent,
     CustomTableSorterComponent,
     CustomTableHeaderComponent,
+    LoadingComponent,
   ],
   templateUrl: './custom-table.component.html',
 })
@@ -108,7 +118,7 @@ export class CustomTableComponent implements OnInit {
   }
 
   public handleActionClick(
-    action: ICTActionsvalue['actions'][0],
+    action: ICTActionsValue['actions'][0],
     iterate: UnknownObject
   ) {
     this.actionClicked.emit({

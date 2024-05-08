@@ -6,7 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { AuthService } from '../../../../services';
 import { LoadingComponent } from '../../../../standalones/loading/loading.component';
-import { AccountsTableComponent } from '../../../accounts';
+import { AccountsTableComponent } from '../../../custom-table/presets';
 
 @Component({
   standalone: true,

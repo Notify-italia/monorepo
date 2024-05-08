@@ -10,6 +10,7 @@ import {
 } from '@notify/nfc-api-core';
 import { Request, Response, Router } from 'express';
 import { query } from 'express-validator';
+import mongoose from 'mongoose';
 
 //boilderplate for a post request to create an agent
 const router = Router();
@@ -18,7 +19,7 @@ router.get(
   '/',
   query('id')
     .optional()
-    .isMongoId()
+    .isString()
     .withMessage(AGENT_VALIDATION_MESSAGES._id as string),
   requestHandler(async (req, res) => {
     if (req.query.id) {
@@ -44,7 +45,13 @@ export { router as getProfileRouter };
 const _profilePlayerFlow = async <T>(req: Request<T>, res: Response) => {
   const { id } = req.query;
 
-  const profile = await ProfileModel.findById(id).populate('note').lean();
+  const profile = await ProfileModel.findOne(
+    mongoose.isValidObjectId(id as string)
+      ? { _id: id }
+      : { profileIdentifier: id }
+  )
+    .populate('note')
+    .lean();
 
   if (!profile) {
     throw new BadRequestError(PROFILE_VALIDATION_MESSAGES._id as string);

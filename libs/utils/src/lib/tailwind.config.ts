@@ -1,3 +1,5 @@
+//questo import è necessario per evitare un errore di compilazione di tailwindcss-intellisense (https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+import '@angular/compiler';
 import TailwindScrollbar from 'tailwind-scrollbar';
 
 const tailwindConfig = {

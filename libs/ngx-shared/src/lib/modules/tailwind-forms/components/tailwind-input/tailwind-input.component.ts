@@ -39,6 +39,8 @@ export class TailwindInputComponent
     };
   };
 
+  @Input() readOnly = false;
+
   @Input() prefix = '';
   @Input() suffix = '';
 

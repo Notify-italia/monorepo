@@ -8,9 +8,9 @@ import {
   UtilsService,
 } from '../../../../services';
 
-import { ProfileDefaultViewComponent } from '../../presets/default-view/default-view.component';
-import { ProfileNewEraViewComponent } from '../../presets/newera-view/newera-view.component';
-import { ProfileOssidianaViewComponent } from '../../presets/ossidiana-view/ossidiana-view.component';
+import { ProfileDefaultViewComponent } from '../../views/default-view/default-view.component';
+import { ProfileNewEraViewComponent } from '../../views/newera-view/newera-view.component';
+import { ProfileOssidianaViewComponent } from '../../views/ossidiana-view/ossidiana-view.component';
 import { FeedbackFactory } from '../feedback/feedback.factory';
 import { MockupFillComponent } from '../mockup-fill/mockup-fill.component';
 

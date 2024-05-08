@@ -59,7 +59,10 @@
         [ngClass]="isExpired ? 'divider-error' : 'divider-success'"
       ></div>
       <div class="text-center font-bold tracking-wider">
-        Licenza {{ isExpired ? 'Scaduta' : 'Attiva' }}
+        Licenza
+        {{
+          license?.enabled ? (isExpired ? 'Scaduta' : 'Attiva') : 'Disattivata'
+        }}
       </div>
     </div>
   </div>

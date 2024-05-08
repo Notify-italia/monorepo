@@ -66,7 +66,10 @@
   }
 
   <div class="footer">
-    <div class="flex flex-col w-full">
+    <div
+      class="flex flex-col w-full lg:!text-current"
+      [style.color]="p.colors.elements"
+    >
       <div>
         Condivisione files: <span class="font-bold">{{ socketId }}</span>
       </div>

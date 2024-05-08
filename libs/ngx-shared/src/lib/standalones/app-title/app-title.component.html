@@ -4,9 +4,8 @@
   <img
     ngSrc="/assets/logo-{{ compact ? 'compact' : 'extended' }}.webp"
     alt=""
-    class="w-full"
-    [width]="compact ? 100 : 2279"
-    [height]="compact ? 100 : 772"
+    [width]="size.width"
+    [height]="size.height"
     priority
   />
   <span

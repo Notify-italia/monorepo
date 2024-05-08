@@ -30,10 +30,10 @@ export class ProfileService {
   }
 
   public patchProfile<T extends EnumNotifyUserType>(
-    body: INotifyProfile,
+    body: Partial<INotifyProfile>,
     id?: string
   ) {
-    return this.http.patch<INotifyProfile, INotifyProfile<T>>(
+    return this.http.patch<Partial<INotifyProfile>, INotifyProfile<T>>(
       `/v1/profile`,
       body,
       id ? { id } : undefined
@@ -45,6 +45,19 @@ export class ProfileService {
       `/v1/profile`,
       id ? { id } : undefined
     );
+  }
+
+  public checkProfileIdentifier(profileIdentifier: string) {
+    return this.http.post<
+      {
+        profileIdentifier: string;
+      },
+      {
+        available: boolean;
+      }
+    >(`/v1/profile/check-identifier`, {
+      profileIdentifier,
+    });
   }
 
   public async saveContact(d: INotifyProfile, publicUrl: string) {

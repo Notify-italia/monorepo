@@ -50,6 +50,12 @@ export class UtilsService {
     return `https://api.dicebear.com/7.x/${config.style}/png?seed=${config.seed}`;
   }
 
+  public getGooglePlaceId(place: string) {
+    return this._http.get<{ result: string }>('/v1/google/place-id', {
+      place,
+    });
+  }
+
   public stringToArrayBuffer(dataURI: string) {
     if (!dataURI) {
       return [new ArrayBuffer(0)];

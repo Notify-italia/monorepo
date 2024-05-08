@@ -18,7 +18,7 @@ import { Subject } from 'rxjs';
 import { SaveIndicatorComponent } from '../../../../standalones';
 import { NoItemsComponent } from '../../../../standalones/no-items/no-items.component';
 import { ConfirmModalFactory } from '../../../modals';
-import { INotifyShareItemConfig, ShareItemComponent } from '../../../profile';
+import { INotifyShareItemConfig } from '../../../profile';
 import { NoteHeaderComponent } from '../items/note-header/note-header.component';
 import { NoteItemComponent } from '../items/note-item.component';
 import { NoteMenuComponent } from '../items/note-menu/note-menu.component';
@@ -34,7 +34,6 @@ import { NoteOwnersWidgetComponent } from '../note-owners-widget/note-owners-wid
     NoteItemComponent,
     NoItemsComponent,
     NoteOwnersWidgetComponent,
-    ShareItemComponent,
     SaveIndicatorComponent,
   ],
   providers: [ConfirmModalFactory],

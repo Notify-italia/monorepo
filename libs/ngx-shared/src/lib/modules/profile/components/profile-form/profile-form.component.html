@@ -38,7 +38,8 @@
           type="button"
           class="btn btn-outline w-6/12 pointer-events-none"
           [ngClass]="{
-            'btn-outline pointer-events-auto': form.value.redirectEnabled
+            'btn-outline pointer-events-auto text-white':
+              form.value.redirectEnabled
           }"
           (click)="
             form.controls.redirectEnabled.setValue(!form.value.redirectEnabled)
@@ -250,17 +251,74 @@
           ></notify-tailwind-input>
         </div>
 
-        <div class="field" *ngIf="isCompany">
-          <notify-tailwind-input
-            [parent]="form"
-            name="reviewRedirect"
-            label="Reindirizzamento recensioni"
-            placeholder="https://g.page/la-tua-azienda/review?rc"
-            [validationErrors]="validationErrors"
-            class="w-full"
-            helpText="Lascia vuoto per nascondere il pulsante."
+        <div class="field space-y-2" *ngIf="isCompany">
+          @if (form.value.reviewRedirect?.length) {
+          <div class="flex w-full items-end space-x-2">
+            <notify-tailwind-input
+              #ReviewRedirect
+              [parent]="form"
+              name="reviewRedirect"
+              label="Reindirizzamento recensioni"
+              placeholder="https://g.page/la-tua-azienda/review?rc"
+              [validationErrors]="validationErrors"
+              [showClearInput]="false"
+              [readOnly]="true"
+              class="w-full"
+            >
+            </notify-tailwind-input>
+            <button
+              (click)="
+                generateGoogleReviewLink.emit(
+                  form.value.name + ' ' + form.value.city
+                )
+              "
+              class="btn text-white btn-primary bg-primary-500/40 brightness-90 z-10"
+              data-theme="notifytheme"
+              [disabled]="!form.value.name?.length || !form.value.city?.length"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+                />
+              </svg>
+            </button>
+          </div>
+          } @else {
+          <label class="text-sm font-medium">Reindirizzamento Recensioni</label>
+          <button
+            (click)="
+              generateGoogleReviewLink.emit(
+                form.value.name + ' ' + form.value.city
+              )
+            "
+            class="btn w-full btn-primary"
+            data-theme="notifytheme"
+            [disabled]="!form.value.name?.length || !form.value.city?.length"
           >
-          </notify-tailwind-input>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5ZM16.5 15a.75.75 0 0 1 .712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 0 1 0 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 0 1-1.422 0l-.395-1.183a1.5 1.5 0 0 0-.948-.948l-1.183-.395a.75.75 0 0 1 0-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0 1 16.5 15Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <span>Genera Link Google Review</span>
+          </button>
+          }
         </div>
         <div class="divider divider-start">Visibilità</div>
         <div class="field">
@@ -286,6 +344,13 @@
             [parent]="form"
             name="emailEnabled"
             label="E-Mail"
+            [validationErrors]="validationErrors"
+          ></notify-tailwind-checkbox>
+          <notify-tailwind-checkbox
+            *ngIf="isCompany && form.value.reviewRedirect?.length"
+            [parent]="form"
+            name="feedbackEnabled"
+            label="Lascia una recensione"
             [validationErrors]="validationErrors"
           ></notify-tailwind-checkbox>
         </div>
@@ -430,7 +495,7 @@
         <notify-tailwind-checkbox
           [parent]="form"
           name="noteShowTitle"
-          label="titolo della nota"
+          label="Titolo della nota"
           [validationErrors]="validationErrors"
         ></notify-tailwind-checkbox>
 

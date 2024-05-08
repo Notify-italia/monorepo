@@ -7,7 +7,7 @@ import {
 import { UtilsService } from '../../../../services';
 import { AvatarComponent } from '../../../../standalones';
 
-export interface ICTActionsvalue extends INotifyCustomTableValueBase {
+export interface ICTActionsValue extends INotifyCustomTableValueBase {
   valueType: 'actions';
   actions: {
     eventName: string;
@@ -31,7 +31,7 @@ export interface ICTActionsvalue extends INotifyCustomTableValueBase {
   providers: [UtilsService],
   template: `
     <div
-      class="space-x-4 py-2 px-4 rounded-2xl"
+      class="space-x-4 py-2 px-4 rounded-2xl flex justify-center w-fit"
       [ngClass]="
       {
         'bg-white/5': value.actions.length > 1,
@@ -40,7 +40,7 @@ export interface ICTActionsvalue extends INotifyCustomTableValueBase {
     >
       @for (action of value.actions; track $index) {
       <button
-        class="action-btn {{ 'action-' + this.value.actions[0].color }}"
+        class="action-btn {{ 'action-' + action.color }}"
         data-theme="notifytheme"
         (click)="actionClicked.emit(action)"
       >
@@ -85,7 +85,7 @@ export interface ICTActionsvalue extends INotifyCustomTableValueBase {
   `,
 })
 export class CustomTableActionsComponent extends CustomTableValueBaseComponent {
-  override value!: ICTActionsvalue;
+  override value!: ICTActionsValue;
 
-  @Output() actionClicked = new EventEmitter<ICTActionsvalue['actions'][0]>();
+  @Output() actionClicked = new EventEmitter<ICTActionsValue['actions'][0]>();
 }

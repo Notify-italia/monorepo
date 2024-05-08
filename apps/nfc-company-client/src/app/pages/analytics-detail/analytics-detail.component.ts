@@ -74,6 +74,8 @@ type hidratedUser = INotifyUser & {
   styleUrl: './analytics-detail.component.scss',
 })
 export class AnalyticsDetailComponent implements OnDestroy {
+  public currentPeriod = AREA_CHART_DEFAULT_PERIOD;
+
   public agents$ = combineLatest([
     this._agentService.getAgents(),
     this._profileService.getProfile(),
@@ -194,10 +196,7 @@ export class AnalyticsDetailComponent implements OnDestroy {
             queryParams: { a: agent?._id },
             queryParamsHandling: 'merge',
           });
-          return this.getProfileVisits(
-            agent?._id || '',
-            AREA_CHART_DEFAULT_PERIOD
-          );
+          return this.getProfileVisits(agent?._id || '', this.currentPeriod);
         })
       )
       .subscribe();
@@ -223,6 +222,7 @@ export class AnalyticsDetailComponent implements OnDestroy {
   }
 
   public getProfileVisits(userId: string, period: { from: Date; to: Date }) {
+    this.currentPeriod = period;
     return this._statService
       .getStat(EnumNotifyStatType.ProfileVisit, period, userId)
       .pipe(
@@ -250,7 +250,7 @@ export class AnalyticsDetailComponent implements OnDestroy {
 
     return {
       type: 'profile',
-      id: profile._id,
+      id: profile.profileIdentifier || profile._id,
       baseUrl: this.baseUrl || '',
       isInModal: true,
       qrcode: {

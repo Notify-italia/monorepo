@@ -27,11 +27,11 @@
 	<key>NFCReaderUsageDescription</key>
 	<string>Notify ha bisogno dell'accesso al tuo lettore NFC per scrivere il tuo profilo sul supporto NFC</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Notify ha bisogno dell'accesso alla tua fotocamera per scattare una tua bellissima foto! ✨📸</string>
+	<string>Notify ha bisogno dell'accesso alla tua fotocamera per scattare una tua foto da usare come avatar del profilo oppure come elemento tra le note</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Notify ha bisogno dell'accesso alla tua libreria di foto per salvare codici QR e altri media</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Notify ha bisogno dell'accesso alla tua libreria di foto per caricare una foto del tuo profilo</string>
+	<string>Notify ha bisogno dell'accesso alla tua libreria di foto per caricare una foto da usare come avatar del profilo oppure come elemento tra le note</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

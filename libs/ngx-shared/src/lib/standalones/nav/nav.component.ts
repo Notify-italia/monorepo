@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 import { GestureController } from '@ionic/angular';
 
 import { VersionLabelComponent } from '../../modules/version-manager';
-import { CapacitorService } from '../../services';
+import { CapacitorService, UtilsService } from '../../services';
 import { AppTitleComponent } from '../app-title/app-title.component';
 
 export interface NavItem {
@@ -21,6 +21,7 @@ export interface NavItem {
   icon: string[];
   disabled?: boolean;
   hidden?: boolean;
+  canContainChildren?: boolean;
 }
 
 @Component({
@@ -32,7 +33,7 @@ export interface NavItem {
     AppTitleComponent,
     VersionLabelComponent,
   ],
-  providers: [CapacitorService],
+  providers: [CapacitorService, UtilsService],
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
 })
@@ -59,6 +60,12 @@ export class NavComponent {
 
   @Output() versionClick = new EventEmitter<void>();
 
+  public get isPhone() {
+    return ['none', 'sm', 'md'].includes(
+      this._utilsService.currentTailwindMediaQuery()
+    );
+  }
+
   public get availableItems() {
     return {
       top: this.topItems.filter((item) => !item.hidden),
@@ -75,7 +82,8 @@ export class NavComponent {
 
   constructor(
     public capacitor: CapacitorService,
-    private _gestureCtrl: GestureController
+    private _gestureCtrl: GestureController,
+    private _utilsService: UtilsService
   ) {
     this._gestureCtrl
       .create(

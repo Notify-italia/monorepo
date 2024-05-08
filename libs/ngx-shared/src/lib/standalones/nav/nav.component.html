@@ -1,7 +1,15 @@
 <div
-  class="drawer drawer-open z-[500] fixed lg:static bg-primary/5 backdrop-blur-xl lg:rounded-xl"
+  class="drawer drawer-open z-[500] fixed"
+  [ngClass]="{
+    'backdrop-blur-xl bg-primary/5': isPhone
+  }"
 >
-  <div class="navbar p-0 min-h-10 lg:h-full w-full m-2 lg:m-0">
+  <div
+    class="navbar p-0 min-h-10 lg:h-full w-full m-2 lg:m-0 overflow-x-hidden lg:!w-[5.5rem] lg:hover:!w-80 smooth group/desktopController lg:backdrop-blur-xl lg:rounded-xl lg:hover:backdrop-brightness-95 lg:hover:shadow-xl"
+    [ngClass]="{
+      box: !isPhone
+    }"
+  >
     <div
       class="flex items-center"
       [ngClass]="{
@@ -45,7 +53,7 @@
     </div>
   </div>
 </div>
-<div class="h-14 lg:hidden"></div>
+<div class="h-14 lg:h-full lg:w-[5.5rem]"></div>
 
 <ng-template #SidebarContent>
   <label
@@ -61,18 +69,32 @@
 
     }"
   >
-    <div class="flex flex-col items-center">
-      <div class="p-4 py-5 mt-5 lg:mt-8 w-48 lg:w-64">
+    <div class="flex flex-col items-center relative">
+      <div class="p-4 py-5 mt-5 w-48 lg:!w-64 desktop-show-on-hover smooth">
         <notify-app-title
           [subtitle]="subtitle"
           routerLink="/pages/dashboard"
           class="cursor-pointer"
         ></notify-app-title>
       </div>
+      <div
+        class="hidden lg:block desktop-hide-on-hover smooth absolute left-0 top-8 !w-fit !h-fit p-2"
+      >
+        <notify-app-title
+          routerLink="/pages/dashboard"
+          [compact]="true"
+          [sizes]="{
+            compact: { width: 70, height: 70 },
+            
+          }"
+          class="cursor-pointer"
+        ></notify-app-title>
+      </div>
 
-      <div class="divider px-4 mt-5 lg:mt-8"></div>
+      <div class="divider px-4 mt-5 desktop-show-on-hover smooth"></div>
 
-      <span class="w-full text-start px-4 mt-5 font-light text-sm"
+      <span
+        class="w-full text-start px-4 mt-5 font-light text-sm desktop-show-on-hover smooth"
         >Navigazione</span
       >
       <ul>
@@ -83,7 +105,7 @@
             #sidebarItem
             [routerLink]="item.path"
             routerLinkActive="btn-active pointer-events-none"
-            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLinkActiveOptions]="{ exact: !item.canContainChildren }"
             class="flex space-x-2 smooth smooth-slow"
             (click)="sidebarItem.blur(); DrawerController.click()"
           >
@@ -97,15 +119,18 @@
               }
             </svg>
 
-            <span>{{ item.label | titlecase }}</span>
+            <span class="desktop-show-on-hover smooth h-5">{{
+              item.label | titlecase
+            }}</span>
           </a>
         </li>
         }
       </ul>
     </div>
 
-    <div>
-      <span class="w-full text-start px-4 mt-5 font-light text-sm"
+    <div class="flex flex-col items-center relative">
+      <span
+        class="w-full text-start px-4 mt-5 font-light text-sm desktop-show-on-hover smooth"
         >Sistema</span
       >
       <ul>
@@ -116,7 +141,7 @@
             #bottomSidebarItem
             [routerLink]="item.path"
             routerLinkActive="btn-active pointer-events-none"
-            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLinkActiveOptions]="{ exact: !item.canContainChildren }"
             class="flex space-x-2 {{ item.style }}"
             (click)="bottomSidebarItem.blur(); DrawerController.click()"
           >
@@ -132,14 +157,16 @@
               />
             </svg>
 
-            <span>{{ item.label }}</span>
+            <span class="desktop-show-on-hover smooth h-5"
+              >{{ item.label | titlecase }}
+            </span>
           </a>
         </li>
         }
       </ul>
       <div
         *ngIf="versionInfo"
-        class="m-2"
+        class="p-2 w-full"
         [ngClass]="{
         'pb-safe': capacitor.isNative,
       }"
@@ -148,6 +175,7 @@
           [currentVersion]="versionInfo.currentVersion"
           [currentVersionDate]="versionInfo.currentVersionDate"
           (versionClick)="versionClick.emit()"
+          class="desktop-show-on-hover smooth"
         ></notify-version-label>
       </div>
     </div>

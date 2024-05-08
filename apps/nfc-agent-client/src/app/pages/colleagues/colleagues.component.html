@@ -7,9 +7,10 @@
   <notify-accounts-table
     [users$]="colleagues$"
     [maxAgents]="null"
+    [skeletonRows]="5"
     [config]="{
       allowedActions: [],
-      hiddenColumns: ['createdAt', 'select-item', 'actions', 'role'],
+      hiddenColumns: ['select-item', 'actions', 'role', 'createdAt'],
       clickableRow: true
     }"
     [noItemsMessages]="{

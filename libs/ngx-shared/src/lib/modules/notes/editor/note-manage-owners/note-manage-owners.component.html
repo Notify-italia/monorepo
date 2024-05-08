@@ -17,8 +17,8 @@
           <notify-accounts-table
             [users$]="usersSubject$"
             [config]="{
-              allowedActions: ['delete'],
-              hiddenColumns: ['createdAt', 'role', 'select-item'],
+              allowedActions: ['deleteUser'],
+              hiddenColumns: ['createdAt', 'role', 'select-item',],
               clickableRow: false,
               transparentBackgroundColor: true,
             }"

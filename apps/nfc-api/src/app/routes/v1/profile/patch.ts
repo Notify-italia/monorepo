@@ -1,4 +1,3 @@
-import { generateExpressValidation } from '@notify/api-shared';
 import {
   EnumNotifyUserType,
   INotifyAgent,
@@ -15,7 +14,7 @@ import {
   requestHandler,
 } from '@notify/nfc-api-core';
 import { Request, Router } from 'express';
-import { query } from 'express-validator';
+import { body, query } from 'express-validator';
 
 const router = Router();
 
@@ -25,10 +24,7 @@ router.patch(
     .optional()
     .isMongoId()
     .withMessage(PROFILE_VALIDATION_MESSAGES._id as string),
-  ...generateExpressValidation(PROFILE_VALIDATION_MESSAGES, [
-    'name',
-    'surname',
-  ]),
+  body('profileIdentifier').optional().toLowerCase(),
   requestHandler(
     async (req: Request<{ email: string; password: string }>, res) => {
       const { id } = req.query;

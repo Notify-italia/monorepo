@@ -8,9 +8,10 @@ import {
 import { UtilsService } from '../../../../services';
 import { AvatarComponent } from '../../../../standalones';
 
-export interface ICTAvatarvalue extends INotifyCustomTableValueBase {
+export interface ICTAvatarValue extends INotifyCustomTableValueBase {
   valueType: 'avatar';
   avatarSize: string;
+  scrambleCacheOnChange?: boolean;
   fields: {
     src: string;
     mask: string;
@@ -32,7 +33,10 @@ export interface ICTAvatarvalue extends INotifyCustomTableValueBase {
     *ngIf="iteratedValues as values"
   >
     <div class="w-14 h-14">
-      <notify-avatar [avatarConfig]="values"></notify-avatar>
+      <notify-avatar
+        [avatarConfig]="values"
+        [scrambleCacheOnChange]="value.scrambleCacheOnChange ?? true"
+      ></notify-avatar>
     </div>
     <div>
       <div class="font-bold">
@@ -46,7 +50,7 @@ export class CustomTableAvatarValueComponent
   extends CustomTableValueBaseComponent
   implements OnInit, OnChanges
 {
-  override value!: ICTAvatarvalue;
+  override value!: ICTAvatarValue;
 
   public iteratedValues: {
     src: string;
@@ -100,11 +104,6 @@ export class CustomTableAvatarValueComponent
         fields.userEmail
       )[0] as string,
     };
-
-    if (!result.src && !result.userName) {
-      this.iteratedValues = null;
-      return;
-    }
 
     this.iteratedValues = result;
   }

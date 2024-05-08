@@ -37,6 +37,7 @@ export const PROFILE_VALIDATION_MESSAGES: {
     iconName: 'Inserire un nome di icona valido',
     value: 'Inserire un valore valido',
   },
+  profileIdentifier: 'Inserire un identificatore valido',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
@@ -203,6 +204,11 @@ const ProfileSchema = new Schema<Profile, ProfileModel>(
       type: Schema.Types.ObjectId,
       default: null,
       ref: 'Note',
+    },
+    profileIdentifier: {
+      type: String,
+      default: null,
+      unique: true,
     },
     noteOptions: {
       showTitle: {
