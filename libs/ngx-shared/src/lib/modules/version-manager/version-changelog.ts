@@ -7,7 +7,7 @@ const _getVersionArt = (tag: string) => {
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
     type: 'improvement',
-    message: `Migliorato il componente di ritaglio delle immagini`,
+    message: `Migliorata la gestione del ritaglio delle immagini durante il caricamento`,
   },
   {
     type: 'improvement',
@@ -16,6 +16,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
     type: 'new',
     message: `<b>Pannello Profilo</b> è ora possibile modificare l'url del proprio profilo Notify`,
+  },
+  {
+    type: 'fix',
+    message:
+      'Risolti alcuni problemi minori e migliorata la stabilità generale del sistema',
   },
 ];
 
