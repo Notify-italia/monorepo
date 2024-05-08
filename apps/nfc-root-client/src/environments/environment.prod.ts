@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   apiUrl: 'https://notify-root-api.vps.notifyapp.it/api',
-  profilesUrl: 'https://profili.notifyapp.it',
+  profilesUrl: 'https://noty.li',
   companyUrl: 'https://aziende.notifyapp.it',
   agentUrl: 'https://app.notifyapp.it',
   apiKeyKey: 'prod.apikey',
