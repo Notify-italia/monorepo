@@ -54,7 +54,7 @@
   }
 
   & .modal-content {
-    @apply rounded lg:rounded-xl px-4 py-8 bg-base-100 w-[95vw] lg:w-full md:max-w-[80vw] lg:max-w-[55vw] h-fit flex flex-col items-center slide-in-blurred-top;
+    @apply rounded lg:rounded-xl px-4 py-8 bg-slate-800 border border-slate-700 w-[95vw] lg:w-full md:max-w-[80vw] lg:max-w-[55vw] h-fit flex flex-col items-center slide-in-blurred-top;
 
     &.content-static {
       animation: none;

@@ -15,6 +15,7 @@ import {
 } from 'rxjs';
 
 import { ProfilePlayerFactory } from '../modules/profile/components/fullscreen-mockup/profile-player.factory';
+import { ProfileShareSettingsFactory } from '../modules/profile/components/profile-share-settings/profile-share-settings.factory';
 import { ITailwindSelectOption } from '../modules/tailwind-forms/components/tailwind-select/tailwind-select.component';
 import {
   AgentService,
@@ -30,6 +31,7 @@ export const ProfileManagementBaseComponentProviders = [
   UtilsService,
   ProfileService,
   NoteService,
+  ProfileShareSettingsFactory,
 ];
 
 @Component({
@@ -46,6 +48,7 @@ export class ProfileManagementBaseComponent implements OnDestroy {
   public _authService = inject(AuthService);
   public _activatedRoute = inject(ActivatedRoute);
   public _noteService = inject(NoteService);
+  private _shareSettingsFactory = inject(ProfileShareSettingsFactory);
 
   /**
    * Rxjs Subjects and Observables
@@ -152,6 +155,32 @@ export class ProfileManagementBaseComponent implements OnDestroy {
       tap(() => (this.loading = false))
     );
   }
+
+  public openShareSettings(profile: INotifyProfile) {
+    const ref = this._shareSettingsFactory.create({
+      profile,
+      baseUrl: `${this.baseUrl}/p/`,
+    });
+
+    ref.instance.submitted
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap((v) => {
+          ref.instance.loading = true;
+          return this._profileService
+            .patchProfile(v, this.providedProfile)
+            .pipe(
+              tap((profile) => {
+                this.updateProfileSubject(profile);
+              }),
+              this.refreshTokenPipe()
+            );
+        }),
+        tap(() => ref.instance.close())
+      )
+      .subscribe();
+  }
+
   /**
    * To be overridden
    */

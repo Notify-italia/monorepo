@@ -38,7 +38,8 @@
           type="button"
           class="btn btn-outline w-6/12 pointer-events-none"
           [ngClass]="{
-            'btn-outline pointer-events-auto': form.value.redirectEnabled
+            'btn-outline pointer-events-auto text-white':
+              form.value.redirectEnabled
           }"
           (click)="
             form.controls.redirectEnabled.setValue(!form.value.redirectEnabled)

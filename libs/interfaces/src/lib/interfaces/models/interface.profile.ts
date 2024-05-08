@@ -21,6 +21,7 @@ export interface INotifyProfile<
       }
     : null;
   reviewRedirect: T extends EnumNotifyUserType.Company ? string : null;
+  profileIdentifier: string | null;
   config: {
     avatarMask: DaisyUIAvatarMasks | null;
     whatsappEnabled: boolean;

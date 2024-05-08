@@ -9,6 +9,10 @@ export const appRoutes: Route[] = [
     component: ProfileComponent,
   },
   {
+    path: 'p/:id',
+    component: ProfileComponent,
+  },
+  {
     path: 'note',
     component: NoteComponent,
   },

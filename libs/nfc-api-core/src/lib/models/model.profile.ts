@@ -204,6 +204,11 @@ const ProfileSchema = new Schema<Profile, ProfileModel>(
       default: null,
       ref: 'Note',
     },
+    profileIdentifier: {
+      type: String,
+      default: null,
+      unique: true,
+    },
     noteOptions: {
       showTitle: {
         type: Boolean,

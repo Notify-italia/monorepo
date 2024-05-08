@@ -250,7 +250,7 @@ export class AnalyticsDetailComponent implements OnDestroy {
 
     return {
       type: 'profile',
-      id: profile._id,
+      id: profile.profileIdentifier || profile._id,
       baseUrl: this.baseUrl || '',
       isInModal: true,
       qrcode: {

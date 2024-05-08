@@ -77,6 +77,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     return this._utils.currentTailwindMediaQuery();
   }
 
+  private get _id() {
+    return (
+      this._getProfileIdentifier() ||
+      (this._activatedRoute.snapshot.queryParamMap.get('id') as string)
+    );
+  }
+
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _profileService: ProfileService,
@@ -89,39 +96,35 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private _feedbackFactory: FeedbackFactory,
     private _utils: UtilsService
   ) {
-    this.profile$ = this._profileService
-      .getProfile(
-        this._activatedRoute.snapshot.queryParamMap.get('p') as string
-      )
-      .pipe(
-        tap((profile) =>
-          this._statService
-            .incrementStat(this._getStatTypeFromOrigin(), profile.owner)
-            .pipe(tap(() => this._removeQueryParam()))
-            .subscribe()
-        ),
-        switchMap((p) => {
-          if (!p.config.redirectEnabled || !p.redirectUrl?.length) {
-            return of(p);
-          }
-          this._redirect(p);
+    this.profile$ = this._profileService.getProfile(this._id).pipe(
+      tap((profile) =>
+        this._statService
+          .incrementStat(this._getStatTypeFromOrigin(), profile.owner)
+          .pipe(tap(() => this._removeQueryParam()))
+          .subscribe()
+      ),
+      switchMap((p) => {
+        if (!p.config.redirectEnabled || !p.redirectUrl?.length) {
+          return of(p);
+        }
+        this._redirect(p);
 
-          return of(null as unknown as INotifyProfile);
-        }),
-        tap((profile) => {
-          if (!profile) {
-            return;
-          }
+        return of(null as unknown as INotifyProfile);
+      }),
+      tap((profile) => {
+        if (!profile) {
+          return;
+        }
 
-          this._setMeta(profile);
-          this.profileColors = profile.colors;
-          this._socket.connect(profile._id);
-        }),
-        catchError((err) => {
-          this._router.navigate(['/404']);
-          throw new Error(err);
-        })
-      );
+        this._setMeta(profile);
+        this.profileColors = profile.colors;
+        this._socket.connect(profile._id);
+      }),
+      catchError((err) => {
+        this._router.navigate(['/404']);
+        throw new Error(err);
+      })
+    );
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -311,6 +314,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     //click the "a" element
     a.click();
+  }
+
+  private _getProfileIdentifier(): string {
+    return this._activatedRoute.snapshot.paramMap.get('id') as string;
   }
 
   private _setMeta(profile: INotifyProfile) {

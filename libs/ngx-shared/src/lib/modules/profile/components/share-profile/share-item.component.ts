@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { EnumNotifyProfileSources } from '@notify/interfaces';
 import { CapacitorService } from '../../../../services';
@@ -23,6 +23,7 @@ export interface INotifyShareItemConfig {
       label: string;
     }[];
   };
+  enableSettings?: boolean;
   baseUrl: string;
   isInModal: boolean;
   id: string;
@@ -46,6 +47,8 @@ export interface INotifyShareItemConfig {
 export class ShareItemComponent {
   @Input() public config!: INotifyShareItemConfig;
   @Input() public compact = false;
+
+  @Output() settingsClicked = new EventEmitter<void>();
 
   public hasShare = !!navigator.share;
   public isNative = this.capacitor.isNative;
@@ -125,14 +128,12 @@ export class ShareItemComponent {
   }
 
   private _genPlayerUrl(source: EnumNotifyProfileSources, id?: string) {
-    const _source = this.config.type === 'profile' ? `&s=${source}` : '';
+    const _source = this.config.type === 'profile' ? `?s=${source}` : '';
 
     const queryKey = this.config.type.charAt(0);
 
     return (
-      `${this.config.baseUrl}/${this.config.type}?${queryKey}=${
-        id || this.config.id
-      }` + _source
+      `${this.config.baseUrl}/${queryKey}/${id || this.config.id}` + _source
     );
   }
 

@@ -17,5 +17,5 @@ $spinnerSize: 2px;
   position: -webkit-sticky;
   position: sticky;
 
-  @apply top-safe;
+  @apply top-safe lg:top-4 2xl:top-5;
 }

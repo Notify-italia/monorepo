@@ -11,7 +11,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
   },
   {
     type: 'improvement',
-    message: `Il pannello laterale su desktop è stato reso più compatto`,
+    message: `La Sidebar su desktop è ora più compatta e mostra solo le icone dei menu`,
+  },
+  {
+    type: 'new',
+    message: `<b>Pannello Profilo</b> è ora possibile modificare l'url del proprio profilo Notify`,
   },
 ];
 

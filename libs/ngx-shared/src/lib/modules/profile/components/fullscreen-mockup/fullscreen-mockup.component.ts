@@ -37,7 +37,7 @@ export class FullscreenMockupComponent extends ModalBaseComponent {
 
     return {
       type: 'profile',
-      id: this.profile._id,
+      id: this.profile.profileIdentifier || this.profile._id,
       baseUrl: this.baseUrl || '',
       isInModal: true,
       qrcode: {

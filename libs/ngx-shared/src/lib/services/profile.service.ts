@@ -30,10 +30,10 @@ export class ProfileService {
   }
 
   public patchProfile<T extends EnumNotifyUserType>(
-    body: INotifyProfile,
+    body: Partial<INotifyProfile>,
     id?: string
   ) {
-    return this.http.patch<INotifyProfile, INotifyProfile<T>>(
+    return this.http.patch<Partial<INotifyProfile>, INotifyProfile<T>>(
       `/v1/profile`,
       body,
       id ? { id } : undefined
