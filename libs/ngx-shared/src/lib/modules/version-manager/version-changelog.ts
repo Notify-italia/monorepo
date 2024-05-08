@@ -34,11 +34,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
 ];
 
 export const agentChangelog: INotifyVersionInfo = {
-  tag: 'v0.9.2',
+  tag: 'v1.0.0',
   date: '2024-05-01',
   title: '',
   description: '',
-  artPath: _getVersionArt('v0.9.2-agent'),
+  artPath: _getVersionArt('v1.0.0'),
   changes: [
     ..._sharedChanges,
     {
@@ -49,7 +49,7 @@ export const agentChangelog: INotifyVersionInfo = {
 };
 
 export const companyChangelog: INotifyVersionInfo = {
-  tag: 'v0.8.5',
+  tag: 'v1.0.0',
   date: '2024-05-01',
   title: '',
   description: '',
