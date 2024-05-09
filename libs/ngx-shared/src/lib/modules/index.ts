@@ -1,3 +1,4 @@
+export * from './advanced-profile';
 export * from './custom-table';
 export * from './custom-table/presets';
 export * from './file-sharing';

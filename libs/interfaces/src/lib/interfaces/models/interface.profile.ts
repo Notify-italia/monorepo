@@ -1,6 +1,7 @@
 import { MongodbDocument } from '../interface.mongodb';
 import { EnumNotifyUserType, INotifyUser } from '../interface.user';
 import { NotifyPopulatedNote } from './interface.note';
+import { INotifyAdvancedProfile } from './interface.profile-editor';
 
 export interface INotifyProfile<
   T extends EnumNotifyUserType = EnumNotifyUserType
@@ -33,10 +34,6 @@ export interface INotifyProfile<
   };
   customFields: { iconName: string; value: string }[];
   type: EnumNotifyUserType;
-  //TODO aggiungi open hours (solo azienda)
-  openHours: T extends EnumNotifyUserType.Company
-    ? { start: number; end: number }[]
-    : null;
   redirectUrl: string | null;
   piva: T extends EnumNotifyUserType.Company ? string : null;
   company?: INotifyProfile<EnumNotifyUserType.Company>;
@@ -49,6 +46,9 @@ export interface INotifyProfile<
   noteOptions?: {
     showTitle: boolean;
   };
+
+  //v2 related
+  advencedProfile: INotifyAdvancedProfile;
 }
 
 export const daisyUIAvatarMaks = [

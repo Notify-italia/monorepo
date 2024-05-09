@@ -41,7 +41,7 @@ export class TailwindInputComponent
 
   @Input() readOnly = false;
 
-  @Input() prefix = '';
+  @Input() prefix? = '';
   @Input() suffix = '';
 
   @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
