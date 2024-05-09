@@ -61,7 +61,7 @@ export class InspectCustomerComponent {
     this.customerSubject$;
 
   public tableConfig: IAccountsTableConfig = {
-    allowedActions: ['inspect', 'edit'],
+    allowedActions: ['inspectUser', 'editUser'],
     hiddenColumns: ['select-item'],
   };
 

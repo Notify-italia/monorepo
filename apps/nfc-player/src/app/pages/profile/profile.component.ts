@@ -80,7 +80,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private get _id() {
     return (
       this._getProfileIdentifier() ||
-      (this._activatedRoute.snapshot.queryParamMap.get('id') as string)
+      (this._activatedRoute.snapshot.queryParamMap.get('p') as string)
     );
   }
 

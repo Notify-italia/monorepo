@@ -101,5 +101,6 @@ const _DEMO_PROFILE: INotifyProfile<EnumNotifyUserType.Company> = {
     useCompanyColors: null,
   },
   redirectUrl: 'notifyapp.it',
+  profileIdentifier: 'notify',
   note: null as unknown as NotifyPopulatedNote,
 };
