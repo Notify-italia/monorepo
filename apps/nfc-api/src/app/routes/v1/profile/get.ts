@@ -6,11 +6,11 @@ import {
   ProfileModel,
   getAgentOwnerProfile,
   injectAuth,
+  isValidObjectId,
   requestHandler,
 } from '@notify/nfc-api-core';
 import { Request, Response, Router } from 'express';
 import { query } from 'express-validator';
-import mongoose from 'mongoose';
 
 //boilderplate for a post request to create an agent
 const router = Router();
@@ -19,7 +19,8 @@ router.get(
   '/',
   query('id')
     .optional()
-    .isString()
+    .exists()
+    .toLowerCase()
     .withMessage(AGENT_VALIDATION_MESSAGES._id as string),
   requestHandler(async (req, res) => {
     if (req.query.id) {
@@ -46,15 +47,13 @@ const _profilePlayerFlow = async <T>(req: Request<T>, res: Response) => {
   const { id } = req.query;
 
   const profile = await ProfileModel.findOne(
-    mongoose.isValidObjectId(id as string)
-      ? { _id: id }
-      : { profileIdentifier: id }
+    isValidObjectId(id as string) ? { _id: id } : { profileIdentifier: id }
   )
     .populate('note')
     .lean();
 
   if (!profile) {
-    throw new BadRequestError(PROFILE_VALIDATION_MESSAGES._id as string);
+    throw new BadRequestError('Profilo non trovato');
   }
   res.status(200).send({
     ...profile,

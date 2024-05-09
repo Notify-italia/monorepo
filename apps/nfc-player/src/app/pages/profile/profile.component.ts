@@ -317,6 +317,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private _getProfileIdentifier(): string {
+    console.log(
+      `PARAM MAP`,
+      this._activatedRoute.snapshot.paramMap.get('id') as string
+    );
     return this._activatedRoute.snapshot.paramMap.get('id') as string;
   }
 
