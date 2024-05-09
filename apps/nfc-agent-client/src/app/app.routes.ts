@@ -70,14 +70,30 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'profile',
-        loadComponent: () =>
-          import(
-            './pages/profile-management/profile-management.component'
-          ).then((m) => m.ProfileManagementComponent),
-        data: {
-          pageTitle: 'Profilo',
-        },
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import(
+                './pages/profile-management/profile-management.component'
+              ).then((m) => m.ProfileManagementComponent),
+            data: {
+              pageTitle: 'Profilo',
+            },
+          },
+          {
+            path: 'editor',
+            loadComponent: () =>
+              import('@notify/ngx-shared').then(
+                (m) => m.AdvancedProfileComponent
+              ),
+            data: {
+              pageTitle: 'Profilo',
+            },
+          },
+        ],
       },
+
       {
         path: 'colleagues',
         loadComponent: () =>
