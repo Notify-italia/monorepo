@@ -2,6 +2,7 @@ export * from './lib/interfaces/interface.action-button';
 export * from './lib/interfaces/interface.error';
 export * from './lib/interfaces/interface.socketio';
 export * from './lib/interfaces/interface.user';
+export * from './lib/interfaces/models/interface.advanced-profile';
 export * from './lib/interfaces/models/interface.agent';
 export * from './lib/interfaces/models/interface.company';
 export * from './lib/interfaces/models/interface.feedback';

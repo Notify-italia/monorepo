@@ -1,7 +1,7 @@
 import { MongodbDocument } from '../interface.mongodb';
 import { EnumNotifyUserType, INotifyUser } from '../interface.user';
+import { INotifyAdvancedProfile } from './interface.advanced-profile';
 import { NotifyPopulatedNote } from './interface.note';
-import { INotifyAdvancedProfile } from './interface.profile-editor';
 
 export interface INotifyProfile<
   T extends EnumNotifyUserType = EnumNotifyUserType

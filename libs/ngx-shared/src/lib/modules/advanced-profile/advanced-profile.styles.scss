@@ -1,0 +1,11 @@
+.menu {
+  @apply w-64  h-full rounded-2xl border border-gray-700 bg-[#131417] p-5;
+}
+
+.root-element {
+  @apply h-[99vh] w-full bg-[#202020] rounded-3xl border-2 border-gray-600 p-2;
+}
+
+.item-button {
+  @apply w-full flex items-center  justify-between rounded-lg px-4 py-2 text-gray-300  font-medium    hover:text-gray-100;
+}
