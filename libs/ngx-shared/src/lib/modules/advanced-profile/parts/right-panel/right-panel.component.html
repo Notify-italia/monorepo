@@ -1,0 +1,26 @@
+<div class="menu">
+  <div class="flex flex-col size-full items-center">
+    <div
+      class="overflow-y-auto shrink-0 flex flex-col w-full text-center space-y-2"
+    >
+      <div>
+        <notify-save-indicator
+          [isSaving]="loading"
+          [lastSave]="profile?.updatedAt || TEMP_today"
+          [followPage]="false"
+          [compact]="true"
+          (save)="forceSave.emit()"
+        ></notify-save-indicator>
+      </div>
+      <notify-share-item
+        [config]="shareConfig"
+        [compact]="true"
+      ></notify-share-item>
+    </div>
+
+    <div class="divider"></div>
+    <div class="w-full h-full shrink-0 overflow-hidden">
+      <div>PART SETTINGS</div>
+    </div>
+  </div>
+</div>
