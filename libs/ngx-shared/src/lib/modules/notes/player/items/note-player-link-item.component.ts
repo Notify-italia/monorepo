@@ -45,11 +45,14 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
 })
 export class NotePlayerLinkItemComponent extends NoteItemBaseComponent {
   public get itemValue() {
-    return this.item.value as INotifyNoteItemLink;
+    return (this.item.value || {
+      title: '',
+      url: '',
+    }) as INotifyNoteItemLink;
   }
 
   public get redirectUrl() {
-    const url = this.itemValue.url;
+    const url = this.itemValue?.url;
 
     if (!url) {
       return null;

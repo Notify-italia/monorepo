@@ -5,7 +5,7 @@ const _getVersionArt = (tag: string) => {
 };
 
 const _sharedDescription = `Notify entra ufficialmente in produzione! 🚀 <br/> Scarica l'app dagli stores ufficiali Android e iOS tramite i seguenti links
-<br/><br/><a class="link link-hover font-medium text-white" href='https://play.google.com/store/apps/details?id=org.notify.agent.client' target='_blank'>Google Play</a> <br/> <a   class="link link-hover font-medium text-white" href='https://apps.apple.com/it/app/notify/id1580247021' target='_blank'>App Store</a>
+<br/><br/><a class="link link-hover font-medium text-white" href='https://play.google.com/store/apps/details?id=org.notify.agent.client' target='_blank'>Google Play</a> <br/> <a   class="link link-hover font-medium  pointer-events-none text-gray-400" href='https://apps.apple.com/it/app/notify/id1580247021' target='_blank'>App Store</a>
 `;
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
