@@ -1,5 +1,9 @@
+.bg-menu {
+  background-color: #131417;
+}
+
 .menu {
-  @apply w-64  h-full rounded-2xl border border-gray-700 bg-[#131417] p-5;
+  @apply w-64  h-full rounded-2xl border border-gray-700 bg-menu p-5;
 }
 
 .root-element {

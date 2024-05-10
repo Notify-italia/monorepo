@@ -1,6 +1,6 @@
 <div class="form-control">
   <label class="label">
-    <span class="label-text">{{ helpLabel }}</span>
+    <span class="label-text" *ngIf="helpLabel?.length">{{ helpLabel }}</span>
   </label>
   <div class="relative z-0">
     <svg
@@ -19,12 +19,12 @@
     <input
       type="text"
       [placeholder]="placeholder"
-      [class]="inputClass"
+      [class]="'pl-14 ' + inputClass"
       [formControl]="inputControl"
     />
 
     <button
-      class="btn btn-ghost absolute top-0 right-0 btn-square p-1 hover:!p-1"
+      class="btn btn-ghost absolute top-0 right-0 btn-square p-1 hover:!p-1 disabled:bg-transparent"
       (click)="inputControl.setValue('')"
       [disabled]="!inputControl.value?.length"
     >

@@ -148,7 +148,6 @@ export class HierarchyComponent {
       icon: [],
       subItems: (item as INotifyAPLinksItem).items?.map((subItem) => ({
         label: subItem.caption,
-        _id: item._id,
       })),
     }));
   }
