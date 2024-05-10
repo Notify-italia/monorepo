@@ -1,14 +1,21 @@
-<div class="menu">
-  <div class="flex flex-col size-full items-center">
-    <div class="w-full h-3/6 overflow-y-auto p-1 shrink-0">
-      <h2 class="mb-2 2xl:mb-4">Gerarchia</h2>
-      <notify-hierarchy></notify-hierarchy>
+<div class="menu flex !flex-col flex-nowrap justify-between">
+  <div class="size-full flex flex-col min-h-40">
+    <div>
+      <h2>Gerarchia</h2>
+      <small>
+        Fai clic su un elemento per selezionarlo. Trascina e rilascia per
+        riordinare
+      </small>
     </div>
 
-    <div class="divider"></div>
-    <div class="w-full h-3/6 p-1 shrink-0 overflow-hidden">
-      <h2>Aggiungi</h2>
-      <notify-available-items></notify-available-items>
+    <div class="overflow-y-auto min-h-10 mt-2">
+      <notify-hierarchy></notify-hierarchy>
     </div>
+  </div>
+  <div class="divider"></div>
+  <div>
+    <h2>Elementi</h2>
+    <small> Fai clic su un elemento per aggiungerlo al profilo </small>
+    <notify-available-items></notify-available-items>
   </div>
 </div>

@@ -1,4 +1,4 @@
-<div class="flex flex-col items-start w-full !text-sm">
+<div class="flex flex-col items-start w-full h-full !text-sm">
   <ng-container
     [ngTemplateOutlet]="HierarchyItem"
     [ngTemplateOutletContext]="{
@@ -10,7 +10,7 @@
     }"
   ></ng-container>
   <div
-    class="flex flex-col items-start mx-5"
+    class="flex flex-col items-start mx-2"
     cdkDropList
     (cdkDropListDropped)="dropMainList($event)"
   >
@@ -37,72 +37,69 @@
       noLines: true
     }"
   ></ng-container>
-
-  <ng-template #HierarchyItem let-item="item" let-noLines="noLines" let-i="i">
-    <button
-      class="flex w-full border-l hierarchy-line items-start"
-      [ngClass]="{
-        'border-l-0': noLines
-      }"
-    >
-      @if(item.subItems?.length) {
-      <div
-        class="h-5 w-5 flex p-0.5 border rounded hierarchy-line shrink-0 -ml-2.5 mt-2 items-center bg-[#141416]"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="w-5 h-5"
-          [ngClass]="{
-            'rotate-90': item._id === selectedHierarchyItem
-          }"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </div>
-      } @else {
-      <div
-        class="w-2 border-b h-1 hierarchy-line mt-3.5"
-        *ngIf="!noLines"
-      ></div>
-      }
-
-      <div class="flex flex-col w-full px-1">
-        <button
-          (click)="
-            item._id === selectedHierarchyItem
-              ? selectHierarchyItem('')
-              : selectHierarchyItem(item._id)
-          "
-          class="item-button !px-2 !font-normal group/btn item-noactive"
-          [ngClass]="{
-            'selected-item': item._id && item._id === selectedHierarchyItem
-          }"
-        >
-          <span>{{ item.label }}</span>
-        </button>
-
-        <div
-          *ngIf="item._id === selectedHierarchyItem"
-          class="flex-col items-start mx-2 flex"
-          cdkDropList
-          (cdkDropListDropped)="dropSubList($event, i)"
-        >
-          @for (subitem of item.subItems; track $index) {
-          <div cdkDrag class="cdkDrag overflow-hidden w-full">
-            <ng-container
-              [ngTemplateOutlet]="HierarchyItem"
-              [ngTemplateOutletContext]="{ item: subitem, }"
-            ></ng-container>
-          </div>
-          }
-        </div>
-      </div>
-    </button>
-  </ng-template>
 </div>
+
+<ng-template #HierarchyItem let-item="item" let-noLines="noLines" let-i="i">
+  <button
+    class="flex w-full border-l hierarchy-line items-start"
+    [ngClass]="{
+      'border-l-0': noLines
+    }"
+  >
+    @if(item.subItems?.length) {
+    <div
+      class="h-5 w-5 flex p-0.5 border rounded hierarchy-line shrink-0 -ml-2.5 mt-2 items-center bg-[#141416]"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="w-5 h-5"
+        [ngClass]="{
+          'rotate-90': item._id === selectedHierarchyItem
+        }"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </div>
+    } @else {
+    <div class="w-2 border-b h-1 hierarchy-line mt-3.5" *ngIf="!noLines"></div>
+    }
+
+    <div class="flex flex-col w-full px-1">
+      <button
+        (click)="
+          item._id === selectedHierarchyItem
+            ? selectHierarchyItem('')
+            : selectHierarchyItem(item._id)
+        "
+        class="item-button !px-2 !font-normal group/btn item-noactive"
+        [ngClass]="{
+          'selected-item': item._id && item._id === selectedHierarchyItem
+        }"
+      >
+        <span>{{ item.label }}</span>
+      </button>
+
+      <div
+        *ngIf="item._id === selectedHierarchyItem"
+        class="flex-col items-start mx-2 flex"
+        cdkDropList
+        (cdkDropListDropped)="dropSubList($event, i)"
+      >
+        @for (subitem of item.subItems; track $index) {
+        <div cdkDrag class="cdkDrag overflow-hidden w-full">
+          <ng-container
+            [ngTemplateOutlet]="HierarchyItem"
+            [ngTemplateOutletContext]="{ item: subitem, }"
+          ></ng-container>
+        </div>
+        }
+      </div>
+    </div>
+  </button>
+</ng-template>

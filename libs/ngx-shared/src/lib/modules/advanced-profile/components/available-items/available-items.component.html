@@ -1,4 +1,4 @@
-<div class="w-full h-full flex flex-col">
+<div class="h-full">
   <notify-search-bar
     [array$]="availableItems$"
     (filteredArray)="availableItems = $event"
@@ -9,11 +9,14 @@
   ></notify-search-bar>
 
   <div
-    class="flex flex-col justify-start space-y-4 h-fit mb-10 overflow-y-auto mt-2"
+    class="grid grid-cols-4 grid-flow-row w-full h-32 justify-evenly items-center content-evenly justify-items-center"
   >
     @for (item of availableItems; track $index) {
-    <button class="item-button group/btn smooth smooth-faster">
-      <div class="flex items-center space-x-4">
+    <div class="lg:tooltip" [attr.data-tip]="item.label">
+      <button
+        (click)="addItem.emit(item.type)"
+        class="item-button group/btn !size-12 bg-background flex !justify-center items-center !p-1 active:!bg-black"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -24,22 +27,8 @@
           <path fill-rule="evenodd" [attr.d]="path" clip-rule="evenodd" />
           }
         </svg>
-        <span>{{ item.label }}</span>
-      </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        class="w-6 h-6 opacity-0 group-hover/btn:opacity-100 group-active/btn:!opacity-0"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
-          clip-rule="evenodd"
-        />
-      </svg>
-    </button>
-    <!-- <div class="divider last:hidden mx-4"></div> -->
+      </button>
+    </div>
     }
   </div>
 </div>
