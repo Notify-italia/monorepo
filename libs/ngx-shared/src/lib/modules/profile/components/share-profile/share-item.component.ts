@@ -45,7 +45,7 @@ export interface INotifyShareItemConfig {
   templateUrl: './share-item.component.html',
 })
 export class ShareItemComponent {
-  @Input() public config!: INotifyShareItemConfig;
+  @Input({ required: true }) public config!: INotifyShareItemConfig;
   @Input() public compact = false;
 
   @Output() settingsClicked = new EventEmitter<void>();
@@ -63,10 +63,11 @@ export class ShareItemComponent {
     return {
       container: {
         'p-4 ': !compact,
-        'p-2': compact,
+        'p-2 !bg-white/5': compact,
       },
       button: {
-        'h-[2.5rem] min-h-[2.5rem] text-[0.875rem] w-[2.5rem]': compact,
+        'h-[2.5rem] min-h-[2.5rem] text-[0.875rem] w-[2.5rem] !bg-white/10':
+          compact,
       },
       svg: {
         '!w-4 !h-4': compact,

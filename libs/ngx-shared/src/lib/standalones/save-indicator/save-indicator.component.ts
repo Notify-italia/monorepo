@@ -12,6 +12,7 @@ export class SaveIndicatorComponent {
   @Input({ required: true }) isSaving = false;
   @Input({ required: true }) lastSave = new Date();
   @Input() followPage = false;
+  @Input() compact = false;
 
   @Output() save = new EventEmitter<void>();
 }

@@ -66,10 +66,13 @@
         </svg>
       </div>
       } @else {
-      <div class="w-2 border-b h-1 hierarchy-line mt-4" *ngIf="!noLines"></div>
+      <div
+        class="w-2 border-b h-1 hierarchy-line mt-3.5"
+        *ngIf="!noLines"
+      ></div>
       }
 
-      <div class="flex flex-col w-full px-2">
+      <div class="flex flex-col w-full px-1">
         <button
           (click)="
             item._id === selectedHierarchyItem
@@ -94,7 +97,7 @@
           <div cdkDrag class="cdkDrag overflow-hidden w-full">
             <ng-container
               [ngTemplateOutlet]="HierarchyItem"
-              [ngTemplateOutletContext]="{ item: subitem }"
+              [ngTemplateOutletContext]="{ item: subitem, }"
             ></ng-container>
           </div>
           }

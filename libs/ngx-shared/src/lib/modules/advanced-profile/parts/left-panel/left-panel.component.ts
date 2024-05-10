@@ -4,13 +4,13 @@ import { AvailableItemsComponent } from '../../components/available-items/availa
 import { HierarchyComponent } from '../../components/hierarchy/hierarchy.component';
 
 @Component({
-  selector: 'notify-left-menu',
+  selector: 'notify-left-panel',
   standalone: true,
   imports: [CommonModule, AvailableItemsComponent, HierarchyComponent],
-  templateUrl: './left-menu.component.html',
+  templateUrl: './left-panel.component.html',
   styleUrls: [
-    './left-menu.component.scss',
     '../../advanced-profile.styles.scss',
+    './left-panel.component.scss',
   ],
 })
-export class LeftMenuComponent {}
+export class LeftPanelComponent {}
