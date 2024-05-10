@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { LeftMenuComponent } from './parts/left-menu.component';
+import { LeftMenuComponent } from './parts/left-menu/left-menu.component';
 
 @Component({
   selector: 'notify-advanced-profile',
