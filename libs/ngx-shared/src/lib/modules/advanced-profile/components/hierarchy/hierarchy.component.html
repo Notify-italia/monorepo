@@ -53,7 +53,10 @@
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          class="w-5 h-5 rotate-90"
+          class="w-5 h-5"
+          [ngClass]="{
+            'rotate-90': item._id === selectedHierarchyItem
+          }"
         >
           <path
             fill-rule="evenodd"
@@ -68,7 +71,11 @@
 
       <div class="flex flex-col w-full px-2">
         <button
-          (click)="selectHierarchyItem(item._id)"
+          (click)="
+            item._id === selectedHierarchyItem
+              ? selectHierarchyItem('')
+              : selectHierarchyItem(item._id)
+          "
           class="item-button !px-2 !font-normal group/btn item-noactive"
           [ngClass]="{
             'selected-item': item._id && item._id === selectedHierarchyItem
@@ -78,6 +85,7 @@
         </button>
 
         <div
+          *ngIf="item._id === selectedHierarchyItem"
           class="flex-col items-start mx-2 flex"
           cdkDropList
           (cdkDropListDropped)="dropSubList($event, i)"

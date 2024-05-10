@@ -31,7 +31,7 @@ import { UtilsService } from '../../services';
 export class SearchBarComponent implements OnInit, OnDestroy {
   @Input() placeholder = 'Elemento da cercare...';
   @Input() helpLabel = 'Cerca';
-  @Input() inputClass = 'input input-bordered w-full pl-14 input-style';
+  @Input() inputClass = 'input input-bordered w-full input-style';
   @Input({ required: true }) array$!: Observable<unknown[]>;
   @Input() filterableFields: string[] = [];
 
