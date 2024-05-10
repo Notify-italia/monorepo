@@ -63,7 +63,7 @@ export class ShareItemComponent {
     return {
       container: {
         'p-4 ': !compact,
-        'p-2 !bg-white/5': compact,
+        'p-2 !bg-white/5 !rounded-xl !rounded-b-sm': compact,
       },
       button: {
         'h-[2.5rem] min-h-[2.5rem] text-[0.875rem] w-[2.5rem] !bg-white/10':
