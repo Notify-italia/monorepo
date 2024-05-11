@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { INotifyProfile } from '@notify/interfaces';
 import { AvailableItemsComponent } from '../../components/available-items/available-items.component';
 import { HierarchyComponent } from '../../components/hierarchy/hierarchy.component';
 
@@ -13,4 +14,6 @@ import { HierarchyComponent } from '../../components/hierarchy/hierarchy.compone
     './left-panel.component.scss',
   ],
 })
-export class LeftPanelComponent {}
+export class LeftPanelComponent {
+  @Input({ required: true }) profile!: INotifyProfile;
+}

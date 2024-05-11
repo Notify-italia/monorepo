@@ -7,8 +7,10 @@ PUBLIC INTERFACES
 //base interface
 export interface INotifyAdvancedProfile {
   enabled: boolean;
-  root: INotifyAPRoot;
-  avatar: INotifyAPAvatarItem;
+  pageSettings: INotifyAPageSettings;
+  requiredItems: {
+    avatar: string;
+  };
   items: INotifyAdcancedProfileItems[];
 }
 
@@ -82,7 +84,7 @@ export interface INotifyAPIframeItem
   url: string;
 }
 
-export interface INotifyAPRoot {
+export interface INotifyAPageSettings {
   backgroundType: EnumNotifyAPBackgroundTypes;
   imgSrc: string;
   fill: string;

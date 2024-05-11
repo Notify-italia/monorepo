@@ -14,7 +14,8 @@
     cdkDropList
     (cdkDropListDropped)="dropMainList($event)"
   >
-    @for (item of hierarchyItems;let i = $index; track i) {
+    @if(hierarchyItems.length) { @for (item of hierarchyItems;let i = $index;
+    track i) {
     <div
       cdkDrag
       class="cdkDrag w-full h-full overflow-y-hidden overflow-x-clip px-3"
@@ -24,6 +25,10 @@
         [ngTemplateOutletContext]="{item, i}"
       ></ng-container>
     </div>
+    } } @else {
+    <small class="text-[#8C8C8C] mx-2 px-1 border-l hierarchy-line">
+      Nessun elemento
+    </small>
     }
   </div>
 

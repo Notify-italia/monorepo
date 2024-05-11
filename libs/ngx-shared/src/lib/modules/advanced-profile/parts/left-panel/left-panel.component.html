@@ -9,7 +9,9 @@
     </div>
 
     <div class="overflow-y-auto min-h-10 mt-2">
-      <notify-hierarchy></notify-hierarchy>
+      <notify-hierarchy
+        [hierarchy]="profile.advancedProfile?.items || []"
+      ></notify-hierarchy>
     </div>
   </div>
   <div class="divider"></div>

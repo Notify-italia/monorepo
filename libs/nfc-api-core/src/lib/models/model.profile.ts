@@ -1,5 +1,10 @@
 import { ModifyDeep } from '@notify/api-shared';
-import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
+import {
+  EnumNotifyAPBackgroundTypes,
+  EnumNotifyAPDirections,
+  EnumNotifyUserType,
+  INotifyProfile,
+} from '@notify/interfaces';
 import mongoose, {
   Document,
   HydratedDocument,
@@ -57,6 +62,31 @@ export interface Profile
 interface ProfileModel extends Model<Profile> {
   build(doc: Partial<Profile>): HydratedDocument<Profile>;
 }
+
+const _itemSchema = new Schema(
+  {
+    type: {
+      type: String,
+      default: '',
+    },
+    visible: {
+      type: Boolean,
+      default: true,
+    },
+    title: {
+      type: String,
+      default: '',
+    },
+    showTitle: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  {
+    _id: false,
+    strict: false,
+  }
+);
 
 // 3. Crea uno Schema corrispondente all'interfaccia del documento definita al punto 1
 //    nb: l'interfaccia del documento avrà anche _id e __v, che non devono essere
@@ -214,6 +244,55 @@ const ProfileSchema = new Schema<Profile, ProfileModel>(
       showTitle: {
         type: Boolean,
         default: true,
+      },
+    },
+    advancedProfile: {
+      type: {
+        enabled: {
+          type: Boolean,
+          default: false,
+        },
+        items: [_itemSchema],
+        pageSettings: {
+          backgroundType: {
+            type: String,
+            default: EnumNotifyAPBackgroundTypes.Fill,
+          },
+          imgSrc: {
+            type: String,
+            default: null,
+          },
+          fill: {
+            type: String,
+            default: null,
+          },
+          gradient: {
+            direction: {
+              type: String,
+              default: EnumNotifyAPDirections.Vertical,
+            },
+            colors: {
+              type: [String],
+              default: [],
+            },
+          },
+          pattern: {
+            pattern: {
+              type: String,
+              default: null,
+            },
+          },
+        },
+        requiredItems: {
+          avatar: {
+            type: Schema.Types.ObjectId,
+            default: null,
+          },
+        },
+      },
+      default: {
+        enabled: false,
+        items: [],
       },
     },
   },

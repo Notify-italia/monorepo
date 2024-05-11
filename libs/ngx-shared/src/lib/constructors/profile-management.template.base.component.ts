@@ -93,7 +93,7 @@ type IProfile = INotifyProfile;
           ></notify-profile-form>
         </div>
         <div
-          class="lg:w-6/12  relative flex flex-col items-center relative"
+          class="lg:w-6/12   flex flex-col items-center relative"
           [ngClass]="profile.config.redirectEnabled ? 'h-fit' : 'max-h-max '"
         >
           @if (profile.config.redirectEnabled) {

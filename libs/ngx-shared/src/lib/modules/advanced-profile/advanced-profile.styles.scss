@@ -7,7 +7,7 @@
 }
 
 .menu {
-  @apply w-64 h-[97vh]  rounded-2xl border border-gray-700 bg-menu  p-4 px-3.5 flex;
+  @apply w-64 h-full  rounded-2xl border border-gray-700 bg-menu  p-4 px-3.5 flex;
 
   &.menu-large {
     @apply w-80;
