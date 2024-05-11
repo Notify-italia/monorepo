@@ -14,7 +14,7 @@ export interface INotifyCompany<populatedLicense extends true | false = false>
   savedRedirects: string[];
   statsTotals: INotifyUserStats;
   profile?: INotifyProfile;
-
+  advancedProfile: boolean;
   //Outside of the schema
   token?: string;
 }

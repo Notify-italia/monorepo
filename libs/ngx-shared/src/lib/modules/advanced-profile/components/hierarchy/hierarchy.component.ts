@@ -4,17 +4,15 @@ import {
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  INotifyAPLinksItem,
-  INotifyAdvancedProfile,
-  NOTIFY_ITEM_TYPES_IT,
-} from '@notify/interfaces';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { INotifyAPLinksItem, INotifyAdvancedProfile } from '@notify/interfaces';
+import { AdvancedProfileItemsService } from '../../services/advanced-profile-items.service';
 
 @Component({
   selector: 'notify-hierarchy',
   standalone: true,
   imports: [CommonModule, DragDropModule],
+  providers: [AdvancedProfileItemsService],
   templateUrl: './hierarchy.component.html',
   styleUrls: [
     './hierarchy.component.scss',
@@ -22,7 +20,9 @@ import {
   ],
 })
 export class HierarchyComponent {
-  @Input() selectedHierarchyItem?: string;
+  private _apItemsService = inject(AdvancedProfileItemsService);
+
+  @Input() selectedHierarchyItem = 'background';
   @Input() hierarchy: INotifyAdvancedProfile['items'] = [];
 
   @Output() hierarchyChanged = new EventEmitter<
@@ -32,9 +32,9 @@ export class HierarchyComponent {
 
   public get hierarchyItems() {
     return this.hierarchy.map((item) => ({
-      label: NOTIFY_ITEM_TYPES_IT[item.type],
+      label: this._apItemsService.getManifest(item.type).localizedName,
       _id: item._id,
-      icon: [],
+      icon: this._apItemsService.getManifest(item.type).outlineIcon,
       subItems: (item as INotifyAPLinksItem).items?.map((subItem) => ({
         label: subItem.caption,
       })),

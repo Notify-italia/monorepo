@@ -7,6 +7,8 @@ import {
 
 export const itemManifest: INotifyAdvancedProfileManifest = {
   type: EnumNotifyAdvancedProfileItems.Unknown,
+  localizedName: 'Sconosciuto',
+  filledIcon: [],
   formConstructor: {
     type: new FormControl(EnumNotifyAdvancedProfileItems.Unknown),
     clickEvent: new FormControl(''),
