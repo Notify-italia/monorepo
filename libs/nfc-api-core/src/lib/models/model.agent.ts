@@ -88,6 +88,10 @@ const AgentSchema = new Schema<Agent, AgentModel>(
       type: Object,
       default: {},
     },
+    advancedProfile: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

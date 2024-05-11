@@ -82,6 +82,10 @@ const CompanySchema = new Schema<Company, CompanyModel>(
       type: [String],
       default: [],
     },
+    advancedProfile: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

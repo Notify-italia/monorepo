@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import {
+  AdvancedProfileComponent,
   PageNotFoundComponent,
   authGuard,
   signInGuard,
@@ -84,10 +85,7 @@ export const appRoutes: Route[] = [
           },
           {
             path: 'editor',
-            loadComponent: () =>
-              import('@notify/ngx-shared').then(
-                (m) => m.AdvancedProfileComponent
-              ),
+            loadComponent: () => AdvancedProfileComponent,
             data: {
               pageTitle: 'Editor Profilo',
               environment,

@@ -13,6 +13,7 @@ export interface INotifyAgent extends MongodbDocument {
   //Outside of the schema
   token?: string;
   profile?: INotifyProfile;
+  advancedProfile: boolean;
 }
 
 export interface INotifyPartialAgent extends Partial<INotifyAgent> {

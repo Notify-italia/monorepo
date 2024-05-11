@@ -5,6 +5,9 @@ import mongoose from 'mongoose';
 
 export interface INotifyAdvancedProfileManifest {
   type: EnumNotifyAdvancedProfileItems;
+  localizedName: string;
+  filledIcon: string[];
+  outlineIcon?: string[];
   formConstructor: {
     [key: string]: FormControl | FormArray | FormGroup;
   };
@@ -25,6 +28,17 @@ export class AdvancedProfileItemsService {
       advancedProfileManifests[manifest] ||
       advancedProfileManifests[EnumNotifyAdvancedProfileItems.Unknown]
     );
+  }
+
+  public getAvailableItems() {
+    return Object.keys(advancedProfileManifests)
+      .map((key) => advancedProfileManifests[key].type)
+      .map((item) => ({
+        label: advancedProfileManifests[item].localizedName,
+        type: item,
+        icon: advancedProfileManifests[item].filledIcon,
+      }))
+      .filter((item) => item.type !== EnumNotifyAdvancedProfileItems.Unknown);
   }
 
   public generateFormGroup(manifest: EnumNotifyAdvancedProfileItems) {
