@@ -2,7 +2,7 @@
   class="w-full h-54 flex justify-around items-center box"
   [ngClass]="compactConditionalClasses.container"
 >
-  <div class="tooltip" data-tip="Condividi" *ngIf="hasShare">
+  <div [class.tooltip]="!compact" data-tip="Condividi" *ngIf="hasShare">
     <button
       class="btn btn-circle"
       [ngClass]="compactConditionalClasses.button"
@@ -21,7 +21,7 @@
       </svg>
     </button>
   </div>
-  <div class="tooltip" data-tip="Copia URL">
+  <div [class.tooltip]="!compact" data-tip="Copia URL">
     <button
       class="btn btn-circle"
       [ngClass]="compactConditionalClasses.button"
@@ -41,7 +41,7 @@
       </svg>
     </button>
   </div>
-  <div class="tooltip" data-tip="Mostra QR">
+  <div [class.tooltip]="!compact" data-tip="Mostra QR">
     <button
       class="btn btn-circle"
       [ngClass]="compactConditionalClasses.button"
@@ -63,7 +63,7 @@
   </div>
   <div
     *ngIf="isNative"
-    class="tooltip"
+    [class.tooltip]="!compact"
     [attr.data-tip]="
       capacitor.isNative ? 'Scrivi su NFC' : 'Disponibile solo su app nativa.'
     "

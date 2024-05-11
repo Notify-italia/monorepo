@@ -40,7 +40,6 @@ export class ProfileDefaultViewComponent {
   @Input({ required: true }) data?: INotifyProfile;
   @Input({ required: true }) cssElementsColor!: string;
   @Input({ required: true }) isAgent!: boolean;
-  @Input({ required: true }) mockup!: boolean;
   @Input({ required: true }) cssGradientStops!: string;
   @Input({ required: true }) isFeedbackEnabled!: boolean;
   @Input({ required: true }) feedbackKey!: string;

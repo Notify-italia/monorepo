@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EnumNotifyUserType, INotifyProfile } from '@notify/interfaces';
+import {
+  EnumNotifyAPBackgroundTypes,
+  EnumNotifyUserType,
+  INotifyProfile,
+} from '@notify/interfaces';
 import {
   FeedbackService,
   ProfileService,
@@ -8,6 +12,7 @@ import {
   UtilsService,
 } from '../../../../services';
 
+import { AdvancedViewComponent } from '../../views/advanced-view/advanced-view.component';
 import { ProfileDefaultViewComponent } from '../../views/default-view/default-view.component';
 import { ProfileNewEraViewComponent } from '../../views/newera-view/newera-view.component';
 import { ProfileOssidianaViewComponent } from '../../views/ossidiana-view/ossidiana-view.component';
@@ -25,6 +30,7 @@ export const defaultGradientStops = ['#0A2859', '#041127'];
     MockupFillComponent,
     ProfileOssidianaViewComponent,
     ProfileNewEraViewComponent,
+    AdvancedViewComponent,
   ],
   providers: [
     FeedbackFactory,
@@ -62,6 +68,21 @@ export class ProfileViewComponent implements OnInit {
         this.mockup,
       'h-full  min-h-screen  w-screen': !this.mockup,
     };
+  }
+
+  public get mockupFillColor(): string {
+    if (!this.data?.advancedProfile?.enabled) {
+      return this.data?.colors.background[0] || '';
+    }
+
+    switch (this._pageSettings?.backgroundType) {
+      case EnumNotifyAPBackgroundTypes.Gradient: {
+        return this._pageSettings.gradient.colors[0];
+      }
+
+      default:
+        return this._pageSettings?.fill || '';
+    }
   }
 
   //TODO questa cosa è temporanea, va rimossa appena ci sarà la personalizzazione avanzata del profilo
@@ -108,6 +129,10 @@ export class ProfileViewComponent implements OnInit {
     }
 
     return this.data?.colors?.elements || '#ffffff';
+  }
+
+  private get _pageSettings() {
+    return this.data?.advancedProfile?.pageSettings;
   }
 
   constructor(public profileService: ProfileService) {}

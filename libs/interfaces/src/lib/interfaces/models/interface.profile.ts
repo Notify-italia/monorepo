@@ -48,7 +48,7 @@ export interface INotifyProfile<
   };
 
   //v2 related
-  advencedProfile: INotifyAdvancedProfile;
+  advancedProfile?: INotifyAdvancedProfile;
 }
 
 export const daisyUIAvatarMaks = [

@@ -15,9 +15,9 @@ import { INotifyShareItemConfig, ShareItemComponent } from '../../../profile';
   ],
 })
 export class RightPanelComponent {
-  @Input() loading = false;
-  @Input() profile!: INotifyProfile;
-  @Input() baseUrl = '';
+  @Input({ required: true }) loading = false;
+  @Input({ required: true }) profile!: INotifyProfile;
+  @Input({ required: true }) baseUrl = '';
 
   @Output() forceSave = new EventEmitter<void>();
 

@@ -4,6 +4,7 @@ import {
   authGuard,
   signInGuard,
 } from '@notify/ngx-shared';
+import { environment } from '../environments/environment';
 import { HomeComponent } from './pages/home/home.component';
 
 export const appRoutes: Route[] = [
@@ -88,7 +89,8 @@ export const appRoutes: Route[] = [
                 (m) => m.AdvancedProfileComponent
               ),
             data: {
-              pageTitle: 'Profilo',
+              pageTitle: 'Editor Profilo',
+              environment,
             },
           },
         ],
