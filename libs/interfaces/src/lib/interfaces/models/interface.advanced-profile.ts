@@ -11,27 +11,28 @@ export interface INotifyAdvancedProfile {
   requiredItems: {
     avatar: string;
   };
-  items: INotifyAdcancedProfileItems[];
+  items: INotifyAdvancedProfileItem[];
 }
 
-export type INotifyAdcancedProfileItems =
+export type INotifyAdvancedProfileItem =
   | INotifyAPAvatarItem
   | INotifyAPFeedbackItem
   | INotifyAPLinksItem
   | INotifyAPPlaceItem
   | INotifyAPContactsItem
   | INotifAPPhotoItem
-  | INotifyAPNoteItem;
+  | INotifyAPNoteItem
+  | INotifyAPIframeItem;
 
 //avatar
 export interface INotifyAPAvatarItem
   extends _INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Avatar> {
   direction: EnumNotifyAPDirections;
-  title: string;
-  subtitle: string;
+  label: string;
+  sublabel: string;
   description: string;
   imgSrc: string;
-  imgMask: DaisyUIAvatarMasks;
+  imgMask: DaisyUIAvatarMasks | 'banner';
   ownerImgCorner: EnumNotifyAPCorners;
   ownerImgPath: string;
 }
@@ -69,7 +70,6 @@ export type INotifyContactItem = _baseButton;
 export interface INotifAPPhotoItem
   extends _INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Photo> {
   imgSrc: string;
-  title: string;
 }
 
 //note
@@ -98,7 +98,7 @@ export interface INotifyAPageSettings {
   };
   textColor: string;
   font: string;
-  fontSize: string;
+  fontSize: number;
   align: EnumNotifyAPAlign;
 }
 
@@ -151,6 +151,7 @@ export enum EnumNotifyAdvancedProfileItems {
   Photo = 'photo',
   Note = 'note',
   Iframe = 'iframe',
+  Unknown = 'unknown',
 }
 
 /*
@@ -165,6 +166,38 @@ export const NOTIFY_ITEM_TYPES_IT = {
   [EnumNotifyAdvancedProfileItems.Photo]: 'Immagine',
   [EnumNotifyAdvancedProfileItems.Note]: 'Nota',
   [EnumNotifyAdvancedProfileItems.Iframe]: 'Sito Web',
+  [EnumNotifyAdvancedProfileItems.Unknown]: 'Sconosciuto',
+};
+
+export const NOTIFY_AP_FONTS = {
+  Poppins: 'Poppins',
+  Roboto: 'Roboto',
+  Montserrat: 'Montserrat',
+  Lato: 'Lato',
+  OpenSans: 'Open Sans',
+  Ubuntu: 'Ubuntu',
+  Nunito: 'Nunito',
+  Raleway: 'Raleway',
+  Merriweather: 'Merriweather',
+  PlayfairDisplay: 'Playfair Display',
+  Oswald: 'Oswald',
+  Lora: 'Lora',
+  SourceSansPro: 'Source Sans Pro',
+  WorkSans: 'Work Sans',
+  NotoSans: 'Noto Sans',
+  Quicksand: 'Quicksand',
+  Arimo: 'Arimo',
+  TitilliumWeb: 'Titillium Web',
+  Muli: 'Muli',
+  Hind: 'Hind',
+  NunitoSans: 'Nunito Sans',
+  Barlow: 'Barlow',
+  Oxygen: 'Oxygen',
+  FiraSans: 'Fira Sans',
+  PTSans: 'PT Sans',
+  Dosis: 'Dosis',
+  Asap: 'Asap',
+  Rubik: 'Rubik',
 };
 
 export const NOTIFY_AVAILABLE_ITEMS: INotifyAPAvailableItem[] = [

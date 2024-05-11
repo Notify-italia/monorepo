@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { INotifyProfile } from '@notify/interfaces';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { INotifyAdvancedProfileItem } from '@notify/interfaces';
 import { AvailableItemsComponent } from '../../components/available-items/available-items.component';
 import { HierarchyComponent } from '../../components/hierarchy/hierarchy.component';
 
@@ -15,5 +16,7 @@ import { HierarchyComponent } from '../../components/hierarchy/hierarchy.compone
   ],
 })
 export class LeftPanelComponent {
-  @Input({ required: true }) profile!: INotifyProfile;
+  @Input({ required: true }) hierarchy!: INotifyAdvancedProfileItem[];
+
+  @Output() addItem = new EventEmitter<FormGroup>();
 }
