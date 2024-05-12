@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
-  EnumNotifyAdvancedProfileItems,
   INotifyAPAvailableItem,
+  NotifyAdvancedProfileItemTypes,
 } from '@notify/interfaces';
 import { of } from 'rxjs';
 import { FormsService } from '../../../../services';
@@ -30,7 +30,7 @@ export class AvailableItemsComponent {
   public availableItems$ = of(this._apItemSerivce.getAvailableItems());
   public availableItems: INotifyAPAvailableItem[] = [];
 
-  public emitAddItem(item: EnumNotifyAdvancedProfileItems) {
+  public emitAddItem(item: NotifyAdvancedProfileItemTypes) {
     this.addItem.emit(this._apItemSerivce.generateFormGroup(item));
   }
 }

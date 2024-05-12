@@ -1,11 +1,14 @@
-import { EnumNotifyAdvancedProfileItems } from '@notify/interfaces';
+import {
+  EnumNotifyAdvancedProfileItems,
+  INotifyAPNoteItem,
+} from '@notify/interfaces';
 import {
   AdvancedProfileItemsService,
   INotifyAdvancedProfileManifest,
 } from '../../services/advanced-profile-items.service';
 import { itemManifest } from '../item.manifest';
 
-const manifest: INotifyAdvancedProfileManifest = {
+const manifest: INotifyAdvancedProfileManifest<INotifyAPNoteItem> = {
   type: EnumNotifyAdvancedProfileItems.Note,
   localizedName: 'Note',
   filledIcon: [

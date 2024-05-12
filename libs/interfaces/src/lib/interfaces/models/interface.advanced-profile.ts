@@ -11,10 +11,10 @@ export interface INotifyAdvancedProfile {
   requiredItems: {
     avatar: string | null;
   };
-  items: INotifyAdvancedProfileItem[];
+  items: NotifyAdvancedProfileItem[];
 }
 
-export type INotifyAdvancedProfileItem =
+export type NotifyAdvancedProfileItem =
   | INotifyAPAvatarItem
   | INotifyAPFeedbackItem
   | INotifyAPLinksItem
@@ -24,9 +24,13 @@ export type INotifyAdvancedProfileItem =
   | INotifyAPNoteItem
   | INotifyAPIframeItem;
 
+export type NotifyAdvancedProfileItemTypes =
+  | NotifyAdvancedProfileItem['type']
+  | EnumNotifyAdvancedProfileItems.Unknown;
+
 //avatar
 export interface INotifyAPAvatarItem
-  extends _INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Avatar> {
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Avatar> {
   direction: EnumNotifyAPDirections;
   label: string;
   sublabel: string;
@@ -34,17 +38,16 @@ export interface INotifyAPAvatarItem
   imgSrc: string;
   imgMask: DaisyUIAvatarMasks | 'banner';
   ownerImgCorner: EnumNotifyAPCorners;
-  ownerImgPath: string;
 }
 
 //feedback
 export interface INotifyAPFeedbackItem
-  extends _INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Feedback>,
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Feedback>,
     _baseButton {}
 
 //links
 export interface INotifyAPLinksItem
-  extends _INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Links> {
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Links> {
   items: INotifyAPLinkItem[];
   style: EnumNotifyAPButtonStyles;
   direction: EnumNotifyAPDirections;
@@ -53,7 +56,7 @@ export type INotifyAPLinkItem = _baseButton;
 
 //place
 export interface INotifyAPPlaceItem
-  extends _INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Place> {
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Place> {
   address: string;
   city: string;
   showStreetName: boolean;
@@ -61,27 +64,39 @@ export interface INotifyAPPlaceItem
 
 //contacts
 export interface INotifyAPContactsItem
-  extends _INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Contacts> {
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Contacts> {
   items: INotifyContactItem[];
 }
 export type INotifyContactItem = _baseButton;
 
 //photo
 export interface INotifAPPhotoItem
-  extends _INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Photo> {
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Photo> {
   imgSrc: string;
 }
 
 //note
 export interface INotifyAPNoteItem
-  extends _INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Note> {
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Note> {
   note: string;
   showNoteTitle: boolean;
 }
 
 export interface INotifyAPIframeItem
-  extends _INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Iframe> {
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Iframe> {
   url: string;
+}
+
+export interface INotifyAdvancedProfileItem<
+  T extends EnumNotifyAdvancedProfileItems
+> {
+  type: T;
+  clickEvent: string;
+  clickEventData: string;
+  visible: boolean;
+  title: string;
+  showTitle: boolean;
+  _id: string;
 }
 
 export interface INotifyAPageSettings {
@@ -188,18 +203,6 @@ export const NOTIFY_AP_FONTS = {
 /*
 PRIVATE INTERFACES
 */
-interface _INotifyAdvancedProfileItem<
-  T extends EnumNotifyAdvancedProfileItems
-> {
-  type: T;
-  clickEvent: string;
-  clickEventData: string;
-  visible: boolean;
-  title: string;
-  showTitle: boolean;
-  _id: string;
-}
-
 interface _baseButton {
   caption: string;
   icon: string;

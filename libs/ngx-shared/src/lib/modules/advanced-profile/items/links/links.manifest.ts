@@ -2,6 +2,7 @@ import {
   EnumNotifyAPButtonStyles,
   EnumNotifyAPDirections,
   EnumNotifyAdvancedProfileItems,
+  INotifyAPLinksItem,
 } from '@notify/interfaces';
 import {
   AdvancedProfileItemsService,
@@ -9,7 +10,7 @@ import {
 } from '../../services/advanced-profile-items.service';
 import { itemManifest } from '../item.manifest';
 
-const manifest: INotifyAdvancedProfileManifest = {
+const manifest: INotifyAdvancedProfileManifest<INotifyAPLinksItem> = {
   type: EnumNotifyAdvancedProfileItems.Links,
   localizedName: 'Links',
   filledIcon: [
