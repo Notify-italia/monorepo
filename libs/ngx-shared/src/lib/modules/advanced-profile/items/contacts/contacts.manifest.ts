@@ -24,6 +24,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPContactsItem> = {
         caption: 'Nuovo Contatto',
         url: '',
         icon: '',
+        visible: true,
       },
     ],
   },
