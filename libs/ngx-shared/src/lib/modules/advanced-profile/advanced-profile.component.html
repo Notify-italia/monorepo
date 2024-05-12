@@ -8,6 +8,7 @@
       <notify-left-panel
         [hierarchy]="form?.value.items || []"
         (addItem)="addItem($event)"
+        [selectedHierarchyItem]="selectedHierarchyItem"
         (hierarchyChanged)="hierarchyChanged($event)"
         (selectedHierarchyItemChanged)="selectedHierarchyItem = $event"
       ></notify-left-panel>

@@ -11,6 +11,7 @@
     <div class="overflow-y-auto overflow-x-hidden min-h-10 mt-2 w-full">
       <notify-hierarchy
         [hierarchy]="hierarchy || []"
+        [selectedHierarchyItem]="selectedHierarchyItem"
         (hierarchyChanged)="hierarchyChanged.emit($event)"
         (selectedHierarchyItemChanged)="
           selectedHierarchyItemChanged.emit($event)

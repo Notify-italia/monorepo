@@ -17,6 +17,7 @@ import { HierarchyComponent } from '../../components/hierarchy/hierarchy.compone
 })
 export class LeftPanelComponent {
   @Input({ required: true }) hierarchy!: NotifyAdvancedProfileItem[];
+  @Input({ required: true }) selectedHierarchyItem!: string;
 
   @Output() addItem = new EventEmitter<FormGroup>();
   @Output() hierarchyChanged = new EventEmitter<NotifyAdvancedProfileItem[]>();

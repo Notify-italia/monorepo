@@ -100,6 +100,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
 
   public addItem(item: FormGroup) {
     (this.form?.get('items') as FormArray).push(item);
+    this.selectedHierarchyItem = item.value._id;
   }
 
   public hierarchyChanged(hierarchy: NotifyAdvancedProfileItem[]) {
