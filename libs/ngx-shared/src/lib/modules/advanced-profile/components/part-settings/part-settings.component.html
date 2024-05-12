@@ -2,7 +2,13 @@
 
 <div *ngIf="currentItem as item" class="px-2">
   <form [formGroup]="item.form" class="flex flex-col space-y-4">
-    <div class="flex space-x-2">
+    <div
+      class="flex space-x-2"
+      [ngClass]="{
+        tooltip: isRequired
+      }"
+      data-tip="Elemento obbligatorio"
+    >
       <button
         class="btn btn-error btn-outline w-full btn-sm shrink disabled:!bg-transparent"
         data-theme="notifytheme"
