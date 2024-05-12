@@ -1,17 +1,27 @@
 import { Injectable, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { EnumNotifyAdvancedProfileItems } from '@notify/interfaces';
+import { ModifyDeep } from '@notify/api-shared';
+import {
+  EnumNotifyAdvancedProfileItems,
+  NotifyAdvancedProfileItem,
+  NotifyAdvancedProfileItemTypes,
+} from '@notify/interfaces';
 import mongoose from 'mongoose';
 import { FormsService } from '../../../services';
 
-export interface INotifyAdvancedProfileManifest {
+export interface INotifyAdvancedProfileManifest<
+  T extends NotifyAdvancedProfileItem = NotifyAdvancedProfileItem
+> {
   type: EnumNotifyAdvancedProfileItems;
   localizedName: string;
   filledIcon: string[];
   outlineIcon?: string[];
-  definitions: {
-    [key: string]: unknown; //{key: deafult value}
-  };
+  definitions: ModifyDeep<
+    T,
+    {
+      type: EnumNotifyAdvancedProfileItems | undefined;
+    }
+  >;
 }
 
 const advancedProfileManifests: {
@@ -26,7 +36,7 @@ export class AdvancedProfileItemsService {
     advancedProfileManifests[manifest.type] = manifest;
   }
 
-  public getManifest(manifest: EnumNotifyAdvancedProfileItems) {
+  public getManifest(manifest: NotifyAdvancedProfileItemTypes) {
     return (
       advancedProfileManifests[manifest] ||
       advancedProfileManifests[EnumNotifyAdvancedProfileItems.Unknown]
@@ -44,7 +54,7 @@ export class AdvancedProfileItemsService {
       .filter((item) => item.type !== EnumNotifyAdvancedProfileItems.Unknown);
   }
 
-  public generateFormGroup(manifest: EnumNotifyAdvancedProfileItems) {
+  public generateFormGroup(manifest: NotifyAdvancedProfileItemTypes) {
     const foundManifest = this.getManifest(manifest);
     const controls = foundManifest.definitions;
     const formGroup = this.formsSerivce.createFormGroup(controls);

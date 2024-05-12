@@ -2,6 +2,7 @@ import {
   EnumNotifyAPCorners,
   EnumNotifyAPDirections,
   EnumNotifyAdvancedProfileItems,
+  INotifyAPAvatarItem,
   daisyUIAvatarMaks,
 } from '@notify/interfaces';
 import {
@@ -10,7 +11,7 @@ import {
 } from '../../services/advanced-profile-items.service';
 import { itemManifest } from '../item.manifest';
 
-const manifest: INotifyAdvancedProfileManifest = {
+const manifest: INotifyAdvancedProfileManifest<INotifyAPAvatarItem> = {
   type: EnumNotifyAdvancedProfileItems.Avatar,
   localizedName: 'Avatar',
   filledIcon: [
@@ -27,8 +28,7 @@ const manifest: INotifyAdvancedProfileManifest = {
     description: 'Nessuna Descrizione',
     imgSrc: '',
     imgMask: daisyUIAvatarMaks[0],
-    ownerImageCorner: EnumNotifyAPCorners.BottomRight,
-    ownerImagePath: '',
+    ownerImgCorner: EnumNotifyAPCorners.BottomRight,
   },
 };
 

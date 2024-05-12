@@ -7,9 +7,9 @@ import {
   EnumNotifyAPBackgroundTypes,
   EnumNotifyAPDirections,
   INotifyAdvancedProfile,
-  INotifyAdvancedProfileItem,
   INotifyProfile,
   NOTIFY_AP_FONTS,
+  NotifyAdvancedProfileItem,
 } from '@notify/interfaces';
 import {
   Observable,
@@ -91,7 +91,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
     (this.form?.get('items') as FormArray).push(item);
   }
 
-  public hierarchyChanged(hierarchy: INotifyAdvancedProfileItem[]) {
+  public hierarchyChanged(hierarchy: NotifyAdvancedProfileItem[]) {
     this.form?.setControl(
       'items',
       this._formsSerivce.createFormArray(hierarchy)

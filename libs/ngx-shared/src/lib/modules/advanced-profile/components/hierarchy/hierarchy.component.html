@@ -80,7 +80,7 @@
       <div class="flex flex-col w-full">
         <button
           (click)="item._id ? selectHierarchyItem(item._id) : undefined"
-          class="item-button !font-normal group/btn item-noactive space-x-2 !justify-start truncate"
+          class="item-button !font-normal group/btn item-noactive space-x-3 !justify-start truncate"
           [ngClass]="{
             'selected-item': item._id && item._id === selectedHierarchyItem
           }"
