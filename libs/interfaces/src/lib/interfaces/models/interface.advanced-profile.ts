@@ -9,7 +9,7 @@ export interface INotifyAdvancedProfile {
   enabled: boolean;
   pageSettings: INotifyAPageSettings;
   requiredItems: {
-    avatar: string;
+    avatar: string | null;
   };
   items: INotifyAdvancedProfileItem[];
 }
