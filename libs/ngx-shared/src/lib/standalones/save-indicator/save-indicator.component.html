@@ -21,7 +21,12 @@
       }"
     >
       @if (isSaving) {
-      <span class="spinner"></span>
+      <span
+        class="spinner"
+        [ngClass]="{
+          'spinner-sm': compact
+        }"
+      ></span>
 
       } @else {
       <svg
