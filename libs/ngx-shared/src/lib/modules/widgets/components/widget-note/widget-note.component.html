@@ -7,12 +7,12 @@
     [queryParams]="{ id: note._id }"
   >
     <div
-      class="w-8 h-8 rounded-full p-2"
+      class="w-8 h-8 rounded-full p-2 shrink-0"
       [ngStyle]="{ 'background-color': note.color }"
     ></div>
 
     <div class="flex flex-col">
-      <h1 class="text-lg font-bold truncate text-white/80">
+      <h1 class="text-lg font-bold truncate text-white/80 w-full">
         {{ note.title || '‎ ' }}
       </h1>
       <div>
