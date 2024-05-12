@@ -9,7 +9,10 @@
     </div>
 
     <div class="overflow-y-auto min-h-10 mt-2">
-      <notify-hierarchy [hierarchy]="hierarchy || []"></notify-hierarchy>
+      <notify-hierarchy
+        [hierarchy]="hierarchy || []"
+        (hierarchyChanged)="hierarchyChanged.emit($event)"
+      ></notify-hierarchy>
     </div>
   </div>
   <div class="divider"></div>
