@@ -31,14 +31,17 @@ export class HierarchyComponent {
   @Output() selectedHierarchyItemChanged = new EventEmitter<string>();
 
   public get hierarchyItems() {
-    return this.hierarchy.map((item) => ({
-      label: this._apItemsService.getManifest(item.type).localizedName,
-      _id: item._id,
-      icon: this._apItemsService.getManifest(item.type).outlineIcon,
-      subItems: (item as INotifyAPLinksItem).items?.map((subItem) => ({
-        label: subItem.caption,
-      })),
-    }));
+    return this.hierarchy.map((item) => {
+      const manifest = this._apItemsService.getManifest(item.type);
+      return {
+        label: item.title || manifest.localizedName,
+        _id: item._id,
+        icon: manifest.outlineIcon,
+        subItems: (item as INotifyAPLinksItem).items?.map((subItem) => ({
+          label: subItem.caption,
+        })),
+      };
+    });
   }
 
   public dropMainList(event: CdkDragDrop<string[]>) {
