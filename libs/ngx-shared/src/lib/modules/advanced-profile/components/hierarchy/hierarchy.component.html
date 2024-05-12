@@ -4,7 +4,8 @@
     [ngTemplateOutletContext]="{
       item: {
         label: 'Sfondo',
-        _id: 'background'
+        _id: 'background',
+        visible: true
       },
       noLines: true
     }"
@@ -37,7 +38,8 @@
     [ngTemplateOutletContext]="{
       item: {
         label: 'Impostazioni',
-        _id: 'footer'
+        _id: 'footer',
+        visible: true
       },
       noLines: true
     }"
@@ -82,7 +84,8 @@
           (click)="item._id ? selectHierarchyItem(item._id) : undefined"
           class="item-button !font-normal group/btn item-noactive space-x-3 !justify-start truncate"
           [ngClass]="{
-            'selected-item': item._id && item._id === selectedHierarchyItem
+            'selected-item': item._id && item._id === selectedHierarchyItem,
+            'opacity-25': !item.visible
           }"
         >
           <svg

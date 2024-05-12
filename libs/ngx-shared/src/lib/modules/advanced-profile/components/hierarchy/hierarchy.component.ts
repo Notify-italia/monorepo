@@ -5,7 +5,11 @@ import {
 } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
-import { INotifyAPLinksItem, INotifyAdvancedProfile } from '@notify/interfaces';
+import {
+  INotifyAPContactsItem,
+  INotifyAPLinksItem,
+  INotifyAdvancedProfile,
+} from '@notify/interfaces';
 import { AdvancedProfileItemsService } from '../../services/advanced-profile-items.service';
 
 @Component({
@@ -36,9 +40,13 @@ export class HierarchyComponent {
       return {
         label: item.title || manifest.localizedName,
         _id: item._id,
+        visible: item.visible,
         icon: manifest.outlineIcon,
-        subItems: (item as INotifyAPLinksItem).items?.map((subItem) => ({
+        subItems: (
+          item as INotifyAPLinksItem | INotifyAPContactsItem
+        ).items?.map((subItem) => ({
           label: subItem.caption,
+          visible: subItem.visible,
         })),
       };
     });

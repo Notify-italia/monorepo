@@ -1,6 +1,9 @@
 <div
   class="relative flex justify-between w-full"
   [formGroup]="parent"
+  [ngClass]="{
+    'pointer-events-none opacity-25': disabled,
+  }"
   id="form-wrapper"
 >
   <label

@@ -26,6 +26,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPLinksItem> = {
     items: [
       {
         caption: 'Nuovo Link',
+        visible: true,
         url: '',
         icon: '',
       },

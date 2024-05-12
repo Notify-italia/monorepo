@@ -207,4 +207,5 @@ interface _baseButton {
   caption: string;
   icon: string;
   url: string;
+  visible: boolean;
 }
