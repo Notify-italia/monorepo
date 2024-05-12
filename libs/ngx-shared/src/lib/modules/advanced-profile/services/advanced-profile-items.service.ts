@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Injectable, inject } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { EnumNotifyAdvancedProfileItems } from '@notify/interfaces';
 import mongoose from 'mongoose';
+import { FormsService } from '../../../services';
 
 export interface INotifyAdvancedProfileManifest {
   type: EnumNotifyAdvancedProfileItems;
   localizedName: string;
   filledIcon: string[];
   outlineIcon?: string[];
-  formConstructor: {
-    [key: string]: FormControl | FormArray | FormGroup;
+  definitions: {
+    [key: string]: unknown; //{key: deafult value}
   };
 }
 
@@ -19,6 +20,8 @@ const advancedProfileManifests: {
 
 @Injectable()
 export class AdvancedProfileItemsService {
+  private formsSerivce = inject(FormsService);
+
   public static publishManifest(manifest: INotifyAdvancedProfileManifest) {
     advancedProfileManifests[manifest.type] = manifest;
   }
@@ -43,8 +46,8 @@ export class AdvancedProfileItemsService {
 
   public generateFormGroup(manifest: EnumNotifyAdvancedProfileItems) {
     const foundManifest = this.getManifest(manifest);
-    const controls = foundManifest.formConstructor;
-    const formGroup = new FormGroup(controls);
+    const controls = foundManifest.definitions;
+    const formGroup = this.formsSerivce.createFormGroup(controls);
 
     formGroup.setControl('type', new FormControl(foundManifest.type));
     formGroup.setControl(

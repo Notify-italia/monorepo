@@ -19,4 +19,5 @@ export class LeftPanelComponent {
   @Input({ required: true }) hierarchy!: INotifyAdvancedProfileItem[];
 
   @Output() addItem = new EventEmitter<FormGroup>();
+  @Output() hierarchyChanged = new EventEmitter<INotifyAdvancedProfileItem[]>();
 }

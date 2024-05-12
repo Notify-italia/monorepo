@@ -42,6 +42,10 @@ export class FormsService {
     return new FormGroup(controls);
   }
 
+  public createFormArray<T>(array: T[], defaults?: Partial<T>) {
+    return new FormArray(array.map((v) => this.createFormGroup(v, defaults)));
+  }
+
   public createFormControl<T>(object: T, path: string, defaults?: Partial<T>) {
     const currentValue = this._utilsService.deepSearchKey(
       object as Record<string, unknown>,

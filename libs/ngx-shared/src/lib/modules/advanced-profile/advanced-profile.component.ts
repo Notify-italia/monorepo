@@ -7,6 +7,7 @@ import {
   EnumNotifyAPBackgroundTypes,
   EnumNotifyAPDirections,
   INotifyAdvancedProfile,
+  INotifyAdvancedProfileItem,
   INotifyProfile,
   NOTIFY_AP_FONTS,
 } from '@notify/interfaces';
@@ -88,6 +89,13 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
 
   public addItem(item: FormGroup) {
     (this.form?.get('items') as FormArray).push(item);
+  }
+
+  public hierarchyChanged(hierarchy: INotifyAdvancedProfileItem[]) {
+    this.form?.setControl(
+      'items',
+      this._formsSerivce.createFormArray(hierarchy)
+    );
   }
 
   public refreshProfile() {

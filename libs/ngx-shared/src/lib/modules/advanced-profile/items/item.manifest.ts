@@ -1,4 +1,3 @@
-import { FormControl } from '@angular/forms';
 import { EnumNotifyAdvancedProfileItems } from '@notify/interfaces';
 import {
   AdvancedProfileItemsService,
@@ -9,14 +8,14 @@ export const itemManifest: INotifyAdvancedProfileManifest = {
   type: EnumNotifyAdvancedProfileItems.Unknown,
   localizedName: 'Sconosciuto',
   filledIcon: [],
-  formConstructor: {
-    type: new FormControl(EnumNotifyAdvancedProfileItems.Unknown),
-    clickEvent: new FormControl(''),
-    clickEventData: new FormControl(''),
-    visible: new FormControl(true),
-    title: new FormControl(''),
-    showTitle: new FormControl(true),
-    _id: new FormControl(''),
+  definitions: {
+    type: EnumNotifyAdvancedProfileItems.Unknown,
+    clickEvent: '',
+    clickEventData: '',
+    visible: true,
+    title: '',
+    showTitle: true,
+    _id: '',
   },
 };
 
