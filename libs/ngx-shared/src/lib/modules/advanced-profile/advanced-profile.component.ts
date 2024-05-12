@@ -1,15 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {
   EnumNotifyAPAlign,
   EnumNotifyAPBackgroundTypes,
   EnumNotifyAPDirections,
+  INotifyAdvancedProfile,
   INotifyProfile,
   NOTIFY_AP_FONTS,
 } from '@notify/interfaces';
-import { Observable, Subject, tap } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  debounceTime,
+  of,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { FormsService, ProfileService } from '../../services';
 import { LoadingComponent } from '../../standalones';
 import { ProfileViewComponent } from '../profile';
@@ -30,7 +39,7 @@ import { RightPanelComponent } from './parts/right-panel/right-panel.component';
   templateUrl: './advanced-profile.component.html',
   styleUrl: './advanced-profile.styles.scss',
 })
-export class AdvancedProfileComponent implements OnInit {
+export class AdvancedProfileComponent implements OnInit, OnDestroy {
   private _route = inject(ActivatedRoute);
   private _profileSerivce = inject(ProfileService);
   private _formsSerivce = inject(FormsService);
@@ -45,6 +54,8 @@ export class AdvancedProfileComponent implements OnInit {
 
   public form?: FormGroup;
 
+  private destroy$ = new Subject<void>();
+
   public get providedId() {
     return this._route.snapshot.queryParamMap.get('p') || undefined;
   }
@@ -53,38 +64,26 @@ export class AdvancedProfileComponent implements OnInit {
     this.refreshProfile()
       .pipe(
         tap((v) => {
-          this.form = new FormGroup({
-            items: new FormArray([]),
-            pageSettings: new FormGroup({
-              backgroundType: this._createFormControl(
-                v,
-                'pageSettings.backgroundType'
-              ),
-              fill: this._createFormControl(v, 'pageSettings.fill'),
-              textColor: this._createFormControl(v, 'pageSettings.textColor'),
-              font: this._createFormControl(v, 'pageSettings.font'),
-              gradient: new FormGroup({
-                direction: this._createFormControl(
-                  v,
-                  'pageSettings.gradient.direction'
-                ),
-                colors: this._createFormControl(
-                  v,
-                  'pageSettings.gradient.colors'
-                ),
-              }),
-              pattern: new FormGroup({
-                pattern: this._createFormControl(
-                  v,
-                  'pageSettings.pattern.pattern'
-                ),
-                color: this._createFormControl(v, 'pageSettings.pattern.color'),
-              }),
-            }),
-          });
-        })
+          this.form = this._formsSerivce.createFormGroup(
+            v.advancedProfile,
+            PROFILE_DEFAULTS.advancedProfile
+          );
+        }),
+        switchMap(() =>
+          (this.form?.valueChanges || of(null)).pipe(
+            takeUntil(this.destroy$),
+            debounceTime(500),
+
+            switchMap((f) => this.saveProfile(f))
+          )
+        )
       )
       .subscribe();
+  }
+
+  public ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public addItem(item: FormGroup) {
@@ -101,12 +100,17 @@ export class AdvancedProfileComponent implements OnInit {
       ));
   }
 
-  private _createFormControl(profile: INotifyProfile, path: string) {
-    return this._formsSerivce.createFormControl(
-      profile,
-      path,
-      PROFILE_DEFAULTS
-    );
+  public saveProfile(form: INotifyAdvancedProfile) {
+    console.log(this.form?.controls);
+    this.loading = true;
+    return this._profileSerivce
+      .patchProfile(
+        {
+          advancedProfile: form,
+        },
+        this.providedId
+      )
+      .pipe(tap(() => (this.loading = false)));
   }
 }
 
@@ -117,7 +121,7 @@ const PROFILE_DEFAULTS: Partial<INotifyProfile> = {
       backgroundType: EnumNotifyAPBackgroundTypes.Fill,
       textColor: '#ffffff',
       font: NOTIFY_AP_FONTS.Poppins,
-      fill: '',
+      fill: '#000000',
       gradient: {
         direction: EnumNotifyAPDirections.Vertical,
         colors: [],
@@ -132,7 +136,7 @@ const PROFILE_DEFAULTS: Partial<INotifyProfile> = {
     },
     items: [],
     requiredItems: {
-      avatar: '',
+      avatar: null,
     },
   },
 };
