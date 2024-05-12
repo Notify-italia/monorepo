@@ -9,6 +9,7 @@
         [hierarchy]="form?.value.items || []"
         (addItem)="addItem($event)"
         (hierarchyChanged)="hierarchyChanged($event)"
+        (selectedHierarchyItemChanged)="selectedHierarchyItem = $event"
       ></notify-left-panel>
 
       <div
@@ -23,6 +24,8 @@
       <notify-right-panel
         [loading]="loading"
         [profile]="profile"
+        [form]="form"
+        [selectedHierarchyItem]="selectedHierarchyItem"
         [baseUrl]="environment.profilesUrl"
       ></notify-right-panel>
     </div>

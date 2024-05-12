@@ -20,4 +20,5 @@ export class LeftPanelComponent {
 
   @Output() addItem = new EventEmitter<FormGroup>();
   @Output() hierarchyChanged = new EventEmitter<NotifyAdvancedProfileItem[]>();
+  @Output() selectedHierarchyItemChanged = new EventEmitter<string>();
 }

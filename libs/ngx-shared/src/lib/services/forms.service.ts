@@ -2,6 +2,14 @@ import { Injectable, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { UtilsService } from './utils.service';
 
+export type controlsFromObject<T> = {
+  [K in keyof T]: T[K] extends Record<string, unknown>
+    ? FormGroup<controlsFromObject<T[K]>>
+    : T[K] extends unknown[]
+    ? FormArray<FormGroup<controlsFromObject<T[K][0]>>>
+    : FormControl<T[K]>;
+};
+
 @Injectable()
 export class FormsService {
   private _utilsService = inject(UtilsService);
@@ -11,8 +19,18 @@ export class FormsService {
       (acc: Record<string, FormControl | FormGroup | FormArray>, key) => {
         const value = object[key as keyof object] as unknown;
 
-        if (!value) {
+        if (value === null || value === undefined) {
           acc[key] = new FormControl(defaults?.[key as keyof object]);
+          return acc;
+        }
+
+        if (Array.isArray(value)) {
+          acc[key] = new FormArray(
+            value.map((v) =>
+              this.createFormGroup(v, defaults?.[key as keyof object])
+            )
+          );
+
           return acc;
         }
 
@@ -24,21 +42,13 @@ export class FormsService {
           return acc;
         }
 
-        if (Array.isArray(value)) {
-          acc[key] = new FormArray(
-            value.map((v) =>
-              this.createFormGroup(v, defaults?.[key as keyof object])
-            )
-          );
-          return acc;
-        }
-
         acc[key] = new FormControl(value ?? defaults?.[key as keyof object]);
 
         return acc;
       },
-      {} as Record<string, FormControl | FormGroup>
+      {} as controlsFromObject<T>
     );
+
     return new FormGroup(controls);
   }
 
@@ -55,8 +65,6 @@ export class FormsService {
       defaults ?? {},
       path
     )[0];
-
-    console.log(currentValue, defaultValue);
 
     return new FormControl(currentValue ?? defaultValue);
   }

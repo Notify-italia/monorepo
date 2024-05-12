@@ -1,13 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { INotifyProfile } from '@notify/interfaces';
+import { controlsFromObject } from '../../../../services';
 import { SaveIndicatorComponent } from '../../../../standalones';
 import { INotifyShareItemConfig, ShareItemComponent } from '../../../profile';
+import { PartSettingsComponent } from '../../components/part-settings/part-settings.component';
 
 @Component({
   selector: 'notify-right-panel',
   standalone: true,
-  imports: [CommonModule, ShareItemComponent, SaveIndicatorComponent],
+  imports: [
+    CommonModule,
+    ShareItemComponent,
+    SaveIndicatorComponent,
+    PartSettingsComponent,
+  ],
   templateUrl: './right-panel.component.html',
   styleUrls: [
     './right-panel.component.scss',
@@ -18,6 +26,10 @@ export class RightPanelComponent {
   @Input({ required: true }) loading = false;
   @Input({ required: true }) profile!: INotifyProfile;
   @Input({ required: true }) baseUrl = '';
+  @Input({ required: true }) form?: FormGroup<
+    controlsFromObject<INotifyProfile['advancedProfile']>
+  >;
+  @Input({ required: true }) selectedHierarchyItem = 'background';
 
   @Output() forceSave = new EventEmitter<void>();
 

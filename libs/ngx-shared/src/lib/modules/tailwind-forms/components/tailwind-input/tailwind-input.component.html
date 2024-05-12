@@ -1,11 +1,21 @@
 <div [formGroup]="parent" class="w-full relative">
-  <label [for]="name" id="input-label" class="block text-sm font-medium">
+  <label
+    [for]="name"
+    id="input-label"
+    class="block text-sm font-medium"
+    [ngClass]="{
+      'text-xs': compact
+    }"
+  >
     {{ label | titlecase }}
   </label>
   <div class="relative mt-1">
     <span
       #Prefix
       class="absolute z-10 bottom-[1.5ex] lg:bottom-[0.70rem] left-3 pointer-events-none opacity-75"
+      [ngClass]="{
+        'text-xs': compact
+      }"
       >{{ prefix }}</span
     >
     <input
@@ -22,7 +32,8 @@
       class="input input-bordered w-full input-style backdrop-blur text-sm lg:text-auto"
       [class.input-error]="showValidationErrors"
       [ngClass]="{
-        'pointer-events-none border-dashed !bg-base-100/20': readOnly
+        'pointer-events-none border-dashed !bg-base-100/20': readOnly,
+        'w-full rounded-lg input text-xs bg-[#202020] !h-10 mt-1': compact
       }"
       [ngStyle]="{
         'padding-left': prefix?.length ? Prefix.clientWidth + 15 + 'px' : 'auto'
@@ -38,6 +49,7 @@
         (click)="clearInputValue()"
         [ngClass]="{
           'text-red-500 border-red-500': showValidationErrors,
+          'mt-1': compact
         }"
         type="reset"
         class="btn btn-outline btn-circle btn-xs hover:btn-primary backdrop-blur-sm backdrop-brightness-50"

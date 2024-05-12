@@ -3,8 +3,16 @@
   [formGroup]="parent"
   id="form-wrapper"
 >
-  <label [for]="name" class="font-medium my-auto">{{ label }}</label>
+  <label
+    [for]="name"
+    class="font-medium my-auto"
+    [ngClass]="{
+      'text-xs': compact
+    }"
+    >{{ label }}</label
+  >
 
+  @if(!overrideToggleIcon) {
   <div class="form-control">
     <label class="cursor-pointer label">
       <input
@@ -16,6 +24,14 @@
       />
     </label>
   </div>
+  } @else {
+  <button
+    (click)="toggleCheckbox()"
+    class="my-auto hover:brightness-125 {{ overrideToggleIcon.button }}"
+  >
+    <span [innerHTML]="toggleIcon"></span>
+  </button>
+  }
 </div>
 <p [id]="name + '-description'" class="opacity-75 text-sm" *ngIf="description">
   {{ description }}

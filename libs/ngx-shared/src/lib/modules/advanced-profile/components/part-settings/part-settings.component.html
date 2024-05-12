@@ -1,0 +1,49 @@
+<!-- <pre>{{ form.controls?.['items']?.value | json }}</pre> -->
+
+<div *ngIf="currentItem as item" class="px-2">
+  <form [formGroup]="item.form" class="flex flex-col space-y-4">
+    <notify-tailwind-checkbox
+      [parent]="item.form"
+      name="visible"
+      [compact]="true"
+      label="Elemento visibile"
+      [overrideToggleIcon]="showHiddenToggle"
+    ></notify-tailwind-checkbox>
+    <div
+      class="w-full smooth"
+      [ngClass]="{
+        'opacity-50 pointer-events-none scale-90 -translate-y-10':
+          !item.form.get('visible')?.value
+      }"
+    >
+      <div class="flex items-end space-x-4">
+        <notify-tailwind-input
+          [parent]="item.form"
+          name="title"
+          label="Titolo elemento"
+          [compact]="true"
+          class="w-full"
+          [placeholder]="item.manifest.localizedName || 'Titolo'"
+        ></notify-tailwind-input>
+        <notify-tailwind-checkbox
+          [parent]="item.form"
+          name="showTitle"
+          label=" "
+          class="mb-2"
+          [overrideToggleIcon]="showHiddenToggle"
+        ></notify-tailwind-checkbox>
+      </div>
+      <div class="divider"></div>
+      <ng-container
+        *ngIf="currentItem?.manifest?.formComponent as cf"
+        [ngComponentOutlet]="cf"
+        [ngComponentOutletInputs]="item"
+      ></ng-container>
+      form value
+      <pre>{{ item.form.value | json }}</pre>
+      manifest
+      <pre>{{ item.manifest | json }}</pre>
+      form component
+    </div>
+  </form>
+</div>
