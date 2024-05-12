@@ -8,10 +8,13 @@
       </small>
     </div>
 
-    <div class="overflow-y-auto min-h-10 mt-2">
+    <div class="overflow-y-auto overflow-x-hidden min-h-10 mt-2 w-full">
       <notify-hierarchy
         [hierarchy]="hierarchy || []"
         (hierarchyChanged)="hierarchyChanged.emit($event)"
+        (selectedHierarchyItemChanged)="
+          selectedHierarchyItemChanged.emit($event)
+        "
       ></notify-hierarchy>
     </div>
   </div>

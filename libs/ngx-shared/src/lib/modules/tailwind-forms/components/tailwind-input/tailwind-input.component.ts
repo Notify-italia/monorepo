@@ -26,6 +26,7 @@ export class TailwindInputComponent
   @Input() helpText!: string;
   @Input() showToggleEye = false;
   @Input() showClearInput = true;
+  @Input() compact = false;
   @Input() placeholder = '';
   @Input() validationErrors!: { [key: string]: string };
   @Input() disableAutocomplete = false;

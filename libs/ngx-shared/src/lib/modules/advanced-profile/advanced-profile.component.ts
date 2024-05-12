@@ -41,19 +41,22 @@ import { RightPanelComponent } from './parts/right-panel/right-panel.component';
   styleUrl: './advanced-profile.styles.scss',
 })
 export class AdvancedProfileComponent implements OnInit, OnDestroy {
+  //services
   private _route = inject(ActivatedRoute);
   private _profileSerivce = inject(ProfileService);
   private _formsSerivce = inject(FormsService);
 
+  //observables
   private _profileSubject = new Subject<INotifyProfile>();
   public profile$: Observable<INotifyProfile> = this._profileSubject;
 
+  //properties
   public loading = false;
+  public form?: FormGroup;
+  public selectedHierarchyItem = 'background';
   public environment: {
     profilesUrl: string;
   } = this._route.snapshot.data['environment'];
-
-  public form?: FormGroup;
 
   private destroy$ = new Subject<void>();
 
@@ -70,14 +73,22 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
             PROFILE_DEFAULTS.advancedProfile
           );
         }),
-        switchMap(() =>
-          (this.form?.valueChanges || of(null)).pipe(
+        switchMap(() => {
+          if (!this.form) {
+            return of(null);
+          }
+
+          return this.form.valueChanges.pipe(
             takeUntil(this.destroy$),
             debounceTime(500),
-
-            switchMap((f) => this.saveProfile(f))
-          )
-        )
+            switchMap((f) => {
+              if (!f) {
+                return of(null);
+              }
+              return this.saveProfile(f as INotifyAdvancedProfile);
+            })
+          );
+        })
       )
       .subscribe();
   }
@@ -109,7 +120,6 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
   }
 
   public saveProfile(form: INotifyAdvancedProfile) {
-    console.log(this.form?.controls);
     this.loading = true;
     return this._profileSerivce
       .patchProfile(

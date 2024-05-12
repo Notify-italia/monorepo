@@ -10,7 +10,7 @@
 
       <notify-save-indicator
         [isSaving]="loading"
-        [lastSave]="profile?.updatedAt || TEMP_today"
+        [lastSave]="profile.updatedAt || TEMP_today"
         [followPage]="false"
         [compact]="true"
         (save)="forceSave.emit()"
@@ -18,8 +18,14 @@
     </div>
 
     <div class="divider"></div>
-    <div class="w-full h-full shrink-0 overflow-hidden">
-      <div>PART SETTINGS</div>
+    <div
+      class="overflow-y-auto overflow-x-hidden min-h-10 mt-2 w-full notify-scrollbar"
+      *ngIf="form"
+    >
+      <notify-part-settings
+        [form]="form"
+        [selectedHierarchyItem]="selectedHierarchyItem"
+      ></notify-part-settings>
     </div>
   </div>
 </div>
