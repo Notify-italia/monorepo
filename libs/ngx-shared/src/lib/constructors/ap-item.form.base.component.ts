@@ -16,7 +16,12 @@ import { CHECKBOX_TOGGLE_EYE } from '../modules/tailwind-forms/components/tailwi
 import { INotifyTailwindDropzoneCdnConfig } from '../modules/tailwind-forms/components/tailwind-dropzone/tailwind-dropzone.component';
 import { ITailwindSelectOption } from '../modules/tailwind-forms/components/tailwind-select/tailwind-select.component';
 import { TailwindFormsModule } from '../modules/tailwind-forms/tailwind-forms.module';
-import { AuthService, FormsService, controlsFromObject } from '../services';
+import {
+  AuthService,
+  FormsService,
+  UtilsService,
+  controlsFromObject,
+} from '../services';
 
 export interface INotifyCustomTableValueBase {
   valueType: string;
@@ -29,6 +34,7 @@ export const AdvancedItemFormBaseImports = [CommonModule, TailwindFormsModule];
 export const AdvancedItemFormBaseProviders = [
   AdvancedProfileItemsService,
   FormsService,
+  UtilsService,
 ];
 
 @Component({
@@ -41,9 +47,13 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
   private _authService = inject(AuthService);
   private _apItemsSerivce = inject(AdvancedProfileItemsService);
   private _formsService = inject(FormsService);
+  public _utilsSerivce = inject(UtilsService);
 
   @Input() profile!: INotifyProfile;
   @Input() form!: FormGroup<controlsFromObject<T>>;
+  @Input() formContext!: FormGroup<
+    controlsFromObject<INotifyProfile['advancedProfile']>
+  >;
   @Input() isRequired!: boolean;
   @Input() manifest!: INotifyAdvancedProfileManifest<T>;
 
@@ -58,12 +68,39 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
   public cdnConfig!: INotifyTailwindDropzoneCdnConfig;
   public toggleEyeIcons = CHECKBOX_TOGGLE_EYE;
 
+  public context = {
+    authService: this._authService,
+    apItemsService: this._apItemsSerivce,
+    formsService: this._formsService,
+    utilsService: this._utilsSerivce,
+    advancedProfile: () => this.formContext.value,
+  };
+
   public get isAgent() {
     return this._authService.user?.userType === EnumNotifyUserType.Agent;
   }
 
+  public get isCompany() {
+    return this._authService.user?.userType === EnumNotifyUserType.Company;
+  }
+
   public get authHeaders() {
     return this._authService.authHeaders;
+  }
+
+  public get requiredItems() {
+    const requiredItems = this.formContext.value?.requiredItems;
+
+    if (!requiredItems) {
+      return [];
+    }
+
+    return Object.entries(requiredItems)
+      .filter(([, value]) => value?.length)
+      .map((v) => ({
+        key: v[0],
+        value: v[1],
+      }));
   }
 
   public ngOnInit(): void {

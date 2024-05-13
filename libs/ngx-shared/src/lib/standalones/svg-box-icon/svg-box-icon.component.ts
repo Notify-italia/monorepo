@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, inject } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { SvgBoxIcon, SvgboxService } from '../../services';
 
 @Component({
@@ -10,9 +11,21 @@ import { SvgBoxIcon, SvgboxService } from '../../services';
   styleUrls: ['./svg-box-icon.component.scss'],
 })
 export class SvgBoxIconComponent implements OnInit, OnChanges {
+  private _domSanitizer = inject(DomSanitizer);
+
   @Input() public icon?: SvgBoxIcon;
   @Input() public iconName?: string;
   @Input() public size = 8;
+
+  public get sanitizedData() {
+    const data = this.icon?.data || '';
+
+    if (!data) {
+      return '';
+    }
+
+    return this._domSanitizer.bypassSecurityTrustHtml(data);
+  }
 
   constructor(private _svgBox: SvgboxService) {}
 

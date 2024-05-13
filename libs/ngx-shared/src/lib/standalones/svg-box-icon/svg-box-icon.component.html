@@ -1,6 +1,7 @@
 <svg
-  [attr.data-src]="genIconUrl()"
+  [attr.data-src]="icon.data ? '' : genIconUrl()"
   *ngIf="icon"
   fill="currentColor"
   class="w-{{ size }} h-{{ size }}"
+  [innerHTML]="sanitizedData"
 ></svg>
