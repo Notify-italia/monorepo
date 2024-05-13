@@ -9,10 +9,18 @@
   ></notify-search-bar>
 
   <div
-    class="grid grid-cols-4 grid-flow-row w-full h-32 justify-evenly items-center content-evenly justify-items-center"
+    class="grid grid-cols-4 grid-flow-row w-full h-44 mt-3 gap-3 justify-evenly items-center content-evenly justify-items-center !overflow-x-hidden notify-scrollbar"
   >
     @for (item of availableItems; track $index) {
-    <div class="lg:tooltip" [attr.data-tip]="item.label">
+    <div
+      class="lg:tooltip"
+      [attr.data-tip]="item.label"
+      [ngClass]="{
+      '!tooltip-bottom': isTopRow($index) && !isWallColumn($index).result,
+      '!tooltip-left': isWallColumn($index).result && isWallColumn($index).side === 'right',
+      '!tooltip-right': isWallColumn($index).result && isWallColumn($index).side === 'left',
+    }"
+    >
       <button
         (click)="emitAddItem(item.type)"
         class="item-button group/btn !size-12 bg-background flex !justify-center items-center !p-1 active:!bg-black"

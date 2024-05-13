@@ -1,6 +1,6 @@
 <!-- <pre>{{ form.controls?.['items']?.value | json }}</pre> -->
 
-<div *ngIf="currentItem as item" class="p-2">
+<div *ngIf="currentItem as item" class="p-2 pt-0">
   <form [formGroup]="item.form" class="flex flex-col space-y-4">
     <div
       class="flex space-x-2 tooltip-bottom text-sm"
@@ -62,6 +62,7 @@
           [parent]="item.form"
           name="showTitle"
           label=" "
+          [disabled]="!item.form.get('title')?.value"
           class="mb-2 absolute right-2"
           [overrideToggleIcon]="showHiddenToggle"
         ></notify-tailwind-checkbox>
@@ -80,5 +81,6 @@
         }"
       ></ng-container>
     </div>
+    <pre>{{ item.form.value | json }}</pre>
   </form>
 </div>

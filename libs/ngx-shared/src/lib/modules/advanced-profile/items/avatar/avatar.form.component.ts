@@ -1,4 +1,4 @@
-import { CommonModule, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 
 import {
@@ -17,7 +17,7 @@ import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/compon
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ...AdvancedItemFormBaseImports],
+  imports: AdvancedItemFormBaseImports,
   providers: AdvancedItemFormBaseProviders,
   styleUrls: ['../../advanced-profile.styles.scss'],
   template: `

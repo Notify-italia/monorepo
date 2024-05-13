@@ -22,7 +22,8 @@ export type NotifyAdvancedProfileItem =
   | INotifyAPContactsItem
   | INotifAPPhotoItem
   | INotifyAPNoteItem
-  | INotifyAPIframeItem;
+  | INotifyAPIframeItem
+  | INotifyAPDividerItem;
 
 export type NotifyAdvancedProfileItemTypes =
   | NotifyAdvancedProfileItem['type']
@@ -59,6 +60,7 @@ export type INotifyAPLinkItem = _baseButton;
 export interface INotifyAPPlaceItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Place> {
   address: string;
+  civicNumber: string;
   city: string;
   showStreetName: boolean;
 }
@@ -82,6 +84,9 @@ export interface INotifyAPNoteItem
   note: string;
   showNoteTitle: boolean;
 }
+
+export type INotifyAPDividerItem =
+  INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Divider>;
 
 export interface INotifyAPIframeItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Iframe> {
@@ -168,6 +173,7 @@ export enum EnumNotifyAdvancedProfileItems {
   Note = 'note',
   Iframe = 'iframe',
   Unknown = 'unknown',
+  Divider = 'divider',
 }
 
 export const NOTIFY_AP_FONTS = {
