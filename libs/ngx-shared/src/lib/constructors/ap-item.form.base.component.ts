@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import {
@@ -11,6 +12,7 @@ import {
   AdvancedProfileItemsService,
   INotifyAdvancedProfileManifest,
 } from '../modules/advanced-profile/services/advanced-profile-items.service';
+import { CHECKBOX_TOGGLE_EYE } from '../modules/tailwind-forms/components/tailwind-checkbox/tailwind-checkbox.component';
 import { INotifyTailwindDropzoneCdnConfig } from '../modules/tailwind-forms/components/tailwind-dropzone/tailwind-dropzone.component';
 import { ITailwindSelectOption } from '../modules/tailwind-forms/components/tailwind-select/tailwind-select.component';
 import { TailwindFormsModule } from '../modules/tailwind-forms/tailwind-forms.module';
@@ -23,7 +25,7 @@ export interface INotifyCustomTableValueBase {
   transformer?: (value: any) => string;
 }
 
-export const AdvancedItemFormBaseImports = [TailwindFormsModule];
+export const AdvancedItemFormBaseImports = [CommonModule, TailwindFormsModule];
 export const AdvancedItemFormBaseProviders = [
   AdvancedProfileItemsService,
   FormsService,
@@ -54,6 +56,7 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
   }));
 
   public cdnConfig!: INotifyTailwindDropzoneCdnConfig;
+  public toggleEyeIcons = CHECKBOX_TOGGLE_EYE;
 
   public get isAgent() {
     return this._authService.user?.userType === EnumNotifyUserType.Agent;

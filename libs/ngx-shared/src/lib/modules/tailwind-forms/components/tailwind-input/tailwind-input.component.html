@@ -14,7 +14,7 @@
       #Prefix
       class="absolute z-10 bottom-[1.5ex] lg:bottom-[0.70rem] left-3 pointer-events-none opacity-75"
       [ngClass]="{
-        'text-xs': compact
+        'text-xs !bottom-[2ex]': compact
       }"
       >{{ prefix }}</span
     >
@@ -34,7 +34,7 @@
       [class.input-error]="showValidationErrors"
       [ngClass]="{
         'pointer-events-none border-dashed !bg-base-100/20': readOnly,
-        '!w-full rounded-lg text-xs bg-[#202020] !h-10 mt-1 px-2': compact,
+        '!w-full rounded-lg text-xs bg-[#202020] !h-10  px-2': compact,
         'w-full': !compact,
       }"
       [ngStyle]="{
