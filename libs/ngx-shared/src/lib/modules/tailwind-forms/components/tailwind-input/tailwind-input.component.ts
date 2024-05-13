@@ -32,6 +32,7 @@ export class TailwindInputComponent
   @Input() disableAutocomplete = false;
   @Input() mask!: string;
   @Input() thousandSeparator!: string;
+  @Input() maxLength!: number;
   @Input() patterns!: {
     [character: string]: {
       pattern: RegExp;
