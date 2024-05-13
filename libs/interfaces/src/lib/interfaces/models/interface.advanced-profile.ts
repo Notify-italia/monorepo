@@ -20,7 +20,7 @@ export type NotifyAdvancedProfileItem =
   | INotifyAPLinksItem
   | INotifyAPPlaceItem
   | INotifyAPContactsItem
-  | INotifAPPhotoItem
+  | INotifyAPPhotoItem
   | INotifyAPNoteItem
   | INotifyAPIframeItem
   | INotifyAPDividerItem;
@@ -36,7 +36,7 @@ export interface INotifyAPAvatarItem
   label: string;
   sublabel: string;
   description: string;
-  imgSrc: { name: string; url: string; size: number; type: string }[];
+  imgSrc: _baseFile[];
   imgMask: DaisyUIAvatarMasks | 'banner';
   useRoleSubLabel: boolean;
   ownerImgCorner: EnumNotifyAPCorners;
@@ -73,9 +73,9 @@ export interface INotifyAPContactsItem
 export type INotifyContactItem = _baseButton;
 
 //photo
-export interface INotifAPPhotoItem
+export interface INotifyAPPhotoItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Photo> {
-  imgSrc: string;
+  imgSrc: _baseFile[];
 }
 
 //note
@@ -232,4 +232,11 @@ interface _baseButton {
   icon: string;
   url: string;
   visible: boolean;
+}
+
+interface _baseFile {
+  name: string;
+  url: string;
+  size: number;
+  type: string;
 }
