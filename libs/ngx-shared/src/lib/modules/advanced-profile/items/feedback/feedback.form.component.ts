@@ -119,7 +119,10 @@ export class FeedbackFormComponent extends AdvancedItemFormBaseComponent<INotify
   }
 
   public get currentPublicUrl() {
-    const icon = this._svgBoxService.getIcon(this.form.value.icon || '');
+    const icon = this._svgBoxService.getIcon(
+      this.form.value.icon || '',
+      this.feedbackIconSet
+    );
     return this.context.utilsService.populateWebProtocol(
       icon?.prefix || '',
       this.currentUrl

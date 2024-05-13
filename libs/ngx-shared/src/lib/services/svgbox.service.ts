@@ -28,8 +28,8 @@ export class SvgboxService {
     return `https://s2.svgbox.net/${icon.set}.svg?ic=${icon.name}`;
   }
 
-  public getIcon(name: string): SvgBoxIcon | undefined {
-    return this.availableIcons.find((i) => i.name === name);
+  public getIcon(name: string, iconSet?: SvgBoxIcon[]): SvgBoxIcon | undefined {
+    return (iconSet || this.availableIcons).find((i) => i.name === name);
   }
 
   public setIconSet(icons: SvgBoxIcon[]) {

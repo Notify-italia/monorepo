@@ -67,11 +67,10 @@
           [overrideToggleIcon]="showHiddenToggle"
         ></notify-tailwind-checkbox>
       </div>
-      <div class="divider"></div>
+      @if(item.manifest.formComponent; as cf) {
 
+      <div class="divider"></div>
       <ng-container
-        class=""
-        *ngIf="currentItem?.manifest?.formComponent as cf"
         [ngComponentOutlet]="cf"
         [ngComponentOutletInputs]="{
           form: item.form,
@@ -81,6 +80,7 @@
           profile,
         }"
       ></ng-container>
+      }
     </div>
     <pre>{{ item.form.value | json }}</pre>
   </form>
