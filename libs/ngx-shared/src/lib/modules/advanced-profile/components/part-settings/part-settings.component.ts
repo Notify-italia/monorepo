@@ -31,6 +31,7 @@ export class PartSettingsComponent {
   @Input({ required: true }) form!: FormGroup<
     controlsFromObject<INotifyProfile['advancedProfile']>
   >;
+  @Input() profile!: INotifyProfile;
   @Input() selectedHierarchyItem = 'background';
 
   public get currentItem() {

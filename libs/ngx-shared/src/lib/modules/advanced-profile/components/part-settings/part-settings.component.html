@@ -1,9 +1,9 @@
 <!-- <pre>{{ form.controls?.['items']?.value | json }}</pre> -->
 
-<div *ngIf="currentItem as item" class="px-2">
+<div *ngIf="currentItem as item" class="p-2">
   <form [formGroup]="item.form" class="flex flex-col space-y-4">
     <div
-      class="flex space-x-2"
+      class="flex space-x-2 tooltip-bottom text-sm"
       [ngClass]="{
         tooltip: isRequired
       }"
@@ -51,7 +51,7 @@
         <notify-tailwind-input
           [parent]="item.form"
           name="title"
-          label="Titolo"
+          label="Titolo elemento"
           [compact]="true"
           class="w-full"
           [maxLength]="30"
@@ -67,10 +67,17 @@
         ></notify-tailwind-checkbox>
       </div>
       <div class="divider"></div>
+
       <ng-container
+        class=""
         *ngIf="currentItem?.manifest?.formComponent as cf"
         [ngComponentOutlet]="cf"
-        [ngComponentOutletInputs]="item"
+        [ngComponentOutletInputs]="{
+          form: item.form,
+          manifest: item.manifest,
+          isRequired: isRequired,
+          profile
+        }"
       ></ng-container>
     </div>
   </form>

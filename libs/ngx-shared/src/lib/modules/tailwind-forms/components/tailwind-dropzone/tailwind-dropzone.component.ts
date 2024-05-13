@@ -36,6 +36,16 @@ export interface INotifyTailwindDropzoneCdnConfig {
 
 type DropzoneFile = Dropzone.DropzoneFile;
 
+export const TAILWIND_DROPZONE_DEFAULT_LABELS = {
+  defaultMessage: 'Trascina i file o fai click/tap qui per caricarli',
+  invalidFileType: 'Tipo di file non valido',
+  cancelUpload: 'Annulla caricamento',
+  uploadCanceled: 'Caricamento annullato',
+  maxFilesExceeded: 'Hai raggiunto il numero massimo di file',
+  removeFileConfirmation: 'Sei sicuro di voler rimuovere questo file?',
+  cancelUploadConfirmation: 'Sei sicuro di voler annullare il caricamento?',
+};
+
 @Component({
   selector: 'notify-tailwind-dropzone',
   templateUrl: './tailwind-dropzone.component.html',
@@ -57,15 +67,8 @@ export class TailwindDropzoneComponent
     maxFilesExceeded: string;
     removeFileConfirmation: string;
     cancelUploadConfirmation: string;
-  } = {
-    defaultMessage: 'Trascina i file o fai click/tap qui per caricarli',
-    invalidFileType: 'Tipo di file non valido',
-    cancelUpload: 'Annulla caricamento',
-    uploadCanceled: 'Caricamento annullato',
-    maxFilesExceeded: 'Hai raggiunto il numero massimo di file',
-    removeFileConfirmation: 'Sei sicuro di voler rimuovere questo file?',
-    cancelUploadConfirmation: 'Sei sicuro di voler annullare il caricamento?',
-  };
+  } = TAILWIND_DROPZONE_DEFAULT_LABELS;
+  @Input() centerPreview = false;
   @Input() name!: string;
   @Input() schema = {
     value: 'url',
@@ -73,6 +76,7 @@ export class TailwindDropzoneComponent
     size: 'size',
     type: 'type',
   };
+  @Input() height = '20rem';
   @Input() acceptedFiles!: string;
   @Input() maxFileSize = 15;
   @Input() cdnConfig!: INotifyTailwindDropzoneCdnConfig;
