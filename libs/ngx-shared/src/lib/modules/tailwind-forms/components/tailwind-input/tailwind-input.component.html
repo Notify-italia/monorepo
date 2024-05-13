@@ -38,7 +38,9 @@
         'w-full': !compact,
       }"
       [ngStyle]="{
-        'padding-left': prefix?.length ? Prefix.clientWidth + 15 + 'px' : 'auto'
+        'padding-left': prefix?.length
+          ? Prefix.clientWidth + 15 + 'px'
+          : '0.5rem'
       }"
     />
 
