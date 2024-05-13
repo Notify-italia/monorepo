@@ -73,7 +73,7 @@ export class IconSelectorComponent implements OnInit {
         (icon) => icon.name === this.icon
       ) as SvgBoxIcon;
 
-      this.currentIcon = iconInSet || DEFAULT_ICON;
+      this.currentIcon = iconInSet || null;
 
       this.closeSelector();
     }

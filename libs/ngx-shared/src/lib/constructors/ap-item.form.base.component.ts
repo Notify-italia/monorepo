@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import {
   EnumNotifyAPDirections,
   EnumNotifyUserType,
@@ -22,6 +23,7 @@ import {
   UtilsService,
   controlsFromObject,
 } from '../services';
+import { LoadingComponent } from '../standalones';
 
 export interface INotifyCustomTableValueBase {
   valueType: string;
@@ -30,7 +32,12 @@ export interface INotifyCustomTableValueBase {
   transformer?: (value: any) => string;
 }
 
-export const AdvancedItemFormBaseImports = [CommonModule, TailwindFormsModule];
+export const AdvancedItemFormBaseImports = [
+  CommonModule,
+  TailwindFormsModule,
+  LoadingComponent,
+  RouterModule,
+];
 export const AdvancedItemFormBaseProviders = [
   AdvancedProfileItemsService,
   FormsService,

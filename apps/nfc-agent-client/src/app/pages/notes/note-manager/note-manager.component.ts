@@ -77,7 +77,10 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
   ) {}
 
   goBack() {
-    this._router.navigate(['/pages/notes']);
+    const returnUrl =
+      this._activeRoute.snapshot.queryParams['returnUrl'] || '/pages/notes';
+
+    this._router.navigate([returnUrl]);
   }
 
   ngOnInit() {
