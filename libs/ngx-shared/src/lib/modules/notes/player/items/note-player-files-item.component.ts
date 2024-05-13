@@ -86,11 +86,14 @@ export class NotePlayerFilesItemComponent extends NoteItemBaseComponent {
   public currentItem = 0;
 
   public get itemValue() {
-    return this.item.value as INotifyNoteItemFiles;
+    return (this.item.value || {
+      title: '',
+      files: [],
+    }) as INotifyNoteItemFiles;
   }
 
   public get itemFiles() {
-    return this.itemValue.files.map((f) => ({
+    return this.itemValue?.files.map((f) => ({
       ...f,
       isImage: f.type.startsWith('image'),
       fileType: this._getFileType(f),

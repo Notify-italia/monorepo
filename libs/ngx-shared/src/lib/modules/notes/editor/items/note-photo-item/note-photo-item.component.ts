@@ -63,7 +63,7 @@ export class NotePhotoItemComponent extends NoteItemBaseComponent {
       return of(true);
     }
 
-    const itemName = this.itemValue.url.split('/').pop() || '';
+    const itemName = this.itemValue?.url.split('/').pop() || '';
 
     return this._noteService.deleteItem(
       this.note._id,

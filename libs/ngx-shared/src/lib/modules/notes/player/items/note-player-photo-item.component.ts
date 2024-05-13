@@ -22,7 +22,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
         <span class="font-bold text-xl">{{ itemValue.title }}</span>
       </p>
       <img
-        [src]="itemValue?.url"
+        [src]="itemValue.url"
         class="w-full h-full object-cover rounded-lg"
       />
     </div>
@@ -31,6 +31,9 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
 })
 export class NotePlayerPhotoItemComponent extends NoteItemBaseComponent {
   public get itemValue() {
-    return this.item?.value as INotifyNoteItemPhoto;
+    return (this.item?.value || {
+      title: '',
+      url: '',
+    }) as INotifyNoteItemPhoto;
   }
 }

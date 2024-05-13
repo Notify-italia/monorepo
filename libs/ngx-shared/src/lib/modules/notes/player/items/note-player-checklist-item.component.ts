@@ -43,6 +43,9 @@ export class NotePlayerChecklistItemComponent extends NoteItemBaseComponent {
   @ViewChildren('DescriptionInput') inputs!: QueryList<ElementRef>;
 
   public get itemValue() {
-    return this.item.value as INotifyNoteItemChecklist;
+    return (this.item.value || {
+      title: '',
+      items: [],
+    }) as INotifyNoteItemChecklist;
   }
 }
