@@ -1,6 +1,6 @@
 <!-- <pre>{{ form.controls?.['items']?.value | json }}</pre> -->
 
-<div *ngIf="currentItem as item" class="p-2 pt-0">
+<div *ngIf="currentItem as item" class="p-2">
   <form [formGroup]="item.form" class="flex flex-col space-y-4">
     <div
       class="flex space-x-2 tooltip-bottom text-sm"
@@ -82,6 +82,5 @@
       ></ng-container>
       }
     </div>
-    <pre>{{ item.form.value | json }}</pre>
   </form>
 </div>
