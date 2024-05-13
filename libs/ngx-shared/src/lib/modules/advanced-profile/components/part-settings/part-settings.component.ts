@@ -35,7 +35,7 @@ export class PartSettingsComponent {
   @Input() selectedHierarchyItem = 'background';
 
   public get currentItem() {
-    const form = this.form.controls?.['items'].controls.find(
+    const form = this.form.controls?.['items'].controls?.find(
       (fg) => fg.controls._id.value === this.selectedHierarchyItem
     );
 

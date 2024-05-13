@@ -36,10 +36,16 @@ import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
   styleUrls: ['./icon-selector.component.scss'],
 })
 export class IconSelectorComponent implements OnInit {
-  @Input() public icon?: SvgBoxIcon['name'];
-  @Output() public iconValue = new EventEmitter<SvgBoxIcon | null>();
-
   @ViewChildren('card') public cards?: QueryList<ElementRef>;
+
+  @Input() public icon?: SvgBoxIcon['name'];
+  @Input() public iconSet?: SvgBoxIcon[];
+
+  @Output() public iconValue = new EventEmitter<SvgBoxIcon | null>();
+  @Output() public iconChange = new EventEmitter<{
+    current: SvgBoxIcon | null;
+    new: SvgBoxIcon | null;
+  }>();
 
   public hideSelector = false;
   public MANUAL_REFRESH = true;
@@ -57,12 +63,18 @@ export class IconSelectorComponent implements OnInit {
   }
 
   public ngOnInit() {
+    if (this.iconSet?.length) {
+      this.availableIcons$.next(this.iconSet);
+    }
+
     if (this.icon) {
       //if the icon is passed as input, we hide the selector and set the current icon
-
-      this.currentIcon = this.availableIcons$.value.find(
+      const iconInSet = this.availableIcons$.value.find(
         (icon) => icon.name === this.icon
       ) as SvgBoxIcon;
+
+      this.currentIcon = iconInSet || DEFAULT_ICON;
+
       this.closeSelector();
     }
 
@@ -80,6 +92,7 @@ export class IconSelectorComponent implements OnInit {
   }
 
   public setIcon(icon: SvgBoxIcon) {
+    this.iconChange.emit({ current: this.currentIcon, new: icon });
     this.currentIcon = icon;
 
     this.closeSelector();

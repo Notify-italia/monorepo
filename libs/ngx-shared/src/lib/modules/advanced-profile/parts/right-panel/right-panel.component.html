@@ -20,10 +20,10 @@
     <div class="divider"></div>
     <div
       class="overflow-y-auto overflow-x-hidden min-h-10 w-full notify-scrollbar"
-      *ngIf="form"
+      *ngIf="form as f"
     >
       <notify-part-settings
-        [form]="form"
+        [form]="f"
         [profile]="profile"
         [selectedHierarchyItem]="selectedHierarchyItem"
       ></notify-part-settings>
