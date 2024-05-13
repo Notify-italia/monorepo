@@ -33,6 +33,7 @@ export class TailwindTextareaComponent
     horizontal: false,
     vertical: false,
   };
+  @Input() compact = false;
   @Input() validationErrors!: { [key: string]: string };
   @Input() disableAutocomplete = false;
   @Input() mask!: string;

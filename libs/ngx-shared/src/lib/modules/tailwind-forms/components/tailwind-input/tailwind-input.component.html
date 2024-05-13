@@ -30,11 +30,12 @@
       [suffix]="suffix"
       [thousandSeparator]="thousandSeparator"
       [patterns]="patterns"
-      class="input input-bordered w-full input-style backdrop-blur text-sm lg:text-auto"
+      class="w-full backdrop-blur lg:text-auto input input-style input-bordered"
       [class.input-error]="showValidationErrors"
       [ngClass]="{
         'pointer-events-none border-dashed !bg-base-100/20': readOnly,
-        'w-full rounded-lg input text-xs bg-[#202020] !h-10 mt-1': compact
+        '!w-full rounded-lg text-xs bg-[#202020] !h-10 mt-1 px-2': compact,
+        'w-full': !compact,
       }"
       [ngStyle]="{
         'padding-left': prefix?.length ? Prefix.clientWidth + 15 + 'px' : 'auto'

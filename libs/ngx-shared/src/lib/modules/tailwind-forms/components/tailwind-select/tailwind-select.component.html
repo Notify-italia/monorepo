@@ -1,5 +1,12 @@
-<div [formGroup]="parent" class="mb-4">
-  <label [for]="name" class="block text-sm font-medium" id="select-label">
+<div [formGroup]="parent" class="">
+  <label
+    [for]="name"
+    class="block text-sm font-medium"
+    id="select-label"
+    [ngClass]="{
+      'text-xs': compact
+    }"
+  >
     {{ label | titlecase }}
   </label>
   <div class="relative mt-1">
@@ -7,15 +14,19 @@
       [id]="name"
       [name]="name"
       [formControlName]="name"
-      class="select select-bordered w-full text-sm input-style"
+      class="select select-bordered w-full input-style lg:text-auto"
       [ngClass]="{
         'border-red-500 text-red-900 focus:border-red-500 focus:ring-red-500':
           showValidationErrors,
-
+        '!w-full rounded-lg !text-xs bg-[#202020] !h-10 mt-1 px-2 !select-sm':
+          compact,
+        'w-full': !compact,
         '!text-gray-500': !value?.length
       }"
     >
-      <option value="" class="">{{ placeholder }}</option>
+      <option value="" class="" *ngIf="placeholder?.length">
+        {{ placeholder }}
+      </option>
       <option
         *ngFor="let option of options"
         [selected]="false"

@@ -21,6 +21,7 @@ export class TailwindSelectComponent implements OnInit, OnChanges {
   @Input() parent!: FormGroup;
   @Input() label!: string;
   @Input() name!: string;
+  @Input() compact = false;
   @Input() placeholder = '';
   @Input() validationErrors!: { [key: string]: string };
   @Input() options!: ITailwindSelectOption[];

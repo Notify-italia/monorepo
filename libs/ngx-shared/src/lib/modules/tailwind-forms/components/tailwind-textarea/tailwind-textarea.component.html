@@ -1,11 +1,21 @@
 <div [formGroup]="parent" class="w-full relative">
-  <label [for]="name" id="input-label" class="block text-sm font-medium">
+  <label
+    [for]="name"
+    id="input-label"
+    class="block text-sm font-medium"
+    [ngClass]="{
+      'text-xs': compact
+    }"
+  >
     {{ label | titlecase }}
   </label>
   <div class="relative mt-1">
     <span
       #Prefix
       class="absolute z-10 bottom-[1.5ex] lg:bottom-[0.70rem] left-3 pointer-events-none opacity-75"
+      [ngClass]="{
+        'text-xs': compact
+      }"
       >{{ prefix }}</span
     >
     <textarea
@@ -24,6 +34,7 @@
       [ngClass]="{
         'resize-x': allowResize?.horizontal,
         'resize-y': allowResize?.vertical,
+        '!w-full rounded-lg text-xs bg-[#202020]  mt-1 px-2': compact,
       }"
       [class.input-error]="showValidationErrors"
       [ngStyle]="{

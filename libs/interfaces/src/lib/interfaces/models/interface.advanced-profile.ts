@@ -35,8 +35,9 @@ export interface INotifyAPAvatarItem
   label: string;
   sublabel: string;
   description: string;
-  imgSrc: string;
+  imgSrc: { name: string; url: string; size: number; type: string }[];
   imgMask: DaisyUIAvatarMasks | 'banner';
+  useRoleSubLabel: boolean;
   ownerImgCorner: EnumNotifyAPCorners;
 }
 
@@ -132,10 +133,10 @@ export enum EnumNotifyAPDirections {
 
 export enum EnumNotifyAPCorners {
   None = 'none',
-  TopLeft = 'top',
-  TopRight = 'right',
-  BottomLeft = 'bottom',
-  BottomRight = 'left',
+  TopLeft = 'topLeft',
+  TopRight = 'TopRight',
+  BottomLeft = 'bottomLeft',
+  BottomRight = 'bottomRight',
 }
 
 export enum EnumNotifyAPButtonStyles {
@@ -198,6 +199,23 @@ export const NOTIFY_AP_FONTS = {
   Dosis: 'Dosis',
   Asap: 'Asap',
   Rubik: 'Rubik',
+};
+
+export const NOTIFY_AP_DIRECTIONS_IT: {
+  [key in EnumNotifyAPDirections]: string;
+} = {
+  [EnumNotifyAPDirections.Horizontal]: 'Orizzontale',
+  [EnumNotifyAPDirections.Vertical]: 'Verticale',
+};
+
+export const NOTIFY_AP_OWNER_IMG_CORNER_IT: {
+  [key in EnumNotifyAPCorners]: string;
+} = {
+  [EnumNotifyAPCorners.None]: 'Nessuna',
+  [EnumNotifyAPCorners.TopLeft]: 'In alto a sinistra',
+  [EnumNotifyAPCorners.TopRight]: 'In alto a destra',
+  [EnumNotifyAPCorners.BottomLeft]: 'In basso a sinistra',
+  [EnumNotifyAPCorners.BottomRight]: 'In basso a destra',
 };
 
 /*
