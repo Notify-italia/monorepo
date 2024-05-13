@@ -47,20 +47,22 @@
           !item.form.get('visible')?.value
       }"
     >
-      <div class="flex items-end space-x-2">
+      <div class="flex items-end space-x-2 relative">
         <notify-tailwind-input
           [parent]="item.form"
           name="title"
           label="Titolo"
           [compact]="true"
           class="w-full"
+          [maxLength]="30"
+          [showClearInput]="false"
           [placeholder]="item.manifest.localizedName || 'Titolo'"
         ></notify-tailwind-input>
         <notify-tailwind-checkbox
           [parent]="item.form"
           name="showTitle"
           label=" "
-          class="mb-2"
+          class="mb-2 absolute right-2"
           [overrideToggleIcon]="showHiddenToggle"
         ></notify-tailwind-checkbox>
       </div>
