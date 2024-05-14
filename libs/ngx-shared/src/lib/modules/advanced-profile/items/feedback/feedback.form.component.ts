@@ -123,14 +123,14 @@ export class FeedbackFormComponent extends AdvancedItemFormBaseComponent<INotify
       this.form.value.icon || '',
       this.feedbackIconSet
     );
-    return this.context.utilsService.populateWebProtocol(
+    return this.context.services.utils.populateWebProtocol(
       icon?.prefix || 'https://',
       this.currentUrl
     );
   }
 
   public generateGoogleReviewLink() {
-    return this.context.utilsService
+    return this.context.services.utils
       .getGooglePlaceId(this.companyName)
       .pipe(
         tap((placeId) => {
@@ -138,13 +138,15 @@ export class FeedbackFormComponent extends AdvancedItemFormBaseComponent<INotify
             `${this.googleReviewsBaseUrl}${placeId.result}`
           );
         }),
-        catchError((err) => this.context.utilsService.errorHandler(err, null))
+        catchError((err) => this.context.services.utils.errorHandler(err, null))
       )
       .subscribe();
   }
 
   public get companyName() {
-    const avatarItem = this.requiredItems.find((item) => item.key === 'avatar');
+    const avatarItem = this.context.getters
+      .requiredItems()
+      .find((item) => item.key === 'avatar');
 
     if (!avatarItem) {
       return '';

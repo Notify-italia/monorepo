@@ -78,7 +78,7 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
             [compact]="true"
             [disabled]="isRequired"
             label=" "
-            [overrideToggleIcon]="context.styling.checkbox.outlineToggleEye"
+            [overrideToggleIcon]="context.controls.checkbox.outlineToggleEye"
           ></notify-tailwind-checkbox>
           <a
             class="btn w-full btn-outline btn-sm shrink"
@@ -145,7 +145,7 @@ export class ContactsFormComponent extends AdvancedItemFormBaseComponent<INotify
   }
 
   public addItem() {
-    const link = this.context.formsService.createFormGroup<
+    const link = this.context.services.forms.createFormGroup<
       INotifyAPLinksItem['items'][0]
     >(this.manifest.definitions.items[0]);
 
@@ -167,7 +167,7 @@ export class ContactsFormComponent extends AdvancedItemFormBaseComponent<INotify
 
     const icon = this._svgBoxSerivce.getIcon(item, this.iconset);
 
-    return this.context.utilsService.populateWebProtocol(
+    return this.context.services.utils.populateWebProtocol(
       `${icon?.prefix || 'https://'}`,
       url
     );

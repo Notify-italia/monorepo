@@ -91,7 +91,7 @@ import { TailwindInputComponent } from '../../../tailwind-forms/tailwind-forms.m
             [compact]="true"
             [disabled]="isRequired"
             label=" "
-            [overrideToggleIcon]="context.styling.checkbox.outlineToggleEye"
+            [overrideToggleIcon]="context.controls.checkbox.outlineToggleEye"
           ></notify-tailwind-checkbox>
           <a
             class="btn w-full btn-outline btn-sm shrink"
@@ -156,7 +156,7 @@ export class LinksFormComponent extends AdvancedItemFormBaseComponent<INotifyAPL
   }
 
   public addItem() {
-    const link = this.context.formsService.createFormGroup<
+    const link = this.context.services.forms.createFormGroup<
       INotifyAPLinksItem['items'][0]
     >(this.manifest.definitions.items[0]);
 
@@ -178,7 +178,7 @@ export class LinksFormComponent extends AdvancedItemFormBaseComponent<INotifyAPL
 
     const icon = this._svgBoxSerivce.getIcon(item);
 
-    return this.context.utilsService.populateWebProtocol(
+    return this.context.services.utils.populateWebProtocol(
       `${icon?.prefix || 'https://'}`,
       url
     );
