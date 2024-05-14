@@ -44,8 +44,8 @@ export class HierarchyComponent {
         icon: manifest.outlineIcon,
         subItems: (
           item as INotifyAPLinksItem | INotifyAPContactsItem
-        ).items?.map((subItem) => ({
-          label: subItem.caption,
+        ).items?.map((subItem, index) => ({
+          label: subItem.caption || 'Elemento',
           visible: subItem.visible,
         })),
       };

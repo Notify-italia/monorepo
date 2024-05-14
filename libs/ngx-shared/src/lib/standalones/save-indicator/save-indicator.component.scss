@@ -1,4 +1,5 @@
 $spinnerSize: 2px;
+$spinnerSizeSm: 1px;
 
 .spinner {
   width: $spinnerSize;
@@ -10,8 +11,7 @@ $spinnerSize: 2px;
   &.spinner-sm {
     width: $spinnerSize;
     height: $spinnerSize;
-    box-shadow: 4.8px 0 0 $spinnerSize / 2 #ffff,
-      -4.8px 0 0 $spinnerSize / 2 #ffff;
+    box-shadow: 4.8px 0 0 $spinnerSizeSm #ffff, -4.8px 0 0 $spinnerSizeSm #ffff;
   }
 }
 @keyframes spinner-xp626r {

@@ -17,6 +17,8 @@ export class SvgBoxIconComponent implements OnInit, OnChanges {
   @Input() public iconName?: string;
   @Input() public size = 8;
 
+  public visible = true;
+
   public get sanitizedData() {
     const data = this.icon?.data || '';
 
@@ -34,10 +36,15 @@ export class SvgBoxIconComponent implements OnInit, OnChanges {
   }
 
   public ngOnChanges() {
+    this.visible = false;
     this._getIcon();
+
+    setTimeout(() => {
+      this.visible = true;
+    }, 0);
   }
 
-  public genIconUrl() {
+  public get iconUrl() {
     if (!this.icon) {
       return '';
     }

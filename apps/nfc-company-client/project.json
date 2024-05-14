@@ -15,7 +15,9 @@
         "qrcode",
         "file-saver",
         "compressorjs",
-        "apexcharts"
+        "apexcharts",
+        "mongoose",
+        "dropzone"
       ],
       "options": {
         "outputPath": "dist/apps/nfc-company-client",

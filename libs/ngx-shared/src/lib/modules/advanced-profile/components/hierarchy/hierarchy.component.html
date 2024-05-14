@@ -115,7 +115,13 @@
           (cdkDropListDropped)="dropSubList($event, i)"
         >
           @for (subitem of item.subItems; track $index) {
-          <div cdkDrag class="cdkDrag overflow-hidden w-full">
+          <div
+            cdkDrag
+            class="cdkDrag overflow-hidden w-full"
+            [ngClass]="{
+              'opacity-25': !item.visible
+            }"
+          >
             <ng-container
               [ngTemplateOutlet]="HierarchyItem"
               [ngTemplateOutletContext]="{ item: subitem, }"

@@ -1,7 +1,17 @@
+@if (visible) {
 <svg
-  [attr.data-src]="icon.data ? '' : genIconUrl()"
-  *ngIf="icon"
+  [attr.data-src]="icon.data ? '' : iconUrl"
+  *ngIf="icon && visible"
   fill="currentColor"
   class="w-{{ size }} h-{{ size }}"
   [innerHTML]="sanitizedData"
 ></svg>
+} @else {
+<div
+  [ngStyle]="{
+  width: size /4+ 'rem',
+  height: size /4+ 'rem',
+}"
+  class="shrink-0 mask mask-squircle skeleton"
+></div>
+}

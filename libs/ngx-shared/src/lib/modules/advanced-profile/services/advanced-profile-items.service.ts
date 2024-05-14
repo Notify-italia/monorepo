@@ -1,5 +1,5 @@
 import { Injectable, Type, inject } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ModifyDeep } from '@notify/api-shared';
 import {
   EnumNotifyAdvancedProfileItems,
@@ -59,7 +59,7 @@ export class AdvancedProfileItemsService {
   public generateFormGroup(manifest: NotifyAdvancedProfileItemTypes) {
     const foundManifest = this.getManifest(manifest);
     const controls = foundManifest.definitions;
-    const formGroup = this.formsSerivce.createFormGroup(controls);
+    const formGroup = this.formsSerivce.createFormGroup(controls) as FormGroup;
 
     formGroup.setControl(
       '_id',

@@ -3,9 +3,11 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
+  EnumNotifyAPButtonStyles,
   EnumNotifyAPDirections,
   EnumNotifyUserType,
   INotifyProfile,
+  NOTIFY_AP_BUTTON_STYLES_IT,
   NOTIFY_AP_DIRECTIONS_IT,
   NotifyAdvancedProfileItem,
 } from '@notify/interfaces';
@@ -54,7 +56,7 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
   private _authService = inject(AuthService);
   private _apItemsSerivce = inject(AdvancedProfileItemsService);
   private _formsService = inject(FormsService);
-  public _utilsSerivce = inject(UtilsService);
+  private _utilsSerivce = inject(UtilsService);
 
   @Input() profile!: INotifyProfile;
   @Input() form!: FormGroup<controlsFromObject<T>>;
@@ -71,9 +73,14 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
     name: NOTIFY_AP_DIRECTIONS_IT[value],
     value: value as string,
   }));
+  public buttonStylesSelectOptions: ITailwindSelectOption[] = Object.values(
+    EnumNotifyAPButtonStyles
+  ).map((value) => ({
+    name: NOTIFY_AP_BUTTON_STYLES_IT[value],
+    value,
+  }));
 
   public cdnConfig!: INotifyTailwindDropzoneCdnConfig;
-  public toggleEyeIcons = CHECKBOX_TOGGLE_EYE;
 
   public context = {
     authService: this._authService,
@@ -81,6 +88,15 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
     formsService: this._formsService,
     utilsService: this._utilsSerivce,
     advancedProfile: () => this.formContext.value,
+    styling: {
+      checkbox: {
+        toggleEye: CHECKBOX_TOGGLE_EYE,
+        outlineToggleEye: {
+          checked: `<button class="btn btn-outline btn-sm">${CHECKBOX_TOGGLE_EYE.checked}</button>`,
+          unchecked: `<button class="btn btn-outline btn-sm">${CHECKBOX_TOGGLE_EYE.unchecked}</button>`,
+        },
+      },
+    },
   };
 
   public get isAgent() {

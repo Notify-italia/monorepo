@@ -124,7 +124,7 @@ export class FeedbackFormComponent extends AdvancedItemFormBaseComponent<INotify
       this.feedbackIconSet
     );
     return this.context.utilsService.populateWebProtocol(
-      icon?.prefix || '',
+      icon?.prefix || 'https://',
       this.currentUrl
     );
   }

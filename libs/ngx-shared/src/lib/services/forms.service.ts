@@ -49,7 +49,7 @@ export class FormsService {
       {} as controlsFromObject<T>
     );
 
-    return new FormGroup(controls);
+    return new FormGroup(controls) as FormGroup<controlsFromObject<T>>;
   }
 
   public createFormArray<T>(array: T[], defaults?: Partial<T>) {
