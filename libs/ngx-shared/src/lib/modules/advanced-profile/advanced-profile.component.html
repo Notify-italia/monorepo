@@ -7,6 +7,7 @@
     <div class="flex justify-between size-full items-stretch">
       <notify-left-panel
         [hierarchy]="form?.value.items || []"
+        [requiredItems]="requiredItems"
         (addItem)="addItem($event)"
         [selectedHierarchyItem]="selectedHierarchyItem"
         (hierarchyChanged)="hierarchyChanged($event)"

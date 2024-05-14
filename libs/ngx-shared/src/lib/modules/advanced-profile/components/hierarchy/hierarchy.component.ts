@@ -27,6 +27,7 @@ export class HierarchyComponent {
   private _apItemsService = inject(AdvancedProfileItemsService);
 
   @Input() selectedHierarchyItem = 'background';
+  @Input() requiredItems: string[] = [];
   @Input() hierarchy: INotifyAdvancedProfile['items'] = [];
 
   @Output() hierarchyChanged = new EventEmitter<
@@ -42,9 +43,10 @@ export class HierarchyComponent {
         _id: item._id,
         visible: item.visible,
         icon: manifest.outlineIcon,
+        required: this.requiredItems.includes(item._id),
         subItems: (
           item as INotifyAPLinksItem | INotifyAPContactsItem
-        ).items?.map((subItem, index) => ({
+        ).items?.map((subItem) => ({
           label: subItem.caption || 'Elemento',
           visible: subItem.visible,
         })),

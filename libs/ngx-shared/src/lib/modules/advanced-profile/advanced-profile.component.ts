@@ -64,6 +64,10 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
     return this._route.snapshot.queryParamMap.get('p') || undefined;
   }
 
+  public get requiredItems() {
+    return Object.values(this.form?.get('requiredItems')?.value) as string[];
+  }
+
   public ngOnInit() {
     this.refreshProfile()
       .pipe(

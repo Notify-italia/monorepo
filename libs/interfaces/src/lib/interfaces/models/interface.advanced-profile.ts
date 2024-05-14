@@ -225,7 +225,7 @@ export const NOTIFY_AP_BUTTON_STYLES_IT: {
 export const NOTIFY_AP_OWNER_IMG_CORNER_IT: {
   [key in EnumNotifyAPCorners]: string;
 } = {
-  [EnumNotifyAPCorners.None]: 'Nessuna',
+  [EnumNotifyAPCorners.None]: 'Nascosto',
   [EnumNotifyAPCorners.TopLeft]: 'In alto a sinistra',
   [EnumNotifyAPCorners.TopRight]: 'In alto a destra',
   [EnumNotifyAPCorners.BottomLeft]: 'In basso a sinistra',

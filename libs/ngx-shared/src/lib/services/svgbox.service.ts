@@ -289,4 +289,16 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     set: 'social',
     score: 1,
   },
+  {
+    expanded: 'Spotify',
+    name: 'spotify',
+    set: 'social',
+    score: 1,
+  },
+  {
+    expanded: 'Apple Music',
+    name: 'applemusic',
+    set: 'social',
+    score: 1,
+  },
 ];
