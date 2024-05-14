@@ -126,16 +126,17 @@ import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/compon
         [options]="avatarMaskOptions"
       ></notify-tailwind-select>
 
+      @if(isAgent) {
       <div class="divider"></div>
 
       <notify-tailwind-select
-        *ngIf="isAgent"
         [parent]="form"
         name="ownerImgCorner"
         [compact]="true"
         label="Posizione avatar aziendale"
         [options]="cornerSelectOptions"
       ></notify-tailwind-select>
+      }
     </div>
   `,
 })

@@ -13,6 +13,7 @@
     >
       <notify-hierarchy
         [hierarchy]="hierarchy || []"
+        [requiredItems]="requiredItems || []"
         [selectedHierarchyItem]="selectedHierarchyItem"
         (hierarchyChanged)="hierarchyChanged.emit($event)"
         (selectedHierarchyItemChanged)="
