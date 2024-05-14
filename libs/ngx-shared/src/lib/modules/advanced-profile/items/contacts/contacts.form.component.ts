@@ -1,6 +1,6 @@
 import { Component, QueryList, ViewChildren, inject } from '@angular/core';
 
-import { INotifyAPLinksItem } from '@notify/interfaces';
+import { INotifyAPContactsItem, INotifyAPLinksItem } from '@notify/interfaces';
 import {
   AdvancedItemFormBaseComponent,
   AdvancedItemFormBaseImports,
@@ -9,6 +9,7 @@ import {
 import { SvgboxService } from '../../../../services';
 import { IconSelectorComponent } from '../../../../standalones/icon-select/icon-selector.component';
 import { TailwindInputComponent } from '../../../tailwind-forms/tailwind-forms.module';
+import { CONTACTS_ICON_SET } from './contacts.iconset';
 
 @Component({
   standalone: true,
@@ -16,25 +17,6 @@ import { TailwindInputComponent } from '../../../tailwind-forms/tailwind-forms.m
   providers: AdvancedItemFormBaseProviders,
   styleUrls: ['../../advanced-profile.styles.scss'],
   template: ` <div class="flex flex-col space-y-4 items-center">
-    <notify-tailwind-select
-      [parent]="form"
-      name="style"
-      label="Stile Pulsanti"
-      [options]="buttonStylesSelectOptions"
-      class="w-full"
-      [compact]="true"
-    ></notify-tailwind-select>
-    <notify-tailwind-select
-      [parent]="form"
-      name="direction"
-      label="Orientamento"
-      [options]="directionSelectOptions"
-      class="w-full"
-      [compact]="true"
-    ></notify-tailwind-select>
-
-    <div class="divider"></div>
-
     <button class="btn btn-sm w-full" (click)="addItem()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -57,8 +39,13 @@ import { TailwindInputComponent } from '../../../tailwind-forms/tailwind-forms.m
       <notify-icon-selector
         class="items-end "
         [icon]="item.controls.icon.value"
-        (iconValue)="item.controls.icon.setValue($event?.name || '')"
+        (iconChange)="
+          item.controls.icon.setValue($event.new?.name || '');
+          item.controls.url.setValue('');
+          item.controls.caption.setValue($event.new?.expanded || '')
+        "
         [openSelectorOnBoot]="false"
+        [iconSet]="iconset"
         #IconSelector
       ></notify-icon-selector>
       <div class="divider divider-horizontal"></div>
@@ -68,8 +55,8 @@ import { TailwindInputComponent } from '../../../tailwind-forms/tailwind-forms.m
           [parent]="item"
           [showClearInput]="false"
           name="caption"
-          #Caption
           placeholder="Inserisci un titolo"
+          #Caption
           label=" "
         ></notify-tailwind-input>
 
@@ -81,7 +68,7 @@ import { TailwindInputComponent } from '../../../tailwind-forms/tailwind-forms.m
           [showClearInput]="false"
           [prefix]="IconSelector?.currentIcon?.publicPrefix || ''"
           [placeholder]="
-            IconSelector?.currentIcon?.placeholder || 'Inserisci un link'
+            IconSelector?.currentIcon?.placeholder || 'Inserisci un valore'
           "
         ></notify-tailwind-input>
         <div class="flex items-center space-x-2">
@@ -96,7 +83,7 @@ import { TailwindInputComponent } from '../../../tailwind-forms/tailwind-forms.m
           <a
             class="btn w-full btn-outline btn-sm shrink"
             [ngClass]="{
-          'pointer-events-none opacity-50': !item.value.url?.length,
+          'pointer-events-none opacity-50': !item.value.url?.length || !item.value.icon?.length,
         }"
             [href]="currentUrl(item.value.icon || '', item.value.url || '')"
             target="_blank"
@@ -146,10 +133,12 @@ import { TailwindInputComponent } from '../../../tailwind-forms/tailwind-forms.m
     }
   </div>`,
 })
-export class LinksFormComponent extends AdvancedItemFormBaseComponent<INotifyAPLinksItem> {
+export class ContactsFormComponent extends AdvancedItemFormBaseComponent<INotifyAPContactsItem> {
   @ViewChildren('Caption')
   captions!: QueryList<TailwindInputComponent>;
   private _svgBoxSerivce = inject(SvgboxService);
+
+  public iconset = CONTACTS_ICON_SET;
 
   public get itemsForm() {
     return this.form.controls.items;
@@ -176,7 +165,7 @@ export class LinksFormComponent extends AdvancedItemFormBaseComponent<INotifyAPL
       return '';
     }
 
-    const icon = this._svgBoxSerivce.getIcon(item);
+    const icon = this._svgBoxSerivce.getIcon(item, this.iconset);
 
     return this.context.utilsService.populateWebProtocol(
       `${icon?.prefix || 'https://'}`,
