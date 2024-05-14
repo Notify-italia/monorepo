@@ -45,7 +45,7 @@ export interface INotifyAPAvatarItem
 //feedback
 export interface INotifyAPFeedbackItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Feedback>,
-    _baseButton {}
+    baseButton {}
 
 //links
 export interface INotifyAPLinksItem
@@ -54,7 +54,7 @@ export interface INotifyAPLinksItem
   style: EnumNotifyAPButtonStyles;
   direction: EnumNotifyAPDirections;
 }
-export type INotifyAPLinkItem = _baseButton;
+export type INotifyAPLinkItem = baseButton;
 
 //place
 export interface INotifyAPPlaceItem
@@ -70,7 +70,7 @@ export interface INotifyAPContactsItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Contacts> {
   items: INotifyContactItem[];
 }
-export type INotifyContactItem = _baseButton;
+export type INotifyContactItem = baseButton;
 
 //photo
 export interface INotifyAPPhotoItem
@@ -214,6 +214,14 @@ export const NOTIFY_AP_DIRECTIONS_IT: {
   [EnumNotifyAPDirections.Vertical]: 'Verticale',
 };
 
+export const NOTIFY_AP_BUTTON_STYLES_IT: {
+  [key in EnumNotifyAPButtonStyles]: string;
+} = {
+  [EnumNotifyAPButtonStyles.Filled]: 'Riempito',
+  [EnumNotifyAPButtonStyles.Outlined]: 'Tracciato',
+  [EnumNotifyAPButtonStyles.Text]: 'Testo',
+};
+
 export const NOTIFY_AP_OWNER_IMG_CORNER_IT: {
   [key in EnumNotifyAPCorners]: string;
 } = {
@@ -225,9 +233,9 @@ export const NOTIFY_AP_OWNER_IMG_CORNER_IT: {
 };
 
 /*
-PRIVATE INTERFACES
+UTILS INTERFACES
 */
-interface _baseButton {
+export interface baseButton {
   caption: string;
   icon: string;
   url: string;

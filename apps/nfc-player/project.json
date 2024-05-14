@@ -15,7 +15,10 @@
         "allowedCommonJsDependencies": [
           "qrcode",
           "file-saver",
-          "compressorjs"
+          "compressorjs",
+          "apexcharts",
+          "mongoose",
+          "dropzone"
         ],
         "outputPath": "dist/apps/nfc-player",
         "index": "apps/nfc-player/src/index.html",

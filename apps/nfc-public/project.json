@@ -16,7 +16,10 @@
           "qrcode",
           "debug",
           "apexcharts",
-          "xmlhttprequest-ssl"
+          "xmlhttprequest-ssl",
+          "compressorjs",
+          "mongoose",
+          "dropzone"
         ],
         "outputPath": "dist/apps/nfc-public",
         "index": "apps/nfc-public/src/index.html",
