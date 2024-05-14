@@ -66,9 +66,8 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
   @Input() isRequired!: boolean;
   @Input() manifest!: INotifyAdvancedProfileManifest<T>;
 
-  public directions = EnumNotifyAPDirections;
   public directionSelectOptions: ITailwindSelectOption[] = Object.values(
-    this.directions
+    EnumNotifyAPDirections
   ).map((value) => ({
     name: NOTIFY_AP_DIRECTIONS_IT[value],
     value: value as string,
@@ -83,12 +82,52 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
   public cdnConfig!: INotifyTailwindDropzoneCdnConfig;
 
   public context = {
-    authService: this._authService,
-    apItemsService: this._apItemsSerivce,
-    formsService: this._formsService,
-    utilsService: this._utilsSerivce,
+    services: {
+      auth: this._authService,
+      apItems: this._apItemsSerivce,
+      forms: this._formsService,
+      utils: this._utilsSerivce,
+    },
     advancedProfile: () => this.formContext.value,
-    styling: {
+    getters: {
+      isAgent: () =>
+        this._authService.user?.userType === EnumNotifyUserType.Agent,
+      isCompany: () =>
+        this._authService.user?.userType === EnumNotifyUserType.Company,
+      requiredItems: () => this._requiredItems(),
+    },
+    controls: {
+      dropzone: {
+        config: (): INotifyTailwindDropzoneCdnConfig => ({
+          postEndpoint: 'http://google.com',
+          authorization: this.authHeaders,
+          body: {
+            item: this.form.value._id || '',
+            profile: this.profile._id || '',
+          },
+          deleteEndpoint: '',
+          deleteSchema: {
+            name: 'name',
+          },
+          deleteExtraParams: {
+            item: this.form.value._id || '',
+            profile: this.profile._id || '',
+          },
+          responseSchema: {
+            value: 'url',
+          },
+        }),
+      },
+      select: {
+        buttonStyles: this._createSelectOptions(
+          EnumNotifyAPButtonStyles,
+          NOTIFY_AP_BUTTON_STYLES_IT
+        ),
+        directions: this._createSelectOptions(
+          EnumNotifyAPDirections,
+          NOTIFY_AP_DIRECTIONS_IT
+        ),
+      },
       checkbox: {
         toggleEye: CHECKBOX_TOGGLE_EYE,
         outlineToggleEye: {
@@ -111,7 +150,7 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
     return this._authService.authHeaders;
   }
 
-  public get requiredItems() {
+  private _requiredItems() {
     const requiredItems = this.formContext.value?.requiredItems;
 
     if (!requiredItems) {
@@ -180,5 +219,15 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
       }
       this.form.controls[key as keyof T].setValue(defaultValue);
     });
+  }
+
+  private _createSelectOptions(
+    enumerator: Record<string, string>,
+    dictionary: Record<string, string> = {}
+  ) {
+    return Object.values(enumerator).map((value) => ({
+      name: dictionary[value] || value,
+      value: value,
+    }));
   }
 }
