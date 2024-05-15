@@ -1,20 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   INotifyProfile,
   NotifyAdvancedProfileItemTypes,
 } from '@notify/interfaces';
-import { controlsFromObject } from '../../../../services';
 import { ConfirmModalFactory } from '../../../modals';
 import { CHECKBOX_TOGGLE_EYE } from '../../../tailwind-forms/components/tailwind-checkbox/tailwind-checkbox.component';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
-import { AdvancedProfileItemsService } from '../../services/advanced-profile-items.service';
+import { BackgroundFormComponent } from '../../parts/background/background.form.component';
+import {
+  AdvancedProfileItemsService,
+  advancedProfileForm,
+} from '../../services/advanced-profile-items.service';
 
 @Component({
   selector: 'notify-part-settings',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TailwindFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TailwindFormsModule,
+    BackgroundFormComponent,
+  ],
   providers: [AdvancedProfileItemsService, ConfirmModalFactory],
   templateUrl: './part-settings.component.html',
 })
@@ -28,9 +36,7 @@ export class PartSettingsComponent {
     unchecked: `<button class="btn btn-outline btn-sm">${CHECKBOX_TOGGLE_EYE.unchecked}</button>`,
   };
 
-  @Input({ required: true }) form!: FormGroup<
-    controlsFromObject<INotifyProfile['advancedProfile']>
-  >;
+  @Input({ required: true }) form!: advancedProfileForm;
   @Input() profile!: INotifyProfile;
   @Input() selectedHierarchyItem = 'background';
 

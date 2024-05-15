@@ -3,12 +3,8 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {
-  EnumNotifyAPAlign,
-  EnumNotifyAPBackgroundTypes,
-  EnumNotifyAPDirections,
   INotifyAdvancedProfile,
   INotifyProfile,
-  NOTIFY_AP_FONTS,
   NotifyAdvancedProfileItem,
 } from '@notify/interfaces';
 import {
@@ -23,6 +19,7 @@ import {
 import { FormsService, ProfileService } from '../../services';
 import { LoadingComponent } from '../../standalones';
 import { ProfileViewComponent } from '../profile';
+import { ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS } from './parts/background/background.form.component';
 import { LeftPanelComponent } from './parts/left-panel/left-panel.component';
 import { RightPanelComponent } from './parts/right-panel/right-panel.component';
 
@@ -140,26 +137,10 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
 const PROFILE_DEFAULTS: Partial<INotifyProfile> = {
   advancedProfile: {
     enabled: true,
-    pageSettings: {
-      backgroundType: EnumNotifyAPBackgroundTypes.Fill,
-      textColor: '#ffffff',
-      font: NOTIFY_AP_FONTS.Poppins,
-      fill: '#000000',
-      gradient: {
-        direction: EnumNotifyAPDirections.Vertical,
-        colors: [],
-      },
-      pattern: {
-        pattern: '',
-        color: '',
-      },
-      imgSrc: '',
-      fontSize: 16,
-      align: EnumNotifyAPAlign.Start,
-    },
+    pageSettings: ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS,
     items: [],
     requiredItems: {
-      avatar: null,
+      avatar: '',
     },
   },
 };

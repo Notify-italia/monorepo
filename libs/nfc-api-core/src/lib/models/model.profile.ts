@@ -254,33 +254,17 @@ const ProfileSchema = new Schema<Profile, ProfileModel>(
         },
         items: [_itemSchema],
         pageSettings: {
-          backgroundType: {
-            type: String,
-            default: EnumNotifyAPBackgroundTypes.Fill,
-          },
-          imgSrc: {
-            type: String,
-            default: null,
-          },
-          fill: {
-            type: String,
-            default: null,
-          },
-          gradient: {
-            direction: {
-              type: String,
-              default: EnumNotifyAPDirections.Vertical,
+          type: Schema.Types.Mixed,
+          default: {
+            backgroundType: EnumNotifyAPBackgroundTypes.Gradient,
+            gradient: {
+              direction: EnumNotifyAPDirections.Vertical,
+              colors: ['#000000', '#000000'],
             },
-            colors: {
-              type: [String],
-              default: [],
-            },
-          },
-          pattern: {
-            pattern: {
-              type: String,
-              default: null,
-            },
+            textColor: '#FFFFFF',
+            font: 'Poppins',
+            fontSize: 16,
+            align: EnumNotifyAPDirections.Vertical,
           },
         },
         requiredItems: {

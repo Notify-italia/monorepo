@@ -3,11 +3,12 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ModifyDeep } from '@notify/api-shared';
 import {
   EnumNotifyAdvancedProfileItems,
+  INotifyProfile,
   NotifyAdvancedProfileItem,
   NotifyAdvancedProfileItemTypes,
 } from '@notify/interfaces';
 import mongoose from 'mongoose';
-import { FormsService } from '../../../services';
+import { FormsService, controlsFromObject } from '../../../services';
 
 export interface INotifyAdvancedProfileManifest<
   T extends NotifyAdvancedProfileItem = NotifyAdvancedProfileItem
@@ -24,6 +25,10 @@ export interface INotifyAdvancedProfileManifest<
     }
   >;
 }
+
+export type advancedProfileForm = FormGroup<
+  controlsFromObject<INotifyProfile['advancedProfile']>
+>;
 
 const advancedProfileManifests: {
   [key: string]: INotifyAdvancedProfileManifest;
@@ -67,5 +72,15 @@ export class AdvancedProfileItemsService {
     );
 
     return formGroup;
+  }
+
+  public createSelectOptions(
+    enumerator: Record<string, string>,
+    dictionary: Record<string, string> = {}
+  ) {
+    return Object.values(enumerator).map((value) => ({
+      name: dictionary[value] || value,
+      value: value,
+    }));
   }
 }

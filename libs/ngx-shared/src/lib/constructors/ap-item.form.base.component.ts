@@ -119,11 +119,11 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
         }),
       },
       select: {
-        buttonStyles: this._createSelectOptions(
+        buttonStyles: this._apItemsSerivce.createSelectOptions(
           EnumNotifyAPButtonStyles,
           NOTIFY_AP_BUTTON_STYLES_IT
         ),
-        directions: this._createSelectOptions(
+        directions: this._apItemsSerivce.createSelectOptions(
           EnumNotifyAPDirections,
           NOTIFY_AP_DIRECTIONS_IT
         ),
@@ -219,15 +219,5 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
       }
       this.form.controls[key as keyof T].setValue(defaultValue);
     });
-  }
-
-  private _createSelectOptions(
-    enumerator: Record<string, string>,
-    dictionary: Record<string, string> = {}
-  ) {
-    return Object.values(enumerator).map((value) => ({
-      name: dictionary[value] || value,
-      value: value,
-    }));
   }
 }

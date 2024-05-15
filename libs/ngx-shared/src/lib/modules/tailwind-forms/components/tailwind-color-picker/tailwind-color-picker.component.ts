@@ -25,8 +25,9 @@ export class TailwindColorPickerComponent
   @Input() name!: string;
   @Input() validationErrors!: { [key: string]: string };
   //an array colors to be used as default colors
-  @Input() colors: string[] = availableColors;
+  @Input() colors: string[] = AVAILABLE_COLORS;
   @Input() label = '';
+  @Input() compact = false;
 
   public colorPickerOpen = false;
   public color = '';
@@ -91,9 +92,13 @@ export class TailwindColorPickerComponent
   get showValidationErrors() {
     return this.hasErrors && this.touched;
   }
+
+  get value() {
+    return this.parent.get(this.name)?.value;
+  }
 }
 
-const availableColors = [
+const AVAILABLE_COLORS = [
   // 'red',
   '#F9B5B5',
   '#F58F8F',
