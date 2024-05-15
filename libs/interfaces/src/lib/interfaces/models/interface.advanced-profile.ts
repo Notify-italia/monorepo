@@ -232,6 +232,15 @@ export const NOTIFY_AP_OWNER_IMG_CORNER_IT: {
   [EnumNotifyAPCorners.BottomRight]: 'In basso a destra',
 };
 
+export const NOTIFY_AP_BACKGROUND_TYPES_IT: {
+  [key in EnumNotifyAPBackgroundTypes]: string;
+} = {
+  [EnumNotifyAPBackgroundTypes.Image]: 'Immagine',
+  [EnumNotifyAPBackgroundTypes.Fill]: 'Tinta Unita',
+  [EnumNotifyAPBackgroundTypes.Gradient]: 'Gradiente',
+  [EnumNotifyAPBackgroundTypes.Pattern]: 'Pattern',
+};
+
 /*
 UTILS INTERFACES
 */

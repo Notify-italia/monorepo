@@ -292,3 +292,57 @@
 .scroll-lock {
   overflow: hidden;
 }
+
+.fonts {
+  &.font-anek {
+    font-family: 'Anek Devanagari', sans-serif;
+  }
+
+  &.font-roboto {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  &.font-mplusRounded {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+  }
+
+  &.font-work {
+    font-family: 'Work Sans', sans-serif;
+  }
+
+  &.font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+
+  &.font-avenir {
+    font-family: 'Avenir', sans-serif;
+  }
+
+  &.font-kodeMono {
+    font-family: 'Kode Mono', monospace;
+  }
+
+  &.font-mulish {
+    font-family: 'Mulish', sans-serif;
+  }
+
+  &.font-bebasNeue {
+    font-family: 'Bebas Neue', sans-serif;
+  }
+
+  &.font-caveat {
+    font-family: 'Caveat', cursive;
+  }
+
+  &.font-rocaTwoBold {
+    font-family: 'Roca Two Bold', sans-serif;
+  }
+
+  &.font-poppins {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  &.font-avenir {
+    font-family: 'Avenir', sans-serif;
+  }
+}

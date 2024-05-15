@@ -21,3 +21,49 @@
 .item-button {
   @apply w-full flex items-center justify-between rounded-lg px-4 py-2 text-gray-300  font-medium  hover:brightness-150 hover:text-gray-100;
 }
+
+.profile-fonts {
+  &.anek {
+    @apply font-anek;
+  }
+
+  &.roboto {
+    @apply font-roboto;
+  }
+
+  &.mplusRounded {
+    @apply font-mplusRounded;
+  }
+
+  &.work {
+    @apply font-work;
+  }
+
+  &.inter {
+    @apply font-inter;
+  }
+
+  &.kodeMono {
+    @apply font-kodeMono;
+  }
+
+  &.mulish {
+    @apply font-mulish;
+  }
+
+  &.babasNeue {
+    @apply font-bebasNeue;
+  }
+
+  &.caveat {
+    @apply font-caveat;
+  }
+
+  &.rocaTwoBold {
+    @apply font-rocaTwoBold;
+  }
+
+  &.poppins {
+    @apply font-poppins;
+  }
+}

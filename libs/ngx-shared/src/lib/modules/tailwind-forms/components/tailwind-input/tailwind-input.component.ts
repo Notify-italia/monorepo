@@ -30,6 +30,7 @@ export class TailwindInputComponent
   @Input() placeholder = '';
   @Input() validationErrors!: { [key: string]: string };
   @Input() disableAutocomplete = false;
+  @Input() showSpinButtons = false;
   @Input() mask!: string;
   @Input() thousandSeparator!: string;
   @Input() maxLength!: number;
@@ -112,5 +113,23 @@ export class TailwindInputComponent
     }
 
     return this.validationErrors[Object.keys(this.hasErrors)[0]];
+  }
+
+  public incrementValue() {
+    if (this.inputRef.nativeElement.value === '') {
+      this.inputRef.nativeElement.value = '0';
+    }
+
+    this.inputRef.nativeElement.stepUp();
+    this.parent.get(this.name)?.setValue(this.inputRef.nativeElement.value);
+  }
+
+  public decrementValue() {
+    if (this.inputRef.nativeElement.value === '') {
+      this.inputRef.nativeElement.value = '0';
+    }
+
+    this.inputRef.nativeElement.stepDown();
+    this.parent.get(this.name)?.setValue(this.inputRef.nativeElement.value);
   }
 }

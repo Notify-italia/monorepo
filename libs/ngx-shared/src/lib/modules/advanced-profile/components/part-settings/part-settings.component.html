@@ -1,6 +1,10 @@
-<!-- <pre>{{ form.controls?.['items']?.value | json }}</pre> -->
+<div class="p-2 px-1.5">
+  <notify-background-form
+    *ngIf="selectedHierarchyItem === 'background'"
+    [form]="form"
+  ></notify-background-form>
 
-<div *ngIf="currentItem as item" class="p-2 px-1.5">
+  @if(currentItem; as item) {
   <form [formGroup]="item.form" class="flex flex-col space-y-4">
     <div
       class="flex space-x-2 tooltip-bottom text-sm"
@@ -67,6 +71,7 @@
           [overrideToggleIcon]="showHiddenToggle"
         ></notify-tailwind-checkbox>
       </div>
+
       @if(item.manifest.formComponent; as cf) {
 
       <div class="divider"></div>
@@ -83,4 +88,5 @@
       }
     </div>
   </form>
+  }
 </div>

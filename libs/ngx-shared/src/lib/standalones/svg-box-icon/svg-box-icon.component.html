@@ -3,7 +3,7 @@
   [attr.data-src]="icon.data ? '' : iconUrl"
   *ngIf="icon && visible"
   fill="currentColor"
-  class="w-{{ size }} h-{{ size }}"
+  class="w-{{ size }} h-{{ size }} text-xl"
   [innerHTML]="sanitizedData"
 ></svg>
 } @else {
