@@ -42,12 +42,14 @@ import { FONTS_ICON_SET } from './fonts.iconset';
 
       <div class="divider"></div>
 
-      <span>Testo</span>
+      <span class="font-medium">Testo</span>
       <div class="flex justify-between space-x-2 items-center">
         <notify-icon-selector
           [iconSet]="fontsIconSet"
           [icon]="pageSettingsForm.value.font"
+          title="Carattere"
           [openSelectorOnBoot]="false"
+          [showIconLabel]="false"
           (iconChange)="setFont($event.new?.name || 'poppins')"
         ></notify-icon-selector>
         <notify-tailwind-color-picker
