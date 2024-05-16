@@ -45,7 +45,7 @@
       ></notify-tailwind-checkbox>
     </div>
     <div
-      class="w-full smooth"
+      class="w-full smooth flex flex-col space-y-4"
       [ngClass]="{
         'opacity-50 pointer-events-none scale-90 ':
           !item.form.get('visible')?.value
@@ -72,8 +72,52 @@
         ></notify-tailwind-checkbox>
       </div>
 
-      @if(item.manifest.formComponent; as cf) {
+      <div
+        class="flex flex-col space-y-2 smooth"
+        *ngIf="item.form.controls.textConfig as tc"
+      >
+        <notify-tailwind-checkbox
+          [compact]="true"
+          [parent]="tc"
+          name="enabled"
+          label="Personalizza testo"
+        ></notify-tailwind-checkbox>
 
+        <div
+          class="flex justify-between space-x-2 items-center smooth h-16 px-4"
+          [ngClass]="{
+            'opacity-0 pointer-events-none -translate-y-2 !h-0':
+              !tc.get('enabled')?.value
+          }"
+        >
+          <notify-icon-selector
+            [iconSet]="fontsIconSet"
+            [icon]="item.form.value.textConfig?.font"
+            title="Carattere"
+            [openSelectorOnBoot]="false"
+            [showIconLabel]="false"
+            (iconChange)="setFont($event.new?.name || 'poppins')"
+          ></notify-icon-selector>
+          <notify-tailwind-color-picker
+            [parent]="tc"
+            name="textColor"
+            class="w-7/12"
+            [compact]="true"
+          ></notify-tailwind-color-picker>
+          <notify-tailwind-input
+            class="!mb-1 w-3/12"
+            [parent]="tc"
+            name="fontSize"
+            label=" "
+            [compact]="true"
+            [showSpinButtons]="true"
+            type="number"
+            [showClearInput]="false"
+          ></notify-tailwind-input>
+        </div>
+      </div>
+
+      @if(item.manifest.formComponent; as cf) {
       <div class="divider"></div>
       <ng-container
         [ngComponentOutlet]="cf"
@@ -81,7 +125,6 @@
           form: item.form,
           manifest: item.manifest,
           formContext: form,
-          isRequired: isRequired,
           profile,
         }"
       ></ng-container>

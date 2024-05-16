@@ -103,6 +103,12 @@ export interface INotifyAdvancedProfileItem<
   visible: boolean;
   title: string;
   showTitle: boolean;
+  textConfig: {
+    enabled: boolean;
+    font: string;
+    fontSize: number;
+    textColor: string;
+  };
   _id: string;
 }
 
@@ -112,7 +118,7 @@ export interface INotifyAPageSettings {
   fill: string;
   gradient: {
     direction: EnumNotifyAPDirections;
-    colors: string[];
+    colors: { value: string }[];
   };
   pattern: {
     pattern: string;

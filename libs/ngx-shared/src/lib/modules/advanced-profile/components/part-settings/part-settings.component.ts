@@ -5,6 +5,7 @@ import {
   INotifyProfile,
   NotifyAdvancedProfileItemTypes,
 } from '@notify/interfaces';
+import { IconSelectorComponent } from '../../../../standalones/icon-select/icon-selector.component';
 import { ConfirmModalFactory } from '../../../modals';
 import { CHECKBOX_TOGGLE_EYE } from '../../../tailwind-forms/components/tailwind-checkbox/tailwind-checkbox.component';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
@@ -13,6 +14,7 @@ import {
   AdvancedProfileItemsService,
   advancedProfileForm,
 } from '../../services/advanced-profile-items.service';
+import { FONTS_ICON_SET } from '../../services/fonts.iconset';
 
 @Component({
   selector: 'notify-part-settings',
@@ -22,6 +24,7 @@ import {
     ReactiveFormsModule,
     TailwindFormsModule,
     BackgroundFormComponent,
+    IconSelectorComponent,
   ],
   providers: [AdvancedProfileItemsService, ConfirmModalFactory],
   templateUrl: './part-settings.component.html',
@@ -35,6 +38,7 @@ export class PartSettingsComponent {
     checked: `<button class="btn btn-outline btn-sm">${CHECKBOX_TOGGLE_EYE.checked}</button>`,
     unchecked: `<button class="btn btn-outline btn-sm">${CHECKBOX_TOGGLE_EYE.unchecked}</button>`,
   };
+  public fontsIconSet = FONTS_ICON_SET;
 
   @Input({ required: true }) form!: advancedProfileForm;
   @Input() profile!: INotifyProfile;
@@ -64,6 +68,10 @@ export class PartSettingsComponent {
     return Object.values(this.form.value?.requiredItems || {}).filter(
       (v) => v?.length
     ) as string[];
+  }
+
+  public setFont(font: string) {
+    this.currentItem?.form.controls.textConfig.controls.font.setValue(font);
   }
 
   public deleteItem() {

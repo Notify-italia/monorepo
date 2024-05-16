@@ -77,7 +77,7 @@ export class ProfileViewComponent implements OnInit {
 
     switch (this._pageSettings?.backgroundType) {
       case EnumNotifyAPBackgroundTypes.Gradient: {
-        return this._pageSettings.gradient.colors[0];
+        return this._pageSettings.gradient.colors[0].value;
       }
 
       default:

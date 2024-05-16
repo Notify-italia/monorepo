@@ -70,7 +70,7 @@ export class TailwindColorPickerComponent
         );
     }
 
-    this.color = this.parent.controls[this.name].value;
+    this.color = this.parent.controls[this.name]?.value;
   }
 
   togglePasswordVisibility() {
@@ -94,7 +94,7 @@ export class TailwindColorPickerComponent
   }
 
   get value() {
-    return this.parent.get(this.name)?.value;
+    return this.parent.get(this.name)?.value || this.defaultColor;
   }
 }
 

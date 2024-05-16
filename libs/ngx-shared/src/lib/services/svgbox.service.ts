@@ -38,7 +38,7 @@ export class SvgboxService {
 
   private _loadScript() {
     const node = document.createElement('script');
-    node.src = 'https://unpkg.com/external-svg-loader@latest/svg-loader.min.js';
+    node.src = 'https://s3-api.vps.notifyapp.it/assets/svg-loader.min.js';
     node.type = 'text/javascript';
     node.async = true;
     node.charset = 'utf-8';
