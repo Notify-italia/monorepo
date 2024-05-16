@@ -76,7 +76,6 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
             [parent]="item"
             name="visible"
             [compact]="true"
-            [disabled]="isRequired"
             label=" "
             [overrideToggleIcon]="context.controls.checkbox.outlineToggleEye"
           ></notify-tailwind-checkbox>

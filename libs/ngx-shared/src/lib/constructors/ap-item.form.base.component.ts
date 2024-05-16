@@ -63,7 +63,6 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
   @Input() formContext!: FormGroup<
     controlsFromObject<INotifyProfile['advancedProfile']>
   >;
-  @Input() isRequired!: boolean;
   @Input() manifest!: INotifyAdvancedProfileManifest<T>;
 
   public directionSelectOptions: ITailwindSelectOption[] = Object.values(
@@ -95,6 +94,7 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
       isCompany: () =>
         this._authService.user?.userType === EnumNotifyUserType.Company,
       requiredItems: () => this._requiredItems(),
+      isRequired: () => this._requiredItemsIds().includes(this.form.value._id),
     },
     controls: {
       dropzone: {
@@ -163,6 +163,10 @@ export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
         key: v[0],
         value: v[1],
       }));
+  }
+
+  private _requiredItemsIds() {
+    return this._requiredItems().map((item) => item.value);
   }
 
   public ngOnInit(): void {
