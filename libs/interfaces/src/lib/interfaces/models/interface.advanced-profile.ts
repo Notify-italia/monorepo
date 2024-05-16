@@ -10,6 +10,7 @@ export interface INotifyAdvancedProfile {
   pageSettings: INotifyAPageSettings;
   requiredItems: {
     avatar: string | null;
+    feedback: string | null;
   };
   items: NotifyAdvancedProfileItem[];
 }

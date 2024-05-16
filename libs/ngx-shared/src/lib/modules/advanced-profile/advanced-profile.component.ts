@@ -141,6 +141,7 @@ const PROFILE_DEFAULTS: Partial<INotifyProfile> = {
     items: [],
     requiredItems: {
       avatar: '',
+      feedback: '',
     },
   },
 };

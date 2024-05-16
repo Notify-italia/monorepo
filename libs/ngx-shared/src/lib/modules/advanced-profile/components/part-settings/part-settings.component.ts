@@ -73,9 +73,9 @@ export class PartSettingsComponent {
 
     const ref = this._confirmModal.create({
       value: true,
-      title: 'Elimina elemento',
+      title: 'Elimina blocco',
       description:
-        'Sei sicuro di voler eliminare questo elemento? Questa azione è irreversibile.',
+        'Sei sicuro di voler eliminare questo blocco? Questa azione è irreversibile.',
       cancelText: 'Annulla',
       confirmText: 'Elimina',
       confirmClass: this._confirmModal.deleteBtn,
