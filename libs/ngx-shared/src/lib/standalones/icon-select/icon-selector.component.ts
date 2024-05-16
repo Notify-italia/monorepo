@@ -42,6 +42,8 @@ export class IconSelectorComponent implements OnInit, OnChanges {
   @Input() public icon?: SvgBoxIcon['name'];
   @Input() public iconSet?: SvgBoxIcon[];
   @Input() public openSelectorOnBoot = true;
+  @Input() public title = 'Servizio';
+  @Input() public showIconLabel = true;
 
   @Output() public iconValue = new EventEmitter<SvgBoxIcon | null>();
   @Output() public iconChange = new EventEmitter<{
