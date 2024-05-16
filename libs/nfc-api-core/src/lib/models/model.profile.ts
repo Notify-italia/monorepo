@@ -272,6 +272,10 @@ const ProfileSchema = new Schema<Profile, ProfileModel>(
             type: Schema.Types.ObjectId,
             default: null,
           },
+          feedback: {
+            type: Schema.Types.ObjectId,
+            default: null,
+          },
         },
       },
       default: {
