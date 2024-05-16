@@ -259,7 +259,7 @@ const ProfileSchema = new Schema<Profile, ProfileModel>(
             backgroundType: EnumNotifyAPBackgroundTypes.Gradient,
             gradient: {
               direction: EnumNotifyAPDirections.Vertical,
-              colors: ['#000000', '#000000'],
+              colors: [{ value: '#000000' }, { value: '#000000' }],
             },
             textColor: '#FFFFFF',
             font: 'Poppins',

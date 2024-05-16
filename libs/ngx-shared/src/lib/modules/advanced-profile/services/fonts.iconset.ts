@@ -1,4 +1,4 @@
-import { SvgBoxIcon } from '../../../../services';
+import { SvgBoxIcon } from '../../../services';
 
 const _generateFormThumbnail = (name: string) => {
   return `
