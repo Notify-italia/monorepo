@@ -185,7 +185,14 @@
     {{ validationErrorMessage }}
   </p>
 
-  <p class="mt-2 text-sm text-gray-500" id="help-text" *ngIf="helpText">
+  <p
+    class="mt-1 text-sm text-gray-500"
+    id="help-text"
+    *ngIf="helpText"
+    [ngClass]="{
+      'text-xs': compact
+    }"
+  >
     {{ helpText }}
   </p>
 </div>

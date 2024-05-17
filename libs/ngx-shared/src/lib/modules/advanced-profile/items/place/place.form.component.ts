@@ -44,6 +44,15 @@ import {
         [compact]="true"
         [showClearInput]="false"
       ></notify-tailwind-input>
+      <notify-tailwind-input
+        [parent]="form"
+        name="companyName"
+        placeholder="Offcenter SRL"
+        label="Nome Attività"
+        [compact]="true"
+        [showClearInput]="false"
+        helpText="Solo per uso interno, non visibile nel profilo"
+      ></notify-tailwind-input>
 
       <div class="divider"></div>
 

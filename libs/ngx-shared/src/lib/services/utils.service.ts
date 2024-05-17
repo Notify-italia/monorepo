@@ -238,4 +238,8 @@ export class UtilsService {
   public randomColor() {
     return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
   }
+
+  public navigateToUrl(url: string) {
+    window.open(url, '_blank');
+  }
 }

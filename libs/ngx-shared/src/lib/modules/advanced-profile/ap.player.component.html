@@ -5,28 +5,30 @@
   [pageSettings]="ps"
 >
   <div
-    class="py-12 pb-20 px-3 max-h-screen overflow-y-auto"
+    class="py-12 pb-20 px-3 max-h-screen overflow-y-auto flex flex-col space-y-2"
     [ngClass]="{
       '!pt-16': contained
     }"
   >
     @for (i of advancedProfileItems; track i.data._id) {
-    <div class="mb-2" *ngIf="i.data.title?.length && i.data.showTitle">
-      <small>
-        {{ i.data.title }}
-      </small>
-      <div class="notify-divider opacity-25"></div>
-    </div>
+    <div class="flex flex-col space-y-2" *ngIf="i.data.visible">
+      <div class="mt-4 mb-2" *ngIf="i.data.title?.length && i.data.showTitle">
+        <small>
+          {{ i.data.title }}
+        </small>
+        <div class="notify-divider opacity-25 !my-0"></div>
+      </div>
 
-    <ng-container
-      *ngIf="i.manifest.playerComponent as pc"
-      [ngComponentOutlet]="pc"
-      [ngComponentOutletInputs]="{
-        profile: this.profile,
-        currentItem: i.data,
-        manifest: i.manifest
-      }"
-    ></ng-container>
+      <ng-container
+        *ngIf="i.manifest.playerComponent as pc"
+        [ngComponentOutlet]="pc"
+        [ngComponentOutletInputs]="{
+          profile: this.profile,
+          currentItem: i.data,
+          manifest: i.manifest
+        }"
+      ></ng-container>
+    </div>
     }
   </div>
 </div>
