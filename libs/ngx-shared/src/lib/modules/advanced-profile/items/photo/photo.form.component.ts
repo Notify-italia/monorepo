@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 import { INotifyAPPhotoItem } from '@notify/interfaces';
 import {
-  AdvancedItemFormBaseComponent,
   AdvancedItemFormBaseImports,
   AdvancedItemFormBaseProviders,
+  AdvancedProfileItemFormBaseComponent,
 } from '../../../../constructors/ap-item.form.base.component';
 import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/components/tailwind-dropzone/tailwind-dropzone.component';
 
@@ -26,7 +26,7 @@ import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/compon
     ></notify-tailwind-dropzone>
   </div>`,
 })
-export class PhotoFormComponent extends AdvancedItemFormBaseComponent<INotifyAPPhotoItem> {
+export class PhotoFormComponent extends AdvancedProfileItemFormBaseComponent<INotifyAPPhotoItem> {
   public dropzoneLabels = {
     ...TAILWIND_DROPZONE_DEFAULT_LABELS,
     defaultMessage: "Carica un'immagine da visualizzare sul profilo",

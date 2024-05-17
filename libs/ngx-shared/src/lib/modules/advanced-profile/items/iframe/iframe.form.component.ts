@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { INotifyAPIframeItem } from '@notify/interfaces';
 import {
-  AdvancedItemFormBaseComponent,
   AdvancedItemFormBaseImports,
   AdvancedItemFormBaseProviders,
+  AdvancedProfileItemFormBaseComponent,
 } from '../../../../constructors/ap-item.form.base.component';
 
 @Component({
@@ -31,7 +31,7 @@ import {
     </div>
   `,
 })
-export class IFrameFormComponent extends AdvancedItemFormBaseComponent<INotifyAPIframeItem> {
+export class IFrameFormComponent extends AdvancedProfileItemFormBaseComponent<INotifyAPIframeItem> {
   validationErrors = {
     pattern: 'Inserisci un URL valido',
   };

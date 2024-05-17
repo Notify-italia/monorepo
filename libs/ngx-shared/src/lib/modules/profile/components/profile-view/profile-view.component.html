@@ -69,6 +69,11 @@
     (integrationClicked)="integrationClicked.emit($event)"
   ></div>
   } @else {
-  <div notify-advanced-view [data]="data?.advancedProfile"></div>
+  <div
+    *ngIf="data"
+    notify-advanced-view
+    [data]="data"
+    class="w-full h-full absolute top-0 left-0"
+  ></div>
   }
 </div>

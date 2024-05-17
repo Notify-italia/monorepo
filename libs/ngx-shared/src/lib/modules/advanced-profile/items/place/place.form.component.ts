@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 import { INotifyAPPlaceItem } from '@notify/interfaces';
 import {
-  AdvancedItemFormBaseComponent,
   AdvancedItemFormBaseImports,
   AdvancedItemFormBaseProviders,
+  AdvancedProfileItemFormBaseComponent,
 } from '../../../../constructors/ap-item.form.base.component';
 
 @Component({
@@ -55,4 +55,4 @@ import {
     </div>
   `,
 })
-export class PlaceFormComponent extends AdvancedItemFormBaseComponent<INotifyAPPlaceItem> {}
+export class PlaceFormComponent extends AdvancedProfileItemFormBaseComponent<INotifyAPPlaceItem> {}

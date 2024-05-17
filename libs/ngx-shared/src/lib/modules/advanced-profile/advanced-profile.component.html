@@ -18,7 +18,13 @@
         class="size-full flex flex-col justify-center items-center 2xl:my-auto"
       >
         <notify-profile-view
-          [data]="profile"
+          [data]="
+            $any({
+              advancedProfile: form?.value,
+              type: profile.type,
+              company: profile.company,
+            })
+          "
           [mockup]="true"
           class="iphone-15-pro shrink-0 grow-0 scale-75 2xl:scale-100"
         ></notify-profile-view>

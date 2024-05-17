@@ -9,9 +9,9 @@ import {
   daisyUIAvatarMaksIT,
 } from '@notify/interfaces';
 import {
-  AdvancedItemFormBaseComponent,
   AdvancedItemFormBaseImports,
   AdvancedItemFormBaseProviders,
+  AdvancedProfileItemFormBaseComponent,
 } from '../../../../constructors/ap-item.form.base.component';
 import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/components/tailwind-dropzone/tailwind-dropzone.component';
 
@@ -140,7 +140,7 @@ import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/compon
     </div>
   `,
 })
-export class AvatarFormComponent extends AdvancedItemFormBaseComponent<INotifyAPAvatarItem> {
+export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<INotifyAPAvatarItem> {
   public avatarMaskOptions = [
     ...daisyUIAvatarMaks.map((item) => ({
       name: new TitleCasePipe().transform(daisyUIAvatarMaksIT[item]),

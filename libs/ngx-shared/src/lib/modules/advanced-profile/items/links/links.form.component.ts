@@ -2,9 +2,9 @@ import { Component, QueryList, ViewChildren, inject } from '@angular/core';
 
 import { INotifyAPLinksItem } from '@notify/interfaces';
 import {
-  AdvancedItemFormBaseComponent,
   AdvancedItemFormBaseImports,
   AdvancedItemFormBaseProviders,
+  AdvancedProfileItemFormBaseComponent,
 } from '../../../../constructors/ap-item.form.base.component';
 import { SvgboxService } from '../../../../services';
 import { IconSelectorComponent } from '../../../../standalones/icon-select/icon-selector.component';
@@ -145,7 +145,7 @@ import { TailwindInputComponent } from '../../../tailwind-forms/tailwind-forms.m
     }
   </div>`,
 })
-export class LinksFormComponent extends AdvancedItemFormBaseComponent<INotifyAPLinksItem> {
+export class LinksFormComponent extends AdvancedProfileItemFormBaseComponent<INotifyAPLinksItem> {
   @ViewChildren('Caption')
   captions!: QueryList<TailwindInputComponent>;
   private _svgBoxSerivce = inject(SvgboxService);

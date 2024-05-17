@@ -37,7 +37,7 @@ export interface INotifyAPAvatarItem
   label: string;
   sublabel: string;
   description: string;
-  imgSrc: _baseFile[];
+  imgSrc: baseFile[];
   imgMask: DaisyUIAvatarMasks | 'banner';
   useRoleSubLabel: boolean;
   ownerImgCorner: EnumNotifyAPCorners;
@@ -76,7 +76,7 @@ export type INotifyContactItem = baseButton;
 //photo
 export interface INotifyAPPhotoItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Photo> {
-  imgSrc: _baseFile[];
+  imgSrc: baseFile[];
 }
 
 //note
@@ -145,10 +145,10 @@ export enum EnumNotifyAPDirections {
 
 export enum EnumNotifyAPCorners {
   None = 'none',
-  TopLeft = 'topLeft',
-  TopRight = 'TopRight',
-  BottomLeft = 'bottomLeft',
-  BottomRight = 'bottomRight',
+  TopLeft = 'top-left',
+  TopRight = 'top-right',
+  BottomLeft = 'bottom-left',
+  BottomRight = 'bottom-right',
 }
 
 export enum EnumNotifyAPButtonStyles {
@@ -258,7 +258,7 @@ export interface baseButton {
   visible: boolean;
 }
 
-interface _baseFile {
+export interface baseFile {
   name: string;
   url: string;
   size: number;

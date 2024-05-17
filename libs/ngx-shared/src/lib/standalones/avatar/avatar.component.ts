@@ -6,16 +6,17 @@ import {
   OnChanges,
   Output,
 } from '@angular/core';
-import { DaisyUIAvatarMasks } from '@notify/interfaces';
+import { DaisyUIAvatarMasks, EnumNotifyAPCorners } from '@notify/interfaces';
 import { EnumDicebearAvatarStyles, UtilsService } from '../../services';
 
-interface AvatarConfig {
+export interface INotifyAvatarConfig {
   src: string | null;
   size: string;
-  mask: DaisyUIAvatarMasks | null;
+  mask: DaisyUIAvatarMasks | 'banner' | null;
   placeholderSeed: string;
   backgroundColor?: string;
   placeholderStyle?: EnumDicebearAvatarStyles;
+  placement?: EnumNotifyAPCorners;
 }
 
 @Component({
@@ -27,13 +28,13 @@ interface AvatarConfig {
   styleUrls: ['./avatar.component.scss'],
 })
 export class AvatarComponent implements OnChanges {
-  @Input() avatarConfig: AvatarConfig = {
+  @Input() avatarConfig: INotifyAvatarConfig = {
     src: null,
     size: 'w-10 h-10',
     mask: 'circle',
     placeholderSeed: 'avatar',
   };
-  @Input() subAvatarConfig?: AvatarConfig = {
+  @Input() subAvatarConfig?: INotifyAvatarConfig = {
     src: null,
     size: 'w-6 h-6',
     mask: 'circle',
@@ -46,6 +47,7 @@ export class AvatarComponent implements OnChanges {
 
   public isMainAvatarLoaded = false;
   public isSubAvatarLoaded = false;
+  public corners = EnumNotifyAPCorners;
 
   private _scrambleCache = `?cz=${Date.now()}`;
 
@@ -73,6 +75,15 @@ export class AvatarComponent implements OnChanges {
       placeholderStyle: this.avatarConfig.placeholderStyle,
     };
 
+    const _placement = this.subAvatarConfig?.placement;
+
+    const vertical = _placement?.includes('top')
+      ? 'top-0 -mt-1'
+      : 'bottom-0 -mb-1';
+    const horizontal = _placement?.includes('left')
+      ? 'left-0 -ml-2'
+      : 'right-0 -mr-2';
+
     const sub = {
       src: isSubUri
         ? this.subAvatarConfig?.src + this._scrambleCache
@@ -82,6 +93,10 @@ export class AvatarComponent implements OnChanges {
       placeholderSeed: this.subAvatarConfig?.placeholderSeed,
       backgroundColor: this.avatarConfig.backgroundColor,
       placeholderStyle: this.subAvatarConfig?.placeholderStyle,
+      placement:
+        _placement === this.corners.None
+          ? 'hidden'
+          : `${vertical} ${horizontal}`,
     };
 
     return { main, sub };

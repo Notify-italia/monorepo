@@ -1,5 +1,9 @@
 <div tabindex="-1" #DummyFocus></div>
-<div [formGroup]="parent" class="flex space-x-2 my-auto w-full" tabindex="0">
+<div
+  [formGroup]="parent"
+  class="flex space-x-2 my-auto w-full items-center"
+  tabindex="0"
+>
   <button
     class="relative group/colorPicker w-full focus-within:pointer-events-none"
     type="button"
@@ -9,7 +13,7 @@
       class="flex items-center space-x-2 smooth hover:scale-95 hover:brightness-200 w-full cursor-pointer"
       [ngClass]="{
         'box px-4 py-2': compact ? true : label.length,
-        '!bg-[#191C21] !shadow-none border justify-between text-xs !rounded-lg border-[#3A3D45] text-white hover:scale-100':
+        '!bg-[#191C21] !shadow-none border justify-between text-xs !rounded-lg border-[#3A3D45] hover:!brigntess-150 text-white hover:!scale-100 ':
           compact
       }"
     >
@@ -39,7 +43,7 @@
       <div
         class="grid grid-cols-6 grid-rows-4 w-44 grid-flow-row items-center"
         [ngClass]="{
-          '!grid-cols-12 w-full gap-3 justify-evenly items-center content-evenly justify-items-center ':
+          '!grid-cols-10 w-full gap-3 justify-evenly items-center content-evenly justify-items-center ':
             compact
         }"
       >

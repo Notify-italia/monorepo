@@ -9,7 +9,7 @@
       (c.sub.src?.length || c.sub.placeholderSeed?.length) &&
       avatarConfig?.src?.length
     "
-    class="!absolute bottom-0 right-0 -mr-4 scale-125 lg:pointer-events-none"
+    class="absolute lg:pointer-events-none {{ c.sub.placement }}"
     (click)="subAvatarClick.emit()"
   >
     <ng-container
