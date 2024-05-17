@@ -8,12 +8,26 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
 @Component({
   standalone: true,
   imports: [CommonModule, AvatarComponent],
+  styleUrl: '../../advanced-profile.styles.scss',
   template: `
     <div
       *ngIf="this.context.getters.container as container"
       [class]="container.class"
       [ngStyle]="container.ngStyle"
     >
+      <div
+        class="mb-2 "
+        *ngIf="
+          this.context.getters.currentItem.title?.length &&
+          this.context.getters.currentItem.showTitle
+        "
+      >
+        <small>
+          {{ this.context.getters.currentItem.title }}
+        </small>
+        <div class="notify-divider "></div>
+      </div>
+
       <div
         class="flex items-center w-full"
         [ngClass]="{
