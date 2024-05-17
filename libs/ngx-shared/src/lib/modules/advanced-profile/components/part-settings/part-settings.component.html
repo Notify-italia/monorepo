@@ -72,6 +72,7 @@
         ></notify-tailwind-checkbox>
       </div>
 
+      @if (!item.manifest.formOptions?.hideTextSettings) {
       <div
         class="flex flex-col space-y-2 smooth"
         *ngIf="item.form.controls.textConfig as tc"
@@ -116,8 +117,7 @@
           ></notify-tailwind-input>
         </div>
       </div>
-
-      @if(item.manifest.formComponent; as cf) {
+      } @if(item.manifest.formComponent; as cf) {
       <div class="divider"></div>
       <ng-container
         [ngComponentOutlet]="cf"

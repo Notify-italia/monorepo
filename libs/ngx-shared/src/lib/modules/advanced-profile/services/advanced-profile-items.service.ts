@@ -20,6 +20,9 @@ export interface INotifyAdvancedProfileManifest<
   outlineIcon?: string[];
   formComponent?: Type<unknown>;
   playerComponent?: Type<unknown>;
+  formOptions?: {
+    hideTextSettings: boolean;
+  };
   definitions: ModifyDeep<
     T,
     {
