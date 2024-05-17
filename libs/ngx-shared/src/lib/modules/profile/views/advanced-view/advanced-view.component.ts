@@ -12,4 +12,5 @@ import { AdvancedProfilePlayerComponent } from '../../../advanced-profile/ap.pla
 })
 export class AdvancedViewComponent {
   @Input() public data!: INotifyProfile;
+  @Input() public mockup = false;
 }

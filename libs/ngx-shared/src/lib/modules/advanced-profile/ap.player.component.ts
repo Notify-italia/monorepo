@@ -16,6 +16,7 @@ export class AdvancedProfilePlayerComponent {
   private _apItems = inject(AdvancedProfileItemsService);
 
   @Input() profile!: INotifyProfile;
+  @Input() contained = false;
 
   public get background() {
     return this._apItems.getSystemManifests('background');

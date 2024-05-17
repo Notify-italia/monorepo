@@ -16,19 +16,6 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
       [ngStyle]="container.ngStyle"
     >
       <div
-        class="mb-2 "
-        *ngIf="
-          this.context.getters.currentItem.title?.length &&
-          this.context.getters.currentItem.showTitle
-        "
-      >
-        <small>
-          {{ this.context.getters.currentItem.title }}
-        </small>
-        <div class="notify-divider "></div>
-      </div>
-
-      <div
         class="flex items-center w-full"
         [ngClass]="{
           'flex-col space-y-4':
@@ -57,7 +44,7 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
             {{ currentItem.sublabel }}
           </small>
           <small>
-            <small class="mt-2 opacity-70">
+            <small class="mt-2 opacity-70 whitespace-pre-line">
               {{ currentItem.description }}
             </small>
           </small>

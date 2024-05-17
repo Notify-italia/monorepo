@@ -4,8 +4,20 @@
   *ngIf="advancedProfile?.pageSettings as ps"
   [pageSettings]="ps"
 >
-  <div class="py-12 pb-20 px-3">
+  <div
+    class="py-12 pb-20 px-3 max-h-screen overflow-y-auto"
+    [ngClass]="{
+      '!pt-16': contained
+    }"
+  >
     @for (i of advancedProfileItems; track i.data._id) {
+    <div class="mb-2" *ngIf="i.data.title?.length && i.data.showTitle">
+      <small>
+        {{ i.data.title }}
+      </small>
+      <div class="notify-divider opacity-25"></div>
+    </div>
+
     <ng-container
       *ngIf="i.manifest.playerComponent as pc"
       [ngComponentOutlet]="pc"
