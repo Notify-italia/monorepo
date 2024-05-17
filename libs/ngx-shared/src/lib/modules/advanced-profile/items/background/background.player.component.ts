@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import {
   EnumNotifyAPBackgroundTypes,
+  EnumNotifyAPDirections,
   INotifyAPageSettings,
 } from '@notify/interfaces';
 
@@ -10,26 +11,34 @@ import {
   standalone: true,
   imports: [CommonModule],
   template: `
-    @switch (pageSettings.backgroundType) { @case (backgroundTypes.Fill) {
-    <div
-      [class]="baseClass"
-      [ngStyle]="
-        {
-          'background-color': pageSettings.fill,
-          'font-size': fontSize,
-          color: textColor,
-        }
-        "
-    >
+    <div [class]="baseClass" [ngStyle]="ngStyle">
       <ng-content></ng-content>
     </div>
-    } }
   `,
 })
 export class BackgroundPlayerComponent {
   @Input() pageSettings!: INotifyAPageSettings;
 
   public backgroundTypes = EnumNotifyAPBackgroundTypes;
+
+  public get ngStyle() {
+    switch (this.pageSettings.backgroundType) {
+      case this.backgroundTypes.Fill:
+        return {
+          'background-color': this.pageSettings.fill,
+          'font-size': this.fontSize,
+          color: this.textColor,
+        };
+      case this.backgroundTypes.Gradient:
+        return {
+          'font-size': this.fontSize,
+          color: this.textColor,
+          background: `linear-gradient(${this._gradientDirection},${this.gradientStops})`,
+        };
+    }
+
+    return { 'font-size': this.fontSize, color: this.textColor };
+  }
 
   public get baseClass(): string {
     return `w-full h-full fonts font-${this.pageSettings.font} text-[${this.pageSettings.textColor}]`;
@@ -41,5 +50,24 @@ export class BackgroundPlayerComponent {
 
   public get textColor() {
     return this.pageSettings.textColor;
+  }
+
+  public get gradientStops() {
+    const gradient = this.pageSettings.gradient;
+
+    return gradient.colors.map((stop) => stop.value).join(', ');
+  }
+
+  private get _gradientDirection() {
+    const gradient = this.pageSettings.gradient;
+
+    switch (gradient.direction) {
+      case EnumNotifyAPDirections.Horizontal:
+        return '90deg';
+      case EnumNotifyAPDirections.Vertical:
+        return '180deg';
+      default:
+        return '180deg';
+    }
   }
 }
