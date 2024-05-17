@@ -55,6 +55,14 @@ export class BackgroundPlayerComponent {
   public get gradientStops() {
     const gradient = this.pageSettings.gradient;
 
+    if (!gradient.colors.length) {
+      return ['#000000', '#000000'];
+    }
+
+    if (gradient.colors.length === 1) {
+      return [gradient.colors[0].value, gradient.colors[0].value];
+    }
+
     return gradient.colors.map((stop) => stop.value).join(', ');
   }
 

@@ -1,18 +1,6 @@
 .hierarchy-line {
   @apply border-gray-600;
 }
-.cdk-drag-preview {
-  box-sizing: border-box;
-  border-radius: 4px;
-}
-
-.cdk-drag-placeholder {
-  opacity: 0;
-}
-
-.cdk-drop-list-dragging .cdkDrag:not(.cdk-drag-placeholder) {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
 
 .selected-item {
   color: #0398ff !important;
