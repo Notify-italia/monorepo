@@ -65,6 +65,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
       services: {
         apItems: this._apItemsSerivce,
         utils: this._utilsSerivce,
+        sanitizer: this._domSanitizer,
       },
       statics: {
         directions: EnumNotifyAPDirections,
@@ -83,7 +84,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
         currentItem: this.currentItem,
         companyProfile: this.profile.company,
         container: {
-          class: `w-full h-full fonts font-${this._font}`,
+          class: `size-full fonts font-${this._font}`,
           ngStyle: {
             'font-size': this._fontSize,
             color: this._textColor,

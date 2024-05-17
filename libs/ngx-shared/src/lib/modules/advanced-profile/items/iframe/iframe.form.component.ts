@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Validators } from '@angular/forms';
-import { INotifyAPIframeItem } from '@notify/interfaces';
+import { INotifyAPIFrameItem } from '@notify/interfaces';
 import {
   AdvancedItemFormBaseImports,
   AdvancedItemFormBaseProviders,
@@ -31,7 +31,7 @@ import {
     </div>
   `,
 })
-export class IFrameFormComponent extends AdvancedProfileItemFormBaseComponent<INotifyAPIframeItem> {
+export class IFrameFormComponent extends AdvancedProfileItemFormBaseComponent<INotifyAPIFrameItem> {
   validationErrors = {
     pattern: 'Inserisci un URL valido',
   };

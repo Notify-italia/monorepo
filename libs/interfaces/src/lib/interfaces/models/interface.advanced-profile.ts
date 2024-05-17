@@ -23,7 +23,7 @@ export type NotifyAdvancedProfileItem =
   | INotifyAPContactsItem
   | INotifyAPPhotoItem
   | INotifyAPNoteItem
-  | INotifyAPIframeItem
+  | INotifyAPIFrameItem
   | INotifyAPDividerItem;
 
 export type NotifyAdvancedProfileItemTypes =
@@ -64,6 +64,7 @@ export interface INotifyAPPlaceItem
   civicNumber: string;
   city: string;
   showStreetName: boolean;
+  companyName: string;
 }
 
 //contacts
@@ -89,8 +90,8 @@ export interface INotifyAPNoteItem
 export type INotifyAPDividerItem =
   INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Divider>;
 
-export interface INotifyAPIframeItem
-  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Iframe> {
+export interface INotifyAPIFrameItem
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.IFrame> {
   url: string;
 }
 
@@ -178,7 +179,7 @@ export enum EnumNotifyAdvancedProfileItems {
   Contacts = 'contacts',
   Photo = 'photo',
   Note = 'note',
-  Iframe = 'iframe',
+  IFrame = 'iframe',
   Unknown = 'unknown',
   Divider = 'divider',
 }
