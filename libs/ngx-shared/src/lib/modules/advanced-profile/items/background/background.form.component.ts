@@ -1,3 +1,4 @@
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
 import {
@@ -33,6 +34,7 @@ const FORCE_UPDATE_KEYS: string[] = [];
     TailwindFormsModule,
     ReactiveFormsModule,
     IconSelectorComponent,
+    DragDropModule,
   ],
   providers: [AdvancedProfileItemsService, UtilsService],
   template: `
@@ -84,34 +86,44 @@ const FORCE_UPDATE_KEYS: string[] = [];
 
           <span>Aggiungi</span>
         </button>
-        @for (item of gradientForm.colorsFa.controls; track $index) {
-        <div class="flex space-x-2 items-center px-2">
-          <notify-tailwind-color-picker
-            [parent]="item"
-            name="value"
-            class="w-full"
-            [compact]="true"
-          ></notify-tailwind-color-picker>
-          <button
-            class="btn btn-sm btn-error btn-outline btn-square"
-            (click)="removeGradientItem($index)"
-            data-theme="notifytheme"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              class="w-4 h-4"
+        <div
+          class="flex flex-col space-y-4 "
+          cdkDropList
+          (cdkDropListDropped)="updateGradientDropList($event)"
+        >
+          @for (item of gradientForm.colorsFa.controls; track $index) {
+          <div class="flex space-x-2 items-center px-2 cdkDrag" cdkDrag>
+            <notify-tailwind-color-picker
+              [parent]="item"
+              name="value"
+              class="w-full"
+              [compact]="true"
+            ></notify-tailwind-color-picker>
+            <button
+              class="btn btn-sm btn-error btn-outline btn-square"
+              (click)="removeGradientItem($index)"
+              data-theme="notifytheme"
             >
-              <path
-                fill-rule="evenodd"
-                d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-4 h-4"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+          }
+          <small class="text-center" *ngIf="gradientForm.colorsFa.value.length">
+            Fai click per scegliere un colore o trascina per riordinare
+          </small>
         </div>
-        } } }
+        } }
       </div>
 
       <div class="divider"></div>
@@ -196,6 +208,14 @@ export class BackgroundFormComponent implements OnInit {
         value: new FormControl(this._utils.randomColor()),
       })
     );
+  }
+
+  public updateGradientDropList(event: CdkDragDrop<string[]>) {
+    const colorsFa = this.gradientForm.colorsFa as unknown as FormArray;
+    const controlToMove = colorsFa.controls[event.previousIndex];
+
+    colorsFa.removeAt(event.previousIndex);
+    colorsFa.insert(event.currentIndex, controlToMove);
   }
 
   public removeGradientItem(index: number) {
