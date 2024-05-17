@@ -11,7 +11,7 @@
     }"
   >
     @for (i of advancedProfileItems; track i.data._id) {
-    <div class="flex flex-col space-y-2" *ngIf="i.data.visible">
+    <div class="flex flex-col" *ngIf="i.data.visible">
       <div class="mt-4 mb-2" *ngIf="i.data.title?.length && i.data.showTitle">
         <small>
           {{ i.data.title }}
