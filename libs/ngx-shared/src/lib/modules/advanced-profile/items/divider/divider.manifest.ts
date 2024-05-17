@@ -16,6 +16,9 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPDividerItem> = {
     'M4.25 12a.75.75 0 0 1 .75-.75h14a.75.75 0 0 1 0 1.5H5a.75.75 0 0 1-.75-.75Z',
   ],
   outlineIcon: ['M5 12h14'],
+  formOptions: {
+    hideTextSettings: true,
+  },
   playerComponent: DividerPlayerComponent,
   definitions: {
     ...itemManifest.definitions,
