@@ -1,0 +1,20 @@
+<div
+  class="w-full h-full"
+  notify-ap-player-background
+  *ngIf="advancedProfile?.pageSettings as ps"
+  [pageSettings]="ps"
+>
+  <div class="py-12 pb-20 px-3">
+    @for (i of advancedProfileItems; track i.data._id) {
+    <ng-container
+      *ngIf="i.manifest.playerComponent as pc"
+      [ngComponentOutlet]="pc"
+      [ngComponentOutletInputs]="{
+        profile: this.profile,
+        currentItem: i.data,
+        manifest: i.manifest
+      }"
+    ></ng-container>
+    }
+  </div>
+</div>

@@ -132,7 +132,7 @@ export class TailwindDropzoneComponent
       this.dzApi.files.push(file);
       this.dzApi.emit('addedfile', file);
       this._appendDownloadButton(this.dzApi.files[index], file.dataURL || '');
-      if (!file.type.includes('image')) {
+      if (!file.type?.includes('image')) {
         this.dzApi.emit('complete', file);
         return;
       }

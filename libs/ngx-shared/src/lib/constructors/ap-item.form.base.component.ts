@@ -50,8 +50,9 @@ export const AdvancedItemFormBaseProviders = [
   template: '',
   standalone: true,
 })
-export class AdvancedItemFormBaseComponent<T extends NotifyAdvancedProfileItem>
-  implements OnInit
+export class AdvancedProfileItemFormBaseComponent<
+  T extends NotifyAdvancedProfileItem
+> implements OnInit
 {
   private _authService = inject(AuthService);
   private _apItemsSerivce = inject(AdvancedProfileItemsService);

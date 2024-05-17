@@ -16,8 +16,10 @@ export interface INotifyAdvancedProfileManifest<
   type: EnumNotifyAdvancedProfileItems;
   localizedName: string;
   filledIcon: string[];
+  isSystemItem?: boolean;
   outlineIcon?: string[];
   formComponent?: Type<unknown>;
+  playerComponent?: Type<unknown>;
   definitions: ModifyDeep<
     T,
     {
@@ -43,11 +45,22 @@ export class AdvancedProfileItemsService {
     advancedProfileManifests[manifest.type] = manifest;
   }
 
+  public getSystemManifests(manifest: string) {
+    return Object.values(advancedProfileManifests)
+      .filter((m) => m.isSystemItem)
+      .filter((m) => m.localizedName.includes(manifest))[0];
+  }
+
   public getManifest(manifest: NotifyAdvancedProfileItemTypes) {
-    return (
+    const result =
       advancedProfileManifests[manifest] ||
-      advancedProfileManifests[EnumNotifyAdvancedProfileItems.Unknown]
-    );
+      advancedProfileManifests[EnumNotifyAdvancedProfileItems.Unknown];
+
+    if (result.isSystemItem) {
+      return advancedProfileManifests[EnumNotifyAdvancedProfileItems.Unknown];
+    }
+
+    return result;
   }
 
   public getAvailableItems() {

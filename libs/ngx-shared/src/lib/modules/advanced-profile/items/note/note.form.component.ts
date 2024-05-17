@@ -3,9 +3,9 @@ import { Component, inject } from '@angular/core';
 import { INotifyAPNoteItem } from '@notify/interfaces';
 import { Observable, map } from 'rxjs';
 import {
-  AdvancedItemFormBaseComponent,
   AdvancedItemFormBaseImports,
   AdvancedItemFormBaseProviders,
+  AdvancedProfileItemFormBaseComponent,
 } from '../../../../constructors/ap-item.form.base.component';
 import { NoteService } from '../../../../services';
 import { ITailwindSelectOption } from '../../../tailwind-forms/components/tailwind-select/tailwind-select.component';
@@ -65,7 +65,7 @@ import { ITailwindSelectOption } from '../../../tailwind-forms/components/tailwi
     }
   `,
 })
-export class NoteFormComponent extends AdvancedItemFormBaseComponent<INotifyAPNoteItem> {
+export class NoteFormComponent extends AdvancedProfileItemFormBaseComponent<INotifyAPNoteItem> {
   private _noteService = inject(NoteService);
 
   public notesSelect$: Observable<ITailwindSelectOption[]> = this._noteService

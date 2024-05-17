@@ -3,9 +3,9 @@ import { Component, inject } from '@angular/core';
 import { INotifyAPAvatarItem, INotifyAPFeedbackItem } from '@notify/interfaces';
 import { catchError, tap } from 'rxjs';
 import {
-  AdvancedItemFormBaseComponent,
   AdvancedItemFormBaseImports,
   AdvancedItemFormBaseProviders,
+  AdvancedProfileItemFormBaseComponent,
 } from '../../../../constructors/ap-item.form.base.component';
 import { SvgBoxIcon, SvgboxService } from '../../../../services';
 import { IconSelectorComponent } from '../../../../standalones/icon-select/icon-selector.component';
@@ -116,7 +116,7 @@ import { FEEDBACK_ICON_SET } from './feedback.iconset';
     }
   `,
 })
-export class FeedbackFormComponent extends AdvancedItemFormBaseComponent<INotifyAPFeedbackItem> {
+export class FeedbackFormComponent extends AdvancedProfileItemFormBaseComponent<INotifyAPFeedbackItem> {
   private _svgBoxService = inject(SvgboxService);
 
   public feedbackIconSet = FEEDBACK_ICON_SET;
