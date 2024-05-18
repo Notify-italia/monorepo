@@ -16,6 +16,7 @@ import { TailwindInputComponent } from './components/tailwind-input/tailwind-inp
 import { TailwindRadioListDescriptionPanelComponent } from './components/tailwind-radio-list-description-panel/tailwind-radio-list-description-panel.component';
 import { TailwindSelectMultipleComponent } from './components/tailwind-select-multiple/tailwind-select-multiple.component';
 import { TailwindSelectComponent } from './components/tailwind-select/tailwind-select.component';
+import { TailwindSliderComponent } from './components/tailwind-slider/tailwind-slider.component';
 import { TailwindSubmitButtonComponent } from './components/tailwind-submit-button/tailwind-submit-button.component';
 import { TailwindTextareaComponent } from './components/tailwind-textarea/tailwind-textarea.component';
 import { TailwindTimepickerComponent } from './components/tailwind-timepicker/tailwind-timepicker.component';
@@ -39,6 +40,7 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     TailwindAdvancedSelectComponent,
     TailwindDropzoneComponent,
     TailwindTextareaComponent,
+    TailwindSliderComponent,
   ],
   imports: [
     CommonModule,
@@ -64,6 +66,7 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     TailwindAdvancedSelectComponent,
     TailwindTextareaComponent,
     TailwindDropzoneComponent,
+    TailwindSliderComponent,
   ],
   providers: [TailwindFormsService, provideNgxMask()],
 })
@@ -81,6 +84,7 @@ export {
   TailwindRadioListDescriptionPanelComponent,
   TailwindSelectComponent,
   TailwindSelectMultipleComponent,
+  TailwindSliderComponent,
   TailwindSubmitButtonComponent,
   TailwindTextareaComponent,
   TailwindTimepickerComponent,

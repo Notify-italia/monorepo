@@ -26,6 +26,12 @@ export class AdvancedProfilePlayerComponent {
     return this.profile.advancedProfile;
   }
 
+  public get verticalSpacing() {
+    const value = this.advancedProfile?.pageSettings.verticalSpacing || 0;
+
+    return `${value}rem`;
+  }
+
   public get advancedProfileItems() {
     return this.advancedProfile?.items.map((i) => ({
       data: i,

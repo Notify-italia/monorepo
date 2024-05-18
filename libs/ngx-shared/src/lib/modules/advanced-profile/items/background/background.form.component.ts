@@ -43,6 +43,27 @@ const FORCE_UPDATE_KEYS: string[] = [];
       *ngIf="pageSettingsForm"
       class="flex flex-col space-y-4"
     >
+      <notify-tailwind-slider
+        [parent]="pageSettingsForm"
+        name="padding"
+        label="Margine laterale"
+        [step]="0.25"
+        [min]="1"
+        [max]="2.5"
+        [compact]="true"
+      ></notify-tailwind-slider>
+      <notify-tailwind-slider
+        [parent]="pageSettingsForm"
+        name="verticalSpacing"
+        label="Spaziatura elementi"
+        [step]="0.2"
+        [min]="0"
+        [max]="2"
+        [compact]="true"
+      ></notify-tailwind-slider>
+
+      <div class="divider"></div>
+
       <notify-tailwind-select
         [parent]="pageSettingsForm"
         [options]="backgroundSelectOptions"
@@ -270,4 +291,6 @@ export const ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS: INotifyAPageSettings = {
   font: 'Poppins',
   fontSize: 16,
   align: EnumNotifyAPAlign.Start,
+  padding: 0.625,
+  verticalSpacing: 0.5,
 };

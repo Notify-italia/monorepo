@@ -129,6 +129,8 @@ export interface INotifyAPageSettings {
   font: string;
   fontSize: number;
   align: EnumNotifyAPAlign;
+  padding: number;
+  verticalSpacing: number;
 }
 
 export interface INotifyAPAvailableItem {
