@@ -12,6 +12,7 @@ import {
   UtilsService,
 } from '../../../../services';
 
+import { SafeHtml } from '@angular/platform-browser';
 import { AdvancedViewComponent } from '../../views/advanced-view/advanced-view.component';
 import { ProfileDefaultViewComponent } from '../../views/default-view/default-view.component';
 import { ProfileNewEraViewComponent } from '../../views/newera-view/newera-view.component';
@@ -46,6 +47,7 @@ export class ProfileViewComponent implements OnInit {
   @Input() data?: INotifyProfile;
   @Input() mockup = false;
   @Input() feedbackKey = 'feedback';
+  @Input() footer?: SafeHtml;
 
   @Output() subAvatarClick = new EventEmitter<void>();
   @Output() public integrationClicked = new EventEmitter<

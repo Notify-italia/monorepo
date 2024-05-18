@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
+import { SafeHtml } from '@angular/platform-browser';
 import { INotifyProfile } from '@notify/interfaces';
 import { FormsService } from '../../services';
 import { BackgroundPlayerComponent } from './items/background/background.player.component';
@@ -17,6 +18,7 @@ export class AdvancedProfilePlayerComponent {
 
   @Input() profile!: INotifyProfile;
   @Input() contained = false;
+  @Input() footer?: SafeHtml;
 
   public get background() {
     return this._apItems.getSystemManifests('background');

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { SafeHtml } from '@angular/platform-browser';
 import { INotifyProfile } from '@notify/interfaces';
 import { AdvancedProfilePlayerComponent } from '../../../advanced-profile/ap.player.component';
 
@@ -12,5 +13,6 @@ import { AdvancedProfilePlayerComponent } from '../../../advanced-profile/ap.pla
 })
 export class AdvancedViewComponent {
   @Input() public data!: INotifyProfile;
+  @Input() public footer?: SafeHtml;
   @Input() public mockup = false;
 }
