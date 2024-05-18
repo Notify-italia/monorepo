@@ -1,0 +1,31 @@
+<div [formGroup]="parent" class="w-full relative">
+  <label
+    [for]="name"
+    id="input-label"
+    class="block text-sm font-medium"
+    [ngClass]="{
+      'text-xs': compact
+    }"
+  >
+    {{ label | titlecase }}
+  </label>
+  <input
+    [id]="name"
+    [name]="name"
+    [formControlName]="name"
+    type="range"
+    [min]="min"
+    [max]="max"
+    class="range w-full mt-1.5"
+    [class.range-error]="showValidationErrors"
+    [class.range-xs]="compact"
+    [step]="step === 0 ? undefined : step"
+  />
+  <div class="w-full flex justify-between text-xs px-2" *ngIf="step">
+    @for (item of stepsIterable; track $index) {
+    <span>|</span>
+    }
+
+    <span *ngIf="min === 0">|</span>
+  </div>
+</div>

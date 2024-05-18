@@ -14,7 +14,7 @@ import { AvatarComponent } from '../../../../standalones';
       <iframe
         [cachedSrc]="currentUrl"
         frameborder="0"
-        class="!rounded-lg w-full h-full pointer-events-none"
+        class="!rounded-lg w-full h-full pointer-events-none "
       ></iframe>
     </a>
   `,

@@ -265,6 +265,8 @@ const ProfileSchema = new Schema<Profile, ProfileModel>(
             font: 'Poppins',
             fontSize: 16,
             align: EnumNotifyAPDirections.Vertical,
+            padding: 1,
+            verticalSpacing: 0.5,
           },
         },
         requiredItems: {
