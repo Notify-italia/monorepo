@@ -10,6 +10,7 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {
+  EnumNotifyAPButtonStyles,
   EnumNotifyAPDirections,
   EnumNotifyUserType,
   INotifyProfile,
@@ -69,6 +70,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
       },
       statics: {
         directions: EnumNotifyAPDirections,
+        buttonStyles: EnumNotifyAPButtonStyles,
       },
       getters: {
         isAgent: this.profile.type === EnumNotifyUserType.Agent,
@@ -83,6 +85,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
         profile: this.profile,
         currentItem: this.currentItem,
         companyProfile: this.profile.company,
+        pageSettings: this.profile.advancedProfile?.pageSettings,
         container: {
           class: `size-full fonts font-${this._font}`,
           ngStyle: {
