@@ -8,6 +8,7 @@
     class="max-h-screen size-full overflow-y-auto flex flex-col notify-scrollbar scrollbar-absolute"
     [ngClass]="{
       '!pt-16 ': contained,
+      '': !contained
     }"
     [ngStyle]="{
       'padding-left': ps.padding + 'rem',
@@ -43,5 +44,6 @@
       ></ng-container>
     </div>
     }
+    <div [innerHTML]="footer" class="pb-3"></div>
   </div>
 </div>

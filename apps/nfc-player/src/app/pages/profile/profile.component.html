@@ -65,7 +65,12 @@
 
   }
 
-  <div class="footer">
+  <div
+    class="footer"
+    [ngClass]="{
+      'hidden lg:flex': p.advancedProfile?.enabled
+    }"
+  >
     <div
       class="flex flex-col w-full lg:!text-current"
       [style.color]="p.colors.elements"
@@ -107,6 +112,7 @@
       [feedbackKey]="feedbackKey"
       (subAvatarClick)="forceShowCompanyProfile()"
       (feedbackClicked)="showFeedback(p)"
+      [footer]="footer"
       [mockup]="['lg', 'xl', '2xl'].includes(currentBreakpoint)"
     ></notify-profile-view>
   </div>
@@ -123,6 +129,7 @@
     <notify-profile-view
       (integrationClicked)="handleIntegrationClicked($event, pCompany)"
       [data]="pCompany"
+      [footer]="footer"
     ></notify-profile-view>
   </div>
 
