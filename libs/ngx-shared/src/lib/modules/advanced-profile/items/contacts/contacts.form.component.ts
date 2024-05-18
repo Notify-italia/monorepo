@@ -17,6 +17,22 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
   providers: AdvancedItemFormBaseProviders,
   styleUrls: ['../../advanced-profile.styles.scss'],
   template: ` <div class="flex flex-col space-y-4 items-center">
+    <notify-tailwind-select
+      [parent]="form"
+      name="style"
+      label="Stile Pulsanti"
+      [options]="buttonStylesSelectOptions"
+      class="w-full"
+      [compact]="true"
+    ></notify-tailwind-select>
+    <notify-tailwind-select
+      [parent]="form"
+      name="direction"
+      label="Orientamento"
+      [options]="directionSelectOptions"
+      class="w-full"
+      [compact]="true"
+    ></notify-tailwind-select>
     <button class="btn btn-sm w-full" (click)="addItem()">
       <svg
         xmlns="http://www.w3.org/2000/svg"

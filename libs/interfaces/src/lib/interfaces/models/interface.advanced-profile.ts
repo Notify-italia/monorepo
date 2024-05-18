@@ -71,6 +71,8 @@ export interface INotifyAPPlaceItem
 export interface INotifyAPContactsItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Contacts> {
   items: INotifyContactItem[];
+  style: EnumNotifyAPButtonStyles;
+  direction: EnumNotifyAPDirections;
 }
 export type INotifyContactItem = baseButton;
 
