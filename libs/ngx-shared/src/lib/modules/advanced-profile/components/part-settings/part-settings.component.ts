@@ -35,8 +35,9 @@ export class PartSettingsComponent {
 
   public showHiddenToggle = CHECKBOX_TOGGLE_EYE;
   public showHiddenToggleWithButton = {
-    checked: `<button type="button" class="btn btn-outline btn-sm">${CHECKBOX_TOGGLE_EYE.checked}</button>`,
-    unchecked: `<button type="button" class="btn btn-outline btn-sm">${CHECKBOX_TOGGLE_EYE.unchecked}</button>`,
+    checked: CHECKBOX_TOGGLE_EYE.checked,
+    unchecked: CHECKBOX_TOGGLE_EYE.unchecked,
+    button: `btn btn-sm btn-outline`,
   };
   public fontsIconSet = FONTS_ICON_SET;
 
