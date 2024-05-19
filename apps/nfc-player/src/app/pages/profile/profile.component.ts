@@ -9,10 +9,13 @@ import {
   INotifyProfile,
 } from '@notify/interfaces';
 import {
+  AdvancedProfileItemOutputsService,
+  CREATE_IFRAME_MODAL_CONFIG,
   FeedbackFactory,
   FileRecievedFactory,
   FloatingButtonComponent,
   GesturesDirective,
+  IAdvancedProfileItemClickedEvent,
   LoadingComponent,
   ProfileService,
   ProfileViewComponent,
@@ -21,11 +24,15 @@ import {
   SwipeAvailableComponent,
   UtilsService,
   defaultGradientStops,
+  iframeFactory,
 } from '@notify/ngx-shared';
 import {
   Observable,
   Subject,
   catchError,
+  debounce,
+  debounceTime,
+  filter,
   of,
   switchMap,
   takeUntil,
@@ -44,7 +51,13 @@ import { environment } from '../../../environments/environment';
     LoadingComponent,
     FloatingButtonComponent,
   ],
-  providers: [FileRecievedFactory, StatService, FeedbackFactory, UtilsService],
+  providers: [
+    FileRecievedFactory,
+    StatService,
+    FeedbackFactory,
+    UtilsService,
+    iframeFactory,
+  ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
@@ -115,7 +128,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private _statService: StatService,
     private _feedbackFactory: FeedbackFactory,
     private _utils: UtilsService,
-    private _domSanitizer: DomSanitizer
+    private _domSanitizer: DomSanitizer,
+    private _apItemOutputs: AdvancedProfileItemOutputsService,
+    private _iframeFactory: iframeFactory
   ) {
     this.profile$ = this._profileService.getProfile(this._id).pipe(
       tap((profile) =>
@@ -146,6 +161,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
         throw new Error(err);
       })
     );
+
+    this._apItemOutputs.itemClicked
+      .pipe(
+        takeUntil(this._destroy$),
+        debounce((event) =>
+          of(event).pipe(
+            filter((e) => e.eventName !== 'ITEM_CLICKED'),
+            debounceTime(100)
+          )
+        ),
+        debounceTime(600),
+        tap((event) => this._handleAdvancedProfileEvent(event))
+      )
+      .subscribe();
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -343,6 +372,25 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this._activatedRoute.snapshot.paramMap.get('id') as string
     );
     return this._activatedRoute.snapshot.paramMap.get('id') as string;
+  }
+
+  private _handleAdvancedProfileEvent(event: IAdvancedProfileItemClickedEvent) {
+    switch (event.eventName) {
+      case 'CREATE_IFRAME_MODAL': {
+        const eventData =
+          event.eventData as IAdvancedProfileItemClickedEvent<CREATE_IFRAME_MODAL_CONFIG>['eventData'];
+
+        if (!eventData) {
+          return;
+        }
+
+        this._iframeFactory.create(eventData);
+        break;
+      }
+
+      default:
+        break;
+    }
   }
 
   private _setMeta(profile: INotifyProfile) {

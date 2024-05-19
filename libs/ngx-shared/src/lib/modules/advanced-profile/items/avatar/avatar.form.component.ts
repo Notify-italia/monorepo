@@ -1,6 +1,7 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 
+import { FormGroup } from '@angular/forms';
 import {
   EnumNotifyAPCorners,
   INotifyAPAvatarItem,
@@ -28,7 +29,53 @@ import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/compon
         [compact]="true"
         label="Orientamento"
         [options]="directionSelectOptions"
+        [ngClass]="{
+          'pointer-events-none brightness-50': form.value.imgMask === 'banner'
+        }"
       ></notify-tailwind-select>
+
+      <notify-tailwind-select
+        *ngIf="isAgent"
+        [parent]="form"
+        name="ownerImgCorner"
+        [compact]="true"
+        label="Posizione avatar aziendale"
+        [options]="cornerSelectOptions"
+        [ngClass]="{
+          'pointer-events-none brightness-50': form.value.imgMask === 'banner'
+        }"
+      ></notify-tailwind-select>
+
+      <div class="divider"></div>
+
+      <notify-tailwind-dropzone
+        [parent]="form"
+        acceptedFiles="image/*"
+        name="imgSrc"
+        [maxFiles]="1"
+        height="10rem"
+        [labels]="dropzoneLabels"
+        [cdnConfig]="context.controls.dropzone.config"
+        [centerPreview]="true"
+        [delegateActions]="{
+          deleteFromForm: false,
+          addToForm: false
+        }"
+        (itemDeleted)="deleteAvatar()"
+        (itemAdded)="addAvatar($event)"
+      ></notify-tailwind-dropzone>
+
+      <notify-tailwind-select
+        [parent]="form"
+        name="imgMask"
+        [compact]="true"
+        label="Cornice"
+        placeholder="Nessuna"
+        [options]="avatarMaskOptions"
+      ></notify-tailwind-select>
+
+      <div class="divider"></div>
+
       <notify-tailwind-input
         [parent]="form"
         name="label"
@@ -103,40 +150,6 @@ import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/compon
         [cols]="5"
         placeholder="Nessuna Descrizione"
       ></notify-tailwind-textarea>
-
-      <div class="divider"></div>
-
-      <notify-tailwind-dropzone
-        [parent]="form"
-        acceptedFiles="image/*"
-        name="imgSrc"
-        [maxFiles]="1"
-        height="10rem"
-        [labels]="dropzoneLabels"
-        [cdnConfig]="cdnConfig"
-        [centerPreview]="true"
-      ></notify-tailwind-dropzone>
-
-      <notify-tailwind-select
-        [parent]="form"
-        name="imgMask"
-        [compact]="true"
-        label="Cornice"
-        placeholder="Nessuna"
-        [options]="avatarMaskOptions"
-      ></notify-tailwind-select>
-
-      @if(isAgent) {
-      <div class="divider"></div>
-
-      <notify-tailwind-select
-        [parent]="form"
-        name="ownerImgCorner"
-        [compact]="true"
-        label="Posizione avatar aziendale"
-        [options]="cornerSelectOptions"
-      ></notify-tailwind-select>
-      }
     </div>
   `,
 })
@@ -177,5 +190,37 @@ export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<IN
     }
 
     this.form.get('sublabel')?.setValue('');
+  }
+
+  public deleteAvatar() {
+    const fg = this.form.controls.imgSrc;
+
+    fg.removeAt(0);
+  }
+
+  public addAvatar(items: Record<string, unknown>[]) {
+    const item = items[0] as unknown as {
+      name: string;
+      size: number;
+      type: string;
+      data: string;
+      url: string;
+    };
+    const control = this.form.controls.imgSrc.controls[0];
+
+    if (!control) {
+      this.form.controls.imgSrc.push(
+        this.context.services.forms.createFormGroup({
+          name: item.name,
+          size: item.size,
+          type: item.type,
+          url: item.url,
+          data: item.data,
+        }) as FormGroup
+      );
+      return;
+    }
+
+    this.form.controls.imgSrc.controls[0].setValue(item);
   }
 }

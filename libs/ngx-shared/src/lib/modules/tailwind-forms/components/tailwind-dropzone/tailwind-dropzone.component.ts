@@ -2,10 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import {
   AfterViewInit,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
   inject,
@@ -80,9 +82,19 @@ export class TailwindDropzoneComponent
   @Input() acceptedFiles!: string;
   @Input() maxFileSize = 15;
   @Input() cdnConfig!: INotifyTailwindDropzoneCdnConfig;
+  /**
+   * Delegate actions to this component instead of manually handling them
+   */
+  @Input() delegateActions = {
+    deleteFromForm: true,
+    addToForm: true,
+  };
 
   @Input() validationErrors!: { [key: string]: string };
   @Input() maxFiles = 10;
+
+  @Output() itemDeleted = new EventEmitter<Record<string, unknown>>();
+  @Output() itemAdded = new EventEmitter<Record<string, unknown>[]>();
 
   @ViewChild(DropzoneDirective) dropzoneDirective!: DropzoneDirective;
 
@@ -95,6 +107,13 @@ export class TailwindDropzoneComponent
 
   ngOnInit(): void {
     this._setDropzoneConfig();
+
+    this.parent
+      .get(this.name)
+      ?.valueChanges.pipe(takeUntil(this.destroy$))
+      .subscribe((value) => {
+        this.dzApi.options.maxFiles = this.maxFiles - value.length;
+      });
   }
 
   ngAfterViewInit() {
@@ -167,6 +186,11 @@ export class TailwindDropzoneComponent
     this.dzApi.on('queuecomplete', () => {
       this.dzApi.options.maxFiles = this.maxFiles - currentFiles.length;
     });
+
+    this.dzApi.on('maxfilesexceeded', (file) => {
+      console.log('maxfilesexceeded', file);
+      this.dzApi.removeFile(file);
+    });
   }
 
   public onFileAdded(
@@ -180,7 +204,18 @@ export class TailwindDropzoneComponent
   ) {
     const currentFiles = this.parent.controls[this.name].value;
 
-    this.parent.controls[this.name].setValue(
+    if (this.delegateActions.addToForm) {
+      this.parent.controls[this.name].setValue(
+        currentFiles.concat({
+          [this.schema.value]: event[1][this.cdnConfig.responseSchema.value],
+          [this.schema.name]: event[0].name,
+          [this.schema.size]: event[0].size,
+          [this.schema.type]: event[0].type,
+        })
+      );
+    }
+
+    this.itemAdded.emit(
       currentFiles.concat({
         [this.schema.value]: event[1][this.cdnConfig.responseSchema.value],
         [this.schema.name]: event[0].name,
@@ -199,6 +234,17 @@ export class TailwindDropzoneComponent
     console.warn(
       `File with name ${event.name} has been removed from the dropzone.`
     );
+
+    const currentControl = this.parent.controls[this.name].value;
+
+    if (
+      !currentControl.filter(
+        (f: Record<string, unknown>) => f[this.schema.name] === event.name
+      ).length
+    ) {
+      return;
+    }
+
     const currentFiles = this.parent.controls[this.name].value;
 
     this._httpService
@@ -211,14 +257,23 @@ export class TailwindDropzoneComponent
       })
       .pipe(
         takeUntil(this.destroy$),
-        tap(() =>
-          this.parent.controls[this.name].setValue(
+        tap(() => {
+          if (this.delegateActions.deleteFromForm) {
+            this.parent.controls[this.name].setValue(
+              currentFiles.filter(
+                (file: Record<string, unknown>) =>
+                  file[this.schema.name] !== event.name
+              )
+            );
+          }
+
+          this.itemDeleted.emit(
             currentFiles.filter(
               (file: Record<string, unknown>) =>
-                file[this.schema.name] !== event.name
-            )
-          )
-        )
+                file[this.schema.name] === event.name
+            )[0]
+          );
+        })
       )
       .subscribe();
   }

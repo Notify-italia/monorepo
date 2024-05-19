@@ -16,7 +16,6 @@ import {
   INotifyAdvancedProfileManifest,
 } from '../modules/advanced-profile/services/advanced-profile-items.service';
 import { CHECKBOX_TOGGLE_EYE } from '../modules/tailwind-forms/components/tailwind-checkbox/tailwind-checkbox.component';
-import { INotifyTailwindDropzoneCdnConfig } from '../modules/tailwind-forms/components/tailwind-dropzone/tailwind-dropzone.component';
 import { ITailwindSelectOption } from '../modules/tailwind-forms/components/tailwind-select/tailwind-select.component';
 import { TailwindFormsModule } from '../modules/tailwind-forms/tailwind-forms.module';
 import {
@@ -79,65 +78,55 @@ export class AdvancedProfileItemFormBaseComponent<
     value,
   }));
 
-  public cdnConfig!: INotifyTailwindDropzoneCdnConfig;
-
-  public context = {
-    services: {
-      auth: this._authService,
-      apItems: this._apItemsSerivce,
-      forms: this._formsService,
-      utils: this._utilsSerivce,
-    },
-    advancedProfile: () => this.formContext.value,
-    getters: {
-      isAgent: () =>
-        this._authService.user?.userType === EnumNotifyUserType.Agent,
-      isCompany: () =>
-        this._authService.user?.userType === EnumNotifyUserType.Company,
-      requiredItems: () => this._requiredItems(),
-      isRequired: () => this._requiredItemsIds().includes(this.form.value._id),
-    },
-    controls: {
-      dropzone: {
-        config: (): INotifyTailwindDropzoneCdnConfig => ({
-          postEndpoint: 'http://google.com',
-          authorization: this.authHeaders,
-          body: {
-            item: this.form.value._id || '',
-            profile: this.profile._id || '',
-          },
-          deleteEndpoint: '',
-          deleteSchema: {
-            name: 'name',
-          },
-          deleteExtraParams: {
-            item: this.form.value._id || '',
-            profile: this.profile._id || '',
-          },
-          responseSchema: {
-            value: 'url',
-          },
-        }),
+  public get context() {
+    return {
+      services: {
+        auth: this._authService,
+        apItems: this._apItemsSerivce,
+        forms: this._formsService,
+        utils: this._utilsSerivce,
       },
-      select: {
-        buttonStyles: this._apItemsSerivce.createSelectOptions(
-          EnumNotifyAPButtonStyles,
-          NOTIFY_AP_BUTTON_STYLES_IT
-        ),
-        directions: this._apItemsSerivce.createSelectOptions(
-          EnumNotifyAPDirections,
-          NOTIFY_AP_DIRECTIONS_IT
-        ),
+      advancedProfile: () => this.formContext.value,
+      getters: {
+        isAgent: () =>
+          this._authService.user?.userType === EnumNotifyUserType.Agent,
+        isCompany: () =>
+          this._authService.user?.userType === EnumNotifyUserType.Company,
+        requiredItems: () => this._requiredItems(),
+        isRequired: () =>
+          this._requiredItemsIds().includes(this.form.value._id),
       },
-      checkbox: {
-        toggleEye: CHECKBOX_TOGGLE_EYE,
-        outlineToggleEye: {
-          checked: `<button type="button" class="btn btn-outline btn-sm">${CHECKBOX_TOGGLE_EYE.checked}</button>`,
-          unchecked: `<button type="button" class="btn btn-outline btn-sm">${CHECKBOX_TOGGLE_EYE.unchecked}</button>`,
+      controls: {
+        dropzone: {
+          config: this._apItemsSerivce.dropzoneConfig(
+            {
+              item: this.form.value._id,
+              profile: this.profile._id,
+            },
+            this._utilsSerivce.apiUrl,
+            this._authService.authHeaders
+          ),
+        },
+        select: {
+          buttonStyles: this._apItemsSerivce.createSelectOptions(
+            EnumNotifyAPButtonStyles,
+            NOTIFY_AP_BUTTON_STYLES_IT
+          ),
+          directions: this._apItemsSerivce.createSelectOptions(
+            EnumNotifyAPDirections,
+            NOTIFY_AP_DIRECTIONS_IT
+          ),
+        },
+        checkbox: {
+          toggleEye: CHECKBOX_TOGGLE_EYE,
+          outlineToggleEye: {
+            checked: `<button type="button" class="btn btn-outline btn-sm">${CHECKBOX_TOGGLE_EYE.checked}</button>`,
+            unchecked: `<button type="button" class="btn btn-outline btn-sm">${CHECKBOX_TOGGLE_EYE.unchecked}</button>`,
+          },
         },
       },
-    },
-  };
+    };
+  }
 
   public get isAgent() {
     return this._authService.user?.userType === EnumNotifyUserType.Agent;
@@ -145,10 +134,6 @@ export class AdvancedProfileItemFormBaseComponent<
 
   public get isCompany() {
     return this._authService.user?.userType === EnumNotifyUserType.Company;
-  }
-
-  public get authHeaders() {
-    return this._authService.authHeaders;
   }
 
   private _requiredItems() {
@@ -172,26 +157,6 @@ export class AdvancedProfileItemFormBaseComponent<
 
   public ngOnInit(): void {
     this._compareFormWithDefinition();
-
-    this.cdnConfig = {
-      postEndpoint: 'http://google.com',
-      authorization: this.authHeaders,
-      body: {
-        item: this.form.value._id || '',
-        profile: this.profile._id || '',
-      },
-      deleteEndpoint: '',
-      deleteSchema: {
-        name: 'name',
-      },
-      deleteExtraParams: {
-        item: this.form.value._id || '',
-        profile: this.profile._id || '',
-      },
-      responseSchema: {
-        value: 'url',
-      },
-    };
 
     this.componentReady();
   }

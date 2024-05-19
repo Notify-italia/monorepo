@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { INotifyAPLinksItem } from '@notify/interfaces';
+import { INotifyAPLinkItem, INotifyAPLinksItem } from '@notify/interfaces';
 import { AdvancedProfileItemPlayerBaseComponent } from '../../../../constructors/ap-item.player.base.component';
 import { SvgboxService } from '../../../../services';
 import { AvatarComponent, SvgBoxIconComponent } from '../../../../standalones';
@@ -15,6 +15,7 @@ import { AvatarComponent, SvgBoxIconComponent } from '../../../../standalones';
       *ngIf="this.context.getters.container as container"
       [class]="container.class"
       [ngStyle]="container.ngStyle"
+      [ngClass]="container.ngClass"
     >
       <div
         class="flex items-center w-full"
@@ -24,7 +25,8 @@ import { AvatarComponent, SvgBoxIconComponent } from '../../../../standalones';
         }"
       >
         @for (link of items; track $index) {
-        <a
+        <button
+          (click)="openLink(link)"
           *ngIf="link.visible"
           class="btn !flex-nowrap truncate  min-h-1 !h-fit py-2"
           [ngClass]="{
@@ -40,15 +42,13 @@ import { AvatarComponent, SvgBoxIconComponent } from '../../../../standalones';
           'color':textColor,
           
         }"
-          [href]="link.url"
-          target="_blank"
         >
           <notify-svg-box-icon
             [iconName]="link.icon"
             [size]="iconSize"
           ></notify-svg-box-icon>
           <span *ngIf="isVertical">{{ link.caption }}</span>
-        </a>
+        </button>
         }
       </div>
     </div>
@@ -122,5 +122,14 @@ export class LinksPlayerComponent extends AdvancedProfileItemPlayerBaseComponent
     return (
       this.currentItem.direction === this.context.statics.directions.Vertical
     );
+  }
+
+  public openLink(link: INotifyAPLinkItem) {
+    if (this.context.getters.currentItem.openInNotify) {
+      this.context.methods.createIframeModal(link.url, link.caption);
+      return;
+    }
+
+    window.open(link.url, '_blank');
   }
 }

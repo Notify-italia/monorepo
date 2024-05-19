@@ -9,6 +9,7 @@ import {
 } from '@notify/interfaces';
 import mongoose from 'mongoose';
 import { FormsService, controlsFromObject } from '../../../services';
+import { INotifyTailwindDropzoneCdnConfig } from '../../tailwind-forms/components/tailwind-dropzone/tailwind-dropzone.component';
 
 export interface INotifyAdvancedProfileManifest<
   T extends NotifyAdvancedProfileItem = NotifyAdvancedProfileItem
@@ -21,7 +22,8 @@ export interface INotifyAdvancedProfileManifest<
   formComponent?: Type<unknown>;
   playerComponent?: Type<unknown>;
   formOptions?: {
-    hideTextSettings: boolean;
+    hideTextSettings?: boolean;
+    hideTitle?: boolean;
   };
   definitions: ModifyDeep<
     T,
@@ -42,6 +44,30 @@ const advancedProfileManifests: {
 @Injectable()
 export class AdvancedProfileItemsService {
   private formsSerivce = inject(FormsService);
+
+  public dropzoneConfig(
+    config: {
+      item: string;
+      profile: string;
+    },
+    apiUrl: string,
+    headers: { [key: string]: string }
+  ): INotifyTailwindDropzoneCdnConfig {
+    const endpoint = `${apiUrl}/v1/profile/file`;
+    return {
+      postEndpoint: endpoint,
+      authorization: headers,
+      body: config,
+      deleteEndpoint: endpoint,
+      deleteSchema: {
+        name: 'name',
+      },
+      deleteExtraParams: config,
+      responseSchema: {
+        value: 'url',
+      },
+    };
+  }
 
   public static publishManifest(manifest: INotifyAdvancedProfileManifest) {
     manifest.definitions.type = manifest.type;

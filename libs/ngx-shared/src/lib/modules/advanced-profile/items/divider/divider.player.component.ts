@@ -8,6 +8,6 @@ import { AvatarComponent } from '../../../../standalones';
   standalone: true,
   imports: [CommonModule, AvatarComponent],
   styleUrl: '../../advanced-profile.styles.scss',
-  template: ` <div class="notify-divider"></div> `,
+  template: `<div class="notify-divider opacity-25 !my-0"></div>`,
 })
 export class DividerPlayerComponent extends AdvancedProfileItemPlayerBaseComponent<INotifyAPAvatarItem> {}

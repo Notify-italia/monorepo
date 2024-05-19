@@ -21,7 +21,7 @@ import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/compon
       [maxFiles]="1"
       height="10rem"
       [labels]="dropzoneLabels"
-      [cdnConfig]="cdnConfig"
+      [cdnConfig]="context.controls.dropzone.config"
       [centerPreview]="true"
     ></notify-tailwind-dropzone>
   </div>`,

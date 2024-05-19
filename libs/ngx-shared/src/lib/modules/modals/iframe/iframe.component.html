@@ -6,7 +6,11 @@
         (click)="$event.stopPropagation()"
       >
         <div
-          class="flex flex-row p-2 justify-between whitespace-nowrap bg-primary-500 border border-primary-600 rounded-lg w-full items-center"
+          class="flex flex-row p-2 justify-between whitespace-nowrap rounded-lg w-full items-center"
+          [ngStyle]="{
+            'background-color': navbarStyle.backgroundColor,
+            color: navbarStyle.color,
+          }"
         >
           <div class="text-sm truncate w-6/12">
             <strong> {{ title }}</strong>
@@ -57,10 +61,11 @@
         </div>
         <div class="w-full h-full items-center">
           <iframe
-            class="w-full h-full rounded-xl"
+            class="w-full h-full rounded-xl bg-black"
             [cachedSrc]="url"
             frameborder="0"
             allowfullscreen
+            is="x-frame-bypass"
           ></iframe>
         </div>
       </div>
