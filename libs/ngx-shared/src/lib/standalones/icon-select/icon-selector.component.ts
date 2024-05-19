@@ -82,7 +82,6 @@ export class IconSelectorComponent implements OnInit, OnChanges {
     if (this.icon || !this.openSelectorOnBoot) {
       this.currentIcon =
         this.iconInSet || (this.openSelectorOnBoot ? null : DEFAULT_ICON);
-
       this.closeSelector();
     }
 

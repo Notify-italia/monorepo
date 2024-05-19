@@ -52,7 +52,10 @@
           !item.form.get('visible')?.value
       }"
     >
-      <div class="flex items-end space-x-2 relative">
+      <div
+        class="flex items-end space-x-2 relative"
+        *ngIf="!item.manifest.formOptions?.hideTitle"
+      >
         <notify-tailwind-input
           [parent]="item.form"
           name="title"

@@ -23,6 +23,11 @@
           eventName: 'ITEM_CLICKED'
         })
       "
+      class="mx-1.5"
+      [ngClass]="{
+        'rounded-lg hover:outline-2 hover:outline-dashed cursor-pointer hover:scale-95 smooth smooth-fast active:scale-90 active:brightness-75':
+          !isRunningOnPlayer
+      }"
     >
       <div
         class="flex flex-col"
@@ -30,7 +35,7 @@
         [ngStyle]="{
           'margin-top': verticalSpacing,
           'margin-bottom': verticalSpacing,
-          '!pointer-events-none': !isRunningOnPlayer
+          
         }"
       >
         <div class="my-3 mt-0" *ngIf="i.data.title?.length && i.data.showTitle">

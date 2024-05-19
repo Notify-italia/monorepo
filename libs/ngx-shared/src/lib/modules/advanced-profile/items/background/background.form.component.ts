@@ -48,7 +48,7 @@ const FORCE_UPDATE_KEYS: string[] = [];
         name="padding"
         label="Margine laterale"
         [steps]="5"
-        [min]="1"
+        [min]="0.5"
         [max]="3"
         [compact]="true"
       ></notify-tailwind-slider>

@@ -33,6 +33,19 @@ import { TailwindInputComponent } from '../../../tailwind-forms/tailwind-forms.m
       [compact]="true"
     ></notify-tailwind-select>
 
+    <div class="relative w-full">
+      <notify-tailwind-checkbox
+        [parent]="form"
+        name="openInNotify"
+        label="Apri links in Notify (beta)"
+        [compact]="true"
+        class="w-full"
+      ></notify-tailwind-checkbox>
+      <small class="absolute top-6 opacity-50"
+        >Non supportato da tutti i siti web.</small
+      >
+    </div>
+
     <div class="divider"></div>
 
     <button class="btn btn-sm w-full" (click)="addItem()">

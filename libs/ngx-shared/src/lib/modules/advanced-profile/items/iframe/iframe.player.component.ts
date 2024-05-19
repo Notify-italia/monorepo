@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { INotifyAPIFrameItem } from '@notify/interfaces';
 
 import { OgObject } from 'open-graph-scraper/dist/lib/types';
@@ -7,7 +7,7 @@ import { catchError, debounceTime, of, switchMap, tap } from 'rxjs';
 import { AdvancedProfileItemPlayerBaseComponent } from '../../../../constructors/ap-item.player.base.component';
 import { CachedSrcDirective } from '../../../../directives';
 import { AvatarComponent, LoadingComponent } from '../../../../standalones';
-import { iframeFactory } from '../../../modals';
+import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
 
 @Component({
   standalone: true,
@@ -24,6 +24,7 @@ import { iframeFactory } from '../../../modals';
       *ngIf="this.context.getters.container as container"
       [class]="container.class"
       [ngStyle]="container.ngStyle"
+      [ngClass]="container.ngClass"
     >
       <button
         class="flex space-x-2 items-center justify-evenly  rounded-xl  text-start px-4 py-2 w-full h-36"
@@ -68,8 +69,6 @@ import { iframeFactory } from '../../../modals';
   `,
 })
 export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponent<INotifyAPIFrameItem> {
-  private _iframeFactory = inject(iframeFactory);
-
   public openGraphMetadata?: OgObject;
   public get currentUrl() {
     const url = this.context.getters.currentItem.url;
@@ -117,13 +116,24 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
   }
 
   public handleClick() {
-    this._iframeFactory.create({
-      url: this.currentUrl,
-      title:
-        this.openGraphMetadata?.ogTitle ||
-        this.openGraphMetadata?.requestUrl ||
-        '',
-    });
+    this.context.emitters.itemClicked<{
+      url: string;
+      title: string;
+      navbarStyle: IFrameModalNavbarStyle;
+    }>(
+      {
+        url: this.currentUrl,
+        title:
+          this.openGraphMetadata?.ogTitle ||
+          this.openGraphMetadata?.requestUrl ||
+          '',
+        navbarStyle: {
+          backgroundColor: this.context.getters.textColor,
+          color: this.ogMetadataTextColor,
+        },
+      },
+      'CREATE_IFRAME_MODAL'
+    );
   }
 
   public override componentReady(): void {

@@ -27,6 +27,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPLinksItem> = {
     ...itemManifest.definitions,
     style: EnumNotifyAPButtonStyles.Text,
     direction: EnumNotifyAPDirections.Horizontal,
+    openInNotify: false,
     items: [
       {
         icon: '',

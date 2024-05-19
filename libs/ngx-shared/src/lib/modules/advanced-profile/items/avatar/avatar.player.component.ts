@@ -14,7 +14,9 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
       *ngIf="this.context.getters.container as container"
       [class]="container.class"
       [ngStyle]="container.ngStyle"
+      [ngClass]="container.ngClass"
     >
+      @if(currentItem.imgMask !== 'banner') {
       <div
         class="flex items-center w-full"
         [ngClass]="{
@@ -50,6 +52,27 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
           </small>
         </div>
       </div>
+      } @else {
+      <div class="flex flex-col items-center">
+        <img
+          [src]="currentItem.imgSrc[0].url"
+          class="w-full h-48 rounded-xl object-cover"
+          alt="Avatar"
+        />
+
+        <span class="font-bold mt-2">
+          {{ currentItem.label }}
+        </span>
+        <small class="italic opacity-80">
+          {{ currentItem.sublabel }}
+        </small>
+        <small>
+          <small class="mt-2 opacity-70 whitespace-pre-line">
+            {{ currentItem.description }}
+          </small>
+        </small>
+      </div>
+      }
     </div>
   `,
 })

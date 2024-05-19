@@ -14,12 +14,15 @@ import {
   EnumNotifyAPButtonStyles,
   EnumNotifyAPDirections,
   EnumNotifyUserType,
-  INotifyAdvancedProfileItem,
   INotifyProfile,
   NotifyAdvancedProfileItem,
 } from '@notify/interfaces';
 import { Subject, takeUntil } from 'rxjs';
-import { AdvancedProfileItemOutputsService } from '../modules/advanced-profile/services/advanced-profile-item-outputs.service';
+import {
+  ADVANCED_PROFILE_CLICK_EVENTS,
+  AdvancedProfileItemOutputsService,
+  CREATE_IFRAME_MODAL_CONFIG,
+} from '../modules/advanced-profile/services/advanced-profile-item-outputs.service';
 import {
   AdvancedProfileItemsService,
   INotifyAdvancedProfileManifest,
@@ -81,16 +84,16 @@ export class AdvancedProfileItemPlayerBaseComponent<
       },
       emitters: {
         showCompanyProfile: () => this._apOutputsService.itemClicked,
-        itemClicked: (
-          data: INotifyAdvancedProfileItem['clickEventData'],
-          eventName: string
-        ) => {
+        itemClicked: <T>(data: T, eventName: ADVANCED_PROFILE_CLICK_EVENTS) => {
           this._apOutputsService.onItemClicked({
             item: this.currentItem,
-            clickEventData: data,
+            eventData: data,
             eventName,
           });
         },
+      },
+      methods: {
+        createIframeModal: this._createIframeModal.bind(this),
       },
       getters: {
         isRunningOnPlayer: this.isRunningOnPlayer,
@@ -115,6 +118,9 @@ export class AdvancedProfileItemPlayerBaseComponent<
           ngStyle: {
             'font-size': this._fontSize,
             color: this._textColor,
+          },
+          ngClass: {
+            'pointer-events-none': !this.isRunningOnPlayer,
           },
         },
       },
@@ -143,7 +149,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
 
   private get _textColor() {
     if (!this.textSettings.enabled) {
-      return this.profile.advancedProfile?.pageSettings?.textColor;
+      return this.profile.advancedProfile?.pageSettings?.textColor || '#000000';
     }
 
     return this.textSettings.textColor;
@@ -166,6 +172,21 @@ export class AdvancedProfileItemPlayerBaseComponent<
 
   private _requiredItemsIds() {
     return this._requiredItems().map((item) => item.value);
+  }
+
+  private _createIframeModal(url: string, title: string) {
+    this._apOutputsService.onItemClicked<CREATE_IFRAME_MODAL_CONFIG>({
+      item: this.currentItem,
+      eventData: {
+        url,
+        title,
+        navbarStyle: {
+          backgroundColor: this._textColor,
+          color: this._utilsSerivce.getContrstingColor(this._textColor),
+        },
+      },
+      eventName: 'CREATE_IFRAME_MODAL',
+    });
   }
 
   public ngOnInit(): void {

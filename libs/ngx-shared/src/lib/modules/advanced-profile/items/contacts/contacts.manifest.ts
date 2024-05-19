@@ -34,7 +34,6 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPContactsItem> = {
     ...itemManifest.definitions,
     direction: EnumNotifyAPDirections.Horizontal,
     style: EnumNotifyAPButtonStyles.Text,
-    clickEventData: _item,
     items: [_item],
   },
 };

@@ -18,6 +18,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPDividerItem> = {
   outlineIcon: ['M5 12h14'],
   formOptions: {
     hideTextSettings: true,
+    hideTitle: true,
   },
   playerComponent: DividerPlayerComponent,
   definitions: {

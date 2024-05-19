@@ -13,6 +13,7 @@ import { AvatarComponent, GoogleMapsComponent } from '../../../../standalones';
       class="{{ container.class }} flex flex-col space-y-2 text-center"
       *ngIf="this.context.getters.container as container"
       [ngStyle]="container.ngStyle"
+      [ngClass]="container.ngClass"
     >
       <div
         class="box !rounded-lg !bg-white/10"

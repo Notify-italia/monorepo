@@ -16,12 +16,14 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
       *ngIf="this.context.getters.container as container"
       [class]="container.class"
       [ngStyle]="container.ngStyle"
+      [ngClass]="container.ngClass"
     >
       <div
         class="flex items-center w-full"
         [ngClass]="{
           'flex-col space-y-4': isVertical,
-          'flex-row  justify-evenly flex-wrap ': isHorizontal
+          'flex-row  justify-around  flex-nowrap overflow-x-auto notify-scrollbar scrollbar-absolute':
+            isHorizontal
         }"
       >
         @for (contact of items; track $index) {
