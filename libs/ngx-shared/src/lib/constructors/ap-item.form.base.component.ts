@@ -121,7 +121,7 @@ export class AdvancedProfileItemFormBaseComponent<
           toggleEye: CHECKBOX_TOGGLE_EYE,
           outlineToggleEye: {
             checked: `<button type="button" class="btn btn-outline btn-sm">${CHECKBOX_TOGGLE_EYE.checked}</button>`,
-            unchecked: `<button type="button" class="btn btn-outline btn-sm">${CHECKBOX_TOGGLE_EYE.unchecked}</button>`,
+            unchecked: `<button type="button" class="btn btn-sm">${CHECKBOX_TOGGLE_EYE.unchecked}</button>`,
           },
         },
       },
