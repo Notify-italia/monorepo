@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -20,7 +14,6 @@ export const CHECKBOX_TOGGLE_EYE = {
 @Component({
   selector: 'notify-tailwind-checkbox',
   templateUrl: './tailwind-checkbox.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TailwindCheckboxComponent implements OnInit {
   private _domSanitizer = inject(DomSanitizer);
