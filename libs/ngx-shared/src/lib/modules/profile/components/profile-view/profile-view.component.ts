@@ -48,6 +48,7 @@ export class ProfileViewComponent implements OnInit {
   @Input() mockup = false;
   @Input() feedbackKey = 'feedback';
   @Input() footer?: SafeHtml;
+  @Input() isRunningOnPlayer = false;
 
   @Output() subAvatarClick = new EventEmitter<void>();
   @Output() public integrationClicked = new EventEmitter<

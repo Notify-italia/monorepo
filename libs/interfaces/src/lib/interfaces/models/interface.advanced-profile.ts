@@ -69,7 +69,10 @@ export interface INotifyAPPlaceItem
 
 //contacts
 export interface INotifyAPContactsItem
-  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Contacts> {
+  extends INotifyAdvancedProfileItem<
+    EnumNotifyAdvancedProfileItems.Contacts,
+    INotifyContactItem
+  > {
   items: INotifyContactItem[];
   style: EnumNotifyAPButtonStyles;
   direction: EnumNotifyAPDirections;
@@ -98,11 +101,13 @@ export interface INotifyAPIFrameItem
 }
 
 export interface INotifyAdvancedProfileItem<
-  T extends EnumNotifyAdvancedProfileItems
+  T extends EnumNotifyAdvancedProfileItems = EnumNotifyAdvancedProfileItems,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  clickEventData = any
 > {
   type: T;
   clickEvent: string;
-  clickEventData: string;
+  clickEventData: clickEventData;
   visible: boolean;
   title: string;
   showTitle: boolean;

@@ -1,0 +1,69 @@
+<div class="unfold" (click)="close()" id="modal-container">
+  <div class="modal-background">
+    <div class="modal-content">
+      <div
+        class="flex flex-col space-y-2 h-full"
+        (click)="$event.stopPropagation()"
+      >
+        <div
+          class="flex flex-row p-2 justify-between whitespace-nowrap bg-primary-500 border border-primary-600 rounded-lg w-full items-center"
+        >
+          <div class="text-sm truncate w-6/12">
+            <strong> {{ title }}</strong>
+          </div>
+          <div class="flex space-x-2">
+            <button
+              class="btn btn-sm btn-error text-white"
+              (click)="close()"
+              data-theme="notifytheme"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+
+              <span>Chiudi</span>
+            </button>
+            <a class="btn btn-sm" [href]="url" target="_blank">
+              <svg
+                class="size-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                ></path>
+                <path d="M15 3h6v6"></path>
+                <path d="M10 14 21 3"></path>
+              </svg>
+              <span>Apri</span>
+            </a>
+          </div>
+        </div>
+        <div class="w-full h-full items-center">
+          <iframe
+            class="w-full h-full rounded-xl"
+            [cachedSrc]="url"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

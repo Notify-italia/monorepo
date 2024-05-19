@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, Output, inject } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
-import { INotifyProfile } from '@notify/interfaces';
+import { INotifyAdvancedProfileItem, INotifyProfile } from '@notify/interfaces';
+import { Subject } from 'rxjs';
 import { FormsService } from '../../services';
 import { BackgroundPlayerComponent } from './items/background/background.player.component';
+import { AdvancedProfileItemOutputsService } from './services/advanced-profile-item-outputs.service';
 import { AdvancedProfileItemsService } from './services/advanced-profile-items.service';
 
 @Component({
@@ -15,10 +17,14 @@ import { AdvancedProfileItemsService } from './services/advanced-profile-items.s
 })
 export class AdvancedProfilePlayerComponent {
   private _apItems = inject(AdvancedProfileItemsService);
+  public apItemOutputs = inject(AdvancedProfileItemOutputsService);
 
   @Input() profile!: INotifyProfile;
   @Input() contained = false;
+  @Input() isRunningOnPlayer = false;
   @Input() footer?: SafeHtml;
+
+  @Output() itemClicked = new Subject<INotifyAdvancedProfileItem>();
 
   public get background() {
     return this._apItems.getSystemManifests('background');

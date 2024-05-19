@@ -1,7 +1,7 @@
 <div
   class="relative font-poppins"
   [ngClass]="{
-    'h-full !w-full mockup-phone  border-gray-400 shadow-xl shadow-primary/10  p-2':
+    'h-full !w-full mockup-phone  border-gray-400   p-2 shrink-0 grow-0':
       mockup,
     'min-h-screen w-full ': !mockup
   }"
@@ -75,6 +75,7 @@
     [data]="data"
     [footer]="footer"
     [mockup]="mockup"
+    [isRunningOnPlayer]="isRunningOnPlayer"
     class="w-full h-full absolute top-0 left-0"
   ></div>
   }

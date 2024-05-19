@@ -16,6 +16,7 @@
       <button
         class="btn btn-error btn-outline w-full btn-sm shrink disabled:!bg-transparent"
         data-theme="notifytheme"
+        type="button"
         (click)="deleteItem()"
         [disabled]="isRequired"
       >
@@ -81,7 +82,7 @@
           [compact]="true"
           [parent]="tc"
           name="enabled"
-          label="Personalizza testo"
+          label="Personalizza stile"
         ></notify-tailwind-checkbox>
 
         <div

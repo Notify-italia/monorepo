@@ -47,16 +47,16 @@ const FORCE_UPDATE_KEYS: string[] = [];
         [parent]="pageSettingsForm"
         name="padding"
         label="Margine laterale"
-        [step]="0.25"
+        [steps]="5"
         [min]="1"
-        [max]="2.5"
+        [max]="3"
         [compact]="true"
       ></notify-tailwind-slider>
       <notify-tailwind-slider
         [parent]="pageSettingsForm"
         name="verticalSpacing"
         label="Spaziatura elementi"
-        [step]="0.2"
+        [steps]="20"
         [min]="0"
         [max]="2"
         [compact]="true"
@@ -149,7 +149,7 @@ const FORCE_UPDATE_KEYS: string[] = [];
 
       <div class="divider"></div>
 
-      <span class="font-medium">Testo</span>
+      <span class="font-medium">Stile testo</span>
       <div class="flex justify-between space-x-2 items-center">
         <notify-icon-selector
           [iconSet]="fontsIconSet"

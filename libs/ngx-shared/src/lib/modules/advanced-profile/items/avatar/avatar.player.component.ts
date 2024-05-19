@@ -27,7 +27,7 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
         <notify-avatar
           [avatarConfig]="avatarConfig"
           [subAvatarConfig]="companyAvatarConfig"
-          (subAvatarClick)="showCompanyProfile.emit()"
+          (subAvatarClick)="context.emitters.showCompanyProfile()"
         ></notify-avatar>
         <div
           class="flex flex-col"

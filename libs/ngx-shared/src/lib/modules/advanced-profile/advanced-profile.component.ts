@@ -22,6 +22,7 @@ import { ProfileViewComponent } from '../profile';
 import { ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS } from './items/background/background.form.component';
 import { LeftPanelComponent } from './parts/left-panel/left-panel.component';
 import { RightPanelComponent } from './parts/right-panel/right-panel.component';
+import { AdvancedProfileItemOutputsService } from './services/advanced-profile-item-outputs.service';
 
 @Component({
   selector: 'notify-advanced-profile',
@@ -42,6 +43,9 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
   private _route = inject(ActivatedRoute);
   private _profileSerivce = inject(ProfileService);
   private _formsSerivce = inject(FormsService);
+  private _advancedProfileItemOutputsService = inject(
+    AdvancedProfileItemOutputsService
+  );
 
   //observables
   private _profileSubject = new Subject<INotifyProfile>();
@@ -92,6 +96,13 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+
+    this._advancedProfileItemOutputsService.itemClicked.pipe(
+      takeUntil(this.destroy$),
+      tap((v) => {
+        this.selectedHierarchyItem = v.item._id;
+      })
+    );
   }
 
   public ngOnDestroy() {

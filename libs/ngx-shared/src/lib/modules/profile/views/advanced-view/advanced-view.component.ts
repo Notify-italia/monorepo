@@ -8,11 +8,17 @@ import { AdvancedProfilePlayerComponent } from '../../../advanced-profile/ap.pla
   selector: '[notify-advanced-view]',
   standalone: true,
   imports: [CommonModule, AdvancedProfilePlayerComponent],
-  templateUrl: './advanced-view.component.html',
-  styleUrl: './advanced-view.component.scss',
+  template: `<notify-ap-player
+    class="w-full h-full"
+    [profile]="data"
+    [footer]="footer"
+    [contained]="mockup"
+    [isRunningOnPlayer]="isRunningOnPlayer"
+  ></notify-ap-player> `,
 })
 export class AdvancedViewComponent {
   @Input() public data!: INotifyProfile;
   @Input() public footer?: SafeHtml;
   @Input() public mockup = false;
+  @Input() public isRunningOnPlayer = false;
 }
