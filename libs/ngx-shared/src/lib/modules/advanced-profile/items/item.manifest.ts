@@ -14,7 +14,7 @@ export const itemManifest: INotifyAdvancedProfileManifest = {
   definitions: {
     type: EnumNotifyAdvancedProfileItems.Unknown,
     clickEvent: '',
-    clickEventData: '',
+    clickEventData: null,
     visible: true,
     title: '',
     showTitle: true,

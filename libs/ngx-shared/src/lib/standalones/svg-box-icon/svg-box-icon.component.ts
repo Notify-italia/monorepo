@@ -46,7 +46,7 @@ export class SvgBoxIconComponent implements OnInit, OnChanges {
 
   public get iconUrl() {
     if (!this.icon) {
-      return '';
+      return this._svgBox.iconUrl(DEFAULT_ICON);
     }
 
     return this._svgBox.iconUrl(this.icon);
@@ -62,13 +62,15 @@ export class SvgBoxIconComponent implements OnInit, OnChanges {
     );
 
     if (!this.icon) {
-      this.icon = {
-        expanded: 'Question',
-        name: 'question',
-        tags: [],
-        set: 'octicons',
-        score: 10,
-      };
+      this.icon = DEFAULT_ICON;
     }
   }
 }
+
+const DEFAULT_ICON = {
+  expanded: 'Question',
+  name: 'question',
+  tags: [],
+  set: 'octicons',
+  score: 10,
+};

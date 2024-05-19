@@ -1,9 +1,9 @@
 import { Injectable, Type, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ModifyDeep } from '@notify/api-shared';
 import {
   EnumNotifyAdvancedProfileItems,
   INotifyProfile,
+  ModifyDeep,
   NotifyAdvancedProfileItem,
   NotifyAdvancedProfileItemTypes,
 } from '@notify/interfaces';

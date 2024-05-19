@@ -113,7 +113,11 @@
       (subAvatarClick)="forceShowCompanyProfile()"
       (feedbackClicked)="showFeedback(p)"
       [footer]="footer"
+      [isRunningOnPlayer]="true"
       [mockup]="['lg', 'xl', '2xl'].includes(currentBreakpoint)"
+      [ngClass]="{
+        'iphone-15-pro': ['lg', 'xl', '2xl'].includes(currentBreakpoint)
+      }"
     ></notify-profile-view>
   </div>
 
@@ -160,6 +164,9 @@
       (integrationClicked)="handleIntegrationClicked($event, pCompany)"
       [data]="pCompany"
       [mockup]="true"
+      [ngClass]="{
+        'iphone-15-pro': ['lg', 'xl', '2xl'].includes(currentBreakpoint)
+      }"
     ></notify-profile-view>
   </div>
 </ng-template>

@@ -15,8 +15,8 @@ import { AvatarComponent, GoogleMapsComponent } from '../../../../standalones';
       [ngStyle]="container.ngStyle"
     >
       <div
-        class="box !rounded-lg"
-        *ngIf="this.context.getters.currentItem.showStreetName"
+        class="box !rounded-lg !bg-white/10"
+        *ngIf="this.context.getters.currentItem.showStreetName && publicAddress"
       >
         <small>
           {{ publicAddress }}
@@ -32,9 +32,13 @@ import { AvatarComponent, GoogleMapsComponent } from '../../../../standalones';
 })
 export class PlacePlayerComponent extends AdvancedProfileItemPlayerBaseComponent<INotifyAPPlaceItem> {
   public get publicAddress() {
-    const currentItem = this.context.getters.currentItem;
+    const { address, civicNumber, city } = this.context.getters.currentItem;
 
-    return `${currentItem.address} ${currentItem.civicNumber}, ${currentItem.city}`;
+    if ([address, civicNumber, city].every((item) => !item)) {
+      return '';
+    }
+
+    return `${address} ${civicNumber}${city ? `, ${city}` : ''}`;
   }
 
   public get mapsQuery() {

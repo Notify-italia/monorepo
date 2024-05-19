@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AppError } from '@notify/interfaces';
 import { format } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
+import { ErrorResult, SuccessResult } from 'open-graph-scraper';
 import { of } from 'rxjs';
 import { HttpService } from './http.service';
 
@@ -54,6 +55,15 @@ export class UtilsService {
     return this._http.get<{ result: string }>('/v1/google/place-id', {
       place,
     });
+  }
+
+  public getOpenGraphMetadata(url: string) {
+    return this._http.get<ErrorResult | SuccessResult>(
+      '/v1/utils/open-graph-scraper',
+      {
+        url,
+      }
+    );
   }
 
   public stringToArrayBuffer(dataURI: string) {
@@ -241,5 +251,39 @@ export class UtilsService {
 
   public navigateToUrl(url: string) {
     window.open(url, '_blank');
+  }
+
+  public isValidUrl(url: string) {
+    const pattern = new RegExp(
+      '^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$',
+      'i'
+    );
+
+    return !!pattern.test(url);
+  }
+
+  public getContrstingColor(hex: string) {
+    if (hex.indexOf('#') === 0) {
+      hex = hex.slice(1);
+    }
+
+    if (hex.length === 3) {
+      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+
+    if (hex.length !== 6) {
+      throw new Error('Invalid HEX color.');
+    }
+
+    const r = parseInt(hex.slice(0, 2), 16),
+      g = parseInt(hex.slice(2, 4), 16),
+      b = parseInt(hex.slice(4, 6), 16);
+
+    return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? '#000000' : '#ffffff';
   }
 }

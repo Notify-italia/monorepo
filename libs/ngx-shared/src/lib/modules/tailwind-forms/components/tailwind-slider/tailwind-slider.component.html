@@ -9,6 +9,7 @@
   >
     {{ label | titlecase }}
   </label>
+
   <input
     [id]="name"
     [name]="name"
@@ -23,9 +24,7 @@
   />
   <div class="w-full flex justify-between text-xs px-2" *ngIf="step">
     @for (item of stepsIterable; track $index) {
-    <span>|</span>
+    <span class="even:text-[0.4rem]">|</span>
     }
-
-    <span *ngIf="min === 0">|</span>
   </div>
 </div>

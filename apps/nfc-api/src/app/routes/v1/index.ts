@@ -9,6 +9,7 @@ import { postTestRouter } from './post.test-route';
 import { profileRouter } from './profile';
 import { SalesRouter } from './sales';
 import { statRouter } from './stat';
+import { utilsRouter } from './utils';
 
 const router = Router();
 
@@ -22,5 +23,6 @@ router.use('/sales', SalesRouter);
 router.use('/test', postTestRouter);
 router.use('/heartbeat', getHeartbeatRouter);
 router.use('/google', googleAPIRouter);
+router.use('/utils', utilsRouter);
 
 export { router as ApiV1 };

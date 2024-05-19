@@ -24,29 +24,33 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
           'flex-row  justify-evenly flex-wrap ': isHorizontal
         }"
       >
-        @for (link of items; track $index) {
+        @for (contact of items; track $index) {
         <a
+          *ngIf="contact.visible"
+          (click)="context.emitters.itemClicked(contact, 'CONTACT_CLICKED')"
           class="btn !flex-nowrap truncate  min-h-1 !h-fit py-2"
           [ngClass]="{
             'w-full justify-between': isVertical,
             'space-x-2 m-1 btn-square ': isHorizontal,
             'btn-outline': isOutlined,
-            'btn-ghost': isText
+            'btn-ghost': isText,
+            
           }"
           [ngStyle]="{
           'font-size': context.getters.fontSize,
           'background-color': isFilled ?  context.getters.textColor : '',
           'color':textColor,
+          'border-color': isFilled ? context.getters.textColor : '',
           
         }"
-          [href]="link.url"
+          [href]="contact.url"
           target="_blank"
         >
           <notify-svg-box-icon
-            [icon]="link.icon"
+            [icon]="contact.icon"
             [size]="iconSize"
           ></notify-svg-box-icon>
-          <span *ngIf="isVertical">{{ link.caption }}</span>
+          <span *ngIf="isVertical">{{ contact.caption }}</span>
         </a>
         }
       </div>
@@ -92,7 +96,9 @@ export class ContactsPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
     const pageTextColor = this.context.getters.pageSettings?.textColor;
 
     if (pageTextColor === this.context.getters.textColor) {
-      return this._invertColor(pageTextColor || '#000000');
+      return this.context.services.utils.getContrstingColor(
+        pageTextColor || '#000000'
+      );
     }
 
     return this.context.getters.pageSettings?.textColor;
@@ -122,25 +128,5 @@ export class ContactsPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
     return (
       this.currentItem.direction === this.context.statics.directions.Vertical
     );
-  }
-
-  private _invertColor(hex: string) {
-    if (hex.indexOf('#') === 0) {
-      hex = hex.slice(1);
-    }
-
-    if (hex.length === 3) {
-      hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-    }
-
-    if (hex.length !== 6) {
-      throw new Error('Invalid HEX color.');
-    }
-
-    const r = parseInt(hex.slice(0, 2), 16),
-      g = parseInt(hex.slice(2, 4), 16),
-      b = parseInt(hex.slice(4, 6), 16);
-
-    return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? '#000000' : '#ffffff';
   }
 }

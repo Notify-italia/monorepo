@@ -1,7 +1,7 @@
 @if (visible) {
+
 <svg
-  [attr.data-src]="icon.data ? '' : iconUrl"
-  *ngIf="icon && visible"
+  [attr.data-src]="icon?.data ? '' : iconUrl"
   fill="currentColor"
   class="w-{{ size }} h-{{ size }} text-xl"
   [innerHTML]="sanitizedData"

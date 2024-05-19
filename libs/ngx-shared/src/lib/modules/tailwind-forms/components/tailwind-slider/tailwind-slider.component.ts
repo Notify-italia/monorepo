@@ -23,13 +23,17 @@ export class TailwindSliderComponent implements OnInit, OnChanges {
   @Input() readOnly = false;
   @Input() min = 0;
   @Input() max = 100;
-  @Input() step = 10;
+  @Input() steps = 10;
   @Input() compact = false;
 
   @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
 
   public get stepsIterable() {
-    return Array.from({ length: this.max / this.step }, (_, i) => i);
+    return Array.from({ length: this.steps + 1 }, (_, i) => i);
+  }
+
+  public get step() {
+    return (this.max - this.min) / this.steps;
   }
 
   constructor(private tailwindFormService: TailwindFormsService) {}

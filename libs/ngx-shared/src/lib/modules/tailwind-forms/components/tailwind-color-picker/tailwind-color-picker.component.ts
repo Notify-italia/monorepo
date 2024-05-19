@@ -37,7 +37,8 @@ export class TailwindColorPickerComponent
 
   constructor(private tailwindFormService: TailwindFormsService) {}
 
-  handleColorPickerChange() {
+  handleColorPickerChange(color: string) {
+    this.color = color;
     this.parent.controls[this.name].setValue(this.color);
   }
 

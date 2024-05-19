@@ -12,6 +12,13 @@ import { itemManifest } from '../item.manifest';
 import { ContactsFormComponent } from './contacts.form.component';
 import { ContactsPlayerComponent } from './contacts.player.component';
 
+const _item = {
+  caption: 'Nuovo Contatto',
+  url: '',
+  icon: '',
+  visible: true,
+};
+
 const manifest: INotifyAdvancedProfileManifest<INotifyAPContactsItem> = {
   type: EnumNotifyAdvancedProfileItems.Contacts,
   localizedName: 'Contatti',
@@ -27,14 +34,8 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPContactsItem> = {
     ...itemManifest.definitions,
     direction: EnumNotifyAPDirections.Horizontal,
     style: EnumNotifyAPButtonStyles.Text,
-    items: [
-      {
-        caption: 'Nuovo Contatto',
-        url: '',
-        icon: '',
-        visible: true,
-      },
-    ],
+    clickEventData: _item,
+    items: [_item],
   },
 };
 
