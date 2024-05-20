@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { INotifyAPAvatarItem } from '@notify/interfaces';
+import { INotifyAPDividerItem } from '@notify/interfaces';
 import { AdvancedProfileItemPlayerBaseComponent } from '../../../../constructors/ap-item.player.base.component';
 import { AvatarComponent } from '../../../../standalones';
 
@@ -10,4 +10,4 @@ import { AvatarComponent } from '../../../../standalones';
   styleUrl: '../../advanced-profile.styles.scss',
   template: `<div class="notify-divider opacity-25 !my-0"></div>`,
 })
-export class DividerPlayerComponent extends AdvancedProfileItemPlayerBaseComponent<INotifyAPAvatarItem> {}
+export class DividerPlayerComponent extends AdvancedProfileItemPlayerBaseComponent<INotifyAPDividerItem> {}

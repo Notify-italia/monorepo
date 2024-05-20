@@ -60,6 +60,29 @@ export class ProfileService {
     });
   }
 
+  public uploadFile(
+    file: {
+      name: string;
+      blob: string | ArrayBuffer | null;
+    },
+    profile: string,
+    item: string
+  ) {
+    return this.http.post<unknown, { url: string }>(`/v1/profile/file`, {
+      profile,
+      item,
+      file,
+    });
+  }
+
+  public deleteFile(profile: string, item: string, name: string) {
+    return this.http.delete(`/v1/profile/file`, {
+      profile,
+      item,
+      name,
+    });
+  }
+
   public async saveContact(d: INotifyProfile, publicUrl: string) {
     if (!d) {
       return;

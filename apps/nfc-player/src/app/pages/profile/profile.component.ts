@@ -387,7 +387,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this._iframeFactory.create(eventData);
         break;
       }
-
+      case 'SHOW_COMPANY_PROFILE': {
+        this.forceShowCompanyProfile();
+        break;
+      }
       default:
         break;
     }

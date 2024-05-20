@@ -19,23 +19,9 @@ router.post(
     async (req, res) => {
       let { file, profile, item, name } = req.body;
 
-      if (!file) {
-        const faFile = (
-          req.files as {
-            [fieldname: string]: Express.Multer.File[];
-          }
-        ).file[0];
-
-        file = _fileToBase64(faFile);
-
-        if (!name) {
-          name = faFile.originalname;
-        }
-      }
-
       const url = await S3Upload({
-        src: file,
-        name,
+        src: file.blob,
+        name: name || file.name,
         path: `profiles/${profile}/${item}`,
       });
 

@@ -8,6 +8,7 @@ import {
 } from '../../services/advanced-profile-items.service';
 import { itemManifest } from '../item.manifest';
 import { PhotoFormComponent } from './photo.form.component';
+import { PhotoPlayerComponent } from './photo.player.component';
 
 const manifest: INotifyAdvancedProfileManifest<INotifyAPPhotoItem> = {
   type: EnumNotifyAdvancedProfileItems.Photo,
@@ -22,9 +23,11 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPPhotoItem> = {
     hideTextSettings: true,
   },
   formComponent: PhotoFormComponent,
+  playerComponent: PhotoPlayerComponent,
   definitions: {
     ...itemManifest.definitions,
-    imgSrc: [],
+    imgSrc: '',
+    showCompanyOnClick: false,
   },
 };
 
