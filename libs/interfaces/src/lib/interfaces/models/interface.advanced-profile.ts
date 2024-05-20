@@ -80,7 +80,8 @@ export type INotifyContactItem = baseButton;
 //photo
 export interface INotifyAPPhotoItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Photo> {
-  imgSrc: baseFile[];
+  imgSrc: string;
+  showCompanyOnClick: boolean;
 }
 
 //note

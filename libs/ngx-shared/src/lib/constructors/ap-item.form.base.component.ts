@@ -21,10 +21,11 @@ import { TailwindFormsModule } from '../modules/tailwind-forms/tailwind-forms.mo
 import {
   AuthService,
   FormsService,
+  ProfileService,
   UtilsService,
   controlsFromObject,
 } from '../services';
-import { LoadingComponent } from '../standalones';
+import { LoadingComponent, UploadComponent } from '../standalones';
 
 export interface INotifyCustomTableValueBase {
   valueType: string;
@@ -38,11 +39,13 @@ export const AdvancedItemFormBaseImports = [
   TailwindFormsModule,
   LoadingComponent,
   RouterModule,
+  UploadComponent,
 ];
 export const AdvancedItemFormBaseProviders = [
   AdvancedProfileItemsService,
   FormsService,
   UtilsService,
+  ProfileService,
 ];
 
 @Component({
@@ -57,6 +60,7 @@ export class AdvancedProfileItemFormBaseComponent<
   private _apItemsSerivce = inject(AdvancedProfileItemsService);
   private _formsService = inject(FormsService);
   private _utilsSerivce = inject(UtilsService);
+  private _profileService = inject(ProfileService);
 
   @Input() profile!: INotifyProfile;
   @Input() form!: FormGroup<controlsFromObject<T>>;
@@ -85,6 +89,7 @@ export class AdvancedProfileItemFormBaseComponent<
         apItems: this._apItemsSerivce,
         forms: this._formsService,
         utils: this._utilsSerivce,
+        profile: this._profileService,
       },
       advancedProfile: () => this.formContext.value,
       getters: {
@@ -95,6 +100,8 @@ export class AdvancedProfileItemFormBaseComponent<
         requiredItems: () => this._requiredItems(),
         isRequired: () =>
           this._requiredItemsIds().includes(this.form.value._id),
+        currentItem: this.form.value,
+        profile: this.profile,
       },
       controls: {
         dropzone: {
@@ -188,7 +195,8 @@ export class AdvancedProfileItemFormBaseComponent<
         (this.form as FormGroup).addControl(key, new FormControl(defaultValue));
         return;
       }
-      this.form.controls[key as keyof T].setValue(defaultValue);
+
+      this.form.controls[key as keyof T]?.setValue(defaultValue);
     });
   }
 }

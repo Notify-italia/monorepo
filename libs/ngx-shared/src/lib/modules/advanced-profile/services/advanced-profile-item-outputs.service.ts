@@ -6,7 +6,8 @@ import { IFrameModalNavbarStyle } from '../../modals';
 export type ADVANCED_PROFILE_CLICK_EVENTS =
   | 'ITEM_CLICKED'
   | 'CREATE_IFRAME_MODAL'
-  | 'CONTACT_CLICKED';
+  | 'CONTACT_CLICKED'
+  | 'SHOW_COMPANY_PROFILE';
 
 export interface CREATE_IFRAME_MODAL_CONFIG {
   url: string;

@@ -83,7 +83,6 @@ export class AdvancedProfileItemPlayerBaseComponent<
         buttonStyles: EnumNotifyAPButtonStyles,
       },
       emitters: {
-        showCompanyProfile: () => this._apOutputsService.itemClicked,
         itemClicked: <T>(data: T, eventName: ADVANCED_PROFILE_CLICK_EVENTS) => {
           this._apOutputsService.onItemClicked({
             item: this.currentItem,
