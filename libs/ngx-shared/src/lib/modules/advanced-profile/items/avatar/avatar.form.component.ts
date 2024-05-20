@@ -1,7 +1,6 @@
 import { TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 
-import { FormGroup } from '@angular/forms';
 import {
   EnumNotifyAPCorners,
   INotifyAPAvatarItem,
@@ -14,7 +13,6 @@ import {
   AdvancedItemFormBaseProviders,
   AdvancedProfileItemFormBaseComponent,
 } from '../../../../constructors/ap-item.form.base.component';
-import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/components/tailwind-dropzone/tailwind-dropzone.component';
 
 @Component({
   standalone: true,
@@ -35,7 +33,7 @@ import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/compon
       ></notify-tailwind-select>
 
       <notify-tailwind-select
-        *ngIf="isAgent"
+        *ngIf="context.getters.isAgent"
         [parent]="form"
         name="ownerImgCorner"
         [compact]="true"
@@ -48,22 +46,15 @@ import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/compon
 
       <div class="divider"></div>
 
-      <notify-tailwind-dropzone
-        [parent]="form"
+      <notify-upload
+        [file]="context.controls.upload.fileData"
         acceptedFiles="image/*"
-        name="imgSrc"
-        [maxFiles]="1"
-        height="10rem"
-        [labels]="dropzoneLabels"
-        [cdnConfig]="context.controls.dropzone.config"
-        [centerPreview]="true"
-        [delegateActions]="{
-          deleteFromForm: false,
-          addToForm: false
-        }"
-        (itemDeleted)="deleteAvatar()"
-        (itemAdded)="addAvatar($event)"
-      ></notify-tailwind-dropzone>
+        uploadLabel="Trascina un'immagine o clicca per caricarla"
+        class="h-48"
+        (fileChanged)="
+          context.controls.upload.setControlValue($event, 'imgSrc')
+        "
+      ></notify-upload>
 
       <notify-tailwind-select
         [parent]="form"
@@ -102,7 +93,7 @@ import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/compon
           [attr.data-tip]="
             useRoleLabel ? 'Scrivi un sottotitolo' : 'Usa ruolo aziendale'
           "
-          *ngIf="isAgent"
+          *ngIf="context.getters.isAgent"
         >
           <button
             class="btn btn-outline shrink-0 btn-square mb-[0.2rem]  btn-sm"
@@ -162,11 +153,6 @@ export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<IN
     { name: 'Banner', value: 'banner' },
   ];
 
-  public dropzoneLabels = {
-    ...TAILWIND_DROPZONE_DEFAULT_LABELS,
-    defaultMessage: "Carica un'immagine da visualizzare come avatar",
-  };
-
   public cornerSelectOptions = Object.values(EnumNotifyAPCorners).map((v) => ({
     name: NOTIFY_AP_OWNER_IMG_CORNER_IT[v],
     value: v,
@@ -180,6 +166,10 @@ export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<IN
     return this.form.get('useRoleSubLabel')?.value;
   }
 
+  override componentReady(): void {
+    this.context.controls.upload.init('imgSrc');
+  }
+
   public toggleCompanyLabel() {
     const useRoleSubLabel = this.form.get('useRoleSubLabel');
     useRoleSubLabel?.setValue(!useRoleSubLabel.value);
@@ -190,37 +180,5 @@ export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<IN
     }
 
     this.form.get('sublabel')?.setValue('');
-  }
-
-  public deleteAvatar() {
-    const fg = this.form.controls.imgSrc;
-
-    fg.removeAt(0);
-  }
-
-  public addAvatar(items: Record<string, unknown>[]) {
-    const item = items[0] as unknown as {
-      name: string;
-      size: number;
-      type: string;
-      data: string;
-      url: string;
-    };
-    const control = this.form.controls.imgSrc.controls[0];
-
-    if (!control) {
-      this.form.controls.imgSrc.push(
-        this.context.services.forms.createFormGroup({
-          name: item.name,
-          size: item.size,
-          type: item.type,
-          url: item.url,
-          data: item.data,
-        }) as FormGroup
-      );
-      return;
-    }
-
-    this.form.controls.imgSrc.controls[0].setValue(item);
   }
 }

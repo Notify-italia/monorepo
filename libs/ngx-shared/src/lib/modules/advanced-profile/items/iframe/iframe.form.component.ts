@@ -24,10 +24,18 @@ import {
         [compact]="true"
         [validationErrors]="validationErrors"
       ></notify-tailwind-input>
-      <small class="text-center"
-        >Non tutti i siti web potrebbero essere visualizzati correttamente sul
-        profilo.</small
-      >
+      <div class="relative w-full">
+        <notify-tailwind-checkbox
+          [parent]="form"
+          name="openInNotify"
+          label="Apri in Notify (beta)"
+          [compact]="true"
+          class="w-full"
+        ></notify-tailwind-checkbox>
+        <small class="absolute top-6 opacity-50"
+          >Non supportato da tutti i siti web.</small
+        >
+      </div>
     </div>
   `,
 })

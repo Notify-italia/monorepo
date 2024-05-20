@@ -17,7 +17,7 @@ import { FEEDBACK_ICON_SET } from './feedback.iconset';
   providers: AdvancedItemFormBaseProviders,
   styleUrls: ['../../advanced-profile.styles.scss'],
   template: `
-    @if(this.context.getters.isRequired()) {
+    @if(this.context.getters.isRequired) {
     <div class="w-full text-center">
       Blocco non modificabile, in quanto obbligatorio
     </div>
@@ -42,7 +42,8 @@ import { FEEDBACK_ICON_SET } from './feedback.iconset';
           label=" "
         ></notify-tailwind-input>
 
-        @if(IconSelector?.currentIcon?.name ==='google' && isCompany) {
+        @if(IconSelector?.currentIcon?.name ==='google' &&
+        context.getters.isCompany) {
         <button
           (click)="generateGoogleReviewLink()"
           class="btn text-white btn-primary bg-primary-500/40 brightness-90 z-10 btn-sm text-xs"
@@ -153,20 +154,18 @@ export class FeedbackFormComponent extends AdvancedProfileItemFormBaseComponent<
   }
 
   public get companyName() {
-    const avatarItem = this.context.getters
-      .requiredItems()
-      .find((item) => item.key === 'avatar');
+    const avatarItem = this.context.getters.requiredItems.find(
+      (item) => item.key === 'avatar'
+    );
 
     if (!avatarItem) {
       return '';
     }
 
     return (
-      this.context
-        .advancedProfile()
-        ?.items?.find(
-          (fg) => fg._id === avatarItem.value
-        ) as INotifyAPAvatarItem
+      this.context.getters.advancedProfile?.items?.find(
+        (fg) => fg._id === avatarItem.value
+      ) as INotifyAPAvatarItem
     )?.label;
   }
 

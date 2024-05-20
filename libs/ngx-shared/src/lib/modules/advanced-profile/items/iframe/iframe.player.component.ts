@@ -37,7 +37,7 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
         @if(openGraphMetadata) {
         <img
           [src]="imageUrl"
-          class=" w-3/12 rounded-lg object-contain"
+          class=" w-28 h-28 rounded-lg object-cover"
           *ngIf="imageUrl"
         />
 
@@ -116,6 +116,11 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
   }
 
   public handleClick() {
+    if (!this.context.getters.currentItem.openInNotify) {
+      window.open(this.currentUrl, '_blank');
+      return;
+    }
+
     this.context.emitters.itemClicked<{
       url: string;
       title: string;

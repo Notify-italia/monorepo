@@ -82,6 +82,8 @@ export class AdvancedProfileItemFormBaseComponent<
     value,
   }));
 
+  private fileData: File | null = null;
+
   public get context() {
     return {
       services: {
@@ -91,17 +93,18 @@ export class AdvancedProfileItemFormBaseComponent<
         utils: this._utilsSerivce,
         profile: this._profileService,
       },
-      advancedProfile: () => this.formContext.value,
       getters: {
-        isAgent: () =>
-          this._authService.user?.userType === EnumNotifyUserType.Agent,
-        isCompany: () =>
+        advancedProfile: this.formContext.value,
+        isAgent: this._authService.user?.userType === EnumNotifyUserType.Agent,
+        isCompany:
           this._authService.user?.userType === EnumNotifyUserType.Company,
-        requiredItems: () => this._requiredItems(),
-        isRequired: () =>
-          this._requiredItemsIds().includes(this.form.value._id),
+        requiredItems: this._requiredItems(),
+        isRequired: this._requiredItemsIds().includes(this.form.value._id),
         currentItem: this.form.value,
         profile: this.profile,
+      },
+      setters: {
+        setFileData: (value: File | null) => (this.fileData = value),
       },
       controls: {
         dropzone: {
@@ -124,6 +127,12 @@ export class AdvancedProfileItemFormBaseComponent<
             NOTIFY_AP_DIRECTIONS_IT
           ),
         },
+        upload: {
+          fileData: this.fileData,
+          setControlValue: this.setFileControlValue.bind(this),
+          getFileName: this._fileNameFormUrl.bind(this),
+          init: this._initFileData.bind(this),
+        },
         checkbox: {
           toggleEye: CHECKBOX_TOGGLE_EYE,
           outlineToggleEye: {
@@ -136,12 +145,14 @@ export class AdvancedProfileItemFormBaseComponent<
     };
   }
 
-  public get isAgent() {
-    return this._authService.user?.userType === EnumNotifyUserType.Agent;
+  public ngOnInit(): void {
+    this._compareFormWithDefinition();
+
+    this.componentReady();
   }
 
-  public get isCompany() {
-    return this._authService.user?.userType === EnumNotifyUserType.Company;
+  public componentReady() {
+    return;
   }
 
   private _requiredItems() {
@@ -163,14 +174,41 @@ export class AdvancedProfileItemFormBaseComponent<
     return this._requiredItems().map((item) => item.value);
   }
 
-  public ngOnInit(): void {
-    this._compareFormWithDefinition();
+  public setFileControlValue(
+    event: {
+      file: File | null;
+      blob: string | ArrayBuffer | null;
+    },
+    control: keyof FormGroup<controlsFromObject<T>>['controls']
+  ) {
+    const profileId = this.context.getters.profile._id;
+    const itemId = this.context.getters.currentItem._id || '';
 
-    this.componentReady();
-  }
+    const formControl = this.form.controls[control];
 
-  public componentReady() {
-    return;
+    if (!event.file) {
+      this.fileData = null;
+      formControl.setValue(null);
+      this.context.services.profile
+        .deleteFile(profileId, itemId, this._fileNameFormUrl(formControl.value))
+        .subscribe();
+
+      return;
+    }
+
+    this.context.services.profile
+      .uploadFile(
+        {
+          blob: event.blob,
+          name: event.file.name,
+        },
+        profileId,
+        itemId
+      )
+      .subscribe((r) => {
+        this.fileData = event.file;
+        formControl?.setValue(r.url);
+      });
   }
 
   private _compareFormWithDefinition() {
@@ -196,7 +234,36 @@ export class AdvancedProfileItemFormBaseComponent<
         return;
       }
 
-      this.form.controls[key as keyof T]?.setValue(defaultValue);
+      this.form.controls[key as keyof T].setValue(defaultValue);
     });
+  }
+
+  private _fileNameFormUrl(url: string) {
+    return url.split('/').pop()?.split('?')[0] || 'file';
+  }
+
+  private async _initFileData(
+    control: keyof FormGroup<controlsFromObject<T>>['controls']
+  ) {
+    const formControl = this.form.controls[control];
+    const result = await fetch(formControl?.value || '')
+      .then((res) => res.blob()) // Gets the response and returns it as a blob
+      .then((blob) => {
+        console.log(blob);
+        if (!blob || blob.type === 'text/html') {
+          return null;
+        }
+
+        return new File(
+          [blob],
+          this.context.controls.upload.getFileName(formControl?.value || '') ||
+            'image.jpg',
+          {
+            type: blob.type,
+          }
+        );
+      });
+
+    this.context.setters.setFileData(result);
   }
 }

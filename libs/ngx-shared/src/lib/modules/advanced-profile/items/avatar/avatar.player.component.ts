@@ -57,7 +57,7 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
       } @else {
       <div class="flex flex-col items-center">
         <img
-          [src]="currentItem.imgSrc[0].url"
+          [src]="currentItem.imgSrc"
           class="w-full h-48 rounded-xl object-cover"
           alt="Avatar"
         />
@@ -87,7 +87,7 @@ export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponen
 
   public get avatarConfig(): INotifyAvatarConfig {
     return {
-      src: this.currentItem?.imgSrc?.[0]?.url || '',
+      src: this.currentItem?.imgSrc,
       size: '36',
       mask: this.currentItem.imgMask || '',
       placeholderSeed: this.currentItem._id || '',
@@ -140,7 +140,7 @@ export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponen
     }
 
     return {
-      src: companyAvatar?.imgSrc?.[0]?.url || '',
+      src: companyAvatar?.imgSrc,
       size,
       mask: companyAvatar?.imgMask || '',
       placeholderStyle: EnumDicebearAvatarStyles.Bottts,
