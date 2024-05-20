@@ -30,7 +30,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPAvatarItem> = {
     label: '',
     sublabel: '',
     description: '',
-    imgSrc: [],
+    imgSrc: '',
     useRoleSubLabel: false,
     imgMask: daisyUIAvatarMaks[0],
     ownerImgCorner: EnumNotifyAPCorners.BottomRight,

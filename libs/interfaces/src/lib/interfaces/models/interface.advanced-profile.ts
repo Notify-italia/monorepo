@@ -37,7 +37,7 @@ export interface INotifyAPAvatarItem
   label: string;
   sublabel: string;
   description: string;
-  imgSrc: baseFile[];
+  imgSrc: string;
   imgMask: DaisyUIAvatarMasks | 'banner';
   useRoleSubLabel: boolean;
   ownerImgCorner: EnumNotifyAPCorners;
@@ -97,6 +97,7 @@ export type INotifyAPDividerItem =
 export interface INotifyAPIFrameItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.IFrame> {
   url: string;
+  openInNotify: boolean;
 }
 
 export interface INotifyAdvancedProfileItem<

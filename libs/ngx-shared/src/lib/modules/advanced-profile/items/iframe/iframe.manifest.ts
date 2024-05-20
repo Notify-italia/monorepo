@@ -27,6 +27,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPIFrameItem> = {
   definitions: {
     ...itemManifest.definitions,
     url: '',
+    openInNotify: true,
   },
 };
 
