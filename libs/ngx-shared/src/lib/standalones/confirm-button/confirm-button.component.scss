@@ -1,0 +1,11 @@
+.svg-size {
+  @apply w-4 h-4;
+
+  &.compact {
+    @apply w-4 h-4;
+  }
+}
+
+.confirm-cancel-container {
+  @apply -translate-x-10 right-10 group-focus-within:right-0 scale-0 w-0 pointer-events-none opacity-0 p-0 group-focus-within:translate-x-0 group-focus-within:scale-100 group-focus-within:opacity-100 group-focus-within:px-4 group-focus-within:py-4 bg-black group-focus-within:w-20 group-focus-within:pointer-events-auto rounded-xl h-full -ml-1 group-focus-within:ml-0;
+}

@@ -15,11 +15,13 @@ import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/compon
   styleUrls: ['../../advanced-profile.styles.scss'],
   template: ` <div class="flex flex-col space-y-1">
     <notify-upload
-      [file]="context.controls.upload.fileData"
+      [file]="context.components.upload.fileData"
       acceptedFiles="image/*"
       uploadLabel="Trascina un'immagine o clicca per caricarla"
       class="h-48"
-      (fileChanged)="context.controls.upload.setControlValue($event, 'imgSrc')"
+      (fileChanged)="
+        context.components.upload.setControlValue($event, 'imgSrc')
+      "
     ></notify-upload>
 
     <notify-tailwind-checkbox
@@ -36,6 +38,6 @@ export class PhotoFormComponent extends AdvancedProfileItemFormBaseComponent<INo
   };
 
   public override async componentReady() {
-    this.context.controls.upload.init('imgSrc');
+    this.context.components.upload.init('imgSrc');
   }
 }

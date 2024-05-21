@@ -4,6 +4,7 @@ export * from './auth/auth.component';
 export * from './avatar/avatar.component';
 export * from './browse-feedbacks/browse-feedbacks.component';
 export * from './browse-feedbacks/browse-feedbacks.factory';
+export * from './confirm-button/confirm-button.component';
 export * from './cursor/cursor.component';
 export * from './floating-button/floating-button.component';
 export * from './google-maps/google-maps.component';
