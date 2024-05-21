@@ -5,6 +5,7 @@ import {
   INotifyProfile,
   NotifyAdvancedProfileItemTypes,
 } from '@notify/interfaces';
+import { ConfirmButtonComponent } from '../../../../standalones/confirm-button/confirm-button.component';
 import { IconSelectorComponent } from '../../../../standalones/icon-select/icon-selector.component';
 import { ConfirmModalFactory } from '../../../modals';
 import { CHECKBOX_TOGGLE_EYE } from '../../../tailwind-forms/components/tailwind-checkbox/tailwind-checkbox.component';
@@ -25,6 +26,7 @@ import { FONTS_ICON_SET } from '../../services/fonts.iconset';
     TailwindFormsModule,
     BackgroundFormComponent,
     IconSelectorComponent,
+    ConfirmButtonComponent,
   ],
   providers: [AdvancedProfileItemsService, ConfirmModalFactory],
   templateUrl: './part-settings.component.html',
@@ -37,7 +39,7 @@ export class PartSettingsComponent {
   public showHiddenToggleWithButton = {
     checked: CHECKBOX_TOGGLE_EYE.checked,
     unchecked: CHECKBOX_TOGGLE_EYE.unchecked,
-    button: `btn btn-sm btn-outline`,
+    button: `btn btn-sm bg-[#191C21] rounded-xl`,
   };
   public fontsIconSet = FONTS_ICON_SET;
 
@@ -79,28 +81,10 @@ export class PartSettingsComponent {
     if (this.isRequired) {
       return;
     }
-
-    const ref = this._confirmModal.create({
-      value: true,
-      title: 'Elimina blocco',
-      description:
-        'Sei sicuro di voler eliminare questo blocco? Questa azione è irreversibile.',
-      cancelText: 'Annulla',
-      confirmText: 'Elimina',
-      confirmClass: this._confirmModal.deleteBtn,
-      closeOnConfirm: true,
-    });
-
-    ref.instance.submitted.subscribe((result) => {
-      if (!result) {
-        return;
-      }
-
-      this.form.controls?.['items'].removeAt(
-        this.form.controls['items'].controls.findIndex(
-          (fg) => fg.controls._id.value === this.selectedHierarchyItem
-        )
-      );
-    });
+    this.form.controls?.['items'].removeAt(
+      this.form.controls['items'].controls.findIndex(
+        (fg) => fg.controls._id.value === this.selectedHierarchyItem
+      )
+    );
   }
 }

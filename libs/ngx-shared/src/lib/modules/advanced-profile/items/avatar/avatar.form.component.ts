@@ -13,6 +13,7 @@ import {
   AdvancedItemFormBaseProviders,
   AdvancedProfileItemFormBaseComponent,
 } from '../../../../constructors/ap-item.form.base.component';
+import { IImageCropperConfig } from '../../../../standalones/image-cropper/image-cropper.component';
 
 @Component({
   standalone: true,
@@ -47,12 +48,12 @@ import {
       <div class="divider"></div>
 
       <notify-upload
-        [file]="context.controls.upload.fileData"
+        [file]="context.components.upload.fileData"
         acceptedFiles="image/*"
         uploadLabel="Trascina un'immagine o clicca per caricarla"
         class="h-48"
         (fileChanged)="
-          context.controls.upload.setControlValue($event, 'imgSrc')
+          context.components.upload.setControlValue($event, 'imgSrc')
         "
       ></notify-upload>
 
@@ -98,6 +99,7 @@ import {
           <button
             class="btn btn-outline shrink-0 btn-square mb-[0.2rem]  btn-sm"
             (click)="toggleCompanyLabel()"
+            tabindex="-1"
             [disabled]="!role.length"
           >
             @if(this.useRoleLabel) {
@@ -166,8 +168,38 @@ export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<IN
     return this.form.get('useRoleSubLabel')?.value;
   }
 
+  private get cropperConfig() {
+    const isBanner = this.context.getters.currentItem.imgMask === 'banner';
+
+    const resize = isBanner ? null : { width: 800, height: 800 };
+
+    const minSizes = isBanner
+      ? {
+          width: 300,
+          height: 200,
+        }
+      : {
+          width: 200,
+          height: 200,
+        };
+
+    return {
+      format: 'webp',
+      resize,
+      roundCropper: isBanner ? false : true,
+      alignImage: 'center',
+      minHeight: minSizes.height,
+
+      minWidth: minSizes.width,
+    } as Partial<IImageCropperConfig>;
+  }
+
   override componentReady(): void {
-    this.context.controls.upload.init('imgSrc');
+    this.context.components.upload.init('imgSrc', this.cropperConfig);
+
+    this.context.getters.formChanged.subscribe(() => {
+      this.context.components.upload.setCropperConfig(this.cropperConfig);
+    });
   }
 
   public toggleCompanyLabel() {

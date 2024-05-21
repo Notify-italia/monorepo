@@ -103,7 +103,7 @@ import { TailwindInputComponent } from '../../../tailwind-forms/tailwind-forms.m
             name="visible"
             [compact]="true"
             label=" "
-            [overrideToggleIcon]="context.controls.checkbox.outlineToggleEye"
+            [overrideToggleIcon]="context.components.checkbox.outlineToggleEye"
           ></notify-tailwind-checkbox>
           <a
             class="btn w-full btn-outline btn-sm shrink"

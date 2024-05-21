@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
@@ -11,6 +11,7 @@ import {
   NOTIFY_AP_DIRECTIONS_IT,
   NotifyAdvancedProfileItem,
 } from '@notify/interfaces';
+import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 import {
   AdvancedProfileItemsService,
   INotifyAdvancedProfileManifest,
@@ -25,7 +26,12 @@ import {
   UtilsService,
   controlsFromObject,
 } from '../services';
-import { LoadingComponent, UploadComponent } from '../standalones';
+import {
+  ImageCropperFactory,
+  LoadingComponent,
+  UploadComponent,
+} from '../standalones';
+import { IImageCropperConfig } from '../standalones/image-cropper/image-cropper.component';
 
 export interface INotifyCustomTableValueBase {
   valueType: string;
@@ -46,6 +52,7 @@ export const AdvancedItemFormBaseProviders = [
   FormsService,
   UtilsService,
   ProfileService,
+  ImageCropperFactory,
 ];
 
 @Component({
@@ -54,13 +61,14 @@ export const AdvancedItemFormBaseProviders = [
 })
 export class AdvancedProfileItemFormBaseComponent<
   T extends NotifyAdvancedProfileItem
-> implements OnInit
+> implements OnInit, OnDestroy
 {
   private _authService = inject(AuthService);
   private _apItemsSerivce = inject(AdvancedProfileItemsService);
   private _formsService = inject(FormsService);
   private _utilsSerivce = inject(UtilsService);
   private _profileService = inject(ProfileService);
+  private _imageCropper = inject(ImageCropperFactory);
 
   @Input() profile!: INotifyProfile;
   @Input() form!: FormGroup<controlsFromObject<T>>;
@@ -83,6 +91,9 @@ export class AdvancedProfileItemFormBaseComponent<
   }));
 
   private fileData: File | null = null;
+  private _imageCropperConfig?: Partial<IImageCropperConfig>;
+
+  private _destroy$ = new Subject<void>();
 
   public get context() {
     return {
@@ -102,21 +113,9 @@ export class AdvancedProfileItemFormBaseComponent<
         isRequired: this._requiredItemsIds().includes(this.form.value._id),
         currentItem: this.form.value,
         profile: this.profile,
+        formChanged: this.form.valueChanges.pipe(takeUntil(this._destroy$)),
       },
-      setters: {
-        setFileData: (value: File | null) => (this.fileData = value),
-      },
-      controls: {
-        dropzone: {
-          config: this._apItemsSerivce.dropzoneConfig(
-            {
-              item: this.form.value._id,
-              profile: this.profile._id,
-            },
-            this._utilsSerivce.apiUrl,
-            this._authService.authHeaders
-          ),
-        },
+      components: {
         select: {
           buttonStyles: this._apItemsSerivce.createSelectOptions(
             EnumNotifyAPButtonStyles,
@@ -130,8 +129,11 @@ export class AdvancedProfileItemFormBaseComponent<
         upload: {
           fileData: this.fileData,
           setControlValue: this.setFileControlValue.bind(this),
+          setCropperConfig: (config: Partial<IImageCropperConfig>) =>
+            (this._imageCropperConfig = config),
           getFileName: this._fileNameFormUrl.bind(this),
           init: this._initFileData.bind(this),
+          setFileData: (value: File | null) => (this.fileData = value),
         },
         checkbox: {
           toggleEye: CHECKBOX_TOGGLE_EYE,
@@ -149,6 +151,11 @@ export class AdvancedProfileItemFormBaseComponent<
     this._compareFormWithDefinition();
 
     this.componentReady();
+  }
+
+  public ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   public componentReady() {
@@ -196,19 +203,55 @@ export class AdvancedProfileItemFormBaseComponent<
       return;
     }
 
-    this.context.services.profile
+    if (this._imageCropperConfig) {
+      const { instance } = this._imageCropper.create({
+        ...this._imageCropperConfig,
+        imageData: event.file,
+      });
+
+      instance.destroyed$.pipe(takeUntil(this._destroy$)).subscribe(() => {
+        this._refreshFileData(control);
+      });
+
+      instance.submitted
+        .pipe(
+          tap((result) => {
+            event.blob = result;
+          }),
+          switchMap(() => this._uploadFile(event, profileId, itemId, control))
+        )
+        .subscribe();
+
+      return;
+    }
+
+    this._uploadFile(event, profileId, itemId, control).subscribe();
+  }
+
+  private _uploadFile(
+    event: {
+      file: File | null;
+      blob: string | ArrayBuffer | null;
+    },
+    profileId: string,
+    itemId: string,
+    control: keyof FormGroup<controlsFromObject<T>>['controls']
+  ) {
+    return this.context.services.profile
       .uploadFile(
         {
           blob: event.blob,
-          name: event.file.name,
+          name: event.file?.name || 'file',
         },
         profileId,
         itemId
       )
-      .subscribe((r) => {
-        this.fileData = event.file;
-        formControl?.setValue(r.url);
-      });
+      .pipe(
+        tap((r) => {
+          this.form.controls[control]?.setValue(r.url);
+          this._refreshFileData(control);
+        })
+      );
   }
 
   private _compareFormWithDefinition() {
@@ -243,27 +286,61 @@ export class AdvancedProfileItemFormBaseComponent<
   }
 
   private async _initFileData(
+    control: keyof FormGroup<controlsFromObject<T>>['controls'],
+    cropper?: Partial<IImageCropperConfig>
+  ) {
+    const formControl = this.form.controls[control];
+    const result = await fetch(formControl?.value || '')
+      .then((res) => res.blob()) // Gets the response and returns it as a blob
+      .then((blob) => {
+        if (!blob || blob.type === 'text/html') {
+          return null;
+        }
+
+        return this._generateFile(
+          blob,
+          this.context.components.upload.getFileName(
+            formControl?.value || ''
+          ) || 'image.jpg',
+
+          blob.type
+        );
+      });
+
+    if (cropper) {
+      this._imageCropperConfig = cropper;
+    }
+    this.context.components.upload.setFileData(result);
+  }
+
+  private async _refreshFileData(
     control: keyof FormGroup<controlsFromObject<T>>['controls']
   ) {
     const formControl = this.form.controls[control];
     const result = await fetch(formControl?.value || '')
       .then((res) => res.blob()) // Gets the response and returns it as a blob
       .then((blob) => {
-        console.log(blob);
         if (!blob || blob.type === 'text/html') {
           return null;
         }
 
-        return new File(
-          [blob],
-          this.context.controls.upload.getFileName(formControl?.value || '') ||
-            'image.jpg',
-          {
-            type: blob.type,
-          }
+        return this._generateFile(
+          blob,
+          this.context.components.upload.getFileName(
+            formControl?.value || ''
+          ) || 'image.jpg',
+
+          blob.type
         );
       });
+    this.context.components.upload.setFileData(result);
+  }
 
-    this.context.setters.setFileData(result);
+  private _generateFile(
+    blob: BlobPart,
+    name: string,
+    type: string
+  ): File | null {
+    return new File([blob], name, { type });
   }
 }

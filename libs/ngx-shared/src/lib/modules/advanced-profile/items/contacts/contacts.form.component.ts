@@ -93,7 +93,7 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
             name="visible"
             [compact]="true"
             label=" "
-            [overrideToggleIcon]="context.controls.checkbox.outlineToggleEye"
+            [overrideToggleIcon]="context.components.checkbox.outlineToggleEye"
           ></notify-tailwind-checkbox>
           <a
             class="btn w-full btn-outline btn-sm shrink"
