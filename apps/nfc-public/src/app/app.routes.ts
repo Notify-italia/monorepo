@@ -9,8 +9,29 @@ export const appRoutes: Route[] = [
   {
     path: 'linee-guida',
     loadComponent: () =>
-      import('./pages/linee-guida/linee-guida.component').then(
+      import('./pages/reindirizzamenti/linee-guida.component').then(
         (m) => m.LineeGuidaComponent
+      ),
+  },
+  {
+    path: 'guida-nfc',
+    loadComponent: () =>
+      import('./pages/reindirizzamenti/guida-nfc.component').then(
+        (m) => m.GuidaNFCComponent
+      ),
+  },
+  {
+    path: 'guida-aziendale',
+    loadComponent: () =>
+      import('./pages/reindirizzamenti/guida-aziendale.component').then(
+        (m) => m.GuidaAziendaleComponent
+      ),
+  },
+  {
+    path: 'guida-app',
+    loadComponent: () =>
+      import('./pages/reindirizzamenti/guida-app.component').then(
+        (m) => m.GuidaAppComponent
       ),
   },
   {
