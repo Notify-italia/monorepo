@@ -27,13 +27,11 @@
       <option value="" class="" *ngIf="placeholder?.length">
         {{ placeholder }}
       </option>
-      <option
-        *ngFor="let option of options"
-        [selected]="false"
-        [value]="option.value"
-      >
+      @for( option of options; track option.value) {
+      <option [selected]="false" [value]="option.value">
         {{ option.name }}
       </option>
+      }
     </select>
   </div>
 

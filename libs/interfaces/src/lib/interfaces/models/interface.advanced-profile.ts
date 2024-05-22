@@ -82,6 +82,8 @@ export interface INotifyAPPhotoItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Photo> {
   imgSrc: string;
   showCompanyOnClick: boolean;
+  dimension: number;
+  align: EnumNotifyAPAlign;
 }
 
 //note
@@ -172,9 +174,17 @@ export enum EnumNotifyAPBackgroundTypes {
 }
 
 export enum EnumNotifyAPAlign {
-  Start = 'start',
+  Start = 'flex-start',
   Center = 'center',
-  End = 'end',
+  End = 'flex-end',
+}
+
+export enum EnumNotifyAPObjectFit {
+  Fill = 'fill',
+  Contain = 'contain',
+  Cover = 'cover',
+  None = '',
+  ScaleDown = 'scale-down',
 }
 
 export enum EnumNotifyAdvancedProfileItems {
@@ -253,6 +263,24 @@ export const NOTIFY_AP_BACKGROUND_TYPES_IT: {
   [EnumNotifyAPBackgroundTypes.Fill]: 'Tinta Unita',
   [EnumNotifyAPBackgroundTypes.Gradient]: 'Gradiente',
   [EnumNotifyAPBackgroundTypes.Pattern]: 'Pattern',
+};
+
+export const NOTIFY_AP_OBJECT_FIT_IT: {
+  [key in EnumNotifyAPObjectFit]: string;
+} = {
+  [EnumNotifyAPObjectFit.Fill]: 'Riempi',
+  [EnumNotifyAPObjectFit.Contain]: 'Contieni',
+  [EnumNotifyAPObjectFit.Cover]: 'Copri',
+  [EnumNotifyAPObjectFit.None]: 'Nessuno',
+  [EnumNotifyAPObjectFit.ScaleDown]: 'Ridimensiona',
+};
+
+export const NOTIFY_AP_ALIGN_IT: {
+  [key in EnumNotifyAPAlign]: string;
+} = {
+  [EnumNotifyAPAlign.Start]: 'Inizio',
+  [EnumNotifyAPAlign.Center]: 'Centro',
+  [EnumNotifyAPAlign.End]: 'Fine',
 };
 
 /*

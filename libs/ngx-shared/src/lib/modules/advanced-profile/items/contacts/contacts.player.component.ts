@@ -1,15 +1,18 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { INotifyAPLinksItem } from '@notify/interfaces';
-import { AdvancedProfileItemPlayerBaseComponent } from '../../../../constructors/ap-item.player.base.component';
+import {
+  AdvancedItemPlayerBaseImports,
+  AdvancedItemPlayerBaseProviders,
+  AdvancedProfileItemPlayerBaseComponent,
+} from '../../../../constructors/ap-item.player.base.component';
 import { SvgboxService } from '../../../../services';
-import { AvatarComponent, SvgBoxIconComponent } from '../../../../standalones';
+import { SvgBoxIconComponent } from '../../../../standalones';
 import { CONTACTS_ICON_SET } from './contacts.iconset';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, AvatarComponent, SvgBoxIconComponent],
-  providers: [SvgboxService],
+  imports: [...AdvancedItemPlayerBaseImports, SvgBoxIconComponent],
+  providers: [...AdvancedItemPlayerBaseProviders, SvgboxService],
   styleUrl: '../../advanced-profile.styles.scss',
   template: `
     <div

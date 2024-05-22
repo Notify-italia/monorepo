@@ -1,14 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
+  EnumNotifyAPAlign,
   EnumNotifyAPButtonStyles,
   EnumNotifyAPDirections,
+  EnumNotifyAPObjectFit,
   EnumNotifyUserType,
   INotifyProfile,
+  NOTIFY_AP_ALIGN_IT,
   NOTIFY_AP_BUTTON_STYLES_IT,
   NOTIFY_AP_DIRECTIONS_IT,
+  NOTIFY_AP_OBJECT_FIT_IT,
   NotifyAdvancedProfileItem,
 } from '@notify/interfaces';
 import { Subject, switchMap, takeUntil, tap } from 'rxjs';
@@ -17,7 +21,6 @@ import {
   INotifyAdvancedProfileManifest,
 } from '../modules/advanced-profile/services/advanced-profile-items.service';
 import { CHECKBOX_TOGGLE_EYE } from '../modules/tailwind-forms/components/tailwind-checkbox/tailwind-checkbox.component';
-import { ITailwindSelectOption } from '../modules/tailwind-forms/components/tailwind-select/tailwind-select.component';
 import { TailwindFormsModule } from '../modules/tailwind-forms/tailwind-forms.module';
 import {
   AuthService,
@@ -46,6 +49,7 @@ export const AdvancedItemFormBaseImports = [
   LoadingComponent,
   RouterModule,
   UploadComponent,
+  ReactiveFormsModule,
 ];
 export const AdvancedItemFormBaseProviders = [
   AdvancedProfileItemsService,
@@ -77,19 +81,6 @@ export class AdvancedProfileItemFormBaseComponent<
   >;
   @Input() manifest!: INotifyAdvancedProfileManifest<T>;
 
-  public directionSelectOptions: ITailwindSelectOption[] = Object.values(
-    EnumNotifyAPDirections
-  ).map((value) => ({
-    name: NOTIFY_AP_DIRECTIONS_IT[value],
-    value: value as string,
-  }));
-  public buttonStylesSelectOptions: ITailwindSelectOption[] = Object.values(
-    EnumNotifyAPButtonStyles
-  ).map((value) => ({
-    name: NOTIFY_AP_BUTTON_STYLES_IT[value],
-    value,
-  }));
-
   private fileData: File | null = null;
   private _imageCropperConfig?: Partial<IImageCropperConfig>;
 
@@ -115,6 +106,11 @@ export class AdvancedProfileItemFormBaseComponent<
         profile: this.profile,
         formChanged: this.form.valueChanges.pipe(takeUntil(this._destroy$)),
       },
+      statics: {
+        buttonStyles: EnumNotifyAPButtonStyles,
+        directions: EnumNotifyAPDirections,
+        objectFit: EnumNotifyAPObjectFit,
+      },
       components: {
         select: {
           buttonStyles: this._apItemsSerivce.createSelectOptions(
@@ -125,6 +121,13 @@ export class AdvancedProfileItemFormBaseComponent<
             EnumNotifyAPDirections,
             NOTIFY_AP_DIRECTIONS_IT
           ),
+          align: this._apItemsSerivce.createSelectOptions(
+            EnumNotifyAPAlign,
+            NOTIFY_AP_ALIGN_IT
+          ),
+          objectFit: this._apItemsSerivce
+            .createSelectOptions(EnumNotifyAPObjectFit, NOTIFY_AP_OBJECT_FIT_IT)
+            .filter((v) => v.value !== EnumNotifyAPObjectFit.None),
         },
         upload: {
           fileData: this.fileData,
