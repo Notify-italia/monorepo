@@ -27,7 +27,7 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
         name="direction"
         [compact]="true"
         label="Orientamento"
-        [options]="directionSelectOptions"
+        [options]="context.components.select.directions"
         [ngClass]="{
           'pointer-events-none brightness-50': form.value.imgMask === 'banner'
         }"

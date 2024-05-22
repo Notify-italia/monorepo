@@ -15,15 +15,15 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
     TailwindFormsModule,
   ],
   template: `
-    <div class="font-bold text-2xl my-auto  w-full text-center ">
+    <div class="font-extrabold my-auto  w-full text-center ">
       {{ itemValue.title || 'Inserisci un titolo' }}
     </div>
-    <ul class="w-full my-2 flex flex-col items-center  font-caveat !text-xl">
+    <ul class="w-full my-2 flex flex-col items-center">
       @for (item of itemValue.items; track $index) {
 
       <li
         [attr.data-index]="$index"
-        class="!text-current  smooth !font-medium my-auto "
+        class="!text-current  smooth  my-auto "
         [ngClass]="{
           'line-through opacity-50 !font-normal pointer-events-none':
             item.checked
@@ -31,7 +31,9 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
         type="text"
         placeholder="Descrizione..."
       >
-        {{ item.description }}
+        <small>
+          {{ item.description }}
+        </small>
       </li>
       }
     </ul>

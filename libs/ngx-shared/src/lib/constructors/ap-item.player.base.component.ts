@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
 import {
   EnumNotifyAPButtonStyles,
   EnumNotifyAPDirections,
+  EnumNotifyAPObjectFit,
   EnumNotifyUserType,
   INotifyProfile,
   NotifyAdvancedProfileItem,
@@ -27,9 +28,8 @@ import {
   AdvancedProfileItemsService,
   INotifyAdvancedProfileManifest,
 } from '../modules/advanced-profile/services/advanced-profile-items.service';
-import { TailwindFormsModule } from '../modules/tailwind-forms/tailwind-forms.module';
-import { FormsService, UtilsService } from '../services';
-import { LoadingComponent } from '../standalones';
+import { UtilsService } from '../services';
+import { LoadingComponent, NoItemsComponent } from '../standalones';
 
 export interface INotifyCustomTableValueBase {
   valueType: string;
@@ -38,15 +38,14 @@ export interface INotifyCustomTableValueBase {
   transformer?: (value: any) => string;
 }
 
-export const AdvancedItemFormBaseImports = [
+export const AdvancedItemPlayerBaseImports = [
   CommonModule,
-  TailwindFormsModule,
-  LoadingComponent,
   RouterModule,
+  NoItemsComponent,
+  LoadingComponent,
 ];
-export const AdvancedItemFormBaseProviders = [
+export const AdvancedItemPlayerBaseProviders = [
   AdvancedProfileItemsService,
-  FormsService,
   UtilsService,
 ];
 
@@ -81,6 +80,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
       statics: {
         directions: EnumNotifyAPDirections,
         buttonStyles: EnumNotifyAPButtonStyles,
+        objectFit: EnumNotifyAPObjectFit,
       },
       emitters: {
         itemClicked: <T>(data: T, eventName: ADVANCED_PROFILE_CLICK_EVENTS) => {
@@ -101,7 +101,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
         requiredItems: this._requiredItems(),
         isRequired: () =>
           this._requiredItemsIds().includes(this.currentItem._id),
-        textSetings: this.textSettings,
+        textSettings: this.textSettings,
         fontSize: this._fontSize,
         textColor: this._textColor,
         manifest: this.manifest,
@@ -199,13 +199,13 @@ export class AdvancedProfileItemPlayerBaseComponent<
       )?.advancedProfile?.items.find((i) => i._id === this.currentItem._id)
     );
 
-    const curerntItem = JSON.stringify(
+    const currentItem = JSON.stringify(
       (
         changes['profile'].previousValue as INotifyProfile
       )?.advancedProfile?.items.find((i) => i._id === this.currentItem._id)
     );
 
-    if (updatedItem === curerntItem) {
+    if (updatedItem === currentItem) {
       return;
     }
 

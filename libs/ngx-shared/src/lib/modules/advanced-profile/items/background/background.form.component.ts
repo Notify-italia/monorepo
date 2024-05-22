@@ -46,7 +46,7 @@ const FORCE_UPDATE_KEYS: string[] = [];
       <notify-tailwind-slider
         [parent]="pageSettingsForm"
         name="padding"
-        label="Margine laterale"
+        label="Padding laterale"
         [steps]="5"
         [min]="0.5"
         [max]="3"

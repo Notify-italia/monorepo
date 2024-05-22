@@ -7,9 +7,9 @@
     *ngIf="options?.showTitle"
   >
     {{ note.title }}
+    <div class="divider mt-0"></div>
   </h1>
 
-  <div class="divider mt-0"></div>
   <div
     class="flex flex-col w-full lg:max-w-[50rem] h-full !text-current/20 space-y-8 overflow-x-hidden"
   >
@@ -24,7 +24,6 @@
     } @case (enumNoteItemTypes.Text) {
     <notify-note-text-item [item]="item" [note]="note"></notify-note-text-item>
     } @case (enumNoteItemTypes.Checklist) {
-
     <notify-note-checklist-item
       [item]="item"
       [note]="note"

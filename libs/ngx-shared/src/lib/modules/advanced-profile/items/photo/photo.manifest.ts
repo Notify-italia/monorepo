@@ -1,4 +1,5 @@
 import {
+  EnumNotifyAPAlign,
   EnumNotifyAdvancedProfileItems,
   INotifyAPPhotoItem,
 } from '@notify/interfaces';
@@ -28,6 +29,8 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPPhotoItem> = {
     ...itemManifest.definitions,
     imgSrc: '',
     showCompanyOnClick: false,
+    dimension: 100,
+    align: EnumNotifyAPAlign.Center,
   },
 };
 

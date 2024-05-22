@@ -1,23 +1,20 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { INotifyAPIFrameItem } from '@notify/interfaces';
 
 import { OgObject } from 'open-graph-scraper/dist/lib/types';
 import { catchError, debounceTime, of, switchMap, tap } from 'rxjs';
-import { AdvancedProfileItemPlayerBaseComponent } from '../../../../constructors/ap-item.player.base.component';
+import {
+  AdvancedItemPlayerBaseImports,
+  AdvancedItemPlayerBaseProviders,
+  AdvancedProfileItemPlayerBaseComponent,
+} from '../../../../constructors/ap-item.player.base.component';
 import { CachedSrcDirective } from '../../../../directives';
-import { AvatarComponent, LoadingComponent } from '../../../../standalones';
 import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    AvatarComponent,
-    CachedSrcDirective,
-    LoadingComponent,
-  ],
-  providers: [iframeFactory],
+  imports: [...AdvancedItemPlayerBaseImports, CachedSrcDirective],
+  providers: [...AdvancedItemPlayerBaseProviders, iframeFactory],
   styleUrl: '../../advanced-profile.styles.scss',
   template: `
     <div

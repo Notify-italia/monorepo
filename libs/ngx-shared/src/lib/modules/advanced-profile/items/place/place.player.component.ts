@@ -1,12 +1,16 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { INotifyAPPlaceItem } from '@notify/interfaces';
-import { AdvancedProfileItemPlayerBaseComponent } from '../../../../constructors/ap-item.player.base.component';
-import { AvatarComponent, GoogleMapsComponent } from '../../../../standalones';
+import {
+  AdvancedItemPlayerBaseImports,
+  AdvancedItemPlayerBaseProviders,
+  AdvancedProfileItemPlayerBaseComponent,
+} from '../../../../constructors/ap-item.player.base.component';
+import { GoogleMapsComponent } from '../../../../standalones';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, AvatarComponent, GoogleMapsComponent],
+  imports: [...AdvancedItemPlayerBaseImports, GoogleMapsComponent],
+  providers: AdvancedItemPlayerBaseProviders,
   styleUrl: '../../advanced-profile.styles.scss',
   template: `
     <div

@@ -6,14 +6,13 @@ import {
   AdvancedItemFormBaseProviders,
   AdvancedProfileItemFormBaseComponent,
 } from '../../../../constructors/ap-item.form.base.component';
-import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/components/tailwind-dropzone/tailwind-dropzone.component';
 
 @Component({
   standalone: true,
   imports: AdvancedItemFormBaseImports,
   providers: AdvancedItemFormBaseProviders,
   styleUrls: ['../../advanced-profile.styles.scss'],
-  template: ` <div class="flex flex-col space-y-1">
+  template: ` <div class="flex flex-col space-y-4 smooth">
     <notify-upload
       [file]="context.components.upload.fileData"
       acceptedFiles="image/*"
@@ -24,6 +23,26 @@ import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/compon
       "
     ></notify-upload>
 
+    <notify-tailwind-slider
+      [parent]="form"
+      name="dimension"
+      label="Dimensione"
+      [steps]="15"
+      [min]="1"
+      [max]="100"
+      [compact]="true"
+    ></notify-tailwind-slider>
+
+    <notify-tailwind-select
+      [parent]="form"
+      name="align"
+      [compact]="true"
+      label="Allinea"
+      [options]="context.components.select.align"
+    ></notify-tailwind-select>
+
+    <div class="divider"></div>
+
     <notify-tailwind-checkbox
       [parent]="form"
       name="showCompanyOnClick"
@@ -32,11 +51,6 @@ import { TAILWIND_DROPZONE_DEFAULT_LABELS } from '../../../tailwind-forms/compon
   </div>`,
 })
 export class PhotoFormComponent extends AdvancedProfileItemFormBaseComponent<INotifyAPPhotoItem> {
-  public dropzoneLabels = {
-    ...TAILWIND_DROPZONE_DEFAULT_LABELS,
-    defaultMessage: "Carica un'immagine da visualizzare sul profilo",
-  };
-
   public override async componentReady() {
     this.context.components.upload.init('imgSrc');
   }

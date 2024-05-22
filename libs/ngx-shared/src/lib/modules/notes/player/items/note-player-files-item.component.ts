@@ -55,8 +55,10 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
           </svg>
 
           } }
-          <p class="text-xs truncate w-full text-center">
-            {{ item.name }}
+          <p class="truncate w-full text-center">
+            <small>
+              {{ item.name }}
+            </small>
           </p>
         </a>
         }

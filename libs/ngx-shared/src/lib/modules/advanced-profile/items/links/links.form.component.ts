@@ -20,7 +20,7 @@ import { TailwindInputComponent } from '../../../tailwind-forms/tailwind-forms.m
       [parent]="form"
       name="style"
       label="Stile Pulsanti"
-      [options]="buttonStylesSelectOptions"
+      [options]="context.components.select.buttonStyles"
       class="w-full"
       [compact]="true"
     ></notify-tailwind-select>
@@ -28,7 +28,7 @@ import { TailwindInputComponent } from '../../../tailwind-forms/tailwind-forms.m
       [parent]="form"
       name="direction"
       label="Orientamento"
-      [options]="directionSelectOptions"
+      [options]="context.components.select.directions"
       class="w-full"
       [compact]="true"
     ></notify-tailwind-select>
