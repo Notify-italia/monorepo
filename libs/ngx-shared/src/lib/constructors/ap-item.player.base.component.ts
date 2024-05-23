@@ -28,8 +28,12 @@ import {
   AdvancedProfileItemsService,
   INotifyAdvancedProfileManifest,
 } from '../modules/advanced-profile/services/advanced-profile-items.service';
-import { UtilsService } from '../services';
-import { LoadingComponent, NoItemsComponent } from '../standalones';
+import { SvgboxService, UtilsService } from '../services';
+import {
+  LoadingComponent,
+  NoItemsComponent,
+  SvgBoxIconComponent,
+} from '../standalones';
 
 export interface INotifyCustomTableValueBase {
   valueType: string;
@@ -43,6 +47,7 @@ export const AdvancedItemPlayerBaseImports = [
   RouterModule,
   NoItemsComponent,
   LoadingComponent,
+  SvgBoxIconComponent,
 ];
 export const AdvancedItemPlayerBaseProviders = [
   AdvancedProfileItemsService,
@@ -61,6 +66,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
   private _utilsSerivce = inject(UtilsService);
   private _domSanitizer = inject(DomSanitizer);
   private _apOutputsService = inject(AdvancedProfileItemOutputsService);
+  private _svgBoxService = inject(SvgboxService);
 
   @Input() profile!: INotifyProfile;
   @Input() currentItem!: T;
@@ -76,6 +82,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
         apItems: this._apItemsSerivce,
         utils: this._utilsSerivce,
         sanitizer: this._domSanitizer,
+        svgBox: this._svgBoxService,
       },
       statics: {
         directions: EnumNotifyAPDirections,
@@ -99,8 +106,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
         isAgent: this.profile.type === EnumNotifyUserType.Agent,
         isCompany: this.profile.type === EnumNotifyUserType.Company,
         requiredItems: this._requiredItems(),
-        isRequired: () =>
-          this._requiredItemsIds().includes(this.currentItem._id),
+        isRequired: this._requiredItemsIds().includes(this.currentItem._id),
         textSettings: this.textSettings,
         fontSize: this._fontSize,
         textColor: this._textColor,

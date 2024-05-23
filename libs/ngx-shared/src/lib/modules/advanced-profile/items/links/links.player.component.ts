@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { INotifyAPLinkItem, INotifyAPLinksItem } from '@notify/interfaces';
 import {
   AdvancedItemPlayerBaseImports,
@@ -58,11 +58,9 @@ import { SvgBoxIconComponent } from '../../../../standalones';
   `,
 })
 export class LinksPlayerComponent extends AdvancedProfileItemPlayerBaseComponent<INotifyAPLinksItem> {
-  private _svgBoxService = inject(SvgboxService);
-
   public get items() {
     return this.currentItem.items.map((item) => {
-      const icon = this._svgBoxService.getIcon(item.icon);
+      const icon = this.context.services.svgBox.getIcon(item.icon);
 
       return {
         ...item,
