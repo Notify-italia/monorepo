@@ -13,6 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 export class GoogleMapsComponent implements OnInit, OnChanges {
   @Input() address = '';
   @Input() mapClass = 'rounded-lg w-full h-full';
+  @Input() zoom = 12;
 
   public location$ = new BehaviorSubject<SafeResourceUrl>('');
 
@@ -27,7 +28,7 @@ export class GoogleMapsComponent implements OnInit, OnChanges {
   }
 
   public parseLocation() {
-    const locationData = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCC9c9IyxgUS1yZvDg38PXvP2c7FFgLk6s&q=${this.address}&zoom=12
+    const locationData = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCC9c9IyxgUS1yZvDg38PXvP2c7FFgLk6s&q=${this.address}&zoom=${this.zoom}
       `;
 
     const url = this._domSanitizer.bypassSecurityTrustResourceUrl(locationData);

@@ -2,7 +2,7 @@
   <label
     [for]="name"
     id="input-label"
-    class="block text-sm font-medium"
+    class="block text-sm font-medium mb-1.5"
     [ngClass]="{
       'text-xs': compact
     }"
@@ -10,21 +10,51 @@
     {{ label | titlecase }}
   </label>
 
-  <input
-    [id]="name"
-    [name]="name"
-    [formControlName]="name"
-    type="range"
-    [min]="min"
-    [max]="max"
-    class="range w-full mt-1.5"
-    [class.range-error]="showValidationErrors"
-    [class.range-xs]="compact"
-    [step]="step === 0 ? undefined : step"
-  />
+  <div
+    class="w-full flex justify-between text-xs relative opacity-80 py-0.5"
+    *ngIf="stepsLabels"
+  >
+    <small *ngIf="stepsLabels.startLabel as l">
+      {{ l }}
+    </small>
+    <small *ngIf="stepsLabels.endLabel as l">
+      {{ l }}
+    </small>
+  </div>
+
+  <button class="group w-full">
+    <input
+      [id]="name"
+      [name]="name"
+      [formControlName]="name"
+      type="range"
+      [min]="min"
+      [max]="max"
+      class="range w-full"
+      [class.range-error]="showValidationErrors"
+      [class.range-xs]="compact"
+      [step]="step === 0 ? undefined : step"
+    />
+    <output
+      *ngIf="stepsLabels?.showCurrentStepWhileDragging"
+      class="bubble opacity-0 group-active:opacity-100 smooth smooth-ease-out smooth-fast"
+      [ngStyle]="{
+    left: bubbleLeft,
+  
+  }"
+    >
+      {{
+        stepsLabels?.draggingUsesPercentage
+          ? (currentPercentage | number : '1.0-2')
+          : currentValue
+      }}{{ stepsLabels?.draggingSuffix }}
+    </output>
+  </button>
+
   <div class="w-full flex justify-between text-xs px-2" *ngIf="step">
     @for (item of stepsIterable; track $index) {
     <span class="even:text-[0.4rem]">|</span>
+
     }
   </div>
 </div>

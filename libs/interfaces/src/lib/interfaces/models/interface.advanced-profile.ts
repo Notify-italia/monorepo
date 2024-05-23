@@ -66,6 +66,7 @@ export interface INotifyAPPlaceItem
   city: string;
   showStreetName: boolean;
   companyName: string;
+  zoom: number;
 }
 
 //contacts

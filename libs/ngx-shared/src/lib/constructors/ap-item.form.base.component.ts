@@ -96,13 +96,14 @@ export class AdvancedProfileItemFormBaseComponent<
         profile: this._profileService,
       },
       getters: {
+        formContext: this.formContext,
         advancedProfile: this.formContext.value,
         isAgent: this._authService.user?.userType === EnumNotifyUserType.Agent,
         isCompany:
           this._authService.user?.userType === EnumNotifyUserType.Company,
         requiredItems: this._requiredItems(),
         isRequired: this._requiredItemsIds().includes(this.form.value._id),
-        currentItem: this.form.value,
+        itemValue: this.form.value,
         profile: this.profile,
         formChanged: this.form.valueChanges.pipe(takeUntil(this._destroy$)),
       },
@@ -192,7 +193,7 @@ export class AdvancedProfileItemFormBaseComponent<
     control: keyof FormGroup<controlsFromObject<T>>['controls']
   ) {
     const profileId = this.context.getters.profile._id;
-    const itemId = this.context.getters.currentItem._id || '';
+    const itemId = this.context.getters.itemValue._id || '';
 
     const formControl = this.form.controls[control];
 
