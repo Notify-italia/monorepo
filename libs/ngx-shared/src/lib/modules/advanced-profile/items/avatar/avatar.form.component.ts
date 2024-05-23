@@ -169,7 +169,7 @@ export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<IN
   }
 
   private get cropperConfig() {
-    const isBanner = this.context.getters.currentItem.imgMask === 'banner';
+    const isBanner = this.context.getters.itemValue.imgMask === 'banner';
 
     const resize = isBanner ? null : { width: 800, height: 800 };
 

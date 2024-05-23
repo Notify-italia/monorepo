@@ -56,6 +56,23 @@ import {
 
       <div class="divider"></div>
 
+      <notify-tailwind-slider
+        [parent]="form"
+        name="zoom"
+        label="Zoom"
+        [min]="1"
+        [max]="20"
+        [steps]="20"
+        [compact]="true"
+        [stepsLabels]="{
+          startLabel: 'Satellite',
+          endLabel: 'Strada',
+          showCurrentStepWhileDragging: true,
+          draggingUsesPercentage: true,
+          draggingSuffix: 'x',
+        }"
+      ></notify-tailwind-slider>
+
       <notify-tailwind-checkbox
         [parent]="form"
         name="showStreetName"

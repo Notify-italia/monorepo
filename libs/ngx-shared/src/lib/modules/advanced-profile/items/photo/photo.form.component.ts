@@ -31,6 +31,12 @@ import {
       [min]="1"
       [max]="100"
       [compact]="true"
+      [stepsLabels]="{
+        startLabel: '1%',
+        endLabel: '100%',
+        showCurrentStepWhileDragging: true,
+        draggingSuffix: '%',
+      }"
     ></notify-tailwind-slider>
 
     <notify-tailwind-select

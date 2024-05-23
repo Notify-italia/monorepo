@@ -31,6 +31,7 @@ import { GoogleMapsComponent } from '../../../../standalones';
       <notify-google-maps
         [address]="mapsQuery"
         class="!w-full"
+        [zoom]="this.context.getters.currentItem.zoom"
       ></notify-google-maps>
     </div>
   `,

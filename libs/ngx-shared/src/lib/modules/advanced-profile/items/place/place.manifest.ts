@@ -29,6 +29,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPPlaceItem> = {
     city: '',
     companyName: '',
     showStreetName: true,
+    zoom: 12,
   },
 };
 

@@ -13,6 +13,10 @@ import { TailwindFormsService } from '../../services/tailwind-forms.service';
 @Component({
   selector: 'notify-tailwind-slider',
   templateUrl: './tailwind-slider.component.html',
+  styles: `
+  .bubble {
+  @apply absolute left-1/2 transform -translate-x-1/2 rounded-xl bg-secondary-500 text-white p-1  text-xs -mt-7;
+}`,
 })
 export class TailwindSliderComponent implements OnInit, OnChanges {
   @Input() parent!: FormGroup;
@@ -25,6 +29,13 @@ export class TailwindSliderComponent implements OnInit, OnChanges {
   @Input() max = 100;
   @Input() steps = 10;
   @Input() compact = false;
+  @Input() stepsLabels?: {
+    startLabel?: string;
+    endLabel?: string;
+    showCurrentStepWhileDragging?: boolean;
+    draggingSuffix?: string;
+    draggingUsesPercentage?: boolean;
+  };
 
   @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
 
@@ -34,6 +45,20 @@ export class TailwindSliderComponent implements OnInit, OnChanges {
 
   public get step() {
     return (this.max - this.min) / this.steps;
+  }
+
+  public get currentValue() {
+    return this.parent.get(this.name)?.value;
+  }
+
+  public get currentPercentage() {
+    return ((this.currentValue - this.min) / (this.max - this.min)) * 100;
+  }
+
+  public get bubbleLeft() {
+    return `calc(${this.currentPercentage}% + (${
+      8 - this.currentPercentage * 0.15
+    }px))`;
   }
 
   constructor(private tailwindFormService: TailwindFormsService) {}
