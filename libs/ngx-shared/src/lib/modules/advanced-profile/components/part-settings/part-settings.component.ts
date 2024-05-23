@@ -46,6 +46,7 @@ export class PartSettingsComponent {
   @Input({ required: true }) form!: advancedProfileForm;
   @Input() profile!: INotifyProfile;
   @Input() selectedHierarchyItem = 'background';
+  @Input() environment!: Record<string, unknown>;
 
   public get currentItem() {
     const form = this.form.controls?.['items'].controls?.find(

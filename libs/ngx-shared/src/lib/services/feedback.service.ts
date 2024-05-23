@@ -35,11 +35,11 @@ export class FeedbackService {
   }
 
   public getFeedbackFromLocalStorage(
-    id: INotifyFeedback['_id'],
+    owner: INotifyFeedback['owner'],
     feedbackKey: string
-  ) {
+  ): INotifyFeedback | null {
     return JSON.parse(localStorage.getItem(feedbackKey) || '[]').find(
-      (feedback: INotifyFeedback) => feedback.owner === id
+      (feedback: INotifyFeedback) => feedback.owner === owner
     );
   }
 

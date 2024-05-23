@@ -23,6 +23,7 @@ export class AdvancedProfilePlayerComponent {
   @Input() contained = false;
   @Input() isRunningOnPlayer = false;
   @Input() footer?: SafeHtml;
+  @Input() environment: Record<string, unknown> = {};
 
   @Output() itemClicked = new Subject<INotifyAdvancedProfileItem>();
 

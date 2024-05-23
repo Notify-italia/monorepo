@@ -80,6 +80,7 @@ export class AdvancedProfileItemFormBaseComponent<
     controlsFromObject<INotifyProfile['advancedProfile']>
   >;
   @Input() manifest!: INotifyAdvancedProfileManifest<T>;
+  @Input() private environment!: Record<string, unknown>;
 
   private fileData: File | null = null;
   private _imageCropperConfig?: Partial<IImageCropperConfig>;
@@ -96,6 +97,7 @@ export class AdvancedProfileItemFormBaseComponent<
         profile: this._profileService,
       },
       getters: {
+        environment: this.environment,
         formContext: this.formContext,
         advancedProfile: this.formContext.value,
         isAgent: this._authService.user?.userType === EnumNotifyUserType.Agent,

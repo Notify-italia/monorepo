@@ -109,10 +109,10 @@
     <notify-profile-view
       (integrationClicked)="handleIntegrationClicked($event, p)"
       [data]="p"
-      [feedbackKey]="feedbackKey"
       (subAvatarClick)="forceShowCompanyProfile()"
       (feedbackClicked)="showFeedback(p)"
       [footer]="footer"
+      [environment]="environment"
       [isRunningOnPlayer]="true"
       [mockup]="['lg', 'xl', '2xl'].includes(currentBreakpoint)"
     ></notify-profile-view>

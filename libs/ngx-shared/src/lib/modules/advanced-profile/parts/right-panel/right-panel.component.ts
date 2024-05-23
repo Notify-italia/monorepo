@@ -25,7 +25,7 @@ import { PartSettingsComponent } from '../../components/part-settings/part-setti
 export class RightPanelComponent {
   @Input({ required: true }) loading = false;
   @Input({ required: true }) profile!: INotifyProfile;
-  @Input({ required: true }) baseUrl = '';
+  @Input({ required: true }) environment!: Record<string, unknown>;
   @Input({ required: true }) form?: FormGroup<
     controlsFromObject<INotifyProfile['advancedProfile']>
   >;
@@ -49,7 +49,7 @@ export class RightPanelComponent {
           },
         ],
       },
-      baseUrl: this.baseUrl,
+      baseUrl: this.environment['profilesUrl'] as string,
       isInModal: false,
       id: this.profile?._id,
     };

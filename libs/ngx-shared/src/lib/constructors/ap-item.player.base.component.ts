@@ -68,10 +68,11 @@ export class AdvancedProfileItemPlayerBaseComponent<
   private _apOutputsService = inject(AdvancedProfileItemOutputsService);
   private _svgBoxService = inject(SvgboxService);
 
-  @Input() profile!: INotifyProfile;
+  @Input() private profile!: INotifyProfile;
   @Input() currentItem!: T;
-  @Input() manifest!: INotifyAdvancedProfileManifest;
-  @Input() isRunningOnPlayer = false;
+  @Input() private manifest!: INotifyAdvancedProfileManifest;
+  @Input() private isRunningOnPlayer = false;
+  @Input() private environment: Record<string, unknown> = {};
 
   private _componentChanged$ = new Subject<void>();
   private _componentDestroyed$ = new Subject<void>();
@@ -102,6 +103,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
         createIframeModal: this._createIframeModal.bind(this),
       },
       getters: {
+        environment: this.environment,
         isRunningOnPlayer: this.isRunningOnPlayer,
         isAgent: this.profile.type === EnumNotifyUserType.Agent,
         isCompany: this.profile.type === EnumNotifyUserType.Company,
