@@ -199,9 +199,10 @@ export class AdvancedProfileItemFormBaseComponent<
 
     if (!event.file) {
       this.fileData = null;
+      const fileName = this._fileNameFormUrl(formControl.value);
       formControl.setValue(null);
       this.context.services.profile
-        .deleteFile(profileId, itemId, this._fileNameFormUrl(formControl.value))
+        .deleteFile(profileId, itemId, fileName)
         .subscribe();
 
       return;

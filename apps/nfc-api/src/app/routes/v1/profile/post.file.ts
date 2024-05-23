@@ -13,7 +13,7 @@ router.post(
   upload.fields([{ name: 'file' }, { name: 'profile' }, { name: 'item' }]),
   body('file').optional().exists().withMessage('Nessun file caricato.'),
   body('profile').isMongoId().withMessage('Profilo non valido.'),
-  body('item').isMongoId().withMessage('Item non valido.'),
+  body('item').isString().withMessage('Item non valido.'),
   body('name').optional().isString().withMessage('Nome non valido.'),
   requestHandler(
     async (req, res) => {

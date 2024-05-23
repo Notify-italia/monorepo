@@ -8,7 +8,7 @@ const router = Router();
 router.delete(
   '/',
   query('profile').isMongoId().withMessage('Profillo non valido.'),
-  query('item').isMongoId().withMessage('Item non valido.'),
+  query('item').isString().withMessage('Item non valido.'),
   query('name').isString().withMessage('Nome non valido.'),
   requestHandler(
     async (req, res) => {
