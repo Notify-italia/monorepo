@@ -12,10 +12,13 @@ import {
   EnumNotifyAPBackgroundTypes,
   EnumNotifyAPDirections,
   INotifyAPageSettings,
+  INotifyProfile,
   NOTIFY_AP_BACKGROUND_TYPES_IT,
   NOTIFY_AP_DIRECTIONS_IT,
 } from '@notify/interfaces';
-import { UtilsService } from '../../../../services';
+import { tap } from 'rxjs';
+import { ProfileService, UtilsService } from '../../../../services';
+import { UploadComponent } from '../../../../standalones';
 import { IconSelectorComponent } from '../../../../standalones/icon-select/icon-selector.component';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
 import {
@@ -35,8 +38,9 @@ const FORCE_UPDATE_KEYS: string[] = [];
     ReactiveFormsModule,
     IconSelectorComponent,
     DragDropModule,
+    UploadComponent,
   ],
-  providers: [AdvancedProfileItemsService, UtilsService],
+  providers: [AdvancedProfileItemsService, UtilsService, ProfileService],
   template: `
     <form
       [formGroup]="pageSettingsForm"
@@ -144,6 +148,14 @@ const FORCE_UPDATE_KEYS: string[] = [];
             Fai click per scegliere un colore o trascina per riordinare
           </small>
         </div>
+        } @case (backgroundTypes.Image) {
+        <notify-upload
+          [file]="fileData"
+          acceptedFiles="image/*"
+          uploadLabel="Trascina un'immagine o clicca per caricarla"
+          class="h-48"
+          (fileChanged)="setFileControlValue($event)"
+        ></notify-upload>
         } }
       </div>
 
@@ -182,8 +194,10 @@ const FORCE_UPDATE_KEYS: string[] = [];
 export class BackgroundFormComponent implements OnInit {
   private _apItems = inject(AdvancedProfileItemsService);
   private _utils = inject(UtilsService);
+  private _profile = inject(ProfileService);
 
-  @Input() form!: advancedProfileForm;
+  @Input({ required: true }) form!: advancedProfileForm;
+  @Input({ required: true }) profile!: INotifyProfile;
 
   public fontsIconSet = FONTS_ICON_SET;
   public backgroundTypes = EnumNotifyAPBackgroundTypes;
@@ -193,6 +207,7 @@ export class BackgroundFormComponent implements OnInit {
     NOTIFY_AP_DIRECTIONS_IT
   );
 
+  public fileData: File | null = null;
   public get pageSettingsForm() {
     return this.form.controls?.pageSettings as unknown as FormGroup;
   }
@@ -220,6 +235,8 @@ export class BackgroundFormComponent implements OnInit {
 
   public ngOnInit() {
     this._compareFormWithDefaults();
+
+    this._initFileData();
   }
 
   public addGradientItem() {
@@ -272,6 +289,102 @@ export class BackgroundFormComponent implements OnInit {
       }
       _pageSettingsForm.controls[key]?.setValue(defaultValue);
     });
+  }
+
+  private async _initFileData() {
+    const formControl = this.pageSettingsForm.controls['imgSrc'];
+    const result = await fetch(formControl?.value || '')
+      .then((res) => res.blob()) // Gets the response and returns it as a blob
+      .then((blob) => {
+        if (!blob || blob.type === 'text/html') {
+          return null;
+        }
+
+        return this._generateFile(
+          blob,
+          this._fileNameFormUrl(formControl?.value || '') || 'image.jpg',
+          blob.type
+        );
+      });
+
+    this.fileData = result;
+  }
+
+  private async _refreshFileData() {
+    const formControl = this.pageSettingsForm.controls['imgSrc'];
+    const result = await fetch(formControl?.value || '')
+      .then((res) => res.blob()) // Gets the response and returns it as a blob
+      .then((blob) => {
+        if (!blob || blob.type === 'text/html') {
+          return null;
+        }
+
+        return this._generateFile(
+          blob,
+          this._fileNameFormUrl(formControl?.value || '') || 'image.jpg',
+
+          blob.type
+        );
+      });
+    this.fileData = result;
+  }
+
+  private _generateFile(
+    blob: BlobPart,
+    name: string,
+    type: string
+  ): File | null {
+    return new File([blob], name, { type });
+  }
+
+  private _fileNameFormUrl(url: string) {
+    return url.split('/').pop()?.split('?')[0] || 'file';
+  }
+
+  public setFileControlValue(event: {
+    file: File | null;
+    blob: string | ArrayBuffer | null;
+  }) {
+    const profileId = this.profile._id;
+    const itemId = 'background';
+
+    const formControl = this.pageSettingsForm.controls['imgSrc'];
+
+    if (!event.file) {
+      this.fileData = null;
+      const fileName = this._fileNameFormUrl(formControl.value);
+      formControl.setValue(null);
+      this._profile.deleteFile(profileId, itemId, fileName).subscribe();
+
+      return;
+    }
+
+    this._uploadFile(event, profileId, itemId).subscribe();
+  }
+
+  private _uploadFile(
+    event: {
+      file: File | null;
+      blob: string | ArrayBuffer | null;
+    },
+    profileId: string,
+    itemId: string
+  ) {
+    return this._profile
+      .uploadFile(
+        {
+          blob: event.blob,
+          name: event.file?.name || 'file',
+        },
+        profileId,
+        itemId
+      )
+      .pipe(
+        tap((r) => {
+          this.pageSettingsForm.controls['imgSrc']?.setValue(r.url);
+          this._refreshFileData();
+        })
+      );
   }
 }
 

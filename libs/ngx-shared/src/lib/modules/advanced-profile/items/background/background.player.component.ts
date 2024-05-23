@@ -35,6 +35,13 @@ export class BackgroundPlayerComponent {
           color: this.textColor,
           background: `linear-gradient(${this._gradientDirection},${this.gradientStops})`,
         };
+      case this.backgroundTypes.Image:
+        return {
+          'font-size': this.fontSize,
+          color: this.textColor,
+          'background-image': `url(${this.pageSettings.imgSrc})`,
+          'background-size': 'cover',
+        };
     }
 
     return { 'font-size': this.fontSize, color: this.textColor };
