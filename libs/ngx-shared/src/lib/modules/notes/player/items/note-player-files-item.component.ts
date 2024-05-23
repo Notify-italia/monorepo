@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { INotifyNoteItemFile, INotifyNoteItemFiles } from '@notify/interfaces';
 import { NoteItemBaseComponent } from '../../../../constructors/note-item.base.component';
+import { iframeFactory } from '../../../modals';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
 
 @Component({
@@ -14,6 +15,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
     ReactiveFormsModule,
     TailwindFormsModule,
   ],
+  providers: [iframeFactory],
   template: `
     <div class=" w-full  space-y-2 z-0">
       <span class="font-bold text-xl ">{{ itemValue.title }}</span>
@@ -85,6 +87,8 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
   styleUrls: ['../../notes.styles.scss'],
 })
 export class NotePlayerFilesItemComponent extends NoteItemBaseComponent {
+  private iframeFactory = inject(iframeFactory);
+
   public currentItem = 0;
 
   public get itemValue() {
@@ -111,4 +115,16 @@ export class NotePlayerFilesItemComponent extends NoteItemBaseComponent {
     }
     return 'other';
   }
+
+  //TODO aprire i file in un iframe a schermo intero ma solo se è disponibile la preview
+  // public openLink(file: INotifyNoteItemFile) {
+  //   this.iframeFactory.create({
+  //     url: file.url,
+  //     title: file.name,
+  //     navbarStyle: {
+  //       backgroundColor: '#000000',
+  //       color: '#ffffff',
+  //     },
+  //   });
+  // }
 }
