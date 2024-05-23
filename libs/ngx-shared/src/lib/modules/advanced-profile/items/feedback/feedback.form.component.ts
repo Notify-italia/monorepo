@@ -176,8 +176,13 @@ export class FeedbackFormComponent extends AdvancedProfileItemFormBaseComponent<
       return;
     }
 
-    const newCaption = `Recensiscici su ${e.new.expanded}!`;
-    const eventCurrentCaption = `Recensiscici su ${e.current?.expanded || ''}!`;
+    const captionPrefix = 'Valutaci su ';
+    const captionSuffix = '!';
+
+    const newCaption = `${captionPrefix}${e.new.expanded}${captionSuffix}`;
+    const eventCurrentCaption = `${captionPrefix}${
+      e.current?.expanded || ''
+    }${captionSuffix}`;
     const currentIcon = this.form.controls['icon'].value;
     const currentCaption = this.form.controls['caption'].value;
 
