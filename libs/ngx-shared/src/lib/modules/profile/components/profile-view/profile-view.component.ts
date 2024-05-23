@@ -46,9 +46,10 @@ export const defaultGradientStops = ['#0A2859', '#041127'];
 export class ProfileViewComponent implements OnInit {
   @Input() data?: INotifyProfile;
   @Input() mockup = false;
-  @Input() feedbackKey = 'feedback';
   @Input() footer?: SafeHtml;
   @Input() isRunningOnPlayer = false;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Input() environment: Record<string, any> = {};
 
   @Output() subAvatarClick = new EventEmitter<void>();
   @Output() public integrationClicked = new EventEmitter<

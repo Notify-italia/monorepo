@@ -13,6 +13,7 @@ import { AdvancedProfilePlayerComponent } from '../../../advanced-profile/ap.pla
     [profile]="data"
     [footer]="footer"
     [contained]="mockup"
+    [environment]="environment"
     [isRunningOnPlayer]="isRunningOnPlayer"
   ></notify-ap-player> `,
 })
@@ -21,4 +22,5 @@ export class AdvancedViewComponent {
   @Input() public footer?: SafeHtml;
   @Input() public mockup = false;
   @Input() public isRunningOnPlayer = false;
+  @Input() public environment: Record<string, unknown> = {};
 }

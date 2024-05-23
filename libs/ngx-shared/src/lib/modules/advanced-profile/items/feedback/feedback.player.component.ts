@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { INotifyAPFeedbackItem } from '@notify/interfaces';
 import {
   AdvancedItemPlayerBaseImports,
   AdvancedItemPlayerBaseProviders,
   AdvancedProfileItemPlayerBaseComponent,
 } from '../../../../constructors/ap-item.player.base.component';
+import { FeedbackService } from '../../../../services';
 import { FEEDBACK_ICON_SET } from './feedback.iconset';
 
 @Component({
   standalone: true,
   imports: AdvancedItemPlayerBaseImports,
-  providers: AdvancedItemPlayerBaseProviders,
+  providers: [...AdvancedItemPlayerBaseProviders, FeedbackService],
   styleUrl: '../../advanced-profile.styles.scss',
   template: ` <div
     *ngIf="this.context.getters.container as container"
@@ -19,9 +20,10 @@ import { FEEDBACK_ICON_SET } from './feedback.iconset';
     [ngClass]="container.ngClass"
   >
     @if (button; as feedback) {
-    <a
+    <button
       (click)="context.emitters.itemClicked(feedback, 'CONTACT_CLICKED')"
-      class="btn !flex-nowrap truncate  min-h-1 !h-fit py-2 w-full justify-between"
+      class="btn !flex-nowrap truncate  min-h-1 !h-fit py-2 w-full justify-between disabled:opacity-75"
+      [disabled]="feedback.disabled"
       [ngStyle]="{
       'font-size': context.getters.fontSize,
       'background-color':context.getters.textColor,
@@ -37,12 +39,13 @@ import { FEEDBACK_ICON_SET } from './feedback.iconset';
         [size]="iconSize"
       ></notify-svg-box-icon>
       <span>{{ feedback.caption }}</span>
-    </a>
+    </button>
 
     }
   </div>`,
 })
 export class FeedbackPlayerComponent extends AdvancedProfileItemPlayerBaseComponent<INotifyAPFeedbackItem> {
+  private _feedbackService = inject(FeedbackService);
   private _iconSet = FEEDBACK_ICON_SET;
 
   public get icon() {
@@ -54,11 +57,29 @@ export class FeedbackPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
 
   public get button() {
     if (this.context.getters.isRequired) {
+      const hasFeedback = this._feedbackService.getFeedbackFromLocalStorage(
+        this.context.getters.profile.owner,
+        //environment.ts => feedbackKey
+        this.context.getters.environment['feedbackKey'] as string
+      );
+
+      const rating = hasFeedback?.rating ? hasFeedback?.rating + 1 : undefined;
+
       return {
-        caption: 'Lascia un feedback',
+        caption: hasFeedback
+          ? `Valutato ${rating} stell${rating === 1 ? 'a' : 'e'}`
+          : 'Lascia un feedback',
+        disabled: hasFeedback,
         icon: 'generic',
         onClick: () => {
-          this.context.emitters.itemClicked(null, 'SHOW_FEEDBACK_FORM');
+          if (hasFeedback) {
+            return;
+          }
+
+          this.context.emitters.itemClicked(
+            this.context.getters.profile,
+            'SHOW_FEEDBACK_FORM'
+          );
         },
       };
     }

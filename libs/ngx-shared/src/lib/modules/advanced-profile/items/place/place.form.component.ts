@@ -62,13 +62,12 @@ import {
         label="Zoom"
         [min]="1"
         [max]="20"
-        [steps]="20"
+        [steps]="19"
         [compact]="true"
         [stepsLabels]="{
           startLabel: 'Satellite',
           endLabel: 'Strada',
           showCurrentStepWhileDragging: true,
-          draggingUsesPercentage: true,
           draggingSuffix: 'x',
         }"
       ></notify-tailwind-slider>

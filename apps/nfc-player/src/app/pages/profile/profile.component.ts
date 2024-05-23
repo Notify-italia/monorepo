@@ -63,8 +63,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   public profile$: Observable<INotifyProfile>;
-  public publicUrl = environment.publicUrl;
-  public feedbackKey = environment.feedbackKey;
+  public environment = environment;
 
   private _thresholds = {
     minScale: 0.9,
@@ -249,7 +248,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public showFeedback(profile: INotifyProfile): void {
     this._feedbackFactory.create({
       profile,
-      feedbackKey: this.feedbackKey,
+      feedbackKey: this.environment.feedbackKey,
     });
   }
 
@@ -319,7 +318,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   public saveContact(d: INotifyProfile): void {
-    this._profileService.saveContact(d, this.publicUrl);
+    this._profileService.saveContact(d, this.environment.publicUrl);
 
     this._statService
       .incrementStat(EnumNotifyStatType.ProfileSave, d.owner)
@@ -389,6 +388,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
       case 'SHOW_COMPANY_PROFILE': {
         this.forceShowCompanyProfile();
+        break;
+      }
+      case 'SHOW_FEEDBACK_FORM': {
+        this.showFeedback(event.eventData as unknown as INotifyProfile);
         break;
       }
       default:
