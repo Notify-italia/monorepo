@@ -176,10 +176,8 @@ export class FeedbackFormComponent extends AdvancedProfileItemFormBaseComponent<
       return;
     }
 
-    const newCaption = `Lascia una recensione su ${e.new.expanded}`;
-    const eventCurrentCaption = `Lascia una recensione su ${
-      e.current?.expanded || ''
-    }`;
+    const newCaption = `Recensiscici su ${e.new.expanded}!`;
+    const eventCurrentCaption = `Recensiscici su ${e.current?.expanded || ''}!`;
     const currentIcon = this.form.controls['icon'].value;
     const currentCaption = this.form.controls['caption'].value;
 

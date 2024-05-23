@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { INotifyAPLinksItem } from '@notify/interfaces';
 import {
   AdvancedItemPlayerBaseImports,
@@ -63,13 +63,14 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
   `,
 })
 export class ContactsPlayerComponent extends AdvancedProfileItemPlayerBaseComponent<INotifyAPLinksItem> {
-  private _svgBoxService = inject(SvgboxService);
-
   public iconset = CONTACTS_ICON_SET;
 
   public get items() {
     return this.currentItem.items.map((item) => {
-      const icon = this._svgBoxService.getIcon(item.icon, this.iconset);
+      const icon = this.context.services.svgBox.getIcon(
+        item.icon,
+        this.iconset
+      );
 
       return {
         ...item,
