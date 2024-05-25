@@ -7,7 +7,8 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
   selector: 'notify-background-items-spacing-form',
   standalone: true,
   imports: [CommonModule, TailwindFormsModule],
-  template: `<notify-tailwind-slider
+  template: ` <div class="flex flex-col space-y-4">
+    <notify-tailwind-slider
       [parent]="pageSettingsForm"
       name="padding"
       label="Padding laterale"
@@ -24,7 +25,8 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
       [min]="0"
       [max]="2"
       [compact]="true"
-    ></notify-tailwind-slider>`,
+    ></notify-tailwind-slider>
+  </div>`,
 })
 export class AdvancedProfileItemsSpacingFormComponent {
   @Input({ required: true }) pageSettingsForm!: FormGroup;
