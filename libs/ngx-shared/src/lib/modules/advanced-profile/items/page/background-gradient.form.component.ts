@@ -25,22 +25,27 @@ import { AdvancedProfileItemsService } from '../../services/advanced-profile-ite
         [compact]="true"
       ></notify-tailwind-select>
 
-      <button class="btn btn-sm w-full" (click)="addGradientItem()">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
-            clip-rule="evenodd"
-          />
-        </svg>
+      <div class="flex flex-col">
+        <button class="btn btn-sm w-full" (click)="addGradientItem()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z"
+              clip-rule="evenodd"
+            />
+          </svg>
 
-        <span>Aggiungi</span>
-      </button>
+          <span>Aggiungi</span>
+        </button>
+        <small class="text-center" *ngIf="gradientForm.colorsFa.value.length">
+          Fai click per scegliere un colore o trascina per riordinare
+        </small>
+      </div>
       <div
         class="flex flex-col space-y-4 "
         cdkDropList
@@ -75,9 +80,6 @@ import { AdvancedProfileItemsService } from '../../services/advanced-profile-ite
         </div>
 
         }
-        <small class="text-center" *ngIf="gradientForm.colorsFa.value.length">
-          Fai click per scegliere un colore o trascina per riordinare
-        </small>
       </div>
     </div>
   `,
