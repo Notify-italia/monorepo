@@ -10,16 +10,16 @@ import {
   NOTIFY_AP_BACKGROUND_TYPES_IT,
 } from '@notify/interfaces';
 import { ProfileService, UtilsService } from '../../../../services';
-import { IconSelectorComponent } from '../../../../standalones/icon-select/icon-selector.component';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
 import {
   AdvancedProfileItemsService,
   advancedProfileForm,
 } from '../../services/advanced-profile-items.service';
-import { FONTS_ICON_SET } from '../../services/fonts.iconset';
 import { AdvancedProfileBackgroundFillFormComponent } from './background-fill.form.component';
 import { AdvancedProfileBackgroundGradientFormComponent } from './background-gradient.form.component';
 import { AdvancedProfileBackgroundImageFormComponent } from './background-image.form.component';
+import { AdvancedProfileItemsSpacingFormComponent } from './items-spacing.form.component copy';
+import { AdvancedProfilePageFontFormComponent } from './page-font.form.component';
 
 const FORCE_UPDATE_KEYS: string[] = [];
 
@@ -30,10 +30,11 @@ const FORCE_UPDATE_KEYS: string[] = [];
     CommonModule,
     TailwindFormsModule,
     ReactiveFormsModule,
-    IconSelectorComponent,
+    AdvancedProfilePageFontFormComponent,
     AdvancedProfileBackgroundFillFormComponent,
     AdvancedProfileBackgroundImageFormComponent,
     AdvancedProfileBackgroundGradientFormComponent,
+    AdvancedProfileItemsSpacingFormComponent,
   ],
   providers: [AdvancedProfileItemsService, UtilsService, ProfileService],
   template: `
@@ -42,24 +43,9 @@ const FORCE_UPDATE_KEYS: string[] = [];
       *ngIf="pageSettingsForm"
       class="flex flex-col space-y-4"
     >
-      <notify-tailwind-slider
-        [parent]="pageSettingsForm"
-        name="padding"
-        label="Padding laterale"
-        [steps]="5"
-        [min]="0.5"
-        [max]="3"
-        [compact]="true"
-      ></notify-tailwind-slider>
-      <notify-tailwind-slider
-        [parent]="pageSettingsForm"
-        name="verticalSpacing"
-        label="Spaziatura elementi"
-        [steps]="20"
-        [min]="0"
-        [max]="2"
-        [compact]="true"
-      ></notify-tailwind-slider>
+      <notify-background-items-spacing-form
+        [pageSettingsForm]="pageSettingsForm"
+      ></notify-background-items-spacing-form>
 
       <div class="divider"></div>
 
@@ -91,33 +77,9 @@ const FORCE_UPDATE_KEYS: string[] = [];
 
       <div class="divider"></div>
 
-      <span class="font-medium">Stile testo</span>
-      <div class="flex justify-between space-x-2 items-center">
-        <notify-icon-selector
-          [iconSet]="fontsIconSet"
-          [icon]="pageSettingsForm.value.font"
-          title="Carattere"
-          [openSelectorOnBoot]="false"
-          [showIconLabel]="false"
-          (iconChange)="setFont($event.new?.name || 'poppins')"
-        ></notify-icon-selector>
-        <notify-tailwind-color-picker
-          [parent]="pageSettingsForm"
-          name="textColor"
-          class="w-7/12"
-          [compact]="true"
-        ></notify-tailwind-color-picker>
-        <notify-tailwind-input
-          class="!mb-1 w-3/12"
-          [parent]="pageSettingsForm"
-          name="fontSize"
-          label=" "
-          [compact]="true"
-          [showSpinButtons]="true"
-          type="number"
-          [showClearInput]="false"
-        ></notify-tailwind-input>
-      </div>
+      <notify-page-font-form
+        [pageSettingsForm]="pageSettingsForm"
+      ></notify-page-font-form>
     </form>
   `,
 })
@@ -127,7 +89,6 @@ export class PageFormComponent implements OnInit {
   @Input({ required: true }) form!: advancedProfileForm;
   @Input({ required: true }) profile!: INotifyProfile;
 
-  public fontsIconSet = FONTS_ICON_SET;
   public backgroundTypes = EnumNotifyAPBackgroundTypes;
 
   public get pageSettingsForm() {
@@ -145,10 +106,6 @@ export class PageFormComponent implements OnInit {
 
   public ngOnInit() {
     this._compareFormWithDefaults();
-  }
-
-  public setFont(font: string) {
-    this.pageSettingsForm.controls['font'].setValue(font);
   }
 
   private _compareFormWithDefaults() {
