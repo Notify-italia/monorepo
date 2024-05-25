@@ -16,7 +16,8 @@ import {
   takeUntil,
   tap,
 } from 'rxjs';
-import { FormsService, ProfileService } from '../../services';
+import { CachedSrcDirective } from '../../directives';
+import { FormsService, ProfileService, UtilsService } from '../../services';
 import { LoadingComponent } from '../../standalones';
 import { ProfileViewComponent } from '../profile';
 import { ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS } from './items/page/page.form.component';
@@ -33,8 +34,9 @@ import { AdvancedProfileItemOutputsService } from './services/advanced-profile-i
     RightPanelComponent,
     LoadingComponent,
     ProfileViewComponent,
+    CachedSrcDirective,
   ],
-  providers: [FormsService],
+  providers: [FormsService, UtilsService, ProfileService],
   templateUrl: './advanced-profile.component.html',
   styleUrl: './advanced-profile.styles.scss',
 })
@@ -46,6 +48,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
   private _advancedProfileItemOutputsService = inject(
     AdvancedProfileItemOutputsService
   );
+  private _utilsService = inject(UtilsService);
 
   //observables
   private _profileSubject = new Subject<INotifyProfile>();
@@ -124,14 +127,20 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
     );
   }
 
+  public normalizeURL(url: string | null) {
+    if (!url) {
+      url = 'https://notifyapp.it';
+    }
+
+    return this._utilsService.populateWebProtocol('https://', url);
+  }
+
   public refreshProfile() {
     this.loading = true;
-    return (this.profile$ = this._profileSerivce
-      .getProfile(this.providedId)
-      .pipe(
-        tap((v) => this._profileSubject.next(v)),
-        tap(() => (this.loading = false))
-      ));
+    return this._profileSerivce.getProfile(this.providedId).pipe(
+      tap((v) => this._profileSubject.next(v)),
+      tap(() => (this.loading = false))
+    );
   }
 
   public saveProfile(form: INotifyAdvancedProfile) {
@@ -144,6 +153,31 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
         this.providedId
       )
       .pipe(tap(() => (this.loading = false)));
+  }
+
+  public toggleProfileRedirect(value: boolean, profile: INotifyProfile) {
+    this.loading = true;
+    this._profileSerivce
+      .patchProfile({
+        config: {
+          ...profile.config,
+          redirectEnabled: value,
+        },
+      })
+      .pipe(
+        tap(() => {
+          this._profileSubject.next({
+            ...profile,
+            config: {
+              ...profile.config,
+              redirectEnabled: value,
+            },
+          });
+          this.selectedHierarchyItem = 'background';
+          this.loading = false;
+        })
+      )
+      .subscribe();
   }
 }
 

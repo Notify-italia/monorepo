@@ -12,11 +12,28 @@
         [selectedHierarchyItem]="selectedHierarchyItem"
         (hierarchyChanged)="hierarchyChanged($event)"
         (selectedHierarchyItemChanged)="selectedHierarchyItem = $event"
+        (toggleReviewProfile)="toggleProfileRedirect($event, profile)"
+        [profile]="profile"
       ></notify-left-panel>
 
       <div
         class="size-full flex flex-col justify-center items-center 2xl:my-auto"
       >
+        @if(profile.config.redirectEnabled) {
+        <div
+          class="flex scale-90 lg:scale-75 2xl:scale-100 top-10 flex-col h-fit w-full"
+          *ngIf="profile.config.redirectEnabled"
+        >
+          <iframe
+            [cachedSrc]="normalizeURL(profile.redirectUrl)"
+            class="iphone-15-pro phone mockup-phone pointer-events-none"
+            frameborder="0"
+          ></iframe>
+          <small class="w-full text-center mx-auto">
+            Alcuni siti web potrebbero non essere visualizzati correttamente
+          </small>
+        </div>
+        } @else {
         <notify-profile-view
           [data]="
             $any({
@@ -29,6 +46,7 @@
           [isRunningOnPlayer]="false"
           class="iphone-15-pro scale-75 2xl:scale-100"
         ></notify-profile-view>
+        }
       </div>
       <notify-right-panel
         [loading]="loading"

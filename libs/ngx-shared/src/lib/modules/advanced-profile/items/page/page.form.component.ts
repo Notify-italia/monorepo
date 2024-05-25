@@ -51,8 +51,11 @@ const FORCE_UPDATE_KEYS: string[] = [];
         [baseUrl]="environment['profilesUrl']"
       ></notify-personalize-link-form>
 
-      <div class="divider"></div>
+      @if(profile.config.redirectEnabled) {
+      <!-- <notify-tailwind-input  -->
 
+      }@else {
+      <div class="divider"></div>
       <notify-background-items-spacing-form
         [pageSettingsForm]="pageSettingsForm"
       ></notify-background-items-spacing-form>
@@ -90,6 +93,7 @@ const FORCE_UPDATE_KEYS: string[] = [];
         ></notify-background-image-form>
         } }
       </div>
+      }
     </form>
   `,
 })

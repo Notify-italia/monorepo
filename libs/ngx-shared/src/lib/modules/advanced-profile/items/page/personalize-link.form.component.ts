@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { INotifyProfile } from '@notify/interfaces';
-import { Subject, catchError, debounceTime, of, switchMap, tap } from 'rxjs';
+import { catchError, debounceTime, of, switchMap, tap } from 'rxjs';
 import { ProfileService, UtilsService } from '../../../../services';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
 
@@ -29,7 +29,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
         [prefix]="displayFriendlyUrl"
         name="profileIdentifier"
         [placeholder]="profile._id"
-        label="Personalizza URL profilo"
+        label="URL profilo"
         [showClearInput]="false"
         [compact]="true"
         [parent]="form"
@@ -119,20 +119,12 @@ export class PersonalizeLinkFormComponent implements OnInit {
   @Input({ required: true }) baseUrl!: string;
   @Input({ required: true }) pageSettingsForm!: FormGroup;
 
-  public loading = false;
-
   public valid: 'success' | 'error' | 'pending' | '' = '';
   public iconClass = 'w-6 h-6';
 
   public validationErrors = {
     minLength: 'almeno 2 caratteri',
   };
-
-  public submitted = new Subject<{
-    profileIdentifier: string;
-  }>();
-
-  public checkAvailability = new Subject<string>();
 
   public form!: FormGroup;
 
