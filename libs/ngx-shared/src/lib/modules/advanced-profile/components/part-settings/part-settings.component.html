@@ -7,7 +7,13 @@
   ></notify-page-form>
 
   @if(currentItem; as item) {
-  <form [formGroup]="item.form" class="flex flex-col space-y-4">
+  <form
+    [formGroup]="item.form"
+    class="flex flex-col space-y-4"
+    [ngClass]="{
+      'pointer-events-none opacity-50': profile.config.redirectEnabled
+    }"
+  >
     <div
       class="flex space-x-2 tooltip-bottom text-sm justify-end"
       [ngClass]="{
