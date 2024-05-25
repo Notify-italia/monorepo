@@ -7,8 +7,8 @@ import {
   INotifyAdvancedProfileManifest,
 } from '../../services/advanced-profile-items.service';
 import { itemManifest } from '../item.manifest';
-import { BackgroundFormComponent } from './background.form.component';
-import { BackgroundPlayerComponent } from './background.player.component';
+import { PageFormComponent } from './page.form.component';
+import { PagePlayerComponent } from './page.player.component';
 
 const manifest: INotifyAdvancedProfileManifest<NotifyAdvancedProfileItem> = {
   type: EnumNotifyAdvancedProfileItems.Unknown,
@@ -16,8 +16,8 @@ const manifest: INotifyAdvancedProfileManifest<NotifyAdvancedProfileItem> = {
   isSystemItem: true,
   filledIcon: [],
   outlineIcon: [],
-  formComponent: BackgroundFormComponent,
-  playerComponent: BackgroundPlayerComponent,
+  formComponent: PageFormComponent,
+  playerComponent: PagePlayerComponent,
   definitions: {
     ...itemManifest.definitions,
   },

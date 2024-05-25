@@ -1,5 +1,4 @@
 export * from './avatar/avatar.manifest';
-export * from './background/background.manifest';
 export * from './contacts/contacts.manifest';
 export * from './divider/divider.manifest';
 export * from './feedback/feedback.manifest';
@@ -7,5 +6,6 @@ export * from './iframe/iframe.manifest';
 export * from './item.manifest';
 export * from './links/links.manifest';
 export * from './note/note.manifest';
+export * from './page/page.manifest';
 export * from './photo/photo.manifest';
 export * from './place/place.manifest';

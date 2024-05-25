@@ -7,7 +7,7 @@ import {
 } from '@notify/interfaces';
 
 @Component({
-  selector: '[notify-ap-player-background]',
+  selector: '[notify-ap-player-page]',
   standalone: true,
   imports: [CommonModule],
   template: `
@@ -16,7 +16,7 @@ import {
     </div>
   `,
 })
-export class BackgroundPlayerComponent {
+export class PagePlayerComponent {
   @Input() pageSettings!: INotifyAPageSettings;
 
   public backgroundTypes = EnumNotifyAPBackgroundTypes;

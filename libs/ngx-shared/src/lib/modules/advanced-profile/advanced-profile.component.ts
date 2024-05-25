@@ -19,7 +19,7 @@ import {
 import { FormsService, ProfileService } from '../../services';
 import { LoadingComponent } from '../../standalones';
 import { ProfileViewComponent } from '../profile';
-import { ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS } from './items/background/background.form.component';
+import { ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS } from './items/page/page.form.component';
 import { LeftPanelComponent } from './parts/left-panel/left-panel.component';
 import { RightPanelComponent } from './parts/right-panel/right-panel.component';
 import { AdvancedProfileItemOutputsService } from './services/advanced-profile-item-outputs.service';
