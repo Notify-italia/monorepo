@@ -33,18 +33,6 @@
     }
   </div>
 
-  <ng-container
-    [ngTemplateOutlet]="HierarchyItem"
-    [ngTemplateOutletContext]="{
-      item: {
-        label: 'Impostazioni',
-        _id: 'footer',
-        visible: true
-      },
-      noLines: true
-    }"
-  ></ng-container>
-
   <ng-template #HierarchyItem let-item="item" let-noLines="noLines" let-i="i">
     <button
       class="flex w-full border-l hierarchy-line items-start"

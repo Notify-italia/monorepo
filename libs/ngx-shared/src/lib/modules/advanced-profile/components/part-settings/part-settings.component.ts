@@ -10,7 +10,7 @@ import { IconSelectorComponent } from '../../../../standalones/icon-select/icon-
 import { ConfirmModalFactory } from '../../../modals';
 import { CHECKBOX_TOGGLE_EYE } from '../../../tailwind-forms/components/tailwind-checkbox/tailwind-checkbox.component';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
-import { BackgroundFormComponent } from '../../items/background/background.form.component';
+import { PageFormComponent } from '../../items/page/page.form.component';
 import {
   AdvancedProfileItemsService,
   advancedProfileForm,
@@ -24,7 +24,7 @@ import { FONTS_ICON_SET } from '../../services/fonts.iconset';
     CommonModule,
     ReactiveFormsModule,
     TailwindFormsModule,
-    BackgroundFormComponent,
+    PageFormComponent,
     IconSelectorComponent,
     ConfirmButtonComponent,
   ],

@@ -4,14 +4,14 @@ import { SafeHtml } from '@angular/platform-browser';
 import { INotifyAdvancedProfileItem, INotifyProfile } from '@notify/interfaces';
 import { Subject } from 'rxjs';
 import { FormsService } from '../../services';
-import { BackgroundPlayerComponent } from './items/background/background.player.component';
+import { PagePlayerComponent } from './items/page/page.player.component';
 import { AdvancedProfileItemOutputsService } from './services/advanced-profile-item-outputs.service';
 import { AdvancedProfileItemsService } from './services/advanced-profile-items.service';
 
 @Component({
   selector: 'notify-ap-player',
   standalone: true,
-  imports: [CommonModule, BackgroundPlayerComponent],
+  imports: [CommonModule, PagePlayerComponent],
   providers: [AdvancedProfileItemsService, FormsService],
   templateUrl: './ap.player.component.html',
 })
