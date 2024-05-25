@@ -18,8 +18,9 @@ import {
 import { AdvancedProfileBackgroundFillFormComponent } from './background-fill.form.component';
 import { AdvancedProfileBackgroundGradientFormComponent } from './background-gradient.form.component';
 import { AdvancedProfileBackgroundImageFormComponent } from './background-image.form.component';
-import { AdvancedProfileItemsSpacingFormComponent } from './items-spacing.form.component copy';
+import { AdvancedProfileItemsSpacingFormComponent } from './items-spacing.form.component';
 import { AdvancedProfilePageFontFormComponent } from './page-font.form.component';
+import { PersonalizeLinkFormComponent } from './personalize-link.form.component';
 
 const FORCE_UPDATE_KEYS: string[] = [];
 
@@ -35,6 +36,7 @@ const FORCE_UPDATE_KEYS: string[] = [];
     AdvancedProfileBackgroundImageFormComponent,
     AdvancedProfileBackgroundGradientFormComponent,
     AdvancedProfileItemsSpacingFormComponent,
+    PersonalizeLinkFormComponent,
   ],
   providers: [AdvancedProfileItemsService, UtilsService, ProfileService],
   template: `
@@ -43,9 +45,23 @@ const FORCE_UPDATE_KEYS: string[] = [];
       *ngIf="pageSettingsForm"
       class="flex flex-col space-y-4"
     >
+      <notify-personalize-link-form
+        [pageSettingsForm]="pageSettingsForm"
+        [profile]="profile"
+        [baseUrl]="environment['profilesUrl']"
+      ></notify-personalize-link-form>
+
+      <div class="divider"></div>
+
       <notify-background-items-spacing-form
         [pageSettingsForm]="pageSettingsForm"
       ></notify-background-items-spacing-form>
+
+      <div class="divider"></div>
+
+      <notify-page-font-form
+        [pageSettingsForm]="pageSettingsForm"
+      ></notify-page-font-form>
 
       <div class="divider"></div>
 
@@ -74,12 +90,6 @@ const FORCE_UPDATE_KEYS: string[] = [];
         ></notify-background-image-form>
         } }
       </div>
-
-      <div class="divider"></div>
-
-      <notify-page-font-form
-        [pageSettingsForm]="pageSettingsForm"
-      ></notify-page-font-form>
     </form>
   `,
 })
@@ -88,6 +98,8 @@ export class PageFormComponent implements OnInit {
 
   @Input({ required: true }) form!: advancedProfileForm;
   @Input({ required: true }) profile!: INotifyProfile;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Input({ required: true }) environment!: Record<string, any>;
 
   public backgroundTypes = EnumNotifyAPBackgroundTypes;
 
