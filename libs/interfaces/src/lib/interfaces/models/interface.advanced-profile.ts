@@ -171,7 +171,6 @@ export enum EnumNotifyAPBackgroundTypes {
   Image = 'image',
   Fill = 'fill',
   Gradient = 'gradient',
-  Pattern = 'pattern',
 }
 
 export enum EnumNotifyAPAlign {
@@ -263,7 +262,6 @@ export const NOTIFY_AP_BACKGROUND_TYPES_IT: {
   [EnumNotifyAPBackgroundTypes.Image]: 'Immagine',
   [EnumNotifyAPBackgroundTypes.Fill]: 'Tinta Unita',
   [EnumNotifyAPBackgroundTypes.Gradient]: 'Gradiente',
-  [EnumNotifyAPBackgroundTypes.Pattern]: 'Pattern',
 };
 
 export const NOTIFY_AP_OBJECT_FIT_IT: {
