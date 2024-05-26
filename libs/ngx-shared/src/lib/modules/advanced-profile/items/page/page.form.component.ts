@@ -52,7 +52,14 @@ const FORCE_UPDATE_KEYS: string[] = [];
       ></notify-personalize-link-form>
 
       @if(profile.config.redirectEnabled) {
-      <!-- <notify-tailwind-input  -->
+      <notify-tailwind-input
+        [parent]="pageSettingsForm"
+        name="redirectUrl"
+        label="reindirizzamento"
+        prefix="https://"
+        placeholder="notifyapp.it"
+        [compact]="true"
+      ></notify-tailwind-input>
 
       }@else {
       <div class="divider"></div>
@@ -169,4 +176,5 @@ export const ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS: INotifyAPageSettings = {
   align: EnumNotifyAPAlign.Start,
   padding: 0.625,
   verticalSpacing: 0.5,
+  redirectUrl: '',
 };
