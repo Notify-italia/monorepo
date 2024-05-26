@@ -25,8 +25,12 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
         class="flex items-center w-full"
         [ngClass]="{
           'flex-col space-y-4': isVertical,
-          'flex-row  justify-around  flex-nowrap overflow-x-auto notify-scrollbar scrollbar-absolute':
-            isHorizontal
+          'flex-row  justify-around  flex-nowrap overflow-x-auto notify-scrollbar scrollbar-absolute rounded-lg':
+            isHorizontal,
+        }"
+        [ngStyle]="{
+          'background-color': isFilled && isHorizontal?  context.getters.textColor : '',
+          'border-color': isFilled && isHorizontal? context.getters.textColor : '',
         }"
       >
         @for (contact of items; track $index) {
@@ -39,14 +43,13 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
             'space-x-2 m-1 btn-square ': isHorizontal,
             'btn-outline': isOutlined,
             'btn-ghost': isText,
-            
+            'bg-transparent border-none': isFilled && isHorizontal,
           }"
           [ngStyle]="{
           'font-size': context.getters.fontSize,
-          'background-color': isFilled ?  context.getters.textColor : '',
           'color':textColor,
-          'border-color': isFilled ? context.getters.textColor : '',
-          
+          'background-color': isFilled && !isHorizontal?  context.getters.textColor : '',
+          'border-color': isFilled && !isHorizontal? context.getters.textColor : '',
         }"
           [href]="contact.url"
           target="_blank"
@@ -96,18 +99,14 @@ export class ContactsPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
 
   public get textColor() {
     if (!this.isFilled) {
+      //se il tipo di sfondo non è filled, il colore del testo è il colore di default
       return this.context.getters.textColor;
     }
 
-    const pageTextColor = this.context.getters.pageSettings?.textColor;
-
-    if (pageTextColor === this.context.getters.textColor) {
-      return this.context.services.utils.getContrstingColor(
-        pageTextColor || '#000000'
-      );
-    }
-
-    return this.context.getters.pageSettings?.textColor;
+    //restituisci nero o bianco in base al contrasto con il colore del testo (usato invece come colore di sfondo)
+    return this.context.services.utils.getContrstingColor(
+      this.context.getters.textColor || '#000000'
+    );
   }
 
   public get isFilled() {

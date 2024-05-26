@@ -71,7 +71,7 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
       <notify-tailwind-input
         [parent]="form"
         name="label"
-        label="Testo principale"
+        label="Alias"
         placeholder="Mario Rossi"
         [compact]="true"
       >
