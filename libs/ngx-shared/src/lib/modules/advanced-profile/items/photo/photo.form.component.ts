@@ -28,11 +28,11 @@ import {
       name="dimension"
       label="Dimensione"
       [steps]="15"
-      [min]="1"
+      [min]="10"
       [max]="100"
       [compact]="true"
       [stepsLabels]="{
-        startLabel: '1%',
+        startLabel: '10%',
         endLabel: '100%',
         showCurrentStepWhileDragging: true,
         draggingSuffix: '%',
@@ -43,7 +43,7 @@ import {
       [parent]="form"
       name="align"
       [compact]="true"
-      label="Allinea"
+      label="Allineamento"
       [options]="context.components.select.align"
     ></notify-tailwind-select>
 
