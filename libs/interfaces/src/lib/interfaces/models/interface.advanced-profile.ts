@@ -138,6 +138,10 @@ export interface INotifyAPageSettings {
   align: EnumNotifyAPAlign;
   padding: number;
   verticalSpacing: number;
+  /**
+   * duplicato di INotifyProfile['redirectUrl'] dato che l'editor non ha accesso a INotifyProfile ma solo a INotifyAdvancedProfile
+   */
+  redirectUrl: string;
 }
 
 export interface INotifyAPAvailableItem {

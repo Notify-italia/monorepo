@@ -25,7 +25,11 @@
           *ngIf="profile.config.redirectEnabled"
         >
           <iframe
-            [cachedSrc]="normalizeURL(profile.redirectUrl)"
+            [cachedSrc]="
+              normalizeURL(
+                form?.value?.pageSettings?.redirectUrl || profile.redirectUrl
+              )
+            "
             class="iphone-15-pro phone mockup-phone pointer-events-none"
             frameborder="0"
           ></iframe>

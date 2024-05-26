@@ -157,22 +157,19 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
 
   public toggleProfileRedirect(value: boolean, profile: INotifyProfile) {
     this.loading = true;
+    const parsedProfile = {
+      ...profile,
+      config: {
+        ...profile.config,
+        redirectEnabled: value,
+      },
+      redirectUrl: '',
+    };
     this._profileSerivce
-      .patchProfile({
-        config: {
-          ...profile.config,
-          redirectEnabled: value,
-        },
-      })
+      .patchProfile(parsedProfile)
       .pipe(
         tap(() => {
-          this._profileSubject.next({
-            ...profile,
-            config: {
-              ...profile.config,
-              redirectEnabled: value,
-            },
-          });
+          this._profileSubject.next(parsedProfile);
           this.selectedHierarchyItem = 'background';
           this.loading = false;
         })

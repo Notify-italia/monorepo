@@ -139,7 +139,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
           .subscribe()
       ),
       switchMap((p) => {
-        if (!p.config.redirectEnabled || !p.redirectUrl?.length) {
+        if (
+          !p.config.redirectEnabled ||
+          (!p.redirectUrl?.length &&
+            !p.advancedProfile?.pageSettings.redirectUrl?.length)
+        ) {
           return of(p);
         }
         this._redirect(p);
@@ -357,7 +361,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     a.classList.add('hidden');
     a.href = this._utils.populateWebProtocol(
       'https://',
-      profile.redirectUrl as string
+      profile.advancedProfile?.pageSettings.redirectUrl ||
+        (profile.redirectUrl as string)
     );
     // a.target = '_blank';
 

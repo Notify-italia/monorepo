@@ -33,7 +33,6 @@ import { FONTS_ICON_SET } from '../../services/fonts.iconset';
 })
 export class PartSettingsComponent {
   private _apItemsSerivce = inject(AdvancedProfileItemsService);
-  private _confirmModal = inject(ConfirmModalFactory);
 
   public showHiddenToggle = CHECKBOX_TOGGLE_EYE;
   public showHiddenToggleWithButton = {
