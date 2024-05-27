@@ -1,4 +1,4 @@
-<div class="p-2 px-1.5">
+<div class="p-2 px-1.5 text-white">
   <notify-page-form
     *ngIf="selectedHierarchyItem === 'background'"
     [profile]="profile"
@@ -112,8 +112,10 @@
           ></notify-tailwind-input>
         </div>
       </div>
-      } @if(item.manifest.formComponent; as cf) {
+
       <div class="divider"></div>
+
+      } @if(item.manifest.formComponent; as cf) {
       <ng-container
         [ngComponentOutlet]="cf"
         [ngComponentOutletInputs]="{
@@ -124,6 +126,10 @@
           environment
         }"
       ></ng-container>
+      } @else {
+      <div class="h-full flex flex-col justify-center items-center w-full">
+        Nessuna impostazione disponibile
+      </div>
       }
     </div>
   </form>

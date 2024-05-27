@@ -15,7 +15,7 @@
 }
 
 .menu {
-  @apply w-full lg:w-72 h-full rounded-2xl lg:border border-gray-700 backdrop-blur backdrop-brightness-50 lg:backdrop-blur-0 lg:backdrop-brightness-100 lg:bg-[#131417]  p-3 flex;
+  @apply w-full lg:w-72 h-full rounded-2xl lg:border border-gray-700 backdrop-blur backdrop-brightness-[.25] bg-white/5 lg:backdrop-blur-0 lg:backdrop-brightness-100 lg:bg-[#131417]  p-3 flex;
 
   &.menu-large {
     @apply w-full lg:w-96;

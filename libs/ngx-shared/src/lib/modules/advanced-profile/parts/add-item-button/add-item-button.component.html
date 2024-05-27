@@ -3,7 +3,7 @@
   #LoseBlur
 ></button>
 
-<div class="group fixed bottom-2 left-2 z-50 space-y-2">
+<div class="group fixed bottom-2 right-2 z-50 space-y-2">
   <notify-available-items
     class="opacity-0 pointer-events-none group-focus-within:opacity-100 group-focus-within:pointer-events-auto smooth smooth-fast py-3"
     (addItem)="addItem.emit($event); LoseBlur.click(); LoseBlur.focus()"
