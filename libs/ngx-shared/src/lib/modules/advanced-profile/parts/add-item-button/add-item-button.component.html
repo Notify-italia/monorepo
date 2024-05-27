@@ -1,0 +1,32 @@
+<button
+  class="absolute pointer-events-none w-0 h-0 opacity-0"
+  #LoseBlur
+></button>
+
+<div class="group fixed bottom-2 left-2 z-50 space-y-2">
+  <notify-available-items
+    class="opacity-0 pointer-events-none group-focus-within:opacity-100 group-focus-within:pointer-events-auto smooth smooth-fast pb-2"
+    (addItem)="addItem.emit($event); LoseBlur.click(); LoseBlur.focus()"
+  ></notify-available-items>
+  <button
+    type="button"
+    #AddItemButton
+    id="add-item-button"
+    class="floating-button bg-menu group-focus-within:pointer-events-none"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="size-6 group-focus-within:rotate-45 smooth smooth-fast"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M12 4.5v15m7.5-7.5h-15"
+      />
+    </svg>
+  </button>
+</div>
