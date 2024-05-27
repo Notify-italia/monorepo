@@ -15,7 +15,7 @@
 }
 
 .menu {
-  @apply w-full lg:w-72 h-full rounded-2xl border border-gray-700 bg-menu  p-3 flex;
+  @apply w-full lg:w-72 h-full rounded-2xl lg:border border-gray-700 backdrop-blur backdrop-brightness-50 lg:backdrop-blur-0 lg:backdrop-brightness-100 lg:bg-[#131417]  p-3 flex;
 
   &.menu-large {
     @apply w-full lg:w-96;
@@ -74,4 +74,8 @@
   &.poppins {
     @apply font-poppins;
   }
+}
+
+.mockup-responsive {
+  @apply scale-50 md:scale-75 lg:scale-75 2xl:scale-100;
 }
