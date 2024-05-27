@@ -63,7 +63,7 @@ export class FeedbackPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
         this.context.getters.environment['feedbackKey'] as string
       );
 
-      const rating = hasFeedback?.rating ? hasFeedback?.rating + 1 : undefined;
+      const rating = hasFeedback?.rating ? hasFeedback?.rating : undefined;
 
       return {
         caption: hasFeedback
