@@ -39,7 +39,7 @@
       >
         @if(profile.config.redirectEnabled) {
         <div
-          class="flex scale-90 lg:scale-75 2xl:scale-100 top-10 flex-col h-fit w-full"
+          class="flex mockup-responsive top-10 flex-col h-fit w-full"
           *ngIf="profile.config.redirectEnabled"
         >
           <iframe
@@ -66,7 +66,7 @@
           "
           [mockup]="true"
           [isRunningOnPlayer]="false"
-          class="iphone-15-pro scale-50 lg:scale-75 2xl:scale-100"
+          class="iphone-15-pro mockup-responsive"
         ></notify-profile-view>
         }
       </div>

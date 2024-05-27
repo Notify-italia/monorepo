@@ -5,14 +5,14 @@
 
 <div class="group fixed bottom-2 left-2 z-50 space-y-2">
   <notify-available-items
-    class="opacity-0 pointer-events-none group-focus-within:opacity-100 group-focus-within:pointer-events-auto smooth smooth-fast pb-2"
+    class="opacity-0 pointer-events-none group-focus-within:opacity-100 group-focus-within:pointer-events-auto smooth smooth-fast py-3"
     (addItem)="addItem.emit($event); LoseBlur.click(); LoseBlur.focus()"
   ></notify-available-items>
   <button
     type="button"
     #AddItemButton
     id="add-item-button"
-    class="floating-button bg-menu group-focus-within:pointer-events-none"
+    class="floating-button group-focus-within:pointer-events-none"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
