@@ -19,7 +19,7 @@
     track i) {
     <div
       cdkDrag
-      class="cdkDrag w-full h-full overflow-y-hidden overflow-x-clip px-3"
+      class="cdkDrag w-full lg:h-full overflow-y-hidden overflow-x-clip px-3"
     >
       <ng-container
         [ngTemplateOutlet]="HierarchyItem"
@@ -42,7 +42,7 @@
     >
       @if(item.subItems?.length) {
       <div
-        class="h-5 w-5 flex p-0.5 border rounded hierarchy-line shrink-0 -ml-2.5 mt-2 items-center bg-[#141416]"
+        class="h-5 w-5 flex p-0.5 border rounded hierarchy-line shrink-0 -ml-2.5 mt-2 items-center bg-[#141416] rotate-90 lg:rotate-0"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@
       ></div>
       }
 
-      <div class="flex flex-col w-full">
+      <div class="flex flex-col w-full h-full">
         <button
           (click)="item._id ? selectHierarchyItem(item._id) : undefined"
           class="item-button !font-normal group/btn item-noactive space-x-3 !justify-start truncate !pr-0 w-full"
@@ -110,9 +110,12 @@
           </div>
         </button>
 
+        @if(item.subItems?.length) {
         <div
-          *ngIf="item._id === selectedHierarchyItem && item.subItems?.length"
-          class="flex-col items-start ml-6 flex"
+          [ngClass]="{
+            'lg:opacity-100 lg:h-auto': item._id === selectedHierarchyItem
+          }"
+          class="flex-col flex items-start ml-6 lg:opacity-0 lg:h-0"
           cdkDropList
           (cdkDropListDropped)="dropSubList($event, i)"
         >
@@ -131,6 +134,7 @@
           </div>
           }
         </div>
+        }
       </div>
     </button>
   </ng-template>

@@ -77,5 +77,5 @@
 }
 
 .mockup-responsive {
-  @apply scale-50 md:scale-75 lg:scale-75 2xl:scale-100;
+  @apply scale-[.4] sm:scale-[.6] md:scale-75 lg:scale-75 2xl:scale-100;
 }

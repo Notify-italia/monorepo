@@ -18,8 +18,12 @@ import {
 } from 'rxjs';
 import { CachedSrcDirective } from '../../directives';
 import { FormsService, ProfileService, UtilsService } from '../../services';
-import { LoadingComponent } from '../../standalones';
-import { ProfileViewComponent } from '../profile';
+import { LoadingComponent, SaveIndicatorComponent } from '../../standalones';
+import {
+  INotifyShareItemConfig,
+  ProfileViewComponent,
+  ShareItemComponent,
+} from '../profile';
 import { ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS } from './items/page/page.form.component';
 import { AddItemButtonComponent } from './parts/add-item-button/add-item-button.component';
 import { HierarchyButtonComponent } from './parts/hierarchy-button/hierarchy-button.component';
@@ -41,6 +45,8 @@ import { AdvancedProfileItemOutputsService } from './services/advanced-profile-i
     AddItemButtonComponent,
     InfoPanelComponent,
     HierarchyButtonComponent,
+    SaveIndicatorComponent,
+    ShareItemComponent,
   ],
   providers: [FormsService, UtilsService, ProfileService],
   templateUrl: './advanced-profile.component.html',
@@ -63,7 +69,8 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
   //properties
   public loading = false;
   public form?: FormGroup;
-  public selectedHierarchyItem = '';
+  public selectedHierarchyItem = 'background';
+  public shareConfig?: INotifyShareItemConfig;
   public environment: {
     profilesUrl: string;
   } = this._route.snapshot.data['environment'];
@@ -81,6 +88,26 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.refreshProfile()
       .pipe(
+        tap((v) => {
+          this.shareConfig = {
+            type: 'profile',
+            qrcode: {
+              fileName: `profile.png`,
+            },
+            nfc: {
+              items: [
+                {
+                  value: v?._id,
+                  label: 'Conferma',
+                },
+              ],
+            },
+            baseUrl: this.environment['profilesUrl'] as string,
+            isInModal: false,
+            id: v?._id,
+          };
+        }),
+
         tap((v) => {
           this.form = this._formsSerivce.createFormGroup(
             v.advancedProfile,
