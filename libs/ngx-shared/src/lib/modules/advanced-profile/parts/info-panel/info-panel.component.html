@@ -1,0 +1,18 @@
+<div
+  class="fixed right-0 left-0 h-[90vh] my-auto overflow-y-scroll p-3"
+  [ngClass]="{
+    'opacity-0 scale-0  pointer-events-none': !selectedHierarchyItem
+  }"
+>
+  <notify-right-panel
+    class="h-full w-full"
+    [loading]="loading"
+    [profile]="profile"
+    [form]="form"
+    [selectedHierarchyItem]="selectedHierarchyItem"
+    [environment]="environment"
+    (forceSave)="forceSave.emit($event)"
+    (closePanel)="closePanel.emit($event)"
+    (removeItem)="removeItem.emit($event)"
+  ></notify-right-panel>
+</div>

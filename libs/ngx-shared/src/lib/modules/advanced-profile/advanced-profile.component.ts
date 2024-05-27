@@ -21,6 +21,8 @@ import { FormsService, ProfileService, UtilsService } from '../../services';
 import { LoadingComponent } from '../../standalones';
 import { ProfileViewComponent } from '../profile';
 import { ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS } from './items/page/page.form.component';
+import { AddItemButtonComponent } from './parts/add-item-button/add-item-button.component';
+import { InfoPanelComponent } from './parts/info-panel/info-panel.component';
 import { LeftPanelComponent } from './parts/left-panel/left-panel.component';
 import { RightPanelComponent } from './parts/right-panel/right-panel.component';
 import { AdvancedProfileItemOutputsService } from './services/advanced-profile-item-outputs.service';
@@ -35,6 +37,8 @@ import { AdvancedProfileItemOutputsService } from './services/advanced-profile-i
     LoadingComponent,
     ProfileViewComponent,
     CachedSrcDirective,
+    AddItemButtonComponent,
+    InfoPanelComponent,
   ],
   providers: [FormsService, UtilsService, ProfileService],
   templateUrl: './advanced-profile.component.html',
@@ -57,7 +61,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
   //properties
   public loading = false;
   public form?: FormGroup;
-  public selectedHierarchyItem = 'background';
+  public selectedHierarchyItem = '';
   public environment: {
     profilesUrl: string;
   } = this._route.snapshot.data['environment'];
@@ -120,8 +124,16 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
     this.selectedHierarchyItem = item.value._id;
   }
 
+  public removeItem(item: string) {
+    const itemsFa = this.form?.controls['items'] as FormArray<FormGroup>;
+    itemsFa.removeAt(
+      itemsFa.controls.findIndex((fg) => fg.controls['_id'].value === item)
+    );
+    this.selectedHierarchyItem = '';
+  }
+
   public hierarchyChanged(hierarchy: NotifyAdvancedProfileItem[]) {
-    this.form?.setControl(
+    (this.form as FormGroup)?.setControl(
       'items',
       this._formsSerivce.createFormArray(hierarchy)
     );

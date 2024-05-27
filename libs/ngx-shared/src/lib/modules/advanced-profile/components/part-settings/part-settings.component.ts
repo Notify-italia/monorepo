@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   INotifyProfile,
@@ -47,6 +47,8 @@ export class PartSettingsComponent {
   @Input() selectedHierarchyItem = 'background';
   @Input() environment!: Record<string, unknown>;
 
+  @Output() removeItem = new EventEmitter<string>();
+
   public get currentItem() {
     const form = this.form.controls?.['items'].controls?.find(
       (fg) => fg.controls._id.value === this.selectedHierarchyItem
@@ -81,10 +83,7 @@ export class PartSettingsComponent {
     if (this.isRequired) {
       return;
     }
-    this.form.controls?.['items'].removeAt(
-      this.form.controls['items'].controls.findIndex(
-        (fg) => fg.controls._id.value === this.selectedHierarchyItem
-      )
-    );
+
+    this.removeItem.emit(this.currentItem?.form.value._id);
   }
 }

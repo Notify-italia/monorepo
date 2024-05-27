@@ -1,6 +1,8 @@
 <div class="menu menu-large">
-  <div class="flex flex-col size-full items-center">
-    <div class="overflow-y-auto shrink-0 flex flex-col w-full text-center">
+  <div class="flex flex-col size-full items-center smooth">
+    <div
+      class="overflow-y-auto shrink-0 flex flex-col w-full text-center desktop-only"
+    >
       <notify-share-item
         [config]="shareConfig"
         [compact]="true"
@@ -15,6 +17,17 @@
       ></notify-save-indicator>
     </div>
 
+    <div class="mobile-only w-full">
+      <button
+        (click)="closePanel.emit()"
+        class="btn btn-sm w-full btn-error text-white"
+        data-theme="notifytheme"
+      >
+        <span>&#x2715;</span>
+        <span>Chiudi</span>
+      </button>
+    </div>
+
     <div class="divider"></div>
     <div
       class="overflow-y-auto overflow-x-hidden min-h-10 w-full notify-scrollbar px-2 grow-0 h-full"
@@ -25,6 +38,7 @@
         [profile]="profile"
         [environment]="environment"
         [selectedHierarchyItem]="selectedHierarchyItem"
+        (removeItem)="removeItem.emit($event)"
       ></notify-part-settings>
     </div>
   </div>

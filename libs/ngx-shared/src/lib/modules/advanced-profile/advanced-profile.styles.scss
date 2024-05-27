@@ -1,21 +1,29 @@
 .bg-menu {
-  background-color: #131417;
+  background-color: #131417 !important;
 }
 
 .bg-background {
   background-color: #202020;
 }
 
+.desktop-only {
+  @apply hidden lg:block;
+}
+
+.mobile-only {
+  @apply block lg:hidden;
+}
+
 .menu {
-  @apply w-72 h-full  rounded-2xl border border-gray-700 bg-menu  p-3 flex;
+  @apply w-full lg:w-72 h-full rounded-2xl border border-gray-700 bg-menu  p-3 flex;
 
   &.menu-large {
-    @apply w-96;
+    @apply w-full lg:w-96;
   }
 }
 
 .root-element {
-  @apply h-full w-full bg-background rounded-3xl border-2 border-gray-700 p-2 overflow-hidden;
+  @apply h-full w-full lg:bg-[#202020] rounded-3xl lg:border-2 border-gray-700 p-2 overflow-hidden;
 }
 
 .item-button {

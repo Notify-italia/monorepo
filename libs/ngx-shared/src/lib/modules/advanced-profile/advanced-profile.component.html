@@ -1,11 +1,29 @@
-<div class="flex flex-col justify-center h-[99vh]">
-  <div class="flex right-0 absolute h-full overflow-y-auto z-[9999] bg-black">
-    <!-- <pre>{{ form?.value | json }}</pre> -->
-  </div>
+<div class="flex flex-col justify-center h-[85vh] lg:h-[99vh] relative">
   <div class="root-element">
     @if(profile$ | async; as profile) {
-    <div class="flex justify-between size-full items-stretch">
+
+    <div
+      class="flex flex-col lg:flex-row justify-between size-full items-stretch"
+    >
+      <notify-info-panel
+        class="mobile-only z-[999]"
+        [loading]="loading"
+        [profile]="profile"
+        [form]="form"
+        [selectedHierarchyItem]="selectedHierarchyItem"
+        [environment]="environment"
+        (forceSave)="saveProfile(form?.value)"
+        (closePanel)="selectedHierarchyItem = ''"
+        (removeItem)="removeItem($event)"
+      ></notify-info-panel>
+
+      <notify-add-item-button
+        class="mobile-only"
+        (addItem)="addItem($event)"
+      ></notify-add-item-button>
+
       <notify-left-panel
+        class="desktop-only"
         [hierarchy]="form?.value.items || []"
         [requiredItems]="requiredItems"
         (addItem)="addItem($event)"
@@ -48,16 +66,20 @@
           "
           [mockup]="true"
           [isRunningOnPlayer]="false"
-          class="iphone-15-pro scale-75 2xl:scale-100"
+          class="iphone-15-pro scale-50 lg:scale-75 2xl:scale-100"
         ></notify-profile-view>
         }
       </div>
+
       <notify-right-panel
+        class="desktop-only"
         [loading]="loading"
         [profile]="profile"
         [form]="form"
         [selectedHierarchyItem]="selectedHierarchyItem"
         [environment]="environment"
+        (forceSave)="saveProfile(form?.value)"
+        (removeItem)="removeItem($event)"
       ></notify-right-panel>
     </div>
     } @else {
