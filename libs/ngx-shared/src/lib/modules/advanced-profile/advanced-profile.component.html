@@ -21,6 +21,17 @@
         class="mobile-only"
         (addItem)="addItem($event)"
       ></notify-add-item-button>
+      <notify-hierarchy-button
+        class="mobile-only"
+        [hierarchy]="form?.value.items || []"
+        [requiredItems]="requiredItems"
+        (addItem)="addItem($event)"
+        [selectedHierarchyItem]="selectedHierarchyItem"
+        (hierarchyChanged)="hierarchyChanged($event)"
+        (selectedHierarchyItemChanged)="selectedHierarchyItem = $event"
+        (toggleReviewProfile)="toggleProfileRedirect($event, profile)"
+        [profile]="profile"
+      ></notify-hierarchy-button>
 
       <notify-left-panel
         class="desktop-only"
