@@ -30,30 +30,11 @@ export class RightPanelComponent {
     controlsFromObject<INotifyProfile['advancedProfile']>
   >;
   @Input({ required: true }) selectedHierarchyItem = 'background';
+  @Input() shareConfig!: INotifyShareItemConfig;
 
   @Output() forceSave = new EventEmitter<void>();
   @Output() closePanel = new EventEmitter<void>();
   @Output() removeItem = new EventEmitter<string>();
 
   public TEMP_today = new Date();
-
-  public get shareConfig(): INotifyShareItemConfig {
-    return {
-      type: 'profile',
-      qrcode: {
-        fileName: `profile.png`,
-      },
-      nfc: {
-        items: [
-          {
-            value: this.profile?._id,
-            label: 'Conferma',
-          },
-        ],
-      },
-      baseUrl: this.environment['profilesUrl'] as string,
-      isInModal: false,
-      id: this.profile?._id,
-    };
-  }
 }
