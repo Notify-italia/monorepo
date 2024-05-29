@@ -35,15 +35,4 @@ export class HierarchyButtonComponent {
   @Output() hierarchyChanged = new EventEmitter<NotifyAdvancedProfileItem[]>();
   @Output() selectedHierarchyItemChanged = new EventEmitter<string>();
   @Output() toggleReviewProfile = new EventEmitter<boolean>();
-
-  public toggleState(event: MouseEvent): void {
-    const activeElement = document.activeElement;
-
-    if (activeElement?.id === (event.target as HTMLButtonElement).id) {
-      this.loseBlur.nativeElement.click();
-      this.loseBlur.nativeElement.focus();
-    }
-
-    return;
-  }
 }

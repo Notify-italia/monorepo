@@ -10,12 +10,16 @@
   @apply hidden lg:block;
 }
 
+.desktop-only-flex {
+  @apply hidden lg:flex;
+}
+
 .mobile-only {
   @apply block lg:hidden;
 }
 
 .menu {
-  @apply w-full lg:w-72 h-full rounded-2xl lg:border border-gray-700 backdrop-blur backdrop-brightness-[.25] bg-white/5 lg:backdrop-blur-0 lg:backdrop-brightness-100 lg:bg-[#131417]  p-3 flex;
+  @apply w-full lg:w-72 h-full rounded-2xl lg:border border-gray-700 lg:backdrop-blur-0 lg:backdrop-brightness-100 bg-[#131417]  p-3 flex;
 
   &.menu-large {
     @apply w-full lg:w-96;
@@ -23,7 +27,7 @@
 }
 
 .root-element {
-  @apply h-full w-full lg:bg-[#202020] rounded-3xl lg:border-2 border-gray-700 p-2 overflow-hidden;
+  @apply h-full w-full bg-[#202020] rounded-2xl lg:rounded-3xl lg:border-2 border-gray-700 p-2 overflow-hidden;
 }
 
 .item-button {

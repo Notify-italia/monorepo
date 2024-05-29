@@ -3,30 +3,41 @@
   #LoseBlur
 ></button>
 
-<div class="group fixed bottom-2 right-2 z-50 space-y-2">
-  <notify-available-items
-    class="opacity-0 pointer-events-none group-focus-within:opacity-100 group-focus-within:pointer-events-auto smooth smooth-fast py-3"
-    (addItem)="addItem.emit($event); LoseBlur.click(); LoseBlur.focus()"
-  ></notify-available-items>
+<div class="group flex flex-col items-center">
   <button
     type="button"
     #AddItemButton
     id="add-item-button"
-    class="floating-button group-focus-within:pointer-events-none"
+    class="sm-btn smooth"
+    (click)="toggleState($event)"
   >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="size-6 group-focus-within:rotate-45 smooth smooth-fast"
+    <div
+      class="flex justify-center space-x-4 items-center pointer-events-none group-focus-within:pointer-events-auto group-focus-within:w-full"
     >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M12 4.5v15m7.5-7.5h-15"
-      />
-    </svg>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-6 group-focus-within:rotate-45 smooth smooth-fast"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 4.5v15m7.5-7.5h-15"
+        />
+      </svg>
+      <span class="group-focus-within:hidden"> Aggiungi un blocco </span>
+      <span class="hidden group-focus-within:block"> Chiudi</span>
+    </div>
+
+    <div
+      class="flex flex-col w-full opacity-0 h-0 pointer-events-none group-focus-within:h-32 group-focus-within:opacity-100 group-focus-within:pointer-events-auto smooth smooth-fast z-50 min-h-0"
+    >
+      <notify-available-items
+        (addItem)="addItem.emit($event); LoseBlur.click(); LoseBlur.focus()"
+      ></notify-available-items>
+    </div>
   </button>
 </div>

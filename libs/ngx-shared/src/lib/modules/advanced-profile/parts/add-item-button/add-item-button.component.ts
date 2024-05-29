@@ -26,11 +26,9 @@ export class AddItemButtonComponent {
   public toggleState(event: MouseEvent): void {
     const activeElement = document.activeElement;
 
-    if (activeElement?.id === (event.target as HTMLButtonElement).id) {
+    if (activeElement?.id !== (event.target as HTMLButtonElement).id) {
       this.loseBlur.nativeElement.click();
       this.loseBlur.nativeElement.focus();
     }
-
-    return;
   }
 }

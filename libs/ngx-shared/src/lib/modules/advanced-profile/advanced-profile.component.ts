@@ -21,6 +21,7 @@ import { FormsService, ProfileService, UtilsService } from '../../services';
 import { LoadingComponent, SaveIndicatorComponent } from '../../standalones';
 import {
   INotifyShareItemConfig,
+  ProfilePlayerFactory,
   ProfileViewComponent,
   ShareItemComponent,
 } from '../profile';
@@ -48,7 +49,7 @@ import { AdvancedProfileItemOutputsService } from './services/advanced-profile-i
     SaveIndicatorComponent,
     ShareItemComponent,
   ],
-  providers: [FormsService, UtilsService, ProfileService],
+  providers: [FormsService, UtilsService, ProfileService, ProfilePlayerFactory],
   templateUrl: './advanced-profile.component.html',
   styleUrl: './advanced-profile.styles.scss',
 })
@@ -61,6 +62,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
     AdvancedProfileItemOutputsService
   );
   private _utilsService = inject(UtilsService);
+  private _profilePlayerFactory = inject(ProfilePlayerFactory);
 
   //observables
   private _profileSubject = new Subject<INotifyProfile>();
@@ -69,7 +71,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
   //properties
   public loading = false;
   public form?: FormGroup;
-  public selectedHierarchyItem = 'background';
+  public selectedHierarchyItem = '';
   public shareConfig?: INotifyShareItemConfig;
   public environment: {
     profilesUrl: string;
@@ -151,6 +153,29 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
   public addItem(item: FormGroup) {
     (this.form?.get('items') as FormArray).push(item);
     this.selectedHierarchyItem = item.value._id;
+  }
+
+  public showProfile(profile: INotifyProfile) {
+    const ref = this._profilePlayerFactory.create({
+      profile: {
+        ...profile,
+        advancedProfile: this.form?.value,
+      },
+      baseUrl: this.environment.profilesUrl,
+      hideShare: true,
+    });
+
+    this.form?.valueChanges
+      .pipe(
+        takeUntil(this.destroy$),
+        tap((v) => {
+          ref.instance.profile = {
+            ...profile,
+            advancedProfile: v,
+          };
+        })
+      )
+      .subscribe();
   }
 
   public removeItem(item: string) {
