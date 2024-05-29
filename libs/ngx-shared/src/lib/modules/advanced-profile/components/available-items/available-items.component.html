@@ -10,7 +10,7 @@
   ></notify-search-bar>
 
   <div
-    class="grid grid-cols-1 lg:grid-cols-4 grid-flow-row w-full lg:h-44 lg:mt-3 gap-3 justify-evenly items-center content-evenly justify-items-center !overflow-x-hidden notify-scrollbar"
+    class="grid grid-cols-6 lg:grid-cols-4 grid-flow-row w-full lg:h-44 mt-3 gap-5 lg:gap-3 justify-evenly items-center content-evenly justify-items-center !overflow-x-hidden notify-scrollbar"
   >
     @for (item of availableItems; track $index) {
     <div
@@ -24,13 +24,13 @@
     >
       <button
         (click)="emitAddItem(item.type)"
-        class="item-button group/btn !size-10 lg:!size-12 !border lg:border-none lg:bg-[#202020] flex !justify-center items-center !p-1 active:!bg-black"
+        class="item-button mask mask-squircle lg:mask-square group/btn !size-10 lg:!size-12 bg-white lg:bg-[#202020] flex !justify-center items-center !p-1 active:!bg-black"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          class="size-5 lg:size-6"
+          class="size-5 lg:size-6 text-[#202020] lg:text-current"
         >
           @for (path of item.icon; track $index) {
           <path fill-rule="evenodd" [attr.d]="path" clip-rule="evenodd" />

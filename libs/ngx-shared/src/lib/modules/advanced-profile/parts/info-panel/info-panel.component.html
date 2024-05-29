@@ -1,18 +1,17 @@
-<div
-  class="fixed right-0 left-0 h-[90vh] my-auto overflow-y-scroll p-3 w-full"
-  [ngClass]="{
-    'opacity-0 scale-0 w-0 pointer-events-none': !selectedHierarchyItem
-  }"
->
-  <notify-right-panel
-    class="h-full w-full"
-    [loading]="loading"
-    [profile]="profile"
-    [form]="form"
-    [selectedHierarchyItem]="selectedHierarchyItem"
-    [environment]="environment"
-    (forceSave)="forceSave.emit($event)"
-    (closePanel)="closePanel.emit($event)"
-    (removeItem)="removeItem.emit($event)"
-  ></notify-right-panel>
+<div class="modal-container !z-[1000]" *ngIf="selectedHierarchyItem">
+  <div class="flex flex-col justify-center h-full w-full">
+    <div class="my-auto overflow-y-scroll p-3 w-full h-[95vh]">
+      <notify-right-panel
+        class="h-full w-full"
+        [loading]="loading"
+        [profile]="profile"
+        [form]="form"
+        [selectedHierarchyItem]="selectedHierarchyItem"
+        [environment]="environment"
+        (forceSave)="forceSave.emit($event)"
+        (closePanel)="closePanel.emit($event)"
+        (removeItem)="removeItem.emit($event)"
+      ></notify-right-panel>
+    </div>
+  </div>
 </div>

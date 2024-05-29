@@ -1,58 +1,16 @@
-<button
-  class="absolute pointer-events-none w-0 h-0 opacity-0"
-  #LoseBlur
-></button>
-
-<div
-  class="group fixed bottom-2 left-2 z-50 space-y-2 flex flex-col"
-  #ButtonContainer
->
+<div class="p-2 w-full h-full flex flex-col flex-nowrap text-sm space-y-2">
+  <div>
+    <h2>Gerarchia</h2>
+    <small>
+      Fai tap su un blocco per selezionarlo. Trascina e rilascia per riordinare
+    </small>
+  </div>
+  <!-- <div class="divider"></div> -->
   <notify-hierarchy
     [hierarchy]="hierarchy || []"
     [requiredItems]="requiredItems || []"
     [selectedHierarchyItem]="selectedHierarchyItem"
     (hierarchyChanged)="hierarchyChanged.emit($event)"
-    (selectedHierarchyItemChanged)="
-      selectedHierarchyItemChanged.emit($event);
-      LoseBlur.click();
-      LoseBlur.focus()
-    "
-    (mousedown)="ButtonContainer.click(); ButtonContainer.focus()"
-    class="opacity-0 !w-0 pointer-events-none group-focus-within:!w-full group-focus-within:opacity-100 group-focus-within:pointer-events-auto smooth smooth-fast p-3 menu overflow-y-scroll !h-96 max-w-80"
+    (selectedHierarchyItemChanged)="selectedHierarchyItemChanged.emit($event)"
   ></notify-hierarchy>
-  <button
-    type="button"
-    #AddItemButton
-    id="add-item-button"
-    class="floating-button group-focus-within:pointer-events-none"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="size-6 group-focus-within:-rotate-90 group-focus-within:opacity-0 smooth"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z"
-      />
-    </svg>
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="size-6 rotate-90 group-focus-within:rotate-0 opacity-0 group-focus-within:opacity-100 smooth absolute"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M6 18 18 6M6 6l12 12"
-      />
-    </svg>
-  </button>
 </div>

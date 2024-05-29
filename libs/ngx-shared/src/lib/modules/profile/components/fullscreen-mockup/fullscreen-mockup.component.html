@@ -1,4 +1,4 @@
-<div class="modal-container !z-[999]" (click)="close()">
+<div class="modal-container !z-[998]" (click)="close()">
   <div>
     <div
       class="pointer-events-none lg:space-y-2 flex flex-col justify-center"
@@ -14,6 +14,20 @@
       <div
         class="scale-[65%] lg:scale-[75%] pointer-events-auto !-my-[9rem] lg:!-my-20 z-0"
       >
+        @if(profile.config.redirectEnabled) {
+
+        <iframe
+          [cachedSrc]="
+            normalizeURL(
+              profile.advancedProfile?.pageSettings?.redirectUrl ||
+                profile.redirectUrl
+            )
+          "
+          class="iphone-15-pro phone mockup-phone pointer-events-none slide-in-left"
+          frameborder="0"
+        ></iframe>
+
+        } @else {
         <div class="iphone-15-pro slide-in-left">
           <notify-profile-view
             class="h-full w-full"
@@ -21,6 +35,7 @@
             [data]="profile"
           ></notify-profile-view>
         </div>
+        }
       </div>
     </div>
   </div>
