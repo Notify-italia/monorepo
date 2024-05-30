@@ -14,7 +14,7 @@
   gap: 0.4rem;
   padding: 32px;
 
-  @apply grid-cols-4 lg:grid-cols-6;
+  @apply grid-cols-3 lg:grid-cols-6;
 }
 
 .cards:hover .card {
