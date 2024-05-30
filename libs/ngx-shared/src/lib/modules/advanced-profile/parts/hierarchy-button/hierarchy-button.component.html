@@ -11,6 +11,7 @@
     [requiredItems]="requiredItems || []"
     [selectedHierarchyItem]="selectedHierarchyItem"
     (hierarchyChanged)="hierarchyChanged.emit($event)"
+    [redirectEnabled]="profile.config.redirectEnabled"
     (selectedHierarchyItemChanged)="selectedHierarchyItemChanged.emit($event)"
   ></notify-hierarchy>
 </div>

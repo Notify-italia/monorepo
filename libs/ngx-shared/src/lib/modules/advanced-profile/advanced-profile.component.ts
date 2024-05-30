@@ -25,6 +25,7 @@ import {
   ProfileViewComponent,
   ShareItemComponent,
 } from '../profile';
+import { RedirectToggleButtonComponent } from './components/redirect-toggle-button/redirect-toggle-button.component';
 import { ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS } from './items/page/page.form.component';
 import { AddItemButtonComponent } from './parts/add-item-button/add-item-button.component';
 import { HierarchyButtonComponent } from './parts/hierarchy-button/hierarchy-button.component';
@@ -48,6 +49,7 @@ import { AdvancedProfileItemOutputsService } from './services/advanced-profile-i
     HierarchyButtonComponent,
     SaveIndicatorComponent,
     ShareItemComponent,
+    RedirectToggleButtonComponent,
   ],
   providers: [FormsService, UtilsService, ProfileService, ProfilePlayerFactory],
   templateUrl: './advanced-profile.component.html',
@@ -236,7 +238,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
       .pipe(
         tap(() => {
           this._profileSubject.next(parsedProfile);
-          this.selectedHierarchyItem = 'background';
+          // this.selectedHierarchyItem = 'background';
           this.loading = false;
         })
       )
