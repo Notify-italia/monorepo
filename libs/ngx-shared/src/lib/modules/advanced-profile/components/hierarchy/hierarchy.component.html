@@ -14,6 +14,9 @@
     class="flex flex-col items-start mx-2"
     cdkDropList
     (cdkDropListDropped)="dropMainList($event)"
+    [ngClass]="{
+      'pointer-events-none opacity-50': redirectEnabled
+    }"
   >
     @if(hierarchyItems.length) { @for (item of hierarchyItems;let i = $index;
     track i) {

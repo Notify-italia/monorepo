@@ -29,6 +29,7 @@ export class HierarchyComponent {
   @Input() selectedHierarchyItem = 'background';
   @Input() requiredItems: string[] = [];
   @Input() hierarchy: INotifyAdvancedProfile['items'] = [];
+  @Input() redirectEnabled = false;
 
   @Output() hierarchyChanged = new EventEmitter<
     INotifyAdvancedProfile['items']
