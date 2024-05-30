@@ -1,13 +1,12 @@
 <div
   class="flex flex-col justify-center xs:h-[85vh] sm:h-[90vh] lg:h-[99vh] relative"
 >
-  @if(profile$ | async; as profile) {
   <div class="root-element mt-2 lg:mt-auto">
-    <div
-      class="flex flex-col lg:flex-row justify-between size-full items-stretch"
-    >
+    @if(profile$ | async; as profile) {
+
+    <div class="mobile-only-flex flex-col">
       <notify-info-panel
-        class="mobile-only z-[999]"
+        class="mobile-only"
         [loading]="loading"
         [profile]="profile"
         [form]="form"
@@ -17,34 +16,30 @@
         (closePanel)="selectedHierarchyItem = ''"
         (removeItem)="removeItem($event)"
       ></notify-info-panel>
-
-      <div class="mobile-only">
-        <notify-share-item
-          *ngIf="shareConfig"
-          [config]="shareConfig"
-          [compact]="true"
-        ></notify-share-item>
-        <notify-save-indicator
-          [isSaving]="loading"
-          [lastSave]="profile.updatedAt"
-          [compact]="true"
-        ></notify-save-indicator>
-      </div>
+      <notify-share-item
+        *ngIf="shareConfig"
+        [config]="shareConfig"
+        [compact]="true"
+      ></notify-share-item>
+      <notify-save-indicator
+        [isSaving]="loading"
+        [lastSave]="profile.updatedAt"
+        [compact]="true"
+      ></notify-save-indicator>
 
       <div class="divider"></div>
 
       <notify-redirect-toggle-button
-        class="mobile-only mb-2"
         [redirectEnabled]="profile.config.redirectEnabled"
         (toggleProfileRedirect)="toggleProfileRedirect($event, profile)"
       ></notify-redirect-toggle-button>
       <notify-add-item-button
-        class="mobile-only w-full"
+        class="w-full my-2"
         (addItem)="addItem($event)"
       ></notify-add-item-button>
 
       <notify-hierarchy-button
-        class="mobile-only h-full"
+        class="h-full"
         [hierarchy]="form?.value.items || []"
         [requiredItems]="requiredItems"
         (addItem)="addItem($event)"
@@ -54,9 +49,12 @@
         (toggleReviewProfile)="toggleProfileRedirect($event, profile)"
         [profile]="profile"
       ></notify-hierarchy-button>
+    </div>
 
+    <div
+      class="flex flex-col lg:flex-row justify-between size-full items-stretch desktop-only-flex"
+    >
       <notify-left-panel
-        class="desktop-only"
         [hierarchy]="form?.value.items || []"
         [requiredItems]="requiredItems"
         (addItem)="addItem($event)"
@@ -67,29 +65,8 @@
         [profile]="profile"
       ></notify-left-panel>
 
-      <div class="fixed bottom-5 right-5 lg:hidden z-50">
-        <button
-          class="floating-button mobile-only"
-          (click)="showProfile(profile)"
-          [disabled]="loading"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </button>
-      </div>
-
       <div
-        class="size-full flex flex-col justify-center items-center 2xl:my-auto -mt-16 desktop-only-flex"
+        class="size-full flex flex-col justify-center items-center 2xl:my-auto -mt-16"
       >
         @if(profile.config.redirectEnabled) {
         <div
@@ -127,7 +104,6 @@
 
       <notify-right-panel
         *ngIf="shareConfig"
-        class="desktop-only"
         [loading]="loading"
         [profile]="profile"
         [form]="form"
@@ -138,10 +114,31 @@
         (removeItem)="removeItem($event)"
       ></notify-right-panel>
     </div>
+
+    <div class="fixed bottom-5 right-5 lg:hidden z-50 mobile-only">
+      <button
+        class="floating-button"
+        (click)="showProfile(profile)"
+        [disabled]="loading"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </button>
+    </div>
+    } @else {
+    <div class="h-[97vh]">
+      <notify-loading></notify-loading>
+    </div>
+    }
   </div>
-  } @else {
-  <div class="h-[97vh]">
-    <notify-loading></notify-loading>
-  </div>
-  }
 </div>

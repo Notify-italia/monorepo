@@ -18,8 +18,12 @@
   @apply block lg:hidden;
 }
 
-.menu {
-  @apply w-full lg:w-72 h-full rounded-2xl lg:border border-gray-700 lg:backdrop-blur-0 lg:backdrop-brightness-100 bg-[#131417]  p-3 flex;
+.mobile-only-flex {
+  @apply flex lg:hidden;
+}
+
+.notify-menu {
+  @apply w-full lg:w-72 h-full rounded-2xl lg:border border-gray-700 bg-[#131417]  p-3 flex;
 
   &.menu-large {
     @apply w-full lg:w-96;
