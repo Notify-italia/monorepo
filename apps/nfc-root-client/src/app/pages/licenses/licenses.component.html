@@ -40,6 +40,7 @@
       {
         id: 'public-key',
         label: 'Chiave Pubblica',
+        hidden,
         value: {
           valueType: 'field',
           fieldName: 'publicKey',
@@ -49,6 +50,7 @@
       {
         id:'copy',
         label: ' ',
+        hidden,
         value: {
           valueType: 'actions',
           actions: [
@@ -67,6 +69,8 @@
         id: 'boughtCards',
         label: 'Tessere',
         sorter: sortBoughtCards,
+                hidden,
+
         value: {
           transformer: numberTransform,
           valueType: 'field',
@@ -78,6 +82,8 @@
         id: 'allowedAgents',
         sorter: sortAllowedAgents,
         label: 'Utenti Abilitati',
+        hidden,
+
         value: {
           transformer: numberTransform,
           valueType: 'field',
@@ -89,6 +95,8 @@
         id: 'expirationDate',
         label: 'Data Scadenza',
         sorter: sortExpirationDate,
+        hidden,
+
         value: {
           minWidth: 8,
           valueType: 'badge',
@@ -116,6 +124,8 @@
       {
         id: 'assignedTo',
         label: 'Assegnato a',
+                hidden,
+
         sorter: sortAssignedTo,
         value: {
           valueType: 'avatar',
@@ -135,6 +145,8 @@
       {
         id: 'createdAt',
         label: 'Data Creazione',
+        hidden,
+
         sorter: sortCreationDate,
         value: {
           valueType: 'field',
@@ -146,6 +158,8 @@
       {
         id: 'enavled',
         label: 'Abilitata',
+        hidden,
+
         value: {
           valueType: 'field',
           fieldName: 'enabled',

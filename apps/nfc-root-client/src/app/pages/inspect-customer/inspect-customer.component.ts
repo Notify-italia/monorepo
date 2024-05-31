@@ -80,6 +80,7 @@ export class InspectCustomerComponent {
     this._profilePlayerFactory.create({
       profile: { ...profile, company: companyProfile },
       baseUrl: environment.profilesUrl,
+      isRunningOnPlayer: true,
     });
   };
 

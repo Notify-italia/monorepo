@@ -9,7 +9,7 @@ export class ProfilePlayerFactory extends BaseFactory {
     profile: INotifyProfile;
     baseUrl?: string;
     hideShare?: boolean;
-    isRunningOnPlayer: boolean;
+    isRunningOnPlayer?: boolean;
   }) {
     return this._createComponent(FullscreenMockupComponent, {
       ...config,
