@@ -48,18 +48,6 @@
       },
       "configurations": {
         "production": {
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "999mb"
-            },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "4mb",
-              "maximumError": "400mb"
-            }
-          ],
           "outputHashing": "all",
           "fileReplacements": [
             {
@@ -75,6 +63,15 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
+        },
+        "ptc": {
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/nfc-agent-client/src/environments/environment.ts",
+              "with": "apps/nfc-agent-client/src/environments/environment.ptc.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"

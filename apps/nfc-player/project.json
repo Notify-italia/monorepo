@@ -71,6 +71,15 @@
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
+        },
+        "ptc": {
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/nfc-player/src/environments/environment.ts",
+              "with": "apps/nfc-player/src/environments/environment.ptc.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"

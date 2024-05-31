@@ -128,6 +128,7 @@ export class LinksPlayerComponent extends AdvancedProfileItemPlayerBaseComponent
   }
 
   public openLink(link: INotifyAPLinkItem) {
+    this.context.emitters.itemClicked(link.icon, 'LINK_CLICKED');
     if (this.context.getters.currentItem.openInNotify) {
       this.context.methods.createIframeModal(link.url, link.caption);
       return;

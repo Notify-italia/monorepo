@@ -6,3 +6,4 @@ export const environment = {
   socketUrl: 'https://notify-api.vps.notifyapp.it',
   socketIdKey: 'prod.socketId',
 };
+console.log('environment', environment);

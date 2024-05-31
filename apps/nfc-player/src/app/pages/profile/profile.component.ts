@@ -371,10 +371,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private _getProfileIdentifier(): string {
-    console.log(
-      `PARAM MAP`,
-      this._activatedRoute.snapshot.paramMap.get('id') as string
-    );
     return this._activatedRoute.snapshot.paramMap.get('id') as string;
   }
 
@@ -389,6 +385,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
         }
 
         this._iframeFactory.create(eventData);
+        break;
+      }
+      case 'CONTACT_CLICKED': {
         break;
       }
       case 'SHOW_COMPANY_PROFILE': {

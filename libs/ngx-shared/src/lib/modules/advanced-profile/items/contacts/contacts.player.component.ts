@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-import { INotifyAPLinksItem } from '@notify/interfaces';
+import {
+  INotifyAPLinksItem,
+  INotifyContactItem,
+  ModifyDeep,
+} from '@notify/interfaces';
 import {
   AdvancedItemPlayerBaseImports,
   AdvancedItemPlayerBaseProviders,
   AdvancedProfileItemPlayerBaseComponent,
 } from '../../../../constructors/ap-item.player.base.component';
-import { SvgboxService } from '../../../../services';
+import { SvgBoxIcon, SvgboxService } from '../../../../services';
 import { SvgBoxIconComponent } from '../../../../standalones';
 import { CONTACTS_ICON_SET } from './contacts.iconset';
 
@@ -36,7 +40,7 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
         @for (contact of items; track $index) {
         <a
           *ngIf="contact.visible"
-          (click)="context.emitters.itemClicked(contact, 'CONTACT_CLICKED')"
+          (click)="openContact(contact)"
           class="btn !flex-nowrap truncate  min-h-1 !h-fit py-2"
           [ngClass]="{
             'w-full justify-between': isVertical,
@@ -51,8 +55,6 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
           'background-color': isFilled && !isHorizontal?  context.getters.textColor : '',
           'border-color': isFilled && !isHorizontal? context.getters.textColor : '',
         }"
-          [href]="contact.url"
-          target="_blank"
         >
           <notify-svg-box-icon
             [icon]="contact.icon"
@@ -133,5 +135,18 @@ export class ContactsPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
     return (
       this.currentItem.direction === this.context.statics.directions.Vertical
     );
+  }
+
+  public openContact(
+    contact: ModifyDeep<
+      INotifyContactItem,
+      {
+        icon: SvgBoxIcon | undefined;
+      }
+    >
+  ) {
+    this.context.emitters.itemClicked(contact.icon, 'CONTACT_CLICKED');
+
+    window.open(contact.url, '_blank');
   }
 }
