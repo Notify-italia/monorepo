@@ -4,6 +4,7 @@ import { getProfileRouter } from './get';
 import { patchProfileRouter } from './patch';
 import { postCheckProfileIdentifierRouter } from './post.check-identifier';
 import { postProfileFileRouter } from './post.file';
+import { postProfileV2UpdateRouter } from './post.v2-update';
 
 const router = Router();
 
@@ -12,5 +13,6 @@ router.use('/', patchProfileRouter);
 router.use('/file', postProfileFileRouter);
 router.use('/file', deleteProfileFileRouter);
 router.use('/check-identifier', postCheckProfileIdentifierRouter);
+router.use('/v2-update', postProfileV2UpdateRouter);
 
 export { router as profileRouter };

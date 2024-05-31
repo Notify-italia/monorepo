@@ -59,7 +59,9 @@ export const genericUserQuery = async <
   }
 
   //If findOne is true, it will return a single document
-  return model.findOne(query).populate(populate || '');
+  return model
+    .findOne(query)
+    .populate(populate || '') as unknown as _ReturnType;
 };
 
 const _getModel = (targetDb: string): Model<any> | undefined => {

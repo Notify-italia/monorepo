@@ -1,10 +1,13 @@
 import { Route } from '@angular/router';
 import {
+  AdvancedProfileComponent,
   PageNotFoundComponent,
+  advancedProfileGuard,
   authGuard,
   licenseGuard,
   signInGuard,
 } from '@notify/ngx-shared';
+import { environment } from '../environments/environment';
 import { HomeComponent } from './pages/home/home.component';
 
 export const appRoutes: Route[] = [
@@ -112,15 +115,29 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'profile',
-        canActivate: [licenseGuard],
-        loadComponent: () =>
-          import(
-            './pages/profile-management/profile-management.component'
-          ).then((m) => m.ProfileManagementComponent),
-        data: {
-          pageTitle: 'Profilo',
-        },
+        children: [
+          {
+            path: '',
+            canActivate: [advancedProfileGuard],
+            loadComponent: () =>
+              import(
+                './pages/profile-management/profile-management.component'
+              ).then((m) => m.ProfileManagementComponent),
+            data: {
+              pageTitle: 'Profilo',
+            },
+          },
+          {
+            path: 'editor',
+            loadComponent: () => AdvancedProfileComponent,
+            data: {
+              pageTitle: 'Editor Profilo',
+              environment,
+            },
+          },
+        ],
       },
+
       {
         path: 'settings',
         canActivate: [licenseGuard],

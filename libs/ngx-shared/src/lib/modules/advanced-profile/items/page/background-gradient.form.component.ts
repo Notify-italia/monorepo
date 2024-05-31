@@ -42,7 +42,10 @@ import { AdvancedProfileItemsService } from '../../services/advanced-profile-ite
 
           <span>Aggiungi</span>
         </button>
-        <small class="text-center" *ngIf="gradientForm.colorsFa.value.length">
+        <small
+          class="text-center text-xs mt-2 opacity-75"
+          *ngIf="gradientForm.colorsFa.value.length"
+        >
           Fai click per scegliere un colore o trascina per riordinare
         </small>
       </div>

@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 import {
   AdvancedProfileComponent,
   PageNotFoundComponent,
+  advancedProfileGuard,
   authGuard,
   signInGuard,
 } from '@notify/ngx-shared';
@@ -75,6 +76,7 @@ export const appRoutes: Route[] = [
         children: [
           {
             path: '',
+            canActivate: [advancedProfileGuard],
             loadComponent: () =>
               import(
                 './pages/profile-management/profile-management.component'

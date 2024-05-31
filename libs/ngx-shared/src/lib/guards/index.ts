@@ -1,3 +1,4 @@
+export * from './advanced-profile.guard';
 export * from './auth-key.guard';
 export * from './auth.guard';
 export * from './license.guard';

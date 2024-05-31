@@ -166,10 +166,6 @@ export const ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS: INotifyAPageSettings = {
     direction: EnumNotifyAPDirections.Vertical,
     colors: [{ value: '#000000' }, { value: '#000000' }],
   },
-  pattern: {
-    pattern: '',
-    color: '',
-  },
   textColor: '#ffffff',
   font: 'Poppins',
   fontSize: 16,

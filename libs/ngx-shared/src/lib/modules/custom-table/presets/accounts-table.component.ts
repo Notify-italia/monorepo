@@ -138,7 +138,7 @@ export class AccountsTableComponent implements OnInit, OnChanges {
       columns: [
         {
           id: 'name',
-          label: 'Nome',
+          label: 'Alias',
           hidden: this._isRowDisabled('name'),
           sorter: (a, b) => a.profile?.name?.localeCompare(b.profile?.name),
           value: <ICTAvatarValue>{

@@ -21,6 +21,7 @@ export interface ICTBadgevalue extends INotifyCustomTableValueBase {
   standalone: true,
   selector: 'notify-custom-table-badge-value',
   template: ` <span
+    *ngIf="iterateValue"
     class="flex whitespace-nowrap py-1 px-2 rounded-full w-fit text-white text-xs  justify-center"
     [style.backgroundColor]="currentStyle.bg"
     [style.color]="currentStyle.text"
