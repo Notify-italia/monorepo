@@ -241,7 +241,9 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
       .pipe(
         tap(() => {
           this._profileSubject.next(parsedProfile);
-          // this.selectedHierarchyItem = 'background';
+          if (value) {
+            this.selectedHierarchyItem = 'background';
+          }
           this.loading = false;
         })
       )
