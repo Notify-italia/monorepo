@@ -11,7 +11,7 @@ import { INotifyCustomTableConfig } from '../custom-table/custom-table.component
   providers: [UtilsService],
   template: `
     @for (col of columns; track $index) {
-    <td *ngIf="!col.hidden" class="h-20 px-6">
+    <td *ngIf="!col.hidden(col)" class="h-20 px-6">
       @switch (col.value.valueType) { @case ('field') {
       <div
         class="h-4 skeleton"
