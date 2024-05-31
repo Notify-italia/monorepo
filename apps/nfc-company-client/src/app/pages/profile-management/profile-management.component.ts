@@ -82,6 +82,14 @@ export class ProfileManagementComponent extends ProfileManagementBaseComponent {
       .getProfile<EnumNotifyUserType.Agent>(this.providedProfile)
       .pipe(
         tap((profile) => {
+          if (profile.advancedProfile?.enabled) {
+            this._router.navigate(['/pages/profile/editor'], {
+              queryParams: {
+                p: profile._id,
+              },
+            });
+          }
+
           this._profileSubject$.next(profile);
         }),
         this.errorHandlerPipe()

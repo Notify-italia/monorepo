@@ -1,3 +1,4 @@
+import { EnumNotifyUserType } from '@notify/interfaces';
 import {
   BadRequestError,
   ProfileModel,
@@ -7,37 +8,63 @@ import {
   requestHandler,
 } from '@notify/nfc-api-core';
 import { Router } from 'express';
+import { body } from 'express-validator';
 
 //boilderplate for a post request to create an agent
 const router = Router();
 
 router.post(
   '/',
+  body('agent').optional().isMongoId(),
   requestHandler(
     async (req, res) => {
+      const id = req.body.agent || req.currentUser._id;
+      const isProvidedAgent = !!req.body.agent;
+
+      if (
+        isProvidedAgent &&
+        req.currentUser.userType === EnumNotifyUserType.Agent
+      ) {
+        throw new BadRequestError(
+          'Non hai i permessi per aggiornare il profilo di un altro agente'
+        );
+      }
+
       const profile = await ProfileModel.findOne({
-        owner: req.currentUser._id,
+        owner: id,
       });
 
-      const currentUser = await genericUserQuery<true, UserDocTypes>(
-        req.currentUser.userType,
+      const user = await genericUserQuery<true, UserDocTypes>(
+        isProvidedAgent ? EnumNotifyUserType.Agent : req.currentUser.userType,
         {
-          _id: req.currentUser._id,
+          _id: id,
         },
         true
       );
 
-      if (!profile || !currentUser) {
+      if (isProvidedAgent && user.userType === EnumNotifyUserType.Company) {
+        throw new BadRequestError(
+          "Non hai i permessi per aggiornare il profilo di un'azienda"
+        );
+      }
+
+      if (isProvidedAgent && String(user.owner) !== req.currentUser._id) {
+        throw new BadRequestError(
+          'Non hai i permessi per aggiornare il profilo di un agente non appartenente alla tua azienda'
+        );
+      }
+
+      if (!profile || !user) {
         throw new BadRequestError('Utente non trovato');
       }
 
       //check if the user has already upgraded to v2
-      if (currentUser.advancedProfile) {
+      if (user.advancedProfile) {
         throw new BadRequestError('Profilo già aggiornato');
       }
 
-      currentUser.advancedProfile = true;
-      await currentUser.save();
+      user.advancedProfile = true;
+      await user.save();
 
       profile.advancedProfile = createAdvancedProfile(profile.toObject());
 
