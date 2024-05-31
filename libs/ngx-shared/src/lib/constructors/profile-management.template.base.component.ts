@@ -29,6 +29,64 @@ type IProfile = INotifyProfile;
     <div class="space-y-4">
       @if (hidratedProfile$ | async; as profile) {
 
+      <div
+        *ngIf="upgradeHero"
+        class="hero mb-2  rounded-lg"
+        style="background-image: url(https://s3-api.vps.notifyapp.it/assets/_temp-editor.png);"
+      >
+        <div class="hero-overlay bg-opacity-90 rounded-lg"></div>
+        <div class="hero-content text-center text-white">
+          <div class="max-w-md">
+            <h1 class="mb-5 text-2xl lg:text-5xl font-bold">
+              Ciao {{ profile.name | titlecase }}!
+            </h1>
+            <p class="mb-5 text-xs lg:text-base">
+              Abbiamo rilasciato una nuova versione del profilo, con nuove
+              possibilità di personalizzazione e un maggior controllo sulle
+              informazioni che condividi!
+              <br />
+              <br />
+              Fai
+              <span class="font-bold">{{ isMobile ? 'tap' : 'clic' }}</span> sul
+              pulsante qui sotto per convertire subito il tuo profilo e scoprire
+              tutte le nuove funzionalità!
+            </p>
+            <div class="divider"></div>
+            <div class="flex justify-center items-center space-x-4 mt-5">
+              <button
+                class="btn btn-ghost text-sm"
+                data-theme="notifytheme"
+                (click)="upgradeHero = false"
+              >
+                <span>Forse più tardi...</span>
+              </button>
+              <button
+                class="btn btn-primary"
+                data-theme="notifytheme"
+                (click)="updateToV2.emit()"
+              >
+                <span>Aggiorna!</span>
+
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <notify-share-item
         [config]="profile.shareConfig"
         (settingsClicked)="openShareSettings.emit(profile)"
@@ -171,6 +229,8 @@ type IProfile = INotifyProfile;
 export class ProfileTemplateBaseComponent implements OnInit {
   private _utilsService = inject(UtilsService);
 
+  public upgradeHero = true;
+
   @Input({ required: true }) profile$!: Observable<IProfile>;
   @Input({ required: true }) loading = false;
   @Input({ required: true }) baseUrl = '';
@@ -183,10 +243,15 @@ export class ProfileTemplateBaseComponent implements OnInit {
   @Output() removeSavedRedirect = new EventEmitter<string>();
   @Output() openShareSettings = new EventEmitter<INotifyProfile>();
   @Output() applyGoogleReviewLink$ = new Subject<string>();
+  @Output() updateToV2 = new EventEmitter<void>();
 
   public hidratedProfile$ = new Observable<
     IProfile & { shareConfig: INotifyShareItemConfig }
   >();
+
+  public get isMobile() {
+    return this._utilsService.isMobile;
+  }
 
   ngOnInit() {
     this.hidratedProfile$ = this.profile$.pipe(

@@ -1,10 +1,11 @@
-import { ModifyDeep } from '@notify/api-shared';
 import {
   EnumNotifyAPBackgroundTypes,
   EnumNotifyAPDirections,
   EnumNotifyUserType,
   INotifyProfile,
+  ModifyDeep,
 } from '@notify/interfaces';
+import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
   Document,
   HydratedDocument,
@@ -24,7 +25,7 @@ export type ProfileDocument = Document<unknown, unknown, Profile> &
   }>;
 
 export const PROFILE_VALIDATION_MESSAGES: {
-  [key in keyof Partial<INotifyProfile>]: string | { [key: string]: string };
+  [key in keyof Partial<Profile>]: ErrorMessage;
 } = {
   _id: "L'id del profilo non è valido",
   name: 'Inserire un nome valido',
@@ -270,14 +271,8 @@ const ProfileSchema = new Schema<Profile, ProfileModel>(
           },
         },
         requiredItems: {
-          avatar: {
-            type: Schema.Types.ObjectId,
-            default: null,
-          },
-          feedback: {
-            type: Schema.Types.ObjectId,
-            default: null,
-          },
+          type: Schema.Types.Mixed,
+          default: {},
         },
       },
       default: {

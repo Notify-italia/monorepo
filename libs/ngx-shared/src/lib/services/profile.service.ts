@@ -15,6 +15,13 @@ export class ProfileService {
     return phoneNumber.replace(/[^0-9]/g, '');
   }
 
+  public v2Update() {
+    return this.http.post<undefined, INotifyProfile>(
+      `/v1/profile/v2-update`,
+      undefined
+    );
+  }
+
   public buildCompanyLocation(p?: INotifyProfile) {
     const d = p?.address;
     if (!d || !d.street || !d.number || !d.city) {

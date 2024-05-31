@@ -42,6 +42,10 @@ export class UtilsService {
     return this._http.apiBaseUrl;
   }
 
+  public get isMobile(): boolean {
+    return ['none', 'sm', 'md'].includes(this.currentTailwindMediaQuery());
+  }
+
   constructor(private _toastr: ToastrService, private _http: HttpService) {}
 
   public diceBearAvatar(config: {

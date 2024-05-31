@@ -145,6 +145,8 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+
+    this._providedProfileSubscription(this.providedId).subscribe();
   }
 
   public ngOnDestroy() {
@@ -243,6 +245,19 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
+
+  private _providedProfileSubscription(profile: string | undefined) {
+    return this._route.queryParams.pipe(
+      takeUntil(this.destroy$),
+      tap((params) => {
+        if (params['p'] !== profile) {
+          //? questo è un workaround per forzare il refresh della pagina quando cambia il parametro p nella query string
+          //così da permettere il passaggio seamless dalla modifica di un profilo utente al proprio profilo se si è una company
+          location.reload();
+        }
+      })
+    );
   }
 }
 

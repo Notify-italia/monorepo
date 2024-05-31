@@ -202,6 +202,19 @@ export class ProfileManagementBaseComponent implements OnDestroy {
       .subscribe();
   }
 
+  public updateToV2() {
+    this.loading = true;
+
+    this._profileService
+      .v2Update()
+      .pipe(
+        tap(() => {
+          location.reload();
+        })
+      )
+      .subscribe();
+  }
+
   /**
    * To be overridden
    */

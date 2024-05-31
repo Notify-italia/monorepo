@@ -83,7 +83,7 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
           name="sublabel"
           [label]="form.value.useRoleSubLabel ? 'Ruolo' : 'Sottotitolo'"
           class="w-full"
-          placeholder="Mario Rossi"
+          placeholder="Lead Salesman"
           [showClearInput]="!form.value.useRoleSubLabel"
           [compact]="true"
           [readOnly]="!!form.value.useRoleSubLabel"

@@ -1,5 +1,8 @@
-import { ModifyDeep } from '@notify/api-shared';
-import { EnumNotifyUserType, INotifyAgent } from '@notify/interfaces';
+import {
+  EnumNotifyUserType,
+  INotifyAgent,
+  ModifyDeep,
+} from '@notify/interfaces';
 import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
   Document,

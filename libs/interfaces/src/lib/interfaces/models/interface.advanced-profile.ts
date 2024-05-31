@@ -9,8 +9,7 @@ export interface INotifyAdvancedProfile {
   enabled: boolean;
   pageSettings: INotifyAPageSettings;
   requiredItems: {
-    avatar: string | null;
-    feedback: string | null;
+    [key in EnumNotifyAdvancedProfileItems]?: string | null;
   };
   items: NotifyAdvancedProfileItem[];
 }
@@ -127,10 +126,6 @@ export interface INotifyAPageSettings {
   gradient: {
     direction: EnumNotifyAPDirections;
     colors: { value: string }[];
-  };
-  pattern: {
-    pattern: string;
-    color: string;
   };
   textColor: string;
   font: string;

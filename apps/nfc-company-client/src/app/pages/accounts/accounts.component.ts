@@ -213,7 +213,10 @@ export class AccountsComponent implements OnInit {
   }
 
   public editProfile(agent: INotifyAgent) {
-    this._router.navigate(['/pages/profile'], {
+    const url = agent.advancedProfile
+      ? '/pages/profile/editor'
+      : '/pages/profile';
+    this._router.navigate([url], {
       queryParams: {
         p: agent.profile?._id,
       },

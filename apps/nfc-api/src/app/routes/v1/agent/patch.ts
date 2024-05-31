@@ -78,7 +78,8 @@ router.patch(
         //if the current user type is a company, update the role and enabled
         agent.enabled = enabled ?? agent.enabled;
 
-        if (role) {
+        console.log('updating role', role);
+        if (role !== undefined && role !== null) {
           await ProfileModel.updateOne({ owner: agent._id }, { role });
         }
       }
