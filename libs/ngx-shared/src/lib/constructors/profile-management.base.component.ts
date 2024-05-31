@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppError, INotifyProfile } from '@notify/interfaces';
 import {
   Observable,
@@ -48,6 +48,7 @@ export class ProfileManagementBaseComponent implements OnDestroy {
   public _utilsService = inject(UtilsService);
   public _playerFactroy = inject(ProfilePlayerFactory);
   public _authService = inject(AuthService);
+  public _router = inject(Router);
   public _activatedRoute = inject(ActivatedRoute);
   public _noteService = inject(NoteService);
   private _shareSettingsFactory = inject(ProfileShareSettingsFactory);
@@ -202,11 +203,11 @@ export class ProfileManagementBaseComponent implements OnDestroy {
       .subscribe();
   }
 
-  public updateToV2() {
+  public updateToV2(agent: string) {
     this.loading = true;
 
     this._profileService
-      .v2Update()
+      .v2Update(this.providedProfile ? agent : undefined)
       .pipe(
         tap(() => {
           location.reload();

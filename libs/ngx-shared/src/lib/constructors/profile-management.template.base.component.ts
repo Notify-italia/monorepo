@@ -63,7 +63,7 @@ type IProfile = INotifyProfile;
               <button
                 class="btn btn-primary"
                 data-theme="notifytheme"
-                (click)="updateToV2.emit()"
+                (click)="updateToV2.emit(profile.owner)"
               >
                 <span>Aggiorna!</span>
 
@@ -243,7 +243,7 @@ export class ProfileTemplateBaseComponent implements OnInit {
   @Output() removeSavedRedirect = new EventEmitter<string>();
   @Output() openShareSettings = new EventEmitter<INotifyProfile>();
   @Output() applyGoogleReviewLink$ = new Subject<string>();
-  @Output() updateToV2 = new EventEmitter<void>();
+  @Output() updateToV2 = new EventEmitter<string>();
 
   public hidratedProfile$ = new Observable<
     IProfile & { shareConfig: INotifyShareItemConfig }

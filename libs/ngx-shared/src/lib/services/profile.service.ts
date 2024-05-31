@@ -15,11 +15,15 @@ export class ProfileService {
     return phoneNumber.replace(/[^0-9]/g, '');
   }
 
-  public v2Update() {
-    return this.http.post<undefined, INotifyProfile>(
-      `/v1/profile/v2-update`,
-      undefined
-    );
+  public v2Update(agent?: string) {
+    return this.http.post<
+      {
+        agent?: string;
+      },
+      INotifyProfile
+    >(`/v1/profile/v2-update`, {
+      agent,
+    });
   }
 
   public buildCompanyLocation(p?: INotifyProfile) {

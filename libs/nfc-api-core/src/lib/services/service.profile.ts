@@ -207,7 +207,7 @@ const _generateRequiredItems = (
     EnumNotifyAdvancedProfileItems.Avatar,
     {
       direction: EnumNotifyAPDirections.Vertical,
-      label: `${profile.name} ${profile.surname || ''}`,
+      label: `${profile.name || ''} ${profile.surname || ''}`,
       sublabel: profile.role || '',
       useRoleSubLabel: profile.type === EnumNotifyUserType.Agent,
       description: profile.bio || '',

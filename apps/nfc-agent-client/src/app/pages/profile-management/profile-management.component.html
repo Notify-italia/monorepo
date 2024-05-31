@@ -16,7 +16,7 @@
         (removeSavedRedirect)="removeSavedRedirect($event)"
         (openShareSettings)="openShareSettings($event)"
         [notes]="(notesSelect$ | async) || []"
-        (updateToV2)="updateToV2()"
+        (updateToV2)="updateToV2($event)"
       ></notify-profile-management-template-base>
     </div>
   </div>
