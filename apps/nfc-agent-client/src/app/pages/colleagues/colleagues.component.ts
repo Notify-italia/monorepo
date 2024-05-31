@@ -53,6 +53,7 @@ export class ColleaguesComponent {
           this._profileFactory.create({
             profile: p,
             baseUrl: environment.profilesUrl,
+            isRunningOnPlayer: true,
           });
         })
       )

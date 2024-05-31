@@ -12,7 +12,7 @@ export interface ICTAvatarValue extends INotifyCustomTableValueBase {
   valueType: 'avatar';
   avatarSize: string;
   scrambleCacheOnChange?: boolean;
-  fields: {
+  fields?: {
     src: string;
     mask: string;
     backgroundColor: string;
@@ -21,6 +21,18 @@ export interface ICTAvatarValue extends INotifyCustomTableValueBase {
     userSurname: string;
     userEmail: string;
   };
+  computedValues?: (iterate: unknown) =>
+    | {
+        src: string;
+        mask: DaisyUIAvatarMasks;
+        size: string;
+        backgroundColor: string;
+        placeholderSeed: string;
+        userName: string;
+        userSurname: string;
+        userEmail: string;
+      }
+    | undefined;
 }
 
 @Component({
@@ -73,6 +85,16 @@ export class CustomTableAvatarValueComponent
 
   private _setIteratedValues() {
     const { fields } = this.value;
+
+    const _computedValues = this.value.computedValues?.(this.iterate);
+    if (_computedValues !== undefined) {
+      this.iteratedValues = _computedValues;
+      return;
+    }
+
+    if (!fields) {
+      return;
+    }
 
     const result = {
       src:

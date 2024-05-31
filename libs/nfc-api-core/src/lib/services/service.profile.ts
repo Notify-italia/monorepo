@@ -107,6 +107,17 @@ export const createAdvancedProfile = (profile: INotifyProfile) => {
   return profile.advancedProfile;
 };
 
+export const generateFeedbackItem = (profile: INotifyProfile) => {
+  return _generateItem<INotifyAPFeedbackItem>(
+    EnumNotifyAdvancedProfileItems.Feedback,
+    {
+      caption: '',
+      icon: '',
+      url: '',
+    }
+  );
+};
+
 const _generateNoteItem = (profile: INotifyProfile) => {
   if (!profile.note) {
     return null;
@@ -136,7 +147,7 @@ const _generatePlaceItem = (profile: INotifyProfile) => {
 };
 
 const _generateLinksItem = (profile: INotifyProfile) => {
-  return _generateItem<INotifyAPLinksItem>(
+  const items = _generateItem<INotifyAPLinksItem>(
     EnumNotifyAdvancedProfileItems.Links,
     {
       direction: EnumNotifyAPDirections.Vertical,
@@ -149,6 +160,12 @@ const _generateLinksItem = (profile: INotifyProfile) => {
       })),
     }
   );
+
+  if (!items.items.length) {
+    return null;
+  }
+
+  return items;
 };
 
 const _generateContactsItem = (profile: INotifyProfile) => {
@@ -197,6 +214,10 @@ const _generateContactsItem = (profile: INotifyProfile) => {
     });
   }
 
+  if (!contacts.items.length) {
+    return null;
+  }
+
   return contacts;
 };
 
@@ -217,14 +238,7 @@ const _generateRequiredItems = (
     }
   );
 
-  const feedback = _generateItem<INotifyAPFeedbackItem>(
-    EnumNotifyAdvancedProfileItems.Feedback,
-    {
-      caption: '',
-      icon: '',
-      url: '',
-    }
-  );
+  const feedback = generateFeedbackItem(profile);
 
   if (
     !profile.config.feedbackEnabled ||

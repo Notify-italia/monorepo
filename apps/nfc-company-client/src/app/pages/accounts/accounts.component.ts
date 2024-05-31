@@ -117,6 +117,7 @@ export class AccountsComponent implements OnInit {
     this._profileFactory.create({
       profile,
       baseUrl: environment.profilesUrl,
+      isRunningOnPlayer: true,
     });
   }
 

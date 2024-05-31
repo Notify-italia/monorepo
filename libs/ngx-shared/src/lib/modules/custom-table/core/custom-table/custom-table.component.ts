@@ -50,7 +50,7 @@ export interface INotifyCustomTableConfig {
 interface INotifyCustomTableColumn {
   id: string;
   label: string;
-  hidden?: boolean;
+  hidden: (item: INotifyCustomTableColumn, iterate?: any) => boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   sorter?: INotifyCustomTableSorter;
   value: ICTFieldValue | ICTBadgevalue | ICTAvatarValue | ICTActionsValue;

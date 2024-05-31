@@ -10,22 +10,11 @@
 >
   <div class="flex items-center w-full space-x-2">
     <div class="w-14">
-      <notify-avatar
-        [avatarConfig]="{
-          src: item.profile?.avatar || '',
-          mask: item.profile?.config?.avatarMask || '',
-          size: '14',
-          placeholderSeed: item.profile?._id || ''
-        }"
-      ></notify-avatar>
+      <notify-avatar [avatarConfig]="avatarData"></notify-avatar>
     </div>
     <small class="flex flex-col h-full justify-center my-auto">
-      <h2
-        *ngIf="item.profile?.name || item.profile?.surname"
-        class="w-full text-start"
-      >
-        {{ item.profile?.name }}
-        {{ item.profile?.surname }}
+      <h2 *ngIf="avatarData.name as name" class="w-full text-start">
+        {{ name }}
       </h2>
     </small>
   </div>

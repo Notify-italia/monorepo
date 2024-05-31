@@ -167,6 +167,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
       },
       baseUrl: this.environment.profilesUrl,
       hideShare: true,
+      isRunningOnPlayer: false,
     });
 
     this.form?.valueChanges
