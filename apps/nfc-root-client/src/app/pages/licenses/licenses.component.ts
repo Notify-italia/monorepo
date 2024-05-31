@@ -26,6 +26,10 @@ export class LicensesComponent implements OnInit {
   public licenses$: Observable<INotifyPopulatedLicense[]> =
     this.licensesSubject$;
 
+  public hidden() {
+    return false;
+  }
+
   public openLicenseForm(license?: INotifyPopulatedLicense): void {
     const ref = license
       ? this._licenseFormFull.create(license)
