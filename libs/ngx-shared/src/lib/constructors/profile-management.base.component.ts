@@ -102,7 +102,7 @@ export class ProfileManagementBaseComponent implements OnDestroy {
   }
 
   public previewProfile(profile: INotifyProfile) {
-    this._playerFactroy.create({ profile });
+    this._playerFactroy.create({ profile, isRunningOnPlayer: true });
   }
 
   public saveProfile(profile: INotifyProfile) {

@@ -5,7 +5,9 @@ import {
   BadRequestError,
   PROFILE_VALIDATION_MESSAGES,
   Password,
+  ProfileDocument,
   ProfileModel,
+  generateFeedbackItem,
   requestHandler,
   userSignInValidation,
 } from '@notify/nfc-api-core';
@@ -90,10 +92,14 @@ router.patch(
       if (feedbackEnabled !== undefined) {
         //if feedbackEnabled is not undefined, update the feedbackEnabled
         //* feedbackEnabled is a boolean value that determines if the agent can receive feedback
-        await ProfileModel.updateOne(
-          { owner: agent._id },
-          { $set: { 'config.feedbackEnabled': feedbackEnabled } }
-        );
+
+        const profile = (await ProfileModel.findOne({
+          owner: agent._id,
+        })) as ProfileDocument;
+
+        _setAdvancedProfileFeedback(profile, feedbackEnabled);
+
+        await profile.save();
       }
 
       await agent.save();
@@ -109,3 +115,33 @@ router.patch(
 );
 
 export { router as patchAgentRouter };
+
+const _setAdvancedProfileFeedback = (
+  profile: ProfileDocument,
+  feedbackEnabled: boolean
+) => {
+  //If the feedbackEnabled property in the toEdit object is different from the feedbackEnabled property in the source object
+  //then we'll assign the feedbackEnabled property in the toEdit object to the feedbackEnabled property in the source object
+  profile.config.feedbackEnabled = feedbackEnabled;
+
+  if (!profile.advancedProfile) {
+    return;
+  }
+
+  if (profile.config.feedbackEnabled) {
+    //If the feedbackEnabled property in the toEdit object is true we create a new feedbackElement object and assign it to the feedback property in the source object
+    const fb = generateFeedbackItem(profile.toObject());
+
+    profile.advancedProfile?.items.unshift(fb);
+    profile.advancedProfile.requiredItems.feedback = fb._id;
+  } else {
+    //If the feedbackEnabled property in the toEdit object is false we remove the feedback item from the advancedProfile items array
+    const fb = profile.advancedProfile.requiredItems.feedback;
+
+    profile.advancedProfile.requiredItems.feedback = null;
+
+    profile.advancedProfile.items = profile.advancedProfile.items.filter(
+      (i) => i._id.toString() !== fb
+    );
+  }
+};

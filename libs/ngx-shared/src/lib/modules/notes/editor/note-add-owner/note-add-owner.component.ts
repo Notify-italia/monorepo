@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { INotifyUser } from '@notify/interfaces';
+import { INotifyAPAvatarItem, INotifyUser } from '@notify/interfaces';
 import { Observable, Subject, map } from 'rxjs';
 import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { LoadingComponent } from '../../../../standalones/loading/loading.component';
@@ -68,7 +68,11 @@ export class NoteAddOwnerComponent
 
   public mapUsers(u: INotifyUser[]) {
     return u.map((u) => {
-      const hasName = u.profile?.name || u.profile?.surname;
+      const apAvatar = u.profile?.advancedProfile?.items.find(
+        (i) => i._id === u.profile?.advancedProfile?.requiredItems.avatar
+      ) as INotifyAPAvatarItem;
+      const hasName =
+        apAvatar?.label ?? (u.profile?.name || u.profile?.surname);
       return {
         name: hasName
           ? `${u.profile?.name} ${u.profile?.surname}`

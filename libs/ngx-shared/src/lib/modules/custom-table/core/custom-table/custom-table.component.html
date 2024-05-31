@@ -54,7 +54,7 @@
             }"
               >
                 @for (item of config.columns; track $index) {
-                <td *ngIf="!item.hidden" class="px-6">
+                <td *ngIf="!item.hidden(item, iterate)" class="px-6">
                   @switch (item.value.valueType) { @case ('field') {
                   <notify-custom-table-field-value
                     [value]="item.value"

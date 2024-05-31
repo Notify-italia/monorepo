@@ -32,6 +32,7 @@ export class FullscreenMockupComponent extends ModalBaseComponent {
   };
   @Input({ required: true }) baseUrl?: string;
   @Input() hideShare = false;
+  @Input() isRunningOnPlayer = false;
 
   public get shareConfig(): INotifyShareItemConfig {
     const companyNfcItem = this.profile.company

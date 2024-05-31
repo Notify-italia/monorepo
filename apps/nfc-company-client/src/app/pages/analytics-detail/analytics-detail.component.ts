@@ -218,6 +218,7 @@ export class AnalyticsDetailComponent implements OnDestroy {
     return this._profilePlayer.create({
       profile: this.selectedAgent.value.profile,
       baseUrl: this.baseUrl,
+      isRunningOnPlayer: true,
     });
   }
 

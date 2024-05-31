@@ -8,6 +8,7 @@ import {
   Output,
 } from '@angular/core';
 import {
+  INotifyAPAvatarItem,
   INotifyAccount,
   INotifyAgent,
   INotifyCompany,
@@ -139,7 +140,56 @@ export class AccountsTableComponent implements OnInit, OnChanges {
         {
           id: 'name',
           label: 'Alias',
-          hidden: this._isRowDisabled('name'),
+          hidden: (column, iterate) => {
+            const isDisabled = this._isRowDisabled('name');
+            if (!iterate) {
+              return isDisabled;
+            }
+
+            return isDisabled || iterate.advancedProfile?.enabled;
+          },
+          sorter: (a, b) => a.profile?.name?.localeCompare(b.profile?.name),
+          value: <ICTAvatarValue>{
+            valueType: 'avatar',
+            avatarSize: '14',
+            scrambleCacheOnChange: false,
+            fields: {
+              src: 'profile.avatar',
+              mask: 'profile.config.avatarMask',
+              backgroundColor: 'profile.customFields.backgroundColor',
+              placeholderSeed: 'profile.name',
+              userName: 'profile.name',
+              userSurname: 'profile.surname',
+              userEmail: 'email',
+            },
+            computedValues: (iterate: INotifyUser) => {
+              if (!iterate.profile?.advancedProfile) {
+                return;
+              }
+
+              const advancedProfile = iterate.profile.advancedProfile;
+              const avatarItem = advancedProfile?.items.find(
+                (v) => v._id === advancedProfile?.requiredItems.avatar
+              ) as INotifyAPAvatarItem;
+
+              return {
+                src: avatarItem?.imgSrc,
+                mask: avatarItem?.imgMask,
+                size: '14',
+                backgroundColor: 'white',
+                placeholderSeed: iterate.profile._id,
+                userName: avatarItem.label,
+                // userSurname: iterate.profile.surname,
+                userEmail: iterate.email,
+              };
+            },
+          },
+        },
+        {
+          id: 'name',
+          label: 'Alias',
+          hidden: (column, iterate) =>
+            this._isRowDisabled('name') || !iterate?.advancedProfile?.enabled,
           sorter: (a, b) => a.profile?.name?.localeCompare(b.profile?.name),
           value: <ICTAvatarValue>{
             valueType: 'avatar',
@@ -159,7 +209,7 @@ export class AccountsTableComponent implements OnInit, OnChanges {
         {
           id: 'createdAt',
           label: 'Data di Creazione',
-          hidden: this._isRowDisabled('createdAt'),
+          hidden: () => this._isRowDisabled('createdAt'),
           sorter: (a: INotifyUser, b: INotifyUser) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
           value: <ICTFieldValue>{
@@ -172,7 +222,7 @@ export class AccountsTableComponent implements OnInit, OnChanges {
         {
           id: 'role',
           label: 'Ruolo',
-          hidden: this._isRowDisabled('role'),
+          hidden: () => this._isRowDisabled('role'),
           sorter: (a, b) => a.profile.role.localeCompare(b.profile.role),
           value: <ICTBadgevalue>{
             valueType: 'badge',
@@ -190,7 +240,7 @@ export class AccountsTableComponent implements OnInit, OnChanges {
         {
           id: 'actions',
           label: '',
-          hidden: this._isRowDisabled('actions'),
+          hidden: () => this._isRowDisabled('actions'),
           value: <ICTActionsValue>{
             valueType: 'actions',
             actions: [

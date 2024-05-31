@@ -100,9 +100,8 @@ export class AdvancedProfileItemFormBaseComponent<
         environment: this.environment,
         formContext: this.formContext,
         advancedProfile: this.formContext.value,
-        isAgent: this._authService.user?.userType === EnumNotifyUserType.Agent,
-        isCompany:
-          this._authService.user?.userType === EnumNotifyUserType.Company,
+        isAgent: this.profile.type === EnumNotifyUserType.Agent,
+        isCompany: this.profile.type === EnumNotifyUserType.Company,
         requiredItems: this._requiredItems(),
         isRequired: this._requiredItemsIds().includes(this.form.value._id),
         itemValue: this.form.value,
