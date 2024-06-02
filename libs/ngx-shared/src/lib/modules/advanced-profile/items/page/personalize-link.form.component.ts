@@ -139,7 +139,7 @@ export class PersonalizeLinkFormComponent implements OnInit {
   }
 
   public get displayFriendlyUrl() {
-    return this.baseUrl.replace('https://', '').replace('http://', '');
+    return `${this.baseUrl.replace('https://', '').replace('http://', '')}/p/`;
   }
 
   public ngOnInit(): void {
