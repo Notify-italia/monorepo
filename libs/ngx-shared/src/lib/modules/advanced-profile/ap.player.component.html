@@ -17,25 +17,25 @@
   >
     @for (i of advancedProfileItems; track i.data._id) {
     <div
-      (click)="
-        apItemOutputs.onItemClicked({
-          item: i.data,
-          eventName: 'ITEM_CLICKED'
-        })
-      "
       class="mx-2"
-      [ngClass]="{
-        'rounded-lg hover:outline-2 hover:outline-dashed cursor-pointer hover:scale-95 smooth smooth-fast active:scale-90 active:brightness-75':
-          !isRunningOnPlayer
+      [ngStyle]="{
+        'margin-top': verticalSpacing,
+        'margin-bottom': verticalSpacing,
+        
       }"
     >
       <div
         class="flex flex-col"
         *ngIf="i.data.visible"
-        [ngStyle]="{
-          'margin-top': verticalSpacing,
-          'margin-bottom': verticalSpacing,
-          
+        (click)="
+          apItemOutputs.onItemClicked({
+            item: i.data,
+            eventName: 'ITEM_CLICKED'
+          })
+        "
+        [ngClass]="{
+          'rounded-lg hover:outline-2 hover:outline-dashed cursor-pointer hover:scale-95 smooth smooth-fast active:scale-90 active:brightness-75':
+            !isRunningOnPlayer
         }"
       >
         <div class="my-3 mt-0" *ngIf="i.data.title?.length && i.data.showTitle">
@@ -59,6 +59,6 @@
       </div>
     </div>
     }
-    <div [innerHTML]="footer" *ngIf="!contained" class="pb-3"></div>
+    <div [innerHTML]="footer" *ngIf="!contained" class="mt-5"></div>
   </div>
 </div>

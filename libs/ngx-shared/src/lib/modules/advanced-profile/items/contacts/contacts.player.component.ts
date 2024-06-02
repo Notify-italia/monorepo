@@ -39,6 +39,7 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
       >
         @for (contact of items; track $index) {
         <a
+          ontouchstart
           *ngIf="contact.visible"
           (click)="openContact(contact)"
           class="btn !flex-nowrap truncate  min-h-1 !h-fit py-2"

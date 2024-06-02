@@ -41,6 +41,8 @@ export class PagePlayerComponent {
           color: this.textColor,
           'background-image': `url(${this.pageSettings.imgSrc})`,
           'background-size': 'cover',
+          'background-repeat': 'no-repeat',
+          'background-attachment': 'fixed',
         };
     }
 
@@ -48,7 +50,7 @@ export class PagePlayerComponent {
   }
 
   public get baseClass(): string {
-    return `w-full h-full fonts font-${this.pageSettings.font} text-[${this.pageSettings.textColor}]`;
+    return `w-full h-full fonts font-${this.pageSettings.font} text-[${this.pageSettings.textColor}] p-safe`;
   }
 
   public get fontSize() {

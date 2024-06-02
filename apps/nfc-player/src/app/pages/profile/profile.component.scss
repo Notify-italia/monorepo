@@ -1,5 +1,5 @@
 .content-container {
-  @apply h-full w-full relative overflow-x-hidden overflow-y-clip  lg:flex;
+  @apply h-full w-full relative overflow-x-hidden overflow-y-auto lg:flex;
 }
 
 .player-responsive {

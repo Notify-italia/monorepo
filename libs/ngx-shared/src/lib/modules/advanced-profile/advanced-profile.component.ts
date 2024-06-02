@@ -140,9 +140,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
     this._advancedProfileItemOutputsService.itemClicked
       .pipe(
         takeUntil(this.destroy$),
-        tap((v) => {
-          this.selectedHierarchyItem = v.item._id;
-        })
+        tap((v) => (this.selectedHierarchyItem = v.item._id))
       )
       .subscribe();
 

@@ -21,6 +21,7 @@ import { SvgBoxIconComponent } from '../../../../standalones';
       [ngClass]="container.ngClass"
     >
       <div
+        tabindex="0"
         class="flex items-center w-full"
         [ngClass]="{
           'flex-col space-y-4': isVertical,
@@ -36,6 +37,8 @@ import { SvgBoxIconComponent } from '../../../../standalones';
         <button
           (click)="openLink(link)"
           *ngIf="link.visible"
+          ontouchstart
+          tabindex="0"
           class="btn !flex-nowrap truncate  min-h-1 !h-fit py-2"
           [ngClass]="{
             'w-full justify-between': isVertical,
