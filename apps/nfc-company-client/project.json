@@ -71,6 +71,15 @@
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true
+        },
+        "ptc": {
+          "outputHashing": "all",
+          "fileReplacements": [
+            {
+              "replace": "apps/nfc-company-client/src/environments/environment.ts",
+              "with": "apps/nfc-company-client/src/environments/environment.ptc.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
