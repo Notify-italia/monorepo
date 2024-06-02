@@ -63,16 +63,16 @@ export class NoteDetailComponent implements OnInit, OnChanges {
 
       qrcode: {
         fileName: this.note.title,
-        title: 'Condividi questa nota',
+        title: 'Condividi questo progetto',
       },
       nfc: {
         items: [
           {
-            label: 'Scrivi questa nota',
+            label: 'Scrivi questo progetto',
             value: this.note._id,
           },
         ],
-        questionLabel: 'Condividi questa nota',
+        questionLabel: 'Condividi questo progetto',
         confirmationLabel: 'Condividi',
       },
     };

@@ -244,9 +244,9 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
 
   public deleteNote() {
     const { instance } = this._confirmModal.create({
-      title: 'Elimina Nota',
+      title: 'Elimina progetto',
       description:
-        'Sei sicuro di voler eliminare questa nota? Questa azione è irreversibile.',
+        'Sei sicuro di voler eliminare questo progetto? Questa azione è irreversibile.',
       confirmText: 'Elimina',
       cancelText: 'Annulla',
       confirmClass: this._confirmModal.deleteBtn,

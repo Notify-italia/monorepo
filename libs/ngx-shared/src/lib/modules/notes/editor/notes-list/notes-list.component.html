@@ -12,8 +12,8 @@
       'items.value.files.name',
       'items.value.files.url'
     ]"
-    helpLabel="Cerca Note"
-    placeholder="Cerca per titolo o contenuto della nota"
+    helpLabel="Cerca Progetti"
+    placeholder="Cerca per titolo o contenuto del progetto"
     (filteredArray)="notes = $event"
   ></notify-search-bar>
 </div>
@@ -85,8 +85,8 @@
   } @else if (notes && !notes.length) {
   <notify-no-items
     class="h-[40vh]"
-    title="Nessuna Nota"
-    subtitle="Usa il pulsante 'Aggiungi' per creare una nuova nota."
+    title="Nessun Progetto"
+    subtitle="Usa il pulsante 'Aggiungi' per creare una nuovo progetto."
   ></notify-no-items>
   }
 </div>

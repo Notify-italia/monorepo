@@ -34,7 +34,7 @@ router.delete(
       }).lean();
 
       if (!note) {
-        throw new BadRequestError('Nota non trovata');
+        throw new BadRequestError('Progetto non trovata');
       }
 
       await NoteModel.deleteOne({

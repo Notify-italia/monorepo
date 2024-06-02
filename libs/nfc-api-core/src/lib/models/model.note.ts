@@ -1,5 +1,4 @@
-import { ModifyDeep } from '@notify/api-shared';
-import { INotifyNote } from '@notify/interfaces';
+import { INotifyNote, ModifyDeep } from '@notify/interfaces';
 import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
   Document,
@@ -79,7 +78,7 @@ const NoteSchema = new Schema<Note, NoteModel>(
   {
     title: {
       type: String,
-      default: `Nuova nota in coworking`,
+      default: `Nuovo progetto`,
     },
     color: {
       type: String,

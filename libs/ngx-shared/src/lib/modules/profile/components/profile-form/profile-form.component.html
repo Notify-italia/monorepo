@@ -461,14 +461,14 @@
           'opacity-50 pointer-events-none': !notes.length
         }"
       >
-        <div class="divider divider-start">Collega una nota</div>
+        <div class="divider divider-start">Collega un progetto</div>
 
         <notify-tailwind-select
           [parent]="form"
           name="note"
           class="w-full"
-          label="Nota"
-          placeholder="Nessuna Nota"
+          label="Progetto"
+          placeholder="Nessun progetto"
           [options]="notes"
           [validationErrors]="validationErrors"
         ></notify-tailwind-select>
@@ -495,7 +495,7 @@
         <notify-tailwind-checkbox
           [parent]="form"
           name="noteShowTitle"
-          label="Titolo della nota"
+          label="Titolo del progetto"
           [validationErrors]="validationErrors"
         ></notify-tailwind-checkbox>
 

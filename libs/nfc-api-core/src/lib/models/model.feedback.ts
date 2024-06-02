@@ -1,5 +1,4 @@
-import { ModifyDeep } from '@notify/api-shared';
-import { INotifyFeedback } from '@notify/interfaces';
+import { INotifyFeedback, ModifyDeep } from '@notify/interfaces';
 import mongoose, {
   Document,
   HydratedDocument,

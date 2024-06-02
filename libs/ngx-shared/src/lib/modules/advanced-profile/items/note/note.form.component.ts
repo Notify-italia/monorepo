@@ -23,7 +23,7 @@ import { ITailwindSelectOption } from '../../../tailwind-forms/components/tailwi
         name="note"
         class="w-full"
         label="Nota"
-        placeholder="Nessuna Nota"
+        placeholder="Nessun progetto"
         [options]="notes"
         [compact]="true"
       ></notify-tailwind-select>
