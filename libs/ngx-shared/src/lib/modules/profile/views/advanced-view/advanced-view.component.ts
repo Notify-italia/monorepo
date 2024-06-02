@@ -8,14 +8,16 @@ import { AdvancedProfilePlayerComponent } from '../../../advanced-profile/ap.pla
   selector: '[notify-advanced-view]',
   standalone: true,
   imports: [CommonModule, AdvancedProfilePlayerComponent],
-  template: `<notify-ap-player
-    class="w-full h-full"
-    [profile]="data"
-    [footer]="footer"
-    [contained]="mockup"
-    [environment]="environment"
-    [isRunningOnPlayer]="isRunningOnPlayer"
-  ></notify-ap-player> `,
+  template: `
+    <notify-ap-player
+      class="w-full h-full"
+      [profile]="data"
+      [footer]="footer"
+      [contained]="mockup"
+      [environment]="environment"
+      [isRunningOnPlayer]="isRunningOnPlayer"
+    ></notify-ap-player>
+  `,
 })
 export class AdvancedViewComponent {
   @Input() public data!: INotifyProfile;

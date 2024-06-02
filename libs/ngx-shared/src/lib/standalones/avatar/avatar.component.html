@@ -4,12 +4,16 @@
     [ngTemplateOutletContext]="{ config: c.main, avatarType: 'main' }"
   ></ng-container>
 
+  <!-- SUB AVATAR -->
   <button
     *ngIf="
       (c.sub.src?.length || c.sub.placeholderSeed?.length) &&
       avatarConfig?.src?.length
     "
-    class="absolute lg:pointer-events-none {{ c.sub.placement }}"
+    class="absolute lg:pointer-events-none {{
+      c.sub.placement
+    }} active:scale-90 smooth smooth-fast"
+    ontouchstart
     (click)="subAvatarClick.emit()"
   >
     <ng-container

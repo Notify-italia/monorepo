@@ -1,5 +1,5 @@
 <div
-  class="bg-black lg:bg-base-200 min-h-screen w-full flex flex-col justify-center items-center relative font-work"
+  class="bg-black lg:bg-base-200 h-[100svh] size-full flex flex-col justify-center items-center relative font-work overflow-hidden"
 >
   @if (profile$ | async; as p) {
 
@@ -38,12 +38,7 @@
   ></notify-floating-button>
 
   @if (isAgent(p)) {
-  <div
-    class="content-container"
-    notifyGestures
-    (horizontalSwipe)="handleHorizontalSwipe($event, p)"
-    (touchEnd)="handleTouchEnd()"
-  >
+  <div class="content-container">
     <!-- PLAYER OUTLET -->
     <ng-container
       [ngTemplateOutlet]="PlayerContent"
@@ -130,6 +125,7 @@
     <notify-profile-view
       (integrationClicked)="handleIntegrationClicked($event, pCompany)"
       [data]="pCompany"
+      [isRunningOnPlayer]="true"
       [footer]="footer"
     ></notify-profile-view>
   </div>
@@ -161,6 +157,7 @@
       (integrationClicked)="handleIntegrationClicked($event, pCompany)"
       [data]="pCompany"
       [mockup]="true"
+      [isRunningOnPlayer]="true"
       [ngClass]="{
         'iphone-15-pro': ['lg', 'xl', '2xl'].includes(currentBreakpoint)
       }"
