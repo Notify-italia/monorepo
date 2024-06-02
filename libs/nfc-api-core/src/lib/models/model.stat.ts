@@ -1,5 +1,4 @@
-import { ModifyDeep } from '@notify/api-shared';
-import { INotifyStat } from '@notify/interfaces';
+import { INotifyStat, ModifyDeep } from '@notify/interfaces';
 import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
   Document,

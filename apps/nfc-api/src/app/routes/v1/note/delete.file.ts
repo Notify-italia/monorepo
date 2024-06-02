@@ -7,7 +7,7 @@ const router = Router();
 
 router.delete(
   '/',
-  query('note').isMongoId().withMessage('Nota non valida.'),
+  query('note').isMongoId().withMessage('Progetto non valido.'),
   query('item').isMongoId().withMessage('Item non valido.'),
   query('name').isString().withMessage('Nome non valido.'),
   requestHandler(

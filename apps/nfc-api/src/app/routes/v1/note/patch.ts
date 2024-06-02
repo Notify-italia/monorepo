@@ -15,7 +15,7 @@ router.patch(
   query('id')
     .isMongoId()
     .withMessage(NOTE_VALIDATION_MESSAGES._id as string),
-  body('note').exists().isObject().withMessage('Nota non valida'),
+  body('note').exists().isObject().withMessage('Progetto non valido'),
   requestHandler(
     async (req, res) => {
       const { note } = req.body;
@@ -27,7 +27,7 @@ router.patch(
       });
 
       if (!foundNote) {
-        throw new BadRequestError('Nota non trovata');
+        throw new BadRequestError('Progetto non trovato');
       }
 
       foundNote.set(note);

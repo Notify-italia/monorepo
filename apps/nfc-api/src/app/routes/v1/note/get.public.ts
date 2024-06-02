@@ -1,8 +1,8 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
 import {
-  AgentDocument,
+  Agent,
   BadRequestError,
-  CompanyDocument,
+  Company,
   NOTE_VALIDATION_MESSAGES,
   NoteModel,
   genericUserQuery,
@@ -25,10 +25,10 @@ router.get(
     const note = await NoteModel.findById(id).lean();
 
     if (!note) {
-      throw new BadRequestError('Nota non trovata');
+      throw new BadRequestError('Progetto non trovato');
     }
 
-    const agents = await genericUserQuery<false, AgentDocument>(
+    const agents = await genericUserQuery<false, Agent>(
       EnumNotifyUserType.Agent,
       {
         _id: { $in: note.owners },
@@ -37,7 +37,7 @@ router.get(
       'profile'
     );
 
-    const company = await genericUserQuery<true, CompanyDocument>(
+    const company = await genericUserQuery<true, Company>(
       EnumNotifyUserType.Company,
       {
         _id: { $in: note.owners },

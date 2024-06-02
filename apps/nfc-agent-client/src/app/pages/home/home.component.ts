@@ -47,7 +47,7 @@ export class HomeComponent {
       ],
     },
     {
-      label: 'Note',
+      label: 'Area Progetti',
       path: '/pages/notes',
       canContainChildren: true,
       icon: [
