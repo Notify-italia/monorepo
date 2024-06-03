@@ -7,7 +7,6 @@ import {
   PROFILE_VALIDATION_MESSAGES,
   ProfileModel,
   agentCreatedEmail,
-  createAdvancedProfile,
   mLog,
   requestHandler,
   userSignInValidation,
@@ -63,22 +62,12 @@ router.post(
           password,
           enabled,
           owner: new Types.ObjectId(req.currentUser?._id),
-          advancedProfile: true,
         },
         { role, feedbackEnabled }
       ).catch((err) => {
         mLog(err, 'error');
         throw new BadRequestError('Email già in uso');
       });
-
-      await agent?.save();
-
-      //send an email to the agent with the email, the current user's email, and the password
-      await agentCreatedEmail(
-        agent.email,
-        req.currentUser?.email as string,
-        password
-      );
 
       const profile = await ProfileModel.findOne({
         owner: agent._id,
@@ -88,9 +77,18 @@ router.post(
         throw new BadRequestError('Errore durante la creazione del profilo');
       }
 
-      profile.advancedProfile = createAdvancedProfile(profile?.toObject());
+      // profile.advancedProfile = createAdvancedProfile(profile?.toObject());
+      //agent.advancedProfile = true
 
       await profile.save();
+      await agent?.save();
+
+      //send an email to the agent with the email, the current user's email, and the password
+      await agentCreatedEmail(
+        agent.email,
+        req.currentUser?.email as string,
+        password
+      );
 
       res.status(201).send(agent);
     },

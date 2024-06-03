@@ -1,5 +1,6 @@
 import { EnumNotifyUserType } from '@notify/interfaces';
 import {
+  AgentDocument,
   BadRequestError,
   ProfileModel,
   UserDocTypes,
@@ -42,20 +43,23 @@ router.post(
         true
       );
 
-      if (isProvidedAgent && user.userType === EnumNotifyUserType.Company) {
+      if (!profile || !user) {
+        throw new BadRequestError('Utente non trovato');
+      }
+
+      if (isProvidedAgent) {
         throw new BadRequestError(
           "Non hai i permessi per aggiornare il profilo di un'azienda"
         );
       }
 
-      if (isProvidedAgent && String(user.owner) !== req.currentUser._id) {
+      if (
+        isProvidedAgent &&
+        String((user as AgentDocument).owner) !== req.currentUser._id
+      ) {
         throw new BadRequestError(
           'Non hai i permessi per aggiornare il profilo di un agente non appartenente alla tua azienda'
         );
-      }
-
-      if (!profile || !user) {
-        throw new BadRequestError('Utente non trovato');
       }
 
       //check if the user has already upgraded to v2

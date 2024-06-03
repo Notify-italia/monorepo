@@ -13,7 +13,7 @@ import {
 /**
  * The `AccountTypes` type is a union of the `AgentDocument` and `CompanyDocument` types.
  */
-export type UserDocTypes = AgentDocument | CompanyDocument;
+export type UserDocTypes = Agent | Company;
 
 /**
  * The `AccountType` type is a conditional type that takes a generic type `T` and returns one type from the `AccountTypes` union
