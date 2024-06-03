@@ -24,7 +24,8 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
       [ngClass]="container.ngClass"
     >
       <button
-        class="flex space-x-2 items-center justify-evenly  rounded-xl  text-start px-4 py-2 w-full h-36"
+        class="flex space-x-2 items-center justify-evenly  rounded-xl  text-start px-4 py-2 w-full h-36 active:scale-95 smooth smooth-fast"
+        ontouchstart
         (click)="handleClick()"
         [ngStyle]="{
           'background-color': context.getters.textColor,

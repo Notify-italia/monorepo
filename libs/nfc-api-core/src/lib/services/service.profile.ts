@@ -80,7 +80,7 @@ export const createAdvancedProfile = (profile: INotifyProfile) => {
     _generateNoteItem(profile),
   ].filter((item) => item !== null) as NotifyAdvancedProfileItem[];
 
-  profile.advancedProfile = {
+  return {
     enabled: true,
     items,
     pageSettings: {
@@ -103,8 +103,6 @@ export const createAdvancedProfile = (profile: INotifyProfile) => {
     },
     requiredItems,
   };
-
-  return profile.advancedProfile;
 };
 
 export const generateFeedbackItem = (profile: INotifyProfile) => {
@@ -191,7 +189,7 @@ const _generateContactsItem = (profile: INotifyProfile) => {
     contacts.items.push({
       icon: 'mail',
       caption: profile.email,
-      url: `mailto:${profile.email}`,
+      url: `${profile.email}`,
       visible: true,
     });
   }
@@ -200,7 +198,7 @@ const _generateContactsItem = (profile: INotifyProfile) => {
     contacts.items.push({
       icon: 'whatsapp',
       caption: 'WhatsApp',
-      url: `https://wa.me/${profile.phoneNumber}`,
+      url: `${profile.phoneNumber}`,
       visible: true,
     });
   }
@@ -209,7 +207,7 @@ const _generateContactsItem = (profile: INotifyProfile) => {
     contacts.items.push({
       icon: 'chat',
       caption: 'SMS',
-      url: `sms:${profile.phoneNumber}`,
+      url: `${profile.phoneNumber}`,
       visible: true,
     });
   }
@@ -247,7 +245,7 @@ const _generateRequiredItems = (
     return [avatar];
   }
 
-  return [avatar, feedback];
+  return [feedback, avatar];
 };
 
 const _generateItem = <T>(

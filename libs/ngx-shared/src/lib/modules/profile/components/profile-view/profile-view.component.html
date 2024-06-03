@@ -1,13 +1,16 @@
 <div
-  class="relative font-poppins translate-x-0"
+  class="relative font-poppins translate-x-0 !size-full"
   [ngClass]="{
-    'h-full !w-full mockup-phone  border-gray-400   p-2 shrink-0 grow-0':
+    'mockup-phone border-gray-400 p-2 shrink-0 grow-0':
       mockup,
-    'size-full': !mockup
+    
   }"
 >
   <!-- MOCKUP FILL -->
-  <!-- <notify-mockup-fill *ngIf="mockup" class="w-full"></notify-mockup-fill> -->
+  <notify-mockup-fill
+    *ngIf="mockup && !data?.advancedProfile?.enabled"
+    class="w-full"
+  ></notify-mockup-fill>
 
   @if(!data?.advancedProfile?.enabled) {
   <div
@@ -77,7 +80,7 @@
     [mockup]="mockup"
     [environment]="environment"
     [isRunningOnPlayer]="isRunningOnPlayer"
-    class="w-full h-full top-0 left-0"
+    class="size-full top-0 left-0"
     [class.fixed]="mockup"
   ></div>
   }

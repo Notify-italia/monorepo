@@ -100,7 +100,6 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
             class="btn btn-outline shrink-0 btn-square mb-[0.2rem]  btn-sm"
             (click)="toggleCompanyLabel()"
             tabindex="-1"
-            [disabled]="!role.length"
           >
             @if(this.useRoleLabel) {
             <svg
@@ -184,12 +183,10 @@ export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<IN
         };
 
     return {
-      format: 'webp',
       resize,
       roundCropper: isBanner ? false : true,
       alignImage: 'center',
       minHeight: minSizes.height,
-
       minWidth: minSizes.width,
     } as Partial<IImageCropperConfig>;
   }

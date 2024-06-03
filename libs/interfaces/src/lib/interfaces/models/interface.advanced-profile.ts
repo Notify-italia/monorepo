@@ -71,11 +71,11 @@ export interface INotifyAPPlaceItem
 //contacts
 export interface INotifyAPContactsItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Contacts> {
-  items: INotifyContactItem[];
+  items: INotifyAPContactItem[];
   style: EnumNotifyAPButtonStyles;
   direction: EnumNotifyAPDirections;
 }
-export type INotifyContactItem = baseButton;
+export type INotifyAPContactItem = baseButton;
 
 //photo
 export interface INotifyAPPhotoItem

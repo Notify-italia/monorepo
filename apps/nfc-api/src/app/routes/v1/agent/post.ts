@@ -5,7 +5,9 @@ import {
   BadRequestError,
   LicenseManager,
   PROFILE_VALIDATION_MESSAGES,
+  ProfileModel,
   agentCreatedEmail,
+  createAdvancedProfile,
   mLog,
   requestHandler,
   userSignInValidation,
@@ -61,6 +63,7 @@ router.post(
           password,
           enabled,
           owner: new Types.ObjectId(req.currentUser?._id),
+          advancedProfile: true,
         },
         { role, feedbackEnabled }
       ).catch((err) => {
@@ -76,6 +79,18 @@ router.post(
         req.currentUser?.email as string,
         password
       );
+
+      const profile = await ProfileModel.findOne({
+        owner: agent._id,
+      });
+
+      if (!profile) {
+        throw new BadRequestError('Errore durante la creazione del profilo');
+      }
+
+      profile.advancedProfile = createAdvancedProfile(profile?.toObject());
+
+      await profile.save();
 
       res.status(201).send(agent);
     },

@@ -7,7 +7,6 @@ import {
   EnumNotifyProfileSources,
   EnumNotifyStatType,
   EnumNotifyUserType,
-  INotifyAPAvatarItem,
   INotifyProfile,
 } from '@notify/interfaces';
 import {
@@ -406,7 +405,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private _setMeta(profile: INotifyProfile) {
-    const name = this._getProfileName(profile);
+    const name = this._profileService.getProfileName(profile);
 
     const descriptionMessage = this.isAgent(profile)
       ? `Visualizza il profilo di ${name} via Notify!`
@@ -464,22 +463,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       name: 'msapplication-TileColor',
       content: topThemeColor,
     });
-  }
-
-  private _getProfileName(profile: INotifyProfile): string {
-    if (!profile.advancedProfile?.enabled) {
-      return profile.name || 'Ignoto';
-    }
-
-    const avatar = profile.advancedProfile.items.find(
-      (i) => i._id === profile.advancedProfile?.requiredItems.avatar
-    ) as INotifyAPAvatarItem;
-
-    if (!avatar) {
-      return 'Ignoto';
-    }
-
-    return avatar.label || 'Ignoto';
   }
 
   private _getThemeColor(profile: INotifyProfile): string {
