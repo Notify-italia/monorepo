@@ -89,7 +89,6 @@ const _DEMO_PROFILE: INotifyProfile<EnumNotifyUserType.Company> = {
     city: 'Prato',
     number: '40',
   },
-  openHours: [],
   role: null,
   reviewRedirect: 'https://g.page/r/CR140V5wBLmJEBM/review',
   colors: {

@@ -1,5 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  PLATFORM_ID,
+  inject,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SvgBoxIcon, SvgboxService } from '../../services';
 
@@ -12,6 +19,7 @@ import { SvgBoxIcon, SvgboxService } from '../../services';
 })
 export class SvgBoxIconComponent implements OnInit, OnChanges {
   private _domSanitizer = inject(DomSanitizer);
+  private _platformId = inject(PLATFORM_ID);
 
   @Input() public icon?: SvgBoxIcon;
   @Input() public iconName?: string;
@@ -20,6 +28,9 @@ export class SvgBoxIconComponent implements OnInit, OnChanges {
   public visible = true;
 
   public get sanitizedData() {
+    if (!isPlatformBrowser(this._platformId)) {
+      return '';
+    }
     const data = this.icon?.data || '';
 
     if (!data) {
