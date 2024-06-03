@@ -5,6 +5,14 @@
   [pageSettings]="ps"
 >
   <div
+    (click)="
+      apItemOutputs.onItemClicked({
+        eventName: 'ITEM_CLICKED',
+        item: $any({
+          _id: 'background'
+        })
+      })
+    "
     class="size-full overflow-y-auto notify-scrollbar scrollbar-absolute"
     [ngClass]="{
       '!pt-14': contained,
@@ -23,6 +31,8 @@
     >
       @for (i of advancedProfileItems; track i.data._id) {
       <div
+        *ngIf="i.data.visible"
+        (click)="$event.stopPropagation()"
         class="mx-2"
         [ngStyle]="{
         'margin-top': verticalSpacing,
@@ -32,7 +42,6 @@
       >
         <div
           class="flex flex-col"
-          *ngIf="i.data.visible"
           (click)="
             apItemOutputs.onItemClicked({
               item: i.data,
