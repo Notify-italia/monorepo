@@ -1,11 +1,25 @@
 <div tabindex="-1" #DummyFocus></div>
+
 <div
   [formGroup]="parent"
   class="flex space-x-2 my-auto w-full items-center"
   tabindex="0"
 >
+  <input
+    type="color"
+    tabindex="0"
+    #ColorPickerRoot
+    [value]="color || defaultColor"
+    class="pointer-events-none opacity-0 absolute"
+    (input)="handleColorPickerChange($any($event.target)?.value)"
+  />
+
   <button
-    class="relative group/colorPicker w-full focus-within:pointer-events-none"
+    (click)="compact ? ColorPickerRoot.click() : null"
+    class="relative w-full"
+    [ngClass]="{
+      'group/colorPicker  focus-within:pointer-events-none': !compact,
+    }"
     type="button"
     tabindex="0"
   >
@@ -30,10 +44,12 @@
           'color-bubble-sm font-normal': compact
         }"
       ></button>
+
       <label class="pointer-events-none">{{ compact ? value : label }}</label>
     </div>
 
     <div
+      *ngIf="!compact"
       tabindex="0"
       class="absolute -translate-y-10 opacity-0 pointer-events-none group-focus-within/colorPicker:translate-y-0 group-focus-within/colorPicker:opacity-100 group-focus-within/colorPicker:pointer-events-auto py-2 px-4 rounded-lg bg-white border my-2 smooth max-w-80 lg:max-w-96 overflow-auto z-50"
       [ngClass]="{
@@ -43,7 +59,7 @@
       <div
         class="grid grid-cols-6 grid-rows-4 w-44 grid-flow-row items-center"
         [ngClass]="{
-          '!grid-cols-10 w-full gap-3 justify-evenly items-center content-evenly justify-items-center ':
+          '!grid-cols-20 w-full gap-3 justify-evenly items-center content-evenly justify-items-center ':
             compact
         }"
       >
@@ -55,7 +71,7 @@
           class="color-bubble !w-6 !h-6 border border-slate-500 flex-shrink-0 m-2"
           [ngStyle]="{
             'background-color': c,
-            'w-4 h-4 m-0': compact,
+            '!w-4 !h-4 m-0': compact,
 
           }"
           [ngClass]="{
@@ -67,7 +83,7 @@
         }
 
         <div
-          class="col-span-4 items-center flex justify-end !-mr-1.5"
+          class="col-span-4 items-center flex justify-end !-mr-1.5 shrink"
           [ngClass]="{
           '!mr-4': compact,
         }"
@@ -76,6 +92,7 @@
             type="color"
             tabindex="0"
             #ColorPicker
+            [value]="color || defaultColor"
             class="opacity-0 pointer-events-none"
             (input)="handleColorPickerChange($any($event.target)?.value)"
           />
