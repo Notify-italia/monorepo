@@ -125,6 +125,10 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
       )
       .subscribe();
 
+    this._advancedProfileItemOutputsService.hierarchyChanged
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((v) => this.hierarchyChanged(v));
+
     this._providedProfileSubscription(this.providedId).subscribe();
   }
 

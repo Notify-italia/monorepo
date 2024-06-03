@@ -7,10 +7,7 @@
   }"
 >
   <!-- MOCKUP FILL -->
-  <notify-mockup-fill
-    *ngIf="mockup && !data?.advancedProfile?.enabled"
-    class="w-full"
-  ></notify-mockup-fill>
+  <notify-mockup-fill *ngIf="mockup" class="w-full"></notify-mockup-fill>
 
   @if(!data?.advancedProfile?.enabled) {
   <div
