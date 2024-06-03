@@ -1,16 +1,12 @@
 <div tabindex="-1" #DummyFocus></div>
 
-<div
-  [formGroup]="parent"
-  class="flex space-x-2 my-auto w-full items-center"
-  tabindex="0"
->
+<div [formGroup]="parent" class="flex my-auto w-full items-center" tabindex="0">
   <input
     type="color"
     tabindex="0"
     #ColorPickerRoot
     [value]="color || defaultColor"
-    class="pointer-events-none opacity-0 absolute"
+    class="pointer-events-none opacity-0 absolute w-0"
     (input)="handleColorPickerChange($any($event.target)?.value)"
   />
 
