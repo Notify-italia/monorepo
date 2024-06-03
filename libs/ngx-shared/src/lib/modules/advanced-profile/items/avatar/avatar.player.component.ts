@@ -94,7 +94,7 @@ export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponen
       src: this.currentItem?.imgSrc,
       size: '36',
       mask: this.currentItem.imgMask || '',
-      placeholderSeed: this.currentItem._id || '',
+      placeholderSeed: this.context.getters.profile._id || '',
       backgroundColor: this.currentItem.imgMask
         ? this.context.getters.textColor
         : '',
@@ -148,7 +148,7 @@ export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponen
       size,
       mask: companyAvatar?.imgMask || '',
       placeholderStyle: EnumDicebearAvatarStyles.Bottts,
-      placeholderSeed: companyAvatar?._id || '',
+      placeholderSeed: company?._id || '',
       placement,
     };
   }

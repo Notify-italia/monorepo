@@ -10,7 +10,7 @@ import { AdvancedProfilePlayerComponent } from '../../../advanced-profile/ap.pla
   imports: [CommonModule, AdvancedProfilePlayerComponent],
   template: `
     <notify-ap-player
-      class="w-full h-full"
+      class="size-full"
       [profile]="data"
       [footer]="footer"
       [contained]="mockup"

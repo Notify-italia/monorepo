@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
+  INotifyAPContactItem,
   INotifyAPLinksItem,
-  INotifyContactItem,
   ModifyDeep,
 } from '@notify/interfaces';
 import {
@@ -140,7 +140,7 @@ export class ContactsPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
 
   public openContact(
     contact: ModifyDeep<
-      INotifyContactItem,
+      INotifyAPContactItem,
       {
         icon: SvgBoxIcon | undefined;
       }

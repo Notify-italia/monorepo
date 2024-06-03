@@ -20,7 +20,6 @@ import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 
 export interface IImageCropperConfig {
   imageData: File;
-  format?: 'png' | 'jpeg' | 'webp';
   minWidth?: number;
   minHeight?: number;
   alignImage?: 'center' | 'left';
@@ -80,7 +79,7 @@ export class ImageCropperComponent
     this.cropperSettings.preserveSize = !this.config.resize;
     this.cropperSettings.keepAspect = !!this.config.resize;
     this.cropperSettings.noFileInput = true;
-    this.cropperSettings.fileType = `image/${this.config.format || 'webp'}`;
+    this.cropperSettings.fileType = `image/webp`;
   }
 
   public async ngAfterViewInit() {
@@ -123,9 +122,10 @@ export class ImageCropperComponent
 
     const result = new Promise<File>((resolve) => {
       new Compressor(imgBlob, {
-        quality: 0.6,
+        quality: 0.4,
         width: 800,
         height: 800,
+        mimeType: 'image/png',
         success: (result) => {
           return resolve(result as File);
         },

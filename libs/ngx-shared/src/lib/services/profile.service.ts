@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import {
+  EnumNotifyAdvancedProfileItems,
   EnumNotifyProfileSources,
   EnumNotifyUserType,
+  INotifyAPAvatarItem,
+  INotifyAPContactItem,
+  INotifyAPContactsItem,
+  INotifyAPPlaceItem,
   INotifyProfile,
 } from '@notify/interfaces';
 import { HttpService } from './http.service';
@@ -94,14 +99,121 @@ export class ProfileService {
     });
   }
 
+  public getLocations(profile: INotifyProfile): Partial<INotifyAPPlaceItem>[] {
+    if (!profile.advancedProfile?.enabled) {
+      return [
+        {
+          address: profile.address?.street || '',
+          civicNumber: profile.address?.number || '',
+          city: profile.address?.city || '',
+        },
+      ];
+    }
+
+    return profile.advancedProfile.items.filter(
+      (i) => i.type === EnumNotifyAdvancedProfileItems.Place && i.visible
+    ) as INotifyAPPlaceItem[];
+  }
+
+  public getPhoneNumbers(profile: INotifyProfile): INotifyAPContactItem[] {
+    if (!profile.advancedProfile?.enabled) {
+      return [
+        {
+          caption: profile.phoneNumber || '',
+          icon: 'phone',
+          url: profile.phoneNumber || '',
+          visible: true,
+        },
+      ];
+    }
+
+    const contacts = profile.advancedProfile.items.filter(
+      (i) =>
+        i.type === EnumNotifyAdvancedProfileItems.Contacts &&
+        i.items.some((ii) =>
+          ['phone', 'whatsapp', 'voicemail'].includes(ii.icon)
+        )
+    ) as INotifyAPContactsItem[];
+
+    if (!contacts?.length) {
+      return [];
+    }
+
+    return contacts
+      .map((i) =>
+        i.items.filter(
+          (i) =>
+            ['phone', 'whatsapp', 'voicemail'].includes(i.icon) && i.visible
+        )
+      )
+      .flat();
+  }
+
+  public getEmails(profile: INotifyProfile): INotifyAPContactItem[] {
+    if (!profile.advancedProfile?.enabled) {
+      return [
+        {
+          caption: profile.email || '',
+          icon: 'email',
+          url: profile.email || '',
+          visible: true,
+        },
+      ];
+    }
+
+    const contacts = profile.advancedProfile.items.filter(
+      (i) =>
+        i.type === EnumNotifyAdvancedProfileItems.Contacts &&
+        i.items.some((ii) => ii.icon === 'email')
+    ) as INotifyAPContactsItem[];
+
+    if (!contacts?.length) {
+      return [];
+    }
+
+    return contacts
+      .map((i) => i.items.filter((i) => i.icon === 'email' && i.visible))
+      .flat();
+  }
+
+  public getProfileName(profile: INotifyProfile): string {
+    if (!profile.advancedProfile?.enabled) {
+      return profile.name + ' ' + (profile.surname || '') || 'Ignoto';
+    }
+
+    const avatar = profile.advancedProfile.items.find(
+      (i) => i._id === profile.advancedProfile?.requiredItems.avatar
+    ) as INotifyAPAvatarItem;
+
+    if (!avatar) {
+      return 'Ignoto';
+    }
+
+    return avatar.label || 'Ignoto';
+  }
+
+  public getProfileAvatar(profile: INotifyProfile): string {
+    if (!profile.advancedProfile?.enabled) {
+      return profile.avatar || '';
+    }
+
+    const avatar = profile.advancedProfile.items.find(
+      (i) => i._id === profile.advancedProfile?.requiredItems.avatar
+    ) as INotifyAPAvatarItem;
+
+    return avatar?.imgSrc || '';
+  }
+
   public async saveContact(d: INotifyProfile, publicUrl: string) {
     if (!d) {
       return;
     }
 
-    const avatar = this._isAvatarBase64(d.avatar || '')
-      ? d.avatar
-      : await fetch(d.avatar || '')
+    const _avatar = this.getProfileAvatar(d);
+
+    const avatar = this._isAvatarBase64(_avatar || '')
+      ? _avatar
+      : await fetch(_avatar || '')
           .then((r) => r.blob())
           .then(
             (blob) =>
@@ -114,21 +226,23 @@ export class ProfileService {
               })
           );
 
-    const name = d.name || '';
-    const surname = d.surname || '';
+    const _pName = this.getProfileName(d);
+    const [name, surname] = _pName.split(' ');
+
+    const _cName = d.company ? this.getProfileName(d.company) : '';
 
     const vcard = `BEGIN:VCARD
 VERSION:3.0
 N:${surname};${name};
 FN:${name} ${surname}
-ORG:${d.company?.name || name}
-TEL;TYPE=work,voice;VALUE=uri:${this.cleanPhoneNumber(d.phoneNumber || '')}
-PHOTO;ENCODING=b:${avatar?.split(',')[1]}
+ORG:${_cName}
+PHOTO;TYPE=WEBP;ENCODING=b:${avatar?.split(',')[1]}
 item2.URL;type=pref:${
       `${publicUrl}/profile?p=${d._id}` + EnumNotifyProfileSources.Contacts
     }
-ADR;TYPE=work:;;${this.buildCompanyLocation(d?.company)?.label}
-EMAIL:${d.email}
+${this._buildVcardPhoneNumbers(this.getPhoneNumbers(d))}
+${this._buildVcardLocations(this.getLocations(d))}
+${this._buildVcardEmails(this.getEmails(d))}
 END:VCARD`;
 
     //saving the file by creating an anchor tag and simulating a click on it
@@ -137,11 +251,44 @@ END:VCARD`;
       'href',
       'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard)
     );
-    a.setAttribute(
-      'download',
-      `${d.name} ${d.surname?.length ? ' ' + d.surname : ''}.vcf`
-    );
+    a.setAttribute('download', `${_pName}.vcf`);
     a.click();
+  }
+
+  private _buildVcardPhoneNumbers(phones: INotifyAPContactItem[]) {
+    if (!phones.length) {
+      return '';
+    }
+
+    return phones
+      .map((p) => {
+        const isLandline = p.icon === 'voicemail';
+
+        return `TEL;TYPE=${
+          isLandline ? 'work' : 'cell'
+        },voice,VALUE=uri:+39${this.cleanPhoneNumber(p.url)}`;
+      })
+      .join('\n');
+  }
+
+  private _buildVcardEmails(emails: INotifyAPContactItem[]) {
+    if (!emails.length) {
+      return '';
+    }
+
+    return emails
+      .map((e) => {
+        return `EMAIL;TYPE=work:${e.url}`;
+      })
+      .join('\n');
+  }
+
+  private _buildVcardLocations(locations: Partial<INotifyAPPlaceItem>[]) {
+    return locations
+      .map((l) => {
+        return `ADR;TYPE=work:;;${l.address} ${l.civicNumber}, ${l.city}`;
+      })
+      .join('\n');
   }
 
   private _isAvatarBase64(avatar: string) {

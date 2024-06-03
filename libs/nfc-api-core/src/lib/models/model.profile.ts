@@ -251,7 +251,7 @@ const ProfileSchema = new Schema<Profile, ProfileModel>(
       type: {
         enabled: {
           type: Boolean,
-          default: false,
+          default: true,
         },
         items: [_itemSchema],
         pageSettings: {
