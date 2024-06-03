@@ -9,6 +9,7 @@ import {
   INotifyAPContactsItem,
   INotifyAPPlaceItem,
   INotifyProfile,
+  baseButton,
 } from '@notify/interfaces';
 import { HttpService } from './http.service';
 
@@ -139,14 +140,12 @@ export class ProfileService {
       return [];
     }
 
-    return contacts
-      .map((i) =>
-        i.items.filter(
-          (i) =>
-            ['phone', 'whatsapp', 'voicemail'].includes(i.icon) && i.visible
-        )
+    return contacts.map((i) =>
+      i.items.filter(
+        (i) => ['phone', 'whatsapp', 'voicemail'].includes(i.icon) && i.visible
       )
-      .flat();
+    ) as unknown as baseButton[];
+    // .flat();
   }
 
   public getEmails(profile: INotifyProfile): INotifyAPContactItem[] {
@@ -171,9 +170,10 @@ export class ProfileService {
       return [];
     }
 
-    return contacts
-      .map((i) => i.items.filter((i) => i.icon === 'email' && i.visible))
-      .flat();
+    return contacts.map((i) =>
+      i.items.filter((i) => i.icon === 'email' && i.visible)
+    ) as unknown as baseButton[];
+    // .flat();
   }
 
   public getProfileName(profile: INotifyProfile): string {

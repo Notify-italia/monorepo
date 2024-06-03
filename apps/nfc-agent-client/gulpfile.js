@@ -3,15 +3,20 @@ const uglify = require('gulp-uglify');
 const cleanCSS = require('gulp-clean-css');
 const pump = require('pump');
 
-const basePath = 'dist/apps/nfc-public';
-
 gulp.task('compress-js', function (cb) {
-  pump([gulp.src([`${basePath}**/*.js`]), uglify(), gulp.dest('dist')], cb);
+  pump(
+    [
+      gulp.src(['dist/apps/nfc-agent-client/**/*.js']),
+      uglify(),
+      gulp.dest('dist'),
+    ],
+    cb
+  );
 });
 
 gulp.task('minify-css', () => {
   return gulp
-    .src([`${basePath}**/*.css`])
+    .src(['dist/apps/nfc-agent-client/**/*.css'])
     .pipe(cleanCSS({ compatibility: 'ie10' }))
     .pipe(gulp.dest('dist'));
 });
