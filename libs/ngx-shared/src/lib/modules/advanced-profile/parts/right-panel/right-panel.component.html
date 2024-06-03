@@ -39,6 +39,7 @@
         [environment]="environment"
         [selectedHierarchyItem]="selectedHierarchyItem"
         (removeItem)="removeItem.emit($event)"
+        (profileIdentifierChanged)="forceSave.emit()"
       ></notify-part-settings>
     </div>
   </div>

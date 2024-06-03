@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   EnumNotifyAPAlign,
@@ -49,6 +56,7 @@ const FORCE_UPDATE_KEYS: string[] = [];
         [pageSettingsForm]="pageSettingsForm"
         [profile]="profile"
         [baseUrl]="environment['profilesUrl']"
+        (profileIdentifierChanged)="profileIdentifierChanged.emit($event)"
       ></notify-personalize-link-form>
 
       @if(profile.config.redirectEnabled) {
@@ -111,6 +119,8 @@ export class PageFormComponent implements OnInit {
   @Input({ required: true }) profile!: INotifyProfile;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input({ required: true }) environment!: Record<string, any>;
+
+  @Output() profileIdentifierChanged = new EventEmitter<string>();
 
   public backgroundTypes = EnumNotifyAPBackgroundTypes;
 

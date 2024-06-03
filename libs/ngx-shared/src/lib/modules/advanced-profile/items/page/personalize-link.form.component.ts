@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -119,6 +126,8 @@ export class PersonalizeLinkFormComponent implements OnInit {
   @Input({ required: true }) baseUrl!: string;
   @Input({ required: true }) pageSettingsForm!: FormGroup;
 
+  @Output() profileIdentifierChanged = new EventEmitter<string>();
+
   public valid: 'success' | 'error' | 'pending' | '' = '';
   public iconClass = 'w-6 h-6';
 
@@ -197,6 +206,9 @@ export class PersonalizeLinkFormComponent implements OnInit {
           );
         }),
         tap(() => (this._newProfileIdentifier = this.trimmedProfileIdentifier)),
+        tap(() =>
+          this.profileIdentifierChanged.emit(this.trimmedProfileIdentifier)
+        ),
         catchError((err) => this._utilsService.errorHandler(err))
       )
       .subscribe();

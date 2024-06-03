@@ -4,6 +4,7 @@
     [profile]="profile"
     [form]="form"
     [environment]="environment"
+    (profileIdentifierChanged)="profileIdentifierChanged.emit($event)"
   ></notify-page-form>
 
   @if(currentItem; as item) {
