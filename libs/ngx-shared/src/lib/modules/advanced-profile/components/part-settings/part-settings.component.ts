@@ -48,6 +48,7 @@ export class PartSettingsComponent {
   @Input() environment!: Record<string, unknown>;
 
   @Output() removeItem = new EventEmitter<string>();
+  @Output() profileIdentifierChanged = new EventEmitter<string>();
 
   public get currentItem() {
     const form = this.form.controls?.['items'].controls?.find(

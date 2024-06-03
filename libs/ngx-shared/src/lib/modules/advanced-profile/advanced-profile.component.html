@@ -112,7 +112,7 @@
         [shareConfig]="shareConfig"
         [selectedHierarchyItem]="selectedHierarchyItem"
         [environment]="environment"
-        (forceSave)="saveProfile(form?.value)"
+        (forceSave)="saveProfile(form?.value).subscribe()"
         (removeItem)="removeItem($event)"
       ></notify-right-panel>
     </div>

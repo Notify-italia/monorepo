@@ -93,31 +93,12 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
     this.refreshProfile()
       .pipe(
         tap((v) => {
-          this.shareConfig = {
-            type: 'profile',
-            qrcode: {
-              fileName: `profile.png`,
-            },
-            nfc: {
-              items: [
-                {
-                  value: v?._id,
-                  label: 'Conferma',
-                },
-              ],
-            },
-            baseUrl: this.environment['profilesUrl'] as string,
-            isInModal: false,
-            id: v?._id,
-          };
-        }),
-
-        tap((v) => {
           this.form = this._formsSerivce.createFormGroup(
             v.advancedProfile,
             PROFILE_DEFAULTS.advancedProfile
           );
         }),
+        this._setShareConfigPipe(),
         switchMap(() => {
           if (!this.form) {
             return of(null);
@@ -221,7 +202,10 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
         },
         this.providedId
       )
-      .pipe(tap(() => (this.loading = false)));
+      .pipe(
+        tap(() => (this.loading = false)),
+        this._setShareConfigPipe()
+      );
   }
 
   public toggleProfileRedirect(value: boolean, profile: INotifyProfile) {
@@ -259,6 +243,29 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  private _setShareConfigPipe() {
+    return tap((v: INotifyProfile) => {
+      console.log('here');
+      this.shareConfig = {
+        type: 'profile',
+        qrcode: {
+          fileName: `profile.png`,
+        },
+        nfc: {
+          items: [
+            {
+              value: v?._id,
+              label: 'Conferma',
+            },
+          ],
+        },
+        baseUrl: this.environment['profilesUrl'] as string,
+        isInModal: false,
+        id: v.profileIdentifier || v?._id,
+      };
+    });
   }
 }
 
