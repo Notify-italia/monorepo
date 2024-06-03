@@ -74,6 +74,7 @@ import {
 
       <notify-tailwind-checkbox
         [parent]="form"
+        [compact]="true"
         name="showStreetName"
         label="Indirizzo visible nel profilo"
       ></notify-tailwind-checkbox>
