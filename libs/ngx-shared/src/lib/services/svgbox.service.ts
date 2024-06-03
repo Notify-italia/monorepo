@@ -287,4 +287,10 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
   { expanded: 'Venmo', name: 'venmo', set: 'social', score: 1 },
   { expanded: 'Youtube', name: 'youtube', set: 'social', score: 1 },
   { expanded: 'Zoom', name: 'zoom', set: 'social', score: 1 },
+  {
+    expanded: 'Sfoglia il menù',
+    name: 'menu_book',
+    set: 'materialui',
+    score: 1,
+  },
 ];
