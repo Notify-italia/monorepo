@@ -1,42 +1,42 @@
 <div class="modal-container !z-[999]" (click)="close()">
   <div>
     <div
-      class="pointer-events-none lg:space-y-2 flex flex-col justify-center"
+      class="pointer-events-none scale-[50%] lg:scale-[70%] 2xl:scale-90"
       (click)="$event.stopPropagation()"
     >
-      <notify-share-item
-        *ngIf="baseUrl && !hideShare"
-        class="w-full h-full !scale-[75%] pointer-events-auto slide-in-left"
-        [config]="shareConfig"
-        source="modal"
-      ></notify-share-item>
+      <div class="flex flex-col space-y-5">
+        <notify-share-item
+          *ngIf="baseUrl && !hideShare"
+          class="w-full h-full pointer-events-auto slide-in-left"
+          [config]="shareConfig"
+          source="modal"
+        ></notify-share-item>
 
-      <div
-        class="scale-[65%] lg:scale-[75%] pointer-events-auto !-my-[9rem] lg:!-my-20 z-0"
-      >
-        @if(profile.config.redirectEnabled) {
+        <div class="pointer-events-auto z-0">
+          @if(profile.config.redirectEnabled) {
 
-        <iframe
-          [cachedSrc]="
-            normalizeURL(
-              profile.advancedProfile?.pageSettings?.redirectUrl ||
-                profile.redirectUrl
-            )
-          "
-          class="iphone-15-pro phone mockup-phone pointer-events-none slide-in-left"
-          frameborder="0"
-        ></iframe>
+          <iframe
+            [cachedSrc]="
+              normalizeURL(
+                profile.advancedProfile?.pageSettings?.redirectUrl ||
+                  profile.redirectUrl
+              )
+            "
+            class="iphone-15-pro phone mockup-phone pointer-events-none slide-in-left"
+            frameborder="0"
+          ></iframe>
 
-        } @else {
-        <div class="iphone-15-pro slide-in-left">
-          <notify-profile-view
-            class="h-full w-full"
-            [mockup]="true"
-            [data]="profile"
-            [isRunningOnPlayer]="isRunningOnPlayer"
-          ></notify-profile-view>
+          } @else {
+          <div class="iphone-15-pro slide-in-left">
+            <notify-profile-view
+              class="h-full w-full"
+              [mockup]="true"
+              [data]="profile"
+              [isRunningOnPlayer]="isRunningOnPlayer"
+            ></notify-profile-view>
+          </div>
+          }
         </div>
-        }
       </div>
     </div>
   </div>

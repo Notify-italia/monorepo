@@ -51,6 +51,7 @@ import {
 
     <notify-tailwind-checkbox
       [parent]="form"
+      [compact]="true"
       name="showCompanyOnClick"
       label="Mostra azienda al tap"
     ></notify-tailwind-checkbox>
