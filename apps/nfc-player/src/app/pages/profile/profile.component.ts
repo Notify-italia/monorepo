@@ -3,9 +3,11 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
+  EnumNotifyAPBackgroundTypes,
   EnumNotifyProfileSources,
   EnumNotifyStatType,
   EnumNotifyUserType,
+  INotifyAPAvatarItem,
   INotifyProfile,
 } from '@notify/interfaces';
 import {
@@ -404,14 +406,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private _setMeta(profile: INotifyProfile) {
+    const name = this._getProfileName(profile);
+
     const descriptionMessage = this.isAgent(profile)
-      ? `Visualizza ${profile.name} ${profile.surname} di ${profile.company?.name} via Notify!`
-      : `Visualizza ${profile.name} via Notify!`;
+      ? `Visualizza il profilo di ${name} via Notify!`
+      : `Visualizza ${name} via Notify!`;
 
-    const topThemeColor =
-      profile.colors.background[0] || defaultGradientStops[0];
+    const topThemeColor = this._getThemeColor(profile);
 
-    this._titleService.setTitle(`${profile.name || 'Ignoto'} - Notify`);
+    this._titleService.setTitle(`${name} - Notify`);
 
     this._Meta.updateTag({
       name: 'description',
@@ -420,7 +423,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     this._Meta.updateTag({
       name: 'og:title',
-      content: `${profile.name} ${profile.surname}`,
+      content: `${name} - Notify`,
     });
 
     this._Meta.updateTag({
@@ -461,5 +464,40 @@ export class ProfileComponent implements OnInit, OnDestroy {
       name: 'msapplication-TileColor',
       content: topThemeColor,
     });
+  }
+
+  private _getProfileName(profile: INotifyProfile): string {
+    if (!profile.advancedProfile?.enabled) {
+      return profile.name || 'Ignoto';
+    }
+
+    const avatar = profile.advancedProfile.items.find(
+      (i) => i._id === profile.advancedProfile?.requiredItems.avatar
+    ) as INotifyAPAvatarItem;
+
+    if (!avatar) {
+      return 'Ignoto';
+    }
+
+    return avatar.label || 'Ignoto';
+  }
+
+  private _getThemeColor(profile: INotifyProfile): string {
+    if (!profile.advancedProfile?.enabled) {
+      return profile.colors.background[0] || defaultGradientStops[0];
+    }
+
+    const ps = profile.advancedProfile.pageSettings;
+
+    const type = ps.backgroundType;
+
+    switch (type) {
+      case EnumNotifyAPBackgroundTypes.Fill:
+        return ps.fill;
+      case EnumNotifyAPBackgroundTypes.Gradient:
+        return ps.gradient.colors[0].value;
+      case EnumNotifyAPBackgroundTypes.Image:
+        return 'black';
+    }
   }
 }

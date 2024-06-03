@@ -307,4 +307,10 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     set: 'social',
     score: 1,
   },
+  {
+    expanded: 'Sfoglia il menù',
+    name: 'menu_book',
+    set: 'materialui',
+    score: 1,
+  },
 ];
