@@ -1,3 +1,8 @@
+import {
+  CdkDragDrop,
+  DragDropModule,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, inject } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
@@ -11,9 +16,23 @@ import { AdvancedProfileItemsService } from './services/advanced-profile-items.s
 @Component({
   selector: 'notify-ap-player',
   standalone: true,
-  imports: [CommonModule, PagePlayerComponent],
+  imports: [CommonModule, PagePlayerComponent, DragDropModule],
   providers: [AdvancedProfileItemsService, FormsService],
   templateUrl: './ap.player.component.html',
+  styles: `
+
+  
+  .cdk-drag-preview {
+    @apply bg-gray-500/50  rounded-lg overflow-hidden;
+
+      &>div {
+        @apply opacity-0;
+      
+      }
+  }
+
+
+  `,
 })
 export class AdvancedProfilePlayerComponent {
   private _apItems = inject(AdvancedProfileItemsService);
@@ -39,6 +58,12 @@ export class AdvancedProfilePlayerComponent {
     const value = this.advancedProfile?.pageSettings.verticalSpacing || 0;
 
     return `${value}rem`;
+  }
+
+  public dropMainList(event: CdkDragDrop<string[]>) {
+    const items = this.profile.advancedProfile?.items || [];
+    moveItemInArray(items, event.previousIndex, event.currentIndex);
+    this.apItemOutputs.onHierarchyChanged(items);
   }
 
   public get advancedProfileItems() {

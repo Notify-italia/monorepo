@@ -22,8 +22,11 @@
       'padding-right': ps.padding + 'rem',
 
     }"
+    cdk-scrollable
   >
     <div
+      cdkDropList
+      (cdkDropListDropped)="dropMainList($event)"
       class="flex flex-col"
       [ngClass]="{
         'min-h-screen': !contained
@@ -31,53 +34,61 @@
     >
       @for (i of advancedProfileItems; track i.data._id) {
       <div
-        *ngIf="i.data.visible"
-        (click)="$event.stopPropagation()"
-        class="mx-2"
-        [ngStyle]="{
-        'margin-top': verticalSpacing,
-        'margin-bottom': verticalSpacing,
-        
-      }"
+        cdkDrag
+        [cdkDragDisabled]="isRunningOnPlayer"
+        [ngClass]="{
+          'cdkDrag ': !isRunningOnPlayer
+        }"
       >
         <div
-          class="flex flex-col"
-          (click)="
-            apItemOutputs.onItemClicked({
-              item: i.data,
-              eventName: 'ITEM_CLICKED'
-            })
-          "
-          [ngClass]="{
-            'rounded-lg hover:outline-2 hover:outline-dashed cursor-pointer hover:scale-95 smooth smooth-fast active:scale-90 active:brightness-75':
-              !isRunningOnPlayer
-          }"
+          *ngIf="i.data.visible"
+          (click)="$event.stopPropagation()"
+          class="mx-2"
+          [ngStyle]="{
+          'margin-top': verticalSpacing,
+          'margin-bottom': verticalSpacing,
+          
+        }"
         >
           <div
-            class="my-3 mt-0"
-            *ngIf="i.data.title?.length && i.data.showTitle"
-          >
-            <small>
-              {{ i.data.title }}
-            </small>
-            <div class="notify-divider opacity-25 !my-0"></div>
-          </div>
-
-          <ng-container
-            *ngIf="i.manifest.playerComponent as pc"
-            [ngComponentOutlet]="pc"
-            [ngComponentOutletInputs]="{
-              profile: this.profile,
-              currentItem: i.data,
-              manifest: i.manifest,
-              isRunningOnPlayer,
-              environment
+            class="flex flex-col"
+            (click)="
+              apItemOutputs.onItemClicked({
+                item: i.data,
+                eventName: 'ITEM_CLICKED'
+              })
+            "
+            [ngClass]="{
+              'rounded-lg hover:outline-2 hover:outline-dashed cursor-pointer hover:scale-95 smooth smooth-fast active:scale-90 active:brightness-75':
+                !isRunningOnPlayer
             }"
-          ></ng-container>
+          >
+            <div
+              class="my-3 mt-0"
+              *ngIf="i.data.title?.length && i.data.showTitle"
+            >
+              <small>
+                {{ i.data.title }}
+              </small>
+              <div class="notify-divider opacity-25 !my-0"></div>
+            </div>
+
+            <ng-container
+              *ngIf="i.manifest.playerComponent as pc"
+              [ngComponentOutlet]="pc"
+              [ngComponentOutletInputs]="{
+                profile: this.profile,
+                currentItem: i.data,
+                manifest: i.manifest,
+                isRunningOnPlayer,
+                environment
+              }"
+            ></ng-container>
+          </div>
         </div>
       </div>
       }
+      <div [innerHTML]="footer" *ngIf="!contained" class="my-10"></div>
     </div>
-    <div [innerHTML]="footer" *ngIf="!contained" class="my-10"></div>
   </div>
 </div>

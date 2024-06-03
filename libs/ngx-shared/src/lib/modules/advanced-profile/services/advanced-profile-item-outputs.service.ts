@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { INotifyAdvancedProfileItem } from '@notify/interfaces';
+import {
+  INotifyAdvancedProfileItem,
+  NotifyAdvancedProfileItem,
+} from '@notify/interfaces';
 import { Subject } from 'rxjs';
 import { IFrameModalNavbarStyle } from '../../modals';
 
@@ -30,9 +33,14 @@ export class AdvancedProfileItemOutputsService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public itemClicked = new Subject<IAdvancedProfileItemClickedEvent<any>>();
   public showCompanyProfile = new Subject<void>();
+  public hierarchyChanged = new Subject<NotifyAdvancedProfileItem[]>();
 
   onItemClicked<T>(value: IAdvancedProfileItemClickedEvent<T>) {
     this.itemClicked.next(value);
+  }
+
+  onHierarchyChanged(items: NotifyAdvancedProfileItem[]) {
+    this.hierarchyChanged.next(items);
   }
 
   onShowCompanyProfile() {
