@@ -163,7 +163,7 @@ export class AccountsTableComponent implements OnInit, OnChanges {
               userEmail: 'email',
             },
             computedValues: (iterate: INotifyUser) => {
-              if (!iterate.profile?.advancedProfile) {
+              if (!iterate.profile?.advancedProfile?.enabled) {
                 return;
               }
 

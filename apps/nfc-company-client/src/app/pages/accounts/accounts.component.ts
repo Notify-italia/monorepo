@@ -214,7 +214,7 @@ export class AccountsComponent implements OnInit {
   }
 
   public editProfile(agent: INotifyAgent) {
-    const url = agent.advancedProfile
+    const url = agent.profile?.advancedProfile?.enabled
       ? '/pages/profile/editor'
       : '/pages/profile';
     this._router.navigate([url], {

@@ -111,10 +111,6 @@ export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponen
 
     const size = '12';
     const placement = this.context.getters.currentItem.ownerImgCorner;
-    const avatarId = this.context.getters.requiredItems.find(
-      (i) => i.key === 'avatar'
-    );
-
     const company = this.context.getters.companyProfile;
 
     if (!company?.advancedProfile?.enabled) {
@@ -129,7 +125,7 @@ export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponen
     }
 
     const companyAvatar = company?.advancedProfile?.items.find(
-      (i) => i._id === avatarId?.value
+      (i) => i._id === company.advancedProfile?.requiredItems.avatar
     ) as INotifyAPAvatarItem;
 
     if (!companyAvatar) {
