@@ -8,7 +8,7 @@ import {
   inject,
 } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
-import { Observable, Subject, catchError, map, tap } from 'rxjs';
+import { Observable, Subject, catchError, map, mergeMap, tap } from 'rxjs';
 import { CachedSrcDirective } from '../directives';
 import {
   INotifyShareItemConfig,
@@ -18,7 +18,7 @@ import {
 } from '../modules';
 import { ProfileShareSettingsFactory } from '../modules/profile/components/profile-share-settings/profile-share-settings.factory';
 import { ITailwindSelectOption } from '../modules/tailwind-forms/components/tailwind-select/tailwind-select.component';
-import { CapacitorService, UtilsService } from '../services';
+import { CapacitorService, ProfileService, UtilsService } from '../services';
 import { LoadingComponent, SaveIndicatorComponent } from '../standalones';
 
 type IProfile = INotifyProfile;
@@ -30,7 +30,7 @@ type IProfile = INotifyProfile;
       @if (hidratedProfile$ | async; as profile) {
 
       <div
-        *ngIf="upgradeHero"
+        *ngIf="profile.hasV2Access && !hideHero"
         class="hero mb-2  rounded-lg"
         style="background-image: url(https://s3-api.vps.notifyapp.it/assets/_temp-editor.png);"
       >
@@ -56,7 +56,7 @@ type IProfile = INotifyProfile;
               <button
                 class="btn btn-ghost text-sm"
                 data-theme="notifytheme"
-                (click)="upgradeHero = false"
+                (click)="hideHero = false"
               >
                 <span>Forse più tardi...</span>
               </button>
@@ -228,8 +228,7 @@ type IProfile = INotifyProfile;
 })
 export class ProfileTemplateBaseComponent implements OnInit {
   private _utilsService = inject(UtilsService);
-
-  public upgradeHero = true;
+  private _profileSerivce = inject(ProfileService);
 
   @Input({ required: true }) profile$!: Observable<IProfile>;
   @Input({ required: true }) loading = false;
@@ -245,8 +244,10 @@ export class ProfileTemplateBaseComponent implements OnInit {
   @Output() applyGoogleReviewLink$ = new Subject<string>();
   @Output() updateToV2 = new EventEmitter<string>();
 
+  public hideHero = false;
+
   public hidratedProfile$ = new Observable<
-    IProfile & { shareConfig: INotifyShareItemConfig }
+    IProfile & { shareConfig: INotifyShareItemConfig; hasV2Access: boolean }
   >();
 
   public get isMobile() {
@@ -255,10 +256,15 @@ export class ProfileTemplateBaseComponent implements OnInit {
 
   ngOnInit() {
     this.hidratedProfile$ = this.profile$.pipe(
-      map((profile) => ({
-        ...profile,
-        shareConfig: this._shareConfig(profile),
-      }))
+      mergeMap((profile) =>
+        this._profileSerivce.v2BetaAccess(profile._id).pipe(
+          map((res) => ({
+            ...profile,
+            shareConfig: this._shareConfig(profile),
+            hasV2Access: res.hasAccess,
+          }))
+        )
+      )
     );
   }
 

@@ -32,6 +32,14 @@ export class ProfileService {
     });
   }
 
+  public v2BetaAccess(profile: string) {
+    return this.http.get<{
+      hasAccess: boolean;
+    }>(`/v1/profile/v2-beta-access`, {
+      profile,
+    });
+  }
+
   public buildCompanyLocation(p?: INotifyProfile) {
     const d = p?.address;
     if (!d || !d.street || !d.number || !d.city) {

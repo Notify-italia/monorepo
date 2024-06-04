@@ -4,81 +4,42 @@ const _getVersionArt = (tag: string) => {
   return `https://s3-api.vps.notifyapp.it/assets/version-art/${tag}.webp`;
 };
 
-const _sharedDescription = `Notify entra ufficialmente in produzione! 🚀 <br/> Scarica l'app dagli stores ufficiali Android e iOS tramite i seguenti links
-<br/><br/><a class="link link-hover font-medium text-white" href='https://play.google.com/store/apps/details?id=org.notify.agent.client' target='_blank'>Google Play</a> <br/> <a   class="link link-hover font-medium  pointer-events-none text-gray-400" href='https://apps.apple.com/it/app/notify/id1580247021' target='_blank'>App Store</a>
-`;
+const _sharedDescription = `In questa versione minore non ci sono molti cambiamenti visibili all'utente finale ma qualcosa di grosso e altamente personalizzabile bolle in pentola 👀`;
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
     type: 'improvement',
-    message: `Migliorata la gestione del ritaglio delle immagini durante il caricamento`,
-  },
-  {
-    type: 'improvement',
-    message: `La Sidebar su desktop è ora più compatta e mostra solo le icone dei menu`,
-  },
-  {
-    type: 'improvement',
-    message: `Nella la selezione di un colore è ora possibile selezionare un colore personalizzato`,
-  },
-  {
-    type: 'new',
-    message: `<b>Pannello Profilo</b> è ora possibile modificare l'URL del proprio profilo Notify`,
+    message:
+      'Non è passato molto da quando le note sono tornate in <i>Note</i>-ify, da allora abbiamo avuto questo pallino in testa sul fatto che sia un nome fin troppo restrittivo per quello che è il loro potenziale di coworking. <br /> Da questa versione quindi cambiano nome in ✨Progetti✨!',
   },
   {
     type: 'fix',
-    message:
-      '<b>Profilo</b>: Risolto un problema che impediva la corretta assegnazione del testo di alcuni elementi',
+    message: `Risolto un problema che causava un'immagine di contatto assente su iOS durante la preview di salvataggio nella visualizzazione di un profilo`,
   },
   {
     type: 'fix',
-    message:
-      'Risolti alcuni problemi minori e migliorata la stabilità generale del sistema',
+    message: `Risolti alcuni problemi di visualizzazione di un progetto all'interno del profilo`,
+  },
+  {
+    type: 'fix',
+    message: `Risolti alcuni problemi minori`,
   },
 ];
 
 export const agentChangelog: INotifyVersionInfo = {
-  tag: 'v1.0.0',
-  date: '2024-05-10',
+  tag: 'v1.0.1',
+  date: '2024-06-05',
   description: _sharedDescription,
-  title: 'Release 1.0!',
-  artPath: _getVersionArt('v1.0.0'),
-  changes: [
-    ..._sharedChanges,
-    {
-      type: 'improvement',
-      message: 'Migliorata la tabella che visualizza i colleghi',
-    },
-    {
-      type: 'fix',
-      message:
-        "Le integrazioni dirette con il dispositivo nell'app sono ora in italiano",
-    },
-  ],
+  title: 'Accendendo il fuoco...',
+  artPath: _getVersionArt('v1.0.1'),
+  changes: [..._sharedChanges],
 };
 
 export const companyChangelog: INotifyVersionInfo = {
-  tag: 'v1.0.0',
-  date: '2024-05-10',
+  tag: 'v1.0.1',
+  date: '2024-06-05',
   description: _sharedDescription,
-  title: 'Release 1.0!',
-  artPath: _getVersionArt('v1.0.0'),
-  changes: [
-    ..._sharedChanges,
-    {
-      type: 'improvement',
-      message:
-        '<b>Gestione Utenti</b>: Migliorata la tabella che visualizza gli utenti',
-    },
-    {
-      type: 'fix',
-      message:
-        'Risolto un problema che impediva la visualizzazione del grafico visite dopo il cambio di utente selezionato',
-    },
-    {
-      type: 'improvement',
-      message:
-        '<b>Pannello Profilo</b>: è ora possibile ottenere automaticamente il link per la recensione su Google',
-    },
-  ],
+  title: 'Accendendo il fuoco...',
+  artPath: _getVersionArt('v1.0.1'),
+  changes: [..._sharedChanges],
 };
