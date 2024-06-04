@@ -179,8 +179,8 @@ const _generateContactsItem = (profile: INotifyProfile) => {
   if (profile.phoneNumber && profile.config.phoneCallEnabled) {
     contacts.items.push({
       icon: 'phone',
-      caption: profile.phoneNumber,
-      url: `tel:${profile.phoneNumber}`,
+      caption: 'Telefono',
+      url: profile.phoneNumber,
       visible: true,
     });
   }
@@ -188,7 +188,7 @@ const _generateContactsItem = (profile: INotifyProfile) => {
   if (profile.email && profile.config.emailEnabled) {
     contacts.items.push({
       icon: 'mail',
-      caption: profile.email,
+      caption: 'Email',
       url: `${profile.email}`,
       visible: true,
     });

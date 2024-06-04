@@ -114,7 +114,7 @@ export class AdvancedProfileBackgroundImageFormComponent implements OnInit {
       .uploadFile(
         {
           blob: event.blob,
-          name: event.file?.name || 'file',
+          name: (event.file?.name || 'file').replace(/[^a-zA-Z0-9]/g, '_'),
         },
         profileId,
         itemId

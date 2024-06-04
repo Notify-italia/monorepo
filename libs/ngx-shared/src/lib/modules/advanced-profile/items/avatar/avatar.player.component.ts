@@ -27,7 +27,13 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
           'flex-col space-y-4':
             currentItem.direction === this.context.statics.directions.Vertical,
           'flex-row space-x-6':
-            currentItem.direction === this.context.statics.directions.Horizontal
+            currentItem.direction ===
+            this.context.statics.directions.Horizontal,
+
+        }"
+        [ngStyle]="{
+          'align-items': alignment,
+          height: currentItem.imgSize + '%',
         }"
       >
         <notify-avatar
@@ -36,14 +42,18 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
           (subAvatarClick)="
             context.emitters.itemClicked(null, 'SHOW_COMPANY_PROFILE')
           "
+          [ngStyle]="{
+            scale: currentItem.imgSize / 100,
+          }"
         ></notify-avatar>
         <div
           class="flex flex-col"
-          [ngClass]="{
-          'text-center':
-            currentItem.direction === this.context.statics.directions.Vertical,
-          
-        }"
+          [ngStyle]="{
+            'text-align':
+              currentItem.direction === this.context.statics.directions.Vertical
+                ? alignment
+                : 'start'
+          }"
         >
           <span class="font-bold mt-1">
             {{ currentItem.label }}
@@ -64,6 +74,9 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
           [src]="currentItem.imgSrc"
           class="w-full h-48 rounded-xl object-cover"
           alt="Avatar"
+          [ngStyle]="{
+            scale: currentItem.imgSize / 100,
+          }"
         />
 
         <span class="font-bold mt-2">
@@ -87,6 +100,23 @@ export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponen
 
   public get imgSrc() {
     return;
+  }
+
+  public get alignment() {
+    if (
+      this.currentItem.direction === this.context.statics.directions.Vertical
+    ) {
+      switch (this.currentItem.align) {
+        case this.context.statics.aligns.Start:
+          return 'start';
+        case this.context.statics.aligns.Center:
+          return 'center';
+        case this.context.statics.aligns.End:
+          return 'end';
+      }
+    }
+
+    return 'center';
   }
 
   public get avatarConfig(): INotifyAvatarConfig {

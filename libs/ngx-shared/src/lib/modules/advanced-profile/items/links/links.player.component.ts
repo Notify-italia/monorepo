@@ -39,7 +39,7 @@ import { SvgBoxIconComponent } from '../../../../standalones';
           *ngIf="link.visible"
           ontouchstart
           tabindex="0"
-          class="btn !flex-nowrap truncate  min-h-1 !h-fit py-2"
+          class="btn !flex-nowrap truncate min-h-1 !h-fit py-2 "
           [ngClass]="{
             'w-full justify-between': isVertical,
             'space-x-2 m-1 btn-square ': isHorizontal,

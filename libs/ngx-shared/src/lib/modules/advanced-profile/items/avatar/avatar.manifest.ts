@@ -1,4 +1,5 @@
 import {
+  EnumNotifyAPAlign,
   EnumNotifyAPCorners,
   EnumNotifyAPDirections,
   EnumNotifyAdvancedProfileItems,
@@ -33,6 +34,8 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPAvatarItem> = {
     imgSrc: '',
     useRoleSubLabel: false,
     imgMask: daisyUIAvatarMaks[0],
+    align: EnumNotifyAPAlign.Center,
+    imgSize: 100,
     ownerImgCorner: EnumNotifyAPCorners.BottomRight,
   },
 };

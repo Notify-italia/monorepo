@@ -11,6 +11,7 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {
+  EnumNotifyAPAlign,
   EnumNotifyAPButtonStyles,
   EnumNotifyAPDirections,
   EnumNotifyAPObjectFit,
@@ -89,6 +90,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
         directions: EnumNotifyAPDirections,
         buttonStyles: EnumNotifyAPButtonStyles,
         objectFit: EnumNotifyAPObjectFit,
+        aligns: EnumNotifyAPAlign,
       },
       emitters: {
         itemClicked: <T>(data: T, eventName: ADVANCED_PROFILE_CLICK_EVENTS) => {

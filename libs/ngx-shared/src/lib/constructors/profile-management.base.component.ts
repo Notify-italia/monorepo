@@ -211,7 +211,8 @@ export class ProfileManagementBaseComponent implements OnDestroy {
       .pipe(
         tap(() => {
           location.reload();
-        })
+        }),
+        catchError((e) => this._utilsService.errorHandler(e))
       )
       .subscribe();
   }
