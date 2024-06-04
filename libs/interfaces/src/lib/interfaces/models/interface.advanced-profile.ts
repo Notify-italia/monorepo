@@ -33,11 +33,13 @@ export type NotifyAdvancedProfileItemTypes =
 export interface INotifyAPAvatarItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Avatar> {
   direction: EnumNotifyAPDirections;
+  align: EnumNotifyAPAlign;
   label: string;
   sublabel: string;
   description: string;
   imgSrc: string;
   imgMask: DaisyUIAvatarMasks | 'banner';
+  imgSize: number;
   useRoleSubLabel: boolean;
   ownerImgCorner: EnumNotifyAPCorners;
 }

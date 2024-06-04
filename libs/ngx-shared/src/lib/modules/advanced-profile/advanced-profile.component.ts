@@ -251,7 +251,6 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
 
   private _setShareConfigPipe() {
     return tap((v: INotifyProfile) => {
-      console.log('here');
       this.shareConfig = {
         type: 'profile',
         qrcode: {

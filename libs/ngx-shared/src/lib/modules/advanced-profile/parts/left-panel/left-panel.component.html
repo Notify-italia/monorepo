@@ -1,4 +1,6 @@
-<div class="notify-menu flex !flex-col flex-nowrap justify-between">
+<div
+  class="notify-menu flex !flex-col flex-nowrap justify-between text-xs 2xl:text-sm"
+>
   <notify-redirect-toggle-button
     [redirectEnabled]="profile.config.redirectEnabled"
     (toggleProfileRedirect)="toggleProfileRedirect.emit($event)"

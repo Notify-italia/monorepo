@@ -42,7 +42,7 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
           ontouchstart
           *ngIf="contact.visible"
           (click)="openContact(contact)"
-          class="btn !flex-nowrap truncate  min-h-1 !h-fit py-2"
+          class="btn !flex-nowrap min-h-1 !h-fit py-2"
           [ngClass]="{
             'w-full justify-between': isVertical,
             'space-x-2 m-1 btn-square ': isHorizontal,
@@ -61,7 +61,7 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
             [icon]="contact.icon"
             [size]="iconSize"
           ></notify-svg-box-icon>
-          <span *ngIf="isVertical">{{ contact.caption }}</span>
+          <span *ngIf="isVertical" class="truncate">{{ contact.caption }}</span>
         </a>
         }
       </div>

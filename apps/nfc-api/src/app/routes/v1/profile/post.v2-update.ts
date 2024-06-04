@@ -47,12 +47,6 @@ router.post(
         throw new BadRequestError('Utente non trovato');
       }
 
-      if (isProvidedAgent) {
-        throw new BadRequestError(
-          "Non hai i permessi per aggiornare il profilo di un'azienda"
-        );
-      }
-
       if (
         isProvidedAgent &&
         String((user as AgentDocument).owner) !== req.currentUser._id

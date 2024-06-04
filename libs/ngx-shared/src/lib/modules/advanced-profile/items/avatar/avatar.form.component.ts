@@ -2,7 +2,9 @@ import { TitleCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 
 import {
+  EnumNotifyAPAlign,
   EnumNotifyAPCorners,
+  EnumNotifyAPDirections,
   INotifyAPAvatarItem,
   NOTIFY_AP_OWNER_IMG_CORNER_IT,
   daisyUIAvatarMaks,
@@ -30,6 +32,18 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
         [options]="context.components.select.directions"
         [ngClass]="{
           'pointer-events-none brightness-50': form.value.imgMask === 'banner'
+        }"
+      ></notify-tailwind-select>
+      <notify-tailwind-select
+        [parent]="form"
+        name="align"
+        [compact]="true"
+        label="Allineamento"
+        [options]="alignOptions"
+        [ngClass]="{
+          'pointer-events-none brightness-50':
+            form.value.imgMask === 'banner' ||
+            form.value.direction === context.statics.directions.Horizontal
         }"
       ></notify-tailwind-select>
 
@@ -65,6 +79,20 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
         placeholder="Nessuna"
         [options]="avatarMaskOptions"
       ></notify-tailwind-select>
+
+      <notify-tailwind-slider
+        [parent]="form"
+        name="imgSize"
+        label="Dimensione"
+        [compact]="true"
+        [min]="10"
+        [max]="100"
+        [steps]="20"
+        [stepsLabels]="{
+          draggingSuffix: '%',
+          showCurrentStepWhileDragging: true
+        }"
+      ></notify-tailwind-slider>
 
       <div class="divider"></div>
 
@@ -158,6 +186,14 @@ export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<IN
     name: NOTIFY_AP_OWNER_IMG_CORNER_IT[v],
     value: v,
   }));
+
+  public get alignOptions() {
+    return this.context.components.select.align.filter((i) =>
+      this.form.value.direction === EnumNotifyAPDirections.Horizontal
+        ? i.value !== EnumNotifyAPAlign.Center
+        : true
+    );
+  }
 
   public get role() {
     return this.profile.role || '';
