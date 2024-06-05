@@ -9,6 +9,8 @@ const ADVANCED_PROFILE_BETA: string[] = [
   '657b7d4aed97ebff602f8eea',
   '657f61da3e18748bb264a57e',
   '655805c8f5638dc5ef4b3590',
+  '665d8209437686950a929389',
+  '665d7996437686950a9290e9',
 ];
 
 //boilderplate for a post request to create an agent
