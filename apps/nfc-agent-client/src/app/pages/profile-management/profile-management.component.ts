@@ -74,11 +74,7 @@ export class ProfileManagementComponent extends ProfileManagementBaseComponent {
         }),
         tap((profile) => {
           if (profile.advancedProfile?.enabled) {
-            this._router.navigate(['/pages/profile/editor'], {
-              queryParams: {
-                p: profile._id,
-              },
-            });
+            this._router.navigate(['/pages/profile/editor']);
           }
 
           this._profileSubject$.next(profile);

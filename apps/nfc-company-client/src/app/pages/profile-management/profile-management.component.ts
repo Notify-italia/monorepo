@@ -85,7 +85,7 @@ export class ProfileManagementComponent extends ProfileManagementBaseComponent {
           if (profile.advancedProfile?.enabled) {
             this._router.navigate(['/pages/profile/editor'], {
               queryParams: {
-                p: profile._id,
+                p: this.providedProfile,
               },
             });
           }
