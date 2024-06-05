@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,9 +7,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { INotifyAPAvatarItem, INotifyUser } from '@notify/interfaces';
+import { INotifyUser } from '@notify/interfaces';
 import { Observable, Subject, map } from 'rxjs';
 import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
+import { ProfileService } from '../../../../services';
 import { LoadingComponent } from '../../../../standalones/loading/loading.component';
 import { ITailwindSelectOption } from '../../../tailwind-forms/components/tailwind-select/tailwind-select.component';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
@@ -31,6 +32,8 @@ export class NoteAddOwnerComponent
   extends ModalBaseComponent
   implements OnInit
 {
+  private _profileService = inject(ProfileService);
+
   @Input() users$ = new Observable<INotifyUser[]>();
   @Input() loading = false;
 
@@ -68,15 +71,18 @@ export class NoteAddOwnerComponent
 
   public mapUsers(u: INotifyUser[]) {
     return u.map((u) => {
-      const apAvatar = u.profile?.advancedProfile?.items.find(
-        (i) => i._id === u.profile?.advancedProfile?.requiredItems.avatar
-      ) as INotifyAPAvatarItem;
-      const hasName =
-        apAvatar?.label ?? (u.profile?.name || u.profile?.surname);
+      if (!u.profile) {
+        return {
+          name: u.email || 'Ignoto',
+          value: u._id,
+        };
+      }
+
+      const name = this._profileService.getProfileName(u.profile);
+      const hasName = name.replace(/\s/g, '').length;
+
       return {
-        name: hasName
-          ? `${u.profile?.name} ${u.profile?.surname}`
-          : u.email || 'Ignoto',
+        name: hasName ? name : u.email || 'Ignoto',
         value: u._id,
       };
     });

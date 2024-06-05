@@ -186,7 +186,7 @@ export class ProfileService {
 
   public getProfileName(profile: INotifyProfile): string {
     if (!profile.advancedProfile?.enabled) {
-      return profile.name + ' ' + (profile.surname || '') || 'Ignoto';
+      return (profile.name || '') + ' ' + (profile.surname || '');
     }
 
     const avatar = profile.advancedProfile.items.find(
