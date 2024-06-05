@@ -9,7 +9,6 @@ import {
   INotifyAPContactsItem,
   INotifyAPPlaceItem,
   INotifyProfile,
-  baseButton,
 } from '@notify/interfaces';
 import { HttpService } from './http.service';
 
@@ -18,7 +17,7 @@ export class ProfileService {
   constructor(private http: HttpService) {}
 
   public cleanPhoneNumber(phoneNumber: string): string {
-    return phoneNumber.replace(/[^0-9]/g, '');
+    return phoneNumber?.replace(/[^0-9]/g, '');
   }
 
   public v2Update(agent?: string) {
@@ -49,7 +48,7 @@ export class ProfileService {
     const _address = `${d.street} ${d.number}, ${d.city}`;
 
     return {
-      address: `${_address} ${p.name || ''}`.replace(' ', '+').toLowerCase(),
+      address: `${_address} ${p.name || ''}`?.replace(' ', '+').toLowerCase(),
       label: _address,
     };
   }
@@ -148,12 +147,14 @@ export class ProfileService {
       return [];
     }
 
-    return contacts.map((i) =>
-      i.items.filter(
-        (i) => ['phone', 'whatsapp', 'voicemail'].includes(i.icon) && i.visible
+    return contacts
+      .map((i) =>
+        i.items.filter(
+          (i) =>
+            ['phone', 'whatsapp', 'voicemail'].includes(i.icon) && i.visible
+        )
       )
-    ) as unknown as baseButton[];
-    // .flat();
+      .flat();
   }
 
   public getEmails(profile: INotifyProfile): INotifyAPContactItem[] {
@@ -171,17 +172,16 @@ export class ProfileService {
     const contacts = profile.advancedProfile.items.filter(
       (i) =>
         i.type === EnumNotifyAdvancedProfileItems.Contacts &&
-        i.items.some((ii) => ii.icon === 'email')
+        i.items.some((ii) => ['mail', 'gmail'].includes(ii.icon))
     ) as INotifyAPContactsItem[];
 
     if (!contacts?.length) {
       return [];
     }
 
-    return contacts.map((i) =>
-      i.items.filter((i) => i.icon === 'email' && i.visible)
-    ) as unknown as baseButton[];
-    // .flat();
+    return contacts
+      .map((i) => i.items.filter((i) => i.icon === 'email' && i.visible))
+      .flat();
   }
 
   public getProfileName(profile: INotifyProfile): string {
