@@ -29,7 +29,6 @@ export class TailwindColorPickerComponent
   @Input() label = '';
   @Input() compact = false;
 
-  public colorPickerOpen = false;
   public color = '';
   public defaultColor = '#ffffff';
 
@@ -80,6 +79,11 @@ export class TailwindColorPickerComponent
     }
 
     return (this.inputRef.nativeElement.type = 'text');
+  }
+
+  focusColorPicker(e: HTMLInputElement) {
+    e.focus();
+    e.click();
   }
 
   get hasErrors() {

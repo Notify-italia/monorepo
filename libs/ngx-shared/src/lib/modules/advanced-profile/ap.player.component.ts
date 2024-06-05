@@ -8,7 +8,7 @@ import { Component, Input, Output, inject } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { INotifyAdvancedProfileItem, INotifyProfile } from '@notify/interfaces';
 import { Subject } from 'rxjs';
-import { FormsService } from '../../services';
+import { FormsService, UtilsService } from '../../services';
 import { PagePlayerComponent } from './items/page/page.player.component';
 import { AdvancedProfileItemOutputsService } from './services/advanced-profile-item-outputs.service';
 import { AdvancedProfileItemsService } from './services/advanced-profile-items.service';
@@ -20,8 +20,6 @@ import { AdvancedProfileItemsService } from './services/advanced-profile-items.s
   providers: [AdvancedProfileItemsService, FormsService],
   templateUrl: './ap.player.component.html',
   styles: `
-
-  
   .cdk-drag-preview {
     @apply bg-gray-500/50  rounded-lg overflow-hidden;
 
@@ -30,12 +28,11 @@ import { AdvancedProfileItemsService } from './services/advanced-profile-items.s
       
       }
   }
-
-
   `,
 })
 export class AdvancedProfilePlayerComponent {
   private _apItems = inject(AdvancedProfileItemsService);
+  public utilsSerivce = inject(UtilsService);
   public apItemOutputs = inject(AdvancedProfileItemOutputsService);
 
   @Input() profile!: INotifyProfile;

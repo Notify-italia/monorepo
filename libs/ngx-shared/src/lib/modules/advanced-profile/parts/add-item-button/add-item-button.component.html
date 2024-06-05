@@ -1,20 +1,24 @@
 <button
   class="absolute pointer-events-none w-0 h-0 opacity-0"
   #LoseBlur
+  tabindex="0"
 ></button>
 
-<div class="group flex flex-col items-center">
+<div class="group flex flex-col items-center" tabindex="0">
   <button
     type="button"
     #AddItemButton
+    tabindex="0"
     id="add-item-button"
     class="sm-btn smooth"
     (click)="toggleState($event)"
   >
     <div
+      tabindex="0"
       class="flex justify-center space-x-4 items-center pointer-events-none group-focus-within:pointer-events-auto group-focus-within:w-full"
     >
       <svg
+        tabindex="0"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
@@ -28,14 +32,18 @@
           d="M12 4.5v15m7.5-7.5h-15"
         />
       </svg>
-      <span class="group-focus-within:hidden"> Aggiungi un blocco </span>
-      <span class="hidden group-focus-within:block"> Chiudi</span>
+      <span tabindex="0" class="group-focus-within:hidden">
+        Aggiungi un blocco
+      </span>
+      <span tabindex="0" class="hidden group-focus-within:block"> Chiudi</span>
     </div>
 
     <div
+      tabindex="0"
       class="flex flex-col w-full opacity-0 h-0 pointer-events-none group-focus-within:h-32 group-focus-within:opacity-100 group-focus-within:pointer-events-auto smooth smooth-fast z-50 min-h-0"
     >
       <notify-available-items
+        tabindex="0"
         (addItem)="addItem.emit($event); LoseBlur.click(); LoseBlur.focus()"
       ></notify-available-items>
     </div>

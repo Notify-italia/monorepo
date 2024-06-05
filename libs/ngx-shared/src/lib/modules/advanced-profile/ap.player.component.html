@@ -1,5 +1,5 @@
 <div
-  class="w-full h-full"
+  class="size-full"
   notify-ap-player-page
   *ngIf="advancedProfile?.pageSettings as ps"
   [pageSettings]="ps"
@@ -15,7 +15,7 @@
     "
     class="size-full overflow-y-auto notify-scrollbar scrollbar-absolute"
     [ngClass]="{
-      '!pt-14': contained,
+      'lg:!pt-14': contained,
     }"
     [ngStyle]="{
       'padding-left': ps.padding + 'rem',
@@ -36,7 +36,7 @@
         @for (i of advancedProfileItems; track i.data._id) {
         <div
           cdkDrag
-          [cdkDragDisabled]="isRunningOnPlayer"
+          [cdkDragDisabled]="isRunningOnPlayer || utilsSerivce.isMobile"
           [ngClass]="{
             'cdkDrag ': !isRunningOnPlayer
           }"

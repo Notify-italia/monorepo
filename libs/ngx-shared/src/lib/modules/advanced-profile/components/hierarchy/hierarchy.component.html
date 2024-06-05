@@ -76,7 +76,7 @@
           class="item-button !font-normal group/btn item-noactive space-x-3 !justify-start truncate !pr-0 w-full"
           [ngClass]="{
             'selected-item': item._id && item._id === selectedHierarchyItem,
-            'opacity-25': !item.visible
+            'opacity-50': !item.visible
           }"
         >
           <svg
@@ -127,7 +127,8 @@
             cdkDrag
             class="cdkDrag overflow-hidden w-full opacity-75"
             [ngClass]="{
-              'opacity-25': !item.visible
+              '!opacity-50': !item.visible,
+              '!opacity-25': !subitem.visible,
             }"
           >
             <ng-container

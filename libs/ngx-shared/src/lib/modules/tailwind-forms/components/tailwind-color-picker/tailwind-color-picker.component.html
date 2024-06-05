@@ -11,7 +11,7 @@
   />
 
   <button
-    (click)="compact ? ColorPickerRoot.click() : null"
+    (click)="compact ? focusColorPicker(ColorPickerRoot) : null"
     class="relative w-full"
     [ngClass]="{
       'group/colorPicker  focus-within:pointer-events-none': !compact,
@@ -94,7 +94,7 @@
           />
           <button
             class="btn btn-circle btn-sm bg-gray-50 border-2 border-gray-400"
-            (click)="ColorPicker.click(); ColorPicker.focus()"
+            (click)="focusColorPicker(ColorPicker)"
             [ngClass]="{
               'btn-xs bg-[#191C21] border-[#3A3D45]': compact,
             }"
