@@ -135,12 +135,12 @@ export class ProfileService {
       ];
     }
 
+    const phoneIcons = ['phone', 'whatsapp', 'voicemail'];
+
     const contacts = profile.advancedProfile.items.filter(
       (i) =>
         i.type === EnumNotifyAdvancedProfileItems.Contacts &&
-        i.items.some((ii) =>
-          ['phone', 'whatsapp', 'voicemail'].includes(ii.icon)
-        )
+        i.items.some((ii) => phoneIcons.includes(ii.icon))
     ) as INotifyAPContactsItem[];
 
     if (!contacts?.length) {
@@ -149,10 +149,7 @@ export class ProfileService {
 
     return contacts
       .map((i) =>
-        i.items.filter(
-          (i) =>
-            ['phone', 'whatsapp', 'voicemail'].includes(i.icon) && i.visible
-        )
+        i.items.filter((i) => phoneIcons.includes(i.icon) && i.visible)
       )
       .flat();
   }
@@ -169,18 +166,19 @@ export class ProfileService {
       ];
     }
 
+    const _mailIcons = ['mail', 'gmail'];
+
     const contacts = profile.advancedProfile.items.filter(
       (i) =>
         i.type === EnumNotifyAdvancedProfileItems.Contacts &&
-        i.items.some((ii) => ['mail', 'gmail'].includes(ii.icon))
+        i.items.some((ii) => ['mail', 'gmail'].includes(ii.icon)) &&
+        i.visible
     ) as INotifyAPContactsItem[];
 
-    if (!contacts?.length) {
-      return [];
-    }
-
     return contacts
-      .map((i) => i.items.filter((i) => i.icon === 'email' && i.visible))
+      .map((i) =>
+        i.items.filter((i) => _mailIcons.includes(i.icon) && i.visible)
+      )
       .flat();
   }
 
@@ -245,9 +243,7 @@ N:${surname};${name};
 FN:${name} ${surname}
 ORG:${_cName}
 PHOTO;TYPE=WEBP;ENCODING=b:${avatar?.split(',')[1]}
-item2.URL;type=pref:${
-      `${publicUrl}/profile?p=${d._id}` + EnumNotifyProfileSources.Contacts
-    }
+item2.URL;type=pref:${`${publicUrl}/p/${d._id}?s=${EnumNotifyProfileSources.Contacts}`}
 ${this._buildVcardPhoneNumbers(this.getPhoneNumbers(d))}
 ${this._buildVcardLocations(this.getLocations(d))}
 ${this._buildVcardEmails(this.getEmails(d))}
@@ -268,15 +264,15 @@ END:VCARD`;
       return '';
     }
 
-    return phones
-      .map((p) => {
+    return this._uniqueArray(
+      phones.map((p) => {
         const isLandline = p.icon === 'voicemail';
 
         return `TEL;TYPE=${
           isLandline ? 'work' : 'cell'
         },voice,VALUE=uri:+39${this.cleanPhoneNumber(p.url)}`;
       })
-      .join('\n');
+    ).join('\n');
   }
 
   private _buildVcardEmails(emails: INotifyAPContactItem[]) {
@@ -284,11 +280,11 @@ END:VCARD`;
       return '';
     }
 
-    return emails
-      .map((e) => {
+    return this._uniqueArray(
+      emails.map((e) => {
         return `EMAIL;TYPE=work:${e.url}`;
       })
-      .join('\n');
+    ).join('\n');
   }
 
   private _buildVcardLocations(locations: Partial<INotifyAPPlaceItem>[]) {
@@ -304,5 +300,9 @@ END:VCARD`;
       /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
 
     return base64regex.test(avatar);
+  }
+
+  private _uniqueArray<T>(arr: T[]): T[] {
+    return arr.filter((value, index, self) => self.indexOf(value) === index);
   }
 }
