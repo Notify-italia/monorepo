@@ -58,19 +58,15 @@ export const daisyUIAvatarMaks = [
   'heart',
   'hexagon',
   'hexagon-2',
-  'decagon',
   'pentagon',
   'diamond',
   'parallelogram',
   'parallelogram-2',
   'parallelogram-3',
   'parallelogram-4',
-  'star',
   'star-2',
   'triangle',
   'triangle-2',
-  'triangle-3',
-  'triangle-4',
 ] as const;
 
 export const daisyUIAvatarMaksIT: {
@@ -82,20 +78,16 @@ export const daisyUIAvatarMaksIT: {
   squircle: 'squircle',
   heart: 'cuore',
   hexagon: 'esagono',
-  'hexagon-2': 'esagono-2',
-  decagon: 'decagono',
+  'hexagon-2': 'esagono (Alternativo)',
   pentagon: 'pentagono',
   diamond: 'diamante',
   parallelogram: 'parallelogramma',
   'parallelogram-2': 'parallelogramma-2',
   'parallelogram-3': 'parallelogramma-3',
   'parallelogram-4': 'parallelogramma-4',
-  star: 'stella',
-  'star-2': 'stella-2',
+  'star-2': 'stella',
   triangle: 'triangolo',
-  'triangle-2': 'triangolo-2',
-  'triangle-3': 'triangolo-3',
-  'triangle-4': 'triangolo-4',
+  'triangle-2': 'triangolo (Inverso)',
 };
 
 export type DaisyUIAvatarMasks = (typeof daisyUIAvatarMaks)[number] | '';

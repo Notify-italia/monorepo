@@ -20,7 +20,7 @@ import {
     CachedSrcDirective,
   ],
   //* per qualche ragione, sul sito vetrina se non si fa il provide di profile service da un errore all'apertura dei profili dei partners
-  providers: [ProfileService],
+  providers: [ProfileService, UtilsService],
   templateUrl: './fullscreen-mockup.component.html',
   styleUrls: ['./fullscreen-mockup.component.scss', '../profile.styles.scss'],
 })

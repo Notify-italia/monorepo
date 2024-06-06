@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { INotifyAPAvatarItem } from '@notify/interfaces';
+import { INotifyAPAvatarItem, daisyUIAvatarMaks } from '@notify/interfaces';
 import {
   AdvancedItemPlayerBaseImports,
   AdvancedItemPlayerBaseProviders,
@@ -20,7 +20,32 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
       [ngStyle]="container.ngStyle"
       [ngClass]="container.ngClass"
     >
-      @if(currentItem.imgMask !== 'banner') {
+      @switch (currentItem.imgMask) { @case ('adaptive') {
+      <div class="flex flex-col items-center">
+        <img
+          [src]="currentItem.imgSrc"
+          class="size-full rounded-xl"
+          alt="Avatar"
+          [ngStyle]="{
+            scale: currentItem.imgSize / 100,
+            'object-fit': currentItem.imgFit
+          }"
+        />
+      </div>
+      } @case ('banner') {
+      <div class="flex flex-col items-center">
+        <img
+          [src]="currentItem.imgSrc"
+          class="w-full h-48 rounded-xl"
+          alt="Avatar"
+          [ngStyle]="{
+            scale: currentItem.imgSize / 100,
+            'object-fit': currentItem.imgFit
+          }"
+        />
+      </div>
+      } @default {
+
       <div
         class="flex items-center w-full"
         [ngClass]="{
@@ -46,41 +71,18 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
             scale: currentItem.imgSize / 100,
           }"
         ></notify-avatar>
-        <div
-          class="flex flex-col"
-          [ngStyle]="{
-            'text-align':
-              currentItem.direction === this.context.statics.directions.Vertical
-                ? alignment
-                : 'start'
-          }"
-        >
-          <span class="font-bold mt-1">
-            {{ currentItem.label }}
-          </span>
-          <small class="italic opacity-80">
-            {{ currentItem.sublabel }}
-          </small>
-          <small>
-            <small class="mt-2 opacity-70 whitespace-pre-line">
-              {{ currentItem.description }}
-            </small>
-          </small>
-        </div>
       </div>
-      } @else {
-      <div class="flex flex-col items-center">
-        <img
-          [src]="currentItem.imgSrc"
-          class="w-full h-48 rounded-xl"
-          alt="Avatar"
-          [ngStyle]="{
-            scale: currentItem.imgSize / 100,
-            'object-fit': currentItem.imgFit
-          }"
-        />
-
-        <span class="font-bold mt-2">
+      } }
+      <div
+        class="flex flex-col"
+        [ngStyle]="{
+          'text-align':
+            currentItem.direction === this.context.statics.directions.Vertical
+              ? alignment
+              : 'start'
+        }"
+      >
+        <span class="font-bold mt-1">
           {{ currentItem.label }}
         </span>
         <small class="italic opacity-80">
@@ -92,7 +94,6 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
           </small>
         </small>
       </div>
-      }
     </div>
   `,
 })
@@ -159,23 +160,19 @@ export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponen
       (i) => i._id === company.advancedProfile?.requiredItems.avatar
     ) as INotifyAPAvatarItem;
 
-    if (!companyAvatar) {
-      return {
-        src: company?.avatar || '',
-        size,
-        mask: company?.config?.avatarMask || '',
-        placeholderStyle: EnumDicebearAvatarStyles.Bottts,
-        placeholderSeed: company?._id || '',
-        placement,
-      };
-    }
+    const hasDaisyUIAvatarMask = daisyUIAvatarMaks.some(
+      (v) => v === companyAvatar?.imgMask
+    );
 
     return {
       src: companyAvatar?.imgSrc,
       size,
-      mask: companyAvatar?.imgMask || '',
+      mask: hasDaisyUIAvatarMask ? companyAvatar?.imgMask : '',
       placeholderStyle: EnumDicebearAvatarStyles.Bottts,
       placeholderSeed: company?._id || '',
+      backgroundColor: hasDaisyUIAvatarMask
+        ? this.context.getters.textColor
+        : '',
       placement,
     };
   }

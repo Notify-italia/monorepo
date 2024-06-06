@@ -38,7 +38,7 @@ export interface INotifyAPAvatarItem
   sublabel: string;
   description: string;
   imgSrc: string;
-  imgMask: DaisyUIAvatarMasks | 'banner';
+  imgMask: DaisyUIAvatarMasks | 'banner' | 'adaptive';
   imgFit: EnumNotifyAPObjectFit;
   imgSize: number;
   useRoleSubLabel: boolean;

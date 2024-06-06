@@ -61,6 +61,15 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
 
       <div class="divider"></div>
 
+      <notify-tailwind-select
+        [parent]="form"
+        name="imgMask"
+        [compact]="true"
+        label="Cornice"
+        placeholder="Nessuna"
+        [options]="avatarMaskOptions"
+      ></notify-tailwind-select>
+
       <notify-upload
         [file]="context.components.upload.fileData"
         acceptedFiles="image/*"
@@ -73,21 +82,12 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
 
       <notify-tailwind-select
         [parent]="form"
-        name="imgMask"
-        [compact]="true"
-        label="Cornice"
-        placeholder="Nessuna"
-        [options]="avatarMaskOptions"
-      ></notify-tailwind-select>
-
-      <notify-tailwind-select
-        [parent]="form"
         name="imgFit"
         [compact]="true"
         label="Contenimento"
         [options]="context.components.select.objectFit"
         [ngClass]="{
-          'pointer-events-none brightness-50': form.value.imgMask !== 'banner'
+          hidden: form.value.imgMask !== 'banner'
         }"
       ></notify-tailwind-select>
 
@@ -191,7 +191,8 @@ export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<IN
       value: item,
     })),
     { name: 'Banner', value: 'banner' },
-  ];
+    { name: 'Adattiva', value: 'adaptive' },
+  ].sort((a, b) => a.name.localeCompare(b.name));
 
   public cornerSelectOptions = Object.values(EnumNotifyAPCorners).map((v) => ({
     name: NOTIFY_AP_OWNER_IMG_CORNER_IT[v],
@@ -215,14 +216,16 @@ export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<IN
   }
 
   private get cropperConfig() {
-    const isBanner = this.context.getters.itemValue.imgMask === 'banner';
+    const isBanner = !(daisyUIAvatarMaks as unknown as string[]).includes(
+      this.form.value.imgMask || ''
+    );
 
-    const resize = isBanner ? null : { width: 800, height: 800 };
+    const resize = isBanner ? undefined : { width: 800, height: 800 };
 
     const minSizes = isBanner
       ? {
-          width: 300,
-          height: 200,
+          width: 10,
+          height: 10,
         }
       : {
           width: 200,
@@ -231,7 +234,7 @@ export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<IN
 
     return {
       resize,
-      roundCropper: isBanner ? false : true,
+      roundCropper: !isBanner,
       alignImage: 'center',
       minHeight: minSizes.height,
       minWidth: minSizes.width,

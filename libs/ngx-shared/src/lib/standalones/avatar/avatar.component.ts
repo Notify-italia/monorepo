@@ -6,13 +6,13 @@ import {
   OnChanges,
   Output,
 } from '@angular/core';
-import { DaisyUIAvatarMasks, EnumNotifyAPCorners } from '@notify/interfaces';
+import { EnumNotifyAPCorners, INotifyAPAvatarItem } from '@notify/interfaces';
 import { EnumDicebearAvatarStyles, UtilsService } from '../../services';
 
 export interface INotifyAvatarConfig {
   src: string | null;
   size: string;
-  mask: DaisyUIAvatarMasks | 'banner' | null;
+  mask: INotifyAPAvatarItem['imgMask'];
   placeholderSeed: string;
   backgroundColor?: string;
   placeholderStyle?: EnumDicebearAvatarStyles;
