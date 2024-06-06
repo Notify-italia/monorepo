@@ -80,6 +80,17 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
         [options]="avatarMaskOptions"
       ></notify-tailwind-select>
 
+      <notify-tailwind-select
+        [parent]="form"
+        name="imgFit"
+        [compact]="true"
+        label="Contenimento"
+        [options]="context.components.select.objectFit"
+        [ngClass]="{
+          'pointer-events-none brightness-50': form.value.imgMask !== 'banner'
+        }"
+      ></notify-tailwind-select>
+
       <notify-tailwind-slider
         [parent]="form"
         name="imgSize"

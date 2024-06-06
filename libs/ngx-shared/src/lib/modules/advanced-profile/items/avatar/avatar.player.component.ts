@@ -72,10 +72,11 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
       <div class="flex flex-col items-center">
         <img
           [src]="currentItem.imgSrc"
-          class="w-full h-48 rounded-xl object-cover"
+          class="w-full h-48 rounded-xl"
           alt="Avatar"
           [ngStyle]="{
             scale: currentItem.imgSize / 100,
+            'object-fit': currentItem.imgFit
           }"
         />
 

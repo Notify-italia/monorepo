@@ -2,6 +2,7 @@ import {
   EnumNotifyAPAlign,
   EnumNotifyAPCorners,
   EnumNotifyAPDirections,
+  EnumNotifyAPObjectFit,
   EnumNotifyAdvancedProfileItems,
   INotifyAPAvatarItem,
   daisyUIAvatarMaks,
@@ -37,6 +38,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPAvatarItem> = {
     align: EnumNotifyAPAlign.Center,
     imgSize: 100,
     ownerImgCorner: EnumNotifyAPCorners.BottomRight,
+    imgFit: EnumNotifyAPObjectFit.Cover,
   },
 };
 

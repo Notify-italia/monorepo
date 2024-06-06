@@ -22,6 +22,8 @@
     track i) {
     <div
       cdkDrag
+      [cdkDragStartDelay]="cdkDragDelay"
+      (cdkDragStarted)="dragStarted()"
       class="cdkDrag w-full lg:h-full overflow-y-hidden overflow-x-clip px-3"
     >
       <ng-container
@@ -30,7 +32,7 @@
       ></ng-container>
     </div>
     } } @else {
-    <small class="text-[#8C8C8C] mx-2 px-1 border-l hierarchy-line">
+    <small class="text-[#8C8C8C] mx-2 px-1 border-l hierarchy-line noseleect">
       Nessun blocco
     </small>
     }
@@ -125,6 +127,7 @@
           @for (subitem of item.subItems; track $index) {
           <div
             cdkDrag
+            [cdkDragStartDelay]="cdkDragDelay"
             class="cdkDrag overflow-hidden w-full opacity-75"
             [ngClass]="{
               '!opacity-50': !item.visible,

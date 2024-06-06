@@ -39,6 +39,7 @@ export interface INotifyAPAvatarItem
   description: string;
   imgSrc: string;
   imgMask: DaisyUIAvatarMasks | 'banner';
+  imgFit: EnumNotifyAPObjectFit;
   imgSize: number;
   useRoleSubLabel: boolean;
   ownerImgCorner: EnumNotifyAPCorners;
@@ -184,7 +185,7 @@ export enum EnumNotifyAPObjectFit {
   Fill = 'fill',
   Contain = 'contain',
   Cover = 'cover',
-  None = '',
+  None = 'none',
   ScaleDown = 'scale-down',
 }
 

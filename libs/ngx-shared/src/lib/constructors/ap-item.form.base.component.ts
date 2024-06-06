@@ -127,9 +127,10 @@ export class AdvancedProfileItemFormBaseComponent<
             EnumNotifyAPAlign,
             NOTIFY_AP_ALIGN_IT
           ),
-          objectFit: this._apItemsSerivce
-            .createSelectOptions(EnumNotifyAPObjectFit, NOTIFY_AP_OBJECT_FIT_IT)
-            .filter((v) => v.value !== EnumNotifyAPObjectFit.None),
+          objectFit: this._apItemsSerivce.createSelectOptions(
+            EnumNotifyAPObjectFit,
+            NOTIFY_AP_OBJECT_FIT_IT
+          ),
         },
         upload: {
           fileData: this.fileData,
