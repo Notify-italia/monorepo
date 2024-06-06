@@ -251,17 +251,28 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
 
   private _setShareConfigPipe() {
     return tap((v: INotifyProfile) => {
+      const companyNfcItem = v.company
+        ? [
+            {
+              value: v.company._id,
+              label: 'Profilo Aziendale',
+            },
+          ]
+        : [];
+
       this.shareConfig = {
         type: 'profile',
         qrcode: {
-          fileName: `profile.png`,
+          title: 'Condividi il profilo',
+          fileName: this._profileSerivce.getProfileName(v) || 'Profilo',
         },
         nfc: {
           items: [
             {
-              value: v?._id,
-              label: 'Conferma',
+              value: v._id,
+              label: 'Questo Profilo',
             },
+            ...companyNfcItem,
           ],
         },
         baseUrl: this.environment['profilesUrl'] as string,

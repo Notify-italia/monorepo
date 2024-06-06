@@ -1,5 +1,5 @@
 .hierarchy-line {
-  @apply border-gray-600;
+  @apply border-transparent lg:border-gray-600;
 }
 
 .selected-item {
@@ -14,4 +14,12 @@
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+.cdkDrag {
+  &.cdk-drag-preview {
+    & .item-button {
+      @apply border-none bg-[#3B3B3B] lg:bg-transparent shadow-xl lg:shadow-none;
+    }
+  }
 }

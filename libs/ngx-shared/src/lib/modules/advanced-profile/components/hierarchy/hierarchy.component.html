@@ -1,4 +1,4 @@
-<div class="flex flex-col items-stretch w-full text-xs 2xl:!text-sm">
+<div class="flex flex-col items-stretch w-full !text-sm">
   <ng-container
     [ngTemplateOutlet]="HierarchyItem"
     [ngTemplateOutletContext]="{
@@ -10,8 +10,9 @@
       noLines: true
     }"
   ></ng-container>
+
   <div
-    class="flex flex-col items-start mx-2"
+    class="flex flex-col items-start mx-2 space-y-2 lg:space-y-0 mt-2 lg:mt-0"
     cdkDropList
     (cdkDropListDropped)="dropMainList($event)"
     [ngClass]="{
@@ -21,10 +22,16 @@
     @if(hierarchyItems.length) { @for (item of hierarchyItems;let i = $index;
     track i) {
     <div
+      #taskView
       cdkDrag
+      cdkDragLockAxis="y"
       [cdkDragStartDelay]="cdkDragDelay"
-      (cdkDragStarted)="dragStarted()"
-      class="cdkDrag w-full lg:h-full overflow-y-hidden overflow-x-clip px-3"
+      (mousedown)="startDragTimer(taskView)"
+      (mouseup)="stopDragTimer()"
+      (touchstart)="startDragTimer(taskView)"
+      (touchend)="stopDragTimer()"
+      (drag)="stopDragTimer()"
+      class="cdkDrag w-full lg:h-full overflow-x-clip px-3 overflow-y-hidden"
     >
       <ng-container
         [ngTemplateOutlet]="HierarchyItem"
@@ -32,28 +39,53 @@
       ></ng-container>
     </div>
     } } @else {
-    <small class="text-[#8C8C8C] mx-2 px-1 border-l hierarchy-line noseleect">
+    <small
+      class="text-[#8C8C8C] mx-2 px-1 border-l hierarchy-line noselect pointer-events-none"
+      (touchstart)="$event.preventDefault()"
+      (touchend)="$event.preventDefault()"
+    >
       Nessun blocco
     </small>
     }
   </div>
 
+  <!-- HIERARCHY ITEM TEMPLATE -->
   <ng-template #HierarchyItem let-item="item" let-noLines="noLines" let-i="i">
     <button
-      class="flex w-full border-l hierarchy-line items-start"
+      class="flex w-full border-l hierarchy-line items-start space-x-2 lg:space-x-0"
       [ngClass]="{
         'border-l-0': noLines
       }"
     >
-      @if(item.subItems?.length) {
+      <!-- ICONA DEL DRAG AVAILABLE -->
+      @if (this.utilsService.isMobile && !noLines) {
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-5 mt-2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+        />
+      </svg>
+
+      }
+
+      <!-- FRECCIA ESPANDI/CHIUDI -->
+      @if(item.subItems?.length && !this.utilsService.isMobile) {
       <div
-        class="h-5 w-5 flex p-0.5 border rounded hierarchy-line shrink-0 -ml-2.5 mt-2 items-center bg-[#141416] rotate-90 lg:rotate-0"
+        class="size-5 flex p-0.5 border rounded hierarchy-line shrink-0 -ml-2.5 mt-2 items-center bg-[#141416] rotate-90 lg:rotate-0"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          class="w-5 h-5"
+          class="size-5"
           [ngClass]="{
             'rotate-90': item._id === selectedHierarchyItem
           }"
@@ -68,19 +100,21 @@
       } @else {
       <div
         class="w-2 border-b h-1 hierarchy-line mt-3.5 pr-2.5"
-        *ngIf="!noLines"
+        *ngIf="!noLines && !this.utilsService.isMobile"
       ></div>
       }
 
       <div class="flex flex-col w-full h-full">
+        <!-- MAIN BUTTON -->
         <button
           (click)="item._id ? selectHierarchyItem(item._id) : undefined"
-          class="item-button !font-normal group/btn item-noactive space-x-3 !justify-start truncate !pr-0 w-full"
+          class="item-button !font-normal group/btn space-x-3 !justify-start truncate !pr-0 w-full rounded-lg border lg:border-none border-[#3B3B3B]"
           [ngClass]="{
             'selected-item': item._id && item._id === selectedHierarchyItem,
             'opacity-50': !item.visible
           }"
         >
+          <!-- ITEM ICON -->
           <svg
             *ngIf="item.icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -98,8 +132,13 @@
             />
             }
           </svg>
-          <span>{{ item.label }}</span>
-          <div class="flex w-full justify-end opacity-70" *ngIf="item.required">
+          <span class="noselect">{{ item.label }}</span>
+
+          <!-- REQUIRED PADLOCK -->
+          <div
+            class="flex w-full justify-end pr-2 lg:pr-0 opacity-70"
+            *ngIf="item.required"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -120,14 +159,21 @@
           [ngClass]="{
             'lg:opacity-100 lg:h-auto': item._id === selectedHierarchyItem
           }"
-          class="flex-col flex items-start ml-6 lg:opacity-0 lg:h-0"
+          class="flex-col flex items-start ml-6 lg:opacity-0 lg:h-0 space-y-2 lg:space-y-0 mt-2 lg:mt-0 text-xs lg:text-sm"
           cdkDropList
           (cdkDropListDropped)="dropSubList($event, i)"
         >
           @for (subitem of item.subItems; track $index) {
           <div
+            #taskView
             cdkDrag
+            cdkDragLockAxis="y"
             [cdkDragStartDelay]="cdkDragDelay"
+            (mousedown)="startDragTimer(taskView)"
+            (mouseup)="stopDragTimer()"
+            (touchstart)="startDragTimer(taskView)"
+            (touchend)="stopDragTimer()"
+            (drag)="stopDragTimer()"
             class="cdkDrag overflow-hidden w-full opacity-75"
             [ngClass]="{
               '!opacity-50': !item.visible,

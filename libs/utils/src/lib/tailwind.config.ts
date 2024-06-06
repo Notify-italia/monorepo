@@ -3,6 +3,9 @@ import '@angular/compiler';
 import TailwindScrollbar from 'tailwind-scrollbar';
 
 const tailwindConfig = {
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     extend: {
       fontFamily: {
@@ -84,20 +87,26 @@ const tailwindConfig = {
   },
 };
 
+const colors = () => {
+  return tailwindConfig?.theme?.extend?.colors as {
+    [key: string]: { [key: string]: string };
+  };
+};
+
 tailwindConfig.daisyui.themes.push('dark', {
   notifytheme: {
-    primary: tailwindConfig.theme.extend.colors.primary.DEFAULT,
-    'primary-focus': tailwindConfig.theme.extend.colors.primary[600],
+    primary: colors().primary.DEFAULT,
+    'primary-focus': colors().primary[600],
     'primary-content': '#ffffff',
-    secondary: tailwindConfig.theme.extend.colors.secondary.DEFAULT,
-    'secondary-focus': tailwindConfig.theme.extend.colors.secondary[700],
+    secondary: colors().secondary.DEFAULT,
+    'secondary-focus': colors().secondary[700],
     'secondary-content': '#191E24',
     //use white: '#ffffff' as the accent,
     accent: '#ffffff',
     'accent-focus': '#ffffff',
     'accent-content': '#000000',
-    neutral: tailwindConfig.theme.extend.colors.complimentary.DEFAULT,
-    'neutral-focus': tailwindConfig.theme.extend.colors.complimentary[600],
+    neutral: colors().complimentary.DEFAULT,
+    'neutral-focus': colors().complimentary[600],
     error: '#F44336',
     'error-focus': '#E53E3E',
     warning: '#ff9800',

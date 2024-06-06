@@ -27,6 +27,7 @@ target 'App' do
   pod 'CapacitorCommunityScreenBrightness', :path => '../../../../../node_modules/@capacitor-community/screen-brightness'
   pod 'CapacitorCommunityMedia', :path => '../../../../../node_modules/@capacitor-community/media'
   pod 'CapawesomeTeamCapacitorNfc', :path => '../../../../../node_modules/@capawesome-team/capacitor-nfc'
+  pod 'CapacitorSuppressLongpressGesture' , :path => '../../../../../node_modules/capacitor-suppress-longpress-gesture'
 end
 
 post_install do |installer|

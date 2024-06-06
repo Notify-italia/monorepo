@@ -10,6 +10,7 @@ import {
   INotifyAPLinksItem,
   INotifyAdvancedProfile,
 } from '@notify/interfaces';
+import { Subscription, delay, of } from 'rxjs';
 import { CapacitorService, UtilsService } from '../../../../services';
 import { AdvancedProfileItemsService } from '../../services/advanced-profile-items.service';
 
@@ -26,8 +27,9 @@ import { AdvancedProfileItemsService } from '../../services/advanced-profile-ite
 })
 export class HierarchyComponent {
   private _apItemsService = inject(AdvancedProfileItemsService);
-  private _utilsService = inject(UtilsService);
+  public utilsService = inject(UtilsService);
   private _capacitorService = inject(CapacitorService);
+  private _dragtimer: Subscription | null = null;
 
   @Input() selectedHierarchyItem = 'background';
   @Input() requiredItems: string[] = [];
@@ -59,17 +61,43 @@ export class HierarchyComponent {
   }
 
   public get cdkDragDelay() {
-    if (this._utilsService.isMobile) {
+    if (this.utilsService.isMobile) {
       return 500;
     }
 
     return 0;
   }
 
-  public dragStarted() {
-    this._capacitorService.triggerHapticFeedback(
-      this._capacitorService.impactStyles.Medium
-    );
+  startDragTimer(ref: HTMLElement): void {
+    if (!this.utilsService.isMobile) {
+      return;
+    }
+    this._dragtimer?.unsubscribe();
+    this._dragtimer = of(null)
+      .pipe(delay(this.cdkDragDelay))
+      .subscribe(() => {
+        console.log('dragging');
+        this._capacitorService.triggerHapticFeedback(
+          this._capacitorService.impactStyles.Medium
+        );
+
+        ref.dispatchEvent(
+          new TouchEvent('touchmove', {
+            bubbles: true,
+            cancelable: true,
+            view: window,
+          })
+        );
+      });
+  }
+
+  stopDragTimer(): void {
+    if (!this.utilsService.isMobile) {
+      return;
+    }
+
+    this._dragtimer?.unsubscribe();
+    this._dragtimer = null;
   }
 
   public dropMainList(event: CdkDragDrop<string[]>) {
