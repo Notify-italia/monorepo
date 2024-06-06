@@ -49,6 +49,16 @@ export const appRoutes: Route[] = [
       ),
   },
   {
+    path: 'brochure',
+    loadComponent: () =>
+      import('./pages/reindirizzamenti/redirect.component').then(
+        (m) => m.RedirectComponent
+      ),
+    data: {
+      assetUrl: 'https://s3-api.vps.notifyapp.it/assets/brochure-cliente.pdf',
+    },
+  },
+  {
     path: '**',
     pathMatch: 'full',
     redirectTo: '',

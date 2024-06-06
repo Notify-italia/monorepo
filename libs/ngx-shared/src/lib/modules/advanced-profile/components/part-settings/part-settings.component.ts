@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  inject,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   INotifyProfile,
@@ -31,7 +38,7 @@ import { FONTS_ICON_SET } from '../../services/fonts.iconset';
   providers: [AdvancedProfileItemsService, ConfirmModalFactory],
   templateUrl: './part-settings.component.html',
 })
-export class PartSettingsComponent {
+export class PartSettingsComponent implements OnChanges {
   private _apItemsSerivce = inject(AdvancedProfileItemsService);
 
   public showHiddenToggle = CHECKBOX_TOGGLE_EYE;
@@ -49,6 +56,8 @@ export class PartSettingsComponent {
 
   @Output() removeItem = new EventEmitter<string>();
   @Output() profileIdentifierChanged = new EventEmitter<string>();
+
+  public settingsHostVisible = true;
 
   public get currentItem() {
     const form = this.form.controls?.['items'].controls?.find(
@@ -74,6 +83,13 @@ export class PartSettingsComponent {
     return Object.values(this.form.value?.requiredItems || {}).filter(
       (v) => v?.length
     ) as string[];
+  }
+  public ngOnChanges(): void {
+    this.settingsHostVisible = false;
+
+    setTimeout(() => {
+      this.settingsHostVisible = true;
+    }, 1);
   }
 
   public setFont(font: string) {

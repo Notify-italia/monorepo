@@ -118,6 +118,7 @@
 
       } @if(item.manifest.formComponent; as cf) {
       <ng-container
+        *ngIf="settingsHostVisible"
         [ngComponentOutlet]="cf"
         [ngComponentOutletInputs]="{
           form: item.form,
