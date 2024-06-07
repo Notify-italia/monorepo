@@ -19,7 +19,8 @@ import { SvgBoxIcon, SvgboxService } from '../../services';
 })
 export class SvgBoxIconComponent implements OnInit, OnChanges {
   private _domSanitizer = inject(DomSanitizer);
-  private _platformId = inject(PLATFORM_ID);
+  public _platformId = inject(PLATFORM_ID);
+  private _svgBox = inject(SvgboxService);
 
   @Input() public icon?: SvgBoxIcon;
   @Input() public iconName?: string;
@@ -27,20 +28,18 @@ export class SvgBoxIconComponent implements OnInit, OnChanges {
 
   public visible = true;
 
+  public isPlatformBrowser = isPlatformBrowser;
+
   public get sanitizedData() {
     if (!isPlatformBrowser(this._platformId)) {
       return '';
     }
     const data = this.icon?.data || '';
-
     if (!data) {
       return '';
     }
-
     return this._domSanitizer.bypassSecurityTrustHtml(data);
   }
-
-  constructor(private _svgBox: SvgboxService) {}
 
   public ngOnInit() {
     this._getIcon();
@@ -49,7 +48,6 @@ export class SvgBoxIconComponent implements OnInit, OnChanges {
   public ngOnChanges() {
     this.visible = false;
     this._getIcon();
-
     setTimeout(() => {
       this.visible = true;
     }, 0);
@@ -64,6 +62,7 @@ export class SvgBoxIconComponent implements OnInit, OnChanges {
   }
 
   private _getIcon() {
+    //TODO, per qualche ragione in public questa funzione ralletnta tutto il sito
     if (!this.iconName) {
       return;
     }

@@ -42,12 +42,11 @@
           class="mask mask-squircle h-12 w-12 shrink-0 items-center flex flex-col justify-center {{
             item.color
           }}"
-        >
-          <notify-svg-box-icon [icon]="item.icon"></notify-svg-box-icon>
-        </div>
+          [innerHTML]="item.icon"
+        ></div>
         <span
           [innerHTML]="item.title"
-          class="p-2 items-center w-full font-bold text-white text-xl drop-shadow-lg my-auto text-start"
+          class="p-2 pl-0 items-center w-full font-bold text-white text-xl drop-shadow-lg my-auto text-start"
           [ngClass]="{ '!text-end': half === 'second' }"
         ></span>
       </div>

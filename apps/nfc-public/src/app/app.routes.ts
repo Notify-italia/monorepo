@@ -9,30 +9,35 @@ export const appRoutes: Route[] = [
   {
     path: 'linee-guida',
     loadComponent: () =>
-      import('./pages/reindirizzamenti/linee-guida.component').then(
-        (m) => m.LineeGuidaComponent
-      ),
+      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+    data: {
+      assetUrl:
+        'https://s3-api.vps.notifyapp.it/assets/linee-guida-tessere.pdf',
+    },
   },
   {
     path: 'guida-nfc',
     loadComponent: () =>
-      import('./pages/reindirizzamenti/guida-nfc.component').then(
-        (m) => m.GuidaNFCComponent
-      ),
+      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+    data: {
+      assetUrl: 'https://s3-api.vps.notifyapp.it/assets/Guida_NFC_notify.pdf',
+    },
   },
   {
     path: 'guida-aziendale',
     loadComponent: () =>
-      import('./pages/reindirizzamenti/guida-aziendale.component').then(
-        (m) => m.GuidaAziendaleComponent
-      ),
+      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+    data: {
+      assetUrl: `https://s3-api.vps.notifyapp.it/assets/guida_pannello_aziendale_notify.pdf'`,
+    },
   },
   {
     path: 'guida-app',
     loadComponent: () =>
-      import('./pages/reindirizzamenti/guida-app.component').then(
-        (m) => m.GuidaAppComponent
-      ),
+      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+    data: {
+      assetUrl: `https://s3-api.vps.notifyapp.it/assets/guida_app_notify.pdf`,
+    },
   },
   {
     path: 'privacy',
@@ -51,9 +56,7 @@ export const appRoutes: Route[] = [
   {
     path: 'brochure',
     loadComponent: () =>
-      import('./pages/reindirizzamenti/redirect.component').then(
-        (m) => m.RedirectComponent
-      ),
+      import('./pages/redirect.component').then((m) => m.RedirectComponent),
     data: {
       assetUrl: 'https://s3-api.vps.notifyapp.it/assets/brochure-cliente.pdf',
     },

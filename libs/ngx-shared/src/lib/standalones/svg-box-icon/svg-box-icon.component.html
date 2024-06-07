@@ -1,5 +1,4 @@
-@if (visible) {
-
+@if (visible &&isPlatformBrowser(_platformId)) {
 <svg
   [attr.data-src]="icon?.data ? '' : iconUrl"
   fill="currentColor"
