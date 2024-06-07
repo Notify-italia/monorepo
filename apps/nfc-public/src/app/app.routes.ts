@@ -40,6 +40,14 @@ export const appRoutes: Route[] = [
     },
   },
   {
+    path: 'brochure',
+    loadComponent: () =>
+      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+    data: {
+      assetUrl: 'https://s3-api.vps.notifyapp.it/assets/brochure-cliente.pdf',
+    },
+  },
+  {
     path: 'privacy',
     loadComponent: () =>
       import('./pages/privacy-policy/privacy-policy.component').then(
@@ -52,14 +60,6 @@ export const appRoutes: Route[] = [
       import('./pages/terms-conditions/terms-conditions.component').then(
         (m) => m.TermsConditionsComponent
       ),
-  },
-  {
-    path: 'brochure',
-    loadComponent: () =>
-      import('./pages/redirect.component').then((m) => m.RedirectComponent),
-    data: {
-      assetUrl: 'https://s3-api.vps.notifyapp.it/assets/brochure-cliente.pdf',
-    },
   },
   {
     path: '**',
