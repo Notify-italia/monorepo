@@ -48,7 +48,9 @@ export interface INotifyAPAvatarItem
 //feedback
 export interface INotifyAPFeedbackItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Feedback>,
-    baseButton {}
+    baseButton {
+  style: EnumNotifyAPButtonStyles;
+}
 
 //links
 export interface INotifyAPLinksItem
@@ -135,6 +137,7 @@ export interface INotifyAPageSettings {
   fontSize: number;
   align: EnumNotifyAPAlign;
   padding: number;
+  topPadding: number;
   verticalSpacing: number;
   /**
    * duplicato di INotifyProfile['redirectUrl'] dato che l'editor non ha accesso a INotifyProfile ma solo a INotifyAdvancedProfile

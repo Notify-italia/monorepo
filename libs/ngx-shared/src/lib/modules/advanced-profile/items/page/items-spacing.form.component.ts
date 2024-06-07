@@ -10,6 +10,15 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
   template: ` <div class="flex flex-col space-y-4">
     <notify-tailwind-slider
       [parent]="pageSettingsForm"
+      name="topPadding"
+      label="Padding dall'alto"
+      [steps]="10"
+      [min]="0.5"
+      [max]="5"
+      [compact]="true"
+    ></notify-tailwind-slider>
+    <notify-tailwind-slider
+      [parent]="pageSettingsForm"
       name="padding"
       label="Padding laterale"
       [steps]="5"

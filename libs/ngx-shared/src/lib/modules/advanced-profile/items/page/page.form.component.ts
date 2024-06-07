@@ -183,4 +183,5 @@ export const ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS: INotifyAPageSettings = {
   padding: 0.625,
   verticalSpacing: 0.5,
   redirectUrl: '',
+  topPadding: 0,
 };

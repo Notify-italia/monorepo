@@ -20,11 +20,15 @@
     [ngStyle]="{
       'padding-left': ps.padding + 'rem',
       'padding-right': ps.padding + 'rem',
+      
 
     }"
     cdk-scrollable
   >
-    <div class="flex flex-col justify-between">
+    <div
+      class="flex flex-col justify-between"
+      [ngStyle]="{'padding-top': ps.topPadding + 'rem',}"
+    >
       <div
         cdkDropList
         (cdkDropListDropped)="dropMainList($event)"

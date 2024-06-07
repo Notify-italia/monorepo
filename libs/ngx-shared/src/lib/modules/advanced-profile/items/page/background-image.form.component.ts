@@ -2,15 +2,16 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { INotifyProfile } from '@notify/interfaces';
+import Compressor from 'compressorjs';
 import { tap } from 'rxjs';
-import { ProfileService } from '../../../../services';
+import { ProfileService, UtilsService } from '../../../../services';
 import { UploadComponent } from '../../../../standalones';
 
 @Component({
   selector: 'notify-background-image-form',
   standalone: true,
   imports: [CommonModule, UploadComponent],
-  providers: [ProfileService],
+  providers: [ProfileService, UtilsService],
   template: ` <notify-upload
     [file]="fileData"
     acceptedFiles="image/*"
@@ -21,6 +22,7 @@ import { UploadComponent } from '../../../../standalones';
 })
 export class AdvancedProfileBackgroundImageFormComponent implements OnInit {
   private _profile = inject(ProfileService);
+  private _utilsService = inject(UtilsService);
 
   @Input({ required: true }) pageSettingsForm!: FormGroup;
   @Input({ required: true }) profile!: INotifyProfile;
@@ -31,7 +33,7 @@ export class AdvancedProfileBackgroundImageFormComponent implements OnInit {
     this._initFileData();
   }
 
-  public setFileControlValue(event: {
+  public async setFileControlValue(event: {
     file: File | null;
     blob: string | ArrayBuffer | null;
   }) {
@@ -49,7 +51,11 @@ export class AdvancedProfileBackgroundImageFormComponent implements OnInit {
       return;
     }
 
-    this._uploadFile(event, profileId, itemId).subscribe();
+    const compressed = await this._compressImage(event.file);
+
+    console.log('compressed', compressed);
+
+    (await this._uploadFile(compressed, profileId, itemId)).subscribe();
   }
 
   private async _initFileData() {
@@ -90,6 +96,23 @@ export class AdvancedProfileBackgroundImageFormComponent implements OnInit {
     this.fileData = result;
   }
 
+  private async _compressImage(imgBlob: File | Blob) {
+    const result = new Promise<File>((resolve) => {
+      new Compressor(imgBlob, {
+        quality: 0.4,
+        mimeType: 'image/webp',
+        success: (result) => {
+          return resolve(result as File);
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
+    });
+
+    return result;
+  }
+
   private _generateFile(
     blob: BlobPart,
     name: string,
@@ -102,19 +125,16 @@ export class AdvancedProfileBackgroundImageFormComponent implements OnInit {
     return url.split('/').pop()?.split('?')[0] || 'file';
   }
 
-  private _uploadFile(
-    event: {
-      file: File | null;
-      blob: string | ArrayBuffer | null;
-    },
-    profileId: string,
-    itemId: string
-  ) {
+  private async _uploadFile(event: File, profileId: string, itemId: string) {
+    const base64 = await event?.arrayBuffer();
+
     return this._profile
       .uploadFile(
         {
-          blob: event.blob,
-          name: (event.file?.name || 'file').replace(/[^a-zA-Z0-9]/g, '_'),
+          blob: await this._utilsService.arrayBufferToBase64(
+            base64 as ArrayBuffer
+          ),
+          name: (event?.name || 'file').replace(/[^a-zA-Z0-9]/g, '_'),
         },
         profileId,
         itemId

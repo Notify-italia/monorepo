@@ -24,13 +24,18 @@ import { FEEDBACK_ICON_SET } from './feedback.iconset';
       (click)="context.emitters.itemClicked(feedback, 'CONTACT_CLICKED')"
       class="btn !flex-nowrap truncate  min-h-1 !h-fit py-2 w-full justify-between disabled:opacity-75"
       [disabled]="feedback.disabled"
+      [ngClass]="{
+
+            'btn-outline': isOutlined,
+            'btn-ghost': isText,
+          }"
       [ngStyle]="{
-      'font-size': context.getters.fontSize,
-      'background-color':context.getters.textColor,
-      'color':textColor,
-      'border-color': context.getters.textColor,
-      
-    }"
+          'font-size': context.getters.fontSize,
+          'background-color': isFilled ?  context.getters.textColor : '',
+          'border-color': isFilled ? context.getters.textColor : '',
+          'color':textColor,
+          
+        }"
       (click)="feedback.onClick()"
       target="_blank"
     >
@@ -103,14 +108,28 @@ export class FeedbackPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
   }
 
   public get textColor() {
-    const pageTextColor = this.context.getters.textColor;
-
-    if (pageTextColor === this.context.getters.textColor) {
-      return this.context.services.utils.getContrstingColor(
-        pageTextColor || '#000000'
-      );
+    if (!this.isFilled) {
+      //se il tipo di sfondo non è filled, il colore del testo è il colore di default
+      return this.context.getters.textColor;
     }
 
-    return this.context.getters.pageSettings?.textColor;
+    //restituisci nero o bianco in base al contrasto con il colore del testo (usato invece come colore di sfondo)
+    return this.context.services.utils.getContrstingColor(
+      this.context.getters.textColor || '#000000'
+    );
+  }
+
+  public get isFilled() {
+    return this.currentItem.style === this.context.statics.buttonStyles.Filled;
+  }
+
+  public get isOutlined() {
+    return (
+      this.currentItem.style === this.context.statics.buttonStyles.Outlined
+    );
+  }
+
+  public get isText() {
+    return this.currentItem.style === this.context.statics.buttonStyles.Text;
   }
 }
