@@ -93,10 +93,11 @@ export class AdvancedProfileItemPlayerBaseComponent<
         aligns: EnumNotifyAPAlign,
       },
       emitters: {
-        itemClicked: <T>(data: T, eventName: ADVANCED_PROFILE_CLICK_EVENTS) => {
-          this._apOutputsService.onItemClicked({
+        itemEvent: <T>(data: T, eventName: ADVANCED_PROFILE_CLICK_EVENTS) => {
+          this._apOutputsService.triggerItemEvent({
             item: this.currentItem,
             eventData: data,
+            profile: this.profile,
             eventName,
           });
         },
@@ -184,7 +185,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
   }
 
   private _createIframeModal(url: string, title: string) {
-    this._apOutputsService.onItemClicked<CREATE_IFRAME_MODAL_CONFIG>({
+    this._apOutputsService.triggerItemEvent<CREATE_IFRAME_MODAL_CONFIG>({
       item: this.currentItem,
       eventData: {
         url,
@@ -194,6 +195,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
           color: this._utilsSerivce.getContrstingColor(this._textColor),
         },
       },
+      profile: this.profile,
       eventName: 'CREATE_IFRAME_MODAL',
     });
   }

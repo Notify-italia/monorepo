@@ -7,6 +7,7 @@ import {
   EnumNotifyProfileSources,
   EnumNotifyStatType,
   EnumNotifyUserType,
+  INotifyAPLinkItem,
   INotifyProfile,
 } from '@notify/interfaces';
 import {
@@ -16,7 +17,7 @@ import {
   FileRecievedFactory,
   FloatingButtonComponent,
   GesturesDirective,
-  IAdvancedProfileItemClickedEvent,
+  IAdvancedProfileItemEvent,
   LoadingComponent,
   ProfileService,
   ProfileViewComponent,
@@ -375,11 +376,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     return this._activatedRoute.snapshot.paramMap.get('id') as string;
   }
 
-  private _handleAdvancedProfileEvent(event: IAdvancedProfileItemClickedEvent) {
+  private _handleAdvancedProfileEvent(event: IAdvancedProfileItemEvent) {
     switch (event.eventName) {
       case 'CREATE_IFRAME_MODAL': {
         const eventData =
-          event.eventData as IAdvancedProfileItemClickedEvent<CREATE_IFRAME_MODAL_CONFIG>['eventData'];
+          event.eventData as IAdvancedProfileItemEvent<CREATE_IFRAME_MODAL_CONFIG>['eventData'];
 
         if (!eventData) {
           return;
@@ -397,6 +398,29 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
       case 'SHOW_FEEDBACK_FORM': {
         this.showFeedback(event.eventData as unknown as INotifyProfile);
+        break;
+      }
+      case 'LINK_CLICKED': {
+        const eventData =
+          event.eventData as IAdvancedProfileItemEvent<INotifyAPLinkItem>['eventData'];
+
+        if (!eventData) {
+          return;
+        }
+
+        this._statService
+          .incrementStatCounter(
+            EnumNotifyStatType.ProfileIntegrationCount.replace(
+              '{{integration}}',
+              eventData.caption
+            ),
+            event.profile.owner,
+            this.isAgent(event.profile)
+              ? EnumNotifyUserType.Agent
+              : EnumNotifyUserType.Company
+          )
+          .subscribe();
+
         break;
       }
       default:

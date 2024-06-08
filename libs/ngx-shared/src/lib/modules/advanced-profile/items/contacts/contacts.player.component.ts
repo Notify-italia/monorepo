@@ -146,7 +146,7 @@ export class ContactsPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
       }
     >
   ) {
-    this.context.emitters.itemClicked(contact.icon, 'CONTACT_CLICKED');
+    this.context.emitters.itemEvent(contact.icon, 'CONTACT_CLICKED');
 
     window.open(contact.url, '_blank');
   }

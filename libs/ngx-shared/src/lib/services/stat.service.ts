@@ -93,11 +93,13 @@ export class StatService {
     );
 
     const integrationsCountLabels = integrationsCount
-      .map(
-        (i) =>
-          this._svgboxService.getIcon(i.split(':count')[0].split('item:')[1])
-            ?.expanded
-      )
+      .map((i) => {
+        const parsedI = i.split(':count')[0].split('item:')[1];
+        return (
+          this._svgboxService.getIcon(parsedI)?.expanded || //legacy code relativo al profilo v1
+          parsedI
+        );
+      })
       .filter((i) => i) as string[];
 
     return {

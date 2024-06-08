@@ -70,7 +70,7 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
           [avatarConfig]="avatarConfig"
           [subAvatarConfig]="companyAvatarConfig"
           (subAvatarClick)="
-            context.emitters.itemClicked(null, 'SHOW_COMPANY_PROFILE')
+            context.emitters.itemEvent(null, 'SHOW_COMPANY_PROFILE')
           "
           [ngStyle]="{
             scale: currentItem.imgSize / 100,

@@ -119,7 +119,7 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
       return;
     }
 
-    this.context.emitters.itemClicked<{
+    this.context.emitters.itemEvent<{
       url: string;
       title: string;
       navbarStyle: IFrameModalNavbarStyle;

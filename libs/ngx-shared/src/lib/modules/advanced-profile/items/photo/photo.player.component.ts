@@ -41,7 +41,7 @@ export class PhotoPlayerComponent extends AdvancedProfileItemPlayerBaseComponent
     if (!this.context.getters.currentItem.showCompanyOnClick) {
       return;
     }
-    this.context.emitters.itemClicked(null, 'SHOW_COMPANY_PROFILE');
+    this.context.emitters.itemEvent(null, 'SHOW_COMPANY_PROFILE');
   }
 
   public get fitNgStyle() {

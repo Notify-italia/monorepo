@@ -6,8 +6,9 @@
 >
   <div
     (click)="
-      apItemOutputs.onItemClicked({
+      apItemOutputs.triggerItemEvent({
         eventName: 'ITEM_CLICKED',
+        profile,
         item: $any({
           _id: 'background'
         })
@@ -58,8 +59,9 @@
             <div
               class="flex flex-col"
               (click)="
-                apItemOutputs.onItemClicked({
+                apItemOutputs.triggerItemEvent({
                   item: i.data,
+                  profile,
                   eventName: 'ITEM_CLICKED'
                 })
               "

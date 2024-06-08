@@ -21,7 +21,7 @@ import { FEEDBACK_ICON_SET } from './feedback.iconset';
   >
     @if (button; as feedback) {
     <button
-      (click)="context.emitters.itemClicked(feedback, 'CONTACT_CLICKED')"
+      (click)="context.emitters.itemEvent(feedback, 'CONTACT_CLICKED')"
       class="btn !flex-nowrap truncate  min-h-1 !h-fit py-2 w-full justify-between disabled:opacity-75"
       [disabled]="feedback.disabled"
       [ngClass]="{
@@ -81,7 +81,7 @@ export class FeedbackPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
             return;
           }
 
-          this.context.emitters.itemClicked(
+          this.context.emitters.itemEvent(
             this.context.getters.profile,
             'SHOW_FEEDBACK_FORM'
           );
