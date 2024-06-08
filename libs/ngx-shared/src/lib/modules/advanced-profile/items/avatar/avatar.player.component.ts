@@ -50,6 +50,7 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
         } @case ('banner') {
         <div class="flex flex-col items-center">
           <img
+            (load)="avatarLoaded = true"
             [src]="currentItem.imgSrc"
             class="w-full h-48 rounded-xl"
             alt="Avatar"
@@ -58,6 +59,10 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
               'object-fit': currentItem.imgFit
             }"
           />
+          <div
+            class="h-48 rounded-xl w-full object-contain smooth bg-gray-600 animate-pulse "
+            *ngIf="!avatarLoaded"
+          ></div>
         </div>
         } @default {
 
@@ -100,6 +105,7 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
 })
 export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponent<INotifyAPAvatarItem> {
   public dicebearAvatarStyles = EnumDicebearAvatarStyles;
+  public avatarLoaded = false;
 
   public get alignment() {
     if (

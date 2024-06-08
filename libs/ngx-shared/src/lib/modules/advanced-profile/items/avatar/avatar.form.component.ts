@@ -46,18 +46,6 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
         }"
       ></notify-tailwind-select>
 
-      <notify-tailwind-select
-        *ngIf="context.getters.isAgent"
-        [parent]="form"
-        name="ownerImgCorner"
-        [compact]="true"
-        label="Posizione avatar aziendale"
-        [options]="cornerSelectOptions"
-        [ngClass]="{
-          'pointer-events-none brightness-50': form.value.imgMask === 'banner'
-        }"
-      ></notify-tailwind-select>
-
       <div class="divider"></div>
 
       <notify-tailwind-select
@@ -103,6 +91,18 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
           showCurrentStepWhileDragging: true
         }"
       ></notify-tailwind-slider>
+
+      <notify-tailwind-select
+        *ngIf="context.getters.isAgent"
+        [parent]="form"
+        name="ownerImgCorner"
+        [compact]="true"
+        label="Posizione avatar aziendale"
+        [options]="cornerSelectOptions"
+        [ngClass]="{
+          'pointer-events-none brightness-50': !isDaisyUIMask
+        }"
+      ></notify-tailwind-select>
 
       <div class="divider"></div>
 
