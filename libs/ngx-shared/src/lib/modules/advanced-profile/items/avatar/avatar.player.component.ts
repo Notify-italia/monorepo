@@ -20,47 +20,47 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
       [ngStyle]="container.ngStyle"
       [ngClass]="container.ngClass"
     >
-      @switch (currentItem.imgMask) { @case ('adaptive') {
-      <div class="flex flex-col items-center">
-        <img
-          [src]="currentItem.imgSrc"
-          class="size-full rounded-xl"
-          alt="Avatar"
-          [ngStyle]="{
-            scale: currentItem.imgSize / 100,
-            'object-fit': currentItem.imgFit
-          }"
-        />
-      </div>
-      } @case ('banner') {
-      <div class="flex flex-col items-center">
-        <img
-          [src]="currentItem.imgSrc"
-          class="w-full h-48 rounded-xl"
-          alt="Avatar"
-          [ngStyle]="{
-            scale: currentItem.imgSize / 100,
-            'object-fit': currentItem.imgFit
-          }"
-        />
-      </div>
-      } @default {
-
       <div
         class="flex items-center w-full"
         [ngClass]="{
           'flex-col space-y-4':
-            currentItem.direction === this.context.statics.directions.Vertical,
+            currentItem.direction === this.context.statics.directions.Vertical || !isDaisyUIMask,
           'flex-row space-x-6':
             currentItem.direction ===
-            this.context.statics.directions.Horizontal,
+            this.context.statics.directions.Horizontal && isDaisyUIMask,
 
         }"
         [ngStyle]="{
-          'align-items': alignment,
+          'align-items':!isDaisyUIMask ?'stretch' : alignment ,
           height: currentItem.imgSize + '%',
         }"
       >
+        @switch (currentItem.imgMask) { @case ('adaptive') {
+        <div class="flex flex-col items-center">
+          <img
+            [src]="currentItem.imgSrc"
+            class="size-full rounded-xl"
+            alt="Avatar"
+            [ngStyle]="{
+              scale: currentItem.imgSize / 100,
+              'object-fit': currentItem.imgFit
+            }"
+          />
+        </div>
+        } @case ('banner') {
+        <div class="flex flex-col items-center">
+          <img
+            [src]="currentItem.imgSrc"
+            class="w-full h-48 rounded-xl"
+            alt="Avatar"
+            [ngStyle]="{
+              scale: currentItem.imgSize / 100,
+              'object-fit': currentItem.imgFit
+            }"
+          />
+        </div>
+        } @default {
+
         <notify-avatar
           [avatarConfig]="avatarConfig"
           [subAvatarConfig]="companyAvatarConfig"
@@ -71,38 +71,35 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
             scale: currentItem.imgSize / 100,
           }"
         ></notify-avatar>
-      </div>
-      } }
-      <div
-        class="flex flex-col"
-        [ngStyle]="{
-          'text-align':
-            currentItem.direction === this.context.statics.directions.Vertical
-              ? alignment
-              : 'start'
-        }"
-      >
-        <span class="font-bold mt-1">
-          {{ currentItem.label }}
-        </span>
-        <small class="italic opacity-80">
-          {{ currentItem.sublabel }}
-        </small>
-        <small>
-          <small class="mt-2 opacity-70 whitespace-pre-line">
-            {{ currentItem.description }}
+
+        } }
+        <div
+          class="flex flex-col"
+          [ngStyle]="{
+            'text-align':
+              currentItem.direction === this.context.statics.directions.Vertical
+                ? alignment
+                : 'start'
+          }"
+        >
+          <span class="font-bold mt-1">
+            {{ currentItem.label }}
+          </span>
+          <small class="italic opacity-80">
+            {{ currentItem.sublabel }}
           </small>
-        </small>
+          <small>
+            <small class="mt-2 opacity-70 whitespace-pre-line">
+              {{ currentItem.description }}
+            </small>
+          </small>
+        </div>
       </div>
     </div>
   `,
 })
 export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponent<INotifyAPAvatarItem> {
   public dicebearAvatarStyles = EnumDicebearAvatarStyles;
-
-  public get imgSrc() {
-    return;
-  }
 
   public get alignment() {
     if (
@@ -119,6 +116,10 @@ export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponen
     }
 
     return 'center';
+  }
+
+  public get isDaisyUIMask() {
+    return daisyUIAvatarMaks.some((v) => v === this.currentItem.imgMask);
   }
 
   public get avatarConfig(): INotifyAvatarConfig {

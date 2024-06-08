@@ -1,6 +1,7 @@
+import { generateIconSet } from '../../../../constructors/iconset.base';
 import { SvgBoxIcon } from '../../../../services';
 
-export const FEEDBACK_ICON_SET: SvgBoxIcon[] = [
+export const FEEDBACK_ICON_SET: SvgBoxIcon[] = generateIconSet([
   {
     expanded: 'Google',
     name: 'google',
@@ -60,4 +61,4 @@ export const FEEDBACK_ICON_SET: SvgBoxIcon[] = [
     ></path>
   </svg>`,
   },
-];
+]);

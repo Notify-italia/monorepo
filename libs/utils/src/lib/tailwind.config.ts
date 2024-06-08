@@ -21,6 +21,18 @@ const tailwindConfig = {
         caveat: ['Caveat', 'cursive'],
         rocaTwoBold: ['Roca Two Bold', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
+        tiny5: ['Tiny5', 'sans-serif'],
+        playFair: ['Playfair Display', 'serif'],
+        dancingScript: ['Dancing Script', 'cursive'],
+        bitter: ['Bitter', 'serif'],
+        ebGaramond: ['EB Garamond', 'serif'],
+        seymourOne: ['Seymour One', 'sans-serif'],
+        outfit: ['Outfit', 'sans-serif'],
+        jacquard12: ['Jacquard 12', 'sans-serif'],
+        pacifico: ['Pacifico', 'cursive'],
+        chakraPetch: ['Chakra Petch', 'sans-serif'],
+        figtree: ['Figtree', 'sans-serif'],
       },
       dropShadow: {
         glow: [

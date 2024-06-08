@@ -1,6 +1,7 @@
+import { generateIconSet } from '../../../../constructors/iconset.base';
 import { SvgBoxIcon } from '../../../../services';
 
-export const CONTACTS_ICON_SET: SvgBoxIcon[] = [
+export const CONTACTS_ICON_SET: SvgBoxIcon[] = generateIconSet([
   {
     expanded: 'Telefono',
     name: 'phone',
@@ -95,4 +96,4 @@ export const CONTACTS_ICON_SET: SvgBoxIcon[] = [
     prefix: 'tel:',
     publicPrefix: '+39',
   },
-];
+]);
