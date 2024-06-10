@@ -81,36 +81,44 @@
         ></notify-tailwind-checkbox>
 
         <div
-          class="flex justify-between space-x-2 items-center smooth h-16 px-4"
+          class="h-32 smooth flex flex-col space-y-2 px-4"
           [ngClass]="{
-            'opacity-0 pointer-events-none -translate-y-2 !h-0':
+            'opacity-0 pointer-events-none -translate-y-2 !h-0 ':
               !tc.get('enabled')?.value
           }"
         >
-          <notify-icon-selector
-            [iconSet]="fontsIconSet"
-            [icon]="item.form.value.textConfig?.font"
-            title="Carattere"
-            [openSelectorOnBoot]="false"
-            [showIconLabel]="false"
-            (iconChange)="setFont($event.new?.name || 'poppins')"
-          ></notify-icon-selector>
-          <notify-tailwind-color-picker
-            [parent]="tc"
-            name="textColor"
-            class="w-7/12"
-            [compact]="true"
-          ></notify-tailwind-color-picker>
-          <notify-tailwind-input
-            class="!mb-1 w-3/12"
+          <div class="flex justify-around space-x-2 items-center">
+            <notify-icon-selector
+              [iconSet]="fontsIconSet"
+              [icon]="item.form.value.textConfig?.font"
+              title="Carattere"
+              [openSelectorOnBoot]="false"
+              [showIconLabel]="true"
+              iconLabelPosition="right"
+              (iconChange)="setFont($event.new?.name || 'poppins')"
+            ></notify-icon-selector>
+            <notify-tailwind-color-picker
+              [parent]="tc"
+              name="textColor"
+              class="w-7/12"
+              [compact]="true"
+            ></notify-tailwind-color-picker>
+          </div>
+
+          <notify-tailwind-slider
             [parent]="tc"
             name="fontSize"
-            label=" "
             [compact]="true"
-            [showSpinButtons]="true"
-            type="number"
-            [showClearInput]="false"
-          ></notify-tailwind-input>
+            [steps]="fontSizeSettings.steps"
+            [min]="fontSizeSettings.min"
+            [max]="fontSizeSettings.max"
+            [label]="fontSizeSettings.label"
+            [stepsLabels]="{
+              stepSuffix: fontSizeSettings.stepSuffix,
+              showCurrentStep: true,
+              stepPosition: 'bottom'
+            }"
+          ></notify-tailwind-slider>
         </div>
       </div>
 

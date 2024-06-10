@@ -36,18 +36,26 @@
       [step]="step === 0 ? undefined : step"
     />
     <output
-      *ngIf="stepsLabels?.showCurrentStepWhileDragging"
-      class="bubble opacity-0 group-active:opacity-100 smooth smooth-ease-out smooth-fast"
+      *ngIf="
+        stepsLabels?.showCurrentStep ||
+        stepsLabels?.showCurrentStepWhileDragging
+      "
+      class="bubble smooth smooth-ease-out smooth-fast"
+      [ngClass]="{
+        'opacity-0 group-active:opacity-100':
+          stepsLabels?.showCurrentStepWhileDragging,
+        '-bottom-2': stepsLabels?.stepPosition === 'bottom',
+      }"
       [ngStyle]="{
     left: bubbleLeft,
   
   }"
     >
       {{
-        stepsLabels?.draggingUsesPercentage
+        stepsLabels?.stepUsesPercentage
           ? (currentPercentage | number : '1.0-2')
           : currentValue
-      }}{{ stepsLabels?.draggingSuffix }}
+      }}{{ stepsLabels?.stepSuffix }}
     </output>
   </button>
 

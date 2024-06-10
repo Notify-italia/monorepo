@@ -87,7 +87,7 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
         [max]="100"
         [steps]="20"
         [stepsLabels]="{
-          draggingSuffix: '%',
+          stepSuffix: '%',
           showCurrentStepWhileDragging: true
         }"
       ></notify-tailwind-slider>

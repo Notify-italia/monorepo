@@ -25,6 +25,7 @@ export class SvgBoxIconComponent implements OnInit, OnChanges {
   @Input() public icon?: SvgBoxIcon;
   @Input() public iconName?: string;
   @Input() public size = 8;
+  @Input() pixelSize?: number;
 
   public visible = true;
 
@@ -39,6 +40,17 @@ export class SvgBoxIconComponent implements OnInit, OnChanges {
       return '';
     }
     return this._domSanitizer.bypassSecurityTrustHtml(data);
+  }
+
+  public get pixelSizeStyle() {
+    if (!this.pixelSize) {
+      return null;
+    }
+
+    return {
+      width: `${this.pixelSize}px`,
+      height: `${this.pixelSize}px`,
+    };
   }
 
   public ngOnInit() {

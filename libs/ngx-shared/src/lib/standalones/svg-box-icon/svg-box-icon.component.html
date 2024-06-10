@@ -4,6 +4,7 @@
   fill="currentColor"
   class="w-{{ size }} h-{{ size }} text-xl"
   [innerHTML]="sanitizedData"
+  [ngStyle]="pixelSizeStyle"
 ></svg>
 } @else {
 <div

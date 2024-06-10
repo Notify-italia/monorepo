@@ -24,6 +24,22 @@ export interface INotifyAdvancedProfileManifest<
   formOptions?: {
     hideTextSettings?: boolean;
     hideTitle?: boolean;
+    /**
+     * only one of the following items can be true
+     */
+    conditionalFontSize?: {
+      steps: number;
+      min: number;
+      max: number;
+      label: string;
+      stepSuffix: string;
+      condition: (
+        i: {
+          form: FormGroup<controlsFromObject<NotifyAdvancedProfileItem>>;
+          manifest: INotifyAdvancedProfileManifest<NotifyAdvancedProfileItem>;
+        } | null
+      ) => boolean;
+    }[];
   };
   definitions: ModifyDeep<
     T,

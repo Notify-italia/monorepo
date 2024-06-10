@@ -68,7 +68,7 @@ import {
           startLabel: 'Satellite',
           endLabel: 'Strada',
           showCurrentStepWhileDragging: true,
-          draggingSuffix: 'x',
+          stepSuffix: 'x',
         }"
       ></notify-tailwind-slider>
 

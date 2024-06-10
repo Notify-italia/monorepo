@@ -23,6 +23,20 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPLinksItem> = {
   ],
   formComponent: LinksFormComponent,
   playerComponent: LinksPlayerComponent,
+  formOptions: {
+    conditionalFontSize: [
+      {
+        steps: 8,
+        min: 1,
+        max: 48,
+        label: 'Dimensione Icone',
+        stepSuffix: '',
+        condition: (i) =>
+          (<INotifyAPLinksItem>i?.form.value).direction ===
+          EnumNotifyAPDirections.Horizontal,
+      },
+    ],
+  },
   definitions: {
     ...itemManifest.definitions,
     style: EnumNotifyAPButtonStyles.Text,

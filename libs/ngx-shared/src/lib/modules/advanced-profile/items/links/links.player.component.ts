@@ -57,7 +57,7 @@ import { SvgBoxIconComponent } from '../../../../standalones';
         >
           <notify-svg-box-icon
             [iconName]="link.icon"
-            [size]="iconSize"
+            [pixelSize]="iconSize"
           ></notify-svg-box-icon>
           <span *ngIf="isVertical">{{ link.caption }}</span>
         </button>
@@ -82,14 +82,7 @@ export class LinksPlayerComponent extends AdvancedProfileItemPlayerBaseComponent
   }
 
   public get iconSize() {
-    const fontSize = Number(this.context.getters.fontSize.replace('px', ''));
-    const result = Math.ceil(fontSize / 4);
-
-    if (result % 2 !== 0) {
-      return result + 1;
-    }
-
-    return result;
+    return Number(this.context.getters.fontSize.replace('px', ''));
   }
 
   public get textColor() {

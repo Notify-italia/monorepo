@@ -33,8 +33,10 @@ export class TailwindSliderComponent implements OnInit, OnChanges {
     startLabel?: string;
     endLabel?: string;
     showCurrentStepWhileDragging?: boolean;
-    draggingSuffix?: string;
-    draggingUsesPercentage?: boolean;
+    stepPosition?: 'top' | 'bottom';
+    showCurrentStep?: boolean;
+    stepSuffix?: string;
+    stepUsesPercentage?: boolean;
   };
 
   @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;

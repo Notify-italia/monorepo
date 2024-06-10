@@ -59,6 +59,28 @@ export class PartSettingsComponent implements OnChanges {
 
   public settingsHostVisible = true;
 
+  public get fontSizeSettings() {
+    const conditionalFontSize =
+      this.currentItem?.manifest.formOptions?.conditionalFontSize;
+
+    const defaultValue = {
+      label: 'Dimensione Testo',
+      min: 0,
+      max: 50,
+      steps: 20,
+      stepSuffix: 'px',
+    };
+
+    if (!conditionalFontSize?.length) {
+      return defaultValue;
+    }
+
+    return (
+      conditionalFontSize.filter((v) => v.condition(this.currentItem))?.[0] ||
+      defaultValue
+    );
+  }
+
   public get currentItem() {
     const form = this.form.controls?.['items'].controls?.find(
       (fg) => fg.controls._id.value === this.selectedHierarchyItem

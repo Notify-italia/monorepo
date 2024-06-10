@@ -35,7 +35,7 @@ import {
         startLabel: '10%',
         endLabel: '100%',
         showCurrentStepWhileDragging: true,
-        draggingSuffix: '%',
+        stepSuffix: '%',
       }"
     ></notify-tailwind-slider>
 

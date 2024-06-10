@@ -59,7 +59,7 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
         >
           <notify-svg-box-icon
             [icon]="contact.icon"
-            [size]="iconSize"
+            [pixelSize]="iconSize"
           ></notify-svg-box-icon>
           <span *ngIf="isVertical" class="truncate">{{ contact.caption }}</span>
         </a>
@@ -90,14 +90,7 @@ export class ContactsPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
   }
 
   public get iconSize() {
-    const fontSize = Number(this.context.getters.fontSize.replace('px', ''));
-    const result = Math.ceil(fontSize / 4);
-
-    if (result % 2 !== 0) {
-      return result + 1;
-    }
-
-    return result;
+    return Number(this.context.getters.fontSize.replace('px', ''));
   }
 
   public get textColor() {

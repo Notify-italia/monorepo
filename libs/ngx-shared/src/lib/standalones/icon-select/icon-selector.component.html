@@ -1,12 +1,23 @@
 <div class="group/icons w-fit" #SelectContainer>
-  <div class="flex flex-col items-center space-y-1">
+  <div
+    class="flex flex-col items-center space-y-1"
+    [ngClass]="{
+    '!flex-row space-y-0 space-x-2': iconLabelPosition === 'right',
+  }"
+  >
     <button (click)="hideSelector = false" class="icon-button">
       <notify-svg-box-icon
         [icon]="currentIcon"
         *ngIf="MANUAL_REFRESH"
       ></notify-svg-box-icon>
     </button>
-    <label class="text-xs truncate w-12 text-center" *ngIf="showIconLabel">
+    <label
+      class="text-xs truncate w-12 text-center"
+      *ngIf="showIconLabel"
+      [ngClass]="{
+      '!w-24 text-start': iconLabelPosition === 'right',
+    }"
+    >
       {{ currentIcon.expanded }}
     </label>
   </div>
