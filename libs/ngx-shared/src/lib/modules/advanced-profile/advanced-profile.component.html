@@ -23,7 +23,7 @@
       ></notify-share-item>
       <notify-save-indicator
         [isSaving]="loading"
-        [lastSave]="profile.updatedAt"
+        [lastSave]="updatedAt"
         [compact]="true"
       ></notify-save-indicator>
 
@@ -109,6 +109,7 @@
         [loading]="loading"
         [profile]="profile"
         [form]="form"
+        [updatedAt]="updatedAt"
         [shareConfig]="shareConfig"
         [selectedHierarchyItem]="selectedHierarchyItem"
         [environment]="environment"

@@ -12,6 +12,7 @@ export interface ICTActionsValue extends INotifyCustomTableValueBase {
   actions: {
     eventName: string;
     path: string[];
+    tooltip?: string;
     svgType: 'solid' | 'outlined';
     color:
       | 'primary'
@@ -39,47 +40,54 @@ export interface ICTActionsValue extends INotifyCustomTableValueBase {
       (click)="$event.stopPropagation()"
     >
       @for (action of value.actions; track $index) {
-      <button
-        class="action-btn {{ 'action-' + action.color }}"
-        data-theme="notifytheme"
-        (click)="actionClicked.emit(action)"
+      <div
+        [ngClass]="{
+        'tooltip': action.tooltip?.length,
+      }"
+        [attr.data-tip]="action.tooltip"
       >
-        <svg
-          *ngIf="action.svgType === 'outlined'"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-6 h-6"
+        <button
+          class="action-btn {{ 'action-' + action.color }}"
+          data-theme="notifytheme"
+          (click)="actionClicked.emit(action)"
         >
-          @for (path of action.path; track $index) {
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            [attr.d]="path"
-          />
+          <svg
+            *ngIf="action.svgType === 'outlined'"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6"
+          >
+            @for (path of action.path; track $index) {
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              [attr.d]="path"
+            />
 
-          }
-        </svg>
+            }
+          </svg>
 
-        <svg
-          *ngIf="action.svgType === 'solid'"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="w-6 h-6"
-        >
-          @for (path of action.path; track $index) {
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            [attr.d]="path"
-          />
+          <svg
+            *ngIf="action.svgType === 'solid'"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6"
+          >
+            @for (path of action.path; track $index) {
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              [attr.d]="path"
+            />
 
-          }
-        </svg>
-      </button>
+            }
+          </svg>
+        </button>
+      </div>
       }
     </div>
   `,

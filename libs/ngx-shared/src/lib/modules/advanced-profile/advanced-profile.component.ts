@@ -78,7 +78,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
   public environment: {
     profilesUrl: string;
   } = this._route.snapshot.data['environment'];
-
+  public updatedAt = new Date();
   private destroy$ = new Subject<void>();
 
   public get providedId() {
@@ -97,6 +97,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
             v.advancedProfile,
             PROFILE_DEFAULTS.advancedProfile
           );
+          this.updatedAt = v.updatedAt;
         }),
         this._setShareConfigPipe(),
         switchMap(() => {
@@ -207,7 +208,10 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
         this.providedId
       )
       .pipe(
-        tap(() => (this.loading = false)),
+        tap((v) => {
+          this.loading = false;
+          this.updatedAt = v.updatedAt;
+        }),
         this._setShareConfigPipe()
       );
   }

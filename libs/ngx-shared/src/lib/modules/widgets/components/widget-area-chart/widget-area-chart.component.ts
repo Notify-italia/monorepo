@@ -66,9 +66,7 @@ export class WidgetAreaChartComponent {
         text: 'Nessun dato visualizzabile',
       },
       fill: DEFAULT_FILL,
-
       stroke: DEFAULT_STROKE,
-
       grid: {
         borderColor: '#7573f0',
         yaxis: {

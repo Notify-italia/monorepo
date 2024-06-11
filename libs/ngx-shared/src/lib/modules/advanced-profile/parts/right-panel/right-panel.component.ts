@@ -31,6 +31,7 @@ export class RightPanelComponent {
   >;
   @Input({ required: true }) selectedHierarchyItem = 'background';
   @Input() shareConfig!: INotifyShareItemConfig;
+  @Input() updatedAt = new Date();
 
   @Output() forceSave = new EventEmitter<void>();
   @Output() closePanel = new EventEmitter<void>();

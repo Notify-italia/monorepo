@@ -10,7 +10,7 @@
 
       <notify-save-indicator
         [isSaving]="loading"
-        [lastSave]="profile.updatedAt || TEMP_today"
+        [lastSave]="updatedAt"
         [followPage]="false"
         [compact]="true"
         (save)="forceSave.emit()"
