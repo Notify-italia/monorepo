@@ -5,6 +5,11 @@
 
   <!-- SAVE CONTACT -->
   <notify-floating-button
+    *ngIf="
+      !(p.advancedProfile?.enabled
+        ? p.advancedProfile?.pageSettings?.hideContactSave
+        : true)
+    "
     (click)="saveContact(p)"
     [offsets]="{
       bottom: '1.25rem',

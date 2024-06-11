@@ -51,7 +51,6 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     expanded: 'Apple Pay',
     name: 'applepay',
     set: 'social',
-    score: 1,
   },
 
   {
@@ -66,7 +65,6 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     expanded: 'Deviantart',
     name: 'deviantart',
     set: 'social',
-    score: 1,
     prefix: 'https://deviantart.com/',
   },
 
@@ -82,7 +80,6 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     expanded: 'Dribbble',
     name: 'dribbble',
     set: 'social',
-    score: 1,
   },
   {
     expanded: 'Dropbox',
@@ -94,7 +91,6 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     expanded: 'Ebay',
     name: 'ebay',
     set: 'social',
-    score: 1,
     prefix: 'https://ebay.it/usr/',
   },
   {
@@ -108,20 +104,17 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     expanded: 'Facebook',
     name: 'facebook',
     set: 'social',
-    score: 1,
     placeholder: 'https://facebook.com/people/...',
   },
   {
     expanded: 'Freelancer',
     name: 'freelancer',
     set: 'social',
-    score: 1,
   },
   {
     expanded: 'Github',
     name: 'github',
     set: 'social',
-    score: 1,
     prefix: 'https://github.com/',
     publicPrefix: '/',
     placeholder: 'Percorso Git ',
@@ -136,7 +129,6 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     expanded: 'E-Mail',
     name: 'gmail',
     set: 'social',
-    score: 1,
     prefix: 'mailto:',
     placeholder: 'Inserisci un indirizzo email',
   },
@@ -145,25 +137,21 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     expanded: 'Calendario Google',
     name: 'googlecalendar',
     set: 'social',
-    score: 1,
   },
   {
     expanded: 'Google Drive',
     name: 'googledrive',
     set: 'social',
-    score: 1,
   },
   {
     expanded: 'Google Pay',
     name: 'googlepay',
     set: 'social',
-    score: 1,
   },
   {
     expanded: 'Play Store',
     name: 'googleplay',
     set: 'social',
-    score: 1,
   },
   {
     expanded: 'Sito Web',
@@ -193,7 +181,6 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     expanded: 'Linkedin',
     name: 'linkedin',
     set: 'social',
-    score: 1,
     prefix: 'https://www.linkedin.com/',
     publicPrefix: 'linkedin.com/',
     placeholder: 'https://linkedin.com/...',
@@ -229,7 +216,6 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     expanded: 'Product Hunt',
     name: 'producthunt',
     set: 'social',
-    score: 1,
   },
   { expanded: 'Reddit', name: 'reddit', set: 'social', score: 1 },
   {
@@ -254,7 +240,6 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     expanded: 'Telegram',
     name: 'telegram',
     set: 'social',
-    score: 1,
   },
   { expanded: 'Tiktok', name: 'tiktok', set: 'social', score: 1 },
   { expanded: 'Trello', name: 'trello', set: 'social', score: 1 },
@@ -268,7 +253,6 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     expanded: 'TripAdvisor',
     name: 'tripadvisor',
     set: 'social',
-    score: 1,
     data: `<svg  fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path d="M12 4.945c-3.19 0-6.167.856-8.203 2.227H0c.621.726 1.081 1.717 1.195 2.39a5.96 5.96 0 0 0-1.148 3.516 5.979 5.979 0 0 0 5.976 5.977 5.983 5.983 0 0 0 4.641-2.227c.445.522 1.187 1.57 1.336 1.875 0 0 .852-1.26 1.336-1.851a5.979 5.979 0 0 0 10.617-3.774 5.96 5.96 0 0 0-1.148-3.515c.114-.674.574-1.665 1.195-2.391h-3.984C17.98 5.8 15.188 4.945 12 4.945Zm0 1.008c2.139 0 4.078.401 5.79 1.149A5.982 5.982 0 0 0 12 13.078a5.967 5.967 0 0 0-5.953-5.976C7.755 6.357 9.864 5.953 12 5.953ZM6.023 8.25c2.658 0 4.805 2.174 4.805 4.828a4.802 4.802 0 0 1-4.805 4.805 4.8 4.8 0 0 1-4.804-4.805c0-2.654 2.147-4.828 4.804-4.828Zm11.954 0c2.654 0 4.804 2.174 4.804 4.828a4.802 4.802 0 0 1-4.804 4.805 4.8 4.8 0 0 1-4.805-4.805c0-2.654 2.147-4.828 4.805-4.828ZM5.953 10.148a2.91 2.91 0 0 0-2.906 2.907 2.91 2.91 0 0 0 2.906 2.906 2.91 2.91 0 0 0 2.906-2.906 2.91 2.91 0 0 0-2.906-2.907Zm12.024 0a2.91 2.91 0 0 0-2.907 2.907c0 1.602 1.304 2.883 2.907 2.883a2.89 2.89 0 0 0 2.906-2.883 2.91 2.91 0 0 0-2.906-2.907Zm-12.024.891a2.02 2.02 0 0 1 2.016 2.016 2.02 2.02 0 0 1-2.016 2.015 2.02 2.02 0 0 1-2.016-2.015 2.02 2.02 0 0 1 2.016-2.016Zm12.024 0a2.02 2.02 0 0 1 2.015 2.016 2 2 0 0 1-2.015 1.992 2 2 0 0 1-2.016-1.992 2.02 2.02 0 0 1 2.016-2.016ZM5.812 12.07a.99.99 0 0 0-.984.985.99.99 0 0 0 .984.984.97.97 0 0 0 .961-.984.97.97 0 0 0-.96-.985Zm12 0a.97.97 0 0 0-.96.985c0 .539.421.96.96.96a.97.97 0 0 0 .985-.96.99.99 0 0 0-.985-.985Z"></path>
   </svg>`,
@@ -280,31 +264,61 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     placeholder: 'Sito web',
     prefix: 'https://it.trustpilot.com/evaluate/',
     publicPrefix: 'trustpilot.com/evaluate/',
-    score: 1,
     data: `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" xmlns:v="https://vecta.io/nano"><path d="M12 17.964l5.214-1.321 2.179 6.714L12 17.964zm12-8.678h-9.179L12 .643 9.179 9.286H0l7.429 5.357-2.821 8.643 7.429-5.357 4.571-3.286L24 9.286h0 0 0z"/></svg>`,
   },
   {
     expanded: 'Yelp',
     name: 'yelp',
     set: 'social',
-    score: 1,
   },
   {
     expanded: 'Spotify',
     name: 'spotify',
     set: 'social',
-    score: 1,
   },
   {
     expanded: 'Apple Music',
     name: 'applemusic',
     set: 'social',
-    score: 1,
   },
   {
     expanded: 'Sfoglia il menù',
     name: 'menu_book',
     set: 'materialui',
-    score: 1,
+  },
+  {
+    expanded: 'File',
+    name: 'file',
+    set: 'octicons',
+  },
+  {
+    expanded: 'Zip',
+    name: 'file-zip',
+    set: 'octicons',
+  },
+  {
+    expanded: 'Codice',
+    name: 'file-code',
+    set: 'octicons',
+  },
+  {
+    expanded: 'Media',
+    name: 'file-media',
+    set: 'octicons',
+  },
+  {
+    expanded: 'Allegato',
+    name: 'attach_file',
+    set: 'materialui',
+  },
+  {
+    expanded: 'Documento di testo',
+    name: 'document-text',
+    set: 'hero-outline',
+  },
+  {
+    expanded: 'Report',
+    name: 'document-report',
+    set: 'hero-outline',
   },
 ];

@@ -59,6 +59,13 @@ const FORCE_UPDATE_KEYS: string[] = [];
         (profileIdentifierChanged)="profileIdentifierChanged.emit($event)"
       ></notify-personalize-link-form>
 
+      <notify-tailwind-checkbox
+        [parent]="pageSettingsForm"
+        name="hideContactSave"
+        [compact]="true"
+        label="Nascondi il pulsante 'Salva'"
+      ></notify-tailwind-checkbox>
+
       @if(profile.config.redirectEnabled) {
       <notify-tailwind-input
         [parent]="pageSettingsForm"
@@ -184,4 +191,5 @@ export const ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS: INotifyAPageSettings = {
   verticalSpacing: 0.5,
   redirectUrl: '',
   topPadding: 0,
+  hideContactSave: false,
 };

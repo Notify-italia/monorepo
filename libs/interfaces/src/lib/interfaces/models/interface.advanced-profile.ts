@@ -139,6 +139,7 @@ export interface INotifyAPageSettings {
   padding: number;
   topPadding: number;
   verticalSpacing: number;
+  hideContactSave: boolean;
   /**
    * duplicato di INotifyProfile['redirectUrl'] dato che l'editor non ha accesso a INotifyProfile ma solo a INotifyAdvancedProfile
    */

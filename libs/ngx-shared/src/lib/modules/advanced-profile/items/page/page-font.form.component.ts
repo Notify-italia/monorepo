@@ -10,7 +10,7 @@ import { FONTS_ICON_SET } from '../../services/fonts.iconset';
   standalone: true,
   imports: [CommonModule, TailwindFormsModule, IconSelectorComponent],
   template: ` <div class="flex flex-col space-y-4">
-    <span class="font-medium">Stile testo</span>
+    <small class="font-medium">Stile testo</small>
     <div class="flex justify-between space-x-2 items-center">
       <notify-icon-selector
         [iconSet]="fontsIconSet"

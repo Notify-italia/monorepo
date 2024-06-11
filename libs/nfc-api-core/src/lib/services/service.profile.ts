@@ -103,6 +103,7 @@ export const createAdvancedProfile = (
       font: 'poppins',
       fontSize: 18,
       redirectUrl: profile.redirectUrl || '',
+      hideContactSave: false,
     },
     requiredItems,
   };
