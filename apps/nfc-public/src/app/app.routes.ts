@@ -48,6 +48,22 @@ export const appRoutes: Route[] = [
     },
   },
   {
+    path: 'guide',
+    loadComponent: () =>
+      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+    data: {
+      assetUrl: 'https://noty.li/p/guide',
+    },
+  },
+  {
+    path: 'download',
+    loadComponent: () =>
+      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+    data: {
+      assetUrl: 'https://noty.li/p/downloads',
+    },
+  },
+  {
     path: 'privacy',
     loadComponent: () =>
       import('./pages/privacy-policy/privacy-policy.component').then(
