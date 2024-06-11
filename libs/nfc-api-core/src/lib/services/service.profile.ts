@@ -61,7 +61,9 @@ export const populateProfileNote = async (
   };
 };
 
-export const createAdvancedProfile = (profile: INotifyProfile) => {
+export const createAdvancedProfile = (
+  profile: INotifyProfile
+): INotifyAdvancedProfile => {
   const _requiredItems = _generateRequiredItems(profile);
 
   const requiredItems = _requiredItems.reduce(
@@ -93,6 +95,7 @@ export const createAdvancedProfile = (profile: INotifyProfile) => {
           value: color,
         })),
       },
+      topPadding: 0,
       textColor: profile.colors.elements,
       align: EnumNotifyAPAlign.Start,
       padding: 0.5,
