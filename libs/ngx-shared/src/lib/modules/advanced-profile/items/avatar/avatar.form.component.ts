@@ -31,7 +31,7 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
         label="Orientamento"
         [options]="context.components.select.directions"
         [ngClass]="{
-          'pointer-events-none brightness-50': !isDaisyUIMask
+          'disabled-control': !isDaisyUIMask
         }"
       ></notify-tailwind-select>
       <notify-tailwind-select
@@ -41,7 +41,7 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
         label="Allineamento"
         [options]="alignOptions"
         [ngClass]="{
-          'pointer-events-none brightness-50':
+          'disabled-control':
             form.value.direction === context.statics.directions.Horizontal
         }"
       ></notify-tailwind-select>
@@ -100,7 +100,7 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
         label="Posizione avatar aziendale"
         [options]="cornerSelectOptions"
         [ngClass]="{
-          'pointer-events-none brightness-50': !isDaisyUIMask
+          'disabled-control': !isDaisyUIMask
         }"
       ></notify-tailwind-select>
 
@@ -241,8 +241,10 @@ export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<IN
   }
 
   public get isDaisyUIMask() {
-    return daisyUIAvatarMaks.some(
-      (v) => v === this.context.getters.itemValue.imgMask
+    return (
+      daisyUIAvatarMaks.some(
+        (v) => v === this.context.getters.itemValue.imgMask
+      ) || this.context.getters.itemValue.imgMask === ''
     );
   }
 

@@ -47,6 +47,7 @@ const FORCE_UPDATE_KEYS: string[] = [];
     PersonalizeLinkFormComponent,
   ],
   providers: [AdvancedProfileItemsService, UtilsService, ProfileService],
+  styleUrls: ['../../advanced-profile.styles.scss'],
   template: `
     <form
       [formGroup]="pageSettingsForm"
@@ -72,7 +73,7 @@ const FORCE_UPDATE_KEYS: string[] = [];
 
       }@else {
 
-      <div class="divider"></div>
+      <div class="divider"><small>Contatto</small></div>
 
       <notify-tailwind-checkbox
         [parent]="pageSettingsForm"
@@ -88,9 +89,14 @@ const FORCE_UPDATE_KEYS: string[] = [];
         [compact]="true"
         [showClearInput]="true"
         [placeholder]="alias"
+        [ngClass]="{
+          'disabled-control': pageSettingsForm.value.hideContactSave
+        }"
       ></notify-tailwind-input>
 
-      <div class="divider"></div>
+      <div class="divider">
+        <small>Styling Pagina</small>
+      </div>
 
       <notify-background-items-spacing-form
         [pageSettingsForm]="pageSettingsForm"

@@ -125,7 +125,10 @@ export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponen
   }
 
   public get isDaisyUIMask() {
-    return daisyUIAvatarMaks.some((v) => v === this.currentItem.imgMask);
+    return (
+      daisyUIAvatarMaks.some((v) => v === this.currentItem.imgMask) ||
+      this.currentItem.imgMask === ''
+    );
   }
 
   public get avatarConfig(): INotifyAvatarConfig {

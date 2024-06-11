@@ -6,6 +6,10 @@
   background-color: #202020;
 }
 
+.disabled-control {
+  @apply pointer-events-none brightness-50;
+}
+
 .desktop-only {
   @apply hidden lg:block;
 }
