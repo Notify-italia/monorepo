@@ -321,4 +321,55 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     name: 'document-report',
     set: 'hero-outline',
   },
-];
+  {
+    expanded: 'Ufficio',
+    name: 'office-building',
+    set: 'hero-solid',
+  },
+  {
+    expanded: 'Novità',
+    name: 'sparkles',
+    set: 'hero-solid',
+  },
+  {
+    expanded: 'Nessuna icona',
+    name: '',
+    set: '',
+  },
+  {
+    expanded: 'Apps',
+    name: 'apps',
+    set: 'materialui',
+  },
+  {
+    expanded: 'Analytics',
+    name: 'analytics',
+    set: 'materialui',
+  },
+  {
+    expanded: 'Ebook',
+    name: 'book',
+    set: 'materialui',
+  },
+  {
+    expanded: 'Codice',
+    name: 'code',
+    set: 'materialui',
+  },
+  {
+    expanded: 'Contactless',
+    name: 'nfc',
+    set: 'materialui',
+  },
+  {
+    expanded: 'Scarica il gioco',
+    name: 'games',
+    set: 'materialui',
+  },
+  {
+    expanded: 'Acquista ora',
+    name: 'payments',
+    set: 'materialui',
+  },
+  { expanded: 'Punti vendita', name: 'point_of_sale', set: 'materialui' },
+].sort((a, b) => a.expanded.localeCompare(b.expanded));
