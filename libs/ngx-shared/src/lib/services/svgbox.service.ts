@@ -358,7 +358,7 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
   },
   {
     expanded: 'Contactless',
-    name: 'nfc',
+    name: 'contactless',
     set: 'materialui',
   },
   {
