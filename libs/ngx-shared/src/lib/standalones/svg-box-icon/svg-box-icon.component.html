@@ -8,7 +8,7 @@
 ></svg>
 } @else {
 <div
-  [ngStyle]="{
+  [ngStyle]="pixelSizeStyle || {
   width: size /4+ 'rem',
   height: size /4+ 'rem',
 }"
