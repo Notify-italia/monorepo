@@ -28,7 +28,9 @@ export class GoogleMapsComponent implements OnInit, OnChanges {
   }
 
   public parseLocation() {
-    const locationData = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCC9c9IyxgUS1yZvDg38PXvP2c7FFgLk6s&q=${this.address}&zoom=${this.zoom}
+    const locationData = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCC9c9IyxgUS1yZvDg38PXvP2c7FFgLk6s&q=${encodeURIComponent(
+      this.address
+    )}&zoom=${this.zoom}
       `;
 
     const url = this._domSanitizer.bypassSecurityTrustResourceUrl(locationData);

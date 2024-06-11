@@ -104,6 +104,9 @@ export const createAdvancedProfile = (
       fontSize: 18,
       redirectUrl: profile.redirectUrl || '',
       hideContactSave: false,
+      contactOverrides: {
+        name: '',
+      },
     },
     requiredItems,
   };

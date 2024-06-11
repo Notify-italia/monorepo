@@ -198,6 +198,14 @@ export class ProfileService {
     return avatar.label || 'Ignoto';
   }
 
+  public getContactOverrides(profile: INotifyProfile) {
+    if (!profile.advancedProfile?.enabled) {
+      return null;
+    }
+
+    return profile.advancedProfile.pageSettings.contactOverrides;
+  }
+
   public getProfileAvatar(profile: INotifyProfile): string {
     if (!profile.advancedProfile?.enabled) {
       return profile.avatar || '';
@@ -232,15 +240,11 @@ export class ProfileService {
               })
           );
 
-    const _pName = this.getProfileName(d);
-    const [name, surname] = _pName.split(' ');
-
     const _cName = d.company ? this.getProfileName(d.company) : '';
 
     const vcard = `BEGIN:VCARD
 VERSION:3.0
-N:${surname};${name};
-FN:${name} ${surname}
+${this._buildVcardName(d)}
 ORG:${_cName}
 PHOTO;TYPE=WEBP;ENCODING=b:${avatar?.split(',')[1]}
 item2.URL;type=pref:${`${publicUrl}/p/${d._id}?s=${EnumNotifyProfileSources.Contacts}`}
@@ -255,8 +259,22 @@ END:VCARD`;
       'href',
       'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard)
     );
-    a.setAttribute('download', `${_pName}.vcf`);
+    a.setAttribute('download', `${this.getProfileName(d)}.vcf`);
     a.click();
+  }
+
+  private _buildVcardName(profile: INotifyProfile) {
+    const _pName =
+      this.getContactOverrides(profile)?.name || this.getProfileName(profile);
+
+    if (profile.type === EnumNotifyUserType.Company) {
+      return `N:${_pName}`;
+    }
+
+    const [name, surname] = _pName.split(' ');
+
+    return `N:${surname || ''};${name || ''};
+FN:${name || ''} ${surname || ''}`;
   }
 
   private _buildVcardPhoneNumbers(phones: INotifyAPContactItem[]) {

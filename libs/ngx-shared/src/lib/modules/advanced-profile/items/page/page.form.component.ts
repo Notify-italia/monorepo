@@ -12,6 +12,7 @@ import {
   EnumNotifyAPAlign,
   EnumNotifyAPBackgroundTypes,
   EnumNotifyAPDirections,
+  INotifyAPAvatarItem,
   INotifyAPageSettings,
   INotifyProfile,
   NOTIFY_AP_BACKGROUND_TYPES_IT,
@@ -59,13 +60,6 @@ const FORCE_UPDATE_KEYS: string[] = [];
         (profileIdentifierChanged)="profileIdentifierChanged.emit($event)"
       ></notify-personalize-link-form>
 
-      <notify-tailwind-checkbox
-        [parent]="pageSettingsForm"
-        name="hideContactSave"
-        [compact]="true"
-        label="Nascondi il pulsante 'Salva'"
-      ></notify-tailwind-checkbox>
-
       @if(profile.config.redirectEnabled) {
       <notify-tailwind-input
         [parent]="pageSettingsForm"
@@ -77,7 +71,27 @@ const FORCE_UPDATE_KEYS: string[] = [];
       ></notify-tailwind-input>
 
       }@else {
+
       <div class="divider"></div>
+
+      <notify-tailwind-checkbox
+        [parent]="pageSettingsForm"
+        name="hideContactSave"
+        [compact]="true"
+        label="Nascondi il pulsante 'Salva'"
+      ></notify-tailwind-checkbox>
+
+      <notify-tailwind-input
+        [parent]="$any(pageSettingsForm.controls['contactOverrides'])"
+        name="name"
+        label="Forza nome contatto"
+        [compact]="true"
+        [showClearInput]="true"
+        [placeholder]="alias"
+      ></notify-tailwind-input>
+
+      <div class="divider"></div>
+
       <notify-background-items-spacing-form
         [pageSettingsForm]="pageSettingsForm"
       ></notify-background-items-spacing-form>
@@ -115,6 +129,7 @@ const FORCE_UPDATE_KEYS: string[] = [];
         ></notify-background-image-form>
         } }
       </div>
+
       }
     </form>
   `,
@@ -137,6 +152,14 @@ export class PageFormComponent implements OnInit {
 
   public get backgroundType() {
     return this.pageSettingsForm.controls['backgroundType'].value;
+  }
+
+  public get alias() {
+    const avatar = this.form.value?.items?.find(
+      (v) => v._id === this.form.value?.requiredItems?.avatar
+    ) as INotifyAPAvatarItem;
+
+    return avatar.label;
   }
 
   public backgroundSelectOptions = this._apItems.createSelectOptions(
@@ -192,4 +215,7 @@ export const ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS: INotifyAPageSettings = {
   redirectUrl: '',
   topPadding: 0,
   hideContactSave: false,
+  contactOverrides: {
+    name: '',
+  },
 };
