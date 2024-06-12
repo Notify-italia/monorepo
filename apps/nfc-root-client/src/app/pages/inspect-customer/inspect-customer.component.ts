@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   EnumNotifyStatType,
   EnumNotifyUserType,
@@ -23,7 +23,7 @@ import {
   WidgetCounterComponent,
 } from '@notify/ngx-shared';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Subject, map, of, switchMap, tap } from 'rxjs';
+import { Observable, Subject, catchError, map, of, switchMap, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 type INotifyGetCustomerResponse = INotifyCompany<true> & {
@@ -53,6 +53,7 @@ export class InspectCustomerComponent {
   private _profilePlayerFactory = inject(ProfilePlayerFactory);
   private _licenseFormFull = inject(LicenseFormFullFactory);
   private _toastr = inject(ToastrService);
+  private _router = inject(Router);
 
   public userTypes = EnumNotifyUserType;
 
@@ -133,6 +134,27 @@ export class InspectCustomerComponent {
       .subscribe();
   }
 
+  public deleteCustomer() {
+    if (!confirm('Sei sicuro di voler eliminare il cliente?')) {
+      return;
+    }
+
+    this._rootService
+      .deleteCustomer(
+        this._activatedRoute.snapshot.queryParamMap.get('id') as string
+      )
+      .pipe(
+        tap(() => {
+          this._toastr.success('Cliente eliminato');
+          this._router.navigate(['/pages/customers']);
+        }),
+        catchError(() =>
+          of(this._toastr.error("Errore durante l'eliminazione del cliente"))
+        )
+      )
+      .subscribe();
+  }
+
   private _getCustomer(): void {
     this._rootService
       .getCustomer(
@@ -142,7 +164,7 @@ export class InspectCustomerComponent {
         map((customer) => {
           return {
             ...customer,
-            users$: of(customer.users),
+            users$: of(customer?.users),
             usersStatsMapped: customer.users.reduce(
               (acc: INotifyUserStats, user) => {
                 const stats = Object.keys(

@@ -41,6 +41,10 @@ export class RootService {
     >('/v1/licenses', config);
   }
 
+  public deleteCustomer(id: string) {
+    return this.httpService.delete(`/v1/customer`, { id });
+  }
+
   public getDashboard() {
     return this.httpService.get<{
       companies: number;

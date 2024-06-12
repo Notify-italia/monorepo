@@ -198,6 +198,12 @@ export class ProfileService {
     return avatar.label || 'Ignoto';
   }
 
+  public getContactName(profile: INotifyProfile) {
+    return (
+      this.getContactOverrides(profile)?.name || this.getProfileName(profile)
+    );
+  }
+
   public getContactOverrides(profile: INotifyProfile) {
     if (!profile.advancedProfile?.enabled) {
       return null;
@@ -240,7 +246,7 @@ export class ProfileService {
               })
           );
 
-    const _cName = d.company ? this.getProfileName(d.company) : '';
+    const _cName = d.company ? this.getContactName(d.company) : '';
 
     const vcard = `BEGIN:VCARD
 VERSION:3.0
