@@ -139,6 +139,10 @@ export class InspectCustomerComponent {
       return;
     }
 
+    if (!confirm('Sei veramente sicuro? Questa azione è irreversibile!')) {
+      return;
+    }
+
     this._rootService
       .deleteCustomer(
         this._activatedRoute.snapshot.queryParamMap.get('id') as string
