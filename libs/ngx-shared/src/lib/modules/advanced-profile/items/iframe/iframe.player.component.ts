@@ -84,6 +84,10 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
   }
 
   public get ogTitle() {
+    if (this.openGraphMetadata?.charset === 'utf-8') {
+      return this.openGraphMetadata?.ogTitle || '';
+    }
+
     return convertToUTF8(
       this.openGraphMetadata?.ogTitle || ''
       // this.openGraphMetadata?.charset
@@ -91,6 +95,10 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
   }
 
   public get ogDescription() {
+    if (this.openGraphMetadata?.charset === 'utf-8') {
+      return this.openGraphMetadata?.ogDescription || '';
+    }
+
     return convertToUTF8(
       this.openGraphMetadata?.ogDescription || ''
       // this.openGraphMetadata?.charset
@@ -186,4 +194,7 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
   }
 }
 
-export const convertToUTF8 = (body: string) => decodeURIComponent(escape(body));
+export const convertToUTF8 = (body: string) => {
+  console.log(body);
+  return decodeURIComponent(escape(body));
+};
