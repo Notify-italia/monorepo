@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { INotifyAPIFrameItem } from '@notify/interfaces';
-
 import { OgObject } from 'open-graph-scraper/dist/lib/types';
 import { catchError, debounceTime, of, switchMap, tap } from 'rxjs';
 import {
@@ -42,17 +41,14 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
         <div class="max-w-full truncate max-h-full">
           <p class="truncate">
             <small>
-              <strong>{{ this.openGraphMetadata.ogTitle }}</strong>
+              <strong>{{ ogTitle }}</strong>
             </small>
           </p>
 
           <p class=" whitespace-normal max-h-20 leading-tight line-clamp-3">
             <small>
               <small>
-                {{
-                  this.openGraphMetadata.ogDescription ||
-                    this.openGraphMetadata.requestUrl
-                }}
+                {{ ogDescription || this.openGraphMetadata.requestUrl }}
               </small>
             </small>
           </p>
@@ -85,6 +81,20 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
     }
 
     return normalized;
+  }
+
+  public get ogTitle() {
+    return convertToUTF8(
+      this.openGraphMetadata?.ogTitle || ''
+      // this.openGraphMetadata?.charset
+    );
+  }
+
+  public get ogDescription() {
+    return convertToUTF8(
+      this.openGraphMetadata?.ogDescription || ''
+      // this.openGraphMetadata?.charset
+    );
   }
 
   public get ogMetadataTextColor() {
@@ -175,3 +185,5 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
       );
   }
 }
+
+export const convertToUTF8 = (body: string) => decodeURIComponent(escape(body));

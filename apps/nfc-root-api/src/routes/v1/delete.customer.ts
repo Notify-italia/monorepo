@@ -102,7 +102,7 @@ router.delete(
       });
 
       await asyncForEach(
-        [company?._id, ...profiles.map((v) => v._id)],
+        [company?._id, ...agents.map((v) => v._id)],
         async (n) => {
           await FeedbackModel.deleteMany({ owner: n });
           await StatModel.deleteMany({ owner: n });
