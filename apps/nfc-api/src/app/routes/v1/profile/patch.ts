@@ -61,13 +61,16 @@ router.patch(
       })) as ProfileDocument;
 
       if (
-        (profile.owner as unknown as INotifyAgent).owner.toString() !==
-        req.currentUser._id.toString()
+        profile.type === EnumNotifyUserType.Agent &&
+        (profile.owner as unknown as INotifyAgent)?.owner?.toString() !==
+          req.currentUser._id.toString()
       ) {
         throw new BadRequestError(
           'Non hai i permessi per modificare questo profilo'
         );
       }
+
+      //TODO impedisci di modificare il profilo di un'azienda diversa da se stessi
 
       await _editProfile(profile, body);
 

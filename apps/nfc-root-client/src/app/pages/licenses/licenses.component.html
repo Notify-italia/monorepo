@@ -124,23 +124,14 @@
       {
         id: 'assignedTo',
         label: 'Assegnato a',
-                hidden,
-
+        hidden,
         sorter: sortAssignedTo,
+        
         value: {
           valueType: 'avatar',
           avatarSize: '14',
-          fields: {
-            src: 'company.profile.avatar',
-            mask: 'company.profile.config.avatarMask',
-            backgroundColor: 'company.profile.colors.elements',
-            placeholderSeed: 'company.profile._id',
-            userName: 'company.profile.name',
-            userSurname: 'company.profile.surname',
-            userEmail: 'company.email'
-          }
+          computedValues: computeAvatar,
         }
-
       },
       {
         id: 'createdAt',

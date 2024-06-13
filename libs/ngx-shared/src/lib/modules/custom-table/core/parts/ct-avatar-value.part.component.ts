@@ -8,31 +8,22 @@ import {
 import { UtilsService } from '../../../../services';
 import { AvatarComponent } from '../../../../standalones';
 
+export interface ICTAvatarValueFields {
+  src: string;
+  mask: string;
+  backgroundColor: string;
+  placeholderSeed: string;
+  userName: string;
+  userSurname: string;
+  userEmail: string;
+  size?: string;
+}
 export interface ICTAvatarValue extends INotifyCustomTableValueBase {
   valueType: 'avatar';
   avatarSize: string;
   scrambleCacheOnChange?: boolean;
-  fields?: {
-    src: string;
-    mask: string;
-    backgroundColor: string;
-    placeholderSeed: string;
-    userName: string;
-    userSurname: string;
-    userEmail: string;
-  };
-  computedValues?: (iterate: unknown) =>
-    | {
-        src: string;
-        mask: DaisyUIAvatarMasks;
-        size: string;
-        backgroundColor: string;
-        placeholderSeed: string;
-        userName: string;
-        userSurname: string;
-        userEmail: string;
-      }
-    | undefined;
+  fields?: ICTAvatarValueFields;
+  computedValues?: (iterate: unknown) => ICTAvatarValueFields | undefined;
 }
 
 @Component({
@@ -88,7 +79,11 @@ export class CustomTableAvatarValueComponent
 
     const _computedValues = this.value.computedValues?.(this.iterate);
     if (_computedValues !== undefined) {
-      this.iteratedValues = _computedValues;
+      this.iteratedValues = {
+        ..._computedValues,
+        mask: (_computedValues.mask || 'circle') as DaisyUIAvatarMasks,
+        size: this.value.avatarSize,
+      };
       return;
     }
 

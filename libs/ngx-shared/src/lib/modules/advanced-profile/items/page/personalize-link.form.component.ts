@@ -194,7 +194,7 @@ export class PersonalizeLinkFormComponent implements OnInit {
           this.valid = 'success';
         }),
         switchMap(() => {
-          if (!this.valid) {
+          if (!this.valid || this.valid === 'error') {
             return of();
           }
 

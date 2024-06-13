@@ -140,70 +140,13 @@ export class AccountsTableComponent implements OnInit, OnChanges {
         {
           id: 'name',
           label: 'Alias',
-          hidden: (column, iterate) => {
-            const isDisabled = this._isRowDisabled('name');
-            if (!iterate) {
-              return isDisabled;
-            }
-
-            return isDisabled || iterate.advancedProfile?.enabled;
-          },
+          hidden: () => this._isRowDisabled('name'),
           sorter: (a, b) => a.profile?.name?.localeCompare(b.profile?.name),
           value: <ICTAvatarValue>{
             valueType: 'avatar',
             avatarSize: '14',
             scrambleCacheOnChange: false,
-            fields: {
-              src: 'profile.avatar',
-              mask: 'profile.config.avatarMask',
-              backgroundColor: 'profile.customFields.backgroundColor',
-              placeholderSeed: 'profile.name',
-              userName: 'profile.name',
-              userSurname: 'profile.surname',
-              userEmail: 'email',
-            },
-            computedValues: (iterate: INotifyUser) => {
-              if (!iterate.profile?.advancedProfile?.enabled) {
-                return;
-              }
-
-              const advancedProfile = iterate.profile.advancedProfile;
-              const avatarItem = advancedProfile?.items.find(
-                (v) => v._id === advancedProfile?.requiredItems.avatar
-              ) as INotifyAPAvatarItem;
-
-              return {
-                src: avatarItem?.imgSrc,
-                mask: avatarItem?.imgMask,
-                size: '14',
-                backgroundColor: 'white',
-                placeholderSeed: iterate.profile._id,
-                userName: avatarItem.label,
-                // userSurname: iterate.profile.surname,
-                userEmail: iterate.email,
-              };
-            },
-          },
-        },
-        {
-          id: 'name',
-          label: 'Alias',
-          hidden: (column, iterate) =>
-            this._isRowDisabled('name') || !iterate?.advancedProfile?.enabled,
-          sorter: (a, b) => a.profile?.name?.localeCompare(b.profile?.name),
-          value: <ICTAvatarValue>{
-            valueType: 'avatar',
-            avatarSize: '14',
-            scrambleCacheOnChange: false,
-            fields: {
-              src: 'profile.avatar',
-              mask: 'profile.config.avatarMask',
-              backgroundColor: 'profile.customFields.backgroundColor',
-              placeholderSeed: 'profile.name',
-              userName: 'profile.name',
-              userSurname: 'profile.surname',
-              userEmail: 'email',
-            },
+            computedValues: this._computeAvatar,
           },
         },
         {
@@ -302,6 +245,39 @@ export class AccountsTableComponent implements OnInit, OnChanges {
           },
         },
       ],
+    };
+  }
+
+  private _computeAvatar(row: unknown) {
+    const company = (row as INotifyUser)?.profile;
+
+    if (!company?.advancedProfile?.enabled) {
+      return {
+        src: company?.avatar || '',
+        mask: company?.config.avatarMask || '',
+        backgroundColor: company?.config.avatarMask
+          ? company?.colors.elements
+          : 'transparent',
+        placeholderSeed: company?._id || '',
+        userName: company?.name || '',
+        userSurname: company?.surname || '',
+        userEmail: company?.email || '',
+        size: '14',
+      };
+    }
+
+    const avatar = company.advancedProfile.items.find(
+      (v) => v._id === company.advancedProfile?.requiredItems.avatar
+    ) as INotifyAPAvatarItem;
+    return {
+      src: avatar?.imgSrc || '',
+      mask: avatar.imgMask || '',
+      backgroundColor: 'transparent',
+      placeholderSeed: company?._id || '',
+      userName: avatar.label || '',
+      userSurname: '',
+      size: '14',
+      userEmail: (row as INotifyUser)?.email || '',
     };
   }
 }

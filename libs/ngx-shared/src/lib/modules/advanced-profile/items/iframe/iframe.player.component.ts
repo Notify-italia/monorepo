@@ -84,7 +84,7 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
   }
 
   public get ogTitle() {
-    if (this.openGraphMetadata?.charset === 'utf-8') {
+    if (this.openGraphMetadata?.charset?.toLowerCase() === 'utf-8') {
       return this.openGraphMetadata?.ogTitle || '';
     }
 
@@ -195,6 +195,9 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
 }
 
 export const convertToUTF8 = (body: string) => {
-  console.log(body);
-  return decodeURIComponent(escape(body));
+  try {
+    return decodeURIComponent(escape(body));
+  } catch {
+    return body;
+  }
 };

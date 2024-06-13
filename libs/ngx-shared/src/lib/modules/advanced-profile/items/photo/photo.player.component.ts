@@ -22,7 +22,7 @@ import {
         [src]="context.getters.currentItem.imgSrc"
         class="w-full rounded-lg pointer-events-none object-center"
         [ngClass]="{
-        'cursor-pointer hover:scale-95 smooth pointer-events-auto': context.getters.currentItem.showCompanyOnClick && ['none', 'sm', 'md'].includes(context.services.utils.currentTailwindMediaQuery()),
+        'cursor-pointer active:scale-95 smooth pointer-events-auto': context.getters.currentItem.showCompanyOnClick && ['none', 'sm', 'md'].includes(context.services.utils.currentTailwindMediaQuery()),
       }"
         [ngStyle]="fitNgStyle"
       />

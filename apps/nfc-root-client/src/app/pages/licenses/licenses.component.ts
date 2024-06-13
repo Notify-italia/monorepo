@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { INotifyPopulatedLicense } from '@notify/interfaces';
+import {
+  INotifyAPAvatarItem,
+  INotifyPopulatedLicense,
+} from '@notify/interfaces';
 import {
   CustomTableComponent,
   LicenseFormFullFactory,
@@ -134,6 +137,39 @@ export class LicensesComponent implements OnInit {
       navigator.clipboard.writeText(action.data.publicKey);
       this._toastr.info('Chiave copiata negli appunti');
     }
+  }
+
+  public computeAvatar(row: unknown) {
+    const company = (row as INotifyPopulatedLicense).company?.profile;
+
+    if (!company?.advancedProfile?.enabled) {
+      return {
+        src: company?.avatar || '',
+        mask: company?.config.avatarMask || '',
+        backgroundColor: company?.config.avatarMask
+          ? company?.colors.elements
+          : 'transparent',
+        placeholderSeed: company?._id || '',
+        userName: company?.name || '',
+        userSurname: company?.surname || '',
+        userEmail: company?.email || '',
+        size: '14',
+      };
+    }
+
+    const avatar = company.advancedProfile.items.find(
+      (v) => v._id === company.advancedProfile?.requiredItems.avatar
+    ) as INotifyAPAvatarItem;
+    return {
+      src: avatar?.imgSrc || '',
+      mask: avatar.imgMask || '',
+      backgroundColor: 'transparent',
+      placeholderSeed: company?._id || '',
+      userName: avatar.label || '',
+      userSurname: '',
+      size: '14',
+      userEmail: (row as INotifyPopulatedLicense).company?.email || '',
+    };
   }
 
   public sortExpirationDate(
