@@ -72,6 +72,9 @@ export class AdvancedProfilePlayerComponent {
     }
 
     return {
+      '-webkit-backdrop-filter': `blur(${
+        this.pageSettings?.backgroundBlur
+      }px) brightness(${this.pageSettings?.backgroundBrightness / 100})`,
       'backdrop-filter': `blur(${
         this.pageSettings?.backgroundBlur
       }px) brightness(${this.pageSettings?.backgroundBrightness / 100})`,

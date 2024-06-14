@@ -34,7 +34,9 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
         [stepsLabels]="{
           showCurrentStepWhileDragging: true,
           stepUsesPercentage: true,
-          stepSuffix: '%'
+          stepSuffix: '%',
+          startLabel: '0%',
+          endLabel: '100%'
         }"
       ></notify-tailwind-slider>
 
@@ -49,7 +51,9 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
         [stepsLabels]="{
           showCurrentStepWhileDragging: true,
           stepUsesPercentage: true,
-          stepSuffix: '%'
+          stepSuffix: '%',
+          startLabel: '0%',
+          endLabel: '100%'
         }"
       ></notify-tailwind-slider>
     </div>
