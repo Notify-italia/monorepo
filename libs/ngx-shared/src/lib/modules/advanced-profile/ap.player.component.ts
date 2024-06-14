@@ -6,7 +6,11 @@ import {
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, inject } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
-import { INotifyAdvancedProfileItem, INotifyProfile } from '@notify/interfaces';
+import {
+  EnumNotifyAPBackgroundTypes,
+  INotifyAdvancedProfileItem,
+  INotifyProfile,
+} from '@notify/interfaces';
 import { Subject } from 'rxjs';
 import { FormsService, UtilsService } from '../../services';
 import { PagePlayerComponent } from './items/page/page.player.component';
@@ -49,6 +53,30 @@ export class AdvancedProfilePlayerComponent {
 
   public get advancedProfile() {
     return this.profile.advancedProfile;
+  }
+
+  public get itemContainerStyles() {
+    if (!this.pageSettings) {
+      return {};
+    }
+
+    const _baseStyles = {
+      'padding-left': this.pageSettings?.padding + 'rem',
+      'padding-right': this.pageSettings?.padding + 'rem',
+    };
+
+    if (
+      this.pageSettings.backgroundType !== EnumNotifyAPBackgroundTypes.Image
+    ) {
+      return _baseStyles;
+    }
+
+    return {
+      'backdrop-filter': `blur(${
+        this.pageSettings?.backgroundBlur
+      }px) brightness(${this.pageSettings?.backgroundBrightness / 100})`,
+      ..._baseStyles,
+    };
   }
 
   public get pageSettings() {

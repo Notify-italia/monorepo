@@ -6,19 +6,54 @@ import Compressor from 'compressorjs';
 import { tap } from 'rxjs';
 import { ProfileService, UtilsService } from '../../../../services';
 import { UploadComponent } from '../../../../standalones';
+import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
 
 @Component({
   selector: 'notify-background-image-form',
   standalone: true,
-  imports: [CommonModule, UploadComponent],
+  imports: [CommonModule, UploadComponent, TailwindFormsModule],
   providers: [ProfileService, UtilsService],
-  template: ` <notify-upload
-    [file]="fileData"
-    acceptedFiles="image/*"
-    uploadLabel="Trascina un'immagine o clicca per caricarla"
-    class="h-48"
-    (fileChanged)="setFileControlValue($event)"
-  ></notify-upload>`,
+  template: `
+    <div class="flex flex-col space-y-4">
+      <notify-upload
+        [file]="fileData"
+        acceptedFiles="image/*"
+        uploadLabel="Trascina un'immagine o clicca per caricarla"
+        class="h-48"
+        (fileChanged)="setFileControlValue($event)"
+      ></notify-upload>
+
+      <notify-tailwind-slider
+        [parent]="pageSettingsForm"
+        name="backgroundBlur"
+        label="Sfocatura"
+        [min]="0"
+        [max]="20"
+        [steps]="10"
+        [compact]="true"
+        [stepsLabels]="{
+          showCurrentStepWhileDragging: true,
+          stepUsesPercentage: true,
+          stepSuffix: '%'
+        }"
+      ></notify-tailwind-slider>
+
+      <notify-tailwind-slider
+        [parent]="pageSettingsForm"
+        name="backgroundBrightness"
+        label="Luminosità"
+        [min]="0"
+        [max]="100"
+        [steps]="10"
+        [compact]="true"
+        [stepsLabels]="{
+          showCurrentStepWhileDragging: true,
+          stepUsesPercentage: true,
+          stepSuffix: '%'
+        }"
+      ></notify-tailwind-slider>
+    </div>
+  `,
 })
 export class AdvancedProfileBackgroundImageFormComponent implements OnInit {
   private _profile = inject(ProfileService);

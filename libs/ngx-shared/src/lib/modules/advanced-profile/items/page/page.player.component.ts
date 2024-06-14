@@ -11,7 +11,7 @@ import {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div [class]="baseClass" [ngStyle]="ngStyle">
+    <div [class]="baseClass" [ngStyle]="baseStyles">
       <ng-content></ng-content>
     </div>
   `,
@@ -21,7 +21,7 @@ export class PagePlayerComponent {
 
   public backgroundTypes = EnumNotifyAPBackgroundTypes;
 
-  public get ngStyle() {
+  public get baseStyles() {
     switch (this.pageSettings.backgroundType) {
       case this.backgroundTypes.Fill:
         return {

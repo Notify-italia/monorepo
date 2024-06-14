@@ -249,6 +249,8 @@ export const ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS: INotifyAPageSettings = {
   topPadding: 0,
   hideContactSave: false,
   useCompanyTheme: false,
+  backgroundBlur: 0,
+  backgroundBrightness: 100,
   contactOverrides: {
     name: '',
   },

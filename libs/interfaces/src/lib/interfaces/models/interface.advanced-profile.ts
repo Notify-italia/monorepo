@@ -127,6 +127,8 @@ export interface INotifyAdvancedProfileItem<
 export interface INotifyAPageSettings {
   backgroundType: EnumNotifyAPBackgroundTypes;
   imgSrc: string;
+  backgroundBrightness: number;
+  backgroundBlur: number;
   fill: string;
   gradient: {
     direction: EnumNotifyAPDirections;

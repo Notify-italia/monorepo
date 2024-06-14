@@ -16,14 +16,9 @@
     "
     class="size-full overflow-y-auto notify-scrollbar scrollbar-absolute"
     [ngClass]="{
-      'lg:!pt-14': contained,
+      'lg:!pt-14 rounded-[3rem]': contained,
     }"
-    [ngStyle]="{
-      'padding-left': ps.padding + 'rem',
-      'padding-right': ps.padding + 'rem',
-      
-
-    }"
+    [ngStyle]="itemContainerStyles"
     cdk-scrollable
   >
     <div
