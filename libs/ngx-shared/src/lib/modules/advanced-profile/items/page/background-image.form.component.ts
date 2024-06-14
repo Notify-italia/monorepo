@@ -53,7 +53,8 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
           stepUsesPercentage: true,
           stepSuffix: '%',
           startLabel: '0%',
-          endLabel: '100%'
+          endLabel: '100%',
+          
         }"
       ></notify-tailwind-slider>
     </div>

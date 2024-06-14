@@ -6,8 +6,11 @@ import {
   OnInit,
   SimpleChanges,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { tap } from 'rxjs';
+import { CapacitorService } from '../../../../services';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
 
 @Component({
@@ -15,10 +18,16 @@ import { TailwindFormsService } from '../../services/tailwind-forms.service';
   templateUrl: './tailwind-slider.component.html',
   styles: `
   .bubble {
-  @apply absolute left-1/2 transform -translate-x-1/2 rounded-xl bg-secondary-500 text-white p-1  text-xs -mt-7;
+  @apply absolute transform rounded-xl bg-secondary-500 text-white p-1  text-xs shrink-0 -mt-7 w-fit;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
 }`,
 })
 export class TailwindSliderComponent implements OnInit, OnChanges {
+  private _capacitorService = inject(CapacitorService);
+
   @Input() parent!: FormGroup;
   @Input() label!: string;
   @Input() name!: string;
@@ -39,7 +48,7 @@ export class TailwindSliderComponent implements OnInit, OnChanges {
     stepUsesPercentage?: boolean;
   };
 
-  @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
+  @ViewChild('RangeInput') inputRef!: ElementRef<HTMLInputElement>;
 
   public get stepsIterable() {
     return Array.from({ length: this.steps + 1 }, (_, i) => i);
@@ -57,10 +66,18 @@ export class TailwindSliderComponent implements OnInit, OnChanges {
     return ((this.currentValue - this.min) / (this.max - this.min)) * 100;
   }
 
-  public get bubbleLeft() {
-    return `calc(${this.currentPercentage}% + (${
-      8 - this.currentPercentage * 0.15
-    }px))`;
+  public get bubbleTransform() {
+    const sliderWidth =
+      this.inputRef?.nativeElement?.getBoundingClientRect()?.width;
+
+    if (!sliderWidth) {
+      return '';
+    }
+
+    //* that division by 110 is a deliberate choice to make the bubble have a shorter range than the slider itself
+    return `translateX(${
+      (sliderWidth * (this.currentPercentage - 50)) / 110
+    }px)`;
   }
 
   constructor(private tailwindFormService: TailwindFormsService) {}
@@ -69,6 +86,16 @@ export class TailwindSliderComponent implements OnInit, OnChanges {
     if (!this.label) {
       this.label = this.name;
     }
+
+    this.parent.controls[this.name].valueChanges
+      .pipe(
+        tap(() =>
+          this._capacitorService.triggerHapticFeedback(
+            this._capacitorService.impactStyles.Light
+          )
+        )
+      )
+      .subscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

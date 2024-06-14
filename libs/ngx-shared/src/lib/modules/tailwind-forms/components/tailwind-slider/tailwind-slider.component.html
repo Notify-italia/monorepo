@@ -28,6 +28,7 @@
       [name]="name"
       [formControlName]="name"
       type="range"
+      #RangeInput
       [min]="min"
       [max]="max"
       class="range w-full"
@@ -40,15 +41,14 @@
         stepsLabels?.showCurrentStep ||
         stepsLabels?.showCurrentStepWhileDragging
       "
-      class="bubble smooth smooth-ease-out smooth-fast"
+      class="bubble smooth smooth-ease-out smooth-fast will-change-transform"
       [ngClass]="{
         'opacity-0 group-active:opacity-100':
           stepsLabels?.showCurrentStepWhileDragging,
         '-bottom-2': stepsLabels?.stepPosition === 'bottom',
       }"
       [ngStyle]="{
-    left: bubbleLeft,
-  
+        transform: bubbleTransform,
   }"
     >
       {{

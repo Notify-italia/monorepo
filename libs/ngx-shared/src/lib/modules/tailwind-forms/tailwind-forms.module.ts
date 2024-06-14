@@ -10,6 +10,7 @@ import { TailwindColorPickerComponent } from './components/tailwind-color-picker
 import { TailwindDatepickerComponent } from './components/tailwind-datepicker/tailwind-datepicker.component';
 
 import { RemoveFocusDirective } from '../../directives';
+import { CapacitorService } from '../../services';
 import { DropzoneModule } from '../../standalones/dropzone/public-api';
 import { TailwindDropzoneComponent } from './components/tailwind-dropzone/tailwind-dropzone.component';
 import { TailwindInputComponent } from './components/tailwind-input/tailwind-input.component';
@@ -68,7 +69,7 @@ import { TailwindFormsService } from './services/tailwind-forms.service';
     TailwindDropzoneComponent,
     TailwindSliderComponent,
   ],
-  providers: [TailwindFormsService, provideNgxMask()],
+  providers: [TailwindFormsService, provideNgxMask(), CapacitorService],
 })
 export class TailwindFormsModule {}
 
