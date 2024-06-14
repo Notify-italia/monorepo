@@ -3,13 +3,14 @@ import {
   ElementRef,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   SimpleChanges,
   ViewChild,
   inject,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { tap } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { CapacitorService } from '../../../../services';
 import { TailwindFormsService } from '../../services/tailwind-forms.service';
 
@@ -23,9 +24,13 @@ import { TailwindFormsService } from '../../services/tailwind-forms.service';
   right: 0; 
   margin-left: auto; 
   margin-right: auto; 
-}`,
+}
+
+
+
+`,
 })
-export class TailwindSliderComponent implements OnInit, OnChanges {
+export class TailwindSliderComponent implements OnInit, OnChanges, OnDestroy {
   private _capacitorService = inject(CapacitorService);
 
   @Input() parent!: FormGroup;
@@ -49,6 +54,8 @@ export class TailwindSliderComponent implements OnInit, OnChanges {
   };
 
   @ViewChild('RangeInput') inputRef!: ElementRef<HTMLInputElement>;
+
+  private _destroy$ = new Subject<void>();
 
   public get stepsIterable() {
     return Array.from({ length: this.steps + 1 }, (_, i) => i);
@@ -89,6 +96,7 @@ export class TailwindSliderComponent implements OnInit, OnChanges {
 
     this.parent.controls[this.name].valueChanges
       .pipe(
+        takeUntil(this._destroy$),
         tap(() =>
           this._capacitorService.triggerHapticFeedback(
             this._capacitorService.impactStyles.Light
@@ -96,6 +104,11 @@ export class TailwindSliderComponent implements OnInit, OnChanges {
         )
       )
       .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

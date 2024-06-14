@@ -74,6 +74,8 @@ export class NavComponent {
   }
 
   private get _isUserWriting(): boolean {
+    // console.log(document.activeElement?.tagName, document.activeElement);
+
     return (
       ['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '') &&
       document.activeElement?.getAttribute('type') !== 'checkbox'

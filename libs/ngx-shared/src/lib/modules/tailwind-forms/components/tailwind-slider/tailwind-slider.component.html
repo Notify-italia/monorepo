@@ -24,11 +24,14 @@
 
   <button class="group w-full">
     <input
+      tabindex="0"
       [id]="name"
       [name]="name"
       [formControlName]="name"
       type="range"
       #RangeInput
+      (touchstart)="RangeInput.focus()"
+      (touchend)="RangeInput.blur()"
       [min]="min"
       [max]="max"
       class="range w-full"

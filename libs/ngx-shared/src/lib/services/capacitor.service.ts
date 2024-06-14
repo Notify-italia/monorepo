@@ -39,7 +39,7 @@ export class CapacitorService {
   }
 
   public triggerHapticFeedback(style: ImpactStyle) {
-    console.log('triggerHapticFeedback', style, this.isNative);
+    // console.log('triggerHapticFeedback', style, this.isNative);
     if (!this.isNative) {
       return;
     }
