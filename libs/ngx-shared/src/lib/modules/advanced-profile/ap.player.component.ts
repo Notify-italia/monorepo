@@ -51,6 +51,14 @@ export class AdvancedProfilePlayerComponent {
     return this.profile.advancedProfile;
   }
 
+  public get pageSettings() {
+    if (this.profile.advancedProfile?.pageSettings.useCompanyTheme) {
+      return this.profile.company?.advancedProfile?.pageSettings;
+    }
+
+    return this.advancedProfile?.pageSettings;
+  }
+
   public get verticalSpacing() {
     const value = this.advancedProfile?.pageSettings.verticalSpacing || 0;
 

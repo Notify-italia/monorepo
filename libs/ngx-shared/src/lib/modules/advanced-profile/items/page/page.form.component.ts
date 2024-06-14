@@ -12,6 +12,7 @@ import {
   EnumNotifyAPAlign,
   EnumNotifyAPBackgroundTypes,
   EnumNotifyAPDirections,
+  EnumNotifyUserType,
   INotifyAPAvatarItem,
   INotifyAPageSettings,
   INotifyProfile,
@@ -98,50 +99,65 @@ const FORCE_UPDATE_KEYS: string[] = [];
         <small>Styling Pagina</small>
       </div>
 
-      <notify-background-items-spacing-form
-        [pageSettingsForm]="pageSettingsForm"
-      ></notify-background-items-spacing-form>
-
-      <div class="divider"></div>
-
-      <notify-page-font-form
-        [pageSettingsForm]="pageSettingsForm"
-      ></notify-page-font-form>
-
-      <div class="divider"></div>
-
-      <notify-tailwind-select
+      <notify-tailwind-checkbox
         [parent]="pageSettingsForm"
-        [options]="backgroundSelectOptions"
-        name="backgroundType"
-        label="Tipo di sfondo"
+        name="useCompanyTheme"
         [compact]="true"
-      ></notify-tailwind-select>
+        label="Usa il tema di {{ companyName }}"
+        *ngIf="isAgent"
+      ></notify-tailwind-checkbox>
 
-      <div class="flex flex-col space-y-4">
-        @switch (backgroundType) { @case (backgroundTypes.Fill) {
-        <notify-background-fill-form
+      <div
+        class="flex flex-col space-y-4"
+        [ngClass]="{
+          'disabled-control': pageSettingsForm.value.useCompanyTheme
+        }"
+      >
+        <notify-background-items-spacing-form
           [pageSettingsForm]="pageSettingsForm"
-        ></notify-background-fill-form>
+        ></notify-background-items-spacing-form>
 
-        } @case (backgroundTypes.Gradient) {
-        <notify-background-gradient-form
+        <div class="divider"></div>
+
+        <notify-page-font-form
           [pageSettingsForm]="pageSettingsForm"
-        ></notify-background-gradient-form
-        >} @case (backgroundTypes.Image) {
-        <notify-background-image-form
-          [pageSettingsForm]="pageSettingsForm"
-          [profile]="profile"
-        ></notify-background-image-form>
-        } }
+        ></notify-page-font-form>
+
+        <div class="divider"></div>
+
+        <notify-tailwind-select
+          [parent]="pageSettingsForm"
+          [options]="backgroundSelectOptions"
+          name="backgroundType"
+          label="Tipo di sfondo"
+          [compact]="true"
+        ></notify-tailwind-select>
+
+        <div class="flex flex-col space-y-4">
+          @switch (backgroundType) { @case (backgroundTypes.Fill) {
+          <notify-background-fill-form
+            [pageSettingsForm]="pageSettingsForm"
+          ></notify-background-fill-form>
+
+          } @case (backgroundTypes.Gradient) {
+          <notify-background-gradient-form
+            [pageSettingsForm]="pageSettingsForm"
+          ></notify-background-gradient-form
+          >} @case (backgroundTypes.Image) {
+          <notify-background-image-form
+            [pageSettingsForm]="pageSettingsForm"
+            [profile]="profile"
+          ></notify-background-image-form>
+          } }
+        </div>
       </div>
-
       }
     </form>
   `,
 })
 export class PageFormComponent implements OnInit {
   private _apItems = inject(AdvancedProfileItemsService);
+  private _profileService = inject(ProfileService);
 
   @Input({ required: true }) form!: advancedProfileForm;
   @Input({ required: true }) profile!: INotifyProfile;
@@ -154,6 +170,10 @@ export class PageFormComponent implements OnInit {
 
   public get pageSettingsForm() {
     return this.form.controls?.pageSettings as unknown as FormGroup;
+  }
+
+  public get isAgent() {
+    return this.profile.type === EnumNotifyUserType.Agent;
   }
 
   public get backgroundType() {
@@ -172,6 +192,13 @@ export class PageFormComponent implements OnInit {
     EnumNotifyAPBackgroundTypes,
     NOTIFY_AP_BACKGROUND_TYPES_IT
   );
+
+  public get companyName() {
+    if (!this.profile.company) {
+      return '';
+    }
+    return this._profileService.getContactName(this.profile.company);
+  }
 
   public ngOnInit() {
     this._compareFormWithDefaults();
@@ -221,6 +248,7 @@ export const ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS: INotifyAPageSettings = {
   redirectUrl: '',
   topPadding: 0,
   hideContactSave: false,
+  useCompanyTheme: false,
   contactOverrides: {
     name: '',
   },

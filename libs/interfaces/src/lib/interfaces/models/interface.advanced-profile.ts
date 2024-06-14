@@ -144,6 +144,7 @@ export interface INotifyAPageSettings {
    * duplicato di INotifyProfile['redirectUrl'] dato che l'editor non ha accesso a INotifyProfile ma solo a INotifyAdvancedProfile
    */
   redirectUrl: string;
+  useCompanyTheme: boolean;
   contactOverrides: {
     name: string;
   };
