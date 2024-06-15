@@ -1,6 +1,8 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { CapacitorService } from '../../../../services';
 
 export const CHECKBOX_TOGGLE_EYE = {
   checked: `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -15,8 +17,9 @@ export const CHECKBOX_TOGGLE_EYE = {
   selector: 'notify-tailwind-checkbox',
   templateUrl: './tailwind-checkbox.component.html',
 })
-export class TailwindCheckboxComponent implements OnInit {
+export class TailwindCheckboxComponent implements OnInit, OnDestroy {
   private _domSanitizer = inject(DomSanitizer);
+  private _capacitorService = inject(CapacitorService);
 
   @Input() parent!: FormGroup;
   @Input() label!: string;
@@ -35,10 +38,28 @@ export class TailwindCheckboxComponent implements OnInit {
     button?: string;
   };
 
+  private _destroy$ = new Subject<void>();
+
   ngOnInit(): void {
     if (!this.label) {
       this.label = this.name;
     }
+
+    this.parent.controls[this.name].valueChanges
+      .pipe(
+        takeUntil(this._destroy$),
+        tap(() =>
+          this._capacitorService.triggerHapticFeedback(
+            this._capacitorService.impactStyles.Light
+          )
+        )
+      )
+      .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   get toggleIcon() {
