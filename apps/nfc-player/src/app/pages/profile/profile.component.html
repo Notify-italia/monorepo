@@ -8,7 +8,7 @@
     *ngIf="
       !(p.advancedProfile?.enabled
         ? p.advancedProfile?.pageSettings?.hideContactSave
-        : true)
+        : false)
     "
     (click)="saveContact(p)"
     [offsets]="{
