@@ -38,6 +38,11 @@ export class TailwindColorPickerComponent
 
   handleColorPickerChange(color: string) {
     this.color = color;
+
+    if (!this.compact) {
+      return;
+    }
+
     this.parent.controls[this.name].setValue(this.color);
   }
 

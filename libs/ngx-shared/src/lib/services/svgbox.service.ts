@@ -333,8 +333,9 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
   },
   {
     expanded: 'Nessuna icona',
-    name: '',
+    name: 'no-icon',
     set: '',
+    data: '',
   },
   {
     expanded: 'Apps',

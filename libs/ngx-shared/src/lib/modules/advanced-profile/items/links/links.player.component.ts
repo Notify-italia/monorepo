@@ -42,6 +42,7 @@ import { SvgBoxIconComponent } from '../../../../standalones';
           class="btn !flex-nowrap truncate min-h-1 !h-fit py-2 "
           [ngClass]="{
             'w-full justify-between': isVertical,
+            '!justify-center': isVertical && link.icon === 'no-icon',
             'space-x-2 m-1 btn-square ': isHorizontal,
             'btn-outline': isOutlined,
             'btn-ghost': isText,
@@ -56,6 +57,7 @@ import { SvgBoxIconComponent } from '../../../../standalones';
         }"
         >
           <notify-svg-box-icon
+            *ngIf="link.icon !== 'no-icon'"
             [iconName]="link.icon"
             [pixelSize]="iconSize"
           ></notify-svg-box-icon>

@@ -23,7 +23,7 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
       [ngClass]="container.ngClass"
     >
       <button
-        class="flex space-x-2 items-center justify-evenly  rounded-xl  text-start px-4 py-2 w-full h-36 active:scale-95 smooth smooth-fast"
+        class="flex space-x-2 items-center justify-evenly  rounded-xl  text-start p-2 pr-4 w-full h-32 active:scale-95 smooth smooth-fast"
         ontouchstart
         (click)="handleClick()"
         [ngStyle]="{
@@ -34,11 +34,16 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
         @if(openGraphMetadata) {
         <img
           [src]="imageUrl"
-          class=" w-28 h-28 rounded-lg object-cover"
+          class=" w-24 h-24 rounded-lg object-cover shrink-0"
           *ngIf="imageUrl"
         />
 
-        <div class="max-w-full truncate max-h-full">
+        <div
+          class="max-w-full truncate max-h-full"
+          [ngClass]="{
+            'text-center': !imageUrl
+          }"
+        >
           <p class="truncate">
             <small>
               <strong>{{ ogTitle }}</strong>
