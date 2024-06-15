@@ -4,21 +4,22 @@ const _getVersionArt = (tag: string) => {
   return `https://s3-api.vps.notifyapp.it/assets/version-art/${tag}.webp`;
 };
 
-const _sharedDescription = `In questa versione minore non ci sono molti cambiamenti visibili all'utente finale ma qualcosa di grosso e altamente personalizzabile bolle in pentola 👀`;
+const _sharedDescription = `Un'altra versione di Notify, un'altra occasione per migliorare l'esperienza utente e risolvere alcuni problemi minori. Intanto continiuamo a "cucinare" in segreto 🫢`;
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
     type: 'improvement',
     message:
-      'Non è passato molto da quando le note sono tornate in <i>Note</i>-ify, da allora abbiamo avuto questo pallino in testa sul fatto che sia un nome fin troppo restrittivo per quello che è il loro potenziale di coworking. <br /> Da questa versione quindi cambiano nome in ✨Progetti✨!',
+      "Haptic feedback aggiunto nei toggle per migliorare l'esperienza utente",
+  },
+  {
+    type: 'improvement',
+    message:
+      'Aggiunte alcune nuove integrazioni nel pannello di personalizzazione del profilo',
   },
   {
     type: 'fix',
-    message: `Risolto un problema che causava un'immagine di contatto assente su iOS durante la preview di salvataggio nella visualizzazione di un profilo`,
-  },
-  {
-    type: 'fix',
-    message: `Risolti alcuni problemi di visualizzazione di un progetto all'interno del profilo`,
+    message: `Risolto un problema che causava la visualizzazione non corretta dello stato di hover degli elementi clickabili da mobile`,
   },
   {
     type: 'fix',
@@ -27,19 +28,19 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
 ];
 
 export const agentChangelog: INotifyVersionInfo = {
-  tag: 'v1.0.1',
-  date: '2024-06-05',
+  tag: 'v1.0.2',
+  date: '2024-06-18',
   description: _sharedDescription,
-  title: 'Accendendo il fuoco...',
-  artPath: _getVersionArt('v1.0.1'),
+  title: 'Mettendo la carne...',
+  artPath: _getVersionArt('v1.0.2'),
   changes: [..._sharedChanges],
 };
 
 export const companyChangelog: INotifyVersionInfo = {
-  tag: 'v1.0.1',
-  date: '2024-06-05',
+  tag: 'v1.0.2',
+  date: '2024-06-18',
   description: _sharedDescription,
-  title: 'Accendendo il fuoco...',
-  artPath: _getVersionArt('v1.0.1'),
+  title: 'Mettendo la carne...',
+  artPath: _getVersionArt('v1.0.2'),
   changes: [..._sharedChanges],
 };

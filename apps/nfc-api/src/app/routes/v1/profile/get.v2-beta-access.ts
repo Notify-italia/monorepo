@@ -2,6 +2,8 @@ import { requestHandler } from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { query } from 'express-validator';
 
+const V2_BETA_ACCESS = JSON.parse(process.env.V2_BETA_ACCESS || '[]');
+
 const ADVANCED_PROFILE_BETA: string[] = [
   '657f8988e0500872e4275d83',
   '657f7376e0500872e4275d4c',
@@ -62,7 +64,9 @@ router.get(
       const { profile } = req.query;
 
       res.send({
-        hasAccess: ADVANCED_PROFILE_BETA.includes(profile as string),
+        hasAccess: [...V2_BETA_ACCESS, ...ADVANCED_PROFILE_BETA].includes(
+          profile as string
+        ),
       });
     },
     {
