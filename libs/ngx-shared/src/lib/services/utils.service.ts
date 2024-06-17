@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { AppError } from '@notify/interfaces';
 import { format } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
@@ -38,6 +39,7 @@ export enum EnumDicebearAvatarStyles {
 
 @Injectable()
 export class UtilsService {
+  private _platformID = inject(PLATFORM_ID);
   public get apiUrl(): string {
     return this._http.apiBaseUrl;
   }
@@ -210,7 +212,11 @@ export class UtilsService {
     | 'lg'
     | 'xl'
     | '2xl' {
-    const width = window.innerWidth;
+    if (!isPlatformBrowser(this._platformID)) {
+      return 'none';
+    }
+
+    const width = window?.innerWidth;
 
     if (width < 640) {
       return 'none';

@@ -1,0 +1,56 @@
+<div class="max-content-width">
+  <div class="website-section h-full">
+    <h1 class="section-title">Canva, ma per biglietti da visita digitali</h1>
+    <p class="section-subtitle">
+      Compila i dati sottostanti e scegli uno stile per farti un'idea di come
+      potrebbe apparire il tuo biglietto da visita digitale!
+    </p>
+    <div class="my-20 flex justify-between items-center space-x-4">
+      <form [formGroup]="form" class="flex flex-col space-y-4">
+        <div class="flex space-x-2 w-full">
+          <notify-tailwind-input
+            name="name"
+            label="Nome completo"
+            placeholder="Mario Rossi"
+            [compact]="true"
+            [parent]="form"
+          ></notify-tailwind-input>
+          <notify-tailwind-input
+            name="phone"
+            label="numero di telefono"
+            placeholder="333 1234567"
+            [compact]="true"
+            [parent]="form"
+          ></notify-tailwind-input>
+          <notify-tailwind-input
+            name="email"
+            label="email"
+            type="email"
+            placeholder="email@esempio.dominio"
+            [compact]="true"
+            [parent]="form"
+          ></notify-tailwind-input>
+        </div>
+        <notify-tailwind-textarea
+          [parent]="form"
+          name="description"
+          [compact]="true"
+          [rows]="3"
+          label="Parlaci di te"
+          placeholder="Inserisci una breve descrizione di te stesso/a"
+        ></notify-tailwind-textarea>
+
+        <div class="flex space-x-2 justify-around">
+          <button class="style-button">CHILL</button>
+          <button class="style-button">CORPORATE</button>
+        </div>
+      </form>
+      <notify-profile-view
+        class="iphone-15-pro"
+        [data]="currentTemplate"
+        [mockup]="true"
+        [isRunningOnPlayer]="true"
+      ></notify-profile-view>
+    </div>
+  </div>
+</div>
