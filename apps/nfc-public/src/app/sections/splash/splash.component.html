@@ -1,45 +1,59 @@
 <div class="max-content-width">
   <div
-    class="flex flex-col justify-center w-full lg:h-[90vh] relative py-5 lg:py-0"
+    class="flex flex-col justify-center items-center w-full lg:h-[90vh] relative py-5 lg:py-0"
   >
     <div
       class="flex flex-col-reverse lg:flex-row lg:justify-around w-full flex-nowrap items-center h-full"
     >
       <div class="space-y-10 w-full lg:w-fit lg:max-w-[50vw] mx-8 z-10">
         <h1
-          class="text-4xl lg:text-5xl font-bold font-caveat text-center lg:text-start flex flex-col justify-center text-white w-full lg:w-fit animate-fade-up lg:animate-fade-right animate-once animate-ease-out"
+          class="text-4xl lg:text-5xl font-bold font-poppins text-center lg:text-start flex flex-col justify-center w-full lg:w-fit animate-fade-up lg:animate-fade-right animate-once animate-ease-out"
         >
-          <span> Regala un effetto </span>
+          <span>Ad un</span>
           <div class="neon">
-            <b class="z-0"> WOW </b> <b class="blink z-0">!</b>
+            <b class="z-0"> TAP </b> <b class="blink z-0">!</b>
           </div>
-          <span class="-mt-5"> ai tuoi clienti</span>
+          <span class="-mt-5"> dal successo!</span>
         </h1>
 
         <h2
-          class="lg:text-xl mt-5 text-slate-200 whitespace-pre-line px-5 lg:px-0 text-center lg:text-start animate-fade-up lg:animate-fade-right animate-ease-out animate-delay-[300ms]"
+          class="lg:text-xl mt-5 whitespace-pre-line px-5 lg:px-0 text-center lg:text-start animate-fade-up lg:animate-fade-right animate-ease-out animate-delay-[300ms]"
         >
-          <b class="text-gray-50">
-            Hai mai sognato di vedere il tuo biglietto da visita fare un
-            moonwalk nell'era digitale?
-          </b>
-          <br />
-          <br />
-
-          <p class="font-light">
-            Preparati a rimanere senza fiato, <br />
-            Con i nostri biglietti da visita digitali ogni presentazione diventa
-            un'avventura spaziale!
+          <p>
+            Il biglietto da visita, tutto italiano 🇮🇹, per le aziende di domani.
+            a soli 4 €/mese
           </p>
         </h2>
+        <a
+          href="#contactus"
+          class="p-4 rounded-full bg-[#0286FF] text-white font-outfit flex justify-between hover:scale-110 hover:brightness-125 smooth text-lg items-center font-medium hover:shadow-lg"
+        >
+          <span>Chiedi un preventivo</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m8.25 4.5 7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </a>
       </div>
+
       <div
         class="w-full h-full lg:w-[80%] lg:h-[80%] flex justify-end opacity-90 px-5 lg:px-0 pointer-events-none z-0"
       >
         <img
-          src="/assets/images/dashboard.webp"
+          (load)="componentStable.emit()"
+          src="https://s3-api.vps.notifyapp.it/assets/v2-public/iPhone%20Mockup%401-2560x1206.png"
           alt="dashbaord"
-          class="object-cover opacity-75 w-full h-full overflow-visible object-left"
+          class="object-cover w-full h-full overflow-visible object-left"
         />
       </div>
     </div>

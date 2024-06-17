@@ -46,10 +46,15 @@ import { SustainabilityComponent } from '../../sections/sustainability/sustainab
 })
 export class HomeComponent implements AfterContentInit {
   public instructionsStable$ = new Subject<void>();
+  public splashStable$ = new Subject<void>();
+  public featuresStable$ = new Subject<void>();
 
   public stable = false;
 
-  public pageStable$ = combineLatest([this.instructionsStable$]).pipe(
+  public pageStable$ = combineLatest([
+    this.splashStable$,
+    this.featuresStable$,
+  ]).pipe(
     tap(() => this.scrollToElement()),
     tap(() => (this.stable = true))
   );

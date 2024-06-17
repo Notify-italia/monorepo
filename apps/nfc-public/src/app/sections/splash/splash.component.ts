@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
+  AppTitleComponent,
   ProfileViewComponent,
   SSRBaseComponent,
   SSRDirective,
@@ -16,6 +17,7 @@ import {
     ProfileViewComponent,
     SSRDirective,
     SplineViewerComponent,
+    AppTitleComponent,
   ],
   providers: [UtilsService],
   templateUrl: './splash.component.html',

@@ -20,12 +20,12 @@ export class PartnersComponent {
       class: 'p-4 opacity-75',
       image: '/assets/partners/recivu.svg',
     },
-    {
-      title: 'Pegaso Florence',
-      profile: '65b4123355f91802d0f2585e',
-      class: 'opacity-75',
-      image: '/assets/partners/pegaso.webp',
-    },
+    // {
+    //   title: 'Pegaso Florence',
+    //   profile: '65b4123355f91802d0f2585e',
+    //   class: 'opacity-75',
+    //   image: '/assets/partners/pegaso.webp',
+    // },
     {
       title: 'Legione Etruria',
       profile: '65c2b3edec503b4a3bf7bbda',

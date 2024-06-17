@@ -10,55 +10,27 @@
   <notify-cursor></notify-cursor>
 
   <div
-    class="h-full w-full flex flex-col overflow-hidden scroll-smooth text-slate-200 bg-[#0E0E0F]"
+    class="h-full w-full flex flex-col overflow-hidden scroll-smooth text-slate-900 bg-slate-50 px-2"
   >
     <!-- SPLASH E TOP NAV -->
-    <div class="w-full h-full flex flex-col hero-gradient relative">
+    <div class="w-full h-full flex flex-col relative">
       <notify-top-nav></notify-top-nav>
 
-      <notify-splash id="splash"></notify-splash>
+      <notify-splash
+        id="splash"
+        (componentStable)="splashStable$.next()"
+      ></notify-splash>
+      <div class="divider"></div>
+      <notify-features
+        id="features"
+        (componentStable)="featuresStable$.next()"
+      ></notify-features>
     </div>
-
-    <!-- GRADIENT DIVIDER -->
-    <section
-      class="items-center relative py-20 overflow-hidden"
-      data-v-03e9e875
-    >
-      <div style="opacity: 1; transform: none" data-v-03e9e875 data-v-b822103d>
-        <span class="hero-divider" data-v-b822103d></span
-        ><span
-          class="gradient-border gradient-border-right"
-          data-v-b822103d
-        ></span
-        ><span
-          class="gradient-border gradient-border-left"
-          data-v-b822103d
-        ></span>
-      </div>
-    </section>
-
-    <notify-personalization id="#personalization"></notify-personalization>
-
-    <notify-card-builder class="my-20" id="#card-builder"></notify-card-builder>
-
-    <notify-software-only></notify-software-only>
-
-    <div class="divider"></div>
-
-    <notify-features id="features"></notify-features>
-
-    <notify-sustainability id="sustainability"></notify-sustainability>
 
     <div class="divider"></div>
 
     <notify-funded-by id="fundedby" class="mt-20"></notify-funded-by>
-
     <notify-partners id="partners"></notify-partners>
-
-    <notify-instructions
-      class="mt-20"
-      (componentStable)="instructionsStable$.next()"
-    ></notify-instructions>
 
     <div class="divider"></div>
 
