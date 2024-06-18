@@ -24,7 +24,7 @@ import { DynamicModuleLoaderService } from '../../../../services/dynamic-module-
         [options]="context.components.select.buttonStyles"
       >
       </notify-tailwind-select>
-      <div>
+      <div class="NgxEditorForm">
         <small class="mb-0.5">Contenuto</small>
         <div class="overflow-x-auto lg:w-full">
           <ngx-editor-menu
