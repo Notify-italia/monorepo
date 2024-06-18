@@ -53,6 +53,7 @@ export class RootService {
       profileVisit: number;
       provileSave: number;
       boughtCards: number;
+      totalAgents: number;
     }>('/v1/dashboard');
   }
 

@@ -1,5 +1,5 @@
 import {
-  EnumNotifyAPButtonStyles,
+  EnumNotifyAPContainerStyles,
   EnumNotifyAdvancedProfileItems,
   INotifyAPFeedbackItem,
 } from '@notify/interfaces';
@@ -27,7 +27,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPFeedbackItem> = {
     caption: '',
     icon: '',
     url: '',
-    style: EnumNotifyAPButtonStyles.Filled,
+    style: EnumNotifyAPContainerStyles.Filled,
   },
 };
 

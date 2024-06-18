@@ -1,12 +1,19 @@
 <div tabindex="-1" #DummyFocus></div>
 
-<div [formGroup]="parent" class="flex my-auto w-full items-center" tabindex="0">
+<div
+  [formGroup]="parent"
+  class="flex my-auto w-full"
+  tabindex="0"
+  [ngClass]="{
+  'items-stretch': compact,
+}"
+>
   <input
     type="color"
     tabindex="0"
     #ColorPickerRoot
     [formControlName]="name"
-    class="pointer-events-none opacity-0 fixed w-0"
+    class="pointer-events-none opacity-0 sticky w-0"
     (input)="handleColorPickerChange($any($event.target)?.value)"
   />
 

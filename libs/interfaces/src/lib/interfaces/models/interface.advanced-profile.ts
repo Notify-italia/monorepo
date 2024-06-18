@@ -23,7 +23,8 @@ export type NotifyAdvancedProfileItem =
   | INotifyAPPhotoItem
   | INotifyAPNoteItem
   | INotifyAPIFrameItem
-  | INotifyAPDividerItem;
+  | INotifyAPDividerItem
+  | INotifyAPLabelItem;
 
 export type NotifyAdvancedProfileItemTypes =
   | NotifyAdvancedProfileItem['type']
@@ -49,14 +50,14 @@ export interface INotifyAPAvatarItem
 export interface INotifyAPFeedbackItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Feedback>,
     baseButton {
-  style: EnumNotifyAPButtonStyles;
+  style: EnumNotifyAPContainerStyles;
 }
 
 //links
 export interface INotifyAPLinksItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Links> {
   items: INotifyAPLinkItem[];
-  style: EnumNotifyAPButtonStyles;
+  style: EnumNotifyAPContainerStyles;
   openInNotify: boolean;
   direction: EnumNotifyAPDirections;
 }
@@ -77,7 +78,7 @@ export interface INotifyAPPlaceItem
 export interface INotifyAPContactsItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Contacts> {
   items: INotifyAPContactItem[];
-  style: EnumNotifyAPButtonStyles;
+  style: EnumNotifyAPContainerStyles;
   direction: EnumNotifyAPDirections;
 }
 export type INotifyAPContactItem = baseButton;
@@ -105,6 +106,12 @@ export interface INotifyAPIFrameItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.IFrame> {
   url: string;
   openInNotify: boolean;
+}
+
+export interface INotifyAPLabelItem
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Label> {
+  content: string;
+  style: EnumNotifyAPContainerStyles;
 }
 
 export interface INotifyAdvancedProfileItem<
@@ -173,7 +180,7 @@ export enum EnumNotifyAPCorners {
   BottomRight = 'bottom-right',
 }
 
-export enum EnumNotifyAPButtonStyles {
+export enum EnumNotifyAPContainerStyles {
   Filled = 'filled',
   Outlined = 'outlined',
   Text = 'text',
@@ -210,6 +217,7 @@ export enum EnumNotifyAdvancedProfileItems {
   IFrame = 'iframe',
   Unknown = 'unknown',
   Divider = 'divider',
+  Label = 'label',
 }
 
 export const NOTIFY_AP_FONTS = {
@@ -251,11 +259,11 @@ export const NOTIFY_AP_DIRECTIONS_IT: {
 };
 
 export const NOTIFY_AP_BUTTON_STYLES_IT: {
-  [key in EnumNotifyAPButtonStyles]: string;
+  [key in EnumNotifyAPContainerStyles]: string;
 } = {
-  [EnumNotifyAPButtonStyles.Filled]: 'Riempito',
-  [EnumNotifyAPButtonStyles.Outlined]: 'Tracciato',
-  [EnumNotifyAPButtonStyles.Text]: 'Testo',
+  [EnumNotifyAPContainerStyles.Filled]: 'Riempito',
+  [EnumNotifyAPContainerStyles.Outlined]: 'Tracciato',
+  [EnumNotifyAPContainerStyles.Text]: 'Testo',
 };
 
 export const NOTIFY_AP_OWNER_IMG_CORNER_IT: {

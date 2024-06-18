@@ -4,7 +4,10 @@ import { Router } from 'express';
 
 //boilderplate for a post request to create an agent
 const router = Router();
-const excludedCompany = ['65c23f35c92682d98233e50f' , '655805c8f5638dc5ef4b358f'];
+const excludedCompany = [
+  '65c23f35c92682d98233e50f',
+  '655805c8f5638dc5ef4b358f',
+];
 
 router.get(
   '/',
@@ -27,15 +30,21 @@ router.get(
         .map((company) => company.license.boughtCards)
         .reduce((a, b) => a + (b || 0), 0);
 
-      const agents = await AgentModel.find({
-        owner: { $in: activeCompanies.map((company) => company._id) },
+      const _agents = await AgentModel.find({
+        owner: { $in: companies.map((company) => company._id) },
       });
 
-      const profileVisit = agents
+      const agents = _agents.filter((agent) =>
+        activeCompanies
+          .map((company) => String(company._id))
+          .includes(String(agent.owner))
+      );
+
+      const profileVisit = _agents
         .map((agent) => agent.statsTotals['profile:visit'])
         .reduce((a, b) => a + (b || 0), 0);
 
-      const provileSave = agents
+      const provileSave = _agents
         .map((agent) => agent.statsTotals['profile:save'])
         .reduce((a, b) => a + (b || 0), 0);
 
@@ -44,6 +53,7 @@ router.get(
         activeCompanies: activeCompanies.length,
         boughtCards,
         agents: agents.length,
+        totalAgents: _agents.length,
         profileVisit,
         provileSave,
       });

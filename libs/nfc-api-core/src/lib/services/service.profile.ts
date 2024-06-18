@@ -1,7 +1,7 @@
 import {
   EnumNotifyAPAlign,
   EnumNotifyAPBackgroundTypes,
-  EnumNotifyAPButtonStyles,
+  EnumNotifyAPContainerStyles,
   EnumNotifyAPCorners,
   EnumNotifyAPDirections,
   EnumNotifyAdvancedProfileItems,
@@ -159,7 +159,7 @@ const _generateLinksItem = (profile: INotifyProfile) => {
     EnumNotifyAdvancedProfileItems.Links,
     {
       direction: EnumNotifyAPDirections.Vertical,
-      style: EnumNotifyAPButtonStyles.Filled,
+      style: EnumNotifyAPContainerStyles.Filled,
       items: profile.customFields.map((link) => ({
         icon: link.iconName,
         caption: link.iconName,
@@ -181,7 +181,7 @@ const _generateContactsItem = (profile: INotifyProfile) => {
     EnumNotifyAdvancedProfileItems.Contacts,
     {
       direction: EnumNotifyAPDirections.Horizontal,
-      style: EnumNotifyAPButtonStyles.Text,
+      style: EnumNotifyAPContainerStyles.Text,
       items: [],
     }
   );

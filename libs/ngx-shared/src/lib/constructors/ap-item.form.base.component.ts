@@ -4,7 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
   EnumNotifyAPAlign,
-  EnumNotifyAPButtonStyles,
+  EnumNotifyAPContainerStyles,
   EnumNotifyAPDirections,
   EnumNotifyAPObjectFit,
   EnumNotifyUserType,
@@ -109,14 +109,14 @@ export class AdvancedProfileItemFormBaseComponent<
         formChanged: this.form.valueChanges.pipe(takeUntil(this._destroy$)),
       },
       statics: {
-        buttonStyles: EnumNotifyAPButtonStyles,
+        buttonStyles: EnumNotifyAPContainerStyles,
         directions: EnumNotifyAPDirections,
         objectFit: EnumNotifyAPObjectFit,
       },
       components: {
         select: {
           buttonStyles: this._apItemsSerivce.createSelectOptions(
-            EnumNotifyAPButtonStyles,
+            EnumNotifyAPContainerStyles,
             NOTIFY_AP_BUTTON_STYLES_IT
           ),
           directions: this._apItemsSerivce.createSelectOptions(

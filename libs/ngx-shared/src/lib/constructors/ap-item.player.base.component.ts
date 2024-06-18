@@ -12,7 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {
   EnumNotifyAPAlign,
-  EnumNotifyAPButtonStyles,
+  EnumNotifyAPContainerStyles,
   EnumNotifyAPDirections,
   EnumNotifyAPObjectFit,
   EnumNotifyUserType,
@@ -88,7 +88,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
       },
       statics: {
         directions: EnumNotifyAPDirections,
-        buttonStyles: EnumNotifyAPButtonStyles,
+        buttonStyles: EnumNotifyAPContainerStyles,
         objectFit: EnumNotifyAPObjectFit,
         aligns: EnumNotifyAPAlign,
       },

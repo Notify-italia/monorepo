@@ -7,6 +7,7 @@
   >
     <button (click)="hideSelector = false" class="icon-button">
       <notify-svg-box-icon
+        class="pointer-events-none"
         [icon]="currentIcon"
         *ngIf="MANUAL_REFRESH"
       ></notify-svg-box-icon>

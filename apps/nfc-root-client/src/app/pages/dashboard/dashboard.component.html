@@ -41,6 +41,16 @@
       set: 'hero-solid'
     }"
     elementsColor="'white'"
+    [count]="dashboard.totalAgents"
+  ></notify-widget-counter>
+  <notify-widget-counter
+    [backgroundColor]="'green'"
+    title="Utenti Attivi"
+    [icon]="{
+      name: 'user-group',
+      set: 'hero-solid'
+    }"
+    elementsColor="'white'"
     [count]="dashboard.agents"
   ></notify-widget-counter>
 

@@ -42,6 +42,7 @@ export class HomeComponent {
       ],
     },
     {
+      disabled: !this._authService.activeLicense,
       label: 'Area Progetti',
       path: '/pages/notes',
       icon: [

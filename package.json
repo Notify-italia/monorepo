@@ -6,7 +6,8 @@
     "cap-ios": "nx run nfc-agent-client:cap:open-ios",
     "cap-android": "nx run nfc-agent-client:cap:open-android",
     "cap-sync": "nx build nfc-agent-client --prod && nx run nfc-agent-client:cap:sync",
-    "postinstall": "patch-package"
+    "preinstall": "patch-package --exclude '^$'",
+    "postinstall": "patch-package --exclude '^$'"
   },
   "private": true,
   "dependencies": {

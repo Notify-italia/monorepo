@@ -1,5 +1,5 @@
 import {
-  EnumNotifyAPButtonStyles,
+  EnumNotifyAPContainerStyles,
   EnumNotifyAPDirections,
   EnumNotifyAdvancedProfileItems,
   INotifyAPLinksItem,
@@ -39,7 +39,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPLinksItem> = {
   },
   definitions: {
     ...itemManifest.definitions,
-    style: EnumNotifyAPButtonStyles.Filled,
+    style: EnumNotifyAPContainerStyles.Filled,
     direction: EnumNotifyAPDirections.Vertical,
     openInNotify: false,
     items: [

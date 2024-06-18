@@ -1,5 +1,5 @@
 import {
-  EnumNotifyAPButtonStyles,
+  EnumNotifyAPContainerStyles,
   EnumNotifyAPDirections,
   EnumNotifyAdvancedProfileItems,
   INotifyAPContactsItem,
@@ -40,7 +40,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPContactsItem> = {
   definitions: {
     ...itemManifest.definitions,
     direction: EnumNotifyAPDirections.Vertical,
-    style: EnumNotifyAPButtonStyles.Outlined,
+    style: EnumNotifyAPContainerStyles.Outlined,
     items: [
       {
         caption: 'Nuovo Contatto',
