@@ -4,12 +4,14 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
   EnumNotifyAPAlign,
+  EnumNotifyAPBorderStyles,
   EnumNotifyAPContainerStyles,
   EnumNotifyAPDirections,
   EnumNotifyAPObjectFit,
   EnumNotifyUserType,
   INotifyProfile,
   NOTIFY_AP_ALIGN_IT,
+  NOTIFY_AP_BODER_STYLES_IT,
   NOTIFY_AP_BUTTON_STYLES_IT,
   NOTIFY_AP_DIRECTIONS_IT,
   NOTIFY_AP_OBJECT_FIT_IT,
@@ -130,6 +132,10 @@ export class AdvancedProfileItemFormBaseComponent<
           objectFit: this._apItemsSerivce.createSelectOptions(
             EnumNotifyAPObjectFit,
             NOTIFY_AP_OBJECT_FIT_IT
+          ),
+          borderStyles: this._apItemsSerivce.createSelectOptions(
+            EnumNotifyAPBorderStyles,
+            NOTIFY_AP_BODER_STYLES_IT
           ),
         },
         upload: {

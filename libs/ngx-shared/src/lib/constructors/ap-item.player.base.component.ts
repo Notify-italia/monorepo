@@ -19,6 +19,7 @@ import {
   INotifyProfile,
   NotifyAdvancedProfileItem,
 } from '@notify/interfaces';
+import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
 import {
   ADVANCED_PROFILE_CLICK_EVENTS,
@@ -68,6 +69,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
   private _domSanitizer = inject(DomSanitizer);
   private _apOutputsService = inject(AdvancedProfileItemOutputsService);
   private _svgBoxService = inject(SvgboxService);
+  private _toastrService = inject(ToastrService);
 
   @Input() private profile!: INotifyProfile;
   @Input() currentItem!: T;
@@ -85,6 +87,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
         utils: this._utilsSerivce,
         sanitizer: this._domSanitizer,
         svgBox: this._svgBoxService,
+        toastr: this._toastrService,
       },
       statics: {
         directions: EnumNotifyAPDirections,
@@ -192,7 +195,7 @@ export class AdvancedProfileItemPlayerBaseComponent<
         title,
         navbarStyle: {
           backgroundColor: this._textColor,
-          color: this._utilsSerivce.getContrstingColor(this._textColor),
+          color: this._utilsSerivce.getContrastingColor(this._textColor),
         },
       },
       profile: this.profile,

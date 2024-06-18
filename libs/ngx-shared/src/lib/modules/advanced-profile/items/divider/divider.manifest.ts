@@ -1,4 +1,5 @@
 import {
+  EnumNotifyAPBorderStyles,
   EnumNotifyAdvancedProfileItems,
   INotifyAPDividerItem,
 } from '@notify/interfaces';
@@ -7,6 +8,7 @@ import {
   INotifyAdvancedProfileManifest,
 } from '../../services/advanced-profile-items.service';
 import { itemManifest } from '../item.manifest';
+import { DividerFormComponent } from './divider.form.component';
 import { DividerPlayerComponent } from './divider.player.component';
 
 const manifest: INotifyAdvancedProfileManifest<INotifyAPDividerItem> = {
@@ -21,8 +23,12 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPDividerItem> = {
     hideTitle: true,
   },
   playerComponent: DividerPlayerComponent,
+  formComponent: DividerFormComponent,
   definitions: {
     ...itemManifest.definitions,
+    style: EnumNotifyAPBorderStyles.Solid,
+    height: 1,
+    color: '#52565D',
   },
 };
 

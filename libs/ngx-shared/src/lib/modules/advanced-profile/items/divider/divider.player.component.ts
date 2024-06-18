@@ -11,6 +11,16 @@ import {
   imports: AdvancedItemPlayerBaseImports,
   providers: AdvancedItemPlayerBaseProviders,
   styleUrl: '../../advanced-profile.styles.scss',
-  template: `<div class="notify-divider opacity-25 !my-0"></div>`,
+  template: `<hr
+    class=" !my-0"
+    [ngStyle]="{
+    'border-top': border,
+    
+  }"
+  />`,
 })
-export class DividerPlayerComponent extends AdvancedProfileItemPlayerBaseComponent<INotifyAPDividerItem> {}
+export class DividerPlayerComponent extends AdvancedProfileItemPlayerBaseComponent<INotifyAPDividerItem> {
+  public get border() {
+    return `${this.context.getters.currentItem.height}px ${this.context.getters.currentItem.style} ${this.context.getters.currentItem.color}`;
+  }
+}

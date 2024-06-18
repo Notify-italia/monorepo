@@ -39,7 +39,7 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
         />
 
         <div
-          class="max-w-full truncate max-h-full"
+          class="max-w-full truncate max-h-full w-full"
           [ngClass]="{
             'text-center': !imageUrl
           }"
@@ -59,15 +59,18 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
           </p>
         </div>
 
-        <div class="dropdown">
-          <div tabindex="0" role="button" class=" m-1">
+        <div
+          class="dropdown text-sm dropdown-left dropdown-bottom"
+          (click)="$event.stopPropagation()"
+        >
+          <div tabindex="0" role="button" class="">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="size-6"
+              class="size-7"
             >
               <path
                 stroke-linecap="round"
@@ -78,10 +81,22 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
           </div>
           <ul
             tabindex="0"
-            class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+            class="dropdown-content z-[1] menu-xs p-2 rounded-lg w-52 shadow-md text-xs gap-5"
+            [ngStyle]="{
+              'background-color': context.services.utils.changeColorBrightness(
+                context.getters.textColor,
+                95
+              ),
+              color: context.services.utils.getContrastingColor(
+                context.getters.textColor
+              )
+            }"
           >
-            <li><a>Item 1</a></li>
-            <li><a>Item 2</a></li>
+            <li class="py-2 pr-2 text-end" (click)="handleClick()">Apri</li>
+            <li class="py-2 pr-2 text-end" (click)="handleClick(true)">
+              Apri in un'altra tab
+            </li>
+            <li class="py-2 pr-2 text-end" (click)="shareLink()">Condividi</li>
           </ul>
         </div>
 
@@ -138,7 +153,7 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
   }
 
   public get ogMetadataTextColor() {
-    return this.context.services.utils.getContrstingColor(
+    return this.context.services.utils.getContrastingColor(
       this.context.getters.textColor || '#000000'
     );
   }
@@ -163,9 +178,24 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
     return (ogUrl || '') + (mainImage?.url || '');
   }
 
-  public handleClick() {
-    if (!this.context.getters.currentItem.openInNotify) {
-      window.open(this.currentUrl, '_blank');
+  public async shareLink() {
+    if (!navigator.share) {
+      await navigator.clipboard.writeText(this.context.getters.currentItem.url);
+      this.context.services.toastr.info('URL del sito web copiato');
+      return;
+    }
+    try {
+      return await navigator.share({
+        url: this.context.getters.currentItem.url,
+      });
+    } catch (error) {
+      console.error('Error sharing:', error);
+    }
+  }
+
+  public handleClick(openInNewWindow = false) {
+    if (!this.context.getters.currentItem.openInNotify || openInNewWindow) {
+      window.open(this.currentUrl, openInNewWindow ? '_blank' : '_self');
       return;
     }
 

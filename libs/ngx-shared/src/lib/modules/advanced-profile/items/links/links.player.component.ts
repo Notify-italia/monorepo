@@ -94,7 +94,7 @@ export class LinksPlayerComponent extends AdvancedProfileItemPlayerBaseComponent
     }
 
     //restituisci nero o bianco in base al contrasto con il colore del testo (usato invece come colore di sfondo)
-    return this.context.services.utils.getContrstingColor(
+    return this.context.services.utils.getContrastingColor(
       this.context.getters.textColor || '#000000'
     );
   }

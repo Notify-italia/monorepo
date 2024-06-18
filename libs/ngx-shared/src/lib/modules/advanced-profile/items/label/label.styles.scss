@@ -1,14 +1,6 @@
 ::ng-deep ngx-editor {
   .NgxEditor {
-    @apply bg-transparent text-gray-200 border-none;
-  }
-}
-
-.NgxEditorForm {
-  :host ::ng-deep ngx-editor {
-    .NgxEditor {
-      @apply bg-transparent text-gray-200 border-none text-xs;
-    }
+    @apply bg-transparent text-current border-none;
   }
 }
 

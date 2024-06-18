@@ -99,8 +99,12 @@ export interface INotifyAPNoteItem
   showNoteTitle: boolean;
 }
 
-export type INotifyAPDividerItem =
-  INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Divider>;
+export interface INotifyAPDividerItem
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Divider> {
+  style: EnumNotifyAPBorderStyles;
+  height: number;
+  color: string;
+}
 
 export interface INotifyAPIFrameItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.IFrame> {
@@ -184,6 +188,14 @@ export enum EnumNotifyAPContainerStyles {
   Filled = 'filled',
   Outlined = 'outlined',
   Text = 'text',
+}
+
+export enum EnumNotifyAPBorderStyles {
+  Solid = 'solid',
+  Dashed = 'dashed',
+  Dotted = 'dotted',
+  Double = 'double',
+  None = 'none',
 }
 
 export enum EnumNotifyAPBackgroundTypes {
@@ -300,6 +312,16 @@ export const NOTIFY_AP_ALIGN_IT: {
   [EnumNotifyAPAlign.Start]: 'Inizio',
   [EnumNotifyAPAlign.Center]: 'Centro',
   [EnumNotifyAPAlign.End]: 'Fine',
+};
+
+export const NOTIFY_AP_BODER_STYLES_IT: {
+  [key in EnumNotifyAPBorderStyles]: string;
+} = {
+  [EnumNotifyAPBorderStyles.Solid]: 'Solido',
+  [EnumNotifyAPBorderStyles.Dashed]: 'Tratteggiato',
+  [EnumNotifyAPBorderStyles.Dotted]: 'Puntinato',
+  [EnumNotifyAPBorderStyles.Double]: 'Doppio',
+  [EnumNotifyAPBorderStyles.None]: 'Nessuno',
 };
 
 /*

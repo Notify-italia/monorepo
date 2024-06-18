@@ -271,7 +271,7 @@ export class UtilsService {
     return !!pattern.test(url);
   }
 
-  public getContrstingColor(hex: string) {
+  public getContrastingColor(hex: string) {
     const hexColor = hex.replace('#', '');
     const r = parseInt(hexColor.substr(0, 2), 16);
     const g = parseInt(hexColor.substr(2, 2), 16);
@@ -281,5 +281,30 @@ export class UtilsService {
       (Math.round(r * 299) + Math.round(g * 587) + Math.round(b * 114)) / 1000;
 
     return contrast >= 128 ? '#000000' : '#ffffff';
+  }
+
+  public changeColorBrightness(hex: string, percent: number) {
+    // Remove the '#' character from the hex string
+    const hexColor = hex.replace('#', '');
+
+    // Convert the hex color to RGB
+    const r = parseInt(hexColor.substr(0, 2), 16);
+    const g = parseInt(hexColor.substr(2, 2), 16);
+    const b = parseInt(hexColor.substr(4, 2), 16);
+
+    // Calculate the brightness adjustment factor
+    const brightnessFactor = percent / 100;
+
+    // Adjust the RGB values based on the brightness factor
+    const adjustedR = Math.round(r * brightnessFactor);
+    const adjustedG = Math.round(g * brightnessFactor);
+    const adjustedB = Math.round(b * brightnessFactor);
+
+    // Convert the adjusted RGB values back to hex
+    const adjustedHex = `#${adjustedR.toString(16).padStart(2, '0')}${adjustedG
+      .toString(16)
+      .padStart(2, '0')}${adjustedB.toString(16).padStart(2, '0')}`;
+
+    return adjustedHex;
   }
 }
