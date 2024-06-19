@@ -28,6 +28,7 @@ import {
   defaultGradientStops,
   iframeFactory,
 } from '@notify/ngx-shared';
+import { prominent } from 'color.js';
 import {
   Observable,
   Subject,
@@ -428,14 +429,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  private _setMeta(profile: INotifyProfile) {
+  private async _setMeta(profile: INotifyProfile) {
     const name = this._profileService.getProfileName(profile);
 
     const descriptionMessage = this.isAgent(profile)
       ? `Visualizza il profilo di ${name} via Notify!`
       : `Visualizza ${name} via Notify!`;
 
-    const topThemeColor = this._getThemeColor(profile);
+    const topThemeColor = await this._getThemeColor(profile);
 
     this._titleService.setTitle(`${name} - Notify`);
 
@@ -489,7 +490,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  private _getThemeColor(profile: INotifyProfile): string {
+  private async _getThemeColor(profile: INotifyProfile): Promise<string> {
     if (!profile.advancedProfile?.enabled) {
       return profile.colors.background[0] || defaultGradientStops[0];
     }
@@ -504,7 +505,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
       case EnumNotifyAPBackgroundTypes.Gradient:
         return ps.gradient.colors[0].value;
       case EnumNotifyAPBackgroundTypes.Image:
-        return 'black';
+        return (await prominent(ps.imgSrc, {
+          format: 'hex',
+          amount: 1,
+        })) as string;
     }
   }
 }
