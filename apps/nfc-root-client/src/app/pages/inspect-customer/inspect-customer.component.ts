@@ -18,6 +18,7 @@ import {
   LicenseInfoComponent,
   LoadingComponent,
   ProfilePlayerFactory,
+  ProfileService,
   ProfileViewComponent,
   RootService,
   WidgetCounterComponent,
@@ -43,7 +44,7 @@ type INotifyGetCustomerResponse = INotifyCompany<true> & {
     AppTitleComponent,
     WidgetCounterComponent,
   ],
-  providers: [ProfilePlayerFactory, LicenseFormFullFactory],
+  providers: [ProfileService, ProfilePlayerFactory, LicenseFormFullFactory],
   templateUrl: './inspect-customer.component.html',
   styleUrl: './inspect-customer.component.scss',
 })
@@ -54,6 +55,7 @@ export class InspectCustomerComponent {
   private _licenseFormFull = inject(LicenseFormFullFactory);
   private _toastr = inject(ToastrService);
   private _router = inject(Router);
+  private _profileService = inject(ProfileService);
 
   public userTypes = EnumNotifyUserType;
 
@@ -134,6 +136,13 @@ export class InspectCustomerComponent {
       .subscribe();
   }
 
+  public customerName(p: INotifyProfile | undefined) {
+    if (!p) {
+      return '';
+    }
+    return this._profileService.getContactName(p);
+  }
+
   public deleteCustomer() {
     if (!confirm('Sei sicuro di voler eliminare il cliente?')) {
       return;
@@ -154,6 +163,35 @@ export class InspectCustomerComponent {
         }),
         catchError(() =>
           of(this._toastr.error("Errore durante l'eliminazione del cliente"))
+        )
+      )
+      .subscribe();
+  }
+
+  public deleteCustomerStats() {
+    if (!confirm('Sei sicuro di voler reimpostare le statistiche?')) {
+      return;
+    }
+
+    if (!confirm('Sei veramente sicuro? Questa azione è irreversibile!')) {
+      return;
+    }
+
+    this._rootService
+      .deleteCustomerStats(
+        this._activatedRoute.snapshot.queryParamMap.get('id') as string
+      )
+      .pipe(
+        tap(() => {
+          this._toastr.success('Statistiche eliminate');
+          location.reload();
+        }),
+        catchError(() =>
+          of(
+            this._toastr.error(
+              "Errore durante l'eliminazione delle statistiche"
+            )
+          )
         )
       )
       .subscribe();

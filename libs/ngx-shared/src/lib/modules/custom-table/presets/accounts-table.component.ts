@@ -79,6 +79,7 @@ export class AccountsTableComponent implements OnInit, OnChanges {
     subtitle: 'Non ci sono utenti da mostrare',
   };
   @Input() public skeletonRows = 0;
+  @Input() public additionalColumns: INotifyCustomTableConfig['columns'] = [];
 
   public customTableConfig?: INotifyCustomTableConfig;
 
@@ -134,6 +135,13 @@ export class AccountsTableComponent implements OnInit, OnChanges {
           'profile.customFields.value',
           'createdAt',
           'profile.role',
+          'profile.advancedProfile.pageSettings.contactOverrides.name',
+          'profile.advancedProfile.items.label',
+          'profile.advancedProfile.items.sublabel',
+          'profile.advancedProfile.items.description',
+          'profile.advancedProfile.items.items.url',
+          'profile.advancedProfile.items.url',
+          'profile.advancedProfile.items.items.caption',
         ],
       },
       columns: [
@@ -180,6 +188,7 @@ export class AccountsTableComponent implements OnInit, OnChanges {
             ],
           },
         },
+        ...this.additionalColumns,
         {
           id: 'actions',
           label: '',
@@ -249,32 +258,35 @@ export class AccountsTableComponent implements OnInit, OnChanges {
   }
 
   private _computeAvatar(row: unknown) {
-    const company = (row as INotifyUser)?.profile;
+    const p = (row as INotifyUser)?.profile;
 
-    if (!company?.advancedProfile?.enabled) {
+    if (!p?.advancedProfile?.enabled) {
       return {
-        src: company?.avatar || '',
-        mask: company?.config.avatarMask || '',
-        backgroundColor: company?.config.avatarMask
-          ? company?.colors.elements
+        src: p?.avatar || '',
+        mask: p?.config.avatarMask || '',
+        backgroundColor: p?.config.avatarMask
+          ? p?.colors.elements
           : 'transparent',
-        placeholderSeed: company?._id || '',
-        userName: company?.name || '',
-        userSurname: company?.surname || '',
-        userEmail: company?.email || '',
+        placeholderSeed: p?._id || '',
+        userName: p?.name || '',
+        userSurname: p?.surname || '',
+        userEmail: p?.email || '',
         size: '14',
       };
     }
 
-    const avatar = company.advancedProfile.items.find(
-      (v) => v._id === company.advancedProfile?.requiredItems.avatar
+    const avatar = p.advancedProfile.items.find(
+      (v) => v._id === p.advancedProfile?.requiredItems.avatar
     ) as INotifyAPAvatarItem;
     return {
       src: avatar?.imgSrc || '',
       mask: avatar.imgMask || '',
       backgroundColor: 'transparent',
-      placeholderSeed: company?._id || '',
-      userName: avatar.label || '',
+      placeholderSeed: p?._id || '',
+      userName:
+        p.advancedProfile.pageSettings.contactOverrides?.name ||
+        avatar.label ||
+        '',
       userSurname: '',
       size: '14',
       userEmail: (row as INotifyUser)?.email || '',

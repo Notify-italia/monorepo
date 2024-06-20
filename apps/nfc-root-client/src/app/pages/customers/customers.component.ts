@@ -5,8 +5,10 @@ import { INotifyUser } from '@notify/interfaces';
 import {
   AccountsTableComponent,
   IAccountsTableConfig,
+  INotifyCustomTableConfig,
   RootService,
 } from '@notify/ngx-shared';
+
 import { Observable } from 'rxjs';
 
 @Component({
@@ -28,6 +30,30 @@ export class CustomersComponent {
     clickableRow: true,
     hiddenColumns: ['select-item', 'role', 'actions'],
   };
+
+  public get customersColumns(): INotifyCustomTableConfig['columns'] {
+    return [
+      {
+        id: 'boughtCards',
+        label: 'Tessere Possedute',
+        hidden: () => false,
+        sorter: (a, b) => a.license?.boughtCards - b.license?.boughtCards,
+        value: {
+          valueType: 'badge',
+          minWidth: 0,
+          style: [
+            {
+              condition: () => true,
+              bg: '#8E6CD0',
+              text: 'white',
+            },
+          ],
+          fieldName: 'license.boughtCards',
+          transformer: (value) => value || '0',
+        },
+      },
+    ];
+  }
 
   public inspectCustomer(id: string) {
     this._router.navigate(['/pages/customer'], { queryParams: { id } });

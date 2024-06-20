@@ -5,7 +5,7 @@
       <div class="flex flex-col space-y-2">
         <button
           (click)="showProfile(user.profile)"
-          class="box w-64 h-10 py-2 flex justify-around space-x-2 items-center hover:brightness-150 smooth"
+          class="box w-64 h-10 p-2 flex justify-between space-x-2 items-center hover:brightness-150 smooth"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +23,7 @@
         </button>
         <button
           (click)="loginAsUser(user._id, userTypes.Company)"
-          class="box w-64 h-10 py-2 flex justify-around space-x-2 items-center hover:brightness-150 smooth"
+          class="box w-64 h-10 p-2 flex justify-between space-x-2 items-center hover:brightness-150 smooth"
         >
           <notify-app-title
             [compact]="true"
@@ -33,7 +33,7 @@
         </button>
         <button
           (click)="openLicenseForm(user.license, user)"
-          class="box w-64 h-10 py-2 flex justify-around space-x-2 items-center hover:brightness-150 smooth"
+          class="box w-64 h-10 p-2 flex justify-between space-x-2 items-center hover:brightness-150 smooth"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +57,7 @@
         </button>
         <button
           (click)="deleteCustomer()"
-          class="box w-64 h-10 py-2 flex justify-around space-x-2 items-center hover:brightness-150 smooth text-red-500"
+          class="box w-64 h-10 p-2 flex justify-between space-x-2 items-center hover:brightness-150 smooth text-red-500"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -74,10 +74,27 @@
 
           <span>Elimina Cliente</span>
         </button>
+        <button
+          (click)="deleteCustomerStats()"
+          class="box w-64 h-10 p-2 flex justify-between space-x-2 items-center hover:brightness-150 smooth text-red-500 mt-5"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="size-6"
+          >
+            <path
+              d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75ZM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 0 1-1.875-1.875V8.625ZM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 0 1 3 19.875v-6.75Z"
+            />
+          </svg>
+
+          <span>Reimposta Analytics</span>
+        </button>
       </div>
       <div class="w-full flex flex-col justify-center">
         <h1 class="font-bold text-5xl">
-          {{ user.profile?.name }}
+          {{ customerName(user.profile) }}
         </h1>
         <h2 class="text-xl font-light">
           {{ user.email }}

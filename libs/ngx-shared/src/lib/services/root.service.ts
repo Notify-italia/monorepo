@@ -45,6 +45,10 @@ export class RootService {
     return this.httpService.delete(`/v1/customer`, { id });
   }
 
+  public deleteCustomerStats(id: string) {
+    return this.httpService.delete(`/v1/customer/stats`, { id });
+  }
+
   public getDashboard() {
     return this.httpService.get<{
       companies: number;

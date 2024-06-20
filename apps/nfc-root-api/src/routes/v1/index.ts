@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { deleteCustomerRouter } from './delete.customer';
+import { deleteCustomerStatsRouter } from './delete.customer.stats';
 import { deleteLicenseRouter } from './delete.license';
 import { getCustomerRouter } from './get.customer';
 import { getCustomersRouter } from './get.customers';
@@ -18,6 +19,7 @@ router.use('/heartbeat', getHeartbeatRouter);
 router.use('/customers', getCustomersRouter);
 router.use('/dashboard', getDashboardRouter);
 router.use('/customer', deleteCustomerRouter);
+router.use('/customer/stats', deleteCustomerStatsRouter);
 router.use('/customer', getCustomerRouter);
 router.use('/licenses', getLicensesRouter);
 router.use('/license', postLicenseRouter);
