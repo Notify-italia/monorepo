@@ -1,82 +1,94 @@
+<notify-page-header
+  [title]="'Dashboard'"
+  [subtitle]="'Benvenuto nella dashboard principale'"
+></notify-page-header>
+
 @if ( dashboard$ | async; as dashboard ) {
-<div class="flex flex-col space-y-4">
-  <notify-widget-counter
-    [backgroundColor]="'cyan'"
-    title="Aziende Totali"
-    [icon]="{
-      name: 'office-building',
-      set: 'hero-solid'
-    }"
-    elementsColor="'white'"
-    [count]="dashboard.companies"
-  ></notify-widget-counter>
-  <notify-widget-counter
-    [backgroundColor]="'#42f593'"
-    title="Aziende Attive"
-    [icon]="{
-      name: 'euro',
-      set: 'materialui'
-    }"
-    elementsColor="'white'"
-    [count]="dashboard.activeCompanies"
-  ></notify-widget-counter>
-  <notify-widget-counter
-    [backgroundColor]="'green'"
-    title="Tessere Vendute"
-    [icon]="{
-      name: 'identification',
-      set: 'hero-solid'
-    }"
-    elementsColor="'white'"
-    [count]="dashboard.boughtCards"
-  ></notify-widget-counter>
+<div class="flex flex-col space-y-4 justify-center items-center h-full">
+  <div class="flex justify-around space-x-4 w-full">
+    <div class="flex flex-col space-y-4 w-full">
+      <notify-widget-counter
+        [backgroundColor]="'cyan'"
+        title="Aziende Totali"
+        [icon]="{
+          name: 'office-building',
+          set: 'hero-solid'
+        }"
+        elementsColor="'white'"
+        [count]="dashboard.companies"
+      ></notify-widget-counter>
+      <notify-widget-counter
+        [backgroundColor]="'#42f593'"
+        title="Aziende Attive"
+        [icon]="{
+          name: 'euro',
+          set: 'materialui'
+        }"
+        elementsColor="'white'"
+        [count]="dashboard.activeCompanies"
+      ></notify-widget-counter>
+      <notify-widget-counter
+        [backgroundColor]="'green'"
+        title="Tessere Vendute"
+        [icon]="{
+          name: 'identification',
+          set: 'hero-solid'
+        }"
+        elementsColor="'white'"
+        [count]="dashboard.boughtCards"
+      ></notify-widget-counter>
+    </div>
+    <div class="flex flex-col justify-center h-full space-y-4 w-full">
+      <notify-widget-counter
+        [backgroundColor]="'yellow'"
+        title="Utenti Totali"
+        [icon]="{
+          name: 'user-group',
+          set: 'hero-solid'
+        }"
+        elementsColor="'white'"
+        [count]="dashboard.totalAgents"
+      ></notify-widget-counter>
+      <notify-widget-counter
+        [backgroundColor]="'green'"
+        title="Utenti Attivi"
+        [icon]="{
+          name: 'user-group',
+          set: 'hero-solid'
+        }"
+        elementsColor="'white'"
+        [count]="dashboard.agents"
+      ></notify-widget-counter>
+    </div>
+  </div>
 
   <div class="divider"></div>
 
-  <notify-widget-counter
-    [backgroundColor]="'yellow'"
-    title="Utenti Totali"
-    [icon]="{
-      name: 'user-group',
-      set: 'hero-solid'
-    }"
-    elementsColor="'white'"
-    [count]="dashboard.totalAgents"
-  ></notify-widget-counter>
-  <notify-widget-counter
-    [backgroundColor]="'green'"
-    title="Utenti Attivi"
-    [icon]="{
-      name: 'user-group',
-      set: 'hero-solid'
-    }"
-    elementsColor="'white'"
-    [count]="dashboard.agents"
-  ></notify-widget-counter>
+  <div class="flex justify-around space-x-4 w-full">
+    <notify-widget-counter
+      class="w-full"
+      [backgroundColor]="'purple'"
+      title="Profili visitati"
+      [icon]="{
+        name: 'show_chart',
+        set: 'materialui'
+      }"
+      elementsColor="'white'"
+      [count]="dashboard.profileVisit"
+    ></notify-widget-counter>
 
-  <div class="divider"></div>
-
-  <notify-widget-counter
-    [backgroundColor]="'purple'"
-    title="Profili visitati"
-    [icon]="{
-      name: 'show_chart',
-      set: 'materialui'
-    }"
-    elementsColor="'white'"
-    [count]="dashboard.profileVisit"
-  ></notify-widget-counter>
-
-  <notify-widget-counter
-    [backgroundColor]="'red'"
-    title="Profili Salvati"
-    [icon]="{
-      name: 'save',
-      set: 'hero-solid'
-    }"
-    elementsColor="'white'"
-    [count]="dashboard.provileSave"
-  ></notify-widget-counter>
+    <notify-widget-counter
+      class="w-full"
+      [backgroundColor]="'red'"
+      title="Profili Salvati"
+      [icon]="{
+        name: 'save',
+        set: 'hero-solid'
+      }"
+      elementsColor="'white'"
+      [count]="dashboard.provileSave"
+    ></notify-widget-counter>
+  </div>
 </div>
 } @else {
 <div class="loading-container">
