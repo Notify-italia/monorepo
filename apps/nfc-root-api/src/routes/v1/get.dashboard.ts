@@ -34,6 +34,7 @@ router.get(
           (company.license.expirationDate === null ||
             company.license.expirationDate > new Date())
       );
+
       const boughtCards = companies
         .map((company) => company.license.boughtCards)
         .reduce((a, b) => a + (b || 0), 0);
@@ -41,6 +42,11 @@ router.get(
       const _agents = await AgentModel.find({
         owner: { $in: companies.map((company) => company._id) },
       });
+
+      const _usableUsers = [
+        ...companies.map((company) => company._id),
+        ..._agents.map((agent) => agent._id),
+      ];
 
       const agents = _agents.filter((agent) =>
         activeCompanies
@@ -56,7 +62,9 @@ router.get(
         .map((agent) => agent.statsTotals['profile:save'])
         .reduce((a, b) => a + (b || 0), 0);
 
-      const _latestVisit = await StatModel.find()
+      const _latestVisit = await StatModel.find({
+        owner: { $in: _usableUsers },
+      })
         .limit(1)
         .sort({ updatedAt: -1 });
 
