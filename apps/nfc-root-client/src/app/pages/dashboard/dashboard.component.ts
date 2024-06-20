@@ -42,7 +42,7 @@ export class DashboardComponent {
   );
 
   public getCustomerRedirectUrl(user: INotifyUser) {
-    if (user.userType === EnumNotifyUserType.Agent) {
+    if (user.profile?.type === EnumNotifyUserType.Agent) {
       return user.owner;
     }
 

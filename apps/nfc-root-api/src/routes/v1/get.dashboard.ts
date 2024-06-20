@@ -64,7 +64,8 @@ router.get(
         await genericUserQuery<true, Agent>(
           EnumNotifyUserType.Agent,
           { _id: _latestVisit?.[0].owner },
-          true
+          true,
+          'profile'
         ),
         await genericUserQuery<true, Company>(
           EnumNotifyUserType.Company,
