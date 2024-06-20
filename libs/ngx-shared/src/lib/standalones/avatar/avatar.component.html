@@ -37,6 +37,7 @@
     }"
       class="mask-{{ config.mask }}  smooth"
     >
+      <!-- ACTUAL IMAGE -->
       <img
         (load)="setLoaded(avatarType)"
         [src]="config.isBase64 ? avatar : avatar"
@@ -46,6 +47,7 @@
         [style.background-color]="config?.mask ? config.backgroundColor : ''"
       />
     </div>
+    <!-- SKELETON -->
     <div
       *ngIf="!loaded[avatarType]"
       class="mask mask-{{

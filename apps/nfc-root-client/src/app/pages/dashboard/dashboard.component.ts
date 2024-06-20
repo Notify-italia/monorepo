@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { EnumNotifyUserType, INotifyUser } from '@notify/interfaces';
 import {
+  AvatarComponent,
   LoadingComponent,
   PageHeaderComponent,
+  ProfileService,
   RootService,
   WidgetCounterComponent,
 } from '@notify/ngx-shared';
@@ -15,12 +19,17 @@ import { switchMap, tap, timer } from 'rxjs';
     WidgetCounterComponent,
     LoadingComponent,
     PageHeaderComponent,
+    AvatarComponent,
+    RouterModule,
   ],
+  providers: [ProfileService],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
+  public profileService = inject(ProfileService);
   private _rootService = inject(RootService);
+
   public isPolling = false;
   public dashboard$ = this._rootService.getDashboard().pipe(
     switchMap(() =>
@@ -31,4 +40,12 @@ export class DashboardComponent {
       )
     )
   );
+
+  public getCustomerRedirectUrl(user: INotifyUser) {
+    if (user.userType === EnumNotifyUserType.Agent) {
+      return user.owner;
+    }
+
+    return user._id;
+  }
 }

@@ -1,5 +1,13 @@
-import { INotifyCompany } from '@notify/interfaces';
-import { AgentModel, CompanyModel, requestHandler } from '@notify/nfc-api-core';
+import { EnumNotifyUserType, INotifyCompany } from '@notify/interfaces';
+import {
+  Agent,
+  AgentModel,
+  Company,
+  CompanyModel,
+  StatModel,
+  genericUserQuery,
+  requestHandler,
+} from '@notify/nfc-api-core';
 import { Router } from 'express';
 
 //boilderplate for a post request to create an agent
@@ -48,6 +56,24 @@ router.get(
         .map((agent) => agent.statsTotals['profile:save'])
         .reduce((a, b) => a + (b || 0), 0);
 
+      const _latestVisit = await StatModel.find()
+        .limit(1)
+        .sort({ updatedAt: -1 });
+
+      const latestVisitUser = [
+        await genericUserQuery<true, Agent>(
+          EnumNotifyUserType.Agent,
+          { _id: _latestVisit?.[0].owner },
+          true
+        ),
+        await genericUserQuery<true, Company>(
+          EnumNotifyUserType.Company,
+          { _id: _latestVisit?.[0].owner },
+          true,
+          'profile'
+        ),
+      ];
+
       res.send({
         companies: companies.length,
         activeCompanies: activeCompanies.length,
@@ -56,6 +82,10 @@ router.get(
         totalAgents: _agents.length,
         profileVisit,
         provileSave,
+        latestVisit: {
+          date: _latestVisit?.[0].updatedAt,
+          user: latestVisitUser.find((user) => user)?.toObject(),
+        },
       });
     },
     {

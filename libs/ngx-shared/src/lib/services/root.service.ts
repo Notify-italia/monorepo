@@ -4,6 +4,7 @@ import {
   INotifyAgent,
   INotifyCompany,
   INotifyLicense,
+  INotifyUser,
 } from '@notify/interfaces';
 import { HttpService } from './http.service';
 
@@ -58,6 +59,10 @@ export class RootService {
       provileSave: number;
       boughtCards: number;
       totalAgents: number;
+      latestVisit: {
+        date: Date;
+        user: INotifyUser;
+      };
     }>('/v1/dashboard');
   }
 

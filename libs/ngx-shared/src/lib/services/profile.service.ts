@@ -10,6 +10,7 @@ import {
   INotifyAPPlaceItem,
   INotifyProfile,
 } from '@notify/interfaces';
+import { INotifyAvatarConfig } from '../standalones';
 import { HttpService } from './http.service';
 
 @Injectable()
@@ -222,6 +223,31 @@ export class ProfileService {
     ) as INotifyAPAvatarItem;
 
     return avatar?.imgSrc || '';
+  }
+
+  public getProfileAvatarComponentConfig(
+    profile: INotifyProfile,
+    size = '10'
+  ): INotifyAvatarConfig {
+    if (!profile.advancedProfile?.enabled) {
+      return {
+        src: profile.avatar || '',
+        size,
+        mask: profile.config.avatarMask || '',
+        placeholderSeed: profile._id,
+      };
+    }
+
+    const avatar = profile.advancedProfile.items.find(
+      (i) => i._id === profile.advancedProfile?.requiredItems.avatar
+    ) as INotifyAPAvatarItem;
+
+    return {
+      src: avatar?.imgSrc || '',
+      size,
+      mask: avatar.imgMask || '',
+      placeholderSeed: profile._id,
+    };
   }
 
   public async saveContact(d: INotifyProfile, publicUrl: string) {
