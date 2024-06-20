@@ -6,7 +6,7 @@ import {
   RootService,
   WidgetCounterComponent,
 } from '@notify/ngx-shared';
-import { delay, of, repeat, switchMap } from 'rxjs';
+import { switchMap, tap, timer } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -21,9 +21,14 @@ import { delay, of, repeat, switchMap } from 'rxjs';
 })
 export class DashboardComponent {
   private _rootService = inject(RootService);
-  public dashboard$ = of(null).pipe(
-    switchMap(() => this._rootService.getDashboard()),
-    delay(1000),
-    repeat()
+  public isPolling = false;
+  public dashboard$ = this._rootService.getDashboard().pipe(
+    switchMap(() =>
+      timer(0, 5000).pipe(
+        tap(() => (this.isPolling = true)),
+        switchMap(() => this._rootService.getDashboard()),
+        tap(() => (this.isPolling = false))
+      )
+    )
   );
 }
