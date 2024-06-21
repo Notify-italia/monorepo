@@ -1,5 +1,5 @@
-import { EnumNotifyUserType } from '@notify/interfaces';
-import { Document, FilterQuery, Model } from 'mongoose';
+import { EnumNotifyUserType, UserDocument } from '@notify/interfaces';
+import { FilterQuery, Model } from 'mongoose';
 import { BadRequestError } from '../../errors';
 import {
   Agent,
@@ -32,8 +32,8 @@ export type UserDocType<T> = T extends EnumNotifyUserType.Agent
  * an array of documents.
  */
 export type QueryDbReturnType<T, FindOne> = FindOne extends true
-  ? Document<unknown, object, T> & T
-  : (Document<unknown, object, T> & T)[];
+  ? UserDocument
+  : UserDocument[];
 
 export const genericUserQuery = async <
   FindOne extends boolean,
@@ -73,4 +73,31 @@ const _getModel = (targetDb: string): Model<any> | undefined => {
     case EnumNotifyUserType.Company:
       return CompanyModel;
   }
+};
+
+export const queryUsers = async <FindOne extends boolean>(
+  query: FilterQuery<UserDocTypes>,
+  findOne: FindOne,
+  populate?: string
+) => {
+  const result = [
+    ...(await genericUserQuery<false, UserDocTypes>(
+      EnumNotifyUserType.Agent,
+      query,
+      false,
+      populate
+    )),
+    ...(await genericUserQuery<false, UserDocTypes>(
+      EnumNotifyUserType.Company,
+      query,
+      false,
+      populate
+    )),
+  ];
+
+  if (findOne) {
+    return result[0] as QueryDbReturnType<UserDocTypes, FindOne>;
+  }
+
+  return result as QueryDbReturnType<UserDocTypes, FindOne>;
 };

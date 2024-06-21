@@ -58,7 +58,7 @@ export interface INotifyLead extends MongodbDocument {
   /**
    * utenti che possono visualizzare questo lead nella rubrica
    */
-  savedToCollection: INotifyUser['_id'][];
+  sharedBy: INotifyUser['_id'][];
 }
 
 export enum EnumNotifyLeadOrigins {

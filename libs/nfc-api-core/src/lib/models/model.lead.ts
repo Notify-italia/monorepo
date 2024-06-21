@@ -21,6 +21,19 @@ export const LEAD_VALIDATION_MESSAGES: {
   [key in keyof Partial<Lead>]: string;
 } = {
   _id: "L'id del contatto non è valido",
+  createdBy: "L'id dell'utente che ha creato il contatto non è valido",
+  color: 'Il colore del contatto non è valido',
+  name: 'Il nome del contatto non è valido',
+  surname: 'Il cognome del contatto non è valido',
+  company: "L'azienda del contatto non è valida",
+  avatar: "L'avatar del contatto non è valido",
+  phoneNumbers: 'I numeri di telefono del contatto non sono validi',
+  emails: 'Gli indirizzi email del contatto non sono validi',
+  notes: 'Le note del contatto non sono valide',
+  origin: "L'origine del contatto non è valida",
+  socials: 'I social del contatto non sono validi',
+  notifyProfile: "L'id del profilo del contatto non è valido",
+  sharedBy: 'I contatti salvati non sono validi',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
@@ -31,7 +44,7 @@ export interface Lead
       _id: Types.ObjectId;
       createdAt: Date;
       updatedAt: Date;
-      savedToCollection: Schema.Types.ObjectId[];
+      sharedBy: Schema.Types.ObjectId[];
       createdBy: Schema.Types.ObjectId;
       notifyProfile: Schema.Types.ObjectId;
     }
@@ -93,7 +106,7 @@ const LeadSchema = new Schema<Lead, LeadModel>(
       type: String,
       default: null,
     },
-    savedToCollection: {
+    sharedBy: {
       type: [Schema.Types.ObjectId],
       default: [],
     },
