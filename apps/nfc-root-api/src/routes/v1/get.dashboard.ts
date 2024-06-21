@@ -43,10 +43,7 @@ router.get(
         owner: { $in: companies.map((company) => company._id) },
       });
 
-      const _usableUsers = [
-        ...companies.map((company) => company._id),
-        ..._agents.map((agent) => agent._id),
-      ];
+      const _allUsers = [...companies, ..._agents];
 
       const agents = _agents.filter((agent) =>
         activeCompanies
@@ -54,16 +51,16 @@ router.get(
           .includes(String(agent.owner))
       );
 
-      const profileVisit = _agents
+      const profileVisit = _allUsers
         .map((agent) => agent.statsTotals['profile:visit'])
         .reduce((a, b) => a + (b || 0), 0);
 
-      const provileSave = _agents
+      const provileSave = _allUsers
         .map((agent) => agent.statsTotals['profile:save'])
         .reduce((a, b) => a + (b || 0), 0);
 
       const _latestVisit = await StatModel.find({
-        owner: { $in: _usableUsers },
+        owner: { $in: _allUsers.map((u) => u._id) },
       })
         .limit(1)
         .sort({ updatedAt: -1 });
