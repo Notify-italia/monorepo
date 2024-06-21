@@ -18,6 +18,7 @@ import {
     >
       @if(context.getters.currentItem.imgSrc) {
       <img
+        loading="lazy"
         (click)="handleClick()"
         [src]="context.getters.currentItem.imgSrc"
         class="w-full rounded-lg pointer-events-none object-center"

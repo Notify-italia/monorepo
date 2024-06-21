@@ -97,6 +97,7 @@ export class GesturesDirective implements OnDestroy {
       return;
     }
 
+    $event.preventDefault();
     this.horizontalSwipe$.next((deltaX / window.innerWidth) * 100);
   }
 }

@@ -15,8 +15,6 @@ import {
 import { SafeHtml } from '@angular/platform-browser';
 import { AdvancedViewComponent } from '../../views/advanced-view/advanced-view.component';
 import { ProfileDefaultViewComponent } from '../../views/default-view/default-view.component';
-import { ProfileNewEraViewComponent } from '../../views/newera-view/newera-view.component';
-import { ProfileOssidianaViewComponent } from '../../views/ossidiana-view/ossidiana-view.component';
 import { FeedbackFactory } from '../feedback/feedback.factory';
 import { MockupFillComponent } from '../mockup-fill/mockup-fill.component';
 
@@ -29,8 +27,6 @@ export const defaultGradientStops = ['#0A2859', '#041127'];
     CommonModule,
     ProfileDefaultViewComponent,
     MockupFillComponent,
-    ProfileOssidianaViewComponent,
-    ProfileNewEraViewComponent,
     AdvancedViewComponent,
   ],
   providers: [

@@ -40,6 +40,7 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
           <img
             [src]="currentItem.imgSrc"
             class="size-full rounded-xl"
+            loading="lazy"
             alt="Avatar"
             [ngStyle]="{
               scale: currentItem.imgSize / 100,

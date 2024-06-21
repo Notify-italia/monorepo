@@ -45,6 +45,7 @@
       "configurations": {
         "production": {
           "buildOptimizer": true,
+          "aot": true,
           "optimization": true,
           "budgets": [
             {
@@ -76,6 +77,9 @@
         },
         "ptc": {
           "outputHashing": "all",
+          "buildOptimizer": true,
+          "aot": true,
+          "optimization": true,
           "fileReplacements": [
             {
               "replace": "apps/nfc-player/src/environments/environment.ts",
