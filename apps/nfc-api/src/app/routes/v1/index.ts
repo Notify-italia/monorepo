@@ -7,6 +7,7 @@ import { googleAPIRouter } from './google-api';
 import { noteRouter } from './note';
 import { postTestRouter } from './post.test-route';
 import { profileRouter } from './profile';
+import { s3Router } from './s3';
 import { SalesRouter } from './sales';
 import { statRouter } from './stat';
 import { utilsRouter } from './utils';
@@ -24,5 +25,6 @@ router.use('/test', postTestRouter);
 router.use('/heartbeat', getHeartbeatRouter);
 router.use('/google', googleAPIRouter);
 router.use('/utils', utilsRouter);
+router.use('/s3', s3Router);
 
 export { router as ApiV1 };

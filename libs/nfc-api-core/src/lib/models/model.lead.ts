@@ -124,6 +124,18 @@ const LeadSchema = new Schema<Lead, LeadModel>(
       default: null,
       ref: 'Profile',
     },
+    accepted: {
+      type: Boolean,
+      default: false,
+    },
+    address: {
+      type: String,
+      default: null,
+    },
+    deleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

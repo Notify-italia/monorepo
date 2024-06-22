@@ -47,9 +47,15 @@ export const S3Upload = async (config: {
   path: string;
   extension?: string;
 }) => {
+  console.log(
+    'Uploading file',
+    config.name + `.` + config.extension,
+    'to',
+    config.path
+  );
   if (_filenameHasExtension(config.name) && !config.extension) {
     config.extension = config.name.split('.').pop();
-  } else {
+  } else if (!config.extension) {
     //se non è stato fornito un'estensione, provo a prenderla dal file
     config.extension = (await getFileType(config.src))?.ext;
   }

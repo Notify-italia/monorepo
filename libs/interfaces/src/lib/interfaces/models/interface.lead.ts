@@ -59,6 +59,18 @@ export interface INotifyLead extends MongodbDocument {
    * utenti che possono visualizzare questo lead nella rubrica
    */
   sharedBy: INotifyUser['_id'][];
+  /**
+   * lead confermato da un utente
+   */
+  accepted: boolean;
+  /**
+   * indirizzo del contatto
+   */
+  address: string;
+  /**
+   * lead eliminato
+   */
+  deleted: boolean;
 }
 
 export enum EnumNotifyLeadOrigins {

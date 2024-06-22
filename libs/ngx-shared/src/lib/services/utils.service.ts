@@ -61,6 +61,21 @@ export class UtilsService {
     });
   }
 
+  public uploadTempFile(data: string, extension: string) {
+    return this._http.post<
+      {
+        data: string;
+        extension: string;
+      },
+      {
+        url: string;
+      }
+    >(`/v1/s3/temp`, {
+      data,
+      extension,
+    });
+  }
+
   public getOpenGraphMetadata(url: string) {
     return this._http.get<ErrorResult | SuccessResult>(
       '/v1/utils/open-graph-scraper',
