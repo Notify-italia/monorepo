@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { INotifyLead } from '@notify/interfaces';
+import { EnumNotifyLeadOrigins, INotifyLead } from '@notify/interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, catchError, of, switchMap, tap } from 'rxjs';
 import {
+  AuthService,
   CapacitorService,
   LeadsService,
   UtilsService,
@@ -23,6 +24,7 @@ export class LeadsListComponent {
   private _leadsService = inject(LeadsService);
   private _utilsService = inject(UtilsService);
   private _toastrService = inject(ToastrService);
+  private _authService = inject(AuthService);
 
   private _leadsSubject$ = new Subject<INotifyLead[]>();
   public leads$: Observable<INotifyLead[]> = this._leadsSubject$;
@@ -77,11 +79,17 @@ export class LeadsListComponent {
   }
 
   private _createLead(lead: INotifyLead) {
-    return this._leadsService.createLead(lead).pipe(
-      tap(() => {
-        this._toastrService.success('Contatto aggiunto!');
+    return this._leadsService
+      .createLead({
+        ...lead,
+        origin: EnumNotifyLeadOrigins.BusinessCardOCRScan,
+        createdBy: this._authService.user?._id || '',
       })
-    );
+      .pipe(
+        tap(() => {
+          this._toastrService.success('Contatto aggiunto!');
+        })
+      );
   }
 
   private _refreshLeads() {

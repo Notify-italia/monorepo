@@ -27,6 +27,7 @@ router.post(
                 type: 'image_url',
                 image_url: {
                   url,
+                  detail: 'high',
                 },
               },
             ],
