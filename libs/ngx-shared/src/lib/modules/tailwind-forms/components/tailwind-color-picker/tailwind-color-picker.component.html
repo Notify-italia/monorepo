@@ -48,7 +48,9 @@
         }"
       ></button>
 
-      <label class="pointer-events-none">{{ compact ? value : label }}</label>
+      <label class="pointer-events-none">{{
+        compact ? ColorPickerRoot.value : label
+      }}</label>
     </div>
 
     <div

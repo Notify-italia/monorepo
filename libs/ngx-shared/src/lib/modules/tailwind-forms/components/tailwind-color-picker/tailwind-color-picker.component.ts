@@ -102,10 +102,6 @@ export class TailwindColorPickerComponent
   get showValidationErrors() {
     return this.hasErrors && this.touched;
   }
-
-  get value() {
-    return this.parent.get(this.name)?.value || this.defaultColor;
-  }
 }
 
 const AVAILABLE_COLORS = [
