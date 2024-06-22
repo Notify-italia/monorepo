@@ -430,7 +430,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private async _setMeta(profile: INotifyProfile) {
-    const name = this._profileService.getProfileName(profile);
+    const name = this._profileService.getContactName(profile);
 
     const descriptionMessage = this.isAgent(profile)
       ? `Visualizza il profilo di ${name} via Notify!`

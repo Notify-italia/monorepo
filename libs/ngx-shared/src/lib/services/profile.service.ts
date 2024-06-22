@@ -291,7 +291,7 @@ END:VCARD`;
       'href',
       'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard)
     );
-    a.setAttribute('download', `${this.getProfileName(d)}.vcf`);
+    a.setAttribute('download', `${this.getContactName(d)}.vcf`);
     a.click();
   }
 
