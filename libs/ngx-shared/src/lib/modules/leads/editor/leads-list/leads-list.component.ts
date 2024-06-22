@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { of, switchMap, tap } from 'rxjs';
+import { INotifyLead } from '@notify/interfaces';
+import { ToastrService } from 'ngx-toastr';
+import { Observable, Subject, catchError, of, switchMap, tap } from 'rxjs';
 import {
   CapacitorService,
   LeadsService,
@@ -20,6 +22,10 @@ export class LeadsListComponent {
   private _capacitorService = inject(CapacitorService);
   private _leadsService = inject(LeadsService);
   private _utilsService = inject(UtilsService);
+  private _toastrService = inject(ToastrService);
+
+  private _leadsSubject$ = new Subject<INotifyLead[]>();
+  public leads$: Observable<INotifyLead[]> = this._leadsSubject$;
 
   public isScanning = false;
 
@@ -41,6 +47,11 @@ export class LeadsListComponent {
       .pipe(
         tap(() => (this.isScanning = true)),
         switchMap((photo) => this._uploadTempFile(photo.dataUrl, photo.format)),
+        switchMap((r) => this._analyzeBusinessCard(r?.url)),
+        switchMap((lead) => this._appendDominantColor(lead)),
+        switchMap((lead) => this._createLead(lead)),
+        switchMap(() => this._refreshLeads()),
+        catchError((e) => this._utilsService.errorHandler(e)),
         tap(() => (this.isScanning = false))
       )
       .subscribe();
@@ -51,5 +62,33 @@ export class LeadsListComponent {
       return of(null);
     }
     return this._utilsService.uploadTempFile(data, extension);
+  }
+
+  private _analyzeBusinessCard(
+    url: string | undefined
+  ): Observable<INotifyLead> {
+    //TODO
+    return of();
+  }
+
+  private _appendDominantColor(lead: INotifyLead) {
+    //TODO post merge con develop, usare color-thief per estrarre il colore dominante
+    return of(lead);
+  }
+
+  private _createLead(lead: INotifyLead) {
+    return this._leadsService.createLead(lead).pipe(
+      tap(() => {
+        this._toastrService.success('Contatto aggiunto!');
+      })
+    );
+  }
+
+  private _refreshLeads() {
+    return this._leadsService.getLeads().pipe(
+      tap((leads) => {
+        this._leadsSubject$.next(leads);
+      })
+    );
   }
 }
