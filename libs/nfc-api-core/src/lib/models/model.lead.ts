@@ -113,10 +113,11 @@ const LeadSchema = new Schema<Lead, LeadModel>(
     socials: {
       type: [
         {
-          type: String,
+          name: String,
           url: String,
         },
       ],
+      _id: false,
       default: [],
     },
     notifyProfile: {
@@ -135,6 +136,10 @@ const LeadSchema = new Schema<Lead, LeadModel>(
     deleted: {
       type: Boolean,
       default: false,
+    },
+    role: {
+      type: String,
+      default: null,
     },
   },
   {

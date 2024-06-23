@@ -48,7 +48,7 @@ export interface INotifyLead extends MongodbDocument {
    * Instagram, facebook, sito web, ecc...
    */
   socials: {
-    type: string;
+    name: string;
     url: string;
   }[];
   /**
@@ -71,6 +71,10 @@ export interface INotifyLead extends MongodbDocument {
    * lead eliminato
    */
   deleted: boolean;
+  /**
+   * ruolo del contatto
+   */
+  role: string;
 }
 
 export enum EnumNotifyLeadOrigins {

@@ -7,10 +7,10 @@ export class LeadsService {
   private _httpService = inject(HttpService);
 
   public createLead(lead: INotifyLead) {
-    return this._httpService.post<INotifyLead, INotifyLead>(`/v1/leads`, lead);
+    return this._httpService.post<INotifyLead, INotifyLead>(`/v1/lead`, lead);
   }
 
   public getLeads() {
-    return this._httpService.get<INotifyLead[]>(`/v1/leads`);
+    return this._httpService.get<INotifyLead[]>(`/v1/lead`);
   }
 }

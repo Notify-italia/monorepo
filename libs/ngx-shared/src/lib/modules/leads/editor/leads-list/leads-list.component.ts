@@ -7,15 +7,25 @@ import {
   AuthService,
   CapacitorService,
   LeadsService,
+  OpenAIService,
   UtilsService,
 } from '../../../../services';
-import { LoadingComponent, PageHeaderComponent } from '../../../../standalones';
+import {
+  LoadingComponent,
+  PageHeaderComponent,
+  SearchBarComponent,
+} from '../../../../standalones';
 
 @Component({
   selector: 'notify-leads-list',
   standalone: true,
-  imports: [CommonModule, PageHeaderComponent, LoadingComponent],
-  providers: [CapacitorService, LeadsService, UtilsService],
+  imports: [
+    CommonModule,
+    PageHeaderComponent,
+    LoadingComponent,
+    SearchBarComponent,
+  ],
+  providers: [CapacitorService, LeadsService, UtilsService, OpenAIService],
   templateUrl: './leads-list.component.html',
   styleUrl: './leads-list.component.scss',
 })
@@ -25,6 +35,7 @@ export class LeadsListComponent {
   private _utilsService = inject(UtilsService);
   private _toastrService = inject(ToastrService);
   private _authService = inject(AuthService);
+  private _openaiService = inject(OpenAIService);
 
   private _leadsSubject$ = new Subject<INotifyLead[]>();
   public leads$: Observable<INotifyLead[]> = this._leadsSubject$;
@@ -66,24 +77,28 @@ export class LeadsListComponent {
     return this._utilsService.uploadTempFile(data, extension);
   }
 
-  private _analyzeBusinessCard(
-    url: string | undefined
-  ): Observable<INotifyLead> {
-    //TODO
-    return of();
+  private _analyzeBusinessCard(url: string | undefined) {
+    if (!url) {
+      return of(null);
+    }
+    return this._openaiService.analyzeBusinessCard(url);
   }
 
-  private _appendDominantColor(lead: INotifyLead) {
+  private _appendDominantColor(lead: INotifyLead | null) {
     //TODO post merge con develop, usare color-thief per estrarre il colore dominante
     return of(lead);
   }
 
-  private _createLead(lead: INotifyLead) {
+  private _createLead(lead: INotifyLead | null) {
+    if (!lead) {
+      return of(null);
+    }
     return this._leadsService
       .createLead({
         ...lead,
         origin: EnumNotifyLeadOrigins.BusinessCardOCRScan,
         createdBy: this._authService.user?._id || '',
+        accepted: true,
       })
       .pipe(
         tap(() => {
