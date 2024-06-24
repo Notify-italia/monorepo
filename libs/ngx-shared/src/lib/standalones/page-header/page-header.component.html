@@ -11,14 +11,12 @@
         </p>
       </div>
 
-      <div
-        class="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row-reverse sm:items-center"
-      >
+      <div class="mt-4 flex flex-col gap-4 sm:mt-0">
         @for(btn of buttons; track btn.disabled; let i = $index) {
         <button
           (click)="onButtonClicked(btn)"
           [disabled]="btn.disabled"
-          class="btn btn-{{ btn.buttonColor || 'primary' }} "
+          class="btn btn-{{ btn.buttonColor || 'primary' }} justify-between"
           type="button"
           data-theme="notifytheme"
           [class.btn-primary]="i === 0"

@@ -1,12 +1,12 @@
 <div
-  class="page-layout min-h-[90vh] lg:min-h-[95vh] notify-scrollbar"
+  class="page-layout min-h-[90vh] lg:h-[99vh] overflow-y-auto"
   #MainContainer
 >
   <notify-page-header
     title="Contatti"
     subtitle="Visualizza e gestisci i coontatti ottenuti tramite digitalizzazione o form di contato"
     [buttons]="availableButtons"
-    (buttonClicked)="scanBusinessCard()"
+    (buttonClicked)="handleHeaderEvents($event)"
   ></notify-page-header>
   <div class="h-full">
     <div class="h-full">
@@ -21,8 +21,7 @@
           'phones',
           'socials.name',
           'socials.url',
-          'createdBy.email',
-          'createdBy.profile.name'
+          'company'
         ]"
       ></notify-search-bar>
       @if(chunkedLeads$ | async; as leads) {
@@ -31,8 +30,8 @@
         infiniteScroll
         [infiniteScrollDistance]="1"
         [infiniteScrollThrottle]="50"
-        [scrollWindow]="false"
-        (scrolled)="triggerInfiniteScroll()"
+        [scrollWindow]="true"
+        (scrolled)="loadNextChunk()"
         [infiniteScrollContainer]="MainContainer"
         class="flex flex-col lg:flex-row lg:flex-wrap justify-start lg:justify-center"
       >

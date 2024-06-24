@@ -34,6 +34,7 @@ export class LeadCardComponent {
 
   public get colors() {
     const color = this.lead.color || '#5845b5';
+
     return {
       color: this._utilsSerivce.getContrastingColor(color),
       'background-color': color,

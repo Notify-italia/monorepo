@@ -15,7 +15,7 @@ export const createGPT = async (
   const result = await openai.chat.completions.create(config);
 
   mLog(
-    `Elaborated ${config.model} response with resulting ${result.usage?.total_tokens} tokens used`,
+    `Elaborated ${config.model} response. ${result.usage?.total_tokens} tokens used`,
     'success'
   );
 

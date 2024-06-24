@@ -41,7 +41,11 @@ router.get(
 
       const result: INotifyLead[] = await LeadModel.find({
         sharedBy: { $in: [req.currentUser._id] },
-      }).lean();
+        accepted: true,
+        deleted: false,
+      })
+        .sort({ createdAt: -1 })
+        .lean();
 
       res.status(200).send(result);
     },

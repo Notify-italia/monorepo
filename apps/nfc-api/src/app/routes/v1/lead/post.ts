@@ -17,8 +17,6 @@ router.post(
 
     const user = await queryUsers({ _id: data.createdBy }, true);
 
-    console.log(`lead`, data);
-
     const lead = LeadModel.build({
       ...data,
       sharedBy: [
