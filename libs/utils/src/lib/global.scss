@@ -45,7 +45,7 @@
 }
 
 .page-layout {
-  @apply w-full space-y-4;
+  @apply w-full space-y-4 px-1;
 
   & > * {
     @apply flex justify-center w-full;

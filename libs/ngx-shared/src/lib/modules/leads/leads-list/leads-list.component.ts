@@ -1,20 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { EnumNotifyLeadOrigins, INotifyLead } from '@notify/interfaces';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Subject, catchError, of, switchMap, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Subject,
+  catchError,
+  combineLatest,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import {
   AuthService,
   CapacitorService,
   LeadsService,
   OpenAIService,
   UtilsService,
-} from '../../../../services';
+} from '../../../services';
 import {
   LoadingComponent,
   PageHeaderComponent,
   SearchBarComponent,
-} from '../../../../standalones';
+} from '../../../standalones';
+import { LeadCardComponent } from '../lead-card/lead-card.component';
 
 @Component({
   selector: 'notify-leads-list',
@@ -24,12 +34,14 @@ import {
     PageHeaderComponent,
     LoadingComponent,
     SearchBarComponent,
+    InfiniteScrollModule,
+    LeadCardComponent,
   ],
   providers: [CapacitorService, LeadsService, UtilsService, OpenAIService],
   templateUrl: './leads-list.component.html',
   styleUrl: './leads-list.component.scss',
 })
-export class LeadsListComponent {
+export class LeadsListComponent implements OnInit {
   private _capacitorService = inject(CapacitorService);
   private _leadsService = inject(LeadsService);
   private _utilsService = inject(UtilsService);
@@ -37,10 +49,17 @@ export class LeadsListComponent {
   private _authService = inject(AuthService);
   private _openaiService = inject(OpenAIService);
 
-  private _leadsSubject$ = new Subject<INotifyLead[]>();
-  public leads$: Observable<INotifyLead[]> = this._leadsSubject$;
-
   public isScanning = false;
+
+  public leadsSubject$ = new Subject<INotifyLead[]>();
+  private _currentChunk = new BehaviorSubject<number>(1);
+  public filteredLeads$ = new Subject<INotifyLead[]>();
+  public chunkedLeads$ = combineLatest([
+    this.filteredLeads$,
+    this._currentChunk,
+  ]).pipe(
+    switchMap(([leads, i]) => of(leads.slice(0, i * this._leadsChunkSize)))
+  );
 
   public get availableButtons() {
     return [
@@ -53,6 +72,35 @@ export class LeadsListComponent {
         ],
       },
     ];
+  }
+
+  private get _leadsChunkSize() {
+    const result = this._utilsService.currentTailwindMediaQuery();
+
+    if (['none', 'sm', 'md'].includes(result)) {
+      return 3;
+    }
+
+    if (['lg', 'xl'].includes(result)) {
+      return 6;
+    }
+
+    return 12;
+  }
+
+  public ngOnInit(): void {
+    this._refreshLeads().subscribe();
+  }
+
+  public onFilteredLeadsChange(leads: INotifyLead[]) {
+    console.log('onFilteredLeadsChange', leads.length);
+    this._currentChunk.next(1);
+    this.filteredLeads$.next(leads);
+  }
+
+  public triggerInfiniteScroll() {
+    console.log('triggerInfiniteScroll');
+    this._currentChunk.next(this._currentChunk.value + 1);
   }
 
   public async scanBusinessCard() {
@@ -110,7 +158,7 @@ export class LeadsListComponent {
   private _refreshLeads() {
     return this._leadsService.getLeads().pipe(
       tap((leads) => {
-        this._leadsSubject$.next(leads);
+        this.leadsSubject$.next(leads);
       })
     );
   }

@@ -1,3 +1,4 @@
+import { ModifyDeep } from '../../types.utils';
 import { MongodbDocument } from '../interface.mongodb';
 import { INotifyUser } from '../interface.user';
 import { INotifyProfile } from './interface.profile';
@@ -82,3 +83,16 @@ export enum EnumNotifyLeadOrigins {
   BusinessCardOCRScan = 'business-card-ocr-scan',
   NotifyProfileSave = 'notify-profile',
 }
+
+export type INotifyPopulatedLead = ModifyDeep<
+  INotifyLead,
+  {
+    createdBy: INotifyUser;
+    notifyProfile: INotifyProfile;
+    sharedBy: INotifyUser[];
+    notes: {
+      createdBy: INotifyUser;
+      note: string;
+    }[];
+  }
+>;

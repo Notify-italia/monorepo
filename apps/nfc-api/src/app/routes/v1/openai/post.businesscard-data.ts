@@ -41,8 +41,6 @@ router.post(
         ],
       });
 
-      console.log(`response`, response);
-
       const content = JSON.parse(
         response.choices[0].message.content?.replaceAll('```', '') ||
           '{"invalid": true}'
@@ -72,8 +70,6 @@ router.post(
           url: _normalizeUrl((content as any).website),
         });
       }
-
-      console.log(`scan result`, content);
 
       res.send(content);
     },
