@@ -89,6 +89,22 @@ export class LeadsListComponent implements OnInit {
     return buttons;
   }
 
+  public handleCardClick(lead: INotifyLead) {
+    //TODO implementare la navigazione al dettaglio del lead
+    alert(`
+      name: ${lead.name}
+      surname: ${lead.surname}
+      company: ${lead.company}
+      emails: ${lead.emails}
+      phoneNumbers: ${lead.phoneNumbers}
+      socials: ${lead.socials.map((s) => s.url).join(', ')}
+      role: ${lead.role}
+      color: ${lead.color}
+      origin: ${lead.origin}
+      createdBy: ${lead.createdBy}
+      `);
+  }
+
   private get _leadsChunkSize() {
     const result = this.utilsService.currentTailwindMediaQuery();
 

@@ -5,6 +5,7 @@
   }"
 >
   <div
+    (click)="cardClicked.emit(lead)"
     class="business-card smooth"
     [ngStyle]="{
       'background-color': colors['background-color'],

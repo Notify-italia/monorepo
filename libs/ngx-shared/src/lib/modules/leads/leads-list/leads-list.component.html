@@ -38,7 +38,10 @@
       >
         @for (lead of leads; track lead._id) {
         <div class="p-2 lg:p-0 lg:m-5">
-          <notify-lead-card [lead]="lead"></notify-lead-card>
+          <notify-lead-card
+            [lead]="lead"
+            (cardClicked)="handleCardClick($event)"
+          ></notify-lead-card>
         </div>
         }
       </div>

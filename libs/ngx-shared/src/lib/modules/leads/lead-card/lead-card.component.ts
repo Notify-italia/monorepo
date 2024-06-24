@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { INotifyLead } from '@notify/interfaces';
 import { UtilsService } from '../../../services';
 
@@ -14,6 +14,8 @@ import { UtilsService } from '../../../services';
 export class LeadCardComponent {
   private _utilsSerivce = inject(UtilsService);
   @Input({ required: true }) lead!: INotifyLead;
+
+  @Output() public cardClicked = new EventEmitter<INotifyLead>();
 
   public get mainAlias(): string {
     if (this.isPerson) {

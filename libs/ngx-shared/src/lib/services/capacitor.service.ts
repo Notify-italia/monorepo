@@ -64,10 +64,11 @@ export class CapacitorService {
       resultType: CameraResultType.DataUrl,
       width: 1024,
       height: 1024,
-      source: CameraSource.Prompt,
+      source: this.isNative ? CameraSource.Prompt : CameraSource.Camera,
       direction: CameraDirection.Rear,
       promptLabelPicture: 'Scatta una foto',
-      promptLabelPhoto: 'Scegli dalla galleria',
+      promptLabelPhoto: 'Seleziona dalla galleria',
+      promptLabelHeader: "Scegli un'immagine",
       presentationStyle: 'fullscreen',
     });
   }
