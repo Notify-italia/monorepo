@@ -24,6 +24,7 @@ import {
 import {
   LoadingComponent,
   PageHeaderComponent,
+  PullToRefreshComponent,
   SearchBarComponent,
 } from '../../../standalones';
 import { LeadCardComponent } from '../lead-card/lead-card.component';
@@ -38,6 +39,7 @@ import { LeadCardComponent } from '../lead-card/lead-card.component';
     SearchBarComponent,
     InfiniteScrollModule,
     LeadCardComponent,
+    PullToRefreshComponent,
   ],
   providers: [CapacitorService, LeadsService, OpenAIService],
   templateUrl: './leads-list.component.html',
@@ -120,7 +122,16 @@ export class LeadsListComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this._refreshLeads().subscribe();
+    this.refreshLeads().subscribe();
+  }
+
+  public refreshLeads() {
+    return this._leadsService.getLeads().pipe(
+      tap((leads) => {
+        this._currentChunk.next(1);
+        this.leadsSubject$.next(leads);
+      })
+    );
   }
 
   public onFilteredLeadsChange(leads: INotifyLead[]) {
@@ -154,7 +165,7 @@ export class LeadsListComponent implements OnInit {
         switchMap((r) => this._analyzeBusinessCard(r?.url)),
         switchMap((lead) => this._appendDominantColor(lead)),
         switchMap((lead) => this._createLead(lead)),
-        switchMap(() => this._refreshLeads()),
+        switchMap(() => this.refreshLeads()),
         catchError((e) => this.utilsService.errorHandler(e)),
         tap(() => (this.isScanning = false))
       )
@@ -196,14 +207,5 @@ export class LeadsListComponent implements OnInit {
           this._toastrService.success('Contatto aggiunto!');
         })
       );
-  }
-
-  private _refreshLeads() {
-    return this._leadsService.getLeads().pipe(
-      tap((leads) => {
-        this._currentChunk.next(1);
-        this.leadsSubject$.next(leads);
-      })
-    );
   }
 }

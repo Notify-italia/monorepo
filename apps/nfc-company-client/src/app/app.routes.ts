@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import {
   AdvancedProfileComponent,
+  LeadsListComponent,
   PageNotFoundComponent,
   advancedProfileGuard,
   authGuard,
@@ -137,7 +138,19 @@ export const appRoutes: Route[] = [
           },
         ],
       },
+      {
+        path: 'leads',
+        children: [
+          {
+            path: '',
 
+            loadComponent: () => LeadsListComponent,
+            data: {
+              pageTitle: 'Leads',
+            },
+          },
+        ],
+      },
       {
         path: 'settings',
         canActivate: [licenseGuard],

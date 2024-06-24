@@ -1,7 +1,7 @@
 <div class="flex flex-col lg:flex-row font-work min-h-screen overflow-hidden">
   <notify-nav
     class="lg:scale-[0.965] lg:px-2 z-[999]"
-    [topItems]="nav"
+    [topItems]="(topNav$ | async) || []"
     [bottomItems]="bottomNav"
     subtitle="Dashboard"
     [versionInfo]="{
