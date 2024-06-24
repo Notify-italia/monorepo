@@ -5,7 +5,7 @@
 >
   <notify-page-header
     title="Contatti"
-    subtitle="Visualizza e gestisci i coontatti ottenuti tramite digitalizzazione o form di contato"
+    subtitle="Visualizza e gestisci i contatti ottenuti tramite digitalizzazione o form di contatto sul tuo profilo"
     [buttons]="availableButtons"
     (buttonClicked)="handleHeaderEvents($event)"
   ></notify-page-header>
@@ -13,7 +13,7 @@
     <div class="h-full">
       <notify-search-bar
         placeholder="Cerca tramite nome, email, telefono, social ecc..."
-        helpLabel="Cerca contatto"
+        helpLabel=""
         [array$]="leadsSubject$"
         (filteredArray)="onFilteredLeadsChange($event)"
         [filterableFields]="[

@@ -1,4 +1,4 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AppError } from '@notify/interfaces';
 import { format } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
@@ -40,14 +40,8 @@ export enum EnumDicebearAvatarStyles {
   providedIn: 'root',
 })
 export class UtilsService {
-  public routerOutletRef?: ElementRef<HTMLElement>;
-
   public get apiUrl(): string {
     return this._http.apiBaseUrl;
-  }
-
-  public get outletContainer() {
-    return this.routerOutletRef?.nativeElement;
   }
 
   public get isMobile(): boolean {

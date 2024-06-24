@@ -3,7 +3,7 @@
 >
   <notify-nav
     class="lg:scale-[0.965] lg:px-2 z-[999]"
-    [topItems]="nav"
+    [topItems]="(topNav$ | async) || []"
     [bottomItems]="bottomNav"
     [versionInfo]="{
       currentVersion: currentVersionLabel,

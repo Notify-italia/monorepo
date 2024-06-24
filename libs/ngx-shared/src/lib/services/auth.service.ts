@@ -51,6 +51,10 @@ export class AuthService {
     private _jwt: JwtHelperService
   ) {}
 
+  public hasFeature(feature: string, license: INotifyLicense) {
+    return license.features.includes(feature);
+  }
+
   /**
    * The function `signIn` sends a POST request to the server with authentication data and assigns the
    * received token to the user.
@@ -111,6 +115,18 @@ export class AuthService {
     localStorage.removeItem(this._tokenPath);
     this.currentUser$.next(null);
     location.reload();
+  }
+
+  public getLicense() {
+    const result = this.user?.license as unknown as INotifyLicense;
+
+    if (result) {
+      //if the user has a license in the local storage, return it
+      return of(result);
+    }
+
+    //fetch the license from the server
+    return this._http.get<INotifyLicense>(`/v1/agent/license`);
   }
 
   private _assignToken(user: INotifyUser) {
