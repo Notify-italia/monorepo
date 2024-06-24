@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   AuthService,
@@ -7,6 +7,7 @@ import {
   ChangelogFactory,
   NavComponent,
   NavItem,
+  UtilsService,
   agentChangelog,
 } from '@notify/ngx-shared';
 
@@ -17,7 +18,9 @@ import {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit {
+  @ViewChild('RouterOutletContainer')
+  _routerOutletContainer!: ElementRef<HTMLElement>;
   public currentVersionLabel = agentChangelog.tag;
   public currentVersionDate = agentChangelog.date;
 
@@ -96,11 +99,20 @@ export class HomeComponent {
   constructor(
     public capacitor: CapacitorService,
     private _changelogFactory: ChangelogFactory,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _utilsService: UtilsService
   ) {}
 
   public handleVersionClick() {
     //? perchè changlogFactory è un qui e non in version-label? perchè triggerandolo da version labl non applica correttamente il backdrop-blur, oltre che ad avere diversi problemi di alignment
     this._changelogFactory.create(this.latestChangelog);
+  }
+
+  public ngAfterViewInit(): void {
+    console.log(
+      'HomeComponent -> ngAfterViewInit -> this._routerOutletContainer',
+      this._routerOutletContainer
+    );
+    this._utilsService.routerOutletRef = this._routerOutletContainer;
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import { AppError } from '@notify/interfaces';
 import { format } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
@@ -36,14 +36,33 @@ export enum EnumDicebearAvatarStyles {
   Thumbs = 'thumbs',
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UtilsService {
+  public routerOutletRef?: ElementRef<HTMLElement>;
+
   public get apiUrl(): string {
     return this._http.apiBaseUrl;
   }
 
+  public get outletContainer() {
+    return this.routerOutletRef?.nativeElement;
+  }
+
   public get isMobile(): boolean {
     return ['none', 'sm', 'md'].includes(this.currentTailwindMediaQuery());
+  }
+
+  public get availableScreenHeight() {
+    if (!this.isMobile) {
+      return { height: '99vh' };
+    }
+
+    //6vh is the height of the header
+    return {
+      height: `calc(${window.innerHeight}px - 4.5rem - env(safe-area-inset-top))`,
+    };
   }
 
   constructor(private _toastr: ToastrService, private _http: HttpService) {}

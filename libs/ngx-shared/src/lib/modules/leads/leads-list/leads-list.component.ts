@@ -39,14 +39,14 @@ import { LeadCardComponent } from '../lead-card/lead-card.component';
     InfiniteScrollModule,
     LeadCardComponent,
   ],
-  providers: [CapacitorService, LeadsService, UtilsService, OpenAIService],
+  providers: [CapacitorService, LeadsService, OpenAIService],
   templateUrl: './leads-list.component.html',
   styleUrl: './leads-list.component.scss',
 })
 export class LeadsListComponent implements OnInit {
+  public utilsService = inject(UtilsService);
   private _capacitorService = inject(CapacitorService);
   private _leadsService = inject(LeadsService);
-  private _utilsService = inject(UtilsService);
   private _toastrService = inject(ToastrService);
   private _authService = inject(AuthService);
   private _openaiService = inject(OpenAIService);
@@ -64,7 +64,7 @@ export class LeadsListComponent implements OnInit {
   );
 
   public get availableButtons() {
-    return [
+    const buttons = [
       {
         label: 'Digitalizza biglietto',
         eventName: 'requestBusinessCardScan',
@@ -73,19 +73,24 @@ export class LeadsListComponent implements OnInit {
           'M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.383.645.643 1.11.71.386.054.77.113 1.152.177 1.432.239 2.429 1.493 2.429 2.909V18a3 3 0 0 1-3 3h-15a3 3 0 0 1-3-3V9.574c0-1.416.997-2.67 2.429-2.909.382-.064.766-.123 1.151-.178a1.56 1.56 0 0 0 1.11-.71l.822-1.315a2.942 2.942 0 0 1 2.332-1.39ZM6.75 12.75a5.25 5.25 0 1 1 10.5 0 5.25 5.25 0 0 1-10.5 0Zm12-1.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z',
         ],
       },
-      {
+    ];
+
+    if (!this._capacitorService.isNative) {
+      buttons.push({
         label: 'Esporta Contatti',
         eventName: 'exportLeads',
         icon: [
           'M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625Z',
           'M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z',
         ],
-      },
-    ];
+      });
+    }
+
+    return buttons;
   }
 
   private get _leadsChunkSize() {
-    const result = this._utilsService.currentTailwindMediaQuery();
+    const result = this.utilsService.currentTailwindMediaQuery();
 
     if (['none', 'sm', 'md'].includes(result)) {
       return 6;
@@ -134,7 +139,7 @@ export class LeadsListComponent implements OnInit {
         switchMap((lead) => this._appendDominantColor(lead)),
         switchMap((lead) => this._createLead(lead)),
         switchMap(() => this._refreshLeads()),
-        catchError((e) => this._utilsService.errorHandler(e)),
+        catchError((e) => this.utilsService.errorHandler(e)),
         tap(() => (this.isScanning = false))
       )
       .subscribe();
@@ -144,7 +149,7 @@ export class LeadsListComponent implements OnInit {
     if (!data || !extension) {
       return of(null);
     }
-    return this._utilsService.uploadTempFile(data, extension);
+    return this.utilsService.uploadTempFile(data, extension);
   }
 
   private _analyzeBusinessCard(url: string | undefined) {
