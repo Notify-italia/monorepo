@@ -66,7 +66,7 @@ export class LeadsListComponent implements OnInit {
   public get availableButtons() {
     const buttons = [
       {
-        label: 'Digitalizza biglietto',
+        label: 'Scansiona biglietto',
         eventName: 'requestBusinessCardScan',
         icon: [
           'M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z',
