@@ -1,7 +1,17 @@
-<div class="relative">
-  <div class="business-card smooth">
+<div
+  class="relative"
+  [ngStyle]="{
+    color: colors['color']
+  }"
+>
+  <div
+    class="business-card smooth"
+    [ngStyle]="{
+      'background-color': colors['background-color']
+    }"
+  >
     <div
-      class="flex justify-between w-full items-center"
+      class="flex justify-between w-full h-1/6 items-center"
       [ngClass]="{
         '!justify-end': !isPerson
       }"
@@ -24,11 +34,23 @@
         </svg>
       </div>
     </div>
-    <div class="flex justify-center text-2xl font-bold">{{ mainAlias }}</div>
-    <div></div>
+    <div class="flex flex-col justify-center h-2/6 items-center">
+      <span class="text-2xl font-bold">
+        {{ mainAlias }}
+      </span>
+      <span>
+        {{ lead.role || '' }}
+      </span>
+    </div>
+    <div class="h-2/6"></div>
   </div>
   <div class="flex justify-between space-x-2 absolute w-full bottom-2 px-2">
-    <button data-theme="notifytheme" class="action-button smooth smooth-fast">
+    <button
+      data-theme="notifytheme"
+      class="action-button smooth smooth-fast"
+      [disabled]="!mainPhoneNumber"
+      (click)="executeCardAction(mainPhoneNumber, 'tel')"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -44,7 +66,12 @@
 
       <span>Chiama</span>
     </button>
-    <button data-theme="notifytheme" class="action-button smooth smooth-fast">
+    <button
+      data-theme="notifytheme"
+      class="action-button smooth smooth-fast"
+      [disabled]="!mainEmail"
+      (click)="executeCardAction(mainEmail, 'mailto')"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
