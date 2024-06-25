@@ -135,6 +135,7 @@ export class AccountsTableComponent implements OnInit, OnChanges {
           'createdAt',
           'profile.role',
         ],
+        helpLabel: '',
       },
       columns: [
         {

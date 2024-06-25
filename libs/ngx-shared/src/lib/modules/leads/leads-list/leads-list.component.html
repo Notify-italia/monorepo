@@ -25,9 +25,6 @@
           'company'
         ]"
       ></notify-search-bar>
-      <notify-pull-to-refresh
-        (refresh)="refreshLeads().subscribe()"
-      ></notify-pull-to-refresh>
       @if(chunkedLeads$ | async; as leads) {
       <div
         infiniteScroll
