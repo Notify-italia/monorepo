@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import {
   AdvancedProfileComponent,
+  LeadsListComponent,
   PageNotFoundComponent,
   advancedProfileGuard,
   authGuard,
@@ -60,6 +61,19 @@ export const appRoutes: Route[] = [
         data: {
           pageTitle: 'Dashboard',
         },
+      },
+      {
+        path: 'leads',
+        children: [
+          {
+            path: '',
+
+            loadComponent: () => LeadsListComponent,
+            data: {
+              pageTitle: 'Leads',
+            },
+          },
+        ],
       },
       {
         path: 'signout',

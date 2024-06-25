@@ -22,6 +22,7 @@ export interface NavItem {
   disabled?: boolean;
   hidden?: boolean;
   canContainChildren?: boolean;
+  badge?: 'AI';
 }
 
 @Component({

@@ -36,7 +36,9 @@ export enum EnumDicebearAvatarStyles {
   Thumbs = 'thumbs',
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UtilsService {
   public get apiUrl(): string {
     return this._http.apiBaseUrl;
@@ -44,6 +46,17 @@ export class UtilsService {
 
   public get isMobile(): boolean {
     return ['none', 'sm', 'md'].includes(this.currentTailwindMediaQuery());
+  }
+
+  public get availableScreenHeight() {
+    if (!this.isMobile) {
+      return { height: '99vh' };
+    }
+
+    //6vh is the height of the header
+    return {
+      height: `calc(${window.innerHeight}px - 4.5rem - env(safe-area-inset-top))`,
+    };
   }
 
   constructor(private _toastr: ToastrService, private _http: HttpService) {}
@@ -58,6 +71,21 @@ export class UtilsService {
   public getGooglePlaceId(place: string) {
     return this._http.get<{ result: string }>('/v1/google/place-id', {
       place,
+    });
+  }
+
+  public uploadTempFile(data: string, extension: string) {
+    return this._http.post<
+      {
+        data: string;
+        extension: string;
+      },
+      {
+        url: string;
+      }
+    >(`/v1/s3/temp`, {
+      data,
+      extension,
     });
   }
 

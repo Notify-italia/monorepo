@@ -1,11 +1,11 @@
 <div>
   <div>
     <div>
-      <div class="p-4 pt-0">
+      <div class="pt-0">
         <notify-search-bar
           [array$]="iterable$"
           [filterableFields]="config.searchBar.filterableFields || []"
-          [helpLabel]="config.searchBar.helpLabel || 'Cerca'"
+          [helpLabel]="config.searchBar.helpLabel ?? 'Cerca'"
           [placeholder]="
             config.searchBar.placeholder ||
             'Scrivi qualsiasi cosa per ottenere i risultati...'
@@ -22,8 +22,8 @@
       >
       </notify-no-items>
       <!-- TABLE -->
-      <div class="w-full h-full p-4 pt-0">
-        <div class="flex justify-end mb-2 px-1">
+      <div class="size-full">
+        <div class="flex justify-end my-2 px-1">
           <small>{{ iterable.length }} elementi visualizzati</small>
         </div>
         <div
@@ -95,9 +95,9 @@
       </div>
       } @else {
 
-      <div class="w-full h-full p-4">
+      <div class="size-full">
         <div
-          class="relative overflow-x-auto shadow-md sm:rounded-lg bg-primary-500/10"
+          class="relative overflow-x-auto shadow-md rounded-lg bg-primary-500/10"
           [ngClass]="{
             '!bg-transparent': config.style?.transparentBackground
           }"

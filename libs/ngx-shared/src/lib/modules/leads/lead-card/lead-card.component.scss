@@ -1,0 +1,7 @@
+.business-card {
+  @apply shadow-lg rounded-xl aspect-[1.75] w-full lg:w-[24rem] h-auto p-4 flex flex-col justify-between text-sm hover:brightness-105 hover:scale-105 hover:shadow-xl hover:cursor-pointer active:scale-[0.99] text-current;
+}
+
+.action-button {
+  @apply disabled:opacity-50 disabled:pointer-events-none  rounded-lg p-2 text-sm w-full flex justify-center space-x-2 items-center hover:brightness-110 active:scale-95 bg-white/10 backdrop-blur text-current;
+}

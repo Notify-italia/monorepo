@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 import { NavComponent, PageTitleService } from '@notify/ngx-shared';
 import { SuppressLongpressGesture } from 'capacitor-suppress-longpress-gesture';
 

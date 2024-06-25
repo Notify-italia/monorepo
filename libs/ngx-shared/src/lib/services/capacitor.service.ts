@@ -4,6 +4,12 @@ import {
   GetBrightnessReturnValue,
   ScreenBrightness,
 } from '@capacitor-community/screen-brightness';
+import {
+  Camera,
+  CameraDirection,
+  CameraResultType,
+  CameraSource,
+} from '@capacitor/camera';
 import { Capacitor } from '@capacitor/core';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 import {
@@ -48,6 +54,22 @@ export class CapacitorService {
     Haptics.impact({ style }).catch((error) => {
       console.error(`Error triggering haptic feedback: ${error}`); // Android
       Haptics.vibrate();
+    });
+  }
+
+  public async takePhoto() {
+    return await Camera.getPhoto({
+      quality: 60,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl,
+      width: 1024,
+      height: 1024,
+      source: this.isNative ? CameraSource.Prompt : CameraSource.Camera,
+      direction: CameraDirection.Rear,
+      promptLabelPicture: 'Scatta una foto',
+      promptLabelPhoto: 'Seleziona dalla galleria',
+      promptLabelHeader: "Scegli un'immagine",
+      presentationStyle: 'fullscreen',
     });
   }
 

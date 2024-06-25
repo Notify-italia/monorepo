@@ -1,0 +1,61 @@
+<div
+  class="page-layout overflow-y-auto notify-scrollbar"
+  [ngStyle]="utilsService.availableScreenHeight"
+  #MainContainer
+>
+  <notify-page-header
+    title="Contatti"
+    subtitle="Visualizza e gestisci i contatti ottenuti tramite digitalizzazione o form di contatto sul tuo profilo"
+    [buttons]="availableButtons"
+    (buttonClicked)="handleHeaderEvents($event)"
+  ></notify-page-header>
+  <div class="h-full">
+    <div class="h-full">
+      <notify-search-bar
+        placeholder="Cerca tramite nome, email, telefono, social ecc..."
+        helpLabel=""
+        [array$]="leadsSubject$"
+        (filteredArray)="onFilteredLeadsChange($event)"
+        [filterableFields]="[
+          'name',
+          'emails',
+          'phones',
+          'socials.name',
+          'socials.url',
+          'company'
+        ]"
+      ></notify-search-bar>
+      @if(chunkedLeads$ | async; as leads) {
+      <div
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        [scrollWindow]="false"
+        (scrolled)="loadNextChunk()"
+        [infiniteScrollContainer]="MainContainer"
+        class="flex flex-col lg:flex-row lg:flex-wrap justify-start lg:justify-center"
+      >
+        @for (lead of leads; track lead._id) {
+        <div class="p-2 lg:p-0 lg:m-5">
+          <notify-lead-card
+            [lead]="lead"
+            (cardClicked)="handleCardClick($event)"
+          ></notify-lead-card>
+        </div>
+        }
+      </div>
+
+      } @else {
+      <notify-loading></notify-loading>
+      }
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="isScanning"
+  class="fixed h-screen w-screen backdrop-brightness-50 top-0 left-0 z-[999] flex flex-col justify-center items-center space-y-6"
+>
+  <notify-loading></notify-loading>
+  <span> Ottengo informazioni...</span>
+</div>

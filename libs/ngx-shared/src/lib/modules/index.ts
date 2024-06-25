@@ -3,6 +3,7 @@ export * from './custom-table';
 export * from './custom-table/presets';
 export * from './file-sharing';
 export * from './forgot-password';
+export * from './leads';
 export * from './license';
 export * from './modals';
 export * from './notes';

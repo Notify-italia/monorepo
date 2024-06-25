@@ -143,6 +143,7 @@ export class AccountsTableComponent implements OnInit, OnChanges {
           'profile.advancedProfile.items.url',
           'profile.advancedProfile.items.items.caption',
         ],
+        helpLabel: '',
       },
       columns: [
         {

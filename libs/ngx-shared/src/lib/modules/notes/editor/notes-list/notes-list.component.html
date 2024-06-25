@@ -1,4 +1,4 @@
-<div class="p-4">
+<div class="pb-4">
   <notify-search-bar
     [array$]="notes$"
     [filterableFields]="[
@@ -12,7 +12,7 @@
       'items.value.files.name',
       'items.value.files.url'
     ]"
-    helpLabel="Cerca Progetti"
+    helpLabel=""
     placeholder="Cerca per titolo o contenuto del progetto"
     (filteredArray)="notes = $event"
   ></notify-search-bar>
