@@ -52,10 +52,16 @@ router.post(
         throw new BadRequestError('Immagine non valida');
       }
 
-      content.emails = (content.emails || [])?.filter((v) => v?.length);
-      content.phoneNumbers = (content.phoneNumbers || [])
-        .filter((v) => v?.length)
-        .map((v) => v.replace(/\D/g, ''));
+      content.emails = [
+        ...new Set((content.emails || [])?.filter((v) => v?.length)),
+      ];
+      content.phoneNumbers = [
+        ...new Set(
+          (content.phoneNumbers || [])
+            .filter((v) => v?.length)
+            .map((v) => v.replace(/\D/g, ''))
+        ),
+      ];
 
       content.socials = (content.socials || [])
         .filter((v) => v.url?.length)

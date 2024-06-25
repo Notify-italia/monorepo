@@ -1,10 +1,10 @@
 import { Route } from '@angular/router';
 import {
   AdvancedProfileComponent,
-  LeadsListComponent,
   PageNotFoundComponent,
   advancedProfileGuard,
   authGuard,
+  leadModuleRoutes,
   licenseGuard,
   signInGuard,
 } from '@notify/ngx-shared';
@@ -139,19 +139,6 @@ export const appRoutes: Route[] = [
         ],
       },
       {
-        path: 'leads',
-        children: [
-          {
-            path: '',
-
-            loadComponent: () => LeadsListComponent,
-            data: {
-              pageTitle: 'Leads',
-            },
-          },
-        ],
-      },
-      {
         path: 'settings',
         canActivate: [licenseGuard],
         loadComponent: () =>
@@ -222,6 +209,7 @@ export const appRoutes: Route[] = [
           pageTitle: 'Esci',
         },
       },
+      ...leadModuleRoutes,
     ],
   },
   {

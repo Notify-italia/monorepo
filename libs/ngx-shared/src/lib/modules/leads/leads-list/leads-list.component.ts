@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { EnumNotifyLeadOrigins, INotifyLead } from '@notify/interfaces';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ToastrService } from 'ngx-toastr';
@@ -52,6 +53,7 @@ export class LeadsListComponent implements OnInit {
   private _toastrService = inject(ToastrService);
   private _authService = inject(AuthService);
   private _openaiService = inject(OpenAIService);
+  private _router = inject(Router);
 
   public scanningMessage = '';
 
@@ -93,6 +95,9 @@ export class LeadsListComponent implements OnInit {
 
   public handleCardClick(lead: INotifyLead) {
     //TODO implementare la navigazione al dettaglio del lead
+    this._router.navigate(['/pages/leads/inspect'], {
+      queryParams: { l: lead._id },
+    });
     alert(`
       name: ${lead.name}
       surname: ${lead.surname}
@@ -104,6 +109,7 @@ export class LeadsListComponent implements OnInit {
       color: ${lead.color}
       origin: ${lead.origin}
       createdBy: ${lead.createdBy}
+      place: ${lead.address}
       `);
   }
 
