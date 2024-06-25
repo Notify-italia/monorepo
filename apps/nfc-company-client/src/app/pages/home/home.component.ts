@@ -23,6 +23,8 @@ export class HomeComponent {
 
   public latestChangelog = companyChangelog;
 
+  public skeletonRows = 4;
+
   public topNav$: Observable<NavItem[]> = this._authService.getLicense().pipe(
     map((license) => [
       {

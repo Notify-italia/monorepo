@@ -25,6 +25,8 @@ export class HomeComponent {
   public currentVersionDate = agentChangelog.date;
   public latestChangelog = agentChangelog;
 
+  public skeletonRows = 5;
+
   public topNav$: Observable<NavItem[]> = this._authService.getLicense().pipe(
     map((license) => {
       return [

@@ -97,7 +97,15 @@
         class="w-full text-start px-4 mt-5 font-light text-sm desktop-show-on-hover smooth"
         >Navigazione</span
       >
+
       <ul>
+        @if (!availableItems.top.length ) {
+        <li *ngFor="let item of skeletonRowsIterable">
+          <div class="h-10 w-full">
+            <div class="size-6 bg-white/10 animate-pulse rounded-full"></div>
+          </div>
+        </li>
+        }
         <!-- Sidebar content here -->
         @for (item of availableItems.top; track item.path) {
         <li [class.nav-disabled]="item.disabled">

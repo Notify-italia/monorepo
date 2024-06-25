@@ -13,6 +13,7 @@ import { GestureController } from '@ionic/angular';
 import { VersionLabelComponent } from '../../modules/version-manager';
 import { CapacitorService, UtilsService } from '../../services';
 import { AppTitleComponent } from '../app-title/app-title.component';
+import { LoadingComponent } from '../loading/loading.component';
 
 export interface NavItem {
   label: string;
@@ -33,6 +34,7 @@ export interface NavItem {
     RouterModule,
     AppTitleComponent,
     VersionLabelComponent,
+    LoadingComponent,
   ],
   providers: [CapacitorService, UtilsService],
   templateUrl: './nav.component.html',
@@ -58,6 +60,7 @@ export class NavComponent {
     currentVersion: string;
     currentVersionDate: string | Date;
   };
+  @Input() skeletonRows = 1;
 
   @Output() versionClick = new EventEmitter<void>();
 
@@ -65,6 +68,10 @@ export class NavComponent {
     return ['none', 'sm', 'md'].includes(
       this._utilsService.currentTailwindMediaQuery()
     );
+  }
+
+  public get skeletonRowsIterable() {
+    return Array(this.skeletonRows).fill(0);
   }
 
   public get availableItems() {
