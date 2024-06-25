@@ -71,6 +71,7 @@ export class HomeComponent {
           ],
         },
         {
+          hidden: (license.agents || 0) <= 1,
           label: 'Colleghi',
           path: '/pages/colleagues',
           icon: [

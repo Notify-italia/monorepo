@@ -13,4 +13,5 @@ export interface INotifyLicense extends MongodbDocument {
 
 export type INotifyPopulatedLicense = INotifyLicense & {
   company: INotifyCompany<true>;
+  agents?: number;
 };

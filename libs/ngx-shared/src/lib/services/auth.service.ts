@@ -5,6 +5,7 @@ import {
   EnumNotifyUserType,
   INotifyAuth,
   INotifyLicense,
+  INotifyPopulatedLicense,
   INotifyUser,
 } from '@notify/interfaces';
 import { BehaviorSubject, catchError, of, tap } from 'rxjs';
@@ -118,7 +119,7 @@ export class AuthService {
   }
 
   public getLicense() {
-    const result = this.user?.license as unknown as INotifyLicense;
+    const result = this.user?.license as unknown as INotifyPopulatedLicense;
 
     if (result) {
       //if the user has a license in the local storage, return it
@@ -126,7 +127,7 @@ export class AuthService {
     }
 
     //fetch the license from the server
-    return this._http.get<INotifyLicense>(`/v1/agent/license`);
+    return this._http.get<INotifyPopulatedLicense>(`/v1/agent/license`);
   }
 
   private _assignToken(user: INotifyUser) {

@@ -53,7 +53,7 @@ export class LeadsListComponent implements OnInit {
   private _authService = inject(AuthService);
   private _openaiService = inject(OpenAIService);
 
-  public isScanning = false;
+  public scanningMessage = '';
 
   public leadsSubject$ = new ReplaySubject<INotifyLead[]>(1);
   private _currentChunk = new BehaviorSubject<number>(1);
@@ -160,14 +160,16 @@ export class LeadsListComponent implements OnInit {
   private async _scanBusinessCard() {
     of(await this._capacitorService.takePhoto())
       .pipe(
-        tap(() => (this.isScanning = true)),
+        tap(() => (this.scanningMessage = '⏳ Carico la foto...')),
         switchMap((photo) => this._uploadTempFile(photo.dataUrl, photo.format)),
+        tap(() => (this.scanningMessage = '🔍 Analizzo il tuo biglietto...')),
         switchMap((r) => this._analyzeBusinessCard(r?.url)),
-        switchMap((lead) => this._appendDominantColor(lead)),
+        tap(() => (this.scanningMessage = '📕 Creo il contatto...')),
         switchMap((lead) => this._createLead(lead)),
+        tap(() => (this.scanningMessage = '🗃️ Ricarico la lista...')),
         switchMap(() => this.refreshLeads()),
         catchError((e) => this.utilsService.errorHandler(e)),
-        tap(() => (this.isScanning = false))
+        tap(() => (this.scanningMessage = ''))
       )
       .subscribe();
   }
@@ -184,11 +186,6 @@ export class LeadsListComponent implements OnInit {
       return of(null);
     }
     return this._openaiService.analyzeBusinessCard(url);
-  }
-
-  private _appendDominantColor(lead: INotifyLead | null) {
-    //TODO post merge con develop, usare color-thief per estrarre il colore dominante
-    return of(lead);
   }
 
   private _createLead(lead: INotifyLead | null) {

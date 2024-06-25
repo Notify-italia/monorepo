@@ -1,4 +1,5 @@
 import {
+  AgentModel,
   CompanyModel,
   NotAuthorizedError,
   requestHandler,
@@ -12,7 +13,7 @@ router.get(
   '/',
   requestHandler(
     async (req: Request<{ email: string; password: string }>, res) => {
-      const id = req.currentUser.owner;
+      const id = req.currentUser.owner || req.currentUser._id;
 
       const c = await CompanyModel.findOne({ _id: id })
         .select('license')
@@ -23,7 +24,9 @@ router.get(
         throw new NotAuthorizedError();
       }
 
-      res.send(c.license);
+      const agents = await AgentModel.find({ owner: id }).lean().select('_id');
+
+      res.send({ ...c.license, agents: agents.length });
     },
     {
       requireAuth: {

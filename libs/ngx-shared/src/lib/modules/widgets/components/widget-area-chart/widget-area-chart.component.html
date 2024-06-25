@@ -42,7 +42,7 @@
           }
         </div>
         <select
-          class="select !text-xs w-fit max-w-xs 2xl:hidden mt-2.5"
+          class="select !text-xs select-sm w-fit max-w-xs 2xl:hidden mt-2.5 box"
           (change)="handleTimespanChange($any($event.target)?.value)"
         >
           @for (item of timespans; track $index) {

@@ -1,7 +1,7 @@
 <div>
   <div>
     <div>
-      <div class="pt-0">
+      <div class="pt-0 mb-3">
         <notify-search-bar
           [array$]="iterable$"
           [filterableFields]="config.searchBar.filterableFields || []"
@@ -23,8 +23,8 @@
       </notify-no-items>
       <!-- TABLE -->
       <div class="size-full">
-        <div class="flex justify-end my-2 px-1">
-          <small>{{ iterable.length }} elementi visualizzati</small>
+        <div class="flex justify-end px-1" *ngIf="iterable.length as items">
+          <small>{{ items }} elementi</small>
         </div>
         <div
           class="relative overflow-x-auto shadow-md rounded-lg bg-primary-500/10"
@@ -96,6 +96,9 @@
       } @else {
 
       <div class="size-full">
+        <div class="flex justify-end px-1">
+          <small>Caricamento...</small>
+        </div>
         <div
           class="relative overflow-x-auto shadow-md rounded-lg bg-primary-500/10"
           [ngClass]="{

@@ -46,16 +46,18 @@
       </div>
 
       } @else {
-      <notify-loading></notify-loading>
+      <div class="loading-container">
+        <notify-loading></notify-loading>
+      </div>
       }
     </div>
   </div>
 </div>
 
 <div
-  *ngIf="isScanning"
-  class="fixed h-screen w-screen backdrop-brightness-50 top-0 left-0 z-[999] flex flex-col justify-center items-center space-y-6"
+  *ngIf="scanningMessage?.length"
+  class="fixed h-screen w-screen backdrop-brightness-50 top-0 left-0 z-[999] flex flex-col justify-center items-center space-y-6 backdrop-blur"
 >
   <notify-loading></notify-loading>
-  <span> Ottengo informazioni...</span>
+  <span>{{ scanningMessage }}</span>
 </div>
