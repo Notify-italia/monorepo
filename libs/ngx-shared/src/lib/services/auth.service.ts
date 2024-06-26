@@ -52,8 +52,16 @@ export class AuthService {
     private _jwt: JwtHelperService
   ) {}
 
-  public hasFeature(feature: string, license: INotifyLicense) {
-    return license.features.includes(feature);
+  public featureIncluded(feature: string, license: INotifyLicense) {
+    return license.features.some(
+      (f) => f.name === feature && f.type === 'include'
+    );
+  }
+
+  public featureExcluded(feature: string, license: INotifyLicense) {
+    return license.features.some(
+      (f) => f.name === feature && f.type === 'exclude'
+    );
   }
 
   /**

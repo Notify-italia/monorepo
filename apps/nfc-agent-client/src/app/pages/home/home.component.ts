@@ -31,6 +31,7 @@ export class HomeComponent {
     map((license) => {
       return [
         {
+          hidden: this._authService.featureExcluded('dashboard', license),
           label: 'Dashboard',
           path: '/pages/dashboard',
           icon: [
@@ -38,6 +39,7 @@ export class HomeComponent {
           ],
         },
         {
+          hidden: this._authService.featureExcluded('profile', license),
           label: 'Profilo',
           path: this._authService.user?.advancedProfile
             ? '/pages/profile/editor'
@@ -47,6 +49,7 @@ export class HomeComponent {
           ],
         },
         {
+          hidden: this._authService.featureExcluded('shareFiles', license),
           label: 'Invia File',
           path: '/pages/share',
           icon: [
@@ -54,8 +57,8 @@ export class HomeComponent {
           ],
         },
         {
+          hidden: !this._authService.featureIncluded('leads', license),
           label: 'Contatti',
-          hidden: !this._authService.hasFeature('leads', license),
           canContainChildren: true,
           badge: 'AI',
           path: '/pages/leads',
@@ -64,6 +67,7 @@ export class HomeComponent {
           ],
         },
         {
+          hidden: this._authService.featureExcluded('notes', license),
           label: 'Area Progetti',
           path: '/pages/notes',
           canContainChildren: true,
@@ -73,7 +77,9 @@ export class HomeComponent {
           ],
         },
         {
-          hidden: (license.agents || 0) <= 1,
+          hidden:
+            (license.agents || 0) <= 1 ||
+            this._authService.featureExcluded('colleagues', license),
           label: 'Colleghi',
           path: '/pages/colleagues',
           icon: [
