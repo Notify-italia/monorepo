@@ -15,7 +15,9 @@ export class FormsService {
   private _utilsService = inject(UtilsService);
 
   public createFormGroup<T>(object: T, defaults?: Partial<T>) {
-    const controls = Object.keys(object as Record<string, unknown>).reduce(
+    const controls = Object.keys(
+      (object || {}) as Record<string, unknown>
+    ).reduce(
       (acc: Record<string, FormControl | FormGroup | FormArray>, key) => {
         const value = object[key as keyof object] as unknown;
 
@@ -26,9 +28,13 @@ export class FormsService {
 
         if (Array.isArray(value)) {
           acc[key] = new FormArray(
-            value.map((v) =>
-              this.createFormGroup(v, defaults?.[key as keyof object])
-            )
+            value.map((v) => {
+              if (['string', 'number', 'boolean'].includes(typeof v)) {
+                return new FormControl(v);
+              }
+
+              return this.createFormGroup(v, defaults?.[key as keyof object]);
+            })
           );
 
           return acc;

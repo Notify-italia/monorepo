@@ -1,18 +1,22 @@
 import { Injectable, inject } from '@angular/core';
-import { INotifyLead } from '@notify/interfaces';
+import { INotifyLead, INotifyPopulatedLead } from '@notify/interfaces';
 import JSZip from 'jszip';
 import { HttpService } from './http.service';
 
 @Injectable()
 export class LeadsService {
-  private _httpService = inject(HttpService);
+  private _http = inject(HttpService);
 
   public createLead(lead: INotifyLead) {
-    return this._httpService.post<INotifyLead, INotifyLead>(`/v1/lead`, lead);
+    return this._http.post<INotifyLead, INotifyLead>(`/v1/lead`, lead);
   }
 
   public getLeads() {
-    return this._httpService.get<INotifyLead[]>(`/v1/lead`);
+    return this._http.get<INotifyLead[]>(`/v1/lead`);
+  }
+
+  public getLead(id: string) {
+    return this._http.get<INotifyPopulatedLead>(`/v1/lead`, { id });
   }
 
   public exportLeads(

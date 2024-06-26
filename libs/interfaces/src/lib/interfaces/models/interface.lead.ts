@@ -1,6 +1,6 @@
 import { ModifyDeep } from '../../types.utils';
 import { MongodbDocument } from '../interface.mongodb';
-import { INotifyUser } from '../interface.user';
+import { INotifyUser, INotifyUserLite } from '../interface.user';
 import { INotifyProfile } from './interface.profile';
 
 export interface INotifyLead extends MongodbDocument {
@@ -87,11 +87,11 @@ export enum EnumNotifyLeadOrigins {
 export type INotifyPopulatedLead = ModifyDeep<
   INotifyLead,
   {
-    createdBy: INotifyUser;
+    createdBy: INotifyUserLite;
     notifyProfile: INotifyProfile;
-    sharedBy: INotifyUser[];
+    sharedBy: INotifyUserLite[];
     notes: {
-      createdBy: INotifyUser;
+      createdBy: INotifyUserLite;
       note: string;
     }[];
   }

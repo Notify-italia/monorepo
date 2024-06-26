@@ -61,6 +61,48 @@ export const populateProfileNote = async (
   };
 };
 
+export const getContactName = (profile: INotifyProfile) => {
+  return _getContactOverrides(profile)?.name || _getProfileName(profile);
+};
+
+export const getProfileAvatar = (profile: INotifyProfile) => {
+  if (!profile.advancedProfile?.enabled) {
+    return profile.avatar || '';
+  }
+
+  return (
+    (
+      profile.advancedProfile?.items.find(
+        (i) => i._id === profile.advancedProfile?.requiredItems.avatar
+      ) as INotifyAPAvatarItem
+    )?.imgSrc || ''
+  );
+};
+
+const _getContactOverrides = (profile: INotifyProfile) => {
+  if (!profile.advancedProfile?.enabled) {
+    return null;
+  }
+
+  return profile.advancedProfile.pageSettings.contactOverrides;
+};
+
+const _getProfileName = (profile: INotifyProfile): string => {
+  if (!profile.advancedProfile?.enabled) {
+    return (profile.name || '') + ' ' + (profile.surname || '');
+  }
+
+  const avatar = profile.advancedProfile.items.find(
+    (i) => i._id === profile.advancedProfile?.requiredItems.avatar
+  ) as INotifyAPAvatarItem;
+
+  if (!avatar) {
+    return 'Ignoto';
+  }
+
+  return avatar.label || 'Ignoto';
+};
+
 export const createAdvancedProfile = (
   profile: INotifyProfile
 ): INotifyAdvancedProfile => {

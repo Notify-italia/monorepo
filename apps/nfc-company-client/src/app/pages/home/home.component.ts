@@ -28,6 +28,7 @@ export class HomeComponent {
   public topNav$: Observable<NavItem[]> = this._authService.getLicense().pipe(
     map((license) => [
       {
+        hidden: !this._authService.featureExcluded('sub-users', license),
         disabled: !this._authService.activeLicense,
         label: 'Sub-accounts',
         path: '/pages/users',
@@ -36,6 +37,7 @@ export class HomeComponent {
         ],
       },
       {
+        hidden: !this._authService.featureExcluded('profile', license),
         disabled: !this._authService.activeLicense,
         label: 'Profilo Aziendale',
         path: this._authService.user?.advancedProfile
@@ -47,7 +49,7 @@ export class HomeComponent {
       },
       {
         label: 'Contatti',
-        hidden: !this._authService.hasFeature('leads', license),
+        hidden: !this._authService.featureIncluded('leads', license),
         canContainChildren: true,
         badge: 'AI',
         path: '/pages/leads',
@@ -56,6 +58,7 @@ export class HomeComponent {
         ],
       },
       {
+        hidden: !this._authService.featureExcluded('notes', license),
         disabled: !this._authService.activeLicense,
         label: 'Area Progetti',
         path: '/pages/notes',
@@ -65,6 +68,7 @@ export class HomeComponent {
         ],
       },
       {
+        hidden: !this._authService.featureExcluded('stats', license),
         disabled: !this._authService.activeLicense,
         label: 'Analytics',
         path: '/pages/analytics/dashboard',

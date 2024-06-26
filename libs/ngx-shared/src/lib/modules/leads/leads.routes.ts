@@ -9,7 +9,6 @@ export const leadModuleRoutes: Routes = [
     children: [
       {
         path: '',
-
         loadComponent: () =>
           import('./leads-list/leads-list.component').then(
             (m) => m.LeadsListComponent
@@ -17,6 +16,13 @@ export const leadModuleRoutes: Routes = [
         data: {
           pageTitle: 'Contatti',
         },
+      },
+      {
+        path: 'inspect',
+        loadComponent: () =>
+          import('./lead-detail/lead-detail.component').then(
+            (m) => m.LeadDetailComponent
+          ),
       },
     ],
   },

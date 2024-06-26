@@ -21,6 +21,12 @@ export interface INotifyAuth {
   password: string;
 }
 
+export interface INotifyUserLite {
+  _id: string;
+  alias: string;
+  avatar: string;
+}
+
 export interface INotifyAccounts {
   [EnumNotifyUserType.Agent]: INotifyAgent;
   [EnumNotifyUserType.Company]: INotifyCompany;

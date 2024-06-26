@@ -1,13 +1,17 @@
 import {
   INotifyLead,
   INotifyPopulatedLead,
+  INotifyProfile,
   INotifyUser,
+  INotifyUserLite,
 } from '@notify/interfaces';
 import {
   AGENT_VALIDATION_MESSAGES,
   LeadModel,
   asyncForEach,
   getAgentOwnerProfile,
+  getContactName,
+  getProfileAvatar,
   queryUsers,
   requestHandler,
 } from '@notify/nfc-api-core';
@@ -68,11 +72,15 @@ const _populateLead = async (lead: INotifyLead | null) => {
     await queryUsers({ _id: lead.createdBy }, true, 'profile')
   ).toObject() as INotifyUser;
 
-  const sharedBy = (await queryUsers<false>(
-    { _id: { $in: lead.sharedBy } },
-    false,
-    'profile'
-  )) as INotifyUser[];
+  const sharedBy: INotifyUserLite[] = (
+    await queryUsers<false>({ _id: { $in: lead.sharedBy } }, false, 'profile')
+  )
+    .filter((v) => v.profile)
+    .map((u) => ({
+      _id: u._id,
+      alias: getContactName(u.profile as INotifyProfile),
+      avatar: getProfileAvatar(u.profile as INotifyProfile),
+    }));
 
   const _populatedNotes: INotifyPopulatedLead['notes'] = [];
 
@@ -81,9 +89,26 @@ const _populateLead = async (lead: INotifyLead | null) => {
       await queryUsers({ _id: note.createdBy }, true, 'profile')
     ).toObject() as INotifyUser;
 
+    if (!createdBy.profile) {
+      _populatedNotes.push({
+        ...note,
+        createdBy: {
+          _id: '',
+          alias: 'Eliminato',
+          avatar: '',
+        },
+      });
+
+      return;
+    }
+
     _populatedNotes.push({
       ...note,
-      createdBy,
+      createdBy: {
+        _id: createdBy._id,
+        alias: getContactName(createdBy.profile),
+        avatar: getProfileAvatar(createdBy.profile),
+      },
     });
   });
 
@@ -91,9 +116,27 @@ const _populateLead = async (lead: INotifyLead | null) => {
     ? await getAgentOwnerProfile(new Types.ObjectId(lead.notifyProfile))
     : null;
 
+  if (!createdBy.profile) {
+    return {
+      ...lead,
+      createdBy: {
+        _id: '',
+        alias: 'Eliminato',
+        avatar: '',
+      },
+      sharedBy,
+      notes: _populatedNotes,
+      notifyProfile: profile,
+    } as INotifyPopulatedLead;
+  }
+
   return {
     ...lead,
-    createdBy,
+    createdBy: {
+      _id: createdBy._id,
+      alias: getContactName(createdBy.profile),
+      avatar: getProfileAvatar(createdBy.profile),
+    },
     sharedBy,
     notes: _populatedNotes,
     notifyProfile: profile,

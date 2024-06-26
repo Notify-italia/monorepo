@@ -1,1 +1,17 @@
-<p>lead-detail works!</p>
+<div class="page-layout">
+  <notify-page-header
+    title="Contatto"
+    subtitle="Visualizza, modifica e condividi questo contatto"
+  ></notify-page-header>
+  <div>
+    <div>
+      @if (form) {
+      <pre>{{ form.value | json }}</pre>
+      } @else {
+      <div class="loading-container">
+        <notify-loading></notify-loading>
+      </div>
+      }
+    </div>
+  </div>
+</div>
