@@ -1,0 +1,27 @@
+notify-tailwind-input {
+  @apply w-full;
+}
+
+.row {
+  @apply flex space-x-2 items-end;
+}
+
+.inline-row {
+  @apply flex space-x-2 items-center;
+}
+
+.column {
+  @apply flex flex-col space-y-4;
+}
+
+.search-button {
+  @apply btn btn-outline text-current border-current text-sm shrink w-full;
+}
+
+.form-button {
+  @apply mb-2 hover:brightness-105 hover:scale-105 active:scale-90;
+}
+
+.section-title {
+  @apply text-xl font-bold text-white;
+}

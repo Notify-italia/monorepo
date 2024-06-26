@@ -28,9 +28,13 @@ export class FormsService {
 
         if (Array.isArray(value)) {
           acc[key] = new FormArray(
-            value.map((v) => {
+            value.map((v, _index) => {
               if (['string', 'number', 'boolean'].includes(typeof v)) {
-                return new FormControl(v);
+                return new FormGroup({
+                  [_index]: new FormControl(
+                    v ?? defaults?.[key as keyof object]
+                  ),
+                });
               }
 
               return this.createFormGroup(v, defaults?.[key as keyof object]);

@@ -1,12 +1,204 @@
-<div class="page-layout">
-  <notify-page-header
-    title="Contatto"
-    subtitle="Visualizza, modifica e condividi questo contatto"
-  ></notify-page-header>
+<div class="page-layout mt-4">
   <div>
     <div>
       @if (form) {
-      <pre>{{ form.value | json }}</pre>
+      <div class="column !space-y-0">
+        <div
+          class="box inline-row justify-between p-3 text-xs lg:text-sm !rounded-b-none"
+        >
+          <div class="inline-row !space-x-1">
+            <img
+              [src]="form.value.createdBy?.avatar"
+              class="size-7 rounded-full object-contain bg-secondary-600"
+            />
+            <span class="font-medium">{{ form.value.createdBy?.alias }}</span>
+          </div>
+          <span class="text-white">{{
+            form.value.createdAt | date : 'dd/MM/yyyy HH:mm'
+          }}</span>
+        </div>
+        <notify-save-indicator
+          [isSaving]="false"
+          [compact]="true"
+          [lastSave]="$any(form.value.updatedAt)"
+        ></notify-save-indicator>
+      </div>
+      <div class="column">
+        <div class="column box p-4">
+          <h2 class="section-title">Dati Aziendali</h2>
+          <div class="column">
+            <notify-tailwind-input
+              [compact]="true"
+              [parent]="form"
+              label="Nome"
+              name="company"
+              placeholder="Azienda"
+            ></notify-tailwind-input>
+            <div class="row">
+              <button
+                (click)="googleSearch()"
+                [disabled]="!form.value.company"
+                class="search-button"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 48 48"
+                  class="size-6"
+                >
+                  <path
+                    fill="#FFC107"
+                    d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+                  />
+                  <path
+                    fill="#FF3D00"
+                    d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+                  />
+                  <path
+                    fill="#4CAF50"
+                    d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+                  />
+                  <path
+                    fill="#1976D2"
+                    d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+                  />
+                </svg>
+                <span>Google</span>
+              </button>
+              <button
+                (click)="tripadvisorSearch()"
+                [disabled]="!form.value.company"
+                class="search-button"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 50 50"
+                  class="size-6"
+                >
+                  <path
+                    fill="#38E5A4"
+                    d="M 25 11 C 19.167969 11 13.84375 12.511719 9.789063 15 L 2 15 C 2 15 3.753906 17.152344 4.578125 19.578125 C 2.96875 21.621094 2 24.195313 2 27 C 2 33.628906 7.371094 39 14 39 C 17.496094 39 20.636719 37.492188 22.828125 35.105469 L 25 38 L 27.171875 35.105469 C 29.363281 37.492188 32.503906 39 36 39 C 42.628906 39 48 33.628906 48 27 C 48 24.195313 47.03125 21.621094 45.421875 19.578125 C 46.246094 17.152344 48 15 48 15 L 40.203125 15 C 36.148438 12.511719 30.828125 11 25 11 Z M 25 13 C 28.882813 13 32.585938 13.707031 35.800781 15.011719 C 30.964844 15.089844 26.824219 18.027344 25 22.214844 C 23.171875 18.019531 19.023438 15.078125 14.171875 15.011719 L 14.242188 14.988281 C 17.453125 13.699219 21.144531 13 25 13 Z M 14 17 C 19.523438 17 24 21.476563 24 27 C 24 32.523438 19.523438 37 14 37 C 8.476563 37 4 32.523438 4 27 C 4 21.476563 8.476563 17 14 17 Z M 36 17 C 41.523438 17 46 21.476563 46 27 C 46 32.523438 41.523438 37 36 37 C 30.476563 37 26 32.523438 26 27 C 26 21.476563 30.476563 17 36 17 Z M 14 21 C 10.6875 21 8 23.6875 8 27 C 8 30.3125 10.6875 33 14 33 C 17.3125 33 20 30.3125 20 27 C 20 23.6875 17.3125 21 14 21 Z M 36 21 C 32.6875 21 30 23.6875 30 27 C 30 30.3125 32.6875 33 36 33 C 39.3125 33 42 30.3125 42 27 C 42 23.6875 39.3125 21 36 21 Z M 14 23 C 16.210938 23 18 24.789063 18 27 C 18 29.210938 16.210938 31 14 31 C 11.789063 31 10 29.210938 10 27 C 10 24.789063 11.789063 23 14 23 Z M 36 23 C 38.210938 23 40 24.789063 40 27 C 40 29.210938 38.210938 31 36 31 C 33.789063 31 32 29.210938 32 27 C 32 24.789063 33.789063 23 36 23 Z M 14 25 C 12.894531 25 12 25.894531 12 27 C 12 28.105469 12.894531 29 14 29 C 15.105469 29 16 28.105469 16 27 C 16 25.894531 15.105469 25 14 25 Z M 36 25 C 34.894531 25 34 25.894531 34 27 C 34 28.105469 34.894531 29 36 29 C 37.105469 29 38 28.105469 38 27 C 38 25.894531 37.105469 25 36 25 Z"
+                  />
+                </svg>
+                <span>TripAdvisor</span>
+              </button>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="column">
+            <notify-tailwind-input
+              [compact]="true"
+              [parent]="form"
+              label="Sede"
+              name="address"
+              placeholder="Via Tirreno 20, Prato. PO"
+            ></notify-tailwind-input>
+            <notify-google-maps
+              class="smooth"
+              [address]="form.value.address + ' ' + form.value.company"
+              [ngClass]="{
+                'scale-90 opacity-50 pointer-events-none':
+                  !form.value.address?.length && !form.value.company?.length
+              }"
+            ></notify-google-maps>
+          </div>
+        </div>
+
+        <div class="column box p-4" *ngIf="!isCompanyBusinessCard">
+          <h2 class="section-title">Dati Personali</h2>
+          <div class="row">
+            <notify-tailwind-input
+              [compact]="true"
+              [parent]="form"
+              label="Nome"
+              name="name"
+              placeholder="Mario"
+            ></notify-tailwind-input>
+            <notify-tailwind-input
+              [compact]="true"
+              [parent]="form"
+              label="Cognome"
+              name="surname"
+              placeholder="Rossi"
+            ></notify-tailwind-input>
+          </div>
+          <div class="row">
+            <notify-tailwind-input
+              [compact]="true"
+              [parent]="form"
+              label="Ruolo"
+              name="role"
+              placeholder="CEO"
+            ></notify-tailwind-input>
+          </div>
+        </div>
+        <div
+          class="box p-4 space-y-2"
+          *ngIf="form.controls.phoneNumbers as pns"
+        >
+          <div class="row justify-between !items-center">
+            <h2 class="section-title">Numeri di telefono</h2>
+            <div
+              class="tooltip tooltip-accent tooltip-left"
+              data-tip="Aggiungi numero di telefono"
+            >
+              <button
+                (click)="addPhoneNumber()"
+                class="btn btn-primary btn-sm btn-circle mt-1"
+                data-theme="notifytheme"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-6"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="column !space-y-2">
+            @for (item of pns.controls; track $index) {
+
+            <div class="row">
+              <notify-tailwind-input
+                [compact]="true"
+                [parent]="item"
+                label=" "
+                [name]="$index.toString()"
+                placeholder="Telefono"
+                [mask]="
+                  item.value[$any($index.toString())].startsWith('0')
+                    ? '0000 000 0000'
+                    : '000 000 0000'
+                "
+              ></notify-tailwind-input>
+              <button
+                class="form-button text-red-500 smooth"
+                (click)="pns.removeAt($index)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-6"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
       } @else {
       <div class="loading-container">
         <notify-loading></notify-loading>

@@ -94,23 +94,9 @@ export class LeadsListComponent implements OnInit {
   }
 
   public handleCardClick(lead: INotifyLead) {
-    //TODO implementare la navigazione al dettaglio del lead
     this._router.navigate(['/pages/leads/inspect'], {
       queryParams: { l: lead._id },
     });
-    alert(`
-      name: ${lead.name}
-      surname: ${lead.surname}
-      company: ${lead.company}
-      emails: ${lead.emails}
-      phoneNumbers: ${lead.phoneNumbers}
-      socials: ${lead.socials.map((s) => s.url).join(', ')}
-      role: ${lead.role}
-      color: ${lead.color}
-      origin: ${lead.origin}
-      createdBy: ${lead.createdBy}
-      place: ${lead.address}
-      `);
   }
 
   private get _leadsChunkSize() {
