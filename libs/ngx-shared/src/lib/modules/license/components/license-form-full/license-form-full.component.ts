@@ -18,13 +18,12 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
   styleUrl: './license-form-full.component.scss',
 })
 export class LicenseFormFullComponent
-  extends ModalBaseComponent
+  extends ModalBaseComponent<Partial<INotifyLicense>>
   implements OnInit
 {
   @Input() license!: INotifyPopulatedLicense;
 
   public form!: FormGroup;
-  public submitted = new Subject<Partial<INotifyLicense>>();
   public deleteLicense = new Subject<string>();
 
   public ngOnInit(): void {

@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Subject } from 'rxjs';
 import { ModalBaseComponent } from '../../../constructors';
+import {
+  EnumSelectOptionStyle,
+  ISelectOption,
+  SelectComponent,
+} from '../select/select.component';
 
 export interface IConfirmModalConfig {
   value: unknown;
@@ -10,20 +14,25 @@ export interface IConfirmModalConfig {
   cancelText?: string;
   confirmText: string;
   confirmClass?: string;
+  confirmStyle?: EnumSelectOptionStyle;
   closeOnConfirm?: boolean;
 }
 
 @Component({
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './confirm.component.html',
+  imports: [CommonModule, SelectComponent],
   styleUrls: ['./confirm.component.scss'],
+  template: `<notify-select
+    [cf]="cf"
+    [title]="config.title"
+    [subtitle]="config.description"
+    [options]="options"
+    [hideCancel]="true"
+  ></notify-select>`,
 })
 export class ConfirmComponent extends ModalBaseComponent {
   @Input({ required: true }) public config!: IConfirmModalConfig;
   @Input() public loading = false;
-
-  public submitted = new Subject<IConfirmModalConfig['value']>();
 
   override onClose() {
     this.submitted.next(null);
@@ -37,5 +46,20 @@ export class ConfirmComponent extends ModalBaseComponent {
         skipLifecycle: true,
       });
     }
+  }
+
+  public get options(): ISelectOption[] {
+    return [
+      {
+        label: this.config.confirmText || 'Conferma',
+        value: true,
+        style: this.config.confirmStyle,
+      },
+      {
+        label: this.config.cancelText || 'Annulla',
+        value: false,
+        style: EnumSelectOptionStyle.CANCEL,
+      },
+    ];
   }
 }

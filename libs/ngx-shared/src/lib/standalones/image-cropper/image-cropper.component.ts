@@ -13,7 +13,6 @@ import {
   ImageCropperComponent as ImgCropperComponent,
   ImageCropperModule as ImgCropperModule,
 } from 'ngx-img-cropper';
-import { Subject } from 'rxjs';
 import { ModalBaseComponent } from '../../constructors/modal.base.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
@@ -44,7 +43,7 @@ export interface IImageCropperConfig {
   styleUrl: './image-cropper.component.scss',
 })
 export class ImageCropperComponent
-  extends ModalBaseComponent
+  extends ModalBaseComponent<string>
   implements AfterViewInit, OnInit
 {
   @ViewChild('IMGCropper') cropper!: ImgCropperComponent;
@@ -59,8 +58,6 @@ export class ImageCropperComponent
   };
 
   public loading = true;
-
-  public submitted = new Subject<string>();
 
   public cropperSettings?: CropperSettings;
 

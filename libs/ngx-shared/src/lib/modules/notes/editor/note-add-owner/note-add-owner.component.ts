@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { INotifyUser } from '@notify/interfaces';
-import { Observable, Subject, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { ProfileService } from '../../../../services';
 import { LoadingComponent } from '../../../../standalones/loading/loading.component';
@@ -29,18 +29,16 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
   styleUrl: './note-add-owner.component.scss',
 })
 export class NoteAddOwnerComponent
-  extends ModalBaseComponent
+  extends ModalBaseComponent<{
+    user: string;
+    sendNotification: boolean;
+  }>
   implements OnInit
 {
   private _profileService = inject(ProfileService);
 
   @Input() users$ = new Observable<INotifyUser[]>();
   @Input() loading = false;
-
-  public submitted = new Subject<{
-    user: string;
-    sendNotification: boolean;
-  }>();
 
   public enrichedUsers$!: Observable<{
     users: INotifyUser[];

@@ -8,6 +8,7 @@ import {
 } from '@notify/interfaces';
 import { Subject, tap } from 'rxjs';
 import { ConfirmModalFactory } from '../../../modals';
+import { EnumSelectOptionStyle } from '../../../modals/select/select.component';
 import { NoteChecklistItemComponent } from './note-checklist-item/note-checklist-item.component';
 import { NoteFilesItemComponent } from './note-files-item/note-files-item.component';
 import { NoteLinkItemComponent } from './note-link-item/note-link-item.component';
@@ -133,7 +134,7 @@ export class NoteItemComponent {
       confirmText: 'Elimina',
       cancelText: 'Annulla',
       closeOnConfirm: true,
-      confirmClass: this._confirmModal.deleteBtn,
+      confirmStyle: EnumSelectOptionStyle.DESTRUCTIVE,
       value: true,
     });
 

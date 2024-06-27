@@ -7,7 +7,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Subject } from 'rxjs';
 import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { CapacitorService } from '../../../../services';
 import { UploadComponent } from '../../../../standalones/upload/upload.component';
@@ -26,11 +25,10 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
   templateUrl: './share-file-modal.component.html',
   styleUrl: './share-file-modal.component.scss',
 })
-export class ShareFileModalComponent extends ModalBaseComponent {
+export class ShareFileModalComponent extends ModalBaseComponent<File> {
   public desktopMessage = `Fai click per caricare un file o trascinalo all'interno del riquadro`;
   public mobileMessage = `Tocca per caricare un file`;
 
-  public submitted = new Subject<File>();
   public form = new FormGroup<{
     file: FormControl<File | null>;
   }>({

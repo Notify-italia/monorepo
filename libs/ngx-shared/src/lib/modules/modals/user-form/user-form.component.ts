@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { INotifyAccount, INotifyPartialUser } from '@notify/interfaces';
 
-import { Subject } from 'rxjs';
 import { ModalBaseComponent } from '../../../constructors/modal.base.component';
 import { passwordMatchValidator } from '../../../validators';
 import { TailwindFormsModule } from '../../tailwind-forms/tailwind-forms.module';
@@ -34,7 +33,10 @@ export interface IUserFormPasswordFieldConfig {
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
 })
-export class UserFormComponent extends ModalBaseComponent implements OnInit {
+export class UserFormComponent
+  extends ModalBaseComponent<INotifyPartialUser>
+  implements OnInit
+{
   @Input() public loading = false;
   @Input() public user: INotifyAccount | null = null;
   @Input() public createdRoles: string[] = [];
@@ -46,8 +48,6 @@ export class UserFormComponent extends ModalBaseComponent implements OnInit {
   };
 
   @Output() public removeRole = new EventEmitter<string>();
-
-  public submitted = new Subject<INotifyPartialUser>();
 
   public form!: FormGroup;
 

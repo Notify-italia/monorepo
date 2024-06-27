@@ -1,19 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { INotifyLead } from '@notify/interfaces';
-import { CapacitorService, UtilsService } from '../../../../services';
+import { take, tap } from 'rxjs';
+import { UtilsService } from '../../../../services';
+import { SelectModalFactory } from '../../../modals/select/select-modal.factory';
 
 @Component({
   selector: 'notify-lead-card',
   standalone: true,
   imports: [CommonModule],
-  providers: [UtilsService, CapacitorService],
+  providers: [UtilsService, SelectModalFactory],
   templateUrl: './lead-card.component.html',
   styleUrl: './lead-card.component.scss',
 })
 export class LeadCardComponent {
   private _utilsSerivce = inject(UtilsService);
-  private _capacitorService = inject(CapacitorService);
+
+  private _selectModalFactory = inject(SelectModalFactory);
   @Input({ required: true }) lead!: INotifyLead;
 
   @Output() public cardClicked = new EventEmitter<INotifyLead>();
@@ -53,31 +56,56 @@ export class LeadCardComponent {
   }
 
   public async executeCardAction(protocol: 'mailto' | 'tel') {
-    const options = this.lead[
-      protocol === 'tel' ? 'phoneNumbers' : 'emails'
-    ].map((v) => ({
-      title: v,
+    const isTel = protocol === 'tel';
+    const options = this.lead[isTel ? 'phoneNumbers' : 'emails'].map((v) => ({
+      label: isTel ? _phoneNumberMaskPipe(v) : v,
+      value: v,
     }));
 
     if (this.lead.phoneNumbers.length === 1) {
-      window.location.href = `${protocol}:${options[0].title}`;
+      window.location.href = `${protocol}:${options[0].value}`;
       return;
     }
 
-    const _title =
-      protocol === 'tel'
-        ? 'un numero di telefono da chiamare'
-        : 'una mail a cui scrivere';
-    const result = await this._capacitorService.modal({
-      title: `Seleziona ${_title}`,
-      message: '',
+    const _title = isTel
+      ? 'Più numeri di telefono disponibili'
+      : 'Più email disponibili';
+    const _subtitle = isTel
+      ? 'un numero di telefono da chiamare'
+      : 'una e-mail a cui scrivere';
+
+    const ref = this._selectModalFactory.create({
+      title: _title,
+      subtitle: `Seleziona ${_subtitle}`,
       options,
     });
 
-    if (!result) {
-      return;
-    }
+    ref.instance.submitted
+      .pipe(
+        take(1),
+        tap(async (v) => {
+          if (!v) {
+            return ref.instance.close({ timeout: 200 });
+          }
 
-    window.location.href = `${protocol}:${options[result.index].title}`;
+          await ref.instance.close({ timeout: 200 });
+          window.location.href = `${protocol}:${v.value}`;
+        })
+      )
+      .subscribe();
   }
 }
+
+const _phoneNumberMaskPipe = (value: string) => {
+  if (!value) {
+    return '';
+  }
+
+  if (value.startsWith('0')) {
+    return value
+      .replace(/\D/g, '')
+      .replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+  }
+
+  return value.replace(/\D/g, '').replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
+};

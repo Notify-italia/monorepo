@@ -14,7 +14,9 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
   styleUrl: './profile-share-settings.component.scss',
 })
 export class ProfileShareSettingsComponent
-  extends ModalBaseComponent
+  extends ModalBaseComponent<{
+    profileIdentifier: string;
+  }>
   implements OnInit
 {
   @Input({ required: true }) profile!: INotifyProfile;
@@ -28,10 +30,6 @@ export class ProfileShareSettingsComponent
   public validationErrors = {
     minLength: 'almeno 2 caratteri',
   };
-
-  public submitted = new Subject<{
-    profileIdentifier: string;
-  }>();
 
   public checkAvailability = new Subject<string>();
 

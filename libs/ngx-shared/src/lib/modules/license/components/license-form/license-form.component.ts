@@ -8,7 +8,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { UnknownType } from '@notify/interfaces';
-import { Subject } from 'rxjs';
 import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
 
@@ -24,11 +23,10 @@ import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-bo
   templateUrl: './license-form.component.html',
   styleUrl: './license-form.component.scss',
 })
-export class LicenseFormComponent extends ModalBaseComponent {
+export class LicenseFormComponent extends ModalBaseComponent<string> {
   @ViewChildren('LicenseInput') licenseInputs!: QueryList<ElementRef>;
 
   public loading = false;
-  public submitted = new Subject<string>();
 
   private _validators = [
     Validators.required,
