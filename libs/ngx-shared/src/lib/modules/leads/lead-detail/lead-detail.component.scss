@@ -4,7 +4,7 @@ notify-tailwind-input {
 
 :host ::ng-deep notify-tailwind-input {
   input {
-    @apply backdrop-blur-none border-b border-l-0 border-t-0 border-r-0 rounded-none bg-transparent backdrop-brightness-100 focus:rounded focus:backdrop-brightness-110 focus:outline-none placeholder:text-gray-500;
+    @apply backdrop-blur-none border-b border-l-0 border-t-0 border-r-0 rounded-none bg-transparent backdrop-brightness-100 focus:rounded focus:backdrop-brightness-110 focus:outline-none placeholder:text-gray-500 pr-16;
   }
 
   div[class='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 mb-1'] {

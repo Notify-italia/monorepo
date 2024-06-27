@@ -11,6 +11,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UnknownType } from '@notify/interfaces';
 import { ModalBaseComponent } from '../../../constructors';
 
+export const SELECT_MODAL_TIMEOUT = 200;
+
 export interface ISelectOption {
   value: UnknownType;
   label: string;
@@ -74,6 +76,18 @@ export class SelectComponent extends ModalBaseComponent<ISelectOption> {
   @Input() hideCancel = false;
 
   @Output() optionSelected = new EventEmitter<ISelectOption>();
+
+  public timeout = SELECT_MODAL_TIMEOUT;
+
+  public handleSelection(option: ISelectOption) {
+    this.optionSelected.emit(option);
+    if (option.style === EnumSelectOptionStyle.CANCEL) {
+      this.close({ timeout: SELECT_MODAL_TIMEOUT });
+      return;
+    }
+
+    this.submitted.next(option);
+  }
 
   public get fullOptions() {
     if (this.hideCancel) {

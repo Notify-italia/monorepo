@@ -45,6 +45,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
         } @for (item of pns.controls; track $index) {
         <div class="row">
           <notify-tailwind-input
+            type="email"
             [compact]="true"
             [showClearInput]="false"
             [parent]="item"

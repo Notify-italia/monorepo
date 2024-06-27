@@ -46,6 +46,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
         <div class="row">
           <notify-tailwind-input
             [compact]="true"
+            type="url"
             [parent]="item"
             [showClearInput]="false"
             label=" "

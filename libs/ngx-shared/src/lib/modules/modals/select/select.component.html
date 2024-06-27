@@ -1,7 +1,7 @@
 <div
   class="background"
   [@modal]="isClosing ? 'void' : '*'"
-  (click)="close({ timeout: 200 })"
+  (click)="close({ timeout })"
 >
   <div class="column h-full justify-center items-center space-y-4">
     <div class="column space-y-1 text-white" (click)="$event.stopPropagation()">
@@ -13,12 +13,7 @@
       @for (option of fullOptions; track $index) {
       <button
         class="select-button smooth {{ option.style }}"
-        (click)="
-          option.style === 'cancel'
-            ? close({ timeout: 200 })
-            : submitted.next(option);
-          optionSelected.emit(option)
-        "
+        (click)="handleSelection(option)"
       >
         {{ option.label }}
       </button>

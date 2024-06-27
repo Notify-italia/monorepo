@@ -28,7 +28,7 @@ export interface IConfirmModalConfig {
     [subtitle]="config.description"
     [options]="options"
     [hideCancel]="true"
-    (optionSelected)="confirm()"
+    (optionSelected)="handleOptionSelected($event)"
   ></notify-select>`,
 })
 export class ConfirmComponent extends ModalBaseComponent {
@@ -36,10 +36,11 @@ export class ConfirmComponent extends ModalBaseComponent {
   @Input() public loading = false;
 
   public handleOptionSelected(option: ISelectOption) {
-    if (option.value) {
-      return this.confirm();
+    if (option.style === EnumSelectOptionStyle.CANCEL) {
+      return;
     }
-    return this.close();
+
+    this.confirm();
   }
 
   override onClose() {
@@ -52,6 +53,7 @@ export class ConfirmComponent extends ModalBaseComponent {
     if (this.config.closeOnConfirm) {
       this.close({
         skipLifecycle: true,
+        timeout: 200,
       });
     }
   }
@@ -60,12 +62,12 @@ export class ConfirmComponent extends ModalBaseComponent {
     return [
       {
         label: this.config.confirmText || 'Conferma',
-        value: true,
+        value: this.config.value,
         style: this.config.confirmStyle,
       },
       {
         label: this.config.cancelText || 'Annulla',
-        value: false,
+        value: null,
         style: EnumSelectOptionStyle.CANCEL,
       },
     ];

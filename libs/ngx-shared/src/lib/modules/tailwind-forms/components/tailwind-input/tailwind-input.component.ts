@@ -22,7 +22,7 @@ export class TailwindInputComponent
   @Input() parent!: FormGroup;
   @Input() label!: string;
   @Input() name!: string;
-  @Input() type: 'text' | 'email' | 'password' | 'number' = 'text';
+  @Input() type: 'text' | 'email' | 'password' | 'number' | 'url' = 'text';
   @Input() helpText!: string;
   @Input() showToggleEye = false;
   @Input() showClearInput = true;

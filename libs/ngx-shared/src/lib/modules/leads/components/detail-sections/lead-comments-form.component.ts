@@ -4,6 +4,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { INotifyPopulatedLead, UnknownType } from '@notify/interfaces';
 import {
   AuthService,
+  CapacitorService,
   EnumDicebearAvatarStyles,
   FormsService,
   UtilsService,
@@ -15,7 +16,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
   selector: 'notify-lead-comments',
   standalone: true,
   imports: [CommonModule, TailwindFormsModule, ReactiveFormsModule],
-  providers: [FormsService, UtilsService],
+  providers: [FormsService, UtilsService, CapacitorService],
   styleUrl: '../../lead-detail/lead-detail.component.scss',
   template: `
     <div class="box p-4 space-y-2">
@@ -26,18 +27,17 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
         @if(!comments?.length) {
         <div class="text-sm text-gray-400">Ancora nessun commento</div>
         } @for (item of comments; track item.createdBy?._id) {
-        <div class="row">
-          <div>
-            <img
-              [src]="item.createdBy?.avatar || ''"
-              alt=""
-              class="rounded-full w-8 h-8"
-              [ngClass]="{
-                'animate-pulse bg-gray-300/50  indent-[-10000px]':
-                  !item.createdBy?.avatar?.length
-              }"
-            />
-          </div>
+        <div class="row shrink-0 !items-start">
+          <img
+            [src]="item.createdBy?.avatar || ''"
+            alt=""
+            class="rounded-full size-8 !shrink-0 mt-2"
+            [ngClass]="{
+              'animate-pulse bg-gray-300/50  indent-[-10000px]':
+                !item.createdBy?.avatar?.length
+            }"
+          />
+
           <div class="column !space-y-0 text-sm">
             <div class="row !space-x-2">
               <div class="text-sm text-gray-400">
@@ -65,7 +65,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
           <button
             (click)="addComment()"
             [disabled]="!replyForm.value.content?.length"
-            class="form-button inline-row text-xs btn btn-primary btn-sm !mb-1.5"
+            class="form-button inline-row text-xs btn btn-primary btn-sm !mb-1.5 rounded-full"
             data-theme="notifytheme"
           >
             <svg
@@ -78,8 +78,6 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
                 d="M3.478 2.404a.75.75 0 0 0-.926.941l2.432 7.905H13.5a.75.75 0 0 1 0 1.5H4.984l-2.432 7.905a.75.75 0 0 0 .926.94 60.519 60.519 0 0 0 18.445-8.986.75.75 0 0 0 0-1.218A60.517 60.517 0 0 0 3.478 2.404Z"
               />
             </svg>
-
-            <span class="icon">Invia</span>
           </button>
         </div>
       </div>
@@ -90,6 +88,7 @@ export class LeadCommentsFormComponent {
   private _formsService = inject(FormsService);
   private _authService = inject(AuthService);
   private _utilsService = inject(UtilsService);
+  private _capacitorService = inject(CapacitorService);
 
   @Input({ required: true }) form!: FormGroup<
     controlsFromObject<INotifyPopulatedLead>
