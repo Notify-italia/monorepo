@@ -80,9 +80,10 @@ export class LeadEmailsFormComponent {
   >;
 
   public addEmail() {
-    this.form?.controls.emails.push(
+    const _f = this.form?.controls.emails;
+    _f.push(
       new FormGroup({
-        [this.form.controls.phoneNumbers.controls.length]: new FormControl(''),
+        [_f.controls.length]: new FormControl(''),
       } as any)
     );
   }

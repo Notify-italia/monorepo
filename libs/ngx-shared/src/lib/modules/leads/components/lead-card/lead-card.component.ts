@@ -104,7 +104,7 @@ const _phoneNumberMaskPipe = (value: string) => {
   if (value.startsWith('0')) {
     return value
       .replace(/\D/g, '')
-      .replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+      .replace(/(\d{4})(\d{3})(\d{2,3})/, '$1 $2 $3');
   }
 
   return value.replace(/\D/g, '').replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');

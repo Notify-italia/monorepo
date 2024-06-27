@@ -1,4 +1,4 @@
-<div class="page-layout mt-4">
+<div class="page-layout mt-4 relative">
   <div>
     <div>
       @if (form) {
@@ -17,12 +17,15 @@
             form.value.createdAt | date : 'dd/MM/yyyy HH:mm'
           }}</span>
         </div>
-        <notify-save-indicator
-          [isSaving]="saving"
-          [compact]="true"
-          [followPage]="true"
-          [lastSave]="$any(form.value.updatedAt)"
-        ></notify-save-indicator>
+        <div class="h-16"></div>
+        <div class="absolute w-full h-full left-0 top-12 p-1">
+          <notify-save-indicator
+            [isSaving]="saving"
+            [compact]="true"
+            [followPage]="true"
+            [lastSave]="$any(form.value.updatedAt)"
+          ></notify-save-indicator>
+        </div>
       </div>
       <div class="column">
         <div class="column box p-4">
