@@ -65,7 +65,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
           <button
             (click)="addComment()"
             [disabled]="!replyForm.value.content?.length"
-            class="form-button inline-row text-xs btn btn-primary btn-sm"
+            class="form-button inline-row text-xs btn btn-primary btn-sm !mb-1.5"
             data-theme="notifytheme"
           >
             <svg
