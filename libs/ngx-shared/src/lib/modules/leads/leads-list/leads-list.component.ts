@@ -28,7 +28,7 @@ import {
   PullToRefreshComponent,
   SearchBarComponent,
 } from '../../../standalones';
-import { LeadCardComponent } from '../lead-card/lead-card.component';
+import { LeadCardComponent } from '../components/lead-card/lead-card.component';
 
 @Component({
   selector: 'notify-leads-list',

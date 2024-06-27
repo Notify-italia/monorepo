@@ -36,9 +36,10 @@ export interface INotifyLead extends MongodbDocument {
   /**
    * Note definite dagli utenti che hanno accesso a questo contatto
    */
-  notes: {
+  comments: {
     createdBy: INotifyUser['_id'];
-    note: string;
+    content: string;
+    createdAt: Date;
   }[];
 
   /**
@@ -82,6 +83,7 @@ export enum EnumNotifyLeadOrigins {
   ProfileContactForm = 'profile-contact-form',
   BusinessCardOCRScan = 'business-card-ocr-scan',
   NotifyProfileSave = 'notify-profile',
+  Unknown = 'unknown',
 }
 
 export type INotifyPopulatedLead = ModifyDeep<
@@ -90,9 +92,10 @@ export type INotifyPopulatedLead = ModifyDeep<
     createdBy: INotifyUserLite;
     notifyProfile: INotifyProfile;
     sharedBy: INotifyUserLite[];
-    notes: {
+    comments: {
       createdBy: INotifyUserLite;
-      note: string;
+      content: string;
+      createdAt: Date;
     }[];
   }
 >;

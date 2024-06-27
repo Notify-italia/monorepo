@@ -1,18 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { INotifyLead } from '@notify/interfaces';
-import { UtilsService } from '../../../services';
+import { CapacitorService, UtilsService } from '../../../../services';
 
 @Component({
   selector: 'notify-lead-card',
   standalone: true,
   imports: [CommonModule],
-  providers: [UtilsService],
+  providers: [UtilsService, CapacitorService],
   templateUrl: './lead-card.component.html',
   styleUrl: './lead-card.component.scss',
 })
 export class LeadCardComponent {
   private _utilsSerivce = inject(UtilsService);
+  private _capacitorService = inject(CapacitorService);
   @Input({ required: true }) lead!: INotifyLead;
 
   @Output() public cardClicked = new EventEmitter<INotifyLead>();
@@ -51,7 +52,32 @@ export class LeadCardComponent {
     return this.lead.phoneNumbers?.[0];
   }
 
-  public executeCardAction(value: string, protocol: 'mailto' | 'tel') {
-    window.location.href = `${protocol}:${value}`;
+  public async executeCardAction(protocol: 'mailto' | 'tel') {
+    const options = this.lead[
+      protocol === 'tel' ? 'phoneNumbers' : 'emails'
+    ].map((v) => ({
+      title: v,
+    }));
+
+    if (this.lead.phoneNumbers.length === 1) {
+      window.location.href = `${protocol}:${options[0].title}`;
+      return;
+    }
+
+    const _title =
+      protocol === 'tel'
+        ? 'un numero di telefono da chiamare'
+        : 'una mail a cui scrivere';
+    const result = await this._capacitorService.modal({
+      title: `Seleziona ${_title}`,
+      message: '',
+      options,
+    });
+
+    if (!result) {
+      return;
+    }
+
+    window.location.href = `${protocol}:${options[result.index].title}`;
   }
 }

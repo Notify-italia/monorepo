@@ -25,6 +25,7 @@
     "@auth0/angular-jwt": "^5.2.0",
     "@capacitor-community/media": "^5.4.0",
     "@capacitor-community/screen-brightness": "^5.0.0",
+    "@capacitor/action-sheet": "^6.0.1",
     "@capacitor/app": "5.0.6",
     "@capacitor/camera": "^6.0.1",
     "@capacitor/filesystem": "^5.2.0",

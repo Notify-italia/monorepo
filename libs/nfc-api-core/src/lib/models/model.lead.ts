@@ -29,7 +29,7 @@ export const LEAD_VALIDATION_MESSAGES: {
   avatar: "L'avatar del contatto non è valido",
   phoneNumbers: 'I numeri di telefono del contatto non sono validi',
   emails: 'Gli indirizzi email del contatto non sono validi',
-  notes: 'Le note del contatto non sono valide',
+  comments: 'Le note del contatto non sono valide',
   origin: "L'origine del contatto non è valida",
   socials: 'I social del contatto non sono validi',
   notifyProfile: "L'id del profilo del contatto non è valido",
@@ -93,11 +93,12 @@ const LeadSchema = new Schema<Lead, LeadModel>(
       type: [String],
       default: [],
     },
-    notes: {
+    comments: {
       type: [
         {
           createdBy: Schema.Types.ObjectId,
-          note: String,
+          content: String,
+          createdAt: Date,
         },
       ],
       default: [],
@@ -144,6 +145,7 @@ const LeadSchema = new Schema<Lead, LeadModel>(
   },
   {
     timestamps: true,
+    versionKey: false,
   }
 );
 // Quando ci sono riferimenti ad ID di altri documenti, usa `Schema.Types.ObjectId`

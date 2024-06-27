@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { UnknownObject } from '@notify/interfaces';
+import { UnknownType } from '@notify/interfaces';
 import { Subject } from 'rxjs';
 import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
@@ -89,7 +89,7 @@ export class LicenseFormComponent extends ModalBaseComponent {
 
     //for each part, update the corresponding input
     parts.forEach((part, i) => {
-      const currentInput = (this.form.controls as UnknownObject)[
+      const currentInput = (this.form.controls as UnknownType)[
         `part${index + i}`
       ] as FormControl;
 
@@ -106,7 +106,7 @@ export class LicenseFormComponent extends ModalBaseComponent {
     index: number,
     maxLength: number
   ) {
-    const currentInput = (this.form.controls as UnknownObject)[
+    const currentInput = (this.form.controls as UnknownType)[
       `part${index}`
     ] as FormControl;
     const cValue = currentInput.value;

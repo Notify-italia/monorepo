@@ -11,6 +11,12 @@ export class LeadsService {
     return this._http.post<INotifyLead, INotifyLead>(`/v1/lead`, lead);
   }
 
+  public patchLead(lead: INotifyLead) {
+    return this._http.patch<INotifyLead, INotifyLead>(`/v1/lead`, lead, {
+      id: lead._id,
+    });
+  }
+
   public getLeads() {
     return this._http.get<INotifyLead[]>(`/v1/lead`);
   }

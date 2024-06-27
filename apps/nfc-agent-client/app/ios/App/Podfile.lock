@@ -1,6 +1,8 @@
 PODS:
   - Capacitor (5.7.5):
     - CapacitorCordova
+  - CapacitorActionSheet (6.0.1):
+    - Capacitor
   - CapacitorApp (5.0.6):
     - Capacitor
   - CapacitorCamera (6.0.1):
@@ -27,6 +29,7 @@ PODS:
 
 DEPENDENCIES:
   - "Capacitor (from `../../../../../node_modules/@capacitor/ios`)"
+  - "CapacitorActionSheet (from `../../../../../node_modules/@capacitor/action-sheet`)"
   - "CapacitorApp (from `../../../../../node_modules/@capacitor/app`)"
   - "CapacitorCamera (from `../../../../../node_modules/@capacitor/camera`)"
   - "CapacitorCommunityMedia (from `../../../../../node_modules/@capacitor-community/media`)"
@@ -45,6 +48,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Capacitor:
     :path: "../../../../../node_modules/@capacitor/ios"
+  CapacitorActionSheet:
+    :path: "../../../../../node_modules/@capacitor/action-sheet"
   CapacitorApp:
     :path: "../../../../../node_modules/@capacitor/app"
   CapacitorCamera:
@@ -68,6 +73,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Capacitor: 7d42085cb786b2d3ea9ac8a17ebd7e3305be7b72
+  CapacitorActionSheet: bff87d8384fd38918531ee839a2ec3c2be115f6a
   CapacitorApp: 024e1b1bea5f883d79f6330d309bc441c88ad04a
   CapacitorCamera: 3b77b3e8311b98220de65e63445c0e4d0b30ce3a
   CapacitorCommunityMedia: 64352c5ccc6024116c37ec7cffc1376c268a9f84
@@ -80,6 +86,6 @@ SPEC CHECKSUMS:
   CapawesomeTeamCapacitorNfc: b9d4e287a384a49cc6a2c0699dd38717aea9cee6
   SDWebImage: a81bbb3ba4ea5f810f4069c68727cb118467a04a
 
-PODFILE CHECKSUM: 738ab3f886c6a1c6cdc304e552bdce0beaf217ed
+PODFILE CHECKSUM: 460748f07dc60668df41e9e3d183d030506c9bf6
 
 COCOAPODS: 1.15.2

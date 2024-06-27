@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UnknownObject } from '@notify/interfaces';
+import { UnknownType } from '@notify/interfaces';
 import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
 import {
   LoadingComponent,
@@ -90,9 +90,9 @@ export class CustomTableComponent implements OnInit {
     data: any;
   }>();
 
-  public computedIterable$ = new Observable<UnknownObject[] | null>();
+  public computedIterable$ = new Observable<UnknownType[] | null>();
   public sorter$ = new BehaviorSubject<INotifyCustomTableSorter>(() => 0);
-  public filteredIterable$ = new BehaviorSubject<UnknownObject[] | null>(null);
+  public filteredIterable$ = new BehaviorSubject<UnknownType[] | null>(null);
 
   public get iterableSkeletonRows(): number[] {
     return Array.from({ length: this.config.skeletonRows ?? 0 });
@@ -113,13 +113,13 @@ export class CustomTableComponent implements OnInit {
     );
   }
 
-  public handleRowClick(iterate: UnknownObject) {
+  public handleRowClick(iterate: UnknownType) {
     this.rowClick.emit(iterate);
   }
 
   public handleActionClick(
     action: ICTActionsValue['actions'][0],
-    iterate: UnknownObject
+    iterate: UnknownType
   ) {
     this.actionClicked.emit({
       event: action.eventName,
@@ -127,7 +127,7 @@ export class CustomTableComponent implements OnInit {
     });
   }
 
-  public handleFilteredArray(e: UnknownObject[]) {
+  public handleFilteredArray(e: UnknownType[]) {
     this.filteredIterable$.next(e);
   }
 }

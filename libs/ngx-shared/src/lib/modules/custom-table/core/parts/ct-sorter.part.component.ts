@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UnknownObject } from '@notify/interfaces';
+import { UnknownType } from '@notify/interfaces';
 import { Subject, takeUntil } from 'rxjs';
 import { UtilsService } from '../../../../services';
 import { AvatarComponent } from '../../../../standalones';
 
 export type INotifyCustomTableSorter =
-  | ((a: UnknownObject, b: UnknownObject) => number)
+  | ((a: UnknownType, b: UnknownType) => number)
   | null;
 
 @Component({
@@ -71,7 +71,7 @@ export type INotifyCustomTableSorter =
 })
 export class CustomTableSorterComponent implements OnInit {
   @Input() public column = '';
-  @Input() public iterable: UnknownObject[] = [];
+  @Input() public iterable: UnknownType[] = [];
   @Input() public sorter?: INotifyCustomTableSorter;
   @Input() public defaultSorter?: string;
   @Input() resetSort = new Subject<string>();
@@ -130,9 +130,7 @@ export class CustomTableSorterComponent implements OnInit {
     if (this.currentSort === 'desc') {
       //assegno il valore di sorter a sorter così da poterlo invertire e passare alla funzione sortChange
       const sorter = this.sorter;
-      this.sortChange.emit((a: UnknownObject, b: UnknownObject) =>
-        sorter(b, a)
-      );
+      this.sortChange.emit((a: UnknownType, b: UnknownType) => sorter(b, a));
       return;
     }
   }

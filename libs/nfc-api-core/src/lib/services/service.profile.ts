@@ -211,7 +211,7 @@ const _generateLinksItem = (profile: INotifyProfile) => {
     }
   );
 
-  if (!items.items.length) {
+  if (!items.items?.length) {
     return null;
   }
 

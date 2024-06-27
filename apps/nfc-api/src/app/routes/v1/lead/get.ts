@@ -82,16 +82,16 @@ const _populateLead = async (lead: INotifyLead | null) => {
       avatar: getProfileAvatar(u.profile as INotifyProfile),
     }));
 
-  const _populatedNotes: INotifyPopulatedLead['notes'] = [];
+  const _populatedNotes: INotifyPopulatedLead['comments'] = [];
 
-  await asyncForEach(lead.notes, async (note) => {
+  await asyncForEach(lead.comments, async (comment) => {
     const createdBy = (
-      await queryUsers({ _id: note.createdBy }, true, 'profile')
+      await queryUsers({ _id: comment.createdBy }, true, 'profile')
     ).toObject() as INotifyUser;
 
     if (!createdBy.profile) {
       _populatedNotes.push({
-        ...note,
+        ...comment,
         createdBy: {
           _id: '',
           alias: 'Eliminato',
@@ -103,7 +103,7 @@ const _populateLead = async (lead: INotifyLead | null) => {
     }
 
     _populatedNotes.push({
-      ...note,
+      ...comment,
       createdBy: {
         _id: createdBy._id,
         alias: getContactName(createdBy.profile),
@@ -125,7 +125,7 @@ const _populateLead = async (lead: INotifyLead | null) => {
         avatar: '',
       },
       sharedBy,
-      notes: _populatedNotes,
+      comments: _populatedNotes,
       notifyProfile: profile,
     } as INotifyPopulatedLead;
   }
@@ -138,7 +138,7 @@ const _populateLead = async (lead: INotifyLead | null) => {
       avatar: getProfileAvatar(createdBy.profile),
     },
     sharedBy,
-    notes: _populatedNotes,
+    comments: _populatedNotes,
     notifyProfile: profile,
   } as INotifyPopulatedLead;
 };

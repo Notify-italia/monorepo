@@ -29,6 +29,7 @@ target 'App' do
   pod 'CapawesomeTeamCapacitorNfc', :path => '../../../../../node_modules/@capawesome-team/capacitor-nfc'
   pod 'CapacitorCamera', :path => '../../../../../node_modules/@capacitor/camera'
   pod 'CapacitorSuppressLongpressGesture' , :path => '../../../../../node_modules/capacitor-suppress-longpress-gesture'
+  pod 'CapacitorActionSheet', :path => '../../../../../node_modules/@capacitor/action-sheet'
 end
 
 post_install do |installer|

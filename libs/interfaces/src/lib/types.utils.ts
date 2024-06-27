@@ -1,4 +1,4 @@
-export type UnknownObject = any;
+export type UnknownType = any;
 
 type anyObject = Record<string, unknown>;
 

@@ -7,6 +7,7 @@ export const asyncForEach = async <T>(
   array: T[],
   callback: (curr: T, index: number, array: unknown[]) => unknown
 ) => {
+  if (!array) return;
   for (let i = 0; i < array.length; i++) {
     await callback(array[i], i, array);
   }

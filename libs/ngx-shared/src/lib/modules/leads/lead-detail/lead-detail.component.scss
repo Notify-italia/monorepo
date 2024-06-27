@@ -2,8 +2,22 @@ notify-tailwind-input {
   @apply w-full;
 }
 
+:host ::ng-deep notify-tailwind-input {
+  input {
+    @apply backdrop-blur-none border-b border-l-0 border-t-0 border-r-0 rounded-none bg-transparent backdrop-brightness-100 focus:rounded focus:backdrop-brightness-110 focus:outline-none placeholder:text-gray-500;
+  }
+
+  div[class='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 mb-1'] {
+    @apply hidden;
+  }
+
+  & p[class='text-sm text-red-600 absolute ml-1 right-0 top-0'] {
+    @apply hidden;
+  }
+}
+
 .row {
-  @apply flex space-x-2 items-end;
+  @apply flex space-x-2 items-end relative;
 }
 
 .inline-row {
@@ -19,7 +33,7 @@ notify-tailwind-input {
 }
 
 .form-button {
-  @apply mb-2 hover:brightness-105 hover:scale-105 active:scale-90;
+  @apply mb-2 hover:brightness-105 hover:scale-105 active:scale-75 absolute right-1;
 }
 
 .section-title {

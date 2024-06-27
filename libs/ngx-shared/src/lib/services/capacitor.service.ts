@@ -4,6 +4,7 @@ import {
   GetBrightnessReturnValue,
   ScreenBrightness,
 } from '@capacitor-community/screen-brightness';
+import { ActionSheet, ActionSheetButtonStyle } from '@capacitor/action-sheet';
 import {
   Camera,
   CameraDirection,
@@ -55,6 +56,30 @@ export class CapacitorService {
       console.error(`Error triggering haptic feedback: ${error}`); // Android
       Haptics.vibrate();
     });
+  }
+
+  public async modal(config: {
+    title: string;
+    message: string;
+    options: { title: string; style?: ActionSheetButtonStyle }[];
+  }) {
+    const _config = Object.assign({
+      ...config,
+      options: [
+        ...config.options,
+        {
+          title: 'Annulla',
+          style: ActionSheetButtonStyle.Cancel,
+        },
+      ],
+    });
+
+    const result = await ActionSheet.showActions(_config);
+    if (result.index === config.options.length) {
+      return null;
+    }
+
+    return result;
   }
 
   public async takePhoto() {

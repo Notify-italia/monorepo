@@ -1,8 +1,8 @@
-import { UnknownObject } from '@notify/interfaces';
+import { UnknownType } from '@notify/interfaces';
 import { body } from 'express-validator';
 
 export const generateExpressValidation = (
-  obj: UnknownObject,
+  obj: UnknownType,
   required?: string[]
 ) => {
   const profile = _flattenObject(obj);
@@ -29,14 +29,14 @@ export const generateExpressValidation = (
   // });
 };
 
-const _flattenObject = (obj: UnknownObject) => {
-  const result: UnknownObject = {};
+const _flattenObject = (obj: UnknownType) => {
+  const result: UnknownType = {};
   for (const key in obj) {
     // eslint-disable-next-line no-prototype-builtins
     if (obj.hasOwnProperty(key)) {
       const element = obj[key];
       if (typeof element === 'object') {
-        result[key] = _flattenObject(element as UnknownObject);
+        result[key] = _flattenObject(element as UnknownType);
       } else {
         result[key] = element;
       }

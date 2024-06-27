@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   INotifyNote,
   NotifyPopulatedNote,
-  UnknownObject,
+  UnknownType,
 } from '@notify/interfaces';
 import { HttpService } from './http.service';
 
@@ -13,7 +13,7 @@ export class NoteService {
   constructor(private http: HttpService) {}
 
   public postNote() {
-    return this.http.post<UnknownObject, INotifyNote>('/v1/notes', {});
+    return this.http.post<UnknownType, INotifyNote>('/v1/notes', {});
   }
 
   public getNote(id: string) {

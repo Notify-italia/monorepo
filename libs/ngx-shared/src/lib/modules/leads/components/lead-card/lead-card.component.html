@@ -51,7 +51,7 @@
       data-theme="notifytheme"
       class="action-button smooth smooth-fast"
       [disabled]="!mainPhoneNumber"
-      (click)="executeCardAction(mainPhoneNumber, 'tel')"
+      (click)="executeCardAction('tel')"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@
       data-theme="notifytheme"
       class="action-button smooth smooth-fast"
       [disabled]="!mainEmail"
-      (click)="executeCardAction(mainEmail, 'mailto')"
+      (click)="executeCardAction('mailto')"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

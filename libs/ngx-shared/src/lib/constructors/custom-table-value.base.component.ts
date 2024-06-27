@@ -1,5 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
-import { UnknownObject } from '@notify/interfaces';
+import { UnknownType } from '@notify/interfaces';
 import { UtilsService } from '../services';
 
 export interface INotifyCustomTableValueBase {
@@ -16,7 +16,7 @@ export class CustomTableValueBaseComponent {
   public _utils = inject(UtilsService);
 
   @Input({ required: true }) value!: INotifyCustomTableValueBase;
-  @Input({ required: true }) iterate!: UnknownObject;
+  @Input({ required: true }) iterate!: UnknownType;
 
   public get iterateValue(): string {
     if (!this.value.fieldName) {
