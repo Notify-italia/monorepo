@@ -1,4 +1,7 @@
 <div class="h-full w-full relative" *ngIf="location$ | async as l">
+  <div class="absolute inset-0 bg-white {{ mapClass }}" *ngIf="!loaded">
+    <notify-loading></notify-loading>
+  </div>
   <iframe
     title="Google Maps Location"
     [class]="mapClass"
@@ -6,6 +9,7 @@
     allowfullscreen
     referrerpolicy="no-referrer-when-downgrade"
     [src]="l"
+    (load)="loaded = true"
   >
   </iframe>
 </div>

@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'notify-google-maps',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LoadingComponent],
   templateUrl: './google-maps.component.html',
   styleUrls: ['./google-maps.component.scss'],
 })
@@ -16,6 +17,7 @@ export class GoogleMapsComponent implements OnInit, OnChanges {
   @Input() zoom = 12;
 
   public location$ = new BehaviorSubject<SafeResourceUrl>('');
+  public loaded = false;
 
   constructor(private _domSanitizer: DomSanitizer) {}
 
