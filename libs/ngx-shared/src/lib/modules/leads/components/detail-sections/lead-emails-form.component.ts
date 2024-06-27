@@ -40,7 +40,9 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
         </div>
       </div>
       <div class="column !space-y-2">
-        @for (item of pns.controls; track $index) {
+        @if(!pns.controls.length) {
+        <div class="text-sm text-gray-400">Ancora nessuna email</div>
+        } @for (item of pns.controls; track $index) {
         <div class="row">
           <notify-tailwind-input
             [compact]="true"

@@ -28,11 +28,19 @@ export interface IConfirmModalConfig {
     [subtitle]="config.description"
     [options]="options"
     [hideCancel]="true"
+    (optionSelected)="confirm()"
   ></notify-select>`,
 })
 export class ConfirmComponent extends ModalBaseComponent {
   @Input({ required: true }) public config!: IConfirmModalConfig;
   @Input() public loading = false;
+
+  public handleOptionSelected(option: ISelectOption) {
+    if (option.value) {
+      return this.confirm();
+    }
+    return this.close();
+  }
 
   override onClose() {
     this.submitted.next(null);

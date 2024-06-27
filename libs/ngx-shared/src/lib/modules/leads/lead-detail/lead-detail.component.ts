@@ -27,6 +27,7 @@ import {
   GoogleMapsComponent,
   LoadingComponent,
   PageHeaderComponent,
+  PullToRefreshComponent,
   SaveIndicatorComponent,
   SvgBoxIconComponent,
 } from '../../../standalones';
@@ -52,6 +53,7 @@ import { LeadSocialsFormComponent } from '../components/detail-sections/lead-soc
     LeadEmailsFormComponent,
     LeadSocialsFormComponent,
     LeadCommentsFormComponent,
+    PullToRefreshComponent,
   ],
   providers: [LeadsService, FormsService, UtilsService],
   templateUrl: './lead-detail.component.html',
@@ -81,7 +83,7 @@ export class LeadDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._getLead()
+    this.getLead()
       .pipe(
         tap((v) => (this.form = this._formsService.createFormGroup(v))),
         tap(() => this._listenToFormChanges())
@@ -130,7 +132,7 @@ export class LeadDetailComponent implements OnInit, OnDestroy {
     );
   }
 
-  private _getLead() {
+  public getLead() {
     if (!this.id) {
       return of();
     }
@@ -155,7 +157,7 @@ export class LeadDetailComponent implements OnInit, OnDestroy {
         }),
         tap(() => (this.saving = true)),
         switchMap((v) => this._leadsService.patchLead(v)),
-        switchMap(() => this._getLead()),
+        switchMap(() => this.getLead()),
         catchError((e) => this._utilsService.errorHandler(e)),
         tap(() => (this.saving = false))
       )

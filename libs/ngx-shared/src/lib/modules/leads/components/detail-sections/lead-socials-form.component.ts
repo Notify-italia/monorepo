@@ -14,7 +14,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
   template: `
     <div class="box p-4 space-y-2" *ngIf="form.controls.socials as pns">
       <div class="row justify-between !items-center">
-        <h2 class="section-title">Socials</h2>
+        <h2 class="section-title">Links</h2>
         <div
           class="tooltip tooltip-accent tooltip-left"
           data-tip="Aggiungi email"
@@ -40,7 +40,9 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
         </div>
       </div>
       <div class="column !space-y-2">
-        @for (item of pns.controls; track $index) {
+        @if(!pns.controls.length) {
+        <div class="text-sm text-gray-400">Ancora nessun link</div>
+        } @for (item of pns.controls; track $index) {
         <div class="row">
           <notify-tailwind-input
             [compact]="true"

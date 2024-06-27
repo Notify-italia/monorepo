@@ -12,7 +12,7 @@
 >
   <div
     #Spinner
-    class="relative h-full w-full opacity-80"
+    class="relative h-full w-full opacity-80 will-change-transform"
     [ngClass]="{
     'rotate-[360deg] smooth smooth-slow smooth-ease-out': change > threshold && !loading,
     'spinner': loading,

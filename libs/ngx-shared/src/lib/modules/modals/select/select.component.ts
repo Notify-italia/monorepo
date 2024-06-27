@@ -7,7 +7,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UnknownType } from '@notify/interfaces';
 import { ModalBaseComponent } from '../../../constructors';
 
@@ -72,6 +72,8 @@ export class SelectComponent extends ModalBaseComponent<ISelectOption> {
   @Input() subtitle = '';
   @Input() options: ISelectOption[] = [];
   @Input() hideCancel = false;
+
+  @Output() optionSelected = new EventEmitter<ISelectOption>();
 
   public get fullOptions() {
     if (this.hideCancel) {

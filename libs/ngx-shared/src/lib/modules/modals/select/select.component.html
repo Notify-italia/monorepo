@@ -16,7 +16,8 @@
         (click)="
           option.style === 'cancel'
             ? close({ timeout: 200 })
-            : submitted.next(option)
+            : submitted.next(option);
+          optionSelected.emit(option)
         "
       >
         {{ option.label }}

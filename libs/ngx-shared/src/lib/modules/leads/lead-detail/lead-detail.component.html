@@ -1,6 +1,13 @@
+<notify-pull-to-refresh
+  (refresh)="getLead().subscribe()"
+></notify-pull-to-refresh>
 <div class="page-layout mt-4 relative">
   <div>
     <div>
+      <!-- <div class="row justify-between">
+        <button class="btn">Indietro</button>
+        <button class="btn">Condividi</button>
+      </div> -->
       @if (form) {
       <div class="column !space-y-0">
         <div
