@@ -2,6 +2,7 @@ import { EnumNotifyUserType } from '@notify/interfaces';
 import {
   AGENT_VALIDATION_MESSAGES,
   BadRequestError,
+  LicenseManager,
   PROFILE_VALIDATION_MESSAGES,
   ProfileModel,
   getAgentOwnerProfile,
@@ -55,6 +56,21 @@ const _profilePlayerFlow = async <T>(req: Request<T>, res: Response) => {
   if (!profile) {
     throw new BadRequestError('Profilo non trovato');
   }
+
+  const license = await LicenseManager.load(
+    profile.type === EnumNotifyUserType.Agent
+      ? {
+          agent: String(profile.owner),
+        }
+      : {
+          company: String(profile.owner),
+        }
+  );
+
+  if (!license || !license.isActive) {
+    throw new BadRequestError('Profilo non trovato');
+  }
+
   res.status(200).send({
     ...profile,
     __v: undefined,

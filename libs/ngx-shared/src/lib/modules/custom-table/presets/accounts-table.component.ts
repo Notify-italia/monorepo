@@ -50,8 +50,8 @@ export interface IAccountsTableConfig {
   imports: [CommonModule, CustomTableComponent],
   template: `
     <div class="flex flex-col">
-      <div class="w-full flex justify-end px-4 -mb-10" *ngIf="maxAgents">
-        <div class="badge badge-info font-medium text-xs">
+      <div class="w-full flex justify-end -mb-8" *ngIf="maxAgents">
+        <div class="badge badge-info font-medium text-xs ">
           {{ maxAgents }} Accounts gestibili
         </div>
       </div>

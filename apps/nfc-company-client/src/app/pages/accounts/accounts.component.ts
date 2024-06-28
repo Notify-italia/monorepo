@@ -14,6 +14,7 @@ import {
   AuthService,
   CompanyService,
   ConfirmModalFactory,
+  EnumSelectOptionStyle,
   LoadingComponent,
   PageHeaderComponent,
   ProfilePlayerFactory,
@@ -137,7 +138,7 @@ export class AccountsComponent implements OnInit {
       confirmText: 'Elimina',
       cancelText: 'Annulla',
       value: agent._id,
-      confirmClass: this._confirmModalFactory.deleteBtn,
+      confirmStyle: EnumSelectOptionStyle.DESTRUCTIVE,
     });
 
     ref.instance.submitted
@@ -240,7 +241,7 @@ export class AccountsComponent implements OnInit {
       confirmText: 'Elimina',
       cancelText: 'Annulla',
       value: role,
-      confirmClass: this._confirmModalFactory.deleteBtn,
+      confirmStyle: EnumSelectOptionStyle.DESTRUCTIVE,
     });
 
     return ref.instance.submitted.pipe(

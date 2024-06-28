@@ -1,6 +1,8 @@
+import { INotifyCompany } from '@notify/interfaces';
 import * as crypto from 'crypto';
 import { BadRequestError } from '../errors';
 import {
+  AgentModel,
   Company,
   CompanyModel,
   LICENSE_VALIDATION_MESSAGES,
@@ -15,6 +17,14 @@ export class LicenseManager {
   }
 
   constructor(private _license: LicenseDocument) {}
+
+  public get isActive(): boolean {
+    return (
+      (this.license.expirationDate === null ||
+        this.license.expirationDate > new Date()) &&
+      this.license.enabled
+    );
+  }
 
   public async assign(id: Company['_id']): Promise<void> {
     const company = await CompanyModel.findById(id);
@@ -59,6 +69,8 @@ export class LicenseManager {
   public static async load(options: {
     publicKey?: string;
     id?: string;
+    agent?: string;
+    company?: string;
     ignoreDisabled?: boolean;
   }) {
     if (options.id) {
@@ -75,7 +87,44 @@ export class LicenseManager {
       );
     }
 
+    if (options.agent) {
+      return await this._findByAgent(options.agent);
+    }
+
+    if (options.company) {
+      return await this._findByCompany(options.company);
+    }
+
     throw new BadRequestError(LICENSE_VALIDATION_MESSAGES.publicKey as string);
+  }
+
+  private static async _findByAgent(agentId: string): Promise<LicenseManager> {
+    const agent = await AgentModel.findById(agentId)
+      .populate({
+        path: 'owner',
+      })
+      .lean();
+
+    if (!agent || !agent.owner) {
+      throw new BadRequestError('Licenza non valida');
+    }
+
+    return await this._findWithId(
+      (agent.owner as unknown as INotifyCompany).license,
+      false
+    );
+  }
+
+  private static async _findByCompany(
+    companyId: string
+  ): Promise<LicenseManager> {
+    const company = await CompanyModel.findById(companyId);
+
+    if (!company || !company.license) {
+      throw new BadRequestError('Licenza non valida');
+    }
+
+    return await this._findWithId(String(company.license), false);
   }
 
   private static async _findWithId(

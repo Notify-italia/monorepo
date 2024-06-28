@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AppError, INotifyNote } from '@notify/interfaces';
 import {
   ConfirmModalFactory,
+  EnumSelectOptionStyle,
   LoadingComponent,
   NoteService,
   NotesListComponent,
@@ -97,7 +98,7 @@ export class NotesComponent implements OnInit {
         'Sei sicuro di voler eliminare questo progetto? Questa azione è irreversibile.',
       confirmText: 'Elimina',
       cancelText: 'Annulla',
-      confirmClass: this._confirmModal.deleteBtn,
+      confirmStyle: EnumSelectOptionStyle.DESTRUCTIVE,
       value: true,
     });
 

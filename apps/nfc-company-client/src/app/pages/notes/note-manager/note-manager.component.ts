@@ -7,6 +7,7 @@ import {
   AgentService,
   AuthService,
   ConfirmModalFactory,
+  EnumSelectOptionStyle,
   LoadingComponent,
   ManageNoteOwnersFactory,
   NoteDetailComponent,
@@ -210,7 +211,7 @@ export class NoteManagerComponent implements OnInit, OnDestroy {
         'Sei sicuro di voler eliminare questa nota? Questa azione è irreversibile.',
       confirmText: 'Elimina',
       cancelText: 'Annulla',
-      confirmClass: this._confirmModal.deleteBtn,
+      confirmStyle: EnumSelectOptionStyle.DESTRUCTIVE,
       value: true,
     });
 

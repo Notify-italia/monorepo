@@ -26,58 +26,60 @@ export class HomeComponent {
   public skeletonRows = 4;
 
   public topNav$: Observable<NavItem[]> = this._authService.getLicense().pipe(
-    map((license) => [
-      {
-        hidden: !this._authService.featureExcluded('sub-users', license),
-        disabled: !this._authService.activeLicense,
-        label: 'Sub-accounts',
-        path: '/pages/users',
-        icon: [
-          'M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z',
-        ],
-      },
-      {
-        hidden: !this._authService.featureExcluded('profile', license),
-        disabled: !this._authService.activeLicense,
-        label: 'Profilo Aziendale',
-        path: this._authService.user?.advancedProfile
-          ? '/pages/profile/editor'
-          : '/pages/profile',
-        icon: [
-          'M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z',
-        ],
-      },
-      {
-        label: 'Contatti',
-        hidden: !this._authService.featureIncluded('leads', license),
-        canContainChildren: true,
-        badge: 'AI',
-        path: '/pages/leads',
-        icon: [
-          'M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z',
-        ],
-      },
-      {
-        hidden: !this._authService.featureExcluded('notes', license),
-        disabled: !this._authService.activeLicense,
-        label: 'Area Progetti',
-        path: '/pages/notes',
-        icon: [
-          'M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625ZM7.5 15a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 7.5 15Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H8.25Z',
-          'M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z',
-        ],
-      },
-      {
-        hidden: !this._authService.featureExcluded('stats', license),
-        disabled: !this._authService.activeLicense,
-        label: 'Analytics',
-        path: '/pages/analytics/dashboard',
-        icon: [
-          'M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z',
-          'M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z',
-        ],
-      },
-    ])
+    map((license) => {
+      return [
+        {
+          hidden: this._authService.featureExcluded('sub-users', license),
+          disabled: !this._authService.activeLicense,
+          label: 'Sub-accounts',
+          path: '/pages/users',
+          icon: [
+            'M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z',
+          ],
+        },
+        {
+          hidden: this._authService.featureExcluded('profile', license),
+          disabled: !this._authService.activeLicense,
+          label: 'Profilo Aziendale',
+          path: this._authService.user?.advancedProfile
+            ? '/pages/profile/editor'
+            : '/pages/profile',
+          icon: [
+            'M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z',
+          ],
+        },
+        {
+          label: 'Contatti',
+          hidden: !this._authService.featureIncluded('leads', license),
+          canContainChildren: true,
+          badge: 'AI',
+          path: '/pages/leads',
+          icon: [
+            'M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z',
+          ],
+        },
+        {
+          hidden: this._authService.featureExcluded('notes', license),
+          disabled: !this._authService.activeLicense,
+          label: 'Area Progetti',
+          path: '/pages/notes',
+          icon: [
+            'M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625ZM7.5 15a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 7.5 15Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H8.25Z',
+            'M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z',
+          ],
+        },
+        {
+          hidden: this._authService.featureExcluded('stats', license),
+          disabled: !this._authService.activeLicense,
+          label: 'Analytics',
+          path: '/pages/analytics/dashboard',
+          icon: [
+            'M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z',
+            'M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z',
+          ],
+        },
+      ];
+    })
   );
 
   public bottomNav: NavItem[] = [
