@@ -1,3 +1,5 @@
+import { Types } from 'mongoose';
+import { ModifyDeep } from '../../types.utils';
 import { MongodbDocument } from '../interface.mongodb';
 import { EnumNotifyUserType, INotifyUser } from '../interface.user';
 import { INotifyAdvancedProfile } from './interface.advanced-profile';
@@ -98,3 +100,13 @@ export enum EnumNotifyProfileSources {
   NFC = 'nfc',
   Contacts = 'contacts',
 }
+
+export type INotifyPopulatedProfile = ModifyDeep<
+  INotifyProfile,
+  {
+    company?: INotifyProfile<EnumNotifyUserType>;
+    owner: Types.ObjectId | INotifyUser;
+    note: NotifyPopulatedNote;
+    advancedProfile: INotifyAdvancedProfile;
+  }
+>;
