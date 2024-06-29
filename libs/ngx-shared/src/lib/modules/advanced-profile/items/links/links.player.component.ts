@@ -34,35 +34,18 @@ import { SvgBoxIconComponent } from '../../../../standalones';
         }"
       >
         @for (link of items; track $index) {
-        <button
-          (click)="openLink(link)"
+        <notify-player-base-button
           *ngIf="link.visible"
-          ontouchstart
-          tabindex="0"
-          class="btn !flex-nowrap truncate min-h-1 !h-fit py-2 "
           [ngClass]="{
-            'w-full justify-between': isVertical,
-            '!justify-center': isVertical && link.icon === 'no-icon',
-            'space-x-2 m-1 btn-square ': isHorizontal,
-            'btn-outline': isOutlined,
-            'btn-ghost': isText,
-            'bg-transparent border-none': isFilled && isHorizontal,
+            'w-full': isVertical,
           }"
-          [ngStyle]="{
-          'font-size': context.getters.fontSize,
-          'background-color': isFilled && !isHorizontal?  context.getters.textColor : '',
-          'border-color': isFilled && !isHorizontal? context.getters.textColor : '',
-          'color':textColor,
-          
-        }"
-        >
-          <notify-svg-box-icon
-            *ngIf="link.icon !== 'no-icon'"
-            [iconName]="link.icon"
-            [pixelSize]="iconSize"
-          ></notify-svg-box-icon>
-          <span *ngIf="isVertical">{{ link.caption }}</span>
-        </button>
+          [direction]="currentItem.direction"
+          [style]="currentItem.style"
+          [button]="link"
+          [context]="context"
+          [icon]="link.foundIcon"
+          (buttonClicked)="openLink($event)"
+        ></notify-player-base-button>
         }
       </div>
     </div>
@@ -75,6 +58,7 @@ export class LinksPlayerComponent extends AdvancedProfileItemPlayerBaseComponent
 
       return {
         ...item,
+        foundIcon: icon,
         url: this.context.services.utils.populateWebProtocol(
           icon?.prefix || 'https://',
           item.url
@@ -83,34 +67,8 @@ export class LinksPlayerComponent extends AdvancedProfileItemPlayerBaseComponent
     });
   }
 
-  public get iconSize() {
-    return Number(this.context.getters.fontSize.replace('px', ''));
-  }
-
-  public get textColor() {
-    if (!this.isFilled) {
-      //se il tipo di sfondo non è filled, il colore del testo è il colore di default
-      return this.context.getters.textColor;
-    }
-
-    //restituisci nero o bianco in base al contrasto con il colore del testo (usato invece come colore di sfondo)
-    return this.context.services.utils.getContrastingColor(
-      this.context.getters.textColor || '#000000'
-    );
-  }
-
   public get isFilled() {
     return this.currentItem.style === this.context.statics.buttonStyles.Filled;
-  }
-
-  public get isOutlined() {
-    return (
-      this.currentItem.style === this.context.statics.buttonStyles.Outlined
-    );
-  }
-
-  public get isText() {
-    return this.currentItem.style === this.context.statics.buttonStyles.Text;
   }
 
   public get isHorizontal() {

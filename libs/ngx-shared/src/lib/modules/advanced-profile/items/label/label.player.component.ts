@@ -46,7 +46,7 @@ import { iframeFactory } from '../../../modals';
           
         }"
       >
-        <p [innerHTML]="sanitizedContent"></p>
+        <p class="dont-break-out" [innerHTML]="sanitizedContent"></p>
       </div>
       }
     </div>

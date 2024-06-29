@@ -21,6 +21,7 @@ import {
 } from '@notify/interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
+import { PlayerBaseButtonComponent } from '../modules/advanced-profile/components/player-base-button/player-base-button.component';
 import {
   ADVANCED_PROFILE_CLICK_EVENTS,
   AdvancedProfileItemOutputsService,
@@ -50,6 +51,7 @@ export const AdvancedItemPlayerBaseImports = [
   NoItemsComponent,
   LoadingComponent,
   SvgBoxIconComponent,
+  PlayerBaseButtonComponent,
 ];
 export const AdvancedItemPlayerBaseProviders = [
   AdvancedProfileItemsService,

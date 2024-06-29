@@ -24,7 +24,8 @@ export type NotifyAdvancedProfileItem =
   | INotifyAPNoteItem
   | INotifyAPIFrameItem
   | INotifyAPDividerItem
-  | INotifyAPLabelItem;
+  | INotifyAPLabelItem
+  | INoitfyAPLeadItem;
 
 export type NotifyAdvancedProfileItemTypes =
   | NotifyAdvancedProfileItem['type']
@@ -49,7 +50,7 @@ export interface INotifyAPAvatarItem
 //feedback
 export interface INotifyAPFeedbackItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Feedback>,
-    baseButton {
+    INotifyAPBaseButton {
   style: EnumNotifyAPContainerStyles;
 }
 
@@ -61,7 +62,7 @@ export interface INotifyAPLinksItem
   openInNotify: boolean;
   direction: EnumNotifyAPDirections;
 }
-export type INotifyAPLinkItem = baseButton;
+export type INotifyAPLinkItem = INotifyAPBaseButton;
 
 //place
 export interface INotifyAPPlaceItem
@@ -81,7 +82,7 @@ export interface INotifyAPContactsItem
   style: EnumNotifyAPContainerStyles;
   direction: EnumNotifyAPDirections;
 }
-export type INotifyAPContactItem = baseButton;
+export type INotifyAPContactItem = INotifyAPBaseButton;
 
 //photo
 export interface INotifyAPPhotoItem
@@ -116,6 +117,12 @@ export interface INotifyAPLabelItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Label> {
   content: string;
   style: EnumNotifyAPContainerStyles;
+}
+
+export interface INoitfyAPLeadItem
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Lead> {
+  disabledFields: string[];
+  buttonLabel: string;
 }
 
 export interface INotifyAdvancedProfileItem<
@@ -230,6 +237,7 @@ export enum EnumNotifyAdvancedProfileItems {
   Unknown = 'unknown',
   Divider = 'divider',
   Label = 'label',
+  Lead = 'lead',
 }
 
 export const NOTIFY_AP_FONTS = {
@@ -327,7 +335,7 @@ export const NOTIFY_AP_BODER_STYLES_IT: {
 /*
 UTILS INTERFACES
 */
-export interface baseButton {
+export interface INotifyAPBaseButton {
   caption: string;
   icon: string;
   url: string;

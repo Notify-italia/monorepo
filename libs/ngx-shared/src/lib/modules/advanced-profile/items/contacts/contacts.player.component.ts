@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
-import {
-  INotifyAPContactItem,
-  INotifyAPLinksItem,
-  ModifyDeep,
-} from '@notify/interfaces';
+import { INotifyAPContactItem, INotifyAPLinksItem } from '@notify/interfaces';
 import {
   AdvancedItemPlayerBaseImports,
   AdvancedItemPlayerBaseProviders,
   AdvancedProfileItemPlayerBaseComponent,
 } from '../../../../constructors/ap-item.player.base.component';
-import { SvgBoxIcon, SvgboxService } from '../../../../services';
+import { SvgboxService } from '../../../../services';
 import { SvgBoxIconComponent } from '../../../../standalones';
 import { CONTACTS_ICON_SET } from './contacts.iconset';
 
@@ -29,7 +25,7 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
         class="flex items-center w-full"
         [ngClass]="{
           'flex-col space-y-4': isVertical,
-          'flex-row  justify-around  flex-nowrap overflow-x-auto notify-scrollbar scrollbar-absolute rounded-lg':
+          'flex-row justify-around flex-nowrap overflow-x-auto notify-scrollbar scrollbar-absolute rounded-lg':
             isHorizontal,
         }"
         [ngStyle]="{
@@ -38,31 +34,18 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
         }"
       >
         @for (contact of items; track $index) {
-        <a
-          ontouchstart
+        <notify-player-base-button
           *ngIf="contact.visible"
-          (click)="openContact(contact)"
-          class="btn !flex-nowrap min-h-1 !h-fit py-2"
           [ngClass]="{
-            'w-full justify-between': isVertical,
-            'space-x-2 m-1 btn-square ': isHorizontal,
-            'btn-outline': isOutlined,
-            'btn-ghost': isText,
-            'bg-transparent border-none': isFilled && isHorizontal,
+            'w-full': isVertical,
           }"
-          [ngStyle]="{
-          'font-size': context.getters.fontSize,
-          'color':textColor,
-          'background-color': isFilled && !isHorizontal?  context.getters.textColor : '',
-          'border-color': isFilled && !isHorizontal? context.getters.textColor : '',
-        }"
-        >
-          <notify-svg-box-icon
-            [icon]="contact.icon"
-            [pixelSize]="iconSize"
-          ></notify-svg-box-icon>
-          <span *ngIf="isVertical" class="truncate">{{ contact.caption }}</span>
-        </a>
+          [direction]="currentItem.direction"
+          [style]="currentItem.style"
+          [button]="contact"
+          [context]="context"
+          [icon]="contact.foundIcon"
+          (buttonClicked)="openContact($event)"
+        ></notify-player-base-button>
         }
       </div>
     </div>
@@ -80,7 +63,7 @@ export class ContactsPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
 
       return {
         ...item,
-        icon,
+        foundIcon: icon,
         url: this.context.services.utils.populateWebProtocol(
           icon?.prefix || 'https://',
           item.url
@@ -89,34 +72,8 @@ export class ContactsPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
     });
   }
 
-  public get iconSize() {
-    return Number(this.context.getters.fontSize.replace('px', ''));
-  }
-
-  public get textColor() {
-    if (!this.isFilled) {
-      //se il tipo di sfondo non è filled, il colore del testo è il colore di default
-      return this.context.getters.textColor;
-    }
-
-    //restituisci nero o bianco in base al contrasto con il colore del testo (usato invece come colore di sfondo)
-    return this.context.services.utils.getContrastingColor(
-      this.context.getters.textColor || '#000000'
-    );
-  }
-
   public get isFilled() {
     return this.currentItem.style === this.context.statics.buttonStyles.Filled;
-  }
-
-  public get isOutlined() {
-    return (
-      this.currentItem.style === this.context.statics.buttonStyles.Outlined
-    );
-  }
-
-  public get isText() {
-    return this.currentItem.style === this.context.statics.buttonStyles.Text;
   }
 
   public get isHorizontal() {
@@ -131,14 +88,7 @@ export class ContactsPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
     );
   }
 
-  public openContact(
-    contact: ModifyDeep<
-      INotifyAPContactItem,
-      {
-        icon: SvgBoxIcon | undefined;
-      }
-    >
-  ) {
+  public openContact(contact: INotifyAPContactItem) {
     this.context.emitters.itemEvent(contact.icon, 'CONTACT_CLICKED');
 
     window.open(contact.url, '_blank');

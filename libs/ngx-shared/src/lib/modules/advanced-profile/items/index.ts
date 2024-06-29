@@ -5,6 +5,7 @@ export * from './feedback/feedback.manifest';
 export * from './iframe/iframe.manifest';
 export * from './item.manifest';
 export * from './label/label.manifest';
+export * from './lead/lead.manifest';
 export * from './links/links.manifest';
 export * from './note/note.manifest';
 export * from './page/page.manifest';
