@@ -15,7 +15,7 @@ import { DynamicModuleLoaderService } from '../../../../services/dynamic-module-
   standalone: true,
   imports: [CommonModule, NgxEditorModule, ReactiveFormsModule],
   styles: `
-  ::ng-deep .NgxEditor {    
+ :host ::ng-deep .NgxEditor {    
     background-color: transparent !important;
     border: none !important;
     color: currentColor !important;

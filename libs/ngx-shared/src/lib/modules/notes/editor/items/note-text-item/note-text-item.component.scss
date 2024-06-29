@@ -1,10 +1,10 @@
-::ng-deep ngx-editor {
+:host ::ng-deep ngx-editor {
   .NgxEditor {
     @apply bg-transparent text-gray-200 border-none;
   }
 }
 
-::ng-deep .NgxEditor__Content {
+:host ::ng-deep .NgxEditor__Content {
   ul {
     list-style-type: disc;
   }
@@ -14,7 +14,7 @@
   }
 }
 
-::ng-deep ngx-editor-menu {
+:host ::ng-deep ngx-editor-menu {
   .NgxEditor__MenuBar {
     @apply bg-transparent flex-nowrap overflow-visible;
   }
