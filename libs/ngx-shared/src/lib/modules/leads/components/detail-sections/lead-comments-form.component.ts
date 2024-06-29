@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { INotifyPopulatedLead, UnknownType } from '@notify/interfaces';
+import { INotifyPopulatedLead } from '@notify/interfaces';
 import {
   AuthService,
   CapacitorService,
@@ -45,10 +45,12 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
               </div>
               <span *ngIf="item.createdAt"> - </span>
               <div class="text-sm text-gray-400">
-                {{ item.createdAt | date : 'dd/MM/yyyy HH:mm' }}
+                {{ item.createdAt | date : 'dd.MM.yy HH:mm' }}
               </div>
             </div>
-            <div class="text-sm text-white">{{ item.content }}</div>
+            <div class="text-sm text-white  dont-break-out ">
+              {{ item.content }}
+            </div>
           </div>
         </div>
         }
@@ -88,7 +90,6 @@ export class LeadCommentsFormComponent {
   private _formsService = inject(FormsService);
   private _authService = inject(AuthService);
   private _utilsService = inject(UtilsService);
-  private _capacitorService = inject(CapacitorService);
 
   @Input({ required: true }) form!: FormGroup<
     controlsFromObject<INotifyPopulatedLead>
@@ -112,9 +113,9 @@ export class LeadCommentsFormComponent {
   public addComment() {
     const comments = this.form.controls.comments;
     comments.push(
-      this._formsService.createFormGroup({
+      this._formsService.createFormGroup(<INotifyPopulatedLead['comments'][0]>{
         content: this.replyForm.value.content || '',
-        createdAt: '' as UnknownType,
+        createdAt: '' as unknown as Date,
         createdBy: {
           _id: this._authService.user?._id || '',
           alias: 'Aggiungo commento...',

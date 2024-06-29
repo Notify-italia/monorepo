@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { INotifyLead } from '@notify/interfaces';
 import { take, tap } from 'rxjs';
 import { UtilsService } from '../../../../services';
-import { SELECT_MODAL_TIMEOUT } from '../../../modals';
 import { SelectModalFactory } from '../../../modals/select/select-modal.factory';
 
 @Component({
@@ -86,10 +85,10 @@ export class LeadCardComponent {
         take(1),
         tap(async (v) => {
           if (!v) {
-            return ref.instance.close({ timeout: SELECT_MODAL_TIMEOUT });
+            return ref.instance.close();
           }
 
-          await ref.instance.close({ timeout: SELECT_MODAL_TIMEOUT });
+          await ref.instance.close();
           window.location.href = `${protocol}:${v.value}`;
         })
       )

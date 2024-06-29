@@ -15,6 +15,7 @@ const router = Router();
 const excludedCompany = [
   '65c23f35c92682d98233e50f',
   '655805c8f5638dc5ef4b358f',
+  '667ee391955ff30f63ebffec',
 ];
 
 router.get(

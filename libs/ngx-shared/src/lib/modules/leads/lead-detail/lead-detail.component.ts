@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
+  EnumNotifyUserType,
+  INotifyAgent,
   INotifyLead,
   INotifyPopulatedLead,
   UnknownType,
@@ -11,14 +13,19 @@ import {
   Subject,
   catchError,
   debounceTime,
+  map,
+  mergeMap,
   of,
   switchMap,
   takeUntil,
   tap,
 } from 'rxjs';
 import {
+  AgentService,
+  AuthService,
   FormsService,
   LeadsService,
+  ProfileService,
   UtilsService,
   controlsFromObject,
 } from '../../../services';
@@ -31,6 +38,7 @@ import {
   SaveIndicatorComponent,
   SvgBoxIconComponent,
 } from '../../../standalones';
+import { ISelectOption, SelectModalFactory } from '../../modals';
 import { TailwindFormsModule } from '../../tailwind-forms/tailwind-forms.module';
 import { LeadCommentsFormComponent } from '../components/detail-sections/lead-comments-form.component';
 import { LeadEmailsFormComponent } from '../components/detail-sections/lead-emails-form.component';
@@ -55,7 +63,13 @@ import { LeadSocialsFormComponent } from '../components/detail-sections/lead-soc
     LeadCommentsFormComponent,
     PullToRefreshComponent,
   ],
-  providers: [LeadsService, FormsService, UtilsService],
+  providers: [
+    LeadsService,
+    FormsService,
+    UtilsService,
+    AgentService,
+    SelectModalFactory,
+  ],
   templateUrl: './lead-detail.component.html',
   styleUrl: './lead-detail.component.scss',
 })
@@ -64,10 +78,16 @@ export class LeadDetailComponent implements OnInit, OnDestroy {
   private _leadsService = inject(LeadsService);
   private _formsService = inject(FormsService);
   private _utilsService = inject(UtilsService);
+  private _router = inject(Router);
+  private _agentService = inject(AgentService);
+  private _selectModalFactory = inject(SelectModalFactory);
+  private _authService = inject(AuthService);
+  private _profileService = inject(ProfileService);
 
   public id = this._activatedRoute.snapshot.queryParams['l'];
   public form?: FormGroup<controlsFromObject<INotifyPopulatedLead>>;
   public saving = false;
+  public isLoadingShare = false;
 
   public destroy$ = new Subject<void>();
 
@@ -124,6 +144,10 @@ export class LeadDetailComponent implements OnInit, OnDestroy {
     );
   }
 
+  public goBack() {
+    this._router.navigate(['/pages/leads']);
+  }
+
   public addEmailAddress() {
     this.form?.controls.emails.push(
       new FormGroup({
@@ -142,6 +166,96 @@ export class LeadDetailComponent implements OnInit, OnDestroy {
         this._updateFormControls(lead);
       })
     );
+  }
+
+  public shareLead() {
+    if (!this.form) {
+      return;
+    }
+
+    this.isLoadingShare = true;
+
+    const title =
+      this._authService.user?.userType === EnumNotifyUserType.Company
+        ? 'Condividi con un utente'
+        : 'Condividi con un collega';
+
+    const subtitle = 'Seleziona qualcuno con cui condividere questo contatto';
+
+    this._agentService
+      .getAgents()
+      .pipe(
+        tap(() => (this.isLoadingShare = false)),
+        map((v) =>
+          v.filter((v) => {
+            if (!this.form) {
+              return false;
+            }
+
+            return !this.form.value.sharedBy?.map((v) => v._id).includes(v._id);
+          })
+        ),
+        mergeMap((agents) => {
+          const result = this._selectModalFactory.create({
+            title,
+            subtitle: agents.length ? subtitle : 'Nessun opzione disponibile',
+            options: agents.map(this._createUserOption.bind(this)),
+          });
+
+          return of(result.instance);
+        }),
+        switchMap((instance) => {
+          return instance.submitted.pipe(
+            tap((option) => {
+              instance.close();
+              if (!option.value) {
+                return;
+              }
+
+              return this.form?.controls.sharedBy.push(
+                this._formsService.createFormGroup(option.value)
+              );
+            })
+          );
+        })
+      )
+      .subscribe();
+  }
+
+  private _createUserOption(v: INotifyAgent): ISelectOption {
+    if (!v.profile) {
+      return {
+        value: {
+          _id: v._id,
+          alias: v.email,
+          avatar: '',
+        },
+        label: v.email,
+      };
+    }
+
+    const name = this._profileService.getContactName(v.profile);
+    const avatar = this._profileService.getProfileAvatar(v.profile);
+
+    if (!name.length) {
+      return {
+        value: {
+          _id: v._id,
+          alias: v.email,
+          avatar: avatar || '',
+        },
+        label: v.email,
+      };
+    }
+
+    return {
+      value: {
+        _id: v._id,
+        alias: name,
+        avatar: avatar || '',
+      },
+      label: name,
+    };
   }
 
   private _listenToFormChanges() {
@@ -176,7 +290,7 @@ export class LeadDetailComponent implements OnInit, OnDestroy {
     const createdBy = v.value.createdBy?._id || '';
     const comments = (v.value.comments || []).map((v) => ({
       ...v,
-      createdAt: new Date(v.createdAt || ''),
+      createdAt: v.createdAt ? new Date(v.createdAt) : new Date(),
       content: v.content || '',
       createdBy: v.createdBy?._id || '',
     }));

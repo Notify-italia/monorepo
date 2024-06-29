@@ -130,6 +130,10 @@
   &.box-neutral {
     @apply bg-neutral-50/10;
   }
+
+  &.box-button {
+    @apply p-2 px-4 hover:scale-105 smooth active:scale-90 flex justify-around items-center space-x-2 hover:brightness-125;
+  }
 }
 
 .floating-button {

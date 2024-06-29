@@ -4,10 +4,51 @@
 <div class="page-layout mt-4 relative">
   <div>
     <div>
-      <!-- <div class="row justify-between">
-        <button class="btn">Indietro</button>
-        <button class="btn">Condividi</button>
-      </div> -->
+      <div class="row justify-between">
+        <button class="box box-button" (click)="goBack()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-4"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+            />
+          </svg>
+
+          <span>Indietro</span>
+        </button>
+        <button
+          class="box box-button relative"
+          [ngClass]="{ 'pointer-events-none': isLoadingShare }"
+          (click)="shareLead()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-4"
+            [ngClass]="{ 'opacity-0 pointer-events-none': isLoadingShare }"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z"
+            />
+          </svg>
+          @if(isLoadingShare) {
+          <notify-loading class="scale-[.25] absolute -left-2"></notify-loading>
+          }
+          <span>Condividi</span>
+        </button>
+      </div>
       @if (form) {
       <div class="column !space-y-0">
         <div
@@ -24,15 +65,15 @@
             form.value.createdAt | date : 'dd/MM/yyyy HH:mm'
           }}</span>
         </div>
-        <div class="h-16"></div>
-        <div class="absolute w-full h-full left-0 top-12 p-1">
-          <notify-save-indicator
-            [isSaving]="saving"
-            [compact]="true"
-            [followPage]="true"
-            [lastSave]="$any(form.value.updatedAt)"
-          ></notify-save-indicator>
-        </div>
+        <!-- <div class="h-16"></div> -->
+        <!-- <div class="absolute w-full h-full left-0 top-12 p-1"> -->
+        <notify-save-indicator
+          [isSaving]="saving"
+          [compact]="true"
+          [followPage]="false"
+          [lastSave]="$any(form.value.updatedAt)"
+        ></notify-save-indicator>
+        <!-- </div> -->
       </div>
       <div class="column">
         <div class="column box p-4">

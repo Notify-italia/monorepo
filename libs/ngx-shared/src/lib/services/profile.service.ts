@@ -202,7 +202,7 @@ export class ProfileService {
   public getContactName(profile: INotifyProfile) {
     return (
       this.getContactOverrides(profile)?.name || this.getProfileName(profile)
-    );
+    ).trim();
   }
 
   public getContactOverrides(profile: INotifyProfile) {

@@ -82,7 +82,7 @@ export class SelectComponent extends ModalBaseComponent<ISelectOption> {
   public handleSelection(option: ISelectOption) {
     this.optionSelected.emit(option);
     if (option.style === EnumSelectOptionStyle.CANCEL) {
-      this.close({ timeout: SELECT_MODAL_TIMEOUT });
+      this.close();
       return;
     }
 
@@ -97,5 +97,9 @@ export class SelectComponent extends ModalBaseComponent<ISelectOption> {
       ...this.options,
       { value: null, label: 'Annulla', style: EnumSelectOptionStyle.CANCEL },
     ];
+  }
+
+  public override async close() {
+    super.close({ timeout: SELECT_MODAL_TIMEOUT });
   }
 }

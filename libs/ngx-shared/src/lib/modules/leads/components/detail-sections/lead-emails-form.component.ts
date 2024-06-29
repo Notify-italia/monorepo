@@ -15,29 +15,24 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
     <div class="box p-4 space-y-2" *ngIf="form.controls.emails as pns">
       <div class="row justify-between !items-center">
         <h2 class="section-title">Emails</h2>
-        <div
-          class="tooltip tooltip-accent tooltip-left"
-          data-tip="Aggiungi email"
+        <button
+          (click)="addEmail()"
+          class="btn btn-primary btn-sm btn-circle mt-1"
+          data-theme="notifytheme"
         >
-          <button
-            (click)="addEmail()"
-            class="btn btn-primary btn-sm btn-circle mt-1"
-            data-theme="notifytheme"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="size-6"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              class="size-6"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </div>
+            <path
+              fill-rule="evenodd"
+              d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
       </div>
       <div class="column !space-y-2">
         @if(!pns.controls.length) {
