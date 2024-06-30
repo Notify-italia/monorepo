@@ -41,7 +41,7 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
         <div
           class="max-w-full truncate max-h-full w-full"
           [ngClass]="{
-            'text-center': !imageUrl
+            'text-left': !imageUrl
           }"
         >
           <p class="truncate">

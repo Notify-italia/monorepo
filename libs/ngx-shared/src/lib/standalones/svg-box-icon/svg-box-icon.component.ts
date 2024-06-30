@@ -59,6 +59,7 @@ export class SvgBoxIconComponent implements OnInit, OnChanges {
 
   public ngOnChanges() {
     this.visible = false;
+
     this._getIcon();
     setTimeout(() => {
       this.visible = true;

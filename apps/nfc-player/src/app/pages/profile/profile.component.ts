@@ -12,7 +12,9 @@ import {
 } from '@notify/interfaces';
 import {
   AdvancedProfileItemOutputsService,
+  CREATE_CONTACT_FORM_MODAL_CONFIG,
   CREATE_IFRAME_MODAL_CONFIG,
+  ContactFormFactory,
   FeedbackFactory,
   FileRecievedFactory,
   FloatingButtonComponent,
@@ -60,6 +62,7 @@ import { environment } from '../../../environments/environment';
     FeedbackFactory,
     UtilsService,
     iframeFactory,
+    ContactFormFactory,
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
@@ -132,7 +135,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private _utils: UtilsService,
     private _domSanitizer: DomSanitizer,
     private _apItemOutputs: AdvancedProfileItemOutputsService,
-    private _iframeFactory: iframeFactory
+    private _iframeFactory: iframeFactory,
+    private _contactFormFactory: ContactFormFactory
   ) {
     this.profile$ = this._profileService.getProfile(this._id).pipe(
       tap((profile) =>
@@ -399,6 +403,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
       case 'SHOW_FEEDBACK_FORM': {
         this.showFeedback(event.eventData as unknown as INotifyProfile);
+        break;
+      }
+      case 'CREATE_CONTACT_FORM_MODAL': {
+        const eventData = <
+          IAdvancedProfileItemEvent<CREATE_CONTACT_FORM_MODAL_CONFIG>['eventData']
+        >event.eventData;
+
+        if (!eventData) {
+          return;
+        }
+
+        this._contactFormFactory.create(eventData);
         break;
       }
       case 'LINK_CLICKED': {

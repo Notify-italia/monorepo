@@ -57,14 +57,14 @@
 }
 
 .modal-container {
-  @apply fixed w-screen h-screen backdrop-blur-xl backdrop-brightness-50 z-[999] top-0 left-0 flex justify-center items-center;
+  @apply fixed w-screen h-screen backdrop-blur-xl backdrop-brightness-50 z-[999] top-0 left-0 flex justify-center items-center overflow-y-auto sm:overflow-hidden;
 
   & > div {
     @apply flex flex-col justify-center items-center;
   }
 
   & .modal-content {
-    @apply rounded lg:rounded-xl px-4 py-8 bg-slate-800 border border-slate-700 w-[95vw] lg:w-full md:max-w-[80vw] lg:max-w-[55vw] h-fit flex flex-col items-center slide-in-blurred-top;
+    @apply rounded lg:rounded-xl p-4 bg-slate-800 border border-slate-700 w-[95vw] lg:w-full md:max-w-[80vw] lg:max-w-[55vw] h-fit flex flex-col items-center slide-in-blurred-top;
 
     &.content-static {
       animation: none;
@@ -421,7 +421,6 @@
 .cdk-drop-list-dragging .cdkDrag:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
-
 
 .dont-break-out {
   /* These are technically the same, but use both */

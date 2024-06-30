@@ -1,0 +1,77 @@
+<div class="modal-container" (click)="close()">
+  <div>
+    <div
+      class="modal-content !bg-base-100/80"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="hero-content text-center h-full w-full">
+        <div class="h-full flex flex-col justify-center w-full space-y-2 hf">
+          <div class="modal-icon">
+            <h2>Lascia un feedback</h2>
+            <p>
+              Inserisci i tuoi dati e il tuo messaggio per essere ricontattato
+              al più presto
+            </p>
+            <div class="divider"></div>
+          </div>
+          <div class="flex flex-col space-y-4 text-start">
+            <div class="flex space-x-2 w-full">
+              <notify-tailwind-input
+                class="w-full"
+                *ngIf="isVisible('name')"
+                label="Nome"
+                placeholder="Inserisci il tuo nome"
+                [parent]="form"
+                [compact]="true"
+                name="name"
+              ></notify-tailwind-input>
+              <notify-tailwind-input
+                class="w-full"
+                *ngIf="isVisible('surname')"
+                label="Cognome"
+                placeholder="Inserisci il tuo cognome"
+                [parent]="form"
+                [compact]="true"
+                name="surname"
+              ></notify-tailwind-input>
+            </div>
+            <notify-tailwind-input
+              class="w-full"
+              *ngIf="isVisible('email')"
+              label="Email"
+              placeholder="Inserisci la tua email"
+              [parent]="form"
+              [compact]="true"
+              name="email"
+            ></notify-tailwind-input>
+            <notify-tailwind-input
+              class="w-full"
+              *ngIf="isVisible('phone')"
+              label="Telefono"
+              placeholder="Inserisci il tuo telefono"
+              [parent]="form"
+              [compact]="true"
+              name="phone"
+              [mask]="
+                form.value.phone?.startsWith('0')
+                  ? '0000 000 009'
+                  : '000 000 0000'
+              "
+            ></notify-tailwind-input>
+            <notify-tailwind-textarea
+              label="Messaggio"
+              placeholder="Inserisci il tuo messaggio"
+              [parent]="form"
+              [compact]="true"
+              [rows]="5"
+              name="message"
+            ></notify-tailwind-textarea>
+            <button class="btn btn-primary w-full" data-theme="notifytheme">
+              Invia
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

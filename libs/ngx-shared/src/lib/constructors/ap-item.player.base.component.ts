@@ -56,6 +56,7 @@ export const AdvancedItemPlayerBaseImports = [
 export const AdvancedItemPlayerBaseProviders = [
   AdvancedProfileItemsService,
   UtilsService,
+  SvgboxService,
 ];
 
 @Component({

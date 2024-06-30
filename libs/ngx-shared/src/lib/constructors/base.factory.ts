@@ -4,9 +4,9 @@ import { Injectable, Type, ViewContainerRef } from '@angular/core';
 export class BaseFactory {
   constructor(public vcr: ViewContainerRef) {}
 
-  public _createComponent<T>(
+  public _createComponent<T, D = { [key: string]: unknown }>(
     component: Type<T>,
-    data?: { [key: string]: unknown }
+    data?: D
   ) {
     const ref = this.vcr.createComponent<T>(component);
 

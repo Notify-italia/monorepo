@@ -5,7 +5,7 @@ import {
   NotifyAdvancedProfileItem,
 } from '@notify/interfaces';
 import { Subject } from 'rxjs';
-import { IFrameModalNavbarStyle } from '../../modals';
+import { IContactFormParams, IFrameModalNavbarStyle } from '../../modals';
 
 export type ADVANCED_PROFILE_CLICK_EVENTS =
   | 'ITEM_CLICKED'
@@ -13,13 +13,16 @@ export type ADVANCED_PROFILE_CLICK_EVENTS =
   | 'CONTACT_CLICKED'
   | 'SHOW_COMPANY_PROFILE'
   | 'SHOW_FEEDBACK_FORM'
-  | 'LINK_CLICKED';
+  | 'LINK_CLICKED'
+  | 'CREATE_CONTACT_FORM_MODAL';
 
 export interface CREATE_IFRAME_MODAL_CONFIG {
   url: string;
   title: string;
   navbarStyle: IFrameModalNavbarStyle;
 }
+
+export type CREATE_CONTACT_FORM_MODAL_CONFIG = IContactFormParams;
 
 export interface IAdvancedProfileItemEvent<
   eventData = Record<string, unknown>

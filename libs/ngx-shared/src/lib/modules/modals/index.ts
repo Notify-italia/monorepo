@@ -1,4 +1,5 @@
 export * from './confirm';
+export * from './contact-form';
 export * from './iframe';
 export * from './nfc-write';
 export * from './qrcode';

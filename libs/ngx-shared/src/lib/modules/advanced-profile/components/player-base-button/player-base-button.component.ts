@@ -43,11 +43,11 @@ import { SvgBoxIconComponent } from '../../../../standalones';
   </button>`,
 })
 export class PlayerBaseButtonComponent {
-  @Input() public direction!: EnumNotifyAPDirections;
-  @Input() public style!: EnumNotifyAPContainerStyles;
-  @Input() public button!: INotifyAPBaseButton;
-  @Input() public icon!: SvgBoxIcon;
-  @Input()
+  @Input({ required: true }) public direction!: EnumNotifyAPDirections;
+  @Input({ required: true }) public style!: EnumNotifyAPContainerStyles;
+  @Input({ required: true }) public button!: INotifyAPBaseButton;
+  @Input({ required: true }) public icon!: SvgBoxIcon;
+  @Input({ required: true })
   public context!: AdvancedProfileItemPlayerBaseComponent<NotifyAdvancedProfileItem>['context'];
 
   @Output() public buttonClicked = new EventEmitter<INotifyAPBaseButton>();
