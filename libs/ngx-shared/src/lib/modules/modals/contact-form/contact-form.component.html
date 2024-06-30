@@ -20,7 +20,7 @@
                 class="w-full"
                 *ngIf="isVisible('name')"
                 label="Nome"
-                placeholder="Inserisci il tuo nome"
+                placeholder="Mario"
                 [parent]="form"
                 [compact]="true"
                 name="name"
@@ -29,7 +29,7 @@
                 class="w-full"
                 *ngIf="isVisible('surname')"
                 label="Cognome"
-                placeholder="Inserisci il tuo cognome"
+                placeholder="Rossi"
                 [parent]="form"
                 [compact]="true"
                 name="surname"
@@ -39,7 +39,7 @@
               class="w-full"
               *ngIf="isVisible('email')"
               label="Email"
-              placeholder="Inserisci la tua email"
+              placeholder="email@esempio.dominio"
               [parent]="form"
               [compact]="true"
               name="email"
@@ -48,7 +48,7 @@
               class="w-full"
               *ngIf="isVisible('phone')"
               label="Telefono"
-              placeholder="Inserisci il tuo telefono"
+              placeholder="012 345 6789"
               [parent]="form"
               [compact]="true"
               name="phone"
@@ -66,9 +66,22 @@
               [rows]="5"
               name="message"
             ></notify-tailwind-textarea>
-            <button class="btn btn-primary w-full" data-theme="notifytheme">
-              Invia
-            </button>
+            <div class="flex w-full justify-center space-x-2">
+              <button
+                (click)="close()"
+                class="btn btn-accent w-full shrink"
+                data-theme="notifytheme"
+              >
+                Annulla
+              </button>
+              <button
+                [disabled]="form.invalid"
+                class="btn btn-primary w-full shrink"
+                data-theme="notifytheme"
+              >
+                Invia
+              </button>
+            </div>
           </div>
         </div>
       </div>
