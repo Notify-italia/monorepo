@@ -142,8 +142,19 @@ const LeadSchema = new Schema<Lead, LeadModel>(
       type: String,
       default: null,
     },
+    acceptanceMessage: {
+      type: String,
+      default: null,
+    },
   },
   {
+    toJSON: {
+      transform: (doc, ret) => {
+        delete ret.__v;
+        delete ret.deleted;
+        return ret;
+      },
+    },
     timestamps: true,
     versionKey: false,
   }

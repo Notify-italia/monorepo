@@ -7,8 +7,8 @@ import { HttpService } from './http.service';
 export class LeadsService {
   private _http = inject(HttpService);
 
-  public createLead(lead: INotifyLead) {
-    return this._http.post<INotifyLead, INotifyLead>(`/v1/lead`, lead);
+  public createLead(lead: Partial<INotifyLead>) {
+    return this._http.post<Partial<INotifyLead>, INotifyLead>(`/v1/lead`, lead);
   }
 
   public patchLead(lead: INotifyLead) {

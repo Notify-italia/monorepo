@@ -77,6 +77,10 @@ export interface INotifyLead extends MongodbDocument {
    * ruolo del contatto
    */
   role: string;
+  /**
+   * data di nascita del contatto
+   */
+  acceptanceMessage: string;
 }
 
 export enum EnumNotifyLeadOrigins {

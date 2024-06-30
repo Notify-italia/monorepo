@@ -38,7 +38,9 @@ router.get(
         res
           .status(200)
           .send(
-            await _populateLead(await LeadModel.findById(id as string).lean())
+            await _populateLead(
+              await LeadModel.findOne({ _id: id, deleted: false }).lean()
+            )
           );
         return;
       }
