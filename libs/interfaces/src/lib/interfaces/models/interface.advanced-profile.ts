@@ -122,8 +122,9 @@ export interface INotifyAPLabelItem
 export interface INoitfyAPLeadItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Lead> {
   fields: {
-    name: 'email' | 'phone' | 'name' | 'surname';
+    name: 'email' | 'phone' | 'name' | 'surname' | 'acceptanceMessage';
     visible: boolean;
+    required: boolean;
   }[];
   buttonLabel: string;
   style: EnumNotifyAPContainerStyles;

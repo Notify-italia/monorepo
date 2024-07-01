@@ -22,7 +22,10 @@ import {
   AdvancedProfileItemsService,
   INotifyAdvancedProfileManifest,
 } from '../modules/advanced-profile/services/advanced-profile-items.service';
-import { CHECKBOX_TOGGLE_EYE } from '../modules/tailwind-forms/components/tailwind-checkbox/tailwind-checkbox.component';
+import {
+  CHECKBOX_PADLOCK_CLOSED,
+  CHECKBOX_TOGGLE_EYE,
+} from '../modules/tailwind-forms/components/tailwind-checkbox/tailwind-checkbox.component';
 import { TailwindFormsModule } from '../modules/tailwind-forms/tailwind-forms.module';
 import {
   AuthService,
@@ -109,6 +112,7 @@ export class AdvancedProfileItemFormBaseComponent<
         itemValue: this.form.value,
         profile: this.profile,
         formChanged: this.form.valueChanges.pipe(takeUntil(this._destroy$)),
+        manifest: this.manifest,
       },
       statics: {
         buttonStyles: EnumNotifyAPContainerStyles,
@@ -154,6 +158,7 @@ export class AdvancedProfileItemFormBaseComponent<
             unchecked: CHECKBOX_TOGGLE_EYE.unchecked,
             button: `btn btn-sm btn-outline`,
           },
+          lockClosed: CHECKBOX_PADLOCK_CLOSED,
         },
       },
     };

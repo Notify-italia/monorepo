@@ -36,16 +36,42 @@ type FieldName = INoitfyAPLeadItem['fields'][0]['name'];
     <div class="divider"></div>
 
     <small class="w-full">Visiblità dei campi nel form </small>
-    @for (item of form.controls.fields.controls; track $index) {
-    <notify-tailwind-checkbox
-      class="w-full"
-      [parent]="item"
-      [compact]="true"
-      [overrideToggleIcon]="context.components.checkbox.toggleEye"
-      name="visible"
-      [label]="translatedFields[item.value.name || '']"
-    ></notify-tailwind-checkbox>
-    }
+    <table class="w-full h-full">
+      <thead>
+        <tr class="text-xs ">
+          <th class="w-1/2 text-start">Campo</th>
+          <th class="w-1/4">Visibile</th>
+          <th class="w-1/4">Obbligatorio</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of form.controls.fields.controls; track $index) {
+        <tr class="items-center h-10">
+          <td>
+            <small>{{ translatedFields[item.value.name || ''] }}</small>
+          </td>
+          <td>
+            <notify-tailwind-checkbox
+              [parent]="item"
+              [compact]="true"
+              [overrideToggleIcon]="context.components.checkbox.toggleEye"
+              name="visible"
+              label=" "
+            ></notify-tailwind-checkbox>
+          </td>
+          <td>
+            <notify-tailwind-checkbox
+              [parent]="item"
+              [compact]="true"
+              [overrideToggleIcon]="context.components.checkbox.lockClosed"
+              name="required"
+              label=" "
+            ></notify-tailwind-checkbox>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
   </div>`,
 })
 export class LeadFormComponent extends AdvancedProfileItemFormBaseComponent<INoitfyAPLeadItem> {
@@ -57,6 +83,7 @@ export class LeadFormComponent extends AdvancedProfileItemFormBaseComponent<INoi
     name: 'Nome',
     surname: 'Cognome',
     instagram: 'Instagram',
+    acceptanceMessage: 'Messaggio',
     ['']: 'Campo non riconosciuto',
   };
 
@@ -67,12 +94,16 @@ export class LeadFormComponent extends AdvancedProfileItemFormBaseComponent<INoi
   }
 
   private _compareFieldsWithList(): void {
-    const fields = this.form.controls.fields.controls;
-    const fieldsNames = fields
+    const formFields = this.form.controls.fields.controls;
+    const formFieldsNames = formFields
       .map((field) => field.value.name)
       .filter((v) => v) as FieldName[];
-    const fieldsToBeAdded = EDITABLE_FORM_FIELDS.filter(
-      (field) => !fieldsNames.includes(field)
+
+    const manifestFieldsNames =
+      this.context.getters.manifest.definitions.fields.map((v) => v.name);
+
+    const fieldsToBeAdded = manifestFieldsNames.filter(
+      (field) => !formFieldsNames.includes(field)
     );
 
     fieldsToBeAdded.forEach((field) => {
@@ -82,19 +113,18 @@ export class LeadFormComponent extends AdvancedProfileItemFormBaseComponent<INoi
         >{
           name: field,
           visible: false,
+          required: false,
         })
       );
     });
 
-    const fieldsToBeRemoved = fieldsNames.filter(
-      (field) => !EDITABLE_FORM_FIELDS.includes(field)
+    const fieldsToBeRemoved = formFieldsNames.filter(
+      (field) => !manifestFieldsNames.includes(field)
     );
 
     fieldsToBeRemoved.forEach((field) => {
-      const index = fields.findIndex((f) => f.value.name === field);
+      const index = formFields.findIndex((f) => f.value.name === field);
       this.form.controls.fields.removeAt(index);
     });
   }
 }
-
-const EDITABLE_FORM_FIELDS: FieldName[] = ['name', 'surname', 'phone', 'email'];

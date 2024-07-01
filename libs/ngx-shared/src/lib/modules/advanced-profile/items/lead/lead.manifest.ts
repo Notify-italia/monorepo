@@ -35,18 +35,27 @@ const manifest: INotifyAdvancedProfileManifest<INoitfyAPLeadItem> = {
       {
         name: 'name',
         visible: true,
+        required: true,
       },
       {
         name: 'surname',
         visible: true,
+        required: true,
       },
       {
         name: 'phone',
         visible: true,
+        required: true,
       },
       {
         name: 'email',
         visible: true,
+        required: true,
+      },
+      {
+        name: 'acceptanceMessage',
+        visible: true,
+        required: false,
       },
     ],
     style: EnumNotifyAPContainerStyles.Filled,

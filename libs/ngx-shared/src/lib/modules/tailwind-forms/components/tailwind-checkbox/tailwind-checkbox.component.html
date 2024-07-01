@@ -11,8 +11,8 @@
     [ngClass]="{
       'text-xs': compact
     }"
-    >{{ label }}</label
-  >
+    [innerHTML]="label"
+  ></label>
 
   @if(!overrideToggleIcon) {
   <div class="form-control">
@@ -29,7 +29,7 @@
   } @else {
   <button
     (click)="toggleCheckbox()"
-    class="my-auto hover:brightness-125 {{ overrideToggleIcon.button }}"
+    class="my-auto hover:brightness-125 {{ overrideToggleIcon.button }} "
   >
     <div [innerHTML]="toggleIcon"></div>
   </button>

@@ -17,18 +17,20 @@
           <div class="flex flex-col space-y-4 text-start">
             <div class="flex space-x-2 w-full">
               <notify-tailwind-input
+                [validationErrors]="validationErrors"
                 class="w-full"
                 *ngIf="isVisible('name')"
-                label="Nome"
+                [label]="getFieldName('name')"
                 placeholder="Mario"
                 [parent]="form"
                 [compact]="true"
                 name="name"
               ></notify-tailwind-input>
               <notify-tailwind-input
+                [validationErrors]="validationErrors"
                 class="w-full"
                 *ngIf="isVisible('surname')"
-                label="Cognome"
+                [label]="getFieldName('surname')"
                 placeholder="Rossi"
                 [parent]="form"
                 [compact]="true"
@@ -36,18 +38,20 @@
               ></notify-tailwind-input>
             </div>
             <notify-tailwind-input
+              [validationErrors]="validationErrors"
               class="w-full"
               *ngIf="isVisible('email')"
-              label="Email"
+              [label]="getFieldName('email')"
               placeholder="email@esempio.dominio"
               [parent]="form"
               [compact]="true"
               name="email"
             ></notify-tailwind-input>
             <notify-tailwind-input
+              [validationErrors]="validationErrors"
               class="w-full"
               *ngIf="isVisible('phone')"
-              label="Telefono"
+              [label]="getFieldName('phone')"
               placeholder="012 345 6789"
               [parent]="form"
               [compact]="true"
@@ -59,13 +63,22 @@
               "
             ></notify-tailwind-input>
             <notify-tailwind-textarea
-              label="Messaggio"
+              [validationErrors]="validationErrors"
+              [label]="getFieldName('acceptanceMessage')"
               placeholder="Inserisci il tuo messaggio"
               [parent]="form"
               [compact]="true"
               [rows]="5"
-              name="message"
+              name="acceptanceMessage"
             ></notify-tailwind-textarea>
+            <notify-tailwind-checkbox
+              [validationErrors]="validationErrors"
+              [parent]="form"
+              [compact]="true"
+              name="privacy"
+              label="Acconento al trattamento dei mei dati personali per <a href='https://notifyapp.it' target='_blank' class='link'>finalità promozionali</a>"
+            >
+            </notify-tailwind-checkbox>
             <div class="flex w-full justify-center space-x-2">
               <button
                 (click)="close()"
@@ -75,7 +88,7 @@
                 Annulla
               </button>
               <button
-                [disabled]="form.invalid"
+                [disabled]="form.invalid || !form.value.privacy"
                 class="btn btn-primary w-full shrink"
                 data-theme="notifytheme"
                 (click)="submit()"
