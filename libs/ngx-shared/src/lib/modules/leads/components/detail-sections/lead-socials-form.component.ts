@@ -40,18 +40,39 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
         <div class="text-sm text-gray-400">Ancora nessun link</div>
         } @for (item of pns.controls; track $index) {
         <div class="row">
-          <notify-tailwind-input
-            [compact]="true"
-            type="url"
-            [parent]="item"
-            [showClearInput]="false"
-            label=" "
-            name="url"
-            placeholder="instagram.com/notify_it"
-          ></notify-tailwind-input>
-          <button
-            class="form-button smooth"
-            (click)="pns.removeAt($index)"
+          <div class="row relative w-full">
+            <notify-tailwind-input
+              [compact]="true"
+              type="url"
+              [parent]="item"
+              [showClearInput]="false"
+              label=" "
+              name="url"
+              placeholder="instagram.com/notify_it"
+            ></notify-tailwind-input>
+            <button
+              class="form-button smooth"
+              (click)="pns.removeAt($index)"
+              tabindex="-1"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-6"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+          <a
+            class="form-button !static smooth"
+            href="{{ item.value.url }}"
+            target="_blank"
             tabindex="-1"
           >
             <svg
@@ -62,11 +83,11 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
             >
               <path
                 fill-rule="evenodd"
-                d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+                d="M15.75 2.25H21a.75.75 0 0 1 .75.75v5.25a.75.75 0 0 1-1.5 0V4.81L8.03 17.03a.75.75 0 0 1-1.06-1.06L19.19 3.75h-3.44a.75.75 0 0 1 0-1.5Zm-10.5 4.5a1.5 1.5 0 0 0-1.5 1.5v10.5a1.5 1.5 0 0 0 1.5 1.5h10.5a1.5 1.5 0 0 0 1.5-1.5V10.5a.75.75 0 0 1 1.5 0v8.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V8.25a3 3 0 0 1 3-3h8.25a.75.75 0 0 1 0 1.5H5.25Z"
                 clip-rule="evenodd"
               />
             </svg>
-          </button>
+          </a>
         </div>
         }
       </div>

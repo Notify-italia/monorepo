@@ -38,19 +38,42 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
         @if(!pns.controls.length) {
         <div class="text-sm text-gray-400">Ancora nessuna email</div>
         } @for (item of pns.controls; track $index) {
+
         <div class="row">
-          <notify-tailwind-input
-            type="email"
-            [compact]="true"
-            [showClearInput]="false"
-            [parent]="item"
-            label=" "
-            [name]="$index.toString()"
-            placeholder="email@esempio.dominio"
-          ></notify-tailwind-input>
-          <button
-            class="form-button smooth"
-            (click)="pns.removeAt($index)"
+          <div class="row relative w-full">
+            <notify-tailwind-input
+              type="email"
+              [compact]="true"
+              [showClearInput]="false"
+              [parent]="item"
+              label=" "
+              [name]="$index.toString()"
+              placeholder="email@esempio.dominio"
+            ></notify-tailwind-input>
+            <button
+              class="form-button smooth"
+              (click)="pns.removeAt($index)"
+              tabindex="-1"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="size-6"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <a
+            class="form-button !static smooth"
+            href="mailto:{{ item.value[$any($index.toString())] }}"
+            target="_blank"
             tabindex="-1"
           >
             <svg
@@ -60,13 +83,15 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
               class="size-6"
             >
               <path
-                fill-rule="evenodd"
-                d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
-                clip-rule="evenodd"
+                d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z"
+              />
+              <path
+                d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z"
               />
             </svg>
-          </button>
+          </a>
         </div>
+
         }
       </div>
     </div>

@@ -4,22 +4,25 @@ const _getVersionArt = (tag: string) => {
   return `https://s3-api.vps.notifyapp.it/assets/version-art/${tag}.webp`;
 };
 
-const _sharedDescription = `Un'altra versione di Notify, un'altra occasione per migliorare l'esperienza utente e risolvere alcuni problemi minori. Intanto continiuamo a "cucinare" in segreto 🫢`;
+const _sharedTag = 'v1.1.0';
+const _sharedDate = '2024-07-10';
+
+const _sharedDescription = `Con Notify 1.1.0 è finalmente possibile digitalizzare i noiosi bigliettini da visita cartaceo con un semplice click o tap, ma non è un semplice OCR.. <br/><br/>Grazie alla nostra AI, le informazioni ottenute saranno contestualizzate e organizzate in modo da essere immediatamente utilizzabili. <br/> Dalla pagina di dettaglio potrai inoltre aggiungere commenti, condividerli col tuo team e altro ancora! Tutto questo senza mai abbandonare la tua app preferita 😉`;
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
-    type: 'improvement',
+    type: 'new',
     message:
-      "Haptic feedback aggiunto nei toggle per migliorare l'esperienza utente",
+      'Contatti: Scansiona i biglietti da visita cartacei tramite AI e gestiscine il contenuto, oltre a poterli esportare in CSV tramite i portali web',
   },
   {
     type: 'improvement',
     message:
-      'Aggiunte alcune nuove integrazioni nel pannello di personalizzazione del profilo',
+      'Migliorata la UI dei modali di conferma per essere più chiari e comprensibili',
   },
   {
     type: 'fix',
-    message: `Risolto un problema che causava la visualizzazione non corretta dello stato di hover degli elementi clickabili da mobile`,
+    message: `La visualizzazione del profilo è stata ottimizzata per renderla più fluida e reattiva`,
   },
   {
     type: 'fix',
@@ -28,19 +31,26 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
 ];
 
 export const agentChangelog: INotifyVersionInfo = {
-  tag: 'v1.0.2',
-  date: '2024-06-18',
+  tag: _sharedTag,
+  date: _sharedDate,
   description: _sharedDescription,
-  title: 'Mettendo la carne...',
-  artPath: _getVersionArt('v1.0.2'),
-  changes: [..._sharedChanges],
+  title: 'Digitalizzazione 📸',
+  artPath: _getVersionArt(_sharedTag),
+  changes: [
+    ..._sharedChanges,
+    {
+      type: 'improvement',
+      message:
+        'La tab "Colleghi" viene nascosta automaticamente in caso di assenza di colleghi',
+    },
+  ],
 };
 
 export const companyChangelog: INotifyVersionInfo = {
-  tag: 'v1.0.2',
-  date: '2024-06-18',
+  tag: _sharedTag,
+  date: _sharedDate,
   description: _sharedDescription,
-  title: 'Mettendo la carne...',
-  artPath: _getVersionArt('v1.0.2'),
+  title: 'Digitalizzazione 📸',
+  artPath: _getVersionArt(_sharedTag),
   changes: [..._sharedChanges],
 };
