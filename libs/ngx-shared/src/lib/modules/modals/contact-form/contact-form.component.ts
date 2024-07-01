@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { EnumNotifyLeadOrigins, INoitfyAPLeadItem } from '@notify/interfaces';
+import { ToastrService } from 'ngx-toastr';
 import { catchError, of, tap } from 'rxjs';
 import { ModalBaseComponent } from '../../../constructors';
 import { FormsService, LeadsService } from '../../../services';
@@ -16,6 +17,7 @@ import { TailwindFormsModule } from '../../tailwind-forms/tailwind-forms.module'
 export class ContactFormComponent extends ModalBaseComponent implements OnInit {
   private _formsService = inject(FormsService);
   private _leadsService = inject(LeadsService);
+  private _toastrService = inject(ToastrService);
 
   @Input({ required: true }) owner!: string;
   @Input({ required: true }) visibleFields!: INoitfyAPLeadItem['fields'];
@@ -94,6 +96,7 @@ export class ContactFormComponent extends ModalBaseComponent implements OnInit {
       .pipe(
         catchError(() => of(null)),
         tap(() => {
+          this._toastrService.success('Richiesta inviata con successo!');
           this.close();
         })
       )
