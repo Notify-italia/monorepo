@@ -60,6 +60,7 @@ export class PartnersComponent {
             profile: v,
             baseUrl: environment.profilesUrl,
             hideShare: true,
+            isRunningOnPlayer: true,
           })
         )
       )
