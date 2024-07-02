@@ -67,7 +67,7 @@ const LicenseSchema = new Schema<License, LicenseModel>(
       default: 1,
     },
     features: {
-      type: [String],
+      type: Schema.Types.Mixed,
       default: [],
     },
     boughtCards: {

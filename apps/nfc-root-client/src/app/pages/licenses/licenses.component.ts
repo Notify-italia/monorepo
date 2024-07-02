@@ -74,9 +74,14 @@ export class LicensesComponent implements OnInit {
   }
 
   private _getLicenses(): void {
-    this._rootService.getLicenses({ items: 1000, page: 1 }).subscribe((v) => {
-      this.licensesSubject$.next(v);
-    });
+    this._rootService
+      .getLicenses({ items: 1000, page: 1 })
+      .pipe(
+        tap((v) => {
+          this.licensesSubject$.next(v);
+        })
+      )
+      .subscribe();
   }
 
   public dateTransform(date: string): string {

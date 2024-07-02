@@ -29,6 +29,7 @@ export class TailwindDatepickerComponent
   @Input() validationErrors!: { [key: string]: string };
   @Input() disabled = false;
   @Input() future = true; //true = dates in the future, false = dates in the past
+  @Input() compact = false;
 
   @ViewChild('datepickerElement') datepickerElement!: ElementRef;
   @ViewChild('dateInput') dateInput!: ElementRef;

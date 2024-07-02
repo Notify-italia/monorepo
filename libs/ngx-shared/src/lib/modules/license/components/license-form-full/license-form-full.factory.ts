@@ -7,7 +7,7 @@ import { LicenseFormFullComponent } from './license-form-full.component';
 export class LicenseFormFullFactory extends BaseFactory {
   public create(license?: INotifyPopulatedLicense) {
     return this._createComponent(LicenseFormFullComponent, {
-      license: license,
+      license,
     });
   }
 }

@@ -1,6 +1,20 @@
 import { MongodbDocument } from '../interface.mongodb';
 import { INotifyCompany } from './interface.company';
 
+export const FEATURES = [
+  'dashboard',
+  'profile',
+  'shareFiles',
+  'leads',
+  'notes',
+  'colleagues',
+  'sub-users',
+  'profile',
+  'stats',
+] as const;
+
+export type FeatureName = (typeof FEATURES)[number];
+
 export interface INotifyLicense extends MongodbDocument {
   expirationDate: Date;
   enabled: boolean;
@@ -9,7 +23,7 @@ export interface INotifyLicense extends MongodbDocument {
   //TODO gestire le features
   features: {
     type: 'include' | 'exclude';
-    name: string;
+    name: FeatureName;
   }[];
   boughtCards: number;
 }

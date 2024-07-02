@@ -127,15 +127,15 @@ const _hasActiveLicense = async (user: INotifyUser): Promise<boolean> => {
     async () => await _getAgentLicense(user)
   );
 
-  if (!lm || !lm.license.enabled) {
+  if (!lm || !lm.value.enabled) {
     return false;
   }
 
-  if (!lm.license.expirationDate) {
+  if (!lm.value.expirationDate) {
     return true;
   }
 
-  return new Date(lm.license.expirationDate) > new Date();
+  return new Date(lm.value.expirationDate) > new Date();
 };
 
 /**

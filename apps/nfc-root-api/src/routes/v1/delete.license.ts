@@ -22,7 +22,7 @@ router.delete(
       const instance = await LicenseManager.load({ id });
 
       const hasCompany = await CompanyModel.findOne({
-        licenses: instance.license._id,
+        licenses: instance.value._id,
       });
 
       console.log('hasCompany', hasCompany);
@@ -35,7 +35,7 @@ router.delete(
 
       await instance.delete();
 
-      res.status(200).send(instance.license);
+      res.status(200).send(instance.value);
     },
     {
       errorMessage: 'ERRORE!',

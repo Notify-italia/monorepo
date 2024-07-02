@@ -3,6 +3,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 import {
   EnumNotifyUserType,
+  FeatureName,
   INotifyAuth,
   INotifyLicense,
   INotifyPopulatedLicense,
@@ -58,7 +59,7 @@ export class AuthService {
     );
   }
 
-  public featureExcluded(feature: string, license: INotifyLicense) {
+  public featureExcluded(feature: FeatureName, license: INotifyLicense) {
     return license.features.some(
       (f) => f.name === feature && f.type === 'exclude'
     );

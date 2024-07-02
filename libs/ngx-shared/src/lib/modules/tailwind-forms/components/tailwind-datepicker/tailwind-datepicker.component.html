@@ -1,6 +1,12 @@
 <div class="mb-4">
   <ng-container [formGroup]="parent">
-    <label [for]="name" class="block text-sm font-medium">
+    <label
+      [for]="name"
+      class="block text-sm font-medium"
+      [ngClass]="{
+        'text-xs': compact
+      }"
+    >
       {{ label | titlecase }}
     </label>
 
@@ -23,14 +29,25 @@
       [placeholder]="placeholder || '01/01/1970'"
       [ngClass]="{
         'border-red-300 text-red-900 placeholder-red-300 group-focus-within:ring-red-500 group-focus-within:border-red-500':
-          showValidationErrors
+          showValidationErrors,
+          '!w-full rounded-lg text-xs bg-[#202020] !h-10  px-2': compact,
+          'w-full': !compact,
       }"
     />
 
-    <button class="absolute top-0 right-0 px-3 my-auto py-3" type="button">
+    <button
+      class="absolute top-0 right-0 my-auto p-3"
+      type="button"
+      [ngClass]="{
+      'py-2': compact,
+    }"
+    >
       <svg
         (click)="clearValue()"
-        class="h-6 w-6 my-auto"
+        class="size-6 my-auto"
+        [ngClass]="{
+          'size-4': compact,
+        }"
         [class.text-gray-600]="!showValidationErrors"
         [class.text-red-500]="showValidationErrors"
         fill="none"

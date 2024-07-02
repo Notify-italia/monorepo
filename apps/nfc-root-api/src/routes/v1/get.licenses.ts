@@ -31,17 +31,17 @@ router.get(
         .populate('profile')
         .lean();
 
-      res.send(
-        licenses.map((license) => {
-          const company = companies.find(
-            (company) => company.license.toString() === license._id.toString()
-          );
-          return {
-            ...license,
-            company,
-          };
-        })
-      );
+      const result = licenses.map((license) => {
+        const company = companies.find(
+          (company) => company.license.toString() === license._id.toString()
+        );
+        return {
+          ...license,
+          company,
+        };
+      });
+
+      res.send(result);
     },
     {
       errorMessage: 'ERRORE!',

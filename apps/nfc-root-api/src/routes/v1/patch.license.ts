@@ -27,12 +27,17 @@ router.patch(
     .optional()
     .isBoolean()
     .withMessage(LICENSE_VALIDATION_MESSAGES.enabled as string),
+  body('features')
+    .optional()
+    .isArray()
+    .withMessage(LICENSE_VALIDATION_MESSAGES.features as string),
   query('id')
     .isMongoId()
     .withMessage(LICENSE_VALIDATION_MESSAGES._id as string),
   requestHandler(
     async (req, res) => {
-      const { allowedAgents, expirationDate, boughtCards, enabled } = req.body;
+      const { allowedAgents, expirationDate, boughtCards, enabled, features } =
+        req.body;
       const { id } = req.query;
 
       const license = await LicenseManager.load({
@@ -45,9 +50,10 @@ router.patch(
         expirationDate,
         boughtCards,
         enabled,
+        features,
       });
 
-      res.status(200).send(license);
+      res.status(200).send(license.value);
     },
     {
       errorMessage: 'ERRORE!',

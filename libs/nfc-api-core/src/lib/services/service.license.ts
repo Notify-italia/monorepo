@@ -1,4 +1,4 @@
-import { INotifyCompany } from '@notify/interfaces';
+import { INotifyCompany, INotifyLicense } from '@notify/interfaces';
 import * as crypto from 'crypto';
 import { BadRequestError } from '../errors';
 import {
@@ -12,7 +12,7 @@ import {
 import { mLog } from '../services';
 
 export class LicenseManager {
-  public get license(): LicenseDocument {
+  public get value(): LicenseDocument {
     return this._license;
   }
 
@@ -20,9 +20,9 @@ export class LicenseManager {
 
   public get isActive(): boolean {
     return (
-      (this.license.expirationDate === null ||
-        this.license.expirationDate > new Date()) &&
-      this.license.enabled
+      (this.value.expirationDate === null ||
+        this.value.expirationDate > new Date()) &&
+      this.value.enabled
     );
   }
 
@@ -47,13 +47,9 @@ export class LicenseManager {
     await LicenseModel.findOneAndRemove({ _id: this._license._id });
   }
 
-  public async patch(conf: {
-    expirationDate: Date;
-    allowedAgents: number;
-    boughtCards: number;
-    enabled: boolean;
-  }): Promise<void> {
-    this._license.expirationDate = conf.expirationDate;
+  public async patch(conf: Partial<INotifyLicense>): Promise<void> {
+    this._license.expirationDate = (conf.expirationDate ||
+      null) as unknown as Date;
 
     this._license.allowedAgents =
       conf.allowedAgents || this._license.allowedAgents || 1;
@@ -61,7 +57,9 @@ export class LicenseManager {
     this._license.boughtCards =
       conf.boughtCards ?? this._license.boughtCards ?? 0;
 
-    this.license.enabled = conf.enabled ?? this.license.enabled ?? true;
+    this.value.enabled = conf.enabled ?? this.value.enabled ?? true;
+
+    this.value.features = conf.features || this.value.features || [];
 
     await this._license.save();
   }

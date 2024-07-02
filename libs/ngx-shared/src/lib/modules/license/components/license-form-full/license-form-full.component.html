@@ -24,61 +24,101 @@
         <div class="divider"></div>
       </div>
       <form [formGroup]="form" class="w-full" (ngSubmit)="save()">
-        <div class="flex flex-col w-full space-y-5">
-          <notify-tailwind-input
-            [parent]="form"
-            name="allowedAgents"
-            label="Utenti"
-            type="number"
-            placeholder="10"
-          ></notify-tailwind-input>
-          <notify-tailwind-input
-            [parent]="form"
-            name="boughtCards"
-            label="Tessere Notify Acquistate"
-            type="number"
-            placeholder="10"
-          ></notify-tailwind-input>
-          <div class="flex space-x-2 items-center">
-            <notify-tailwind-datepicker
-              [parent]="form"
-              name="expirationDate"
-              label="Data di scadenza"
-            ></notify-tailwind-datepicker>
+        <div class="flex w-full space-x-5 justify-around">
+          <div class="flex flex-col space-y-2">
+            <div class="flex space-x-2 items-center">
+              <notify-tailwind-datepicker
+                [parent]="form"
+                name="expirationDate"
+                label="Data di scadenza"
+                [compact]="true"
+              ></notify-tailwind-datepicker>
 
+              <button
+                [disabled]="!form.controls['expirationDate'].value"
+                class="btn btn-warning btn-sm"
+                (click)="form.controls['expirationDate'].setValue(null)"
+              >
+                No scadenza
+              </button>
+            </div>
+            <div class="divider"></div>
             <button
-              [disabled]="!form.controls['expirationDate'].value"
-              class="btn btn-warning"
-              (click)="form.controls['expirationDate'].setValue(null)"
-            >
-              Nessuna scadenza
-            </button>
-          </div>
-          <notify-tailwind-checkbox
-            [parent]="form"
-            name="enabled"
-            label="Abilitato"
-          ></notify-tailwind-checkbox>
-          <div class="flex justify-between w-full">
-            <button
-              class="btn btn-error"
-              *ngIf="license"
-              [disabled]="license.company"
+              class="btn btn-sm w-full btn-primary"
               data-theme="notifytheme"
-              type="button"
-              (click)="deleteLicense.next(license._id); close()"
+              (click)="addFeature()"
             >
-              Elimina Licenza
+              Aggiungi feature
             </button>
-            <button
-              class="btn btn-primary"
-              [disabled]="!form.valid"
-              data-theme="notifytheme"
-              type="submit"
-            >
-              Conferma
-            </button>
+            <div class="flex flex-col justify-center space-y-2">
+              @for (item of $any(form.controls['features']).controls; track
+              $index) {
+              <div class="flex space-x-2">
+                <notify-tailwind-select
+                  class="w-full"
+                  [compact]="true"
+                  [parent]="item"
+                  name="name"
+                  label="Nome"
+                  [options]="featuresSelectOptions"
+                ></notify-tailwind-select>
+                <notify-tailwind-select
+                  class="w-full"
+                  [compact]="true"
+                  [parent]="item"
+                  name="type"
+                  label="Tipo"
+                  [options]="featuresTypeSelectOptions"
+                ></notify-tailwind-select>
+              </div>
+              }
+            </div>
           </div>
+          <div class="flex flex-col space-y-2">
+            <notify-tailwind-input
+              [compact]="true"
+              [parent]="form"
+              name="allowedAgents"
+              label="Utenti"
+              type="number"
+              placeholder="10"
+            ></notify-tailwind-input>
+            <notify-tailwind-input
+              [compact]="true"
+              [parent]="form"
+              name="boughtCards"
+              label="Tessere Notify Acquistate"
+              type="number"
+              placeholder="10"
+            ></notify-tailwind-input>
+            <notify-tailwind-checkbox
+              [parent]="form"
+              name="enabled"
+              [compact]="true"
+              label="Abilitato"
+            ></notify-tailwind-checkbox>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="flex justify-between w-full">
+          <button
+            class="btn btn-error"
+            *ngIf="license"
+            [disabled]="license.company"
+            data-theme="notifytheme"
+            type="button"
+            (click)="deleteLicense.next(license._id); close()"
+          >
+            Elimina Licenza
+          </button>
+          <button
+            class="btn btn-primary"
+            [disabled]="!form.valid"
+            data-theme="notifytheme"
+            type="submit"
+          >
+            Conferma
+          </button>
         </div>
       </form>
     </div>
