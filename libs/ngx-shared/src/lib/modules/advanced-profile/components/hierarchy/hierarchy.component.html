@@ -108,7 +108,7 @@
         <!-- MAIN BUTTON -->
         <button
           (click)="item._id ? selectHierarchyItem(item._id) : undefined"
-          class="item-button !font-normal group/btn space-x-3 !justify-start truncate !pr-0 w-full rounded-lg border lg:border-none border-[#3B3B3B]"
+          class="item-button !font-normal group/btn space-x-3 !justify-start w-full !pr-0 rounded-lg border lg:border-none border-[#3B3B3B]"
           [ngClass]="{
             'selected-item': item._id && item._id === selectedHierarchyItem,
             'opacity-50': !item.visible
@@ -132,18 +132,20 @@
             />
             }
           </svg>
-          <span class="noselect">{{ item.label }}</span>
+          <span class="noselect truncate w-full text-start">{{
+            item.label
+          }}</span>
 
           <!-- REQUIRED PADLOCK -->
           <div
-            class="flex w-full justify-end pr-2 lg:pr-0 opacity-70"
+            class="flex justify-end pr-2 lg:pr-0 opacity-70"
             *ngIf="item.required"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="w-4 h-4"
+              class="size-4"
             >
               <path
                 fill-rule="evenodd"

@@ -57,7 +57,7 @@
 }
 
 .modal-container {
-  @apply fixed w-screen h-screen backdrop-blur-xl backdrop-brightness-50 z-[999] top-0 left-0 flex justify-center items-center overflow-y-auto sm:overflow-hidden;
+  @apply fixed w-screen h-screen backdrop-blur-xl backdrop-brightness-50 z-[999] top-0 left-0 flex justify-center items-center;
 
   & > div {
     @apply flex flex-col justify-center items-center;
