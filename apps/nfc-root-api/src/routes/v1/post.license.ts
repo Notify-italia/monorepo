@@ -20,14 +20,16 @@ router.post(
   body('boughtCards')
     .custom((value) => !isNaN(value) && value >= 0)
     .withMessage(LICENSE_VALIDATION_MESSAGES.boughtCards as string),
+  body('features').isArray().withMessage('features must be an array'),
   requestHandler(
     async (req, res) => {
-      const { allowedAgents, expirationDate, boughtCards } = req.body;
+      const { allowedAgents, expirationDate, boughtCards, features } = req.body;
 
       const { value: license } = await LicenseManager.generate({
         allowedAgents,
         expirationDate,
         boughtCards,
+        features,
       });
 
       res.status(200).send(license);

@@ -75,14 +75,15 @@ export const refreshToken = async (
   },
   populate = ''
 ) => {
-  const user = await genericUserQuery<true>(u.userType, { _id: u._id }, true);
+  const user = await genericUserQuery<true>(
+    u.userType,
+    { _id: u._id },
+    true,
+    populate
+  );
 
   if (!user) {
     return new BadRequestError('Credenziali errate');
-  }
-
-  if (populate?.length) {
-    await user.populate(populate);
   }
 
   return {

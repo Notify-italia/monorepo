@@ -171,17 +171,16 @@ export class LicenseManager {
     return new LicenseManager(license);
   }
 
-  public static async generate(conf: {
-    expirationDate: Date;
-    allowedAgents: number;
-    boughtCards: number;
-  }): Promise<LicenseManager> {
+  public static async generate(
+    conf: Partial<INotifyLicense>
+  ): Promise<LicenseManager> {
     const l = (await LicenseModel.build({
       expirationDate: conf.expirationDate,
       enabled: true,
       publicKey: this._generatePublicKey(),
       allowedAgents: conf.allowedAgents,
       boughtCards: conf.boughtCards,
+      features: conf.features,
     })) as LicenseDocument;
 
     await l.save();
