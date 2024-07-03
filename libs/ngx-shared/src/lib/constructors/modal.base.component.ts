@@ -4,19 +4,27 @@ import {
   HostListener,
   Input,
   Output,
+  inject,
 } from '@angular/core';
 import { UnknownType } from '@notify/interfaces';
 import { Subject } from 'rxjs';
+import { CapacitorService } from '../services';
 
 @Component({
   template: '',
+  providers: [CapacitorService],
 })
 export class ModalBaseComponent<Submitted = UnknownType> {
+  public _capacitorService = inject(CapacitorService);
   @Input({ required: true }) cf!: ComponentRef<ModalBaseComponent>;
   @Output() destroyed$ = new Subject<void>();
 
   public isClosing = false;
   public submitted = new Subject<Submitted>();
+
+  constructor() {
+    this._capacitorService.setStatusbarVisibility(false);
+  }
 
   /**
    * This method is called when the modal is closed. It should be overridden by the child component with its own logic.
@@ -34,6 +42,7 @@ export class ModalBaseComponent<Submitted = UnknownType> {
         if (!config?.skipLifecycle) {
           this.onClose();
         }
+        this._capacitorService.setStatusbarVisibility(true);
         this.cf.destroy();
         this.destroyed$.next();
         this.destroyed$.complete();

@@ -5,14 +5,17 @@ import {
   EventEmitter,
   Output,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { CapacitorService } from '../../../../services';
 import { AvailableItemsComponent } from '../../components/available-items/available-items.component';
 
 @Component({
   selector: 'notify-add-item-button',
   standalone: true,
   imports: [CommonModule, AvailableItemsComponent],
+  providers: [CapacitorService],
   templateUrl: './add-item-button.component.html',
   styleUrls: [
     './add-item-button.component.scss',
@@ -20,11 +23,17 @@ import { AvailableItemsComponent } from '../../components/available-items/availa
   ],
 })
 export class AddItemButtonComponent {
+  private _capacitorService = inject(CapacitorService);
+
   @ViewChild('LoseBlur') loseBlur!: ElementRef<HTMLButtonElement>;
   @Output() addItem = new EventEmitter<FormGroup>();
 
   public toggleState(event: MouseEvent): void {
     const activeElement = document.activeElement;
+
+    this._capacitorService.triggerHapticFeedback(
+      this._capacitorService.hFeedbackStyles.Medium
+    );
 
     if (activeElement?.id !== (event.target as HTMLButtonElement).id) {
       this.loseBlur.nativeElement.click();

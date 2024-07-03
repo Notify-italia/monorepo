@@ -109,7 +109,7 @@ export class PullToRefreshComponent implements AfterViewInit, OnDestroy {
 
     if (result && !_threhsold) {
       this.capacitorService.triggerHapticFeedback(
-        this.capacitorService.impactStyles.Medium
+        this.capacitorService.hFeedbackStyles.Medium
       );
     }
   }

@@ -1,16 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CapacitorService } from '../../services';
 
 @Component({
   selector: 'notify-confirm-button',
   standalone: true,
   imports: [CommonModule],
+  providers: [CapacitorService],
   templateUrl: './confirm-button.component.html',
   styleUrl: './confirm-button.component.scss',
 })
 export class ConfirmButtonComponent {
   private _domSanitizer = inject(DomSanitizer);
+  private _capacitorService = inject(CapacitorService);
 
   @Input() label = 'Elimina';
   @Input() compact = false;
@@ -28,8 +31,17 @@ export class ConfirmButtonComponent {
     return this._domSanitizer.bypassSecurityTrustHtml(this.iconSvg);
   }
 
-  public onConfirm() {
+  public async onConfirm() {
+    await this._capacitorService.triggerHapticFeedback(
+      this._capacitorService.hFeedbackStyles.Success
+    );
     this.confirm.emit();
+  }
+
+  public changeStateFeedback() {
+    this._capacitorService.triggerHapticFeedback(
+      this._capacitorService.hFeedbackStyles.Light
+    );
   }
 }
 

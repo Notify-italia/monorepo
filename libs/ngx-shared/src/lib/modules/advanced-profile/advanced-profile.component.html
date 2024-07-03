@@ -1,21 +1,31 @@
+<div class="fixed bottom-5 right-5 lg:hidden z-50">
+  <button
+    class="floating-button"
+    [disabled]="loading"
+    (click)="showProfile$.next()"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class="w-6 h-6"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+        clip-rule="evenodd"
+      />
+    </svg>
+  </button>
+</div>
 <div
-  class="flex flex-col justify-center xs:h-[85vh] sm:h-[90vh] lg:h-[99vh] relative"
+  class="flex flex-col justify-center relative pb-safe overflow-hidden"
+  [ngStyle]="editorHeight"
 >
   <div class="root-element mt-2 lg:mt-auto">
     @if(profile$ | async; as profile) {
 
     <div class="mobile-only-flex flex-col">
-      <notify-info-panel
-        class="mobile-only"
-        [loading]="loading"
-        [profile]="profile"
-        [form]="form"
-        [selectedHierarchyItem]="selectedHierarchyItem"
-        [environment]="environment"
-        (forceSave)="saveProfile(form?.value)"
-        (closePanel)="selectedHierarchyItem = ''"
-        (removeItem)="removeItem($event)"
-      ></notify-info-panel>
       <notify-share-item
         *ngIf="shareConfig"
         [config]="shareConfig"
@@ -35,17 +45,19 @@
       ></notify-redirect-toggle-button>
       <notify-add-item-button
         class="w-full my-2"
-        (addItem)="addItem($event)"
+        (addItem)="addItem($event, profile)"
       ></notify-add-item-button>
 
       <notify-hierarchy-button
         class="h-full"
         [hierarchy]="form?.value.items || []"
         [requiredItems]="requiredItems"
-        (addItem)="addItem($event)"
+        (addItem)="addItem($event, profile)"
         [selectedHierarchyItem]="selectedHierarchyItem"
         (hierarchyChanged)="hierarchyChanged($event)"
-        (selectedHierarchyItemChanged)="selectedHierarchyItem = $event"
+        (selectedHierarchyItemChanged)="
+          selectedHierarchyItemChanged($event, profile)
+        "
         (toggleReviewProfile)="toggleProfileRedirect($event, profile)"
         [profile]="profile"
       ></notify-hierarchy-button>
@@ -57,7 +69,7 @@
       <notify-left-panel
         [hierarchy]="form?.value.items || []"
         [requiredItems]="requiredItems"
-        (addItem)="addItem($event)"
+        (addItem)="addItem($event, profile)"
         [selectedHierarchyItem]="selectedHierarchyItem"
         (hierarchyChanged)="hierarchyChanged($event)"
         (selectedHierarchyItemChanged)="selectedHierarchyItem = $event"
@@ -116,27 +128,6 @@
         (forceSave)="saveProfile(form?.value).subscribe()"
         (removeItem)="removeItem($event)"
       ></notify-right-panel>
-    </div>
-
-    <div class="fixed bottom-5 right-5 lg:hidden z-50 mobile-only">
-      <button
-        class="floating-button"
-        (click)="showProfile(profile)"
-        [disabled]="loading"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="w-6 h-6"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </button>
     </div>
     } @else {
     <div class="h-[97vh]">

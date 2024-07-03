@@ -12,7 +12,8 @@ import {
   CameraSource,
 } from '@capacitor/camera';
 import { Capacitor } from '@capacitor/core';
-import { Haptics, ImpactStyle } from '@capacitor/haptics';
+import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
+import { StatusBar } from '@capacitor/status-bar';
 import {
   Nfc,
   NfcPlugin,
@@ -27,7 +28,7 @@ export class CapacitorService {
   public isIOS = Capacitor.getPlatform() === 'ios';
   public isAndroid = Capacitor.getPlatform() === 'android';
   public isDesktop = Capacitor.getPlatform() === 'web';
-
+  public hFeedbackStyles = { ...ImpactStyle, ...NotificationType };
   public nfcUtils = new NfcUtils();
 
   public get brightness(): Promise<GetBrightnessReturnValue> {
@@ -41,21 +42,31 @@ export class CapacitorService {
     });
   }
 
-  public get impactStyles() {
-    return ImpactStyle;
-  }
-
-  public triggerHapticFeedback(style: ImpactStyle) {
+  public triggerHapticFeedback(style: ImpactStyle | NotificationType) {
     // console.log('triggerHapticFeedback', style, this.isNative);
     if (!this.isNative) {
       return;
     }
 
-    // iOS
-    Haptics.impact({ style }).catch((error) => {
-      console.error(`Error triggering haptic feedback: ${error}`); // Android
-      Haptics.vibrate();
-    });
+    if (
+      Object.values(NotificationType).includes(
+        style as unknown as NotificationType
+      )
+    ) {
+      return Haptics.notification({
+        type: style as unknown as NotificationType,
+      }).catch((error) => {
+        console.error(`Error triggering haptic feedback: ${error}`); // Android
+        Haptics.vibrate();
+      });
+    }
+
+    return Haptics.impact({ style: style as unknown as ImpactStyle }).catch(
+      (error) => {
+        console.error(`Error triggering haptic feedback: ${error}`); // Android
+        Haptics.vibrate();
+      }
+    );
   }
 
   public async modal(config: {
@@ -97,6 +108,19 @@ export class CapacitorService {
       promptLabelCancel: 'cancel',
       presentationStyle: 'fullscreen',
     });
+  }
+
+  public async setStatusbarVisibility(visible: boolean) {
+    if (!this.isNative) {
+      return;
+    }
+
+    if (!visible) {
+      await StatusBar.hide();
+      return;
+    }
+
+    await StatusBar.show();
   }
 
   public async setBrightness(brightness: number): Promise<void> {

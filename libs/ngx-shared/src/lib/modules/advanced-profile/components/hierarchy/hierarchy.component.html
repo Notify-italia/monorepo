@@ -108,7 +108,7 @@
         <!-- MAIN BUTTON -->
         <button
           (click)="item._id ? selectHierarchyItem(item._id) : undefined"
-          class="item-button !font-normal group/btn space-x-3 !justify-start w-full !pr-0 rounded-lg border lg:border-none border-[#3B3B3B]"
+          class="item-button !font-normal group/btn space-x-3 !justify-start w-full !pr-0 rounded-lg backdrop-blur-lg bg-white/10 lg:backdrop-blur-0 lg:bg-transparent"
           [ngClass]="{
             'selected-item': item._id && item._id === selectedHierarchyItem,
             'opacity-50': !item.visible

@@ -78,7 +78,7 @@ export class HierarchyComponent {
       .subscribe(() => {
         console.log('dragging');
         this._capacitorService.triggerHapticFeedback(
-          this._capacitorService.impactStyles.Medium
+          this._capacitorService.hFeedbackStyles.Medium
         );
 
         ref.dispatchEvent(

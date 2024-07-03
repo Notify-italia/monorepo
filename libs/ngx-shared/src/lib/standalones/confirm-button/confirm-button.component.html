@@ -7,7 +7,7 @@
   #Button
   type="button"
   [disabled]="disabled"
-  class="btn w-full items-center focus-within:!pr-0 transition-all text-red-500 rounded-xl relative disabled:bg-[#151619] bg-[#191C21] hover:bg-[#1a1d21] btn-sm group"
+  class="btn w-full items-center focus-within:!pr-0 transition-all text-red-500 rounded-xl relative disabled:bg-[#151619] bg-[#191C21] hover:bg-[#1a1d21] btn-sm group focus-within:active:scale-100"
   data-theme="notifytheme"
 >
   <span [innerHTML]="sanitizedIcon"></span>
@@ -46,7 +46,7 @@
     <button
       type="button"
       class="btn btn-circle btn-xs text-red-500 border border-gray-700"
-      (click)="LoseBlur.click(); LoseBlur.focus()"
+      (click)="LoseBlur.click(); LoseBlur.focus(); changeStateFeedback()"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

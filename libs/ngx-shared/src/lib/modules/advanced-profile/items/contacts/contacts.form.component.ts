@@ -166,12 +166,19 @@ export class ContactsFormComponent extends AdvancedProfileItemFormBaseComponent<
 
     this.itemsForm.push(link);
 
+    this.context.services.capacitor.triggerHapticFeedback(
+      this.context.services.capacitor.hFeedbackStyles.Success
+    );
+
     setTimeout(() => {
       this.captions.last.inputRef.nativeElement.focus();
     }, 10);
   }
 
   public removeItem(index: number) {
+    this.context.services.capacitor.triggerHapticFeedback(
+      this.context.services.capacitor.hFeedbackStyles.Success
+    );
     this.itemsForm.removeAt(index);
   }
 

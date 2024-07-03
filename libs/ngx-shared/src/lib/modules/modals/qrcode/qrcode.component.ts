@@ -30,7 +30,7 @@ export class QrcodeComponent extends ModalBaseComponent implements OnInit {
   }
 
   constructor(
-    private _capacitorService: CapacitorService,
+    // private _capacitorService: CapacitorService,
     private _toastr: ToastrService
   ) {
     super();

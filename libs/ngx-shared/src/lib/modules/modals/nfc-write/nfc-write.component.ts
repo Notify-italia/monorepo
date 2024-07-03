@@ -57,9 +57,9 @@ export class NfcWriteComponent extends ModalBaseComponent implements OnInit {
     })
   );
 
-  constructor(private _capacitorService: CapacitorService) {
-    super();
-  }
+  // constructor(private _capacitorService: CapacitorService) {
+  //   super();
+  // }
 
   ngOnInit(): void {
     disableBodyScroll(this._parentElement, {

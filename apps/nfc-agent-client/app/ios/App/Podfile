@@ -30,6 +30,7 @@ target 'App' do
   pod 'CapacitorCamera', :path => '../../../../../node_modules/@capacitor/camera'
   pod 'CapacitorSuppressLongpressGesture' , :path => '../../../../../node_modules/capacitor-suppress-longpress-gesture'
   pod 'CapacitorActionSheet', :path => '../../../../../node_modules/@capacitor/action-sheet'
+  pod 'CapacitorStatusBar', :path => '../../../../../node_modules/@capacitor/status-bar'
 end
 
 post_install do |installer|

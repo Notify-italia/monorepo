@@ -29,6 +29,7 @@ import {
 import { TailwindFormsModule } from '../modules/tailwind-forms/tailwind-forms.module';
 import {
   AuthService,
+  CapacitorService,
   FormsService,
   ProfileService,
   UtilsService,
@@ -62,6 +63,7 @@ export const AdvancedItemFormBaseProviders = [
   UtilsService,
   ProfileService,
   ImageCropperFactory,
+  CapacitorService,
 ];
 
 @Component({
@@ -78,6 +80,7 @@ export class AdvancedProfileItemFormBaseComponent<
   private _utilsSerivce = inject(UtilsService);
   private _profileService = inject(ProfileService);
   private _imageCropper = inject(ImageCropperFactory);
+  private _capacitorService = inject(CapacitorService);
 
   @Input() profile!: INotifyProfile;
   @Input() form!: FormGroup<controlsFromObject<T>>;
@@ -100,6 +103,7 @@ export class AdvancedProfileItemFormBaseComponent<
         forms: this._formsService,
         utils: this._utilsSerivce,
         profile: this._profileService,
+        capacitor: this._capacitorService,
       },
       getters: {
         environment: this.environment,

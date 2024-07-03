@@ -15,9 +15,15 @@ import {
   switchMap,
   takeUntil,
   tap,
+  withLatestFrom,
 } from 'rxjs';
 import { CachedSrcDirective } from '../../directives';
-import { FormsService, ProfileService, UtilsService } from '../../services';
+import {
+  CapacitorService,
+  FormsService,
+  ProfileService,
+  UtilsService,
+} from '../../services';
 import { LoadingComponent, SaveIndicatorComponent } from '../../standalones';
 import {
   INotifyShareItemConfig,
@@ -30,6 +36,7 @@ import { ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS } from './items/page/page.form.
 import { AddItemButtonComponent } from './parts/add-item-button/add-item-button.component';
 import { HierarchyButtonComponent } from './parts/hierarchy-button/hierarchy-button.component';
 import { InfoPanelComponent } from './parts/info-panel/info-panel.component';
+import { InfoPanelFactory } from './parts/info-panel/info-panel.factory';
 import { LeftPanelComponent } from './parts/left-panel/left-panel.component';
 import { RightPanelComponent } from './parts/right-panel/right-panel.component';
 import { AdvancedProfileItemOutputsService } from './services/advanced-profile-item-outputs.service';
@@ -51,7 +58,14 @@ import { AdvancedProfileItemOutputsService } from './services/advanced-profile-i
     ShareItemComponent,
     RedirectToggleButtonComponent,
   ],
-  providers: [FormsService, UtilsService, ProfileService, ProfilePlayerFactory],
+  providers: [
+    FormsService,
+    UtilsService,
+    ProfileService,
+    ProfilePlayerFactory,
+    InfoPanelFactory,
+    CapacitorService,
+  ],
   templateUrl: './advanced-profile.component.html',
   styleUrl: './advanced-profile.styles.scss',
 })
@@ -65,10 +79,13 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
   );
   private _utilsService = inject(UtilsService);
   private _profilePlayerFactory = inject(ProfilePlayerFactory);
+  private _infoPanelFactory = inject(InfoPanelFactory);
+  private _capacitorService = inject(CapacitorService);
 
   //observables
   private _profileSubject = new Subject<INotifyProfile>();
   public profile$: Observable<INotifyProfile> = this._profileSubject;
+  public showProfile$: Subject<void> = new Subject();
 
   //properties
   public loading = false;
@@ -87,6 +104,10 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
 
   public get requiredItems() {
     return Object.values(this.form?.get('requiredItems')?.value) as string[];
+  }
+
+  public get editorHeight() {
+    return this._utilsService.availableScreenHeight;
   }
 
   public ngOnInit() {
@@ -122,7 +143,9 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
     this._advancedProfileItemOutputsService.itemClicked
       .pipe(
         takeUntil(this.destroy$),
-        tap((v) => (this.selectedHierarchyItem = v.item._id))
+        withLatestFrom(this.profile$),
+        debounceTime(250),
+        tap(([v, p]) => this.selectedHierarchyItemChanged(v.item._id, p))
       )
       .subscribe();
 
@@ -131,6 +154,19 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
       .subscribe((v) => this.hierarchyChanged(v));
 
     this._providedProfileSubscription(this.providedId).subscribe();
+
+    this.showProfile$
+      .pipe(
+        takeUntil(this.destroy$),
+        withLatestFrom(this.profile$),
+        tap(() =>
+          this._capacitorService.triggerHapticFeedback(
+            this._capacitorService.hFeedbackStyles.Medium
+          )
+        ),
+        tap(([_, profile]) => this.showProfile(profile))
+      )
+      .subscribe();
   }
 
   public ngOnDestroy() {
@@ -138,9 +174,14 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  public addItem(item: FormGroup) {
+  public addItem(item: FormGroup, profile: INotifyProfile) {
     (this.form?.get('items') as FormArray).push(item);
-    this.selectedHierarchyItem = item.value._id;
+
+    this._capacitorService.triggerHapticFeedback(
+      this._capacitorService.hFeedbackStyles.Success
+    );
+
+    this.selectedHierarchyItemChanged(item.value._id, profile, false);
   }
 
   public showProfile(profile: INotifyProfile) {
@@ -180,6 +221,72 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
       'items',
       this._formsSerivce.createFormArray(hierarchy)
     );
+  }
+
+  public selectedHierarchyItemChanged(
+    item: string,
+    profile: INotifyProfile,
+    triggerHaptic = true
+  ) {
+    this.selectedHierarchyItem = item;
+
+    if (!this._utilsService.isMobile) {
+      return;
+    }
+
+    if (triggerHaptic) {
+      this._capacitorService.triggerHapticFeedback(
+        this._capacitorService.hFeedbackStyles.Light
+      );
+    }
+
+    const ref = this._infoPanelFactory.create({
+      loading: this.loading,
+      profile,
+      environment: this.environment,
+      form: this.form as FormGroup,
+      selectedHierarchyItem: item,
+    });
+
+    ref.instance.closePanel
+      .pipe(
+        takeUntil(ref.instance.destroyed$),
+        tap(() => {
+          this.selectedHierarchyItem = '';
+          this._capacitorService.triggerHapticFeedback(
+            this._capacitorService.hFeedbackStyles.Light
+          );
+          ref.instance.close();
+        })
+      )
+      .subscribe();
+
+    ref.instance.forceSave
+      .pipe(
+        takeUntil(ref.instance.destroyed$),
+        tap(() => this.saveProfile(this.form?.value))
+      )
+      .subscribe();
+
+    ref.instance.removeItem
+      .pipe(
+        takeUntil(ref.instance.destroyed$),
+        tap((v) => {
+          {
+            this.removeItem(v);
+            ref.instance.close();
+          }
+        })
+      )
+      .subscribe();
+
+    ref.instance.destroyed$
+      .pipe(
+        tap(() => {
+          this.selectedHierarchyItem = '';
+        })
+      )
+      .subscribe();
   }
 
   public normalizeURL(url: string | null) {
@@ -229,10 +336,11 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
     this._profileSerivce
       .patchProfile(parsedProfile)
       .pipe(
-        tap(() => {
+        withLatestFrom(this.profile$),
+        tap(([_, p]) => {
           this._profileSubject.next(parsedProfile);
           if (value) {
-            this.selectedHierarchyItem = 'background';
+            this.selectedHierarchyItemChanged('background', p, false);
           }
           this.loading = false;
         })
