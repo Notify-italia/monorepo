@@ -53,7 +53,13 @@ router.get(
         .sort({ createdAt: -1 })
         .lean();
 
-      res.status(200).send(result);
+      res.status(200).send(
+        result.map((v) => ({
+          ...v,
+          //TODO rimuovere a seguito di rilascio della versione 1.1.0 dell'app
+          phones: v,
+        }))
+      );
     },
     {
       requireAuth: {
