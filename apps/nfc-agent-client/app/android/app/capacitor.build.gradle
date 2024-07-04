@@ -16,6 +16,8 @@ dependencies {
     implementation project(':capacitor-haptics')
     implementation project(':capacitor-status-bar')
     implementation project(':capawesome-team-capacitor-nfc')
+    implementation project(':capacitor-action-sheet')
+    implementation project(':capacitor-camera')
 
 }
 

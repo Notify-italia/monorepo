@@ -18,6 +18,8 @@ def capacitor_pods
   pod 'CapacitorHaptics', :path => '../../../../../node_modules/@capacitor/haptics'
   pod 'CapacitorStatusBar', :path => '../../../../../node_modules/@capacitor/status-bar'
   pod 'CapawesomeTeamCapacitorNfc', :path => '../../../../../node_modules/@capawesome-team/capacitor-nfc'
+  pod 'CapacitorActionSheet', :path => '../../../../../node_modules/@capacitor/action-sheet'
+  pod 'CapacitorCamera', :path => '../../../../../node_modules/@capacitor/camera'
 end
 
 target 'App' do

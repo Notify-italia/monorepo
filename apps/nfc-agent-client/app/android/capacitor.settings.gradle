@@ -22,3 +22,9 @@ project(':capacitor-status-bar').projectDir = new File('../../../../node_modules
 
 include ':capawesome-team-capacitor-nfc'
 project(':capawesome-team-capacitor-nfc').projectDir = new File('../../../../node_modules/@capawesome-team/capacitor-nfc/android')
+
+include ':capacitor-action-sheet'
+project(':capacitor-action-sheet').projectDir = new File('../../../../node_modules/@capacitor/action-sheet/android')
+
+include ':capacitor-camera'
+project(':capacitor-camera').projectDir = new File('../../../../node_modules/@capacitor/camera/android')
