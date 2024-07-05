@@ -3,7 +3,10 @@ import {
   EnumNotifyAdvancedProfileItems,
   INoitfyAPLeadItem,
 } from '@notify/interfaces';
-import { INotifyAdvancedProfileManifest } from '../../services/advanced-profile-items.service';
+import {
+  AdvancedProfileItemsService,
+  INotifyAdvancedProfileManifest,
+} from '../../services/advanced-profile-items.service';
 import { itemManifest } from '../item.manifest';
 
 import { LeadFormComponent } from './lead.form.component';
@@ -59,4 +62,4 @@ const manifest: INotifyAdvancedProfileManifest<INoitfyAPLeadItem> = {
   },
 };
 
-// AdvancedProfileItemsService.publishManifest(manifest);
+AdvancedProfileItemsService.publishManifest(manifest);

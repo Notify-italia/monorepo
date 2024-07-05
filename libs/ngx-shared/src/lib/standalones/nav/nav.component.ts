@@ -61,6 +61,10 @@ export class NavComponent {
     currentVersionDate: string | Date;
   };
   @Input() skeletonRows = 1;
+  @Input() notifications?: {
+    count: number;
+    showBadge: boolean;
+  };
 
   @Output() versionClick = new EventEmitter<void>();
 

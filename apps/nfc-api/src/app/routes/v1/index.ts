@@ -6,6 +6,7 @@ import { getHeartbeatRouter } from './get.heartbeat';
 import { googleAPIRouter } from './google-api';
 import { LeadRouter } from './lead';
 import { noteRouter } from './note';
+import { notificationsRouter } from './notifications';
 import { OpenAIRouter } from './openai';
 import { postTestRouter } from './post.test-route';
 import { profileRouter } from './profile';
@@ -30,5 +31,6 @@ router.use('/utils', utilsRouter);
 router.use('/s3', s3Router);
 router.use('/lead', LeadRouter);
 router.use('/openai', OpenAIRouter);
+router.use('/notifications', notificationsRouter);
 
 export { router as ApiV1 };
