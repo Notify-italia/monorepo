@@ -7,6 +7,7 @@ export * from './forms.service';
 export * from './http.service';
 export * from './leads.service';
 export * from './note.service';
+export * from './notifications.service';
 export * from './openai.service';
 export * from './page-title.service';
 export * from './profile.service';

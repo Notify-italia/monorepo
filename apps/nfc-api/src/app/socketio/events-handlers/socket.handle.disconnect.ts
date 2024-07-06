@@ -2,7 +2,7 @@ import { EnumSocketIOSystemEvents, ISocketIo } from '@notify/interfaces';
 import { SocketsConnectionsManager, getHeaders } from '@notify/nfc-api-core';
 import { Socket } from 'socket.io';
 
-export const socketEventDisconnect = (
+export const socketHandleDisconnectEvent = (
   io: ISocketIo,
   socket: Socket,
   connections: SocketsConnectionsManager

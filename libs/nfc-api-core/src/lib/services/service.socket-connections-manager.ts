@@ -1,5 +1,5 @@
 import {
-  EnumSOcketIOProfileEvents,
+  EnumSocketIOProfileEvents,
   ISocketIo,
   ISocketUserInfo,
 } from '@notify/interfaces';
@@ -85,7 +85,7 @@ export class SocketsConnectionsManager {
     this.io
       .in(room)
       .emit(
-        EnumSOcketIOProfileEvents.ConnectedDevices,
+        EnumSocketIOProfileEvents.ConnectedDevices,
         this._socketsInRoom(room)
       );
   }

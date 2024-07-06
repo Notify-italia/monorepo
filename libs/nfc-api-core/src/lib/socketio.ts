@@ -1,7 +1,15 @@
 import { EnumSocketIOSystemEvents, ISocketUserInfo } from '@notify/interfaces';
 import http from 'http';
 import { Server, Socket } from 'socket.io';
+import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 import { SocketsConnectionsManager } from './services/service.socket-connections-manager';
+
+export let SocketIoInstance: Server<
+  DefaultEventsMap,
+  DefaultEventsMap,
+  DefaultEventsMap,
+  any
+>;
 
 export const getHeaders = (socket: Socket) => {
   return socket.handshake.headers as unknown as {
@@ -30,6 +38,8 @@ export const initSocketio = (
     pingInterval: 10000,
     pingTimeout: 5000,
   });
+
+  SocketIoInstance = io;
 
   return {
     listen: async (callback: () => any) => {

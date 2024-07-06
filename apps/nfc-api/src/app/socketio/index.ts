@@ -3,8 +3,8 @@ import { Server, Socket } from 'socket.io';
 
 import { SocketsConnectionsManager, getHeaders } from '@notify/nfc-api-core';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
-import { socketEventDisconnect } from './events/socket.disconnect';
-import { socketEventSendFile } from './events/socket.send-file';
+import { socketHandleDisconnectEvent } from './events-handlers/socket.handle.disconnect';
+import { socketHandleSendFileEvent } from './events-handlers/socket.handle.send-file';
 import { ownerRoom, profileRoom, selfRoom } from './service.socket';
 
 export const socketEvents = (
@@ -38,6 +38,6 @@ export const socketEvents = (
 
   connections.add(parsedUser, _profileRoom);
 
-  socketEventDisconnect(io, socket, connections);
-  socketEventSendFile(io, socket);
+  socketHandleDisconnectEvent(io, socket, connections);
+  socketHandleSendFileEvent(io, socket);
 };

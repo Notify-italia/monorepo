@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   AuthService,
@@ -7,18 +14,34 @@ import {
   ChangelogFactory,
   NavComponent,
   NavItem,
+  NotificationsService,
+  ProfileService,
+  SocketService,
   agentChangelog,
 } from '@notify/ngx-shared';
-import { Observable, map } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  map,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 
 @Component({
   standalone: true,
   imports: [CommonModule, NavComponent, RouterModule],
-  providers: [CapacitorService, ChangelogFactory],
+  providers: [
+    CapacitorService,
+    ChangelogFactory,
+    NotificationsService,
+    ProfileService,
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
   @ViewChild('RouterOutletContainer')
   _routerOutletContainer!: ElementRef<HTMLElement>;
   public currentVersionLabel = agentChangelog.tag;
@@ -26,6 +49,9 @@ export class HomeComponent {
   public latestChangelog = agentChangelog;
 
   public skeletonRows = 5;
+
+  public unreadNotificationsCount$ = new BehaviorSubject<number>(0);
+  public destroy$ = new Subject<void>();
 
   public topNav$: Observable<NavItem[]> = this._authService.getLicense().pipe(
     map((license) => {
@@ -104,11 +130,53 @@ export class HomeComponent {
   constructor(
     public capacitor: CapacitorService,
     private _changelogFactory: ChangelogFactory,
-    private _authService: AuthService
-  ) {}
+    private _authService: AuthService,
+    private _notificationsService: NotificationsService,
+    private _socket: SocketService,
+    private _profileService: ProfileService
+  ) {
+    this._profileService.getProfile().subscribe((profile) => {
+      this._socket.connect(
+        profile._id,
+        this._authService.user?.owner,
+        this._authService.user?._id
+      );
+    });
+  }
+
+  ngOnInit() {
+    this._updateUnreadNotificationsCount().subscribe();
+
+    this._socket.increaseNotificationsCount$
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap(this._updateUnreadNotificationsCount.bind(this)),
+        tap(() =>
+          this.unreadNotificationsCount$.next(
+            this.unreadNotificationsCount$.value + 1
+          )
+        )
+      )
+      .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  public handleWindowUnload() {
+    this._socket.disconnect();
+  }
 
   public handleVersionClick() {
     //? perchè changlogFactory è un qui e non in version-label? perchè triggerandolo da version labl non applica correttamente il backdrop-blur, oltre che ad avere diversi problemi di alignment
     this._changelogFactory.create(this.latestChangelog);
+  }
+
+  private _updateUnreadNotificationsCount() {
+    return this._notificationsService
+      .getUnreadNotificationsCount()
+      .pipe(tap((v) => this.unreadNotificationsCount$.next(v.result)));
   }
 }

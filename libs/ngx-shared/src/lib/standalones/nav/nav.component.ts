@@ -10,6 +10,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { GestureController } from '@ionic/angular';
 
+import { Observable } from 'rxjs';
 import { VersionLabelComponent } from '../../modules/version-manager';
 import { CapacitorService, UtilsService } from '../../services';
 import { AppTitleComponent } from '../app-title/app-title.component';
@@ -62,7 +63,7 @@ export class NavComponent {
   };
   @Input() skeletonRows = 1;
   @Input() notifications?: {
-    count: number;
+    count$: Observable<number>;
     showBadge: boolean;
   };
 

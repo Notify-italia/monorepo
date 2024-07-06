@@ -5,13 +5,13 @@
   }"
 >
   <div
-    class="navbar p-0 min-h-10 lg:h-full w-full m-2 lg:m-0 overflow-x-hidden lg:!w-[5.5rem] lg:hover:!w-80 smooth group/desktopController lg:backdrop-blur-xl lg:rounded-xl lg:hover:backdrop-brightness-95 lg:hover:shadow-xl"
+    class="navbar p-0 min-h-10 my-2 lg:my-0 lg:h-full w-full overflow-x-hidden lg:!w-[5.5rem] lg:hover:!w-80 smooth group/desktopController lg:backdrop-blur-xl lg:rounded-xl lg:hover:backdrop-brightness-95 lg:hover:shadow-xl"
     [ngClass]="{
       box: !isPhone
     }"
   >
     <div
-      class="flex items-center"
+      class="flex items-center justify-between w-screen px-2 lg:p-0 lg:justify-start"
       [ngClass]="{
       'mt-safe ': capacitor.isNative,
     }"
@@ -25,7 +25,7 @@
       <label class="btn btn-square btn-ghost lg:hidden" for="my-drawer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="inline-block !w-9 !h-9 text-white"
+          class="inline-block !size-9 text-white"
           viewBox="0 0 24 24"
           fill="none"
           xmlns:v="https://vecta.io/nano"
@@ -38,9 +38,18 @@
           />
         </svg>
       </label>
-      <div class="flex justify-center w-[68vw] mb-2 lg:w-fit lg:block">
+
+      <div class="flex justify-center w-8/12 mb-2 lg:w-fit lg:block">
         <notify-app-title class="lg:hidden w-32"></notify-app-title>
       </div>
+
+      <div class="relative">
+        <label class="btn btn-square btn-ghost lg:hidden">
+          <ng-container *ngIf="isPhone" [ngTemplateOutlet]="NotificationsBadge">
+          </ng-container>
+        </label>
+      </div>
+
       <div class="drawer-content hidden lg:block h-screen">
         <!-- DESKTOP SIDEBAR -->
         <ng-container [ngTemplateOutlet]="SidebarContent"></ng-container>
@@ -165,7 +174,7 @@
         >Sistema</span
       >
       <ul>
-        <li *ngIf="notifications?.showBadge">
+        <li *ngIf="notifications?.showBadge && !isPhone">
           <a
             #notificationsSidebarItem
             class="flex space-x-2 relative"
@@ -227,18 +236,21 @@
 
 <ng-template #NotificationsBadge>
   <div class="flex">
-    @if(notifications?.count) {
+    @if(notifications?.count$ | async; as count) {
     <div
-      class="absolute rounded-full text-xs p-0.5 bg-red-500 top-0 left-3 shrink-0 grow-0 size-5 font-medium text-center"
+      class="absolute rounded-full text-xs p-0.5 bg-red-500 top-0 left-1 lg:left-3 shrink-0 grow-0 size-5 font-medium text-center"
     >
-      <span class="my-auto">
-        {{ (notifications?.count || 0) > 99 ? '99' : notifications?.count }}
+      <span class="my-auto text-white">
+        {{ (count || 0) > 99 ? '99' : count }}
       </span>
     </div>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
+      [ngClass]="{
+        '!size-7': isPhone
+      }"
     >
       <path
         d="M5.85 3.5a.75.75 0 0 0-1.117-1 9.719 9.719 0 0 0-2.348 4.876.75.75 0 0 0 1.479.248A8.219 8.219 0 0 1 5.85 3.5ZM19.267 2.5a.75.75 0 1 0-1.118 1 8.22 8.22 0 0 1 1.987 4.124.75.75 0 0 0 1.48-.248A9.72 9.72 0 0 0 19.266 2.5Z"
@@ -256,6 +268,9 @@
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
+      [ngClass]="{
+        '!size-7': isPhone
+      }"
     >
       <path
         stroke-linecap="round"

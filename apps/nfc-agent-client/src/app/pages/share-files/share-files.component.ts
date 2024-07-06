@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ISocketUserInfo } from '@notify/interfaces';
 import {
   AuthService,
@@ -28,7 +28,7 @@ import { tap } from 'rxjs';
   templateUrl: './share-files.component.html',
   styleUrl: './share-files.component.scss',
 })
-export class ShareFilesComponent implements OnInit, OnDestroy {
+export class ShareFilesComponent {
   public devices$ = this._socket.connectedDevices$.pipe();
   public instructions = `<ul class="text-start  space-y-4"><li>1. Fai visitare il tuo profilo alla persona a cui vuoi inviare il file</li> 
   <li>2. Seleziona il dispositivo dall'elenco e carica un file</li>
@@ -42,21 +42,6 @@ export class ShareFilesComponent implements OnInit, OnDestroy {
     private _shareFileModal: ShareFileFactory,
     private _toastrService: ToastrService
   ) {}
-
-  public ngOnInit() {
-    this._profileService.getProfile().subscribe((profile) => {
-      this._socket.connect(
-        profile._id,
-        this._authService.user?.owner,
-        this._authService.user?._id
-      );
-    });
-  }
-
-  @HostListener('window:beforeunload', ['$event'])
-  public ngOnDestroy() {
-    this._socket.disconnect();
-  }
 
   public openShareFileForm(target: ISocketUserInfo) {
     const ref = this._shareFileModal.create();

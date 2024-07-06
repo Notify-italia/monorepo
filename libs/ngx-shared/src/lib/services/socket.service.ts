@@ -1,5 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
-import { EnumSOcketIOProfileEvents, ISocketUserInfo } from '@notify/interfaces';
+import {
+  EnumSocketIONotificationsEvents,
+  EnumSocketIOProfileEvents,
+  ISocketUserInfo,
+} from '@notify/interfaces';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Socket, io } from 'socket.io-client';
@@ -10,6 +14,7 @@ import { Socket, io } from 'socket.io-client';
 export class SocketService {
   public connectedDevices$ = new BehaviorSubject<ISocketUserInfo[]>([]);
   public fileRecieved$ = new Subject<{ fileData: Buffer; fileName: string }>();
+  public increaseNotificationsCount$ = new Subject<void>();
 
   public connection$ = new BehaviorSubject<{
     status: boolean;
@@ -73,7 +78,7 @@ export class SocketService {
     target: ISocketUserInfo['id']
   ) {
     this._socket?.emit(
-      EnumSOcketIOProfileEvents.SendFile,
+      EnumSocketIOProfileEvents.SendFile,
       {
         target,
         fileData,
@@ -110,6 +115,7 @@ export class SocketService {
     }
 
     this._socket.on('connect', () => {
+      console.log(`Connected to socket server`);
       this.connection$.next({
         status: true,
         profile,
@@ -126,7 +132,7 @@ export class SocketService {
 
     //connected devices
     this._socket.on(
-      EnumSOcketIOProfileEvents.ConnectedDevices,
+      EnumSocketIOProfileEvents.ConnectedDevices,
       (devices: ISocketUserInfo[]) => {
         this.connectedDevices$.next(
           devices.filter((device) => device.id !== this.user?.id)
@@ -135,9 +141,17 @@ export class SocketService {
     );
 
     this._socket.on(
-      EnumSOcketIOProfileEvents.RecieveFile,
+      EnumSocketIOProfileEvents.RecieveFile,
       (data: { fileData: Buffer; fileName: string }) => {
         this.fileRecieved$.next(data);
+      }
+    );
+
+    this._socket.on(
+      EnumSocketIONotificationsEvents.IncreaseNotificationCount,
+      () => {
+        console.log('notification recieved');
+        this.increaseNotificationsCount$.next();
       }
     );
   }

@@ -21,8 +21,12 @@ export enum EnumSocketIOSystemEvents {
   Disconnect = 'disconnect',
 }
 
-export enum EnumSOcketIOProfileEvents {
+export enum EnumSocketIOProfileEvents {
   ConnectedDevices = 'profile:devices',
   SendFile = 'profile:send-file',
   RecieveFile = 'profile:recieve-file',
+}
+
+export enum EnumSocketIONotificationsEvents {
+  IncreaseNotificationCount = 'notifications:count:increase',
 }
