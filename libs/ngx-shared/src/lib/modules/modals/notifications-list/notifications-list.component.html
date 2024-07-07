@@ -31,12 +31,15 @@
           >
             @if(notifications$ | async; as notifications) {
             @if(!notifications.length) {
-            <notify-no-items
-              title="Nessuna notifica"
-              [compact]="true"
-            ></notify-no-items>
+            <div class="list-container !justify-center !items-center">
+              <notify-no-items
+                title="Nessuna notifica"
+                [compact]="true"
+              ></notify-no-items>
+            </div>
             }
             <div
+              *ngIf="notifications.length"
               #MainContainer
               infiniteScroll
               [infiniteScrollDistance]="1"

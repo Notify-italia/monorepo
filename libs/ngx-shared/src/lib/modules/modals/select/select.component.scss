@@ -17,11 +17,15 @@
 }
 
 .select-title {
-  @apply text-lg font-semibold text-center px-2;
+  @apply text-lg font-bold text-center px-2;
 }
 
 .select-subtitle {
-  @apply text-sm text-gray-200 text-center whitespace-pre-wrap px-4;
+  @apply text-sm text-gray-200 text-center px-4 text-wrap;
+
+  & ul {
+    @apply flex w-full justify-start text-start;
+  }
 }
 
 .column {

@@ -17,7 +17,7 @@ import {
 } from '../../../constructors';
 import { NotificationsService, UtilsService } from '../../../services';
 import { NoItemsComponent } from '../../../standalones';
-import { EnumSelectOptionStyle, SelectModalFactory } from '../select';
+import { InspectNotificationFactory } from '../inspect-notification';
 
 @Component({
   selector: 'notify-notifications-list',
@@ -27,7 +27,7 @@ import { EnumSelectOptionStyle, SelectModalFactory } from '../select';
     ...baseModalComponentProviders,
     NotificationsService,
     UtilsService,
-    SelectModalFactory,
+    InspectNotificationFactory,
   ],
   templateUrl: './notifications-list.component.html',
   styleUrl: './notifications-list.component.scss',
@@ -39,9 +39,9 @@ export class NotificationsListComponent
   public domSanitizer = inject(DomSanitizer);
   private _notificationsService = inject(NotificationsService);
   private _utilsService = inject(UtilsService);
-  private _selectModalFactory = inject(SelectModalFactory);
+  private _inspectNotification = inject(InspectNotificationFactory);
 
-  public selectedOption: 'all' | 'unread' | 'read' = 'unread';
+  public selectedOption: 'all' | 'unread' | 'read' = 'all';
 
   public currentChunk$ = new BehaviorSubject<number>(1);
   public notificationsSubject$ = new Subject<INotifyNotification[]>();
@@ -74,22 +74,10 @@ export class NotificationsListComponent
   }
 
   public notificationClicked(notification: INotifyNotification) {
-    this._selectModalFactory.create({
-      title: notification.title,
-      subtitle: notification.subtitle,
-      hideCancel: !notification.actions.length,
-      options: notification.actions.length
-        ? notification.actions.map((a) => ({
-            label: a.title,
-            value: a.id,
-          }))
-        : [
-            {
-              label: 'Ok',
-              value: 'mark-as-read',
-              style: EnumSelectOptionStyle.CANCEL,
-            },
-          ],
-    });
+    const { instance } = this._inspectNotification.create({ notification });
+
+    instance.refreshNotifications
+      .pipe(switchMap(() => this.refreshNotifications()))
+      .subscribe();
   }
 }

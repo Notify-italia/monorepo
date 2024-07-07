@@ -87,6 +87,10 @@ const NotificationSchema = new Schema<Notification, NotificationModel>(
             type: String,
             required: true,
           },
+          data: {
+            type: Schema.Types.Mixed,
+            default: {},
+          },
           eventName: {
             type: String,
             required: true,

@@ -13,4 +13,14 @@ export class NotificationsService {
   public getNotifications(type: 'all' | 'unread' | 'read') {
     return this.http.get<INotifyNotification[]>('/v1/notifications', { type });
   }
+
+  public patchNotification(
+    id: string,
+    notification: Partial<INotifyNotification>
+  ) {
+    return this.http.patch<
+      { notification: Partial<INotifyNotification> },
+      INotifyNotification
+    >('/v1/notifications', { notification }, { id });
+  }
 }

@@ -27,6 +27,7 @@ export enum EnumSelectOptionStyle {
   DESTRUCTIVE = 'destructive',
   PREFERRED = 'preferred',
   CANCEL = 'cancel',
+  DEFAULT = 'default',
 }
 
 @Component({
@@ -80,6 +81,7 @@ export class SelectComponent extends ModalBaseComponent<ISelectOption> {
   @Input() subtitle = '';
   @Input() options: ISelectOption[] = [];
   @Input() hideCancel = false;
+  @Input() readOnly = false;
 
   @Output() optionSelected = new EventEmitter<ISelectOption>();
 
@@ -96,6 +98,7 @@ export class SelectComponent extends ModalBaseComponent<ISelectOption> {
       return;
     }
 
+    console.log(`emitting ${option.value}`);
     this.submitted.next(option);
   }
 

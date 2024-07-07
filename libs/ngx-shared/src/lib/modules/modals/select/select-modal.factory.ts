@@ -9,7 +9,13 @@ export class SelectModalFactory extends BaseFactory {
     subtitle?: string;
     options: ISelectOption[];
     hideCancel?: boolean;
+    readOnly?: boolean;
   }) {
     return this._createComponent(SelectComponent, config);
   }
 }
+
+export const provideSelectModalFactory = () => ({
+  provide: SelectModalFactory,
+  useClass: SelectModalFactory,
+});

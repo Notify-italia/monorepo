@@ -10,7 +10,7 @@ export enum EnumNotifyNotificationActionEvents {
   ContactFormLeadReject = 'contact-form:lead:reject',
 }
 
-export enum EnumNotificationType {
+export enum EnumNotificationTypes {
   Info = 'info',
   ActionRequired = 'action-required',
   Warning = 'warning',
@@ -25,7 +25,7 @@ export interface INotifyNotification extends MongodbDocument {
    */
   description: string;
   read: boolean;
-  notificationType: EnumNotificationType;
+  notificationType: EnumNotificationTypes;
   owner: INotifyUser['_id'];
   selectedAction: INotifyNotificationAction['id'] | null;
   actions: INotifyNotificationAction[];
