@@ -153,12 +153,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this._socket.increaseNotificationsCount$
       .pipe(
         takeUntil(this.destroy$),
-        switchMap(this._updateUnreadNotificationsCount.bind(this)),
-        tap(() =>
-          this.unreadNotificationsCount$.next(
-            this.unreadNotificationsCount$.value + 1
-          )
-        )
+        switchMap(this._updateUnreadNotificationsCount.bind(this))
       )
       .subscribe();
   }
@@ -178,7 +173,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   public handleNotificationsClick() {
-    this._notificationsListFactory.create();
+    const { instance } = this._notificationsListFactory.create();
+
+    instance.refreshNotificationsCount
+      .pipe(switchMap(() => this._updateUnreadNotificationsCount()))
+      .subscribe();
   }
 
   private _updateUnreadNotificationsCount() {

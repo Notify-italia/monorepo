@@ -13,6 +13,7 @@ import { LeadsService, NotificationsService } from '../../../services';
 import {
   EnumSelectOptionStyle,
   ISelectOption,
+  SELECT_MODAL_TIMEOUT,
   SelectComponent,
 } from '../select';
 
@@ -101,7 +102,11 @@ export class InspectNotificationComponent extends ModalBaseComponent {
           );
         }),
         tap(() => this.refreshNotifications.emit()),
-        tap(() => close())
+        tap(() =>
+          this.close({
+            timeout: SELECT_MODAL_TIMEOUT,
+          })
+        )
       )
       .subscribe();
   }

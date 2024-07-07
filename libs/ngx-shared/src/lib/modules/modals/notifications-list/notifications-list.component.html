@@ -53,6 +53,9 @@
               <div
                 (click)="notificationClicked(item)"
                 class="list-card smooth smooth-fast"
+                [ngClass]="{
+                  'opacity-80': item.read
+                }"
               >
                 <div class="glyph-container">
                   <div>

@@ -7,6 +7,7 @@ import {
 import {
   EnumSelectOptionStyle,
   ISelectOption,
+  SELECT_MODAL_TIMEOUT,
   SelectComponent,
 } from '../select/select.component';
 
@@ -57,7 +58,7 @@ export class ConfirmComponent extends ModalBaseComponent {
     if (this.config.closeOnConfirm) {
       this.close({
         skipLifecycle: true,
-        timeout: 200,
+        timeout: SELECT_MODAL_TIMEOUT,
       });
     }
   }

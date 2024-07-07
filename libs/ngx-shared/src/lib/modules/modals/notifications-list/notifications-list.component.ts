@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { INotifyNotification } from '@notify/interfaces';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
@@ -41,6 +41,8 @@ export class NotificationsListComponent
   private _utilsService = inject(UtilsService);
   private _inspectNotification = inject(InspectNotificationFactory);
 
+  @Output() refreshNotificationsCount = new EventEmitter<void>();
+
   public selectedOption: 'all' | 'unread' | 'read' = 'all';
 
   public currentChunk$ = new BehaviorSubject<number>(1);
@@ -77,7 +79,10 @@ export class NotificationsListComponent
     const { instance } = this._inspectNotification.create({ notification });
 
     instance.refreshNotifications
-      .pipe(switchMap(() => this.refreshNotifications()))
+      .pipe(
+        switchMap(() => this.refreshNotifications()),
+        tap(() => this.refreshNotificationsCount.emit())
+      )
       .subscribe();
   }
 }

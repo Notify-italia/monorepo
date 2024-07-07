@@ -47,6 +47,7 @@ export class ModalBaseComponent<Submitted = UnknownType> {
         this.cf.destroy();
         this.destroyed$.next();
         this.destroyed$.complete();
+        this.submitted.complete();
         resolve(void 0);
       }, config?.timeout || 1)
     );
