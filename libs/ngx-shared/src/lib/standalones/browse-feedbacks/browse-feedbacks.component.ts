@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { INotifyFeedback } from '@notify/interfaces';
-import { ModalBaseComponent } from '../../constructors/modal.base.component';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../constructors/modal.base.component';
 import { EnumDicebearAvatarStyles, UtilsService } from '../../services';
 
 @Component({
   standalone: true,
   imports: [CommonModule],
-  providers: [UtilsService],
+  providers: [UtilsService, ...baseModalComponentProviders],
   templateUrl: './browse-feedbacks.component.html',
   styleUrl: './browse-feedbacks.component.scss',
 })

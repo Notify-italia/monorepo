@@ -1,0 +1,31 @@
+.list-container {
+  @apply h-[80vh] overflow-y-auto flex flex-col items-start w-full overflow-x-hidden space-y-4;
+}
+
+.list-card {
+  @apply border rounded-2xl bg-white/5 backdrop-blur-3xl w-full px-2 py-4 flex flex-col justify-center items-start text-white text-start border-white/10 h-20 hover:bg-white/10 cursor-pointer text-xs lg:text-sm;
+
+  .glyph-container {
+    @apply flex w-full items-center space-x-2;
+  }
+
+  .content-container {
+    @apply flex flex-col w-full;
+
+    & > div {
+      @apply flex justify-between w-full items-center;
+
+      span {
+        @apply truncate w-11/12;
+      }
+    }
+  }
+
+  .read-container {
+    @apply w-1/12 flex justify-end px-2;
+  }
+}
+
+.unread-dot {
+  @apply p-1 size-2 rounded-full bg-primary-500 shrink-0;
+}

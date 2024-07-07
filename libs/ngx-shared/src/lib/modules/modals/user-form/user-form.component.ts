@@ -8,7 +8,10 @@ import {
 } from '@angular/forms';
 import { INotifyAccount, INotifyPartialUser } from '@notify/interfaces';
 
-import { ModalBaseComponent } from '../../../constructors/modal.base.component';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../constructors/modal.base.component';
 import { passwordMatchValidator } from '../../../validators';
 import { TailwindFormsModule } from '../../tailwind-forms/tailwind-forms.module';
 
@@ -30,6 +33,7 @@ export interface IUserFormPasswordFieldConfig {
 @Component({
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, TailwindFormsModule],
+  providers: baseModalComponentProviders,
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
 })

@@ -2,15 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { INotifyProfile } from '@notify/interfaces';
-import { ModalBaseComponent } from '../../../../constructors';
-import { FormsService, controlsFromObject } from '../../../../services';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../../constructors';
+import { controlsFromObject, FormsService } from '../../../../services';
 import { RightPanelComponent } from '../right-panel/right-panel.component';
 
 @Component({
   selector: 'notify-info-panel',
   standalone: true,
   imports: [CommonModule, RightPanelComponent],
-  providers: [FormsService],
+  providers: [FormsService, ...baseModalComponentProviders],
   templateUrl: './info-panel.component.html',
   styleUrl: './info-panel.component.scss',
 })

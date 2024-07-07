@@ -7,9 +7,13 @@ import {
   trigger,
 } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { UnknownType } from '@notify/interfaces';
-import { ModalBaseComponent } from '../../../constructors';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../constructors';
 
 export const SELECT_MODAL_TIMEOUT = 200;
 
@@ -29,6 +33,7 @@ export enum EnumSelectOptionStyle {
   selector: 'notify-select',
   standalone: true,
   imports: [CommonModule],
+  providers: baseModalComponentProviders,
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss',
   animations: [
@@ -70,6 +75,7 @@ export enum EnumSelectOptionStyle {
   ],
 })
 export class SelectComponent extends ModalBaseComponent<ISelectOption> {
+  private _domSanitizer = inject(DomSanitizer);
   @Input({ required: true }) title = '';
   @Input() subtitle = '';
   @Input() options: ISelectOption[] = [];
@@ -78,6 +84,10 @@ export class SelectComponent extends ModalBaseComponent<ISelectOption> {
   @Output() optionSelected = new EventEmitter<ISelectOption>();
 
   public timeout = SELECT_MODAL_TIMEOUT;
+
+  public get sanitizedSubtitle() {
+    return this._domSanitizer.bypassSecurityTrustHtml(this.subtitle) as string;
+  }
 
   public handleSelection(option: ISelectOption) {
     this.optionSelected.emit(option);
@@ -96,7 +106,10 @@ export class SelectComponent extends ModalBaseComponent<ISelectOption> {
     return [
       ...this.options,
       { value: null, label: 'Annulla', style: EnumSelectOptionStyle.CANCEL },
-    ];
+    ].map((option) => ({
+      ...option,
+      label: this._domSanitizer.bypassSecurityTrustHtml(option.label) as string,
+    }));
   }
 
   public override async close() {

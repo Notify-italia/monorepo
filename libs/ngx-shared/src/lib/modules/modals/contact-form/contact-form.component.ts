@@ -1,17 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { EnumNotifyLeadOrigins, INoitfyAPLeadItem } from '@notify/interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, of, tap } from 'rxjs';
-import { ModalBaseComponent } from '../../../constructors';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../constructors';
 import { FormsService, LeadsService } from '../../../services';
 import { TailwindFormsModule } from '../../tailwind-forms/tailwind-forms.module';
 
 @Component({
   standalone: true,
   imports: [CommonModule, TailwindFormsModule, ReactiveFormsModule],
-  providers: [FormsService, LeadsService],
+  providers: [FormsService, LeadsService, ...baseModalComponentProviders],
   templateUrl: './contact-form.component.html',
 })
 export class ContactFormComponent extends ModalBaseComponent implements OnInit {

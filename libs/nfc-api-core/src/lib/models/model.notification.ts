@@ -17,10 +17,11 @@ export type NotificationDocument = Document<unknown, unknown, Notification> &
     _id: mongoose.Types.ObjectId;
   }>;
 
-export const Notification_VALIDATION_MESSAGES: {
+export const NOTIFICATION_VALIDATION_MESSAGES: {
   [key in keyof Partial<Notification>]: string;
 } = {
-  _id: "L'id della licenza non è valido",
+  _id: 'Notifica non valida',
+  owner: 'Il proprietario della notifica è obbligatorio',
 };
 
 // 1. Crea un'interfaccia cahe rappresenti il documento in MongoDB
@@ -31,7 +32,8 @@ export interface Notification
       _id: Types.ObjectId;
       createdAt: Date;
       updatedAt: Date;
-      owner: Schema.Types.ObjectId;
+      owner: Types.ObjectId;
+      notificationType: string;
     }
   > {}
 
@@ -48,7 +50,7 @@ const NotificationSchema = new Schema<Notification, NotificationModel>(
   {
     owner: {
       type: Schema.Types.ObjectId,
-      required: [true, Notification_VALIDATION_MESSAGES.owner],
+      required: true,
     },
     title: {
       type: String,
@@ -69,6 +71,10 @@ const NotificationSchema = new Schema<Notification, NotificationModel>(
     selectedAction: {
       type: String,
       default: null,
+    },
+    notificationType: {
+      type: String,
+      default: 'info',
     },
     actions: {
       type: [

@@ -68,6 +68,7 @@ export class NavComponent {
   };
 
   @Output() versionClick = new EventEmitter<void>();
+  @Output() notificationsClick = new EventEmitter<void>();
 
   public get isPhone() {
     return ['none', 'sm', 'md'].includes(

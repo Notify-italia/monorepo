@@ -44,7 +44,10 @@
       </div>
 
       <div class="relative">
-        <label class="btn btn-square btn-ghost lg:hidden">
+        <label
+          class="btn btn-square btn-ghost lg:hidden"
+          (click)="notificationsClick.emit()"
+        >
           <ng-container *ngIf="isPhone" [ngTemplateOutlet]="NotificationsBadge">
           </ng-container>
         </label>
@@ -178,7 +181,11 @@
           <a
             #notificationsSidebarItem
             class="flex space-x-2 relative"
-            (click)="notificationsSidebarItem.blur(); DrawerController.click()"
+            (click)="
+              notificationsClick.emit();
+              notificationsSidebarItem.blur();
+              DrawerController.click()
+            "
           >
             <ng-container
               [ngTemplateOutlet]="NotificationsBadge"

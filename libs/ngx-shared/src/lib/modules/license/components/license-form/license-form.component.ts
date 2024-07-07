@@ -8,7 +8,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { UnknownType } from '@notify/interfaces';
-import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../../constructors/modal.base.component';
 import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-box-icon.component';
 
 @Component({
@@ -20,6 +23,7 @@ import { SvgBoxIconComponent } from '../../../../standalones/svg-box-icon/svg-bo
     ReactiveFormsModule,
     SvgBoxIconComponent,
   ],
+  providers: baseModalComponentProviders,
   templateUrl: './license-form.component.html',
   styleUrl: './license-form.component.scss',
 })

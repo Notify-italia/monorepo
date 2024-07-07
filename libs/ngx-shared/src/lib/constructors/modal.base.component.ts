@@ -10,9 +10,10 @@ import { UnknownType } from '@notify/interfaces';
 import { Subject } from 'rxjs';
 import { CapacitorService } from '../services';
 
+export const baseModalComponentProviders = [CapacitorService];
+
 @Component({
   template: '',
-  providers: [CapacitorService],
 })
 export class ModalBaseComponent<Submitted = UnknownType> {
   public _capacitorService = inject(CapacitorService);

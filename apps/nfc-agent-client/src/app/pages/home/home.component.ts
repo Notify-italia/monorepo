@@ -14,6 +14,7 @@ import {
   ChangelogFactory,
   NavComponent,
   NavItem,
+  NotificationsListFactory,
   NotificationsService,
   ProfileService,
   SocketService,
@@ -37,6 +38,7 @@ import {
     ChangelogFactory,
     NotificationsService,
     ProfileService,
+    NotificationsListFactory,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -133,7 +135,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private _authService: AuthService,
     private _notificationsService: NotificationsService,
     private _socket: SocketService,
-    private _profileService: ProfileService
+    private _profileService: ProfileService,
+    private _notificationsListFactory: NotificationsListFactory
   ) {
     this._profileService.getProfile().subscribe((profile) => {
       this._socket.connect(
@@ -172,6 +175,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   public handleVersionClick() {
     //? perchè changlogFactory è un qui e non in version-label? perchè triggerandolo da version labl non applica correttamente il backdrop-blur, oltre che ad avere diversi problemi di alignment
     this._changelogFactory.create(this.latestChangelog);
+  }
+
+  public handleNotificationsClick() {
+    this._notificationsListFactory.create();
   }
 
   private _updateUnreadNotificationsCount() {

@@ -9,7 +9,10 @@ import {
 } from '@angular/forms';
 import { INotifyUser } from '@notify/interfaces';
 import { Observable, map } from 'rxjs';
-import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
+import {
+  ModalBaseComponent,
+  baseModalComponentProviders,
+} from '../../../../constructors/modal.base.component';
 import { ProfileService } from '../../../../services';
 import { LoadingComponent } from '../../../../standalones/loading/loading.component';
 import { ITailwindSelectOption } from '../../../tailwind-forms/components/tailwind-select/tailwind-select.component';
@@ -24,6 +27,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
     FormsModule,
     TailwindFormsModule,
   ],
+  providers: baseModalComponentProviders,
   selector: 'notify-note-add-owner',
   templateUrl: './note-add-owner.component.html',
   styleUrl: './note-add-owner.component.scss',

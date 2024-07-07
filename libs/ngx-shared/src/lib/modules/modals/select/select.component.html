@@ -2,7 +2,11 @@
   <div class="column h-full justify-center items-center space-y-4">
     <div class="column space-y-1 text-white" (click)="$event.stopPropagation()">
       <p class="select-title">{{ title }}</p>
-      <div class="select-subtitle" *ngIf="subtitle.length">{{ subtitle }}</div>
+      <div
+        class="select-subtitle"
+        *ngIf="subtitle.length"
+        [innerHTML]="subtitle"
+      ></div>
     </div>
 
     <div class="column space-y-1" (click)="$event.stopPropagation()">
@@ -10,9 +14,8 @@
       <button
         class="select-button smooth {{ option.style }}"
         (click)="handleSelection(option)"
-      >
-        {{ option.label }}
-      </button>
+        [innerHTML]="option.label"
+      ></button>
       }
     </div>
   </div>

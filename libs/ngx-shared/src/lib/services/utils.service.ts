@@ -335,4 +335,23 @@ export class UtilsService {
 
     return adjustedHex;
   }
+
+  public getTemporalDelta(date: Date) {
+    const now = new Date();
+    const delta = now.getTime() - date.getTime();
+
+    if (delta < 60000) {
+      return 'ora';
+    }
+
+    if (delta < 3600000) {
+      return `${Math.floor(delta / 60000)}m fa`;
+    }
+
+    if (delta < 86400000) {
+      return `${Math.floor(delta / 3600000)}h fa`;
+    }
+
+    return `${Math.floor(delta / 86400000)}g fa`;
+  }
 }

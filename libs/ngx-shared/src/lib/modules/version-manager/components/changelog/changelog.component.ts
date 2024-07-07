@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../../constructors/modal.base.component';
 import { UtilsService } from '../../../../services';
 import { INotifyVersionInfo } from '../version-label/version-label.component';
 @Component({
   standalone: true,
   imports: [CommonModule],
-  providers: [UtilsService],
+  providers: [UtilsService, ...baseModalComponentProviders],
   templateUrl: './changelog.component.html',
   styleUrl: './changelog.component.scss',
 })

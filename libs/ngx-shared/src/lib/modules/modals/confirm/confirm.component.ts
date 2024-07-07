@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { ModalBaseComponent } from '../../../constructors';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../constructors';
 import {
   EnumSelectOptionStyle,
   ISelectOption,
@@ -22,6 +25,7 @@ export interface IConfirmModalConfig {
   standalone: true,
   imports: [CommonModule, SelectComponent],
   styleUrls: ['./confirm.component.scss'],
+  providers: baseModalComponentProviders,
   template: `<notify-select
     [cf]="cf"
     [title]="config.title"

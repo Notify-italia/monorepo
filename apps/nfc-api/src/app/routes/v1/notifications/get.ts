@@ -19,9 +19,15 @@ router.get(
       const notifications = await NotificationModel.find({
         owner: user._id,
         ...(type === 'unread' ? { read: false } : {}),
-      });
+      })
+        .sort({ createdAt: -1 })
+        .limit(200)
+        .lean();
 
-      res.status(200).send(notifications);
+      const unread = notifications.filter((n) => !n.read);
+      const read = notifications.filter((n) => n.read);
+
+      res.status(200).send([...unread, ...read]);
     },
     {
       requireAuth: {

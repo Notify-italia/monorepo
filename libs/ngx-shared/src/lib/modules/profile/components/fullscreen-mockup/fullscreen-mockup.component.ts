@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { INotifyProfile, NotifyPopulatedNote } from '@notify/interfaces';
-import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../../constructors/modal.base.component';
 import { CachedSrcDirective } from '../../../../directives';
 import { ProfileService, UtilsService } from '../../../../services';
 import { ProfileViewComponent } from '../profile-view/profile-view.component';
@@ -20,7 +23,7 @@ import {
     CachedSrcDirective,
   ],
   //* per qualche ragione, sul sito vetrina se non si fa il provide di profile service da un errore all'apertura dei profili dei partners
-  providers: [ProfileService, UtilsService],
+  providers: [ProfileService, UtilsService, ...baseModalComponentProviders],
   templateUrl: './fullscreen-mockup.component.html',
   styleUrls: ['./fullscreen-mockup.component.scss', '../profile.styles.scss'],
 })

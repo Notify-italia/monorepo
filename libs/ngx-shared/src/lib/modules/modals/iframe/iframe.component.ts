@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { ModalBaseComponent } from '../../../constructors';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../constructors';
 import { CachedSrcDirective } from '../../../directives';
-import { CapacitorService } from '../../../services';
 
 export interface IFrameModalNavbarStyle {
   backgroundColor: string;
@@ -12,7 +14,7 @@ export interface IFrameModalNavbarStyle {
 @Component({
   standalone: true,
   imports: [CommonModule, CachedSrcDirective],
-  providers: [CapacitorService],
+  providers: baseModalComponentProviders,
   templateUrl: './iframe.component.html',
   styleUrls: ['./iframe.component.scss'],
 })

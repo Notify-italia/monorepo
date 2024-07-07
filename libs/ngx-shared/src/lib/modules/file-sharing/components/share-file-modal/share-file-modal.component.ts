@@ -7,7 +7,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../../constructors/modal.base.component';
 import { CapacitorService } from '../../../../services';
 import { UploadComponent } from '../../../../standalones/upload/upload.component';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
@@ -21,7 +24,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
     TailwindFormsModule,
     UploadComponent,
   ],
-  providers: [CapacitorService],
+  providers: baseModalComponentProviders,
   templateUrl: './share-file-modal.component.html',
   styleUrl: './share-file-modal.component.scss',
 })

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PageLayoutBaseComponent } from '../../constructors/layout.base.component';
 
@@ -11,6 +11,7 @@ import { PageLayoutBaseComponent } from '../../constructors/layout.base.componen
   styleUrl: './no-items.component.scss',
 })
 export class NoItemsComponent extends PageLayoutBaseComponent {
+  @Input() compact = false;
   public get subtitleHTML() {
     return this._domSanitizer.bypassSecurityTrustHtml(this.subtitle);
   }

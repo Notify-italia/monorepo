@@ -3,13 +3,15 @@ import { Component, Input, OnInit } from '@angular/core';
 import { GetBrightnessReturnValue } from '@capacitor-community/screen-brightness';
 import { QRCodeComponent, QRCodeModule } from 'angularx-qrcode';
 import { ToastrService } from 'ngx-toastr';
-import { ModalBaseComponent } from '../../../constructors';
-import { CapacitorService } from '../../../services';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../constructors';
 
 @Component({
   standalone: true,
   imports: [CommonModule, QRCodeModule],
-  providers: [CapacitorService],
+  providers: baseModalComponentProviders,
   templateUrl: './qrcode.component.html',
   styleUrls: ['./qrcode.component.scss'],
 })

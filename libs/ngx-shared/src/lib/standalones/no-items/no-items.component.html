@@ -11,6 +11,9 @@
       stroke-width="1.5"
       stroke="currentColor"
       class="w-14 h-14"
+      [ngClass]="{
+        'w-10 h-10': compact
+      }"
     >
       <path
         stroke-linecap="round"
@@ -19,7 +22,14 @@
       />
     </svg>
 
-    <h2 class="text-xl lg:text-3xl font-bold mb-4">{{ title }}</h2>
+    <h2
+      class="text-xl lg:text-3xl font-bold mb-4"
+      [ngClass]="{
+        'text-sm lg:text-base': compact
+      }"
+    >
+      {{ title }}
+    </h2>
     <p
       class="lg:text-lg text-current/70 text-center p-2"
       [innerHTML]="subtitleHTML"

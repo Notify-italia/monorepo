@@ -3,13 +3,17 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { INotifyProfile } from '@notify/interfaces';
 import { Validators } from 'ngx-editor';
-import { Subject, debounceTime, tap } from 'rxjs';
-import { ModalBaseComponent } from '../../../../constructors';
+import { debounceTime, Subject, tap } from 'rxjs';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../../constructors';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
 
 @Component({
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, TailwindFormsModule],
+  providers: baseModalComponentProviders,
   templateUrl: './profile-share-settings.component.html',
   styleUrl: './profile-share-settings.component.scss',
 })

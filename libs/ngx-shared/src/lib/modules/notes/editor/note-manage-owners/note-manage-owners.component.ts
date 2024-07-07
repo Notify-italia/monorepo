@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, Output, inject } from '@angular/core';
+import { Component, inject, Input, OnInit, Output } from '@angular/core';
 import { INotifyUser } from '@notify/interfaces';
 
 import { Observable, Subject } from 'rxjs';
-import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../../constructors/modal.base.component';
 import { AuthService } from '../../../../services';
 import { LoadingComponent } from '../../../../standalones/loading/loading.component';
 import { AccountsTableComponent } from '../../../custom-table/presets';
@@ -11,6 +14,7 @@ import { AccountsTableComponent } from '../../../custom-table/presets';
 @Component({
   standalone: true,
   imports: [CommonModule, LoadingComponent, AccountsTableComponent],
+  providers: baseModalComponentProviders,
   templateUrl: './note-manage-owners.component.html',
 })
 export class NoteManageOwnersComponent

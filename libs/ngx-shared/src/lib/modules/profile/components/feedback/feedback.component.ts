@@ -6,14 +6,17 @@ import { AppError, INotifyProfile } from '@notify/interfaces';
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
-import { ModalBaseComponent } from '../../../../constructors/modal.base.component';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../../constructors/modal.base.component';
 import { FeedbackService, UtilsService } from '../../../../services';
 import { RatingComponent } from '../rating/rating.component';
 
 @Component({
   standalone: true,
   imports: [CommonModule, FormsModule, RatingComponent],
-  providers: [FeedbackService, UtilsService],
+  providers: [FeedbackService, UtilsService, ...baseModalComponentProviders],
   templateUrl: './feedback.component.html',
   styleUrls: ['./feedback.component.scss', '../profile.styles.scss'],
 })

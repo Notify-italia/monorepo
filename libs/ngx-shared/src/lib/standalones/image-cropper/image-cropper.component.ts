@@ -13,7 +13,10 @@ import {
   ImageCropperComponent as ImgCropperComponent,
   ImageCropperModule as ImgCropperModule,
 } from 'ngx-img-cropper';
-import { ModalBaseComponent } from '../../constructors/modal.base.component';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../constructors/modal.base.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 
@@ -39,6 +42,7 @@ export interface IImageCropperConfig {
     LoadingComponent,
     ImgCropperModule,
   ],
+  providers: baseModalComponentProviders,
   templateUrl: './image-cropper.component.html',
   styleUrl: './image-cropper.component.scss',
 })

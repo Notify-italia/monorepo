@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import {
   FormArray,
   FormControl,
@@ -13,7 +13,10 @@ import {
   INotifyPopulatedLicense,
 } from '@notify/interfaces';
 import { Subject } from 'rxjs';
-import { ModalBaseComponent } from '../../../../constructors';
+import {
+  baseModalComponentProviders,
+  ModalBaseComponent,
+} from '../../../../constructors';
 import { FormsService } from '../../../../services';
 import { ITailwindSelectOption } from '../../../tailwind-forms/components/tailwind-select/tailwind-select.component';
 import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.module';
@@ -21,7 +24,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
 @Component({
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, TailwindFormsModule],
-  providers: [FormsService],
+  providers: [FormsService, ...baseModalComponentProviders],
   templateUrl: './license-form-full.component.html',
   styleUrl: './license-form-full.component.scss',
 })

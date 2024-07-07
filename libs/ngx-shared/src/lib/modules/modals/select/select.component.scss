@@ -3,7 +3,7 @@
 }
 
 .select-button {
-  @apply p-2 rounded-md bg-gray-900/50 text-gray-300 w-60 whitespace-nowrap hover:scale-105 active:scale-90 hover:brightness-150 text-sm truncate;
+  @apply p-2 rounded-md bg-gray-800/70 text-gray-300 w-60 whitespace-nowrap hover:scale-105 active:scale-90 hover:brightness-150 text-sm truncate;
 
   &.preferred {
     @apply bg-white text-black scale-105 hover:scale-110 active:scale-100 m-1;
@@ -12,7 +12,7 @@
     @apply bg-red-500;
   }
   &.cancel {
-    @apply bg-gray-900/30 text-white mt-2;
+    @apply bg-gray-700/30 text-white mt-2;
   }
 }
 
