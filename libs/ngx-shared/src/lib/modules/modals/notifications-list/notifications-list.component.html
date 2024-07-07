@@ -1,8 +1,14 @@
-<div class="modal-container overflow-y-auto sm:overflow-hidden">
+<div
+  class="modal-container overflow-y-auto sm:overflow-hidden"
+  (click)="close()"
+>
   <div class="!w-full">
     <div class="modal-content !bg-transparent !border-none !animate-none">
       <div class="hero-content text-center h-full w-full">
-        <div class="h-full flex flex-col justify-center w-full space-y-2">
+        <div
+          class="h-full flex flex-col justify-center w-full space-y-2"
+          (click)="$event.stopPropagation()"
+        >
           <div class="modal-icon w-full">
             <div class="flex !flex-row !justify-between w-full items-center">
               <h2>Notifiche</h2>
