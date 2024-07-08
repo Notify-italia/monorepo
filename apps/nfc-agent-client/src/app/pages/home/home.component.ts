@@ -156,6 +156,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         switchMap(this._updateUnreadNotificationsCount.bind(this))
       )
       .subscribe();
+
+    this.capacitor.registerNotifications();
   }
 
   ngOnDestroy(): void {

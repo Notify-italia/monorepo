@@ -25,6 +25,7 @@ end
 target 'App' do
   capacitor_pods
   # Add your Pods here
+  pod 'Firebase/Messaging'
   pod 'CapacitorFilesystem', :path => '../../../../../node_modules/@capacitor/filesystem'
   pod 'CapacitorCommunityScreenBrightness', :path => '../../../../../node_modules/@capacitor-community/screen-brightness'
   pod 'CapacitorCommunityMedia', :path => '../../../../../node_modules/@capacitor-community/media'
@@ -33,6 +34,8 @@ target 'App' do
   pod 'CapacitorSuppressLongpressGesture' , :path => '../../../../../node_modules/capacitor-suppress-longpress-gesture'
   pod 'CapacitorActionSheet', :path => '../../../../../node_modules/@capacitor/action-sheet'
   pod 'CapacitorStatusBar', :path => '../../../../../node_modules/@capacitor/status-bar'
+  pod 'CapacitorPushNotifications', :path => '../../../../../node_modules/@capacitor/push-notifications'
+  pod 'CapacitorCommunityFcm', :path => '../../../../../node_modules/@capacitor-community/fcm'
 end
 
 post_install do |installer|

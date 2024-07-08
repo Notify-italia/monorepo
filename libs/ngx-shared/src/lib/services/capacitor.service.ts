@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FCM } from '@capacitor-community/fcm';
 import { Media } from '@capacitor-community/media';
 import {
   GetBrightnessReturnValue,
@@ -13,6 +14,7 @@ import {
 } from '@capacitor/camera';
 import { Capacitor } from '@capacitor/core';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
+import { PushNotifications } from '@capacitor/push-notifications';
 import { StatusBar } from '@capacitor/status-bar';
 import {
   Nfc,
@@ -138,6 +140,56 @@ export class CapacitorService {
       path: `Notify/${config.filename}`,
       fileName: config.filename,
     });
+  }
+
+  public async registerNotifications() {
+    if (!this.isNative) {
+      return;
+    }
+
+    let permStatus = await PushNotifications.checkPermissions();
+
+    if (permStatus.receive === 'prompt') {
+      permStatus = await PushNotifications.requestPermissions();
+    }
+
+    if (permStatus.receive !== 'granted') {
+      return;
+    }
+
+    await PushNotifications.register();
+
+    await PushNotifications.addListener('registration', (token) => {
+      console.info('Registration token: ', token.value);
+    });
+
+    await PushNotifications.addListener('registrationError', (err) => {
+      console.error('Registration error: ', err.error);
+    });
+
+    await PushNotifications.addListener(
+      'pushNotificationReceived',
+      (notification) => {
+        console.log('Push notification received: ', notification);
+      }
+    );
+
+    await PushNotifications.addListener(
+      'pushNotificationActionPerformed',
+      (notification) => {
+        console.log(
+          'Push notification action performed',
+          notification.actionId,
+          notification.inputValue
+        );
+      }
+    );
+
+    FCM.subscribeTo({ topic: 'all' });
+  }
+
+  public getFCMToken() {
+    return FCM.getToken();
   }
 
   public async scanNFCTag(
