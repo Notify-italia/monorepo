@@ -11,7 +11,11 @@ const config: CapacitorConfig = {
   android: {
     path: 'app/android',
   },
-
+  plugins: {
+    PushNotifications: {
+      presentationOptions: ['badge', 'sound', 'alert'],
+    },
+  },
   webDir: '../../dist/apps/nfc-agent-client',
 };
 

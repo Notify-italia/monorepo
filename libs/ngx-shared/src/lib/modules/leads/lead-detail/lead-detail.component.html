@@ -76,7 +76,7 @@
         <!-- </div> -->
       </div>
       <div class="column">
-        <div class="column box p-4">
+        <div class="column box p-4" *ngIf="isCompanyBusinessCard">
           <h2 class="section-title">Dati Aziendali</h2>
           <div class="column">
             <notify-tailwind-input
@@ -189,6 +189,20 @@
               placeholder="CEO"
             ></notify-tailwind-input>
           </div>
+        </div>
+        <div class="column box p-4">
+          <h2 class="section-title">Note</h2>
+          <notify-tailwind-textarea
+            [compact]="true"
+            [allowResize]="{
+              vertical: true,
+            }"
+            [parent]="form"
+            label="Note"
+            name="acceptanceMessage"
+            placeholder="Inserisci le tue note"
+            [rows]="5"
+          ></notify-tailwind-textarea>
         </div>
         <notify-lead-phonenumbers [form]="form"></notify-lead-phonenumbers>
         <notify-lead-emails [form]="form"></notify-lead-emails>
