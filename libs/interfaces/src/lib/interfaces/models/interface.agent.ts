@@ -14,6 +14,7 @@ export interface INotifyAgent extends MongodbDocument {
   token?: string;
   profile?: INotifyProfile;
   advancedProfile: boolean;
+  fcmTokens: string[];
 }
 
 export interface INotifyPartialAgent extends Partial<INotifyAgent> {

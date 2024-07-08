@@ -41,11 +41,12 @@ router.post(
     // await sendConfirmationEmail(lead, user);
 
     if (lead.origin === EnumNotifyLeadOrigins.ProfileContactForm) {
-      await createNotification({
-        title: 'Nuovo contatto in attesa di conferma',
-        owner: user._id,
-        notificationType: EnumNotificationTypes.ActionRequired,
-        subtitle: `
+      await createNotification(
+        {
+          title: 'Nuovo contatto in attesa di conferma',
+          owner: user._id,
+          notificationType: EnumNotificationTypes.ActionRequired,
+          subtitle: `
         <style>
          ul {
               list-style-type: none;
@@ -87,25 +88,29 @@ router.post(
              ${lead.acceptanceMessage || ''}</li>
             </ul>
         </div>`,
-        actions: [
-          {
-            id: new Types.ObjectId().toString(),
-            title: 'Approva',
-            data: {
-              leadId: lead._id,
+          actions: [
+            {
+              id: new Types.ObjectId().toString(),
+              title: 'Approva',
+              data: {
+                leadId: lead._id,
+              },
+              eventName:
+                EnumNotifyNotificationActionEvents.ContactFormLeadAccept,
             },
-            eventName: EnumNotifyNotificationActionEvents.ContactFormLeadAccept,
-          },
-          {
-            id: new Types.ObjectId().toString(),
-            title: 'Rifiuta',
-            data: {
-              leadId: lead._id,
+            {
+              id: new Types.ObjectId().toString(),
+              title: 'Rifiuta',
+              data: {
+                leadId: lead._id,
+              },
+              eventName:
+                EnumNotifyNotificationActionEvents.ContactFormLeadReject,
             },
-            eventName: EnumNotifyNotificationActionEvents.ContactFormLeadReject,
-          },
-        ],
-      });
+          ],
+        },
+        'Apri Notify per approvare o rifiutare'
+      );
     }
 
     res.send(lead);

@@ -117,6 +117,12 @@ export class AuthService {
       );
   }
 
+  public setFCMToken(token: string) {
+    return this._http.patch<{ token: string }, INotifyUser>(
+      `/v1/${this._userType}/fcm`,
+      { token }
+    );
+  }
   /**
    * The signOut function removes the token from local storage, sets the current user to null, and
    * reloads the page.

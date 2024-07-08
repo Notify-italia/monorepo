@@ -2,6 +2,7 @@ export * from './service.bucket';
 export * from './service.db';
 export * from './service.email';
 export * from './service.envs';
+export * from './service.firebase';
 export * from './service.jwt';
 export * from './service.license';
 export * from './service.managed-logs';

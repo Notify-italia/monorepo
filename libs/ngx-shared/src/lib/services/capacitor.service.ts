@@ -23,6 +23,7 @@ import {
   NfcTagScannedEvent,
   NfcUtils,
 } from '@capawesome-team/capacitor-nfc';
+import { from, Subject, switchMap } from 'rxjs';
 
 @Injectable()
 export class CapacitorService {
@@ -32,6 +33,12 @@ export class CapacitorService {
   public isDesktop = Capacitor.getPlatform() === 'web';
   public hFeedbackStyles = { ...ImpactStyle, ...NotificationType };
   public nfcUtils = new NfcUtils();
+
+  private _firebaseRegistrationTokenSubject$ = new Subject<string>();
+  public fcmTokenGenerated$ = this._firebaseRegistrationTokenSubject$.pipe(
+    switchMap(() => from(FCM.subscribeTo({ topic: 'all' }))),
+    switchMap(() => from(FCM.getToken()))
+  );
 
   public get brightness(): Promise<GetBrightnessReturnValue> {
     return new Promise<GetBrightnessReturnValue>((resolve, reject) => {
@@ -161,6 +168,8 @@ export class CapacitorService {
 
     await PushNotifications.addListener('registration', (token) => {
       console.info('Registration token: ', token.value);
+
+      this._firebaseRegistrationTokenSubject$.next(token.value);
     });
 
     await PushNotifications.addListener('registrationError', (err) => {
@@ -179,17 +188,11 @@ export class CapacitorService {
       (notification) => {
         console.log(
           'Push notification action performed',
-          notification.actionId,
+          notification.notification.data.notification_id,
           notification.inputValue
         );
       }
     );
-
-    FCM.subscribeTo({ topic: 'all' });
-  }
-
-  public getFCMToken() {
-    return FCM.getToken();
   }
 
   public async scanNFCTag(

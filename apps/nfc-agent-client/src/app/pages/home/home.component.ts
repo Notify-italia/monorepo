@@ -158,6 +158,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe();
 
     this.capacitor.registerNotifications();
+
+    this.capacitor.fcmTokenGenerated$
+      .pipe(
+        takeUntil(this.destroy$),
+        tap((v) => console.log('Sending token to server', v.token)),
+        switchMap((v) => this._authService.setFCMToken(v.token))
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {

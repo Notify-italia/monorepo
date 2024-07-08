@@ -95,6 +95,10 @@ const AgentSchema = new Schema<Agent, AgentModel>(
       type: Boolean,
       default: false,
     },
+    fcmTokens: {
+      type: [String],
+      default: [],
+    },
   },
   {
     timestamps: true,
@@ -109,6 +113,7 @@ const AgentSchema = new Schema<Agent, AgentModel>(
       transform(doc, ret) {
         delete ret.password;
         delete ret.__v;
+        delete ret.fcmTokens;
       },
       virtuals: true,
     },

@@ -36,6 +36,11 @@
 	<string>Notify ha bisogno dell'accesso alla tua libreria di foto per salvare codici QR e altri media</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Notify ha bisogno dell'accesso alla tua libreria di foto per caricare una foto da usare come avatar del profilo oppure come elemento tra le note</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

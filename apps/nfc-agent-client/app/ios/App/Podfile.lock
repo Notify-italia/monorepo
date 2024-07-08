@@ -7,6 +7,9 @@ PODS:
     - Capacitor
   - CapacitorCamera (6.0.1):
     - Capacitor
+  - CapacitorCommunityFcm (6.0.0):
+    - Capacitor
+    - Firebase/Messaging
   - CapacitorCommunityMedia (5.4.1):
     - Capacitor
     - SDWebImage
@@ -94,6 +97,7 @@ DEPENDENCIES:
   - "CapacitorActionSheet (from `../../../../../node_modules/@capacitor/action-sheet`)"
   - "CapacitorApp (from `../../../../../node_modules/@capacitor/app`)"
   - "CapacitorCamera (from `../../../../../node_modules/@capacitor/camera`)"
+  - "CapacitorCommunityFcm (from `../../../../../node_modules/@capacitor-community/fcm`)"
   - "CapacitorCommunityMedia (from `../../../../../node_modules/@capacitor-community/media`)"
   - "CapacitorCommunityScreenBrightness (from `../../../../../node_modules/@capacitor-community/screen-brightness`)"
   - "CapacitorCordova (from `../../../../../node_modules/@capacitor/ios`)"
@@ -127,6 +131,8 @@ EXTERNAL SOURCES:
     :path: "../../../../../node_modules/@capacitor/app"
   CapacitorCamera:
     :path: "../../../../../node_modules/@capacitor/camera"
+  CapacitorCommunityFcm:
+    :path: "../../../../../node_modules/@capacitor-community/fcm"
   CapacitorCommunityMedia:
     :path: "../../../../../node_modules/@capacitor-community/media"
   CapacitorCommunityScreenBrightness:
@@ -151,6 +157,7 @@ SPEC CHECKSUMS:
   CapacitorActionSheet: bff87d8384fd38918531ee839a2ec3c2be115f6a
   CapacitorApp: 024e1b1bea5f883d79f6330d309bc441c88ad04a
   CapacitorCamera: 3b77b3e8311b98220de65e63445c0e4d0b30ce3a
+  CapacitorCommunityFcm: a4a524712c41db0a97e23f7f7d4b38b5d33de7a0
   CapacitorCommunityMedia: 64352c5ccc6024116c37ec7cffc1376c268a9f84
   CapacitorCommunityScreenBrightness: b2d9c6fffee6b684994cd69f727f2090e2f05c6d
   CapacitorCordova: c946a6052b547e1e185fc46862003f7b9130ead1
@@ -171,6 +178,6 @@ SPEC CHECKSUMS:
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   SDWebImage: a81bbb3ba4ea5f810f4069c68727cb118467a04a
 
-PODFILE CHECKSUM: af963ce4a45dbc8becef7bec7b4a17f38240b7c4
+PODFILE CHECKSUM: 9599c066842122020ee3a205e15c4ba437268e58
 
 COCOAPODS: 1.15.2
