@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { FCM } from '@capacitor-community/fcm';
 import { Media } from '@capacitor-community/media';
 import {
   GetBrightnessReturnValue,
@@ -14,7 +13,6 @@ import {
 } from '@capacitor/camera';
 import { Capacitor } from '@capacitor/core';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
-import { PushNotifications } from '@capacitor/push-notifications';
 import { StatusBar } from '@capacitor/status-bar';
 import {
   Nfc,
@@ -23,7 +21,6 @@ import {
   NfcTagScannedEvent,
   NfcUtils,
 } from '@capawesome-team/capacitor-nfc';
-import { from, Subject, switchMap } from 'rxjs';
 
 @Injectable()
 export class CapacitorService {
@@ -33,12 +30,6 @@ export class CapacitorService {
   public isDesktop = Capacitor.getPlatform() === 'web';
   public hFeedbackStyles = { ...ImpactStyle, ...NotificationType };
   public nfcUtils = new NfcUtils();
-
-  private _firebaseRegistrationTokenSubject$ = new Subject<string>();
-  public fcmTokenGenerated$ = this._firebaseRegistrationTokenSubject$.pipe(
-    switchMap(() => from(FCM.subscribeTo({ topic: 'all' }))),
-    switchMap(() => from(FCM.getToken()))
-  );
 
   public get brightness(): Promise<GetBrightnessReturnValue> {
     return new Promise<GetBrightnessReturnValue>((resolve, reject) => {
@@ -147,52 +138,6 @@ export class CapacitorService {
       path: `Notify/${config.filename}`,
       fileName: config.filename,
     });
-  }
-
-  public async registerNotifications() {
-    if (!this.isNative) {
-      return;
-    }
-
-    let permStatus = await PushNotifications.checkPermissions();
-
-    if (permStatus.receive === 'prompt') {
-      permStatus = await PushNotifications.requestPermissions();
-    }
-
-    if (permStatus.receive !== 'granted') {
-      return;
-    }
-
-    await PushNotifications.register();
-
-    await PushNotifications.addListener('registration', (token) => {
-      console.info('Registration token: ', token.value);
-
-      this._firebaseRegistrationTokenSubject$.next(token.value);
-    });
-
-    await PushNotifications.addListener('registrationError', (err) => {
-      console.error('Registration error: ', err.error);
-    });
-
-    await PushNotifications.addListener(
-      'pushNotificationReceived',
-      (notification) => {
-        console.log('Push notification received: ', notification);
-      }
-    );
-
-    await PushNotifications.addListener(
-      'pushNotificationActionPerformed',
-      (notification) => {
-        console.log(
-          'Push notification action performed',
-          notification.notification.data.notification_id,
-          notification.inputValue
-        );
-      }
-    );
   }
 
   public async scanNFCTag(

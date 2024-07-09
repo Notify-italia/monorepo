@@ -25,6 +25,7 @@ router.patch(
 
       if (agent.fcmTokens.includes(token)) {
         res.status(304).send(agent);
+        return;
       }
 
       agent.fcmTokens.push(token);

@@ -12,6 +12,7 @@ import {
   AuthService,
   CapacitorService,
   ChangelogFactory,
+  InspectNotificationFactory,
   NavComponent,
   NavItem,
   NotificationsListFactory,
@@ -39,6 +40,7 @@ import {
     NotificationsService,
     ProfileService,
     NotificationsListFactory,
+    InspectNotificationFactory,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
@@ -136,7 +138,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private _notificationsService: NotificationsService,
     private _socket: SocketService,
     private _profileService: ProfileService,
-    private _notificationsListFactory: NotificationsListFactory
+    private _notificationsListFactory: NotificationsListFactory,
+    private _inspectNotificationFactory: InspectNotificationFactory
   ) {
     this._profileService.getProfile().subscribe((profile) => {
       this._socket.connect(
@@ -157,13 +160,28 @@ export class HomeComponent implements OnInit, OnDestroy {
       )
       .subscribe();
 
-    this.capacitor.registerNotifications();
+    this._notificationsService.registerPushNotifications();
 
-    this.capacitor.fcmTokenGenerated$
+    //when the fcm token is generated, we send it to the backend
+    this._notificationsService.fcmTokenGenerated$
       .pipe(
         takeUntil(this.destroy$),
-        tap((v) => console.log('Sending token to server', v.token)),
         switchMap((v) => this._authService.setFCMToken(v.token))
+      )
+      .subscribe();
+
+    //when a notification is clicked, we inspect it
+    this._notificationsService.notificationActionPerform$
+      .pipe(
+        tap((v) => console.log(`opening notification with inspector`)),
+        takeUntil(this.destroy$),
+        switchMap(
+          (notification) =>
+            this._inspectNotificationFactory.create({ notification }).instance
+              .refreshNotifications
+        ),
+        tap(() => console.log(`refreshing notifications`)),
+        switchMap(this._updateUnreadNotificationsCount.bind(this))
       )
       .subscribe();
   }

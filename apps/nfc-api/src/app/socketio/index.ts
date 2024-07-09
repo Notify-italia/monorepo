@@ -26,9 +26,11 @@ export const socketEvents = (
 
   //join the profile room
   socket.join(_profileRoom);
+  console.log(`client joined profile room ${_profileRoom}`);
 
   //join its own room
   socket.join(_selfRoom);
+  console.log(`client joined self room ${_selfRoom}`);
 
   if (headers.owner) {
     //if the owner is present, join the owner room
