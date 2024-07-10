@@ -17,6 +17,7 @@ export const createNotification = async (
 
   const foundUser = await queryUsers({ _id: noti.owner }, true);
 
+  console.log(`Sending push notification to ${foundUser.email}`);
   await asyncForEach(foundUser.fcmTokens, async (token) => {
     const result = await sendFCMNotification({
       token: token,

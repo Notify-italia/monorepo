@@ -18,9 +18,14 @@ import {
   NotifyAdvancedProfileItem,
 } from '@notify/interfaces';
 import mongoose, { Types } from 'mongoose';
-import { AgentModel, NoteModel, ProfileDocument } from '../models';
+import { BadRequestError } from '../errors';
+import {
+  AgentModel,
+  NoteModel,
+  ProfileDocument,
+  ProfileModel,
+} from '../models';
 import { mLog } from '../services';
-
 /**
  * The function `companyProfile` retrieves the profile of a company associated with an agent, given the
  * agent's profile ID.
@@ -48,6 +53,19 @@ export const getAgentOwnerProfile = async (agentId: Types.ObjectId) => {
   return (
     agent.owner as unknown as INotifyCompany & { profile: INotifyProfile }
   ).profile;
+};
+
+export const getProfile = async (
+  user: Types.ObjectId | string
+): Promise<INotifyProfile | undefined> => {
+  const profile = await ProfileModel.findOne({ owner: user }).lean();
+
+  if (!profile) {
+    throw new BadRequestError('Profile not found');
+    return undefined;
+  }
+
+  return profile as unknown as INotifyProfile;
 };
 
 export const populateProfileNote = async (

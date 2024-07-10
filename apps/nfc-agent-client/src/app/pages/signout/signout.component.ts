@@ -10,6 +10,7 @@ import { AuthService, LoadingComponent } from '@notify/ngx-shared';
 })
 export class SignoutComponent {
   constructor(private _authService: AuthService) {
+    //TODO rimuovi il token FCM
     this._authService.signOut();
   }
 }

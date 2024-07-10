@@ -31,31 +31,3 @@
 .column {
   @apply flex flex-col;
 }
-
-.fadeIn {
-  animation: fadeInAnimation 0.3s ease-out;
-}
-
-.fadeOut {
-  animation: fadeOutAnimation 0.25s ease-out;
-}
-
-@keyframes fadeInAnimation {
-  0% {
-    opacity: 0;
-    scale: 1.2;
-  }
-  100% {
-    opacity: 1;
-    scale: 1;
-  }
-}
-
-@keyframes fadeOutAnimation {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}

@@ -439,3 +439,33 @@
   -webkit-hyphens: auto;
   hyphens: auto;
 }
+
+.modalFadeIn {
+  animation: modalFadeInAnimation 0.3s ease-out;
+}
+
+.modalFadeOut {
+  animation: modalFadeOutAnimation 0.2s ease-out;
+}
+
+@keyframes modalFadeInAnimation {
+  0% {
+    opacity: 0;
+    scale: 1.2;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes modalFadeOutAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+    backdrop-filter: blur(0px) brightness(1);
+  }
+}

@@ -20,7 +20,7 @@ export class ModalBaseComponent<Submitted = UnknownType> {
   @Input({ required: true }) cf!: ComponentRef<ModalBaseComponent>;
   @Output() destroyed$ = new Subject<void>();
 
-  public isClosing = false;
+  @Input() isClosing = false;
   public submitted = new Subject<Submitted>();
 
   constructor() {

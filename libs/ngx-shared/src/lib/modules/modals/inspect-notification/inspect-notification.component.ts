@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import {
+  EnumNotificationTypes,
   EnumNotifyNotificationActionEvents,
   INotifyNotification,
+  UnknownType,
 } from '@notify/interfaces';
-import { of, switchMap, tap } from 'rxjs';
+import { Observable, of, switchMap, tap } from 'rxjs';
 import {
   baseModalComponentProviders,
   ModalBaseComponent,
@@ -33,25 +36,41 @@ import {
     [readOnly]="selectConfig.readOnly"
     [hideCancel]="selectConfig.hideCancel"
     (optionSelected)="handleSubmitted($event)"
+    [isClosing]="isClosing"
   ></notify-select>`,
 })
 export class InspectNotificationComponent extends ModalBaseComponent {
   private _notificationsService = inject(NotificationsService);
   private _leadsService = inject(LeadsService);
+  private _Router = inject(Router);
 
   @Input() notification!: INotifyNotification;
 
   @Output() refreshNotifications = new EventEmitter<void>();
+  @Output() closeParent = new EventEmitter<void>();
 
   public get selectConfig() {
     return {
       title: this.notification.title,
       subtitle: this.notification.subtitle,
-      hideCancel: !this.notification.actions.length || this.notification.read,
-      readOnly: this.notification.read,
+      hideCancel:
+        !this.notification.actions.length ||
+        this.notification.read ||
+        this.notification.actions.some(
+          (a) =>
+            a.eventName ===
+            EnumNotifyNotificationActionEvents.NotificationEventIgnore
+        ),
+      readOnly:
+        this.notification.read &&
+        this.notification.notificationType ===
+          EnumNotificationTypes.ActionRequired,
       options: this.notification.actions.length
         ? this.notification.actions.map((a) => {
-            const isSelected = a.id === this.notification.selectedAction;
+            const isSelected =
+              a.id === this.notification.selectedAction &&
+              this.notification.notificationType ===
+                EnumNotificationTypes.ActionRequired;
 
             return {
               label: a.title,
@@ -78,29 +97,29 @@ export class InspectNotificationComponent extends ModalBaseComponent {
       .pipe(
         switchMap((v) => {
           if (!v.value) {
-            return of();
+            return of(v);
+          }
+
+          if (this.notification.read) {
+            return of(v);
           }
 
           if (v.value === 'mark-as-read') {
-            return this._notificationsService.patchNotification(
-              this.notification._id,
-              {
+            return this._notificationsService
+              .patchNotification(this.notification._id, {
                 read: true,
-              }
-            );
+              })
+              .pipe(switchMap(() => of(v)));
           }
-          return this._performAction(this.notification, v).pipe(
-            switchMap(() =>
-              this._notificationsService.patchNotification(
-                this.notification._id,
-                {
-                  read: true,
-                  selectedAction: v.value,
-                }
-              )
-            )
-          );
+
+          return this._notificationsService
+            .patchNotification(this.notification._id, {
+              read: true,
+              selectedAction: v.value,
+            })
+            .pipe(switchMap(() => of(v)));
         }),
+        switchMap((v) => this._performAction(v)),
         tap(() => this.refreshNotifications.emit()),
         tap(() =>
           this.close({
@@ -112,10 +131,11 @@ export class InspectNotificationComponent extends ModalBaseComponent {
   }
 
   private _performAction(
-    noti: INotifyNotification,
     selectedAction: ISelectOption
-  ) {
-    const action = noti.actions.find((a) => a.id === selectedAction.value);
+  ): Observable<UnknownType> {
+    const action = this.notification.actions.find(
+      (a) => a.id === selectedAction.value
+    );
 
     if (!action) {
       return of();
@@ -134,6 +154,22 @@ export class InspectNotificationComponent extends ModalBaseComponent {
           accepted: false,
           deleted: true,
         });
+      }
+      case EnumNotifyNotificationActionEvents.NotificationEventIgnore: {
+        return of(true);
+      }
+      case EnumNotifyNotificationActionEvents.LeadsRouteDetail: {
+        return of(true).pipe(
+          tap(() => {
+            this._Router.navigate(['/pages/leads/inspect'], {
+              queryParams: { l: action.data.id },
+            });
+            this.close({
+              timeout: SELECT_MODAL_TIMEOUT,
+            });
+            this.closeParent.emit();
+          })
+        );
       }
       default: {
         return of();

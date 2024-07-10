@@ -1,4 +1,10 @@
-<div class="background" [@modal]="isClosing ? 'void' : '*'" (click)="close()">
+<div
+  class="background modalFadeIn"
+  [ngClass]="{
+    modalFadeOut: isClosing
+  }"
+  (click)="close()"
+>
   <div class="column h-full justify-center items-center space-y-4">
     <div class="column space-y-1 text-white" (click)="$event.stopPropagation()">
       <p class="select-title">{{ title }}</p>

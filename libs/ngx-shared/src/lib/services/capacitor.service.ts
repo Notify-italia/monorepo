@@ -105,7 +105,7 @@ export class CapacitorService {
       promptLabelPicture: 'Scatta una foto',
       promptLabelPhoto: 'Seleziona dalla galleria',
       promptLabelHeader: "Scegli un'immagine",
-      promptLabelCancel: 'cancel',
+      promptLabelCancel: 'Annulla',
       presentationStyle: 'fullscreen',
     });
   }

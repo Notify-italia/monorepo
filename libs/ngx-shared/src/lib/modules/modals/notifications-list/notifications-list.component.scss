@@ -1,9 +1,11 @@
 .list-container {
-  @apply h-[80vh] overflow-y-auto flex flex-col items-start w-full overflow-x-hidden space-y-4;
+  @apply h-[80vh] overflow-y-auto flex flex-col items-start w-full overflow-x-hidden space-y-4 rounded-b-2xl;
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }
 
 .list-card {
-  @apply border rounded-2xl bg-white/5 backdrop-blur-3xl w-full px-2 py-4 flex flex-col justify-center items-start text-white text-start border-white/10 h-20 hover:bg-white/10 cursor-pointer text-xs lg:text-sm;
+  @apply border rounded-2xl bg-white/5 backdrop-blur-3xl w-full px-4 py-2 flex flex-col justify-center items-start text-white text-start border-white/10 h-20 hover:bg-white/10 cursor-pointer text-xs lg:text-sm shrink-0;
 
   .glyph-container {
     @apply flex w-full items-center space-x-2;

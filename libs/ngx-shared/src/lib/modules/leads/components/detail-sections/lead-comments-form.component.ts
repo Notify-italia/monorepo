@@ -31,7 +31,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
           <img
             [src]="item.createdBy?.avatar || ''"
             alt=""
-            class="rounded-full size-8 !shrink-0 mt-2"
+            class="rounded-full size-8 !shrink-0 mt-2 object-cover"
             [ngClass]="{
               'animate-pulse bg-gray-300/50  indent-[-10000px]':
                 !item.createdBy?.avatar?.length

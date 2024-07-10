@@ -3,11 +3,13 @@ import { MongodbDocument } from '../interface.mongodb';
 import { INotifyUser } from '../interface.user';
 
 /**
- * {{origin}}:{{action}}:{{result}}
+ * {{origin}}:{{action}}:{{choice}}
  */
 export enum EnumNotifyNotificationActionEvents {
   ContactFormLeadAccept = 'contact-form:lead:accept',
   ContactFormLeadReject = 'contact-form:lead:reject',
+  LeadsRouteDetail = 'leads:route:detail',
+  NotificationEventIgnore = 'notifications:event:ignore',
 }
 
 export enum EnumNotificationTypes {

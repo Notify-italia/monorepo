@@ -1,12 +1,15 @@
 <div
-  class="modal-container overflow-y-auto sm:overflow-hidden"
+  class="modal-container overflow-hidden modalFadeIn"
   (click)="close()"
+  [ngClass]="{
+    modalFadeOut: isClosing
+  }"
 >
   <div class="!w-full">
     <div class="modal-content !bg-transparent !border-none !animate-none">
       <div class="hero-content text-center h-full w-full">
         <div
-          class="h-full flex flex-col justify-center w-full space-y-2"
+          class="h-full flex flex-col w-full my-safe"
           (click)="$event.stopPropagation()"
         >
           <div class="modal-icon w-full">
@@ -33,7 +36,7 @@
             <div class="divider"></div>
           </div>
           <div
-            class="flex flex-col w-full h-full overflow-y-auto space-y-4 my-2"
+            class="flex flex-col w-full h-full overflow-y-auto space-y-4 mt-2"
           >
             @if(notifications$ | async; as notifications) {
             @if(!notifications.length) {
@@ -53,7 +56,7 @@
               [scrollWindow]="false"
               (scrolled)="loadNextChunk()"
               [infiniteScrollContainer]="MainContainer"
-              class="list-container"
+              class="list-container scrollbar-none"
             >
               @for (item of notifications; track item._id) {
               <div
@@ -64,7 +67,11 @@
                 }"
               >
                 <div class="glyph-container">
-                  <div>
+                  <div
+                    [ngClass]="{
+                      grayscale: item.read
+                    }"
+                  >
                     <ng-container
                       [ngTemplateOutlet]="NotificationTypeGlyph"
                       [ngTemplateOutletContext]="{
@@ -92,20 +99,15 @@
               }
             </div>
             } @else {
-            <div class="list-container">
-              <div class="list-card animate-pulse pointer-events-none"></div>
+            <div class="list-container !overflow-hidden">
+              @for (item of skeletonArray; track $index) {
               <div
-                class="list-card animate-pulse pointer-events-none animate-delay-100"
+                class="list-card animate-pulse pointer-events-none"
+                [ngStyle]="{
+                  'animation-delay': $index * 0.1 + 's'
+                }"
               ></div>
-              <div
-                class="list-card animate-pulse pointer-events-none animate-delay-200"
-              ></div>
-              <div
-                class="list-card animate-pulse pointer-events-none animate-delay-300"
-              ></div>
-              <div
-                class="list-card animate-pulse pointer-events-none animate-delay-500"
-              ></div>
+              }
             </div>
             }
           </div>

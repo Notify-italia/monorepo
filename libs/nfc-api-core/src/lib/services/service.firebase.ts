@@ -29,8 +29,6 @@ export const sendFCMNotification = async (options: {
   try {
     const accessToken = await getGoogleAccessToken();
 
-    console.log(accessToken, options);
-
     const response = await fetch(
       `https://fcm.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/messages:send`,
       {

@@ -9,6 +9,7 @@ import {
   of,
   Subject,
   switchMap,
+  takeUntil,
   tap,
 } from 'rxjs';
 import {
@@ -18,6 +19,7 @@ import {
 import { NotificationsService, UtilsService } from '../../../services';
 import { NoItemsComponent } from '../../../standalones';
 import { InspectNotificationFactory } from '../inspect-notification';
+import { SELECT_MODAL_TIMEOUT } from '../select';
 
 @Component({
   selector: 'notify-notifications-list',
@@ -56,6 +58,7 @@ export class NotificationsListComponent
 
   public currentChunk = 1;
   public chunkSize = 10;
+  public skeletonArray = new Array(this.chunkSize);
 
   public ngOnInit() {
     this.refreshNotifications().subscribe();
@@ -75,13 +78,25 @@ export class NotificationsListComponent
       .pipe(tap((v) => this.notificationsSubject$.next(v)));
   }
 
+  public override async close() {
+    super.close({ timeout: SELECT_MODAL_TIMEOUT });
+  }
+
   public notificationClicked(notification: INotifyNotification) {
     const { instance } = this._inspectNotification.create({ notification });
 
     instance.refreshNotifications
       .pipe(
+        takeUntil(instance.destroyed$),
         switchMap(() => this.refreshNotifications()),
         tap(() => this.refreshNotificationsCount.emit())
+      )
+      .subscribe();
+
+    instance.closeParent
+      .pipe(
+        takeUntil(instance.destroyed$),
+        tap(() => this.close())
       )
       .subscribe();
   }

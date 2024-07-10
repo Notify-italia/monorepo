@@ -1,11 +1,3 @@
-import {
-  animate,
-  keyframes,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -37,43 +29,6 @@ export enum EnumSelectOptionStyle {
   providers: baseModalComponentProviders,
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss',
-  animations: [
-    trigger('modal', [
-      state('*', style({ opacity: 1, transform: 'scale(1)' })),
-      state(
-        'void',
-        style({
-          opacity: 0,
-          transform: 'scale(0.9)',
-          ['box-shadow']: `0 30px 40px rgba(0,0,0,.1)`,
-        })
-      ),
-      transition(
-        'void => *',
-        animate(
-          '0.3s ease-out',
-          keyframes([
-            style({ opacity: 0, transform: 'scale(1.2)' }),
-            style({ opacity: 1, transform: 'scale(1)' }),
-          ])
-        )
-      ),
-      transition(
-        '* => void',
-        animate(
-          '0.2s ease-in-out',
-          keyframes([
-            style({ opacity: 1, transform: 'scale(1)' }),
-            style({
-              opacity: 0,
-              transform: 'scale(0.9)',
-              ['backdrop-filter']: 'blur(0px) brightness(1)',
-            }),
-          ])
-        )
-      ),
-    ]),
-  ],
 })
 export class SelectComponent extends ModalBaseComponent<ISelectOption> {
   private _domSanitizer = inject(DomSanitizer);

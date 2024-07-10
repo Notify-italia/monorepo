@@ -31,7 +31,7 @@ router.post(
       sharedBy: [
         data.createdBy,
         user.owner as unknown as Schema.Types.ObjectId,
-      ],
+      ].filter((v) => v),
     });
 
     await lead.save();
@@ -43,7 +43,7 @@ router.post(
     if (lead.origin === EnumNotifyLeadOrigins.ProfileContactForm) {
       await createNotification(
         {
-          title: 'Nuovo contatto in attesa di conferma',
+          title: 'Nuovo contatto per te!',
           owner: user._id,
           notificationType: EnumNotificationTypes.ActionRequired,
           subtitle: `
