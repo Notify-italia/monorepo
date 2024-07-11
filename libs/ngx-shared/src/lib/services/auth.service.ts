@@ -54,13 +54,13 @@ export class AuthService {
   ) {}
 
   public featureIncluded(feature: string, license: INotifyLicense) {
-    return license.features.some(
+    return license.features?.some(
       (f) => f.name === feature && f.type === 'include'
     );
   }
 
   public featureExcluded(feature: FeatureName, license: INotifyLicense) {
-    return license.features.some(
+    return license.features?.some(
       (f) => f.name === feature && f.type === 'exclude'
     );
   }

@@ -2,6 +2,8 @@ import {
   BadRequestError,
   COMPANY_VALIDATION_MESSAGES,
   CompanyModel,
+  isProduction,
+  LicenseManager,
   mLog,
   requestHandler,
   sendEmail,
@@ -25,6 +27,23 @@ router.post(
           throw new BadRequestError('Email già in uso');
         }
       );
+
+      console.log('isProduction', isProduction);
+      if (!isProduction()) {
+        const license = await LicenseManager.generate({
+          allowedAgents: 3,
+          boughtCards: 0,
+          expirationDate: undefined,
+          features: [
+            {
+              type: 'include',
+              name: 'leads',
+            },
+          ],
+        });
+
+        company.license = license.value._id;
+      }
 
       await company?.save();
 

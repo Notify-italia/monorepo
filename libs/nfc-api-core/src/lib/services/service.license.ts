@@ -5,6 +5,7 @@ import {
   AgentModel,
   Company,
   CompanyModel,
+  License,
   LICENSE_VALIDATION_MESSAGES,
   LicenseDocument,
   LicenseModel,
@@ -172,15 +173,12 @@ export class LicenseManager {
   }
 
   public static async generate(
-    conf: Partial<INotifyLicense>
+    conf: Partial<License>
   ): Promise<LicenseManager> {
     const l = (await LicenseModel.build({
-      expirationDate: conf.expirationDate,
+      ...conf,
       enabled: true,
       publicKey: this._generatePublicKey(),
-      allowedAgents: conf.allowedAgents,
-      boughtCards: conf.boughtCards,
-      features: conf.features,
     })) as LicenseDocument;
 
     await l.save();

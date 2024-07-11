@@ -96,7 +96,7 @@ export class CapacitorService {
   public async takePhoto() {
     return await Camera.getPhoto({
       quality: 60,
-      allowEditing: true,
+      allowEditing: false,
       resultType: CameraResultType.DataUrl,
       width: 1024,
       height: 1024,

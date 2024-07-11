@@ -20,7 +20,7 @@ router.get(
         .populate('license')
         .lean();
 
-      if (!c || !c.license) {
+      if (!c || (!c.license && req.currentUser.owner)) {
         throw new NotAuthorizedError();
       }
 
@@ -30,7 +30,7 @@ router.get(
     },
     {
       requireAuth: {
-        requireLicense: true,
+        requireLicense: false,
         ignoreTokenExpiration: false,
       },
     }
