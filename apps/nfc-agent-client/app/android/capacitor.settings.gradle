@@ -28,3 +28,9 @@ project(':capacitor-action-sheet').projectDir = new File('../../../../node_modul
 
 include ':capacitor-camera'
 project(':capacitor-camera').projectDir = new File('../../../../node_modules/@capacitor/camera/android')
+
+include ':capacitor-community-fcm'
+project(':capacitor-community-fcm').projectDir = new File('../../../../node_modules/@capacitor-community/fcm/android')
+
+include ':capacitor-push-notifications'
+project(':capacitor-push-notifications').projectDir = new File('../../../../node_modules/@capacitor/push-notifications/android')

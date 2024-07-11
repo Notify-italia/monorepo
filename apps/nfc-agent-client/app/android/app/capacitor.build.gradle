@@ -18,6 +18,8 @@ dependencies {
     implementation project(':capawesome-team-capacitor-nfc')
     implementation project(':capacitor-action-sheet')
     implementation project(':capacitor-camera')
+    implementation project(':capacitor-community-fcm')
+    implementation project(':capacitor-push-notifications')
 
 }
 

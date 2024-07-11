@@ -20,6 +20,9 @@ def capacitor_pods
   pod 'CapawesomeTeamCapacitorNfc', :path => '../../../../../node_modules/@capawesome-team/capacitor-nfc'
   pod 'CapacitorActionSheet', :path => '../../../../../node_modules/@capacitor/action-sheet'
   pod 'CapacitorCamera', :path => '../../../../../node_modules/@capacitor/camera'
+  pod 'CapacitorCommunityFcm', :path => '../../../../../node_modules/@capacitor-community/fcm'
+  pod 'CapacitorPushNotifications', :path => '../../../../../node_modules/@capacitor/push-notifications'
+  pod 'CapacitorSuppressLongpressGesture', :path => '../../../../../node_modules/capacitor-suppress-longpress-gesture'
 end
 
 target 'App' do
