@@ -24,6 +24,7 @@ import {
 } from '../../../services';
 import {
   LoadingComponent,
+  NoItemsComponent,
   PageHeaderComponent,
   PullToRefreshComponent,
   SearchBarComponent,
@@ -41,6 +42,7 @@ import { LeadCardComponent } from '../components/lead-card/lead-card.component';
     InfiniteScrollModule,
     LeadCardComponent,
     PullToRefreshComponent,
+    NoItemsComponent,
   ],
   providers: [CapacitorService, LeadsService, OpenAIService],
   templateUrl: './leads-list.component.html',

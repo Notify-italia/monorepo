@@ -26,6 +26,14 @@
         ]"
       ></notify-search-bar>
       @if(chunkedLeads$ | async; as leads) {
+
+      <notify-no-items
+        *ngIf="!leads.length"
+        class="h-[40vh]"
+        title="Nessun contatto"
+        subtitle="Scansiona un biglietto o ricevi un contatto tramite profilo"
+      ></notify-no-items>
+
       <div
         infiniteScroll
         [infiniteScrollDistance]="2"
