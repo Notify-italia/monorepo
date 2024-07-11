@@ -2,6 +2,9 @@
   class="modal-container !overflow-y-scroll !items-start !justify-stretch"
   *ngIf="selectedHierarchyItem"
   (click)="close()"
+  [ngClass]="{
+    'modalFadeOut': isClosing,
+  }"
 >
   <div class="!justify-start p-3 !items-stretch w-full mt-safe">
     <notify-right-panel

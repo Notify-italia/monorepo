@@ -7,8 +7,6 @@ import {
   ModalBaseComponent,
 } from '../../../constructors';
 
-export const SELECT_MODAL_TIMEOUT = 200;
-
 export interface ISelectOption {
   value: UnknownType;
   label: string;
@@ -40,8 +38,6 @@ export class SelectComponent extends ModalBaseComponent<ISelectOption> {
 
   @Output() optionSelected = new EventEmitter<ISelectOption>();
 
-  public timeout = SELECT_MODAL_TIMEOUT;
-
   public get sanitizedSubtitle() {
     return this._domSanitizer.bypassSecurityTrustHtml(this.subtitle) as string;
   }
@@ -68,9 +64,5 @@ export class SelectComponent extends ModalBaseComponent<ISelectOption> {
       ...option,
       label: this._domSanitizer.bypassSecurityTrustHtml(option.label) as string,
     }));
-  }
-
-  public override async close() {
-    super.close({ timeout: SELECT_MODAL_TIMEOUT });
   }
 }

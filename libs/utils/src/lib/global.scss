@@ -59,16 +59,16 @@
 .modal-container {
   @apply fixed w-screen h-screen backdrop-blur-xl backdrop-brightness-50 z-[999] top-0 left-0 flex justify-center items-center modalFadeIn;
 
+  &.container-static {
+    @apply animate-none;
+  }
+
   & > div {
     @apply flex flex-col justify-center items-center;
   }
 
   & .modal-content {
     @apply rounded lg:rounded-xl p-4 bg-slate-800 border border-slate-700 w-[95vw] lg:w-full md:max-w-[80vw] lg:max-w-[55vw] h-fit flex flex-col items-center;
-
-    &.content-static {
-      animation: none;
-    }
 
     &.content-transparent {
       @apply bg-transparent;

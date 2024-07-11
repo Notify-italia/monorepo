@@ -1,7 +1,8 @@
 <div
   class="modal-container pointer-events-auto"
   [ngClass]="{
-    '!backdrop-blur-none': !blurBackground
+    '!backdrop-blur-none': !blurBackground,
+    'modalFadeOut': isClosing,
   }"
   (click)="close()"
 >

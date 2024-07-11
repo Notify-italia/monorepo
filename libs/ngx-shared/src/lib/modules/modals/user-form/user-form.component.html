@@ -1,4 +1,9 @@
-<div class="modal-container">
+<div
+  class="modal-container"
+  [ngClass]="{
+  'modalFadeOut': isClosing,
+}"
+>
   <div class="w-[90%] lg:w-[50%] 2xl:w-[40%]">
     <div class="my-1 w-full flex justify-end">
       <button

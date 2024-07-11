@@ -19,7 +19,6 @@ import {
 import { NotificationsService, UtilsService } from '../../../services';
 import { NoItemsComponent } from '../../../standalones';
 import { InspectNotificationFactory } from '../inspect-notification';
-import { SELECT_MODAL_TIMEOUT } from '../select';
 
 @Component({
   selector: 'notify-notifications-list',
@@ -76,10 +75,6 @@ export class NotificationsListComponent
     return this._notificationsService
       .getNotifications(this.selectedOption)
       .pipe(tap((v) => this.notificationsSubject$.next(v)));
-  }
-
-  public override async close() {
-    super.close({ timeout: SELECT_MODAL_TIMEOUT });
   }
 
   public notificationClicked(notification: INotifyNotification) {

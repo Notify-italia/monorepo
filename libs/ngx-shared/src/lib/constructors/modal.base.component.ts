@@ -49,7 +49,7 @@ export class ModalBaseComponent<Submitted = UnknownType> {
         this.destroyed$.complete();
         this.submitted.complete();
         resolve(void 0);
-      }, config?.timeout || 1)
+      }, config?.timeout || 200)
     );
   }
 }

@@ -16,7 +16,6 @@ import { LeadsService, NotificationsService } from '../../../services';
 import {
   EnumSelectOptionStyle,
   ISelectOption,
-  SELECT_MODAL_TIMEOUT,
   SelectComponent,
 } from '../select';
 
@@ -121,11 +120,7 @@ export class InspectNotificationComponent extends ModalBaseComponent {
         }),
         switchMap((v) => this._performAction(v)),
         tap(() => this.refreshNotifications.emit()),
-        tap(() =>
-          this.close({
-            timeout: SELECT_MODAL_TIMEOUT,
-          })
-        )
+        tap(() => this.close())
       )
       .subscribe();
   }
@@ -164,9 +159,7 @@ export class InspectNotificationComponent extends ModalBaseComponent {
             this._Router.navigate(['/pages/leads/inspect'], {
               queryParams: { l: action.data.id },
             });
-            this.close({
-              timeout: SELECT_MODAL_TIMEOUT,
-            });
+            this.close();
             this.closeParent.emit();
           })
         );

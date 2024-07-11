@@ -1,4 +1,10 @@
-<div class="modal-container !z-[999]" (click)="close()">
+<div
+  class="modal-container !z-[999] animate__fadeIn animate__animated"
+  (click)="close()"
+  [ngClass]="{
+    'modalFadeOut': isClosing,
+  }"
+>
   <div>
     <div
       class="pointer-events-none scale-[50%] lg:scale-[70%] 2xl:scale-90"
@@ -7,7 +13,7 @@
       <div class="flex flex-col space-y-5">
         <notify-share-item
           *ngIf="baseUrl && !hideShare"
-          class="w-full h-full pointer-events-auto slide-in-left"
+          class="w-full h-full pointer-events-auto"
           [config]="shareConfig"
           source="modal"
         ></notify-share-item>
@@ -22,12 +28,12 @@
                   profile.redirectUrl
               )
             "
-            class="iphone-15-pro phone mockup-phone pointer-events-none slide-in-left"
+            class="iphone-15-pro phone mockup-phone pointer-events-none"
             frameborder="0"
           ></iframe>
 
           } @else {
-          <div class="iphone-15-pro slide-in-left">
+          <div class="iphone-15-pro">
             <notify-profile-view
               class="h-full w-full"
               [mockup]="true"

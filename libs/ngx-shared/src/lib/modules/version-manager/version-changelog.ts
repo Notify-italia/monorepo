@@ -20,6 +20,10 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
     message: `Migliorata la gestione degli spazi nella sidebar su PC per evitare di dover fare scrolling per visualizzare tutte le pagine navigabili su schermi di piccole dimensioni`,
   },
   {
+    type: 'improvement',
+    message: `Unificate le animazioni di apertura e chiusura dei modali`,
+  },
+  {
     type: 'fix',
     message: `Risolti alcuni problemi minori`,
   },

@@ -7,7 +7,6 @@ import {
 import {
   EnumSelectOptionStyle,
   ISelectOption,
-  SELECT_MODAL_TIMEOUT,
   SelectComponent,
 } from '../select/select.component';
 
@@ -25,7 +24,6 @@ export interface IConfirmModalConfig {
 @Component({
   standalone: true,
   imports: [CommonModule, SelectComponent],
-  styleUrls: ['./confirm.component.scss'],
   providers: baseModalComponentProviders,
   template: `<notify-select
     [cf]="cf"
@@ -58,7 +56,6 @@ export class ConfirmComponent extends ModalBaseComponent {
     if (this.config.closeOnConfirm) {
       this.close({
         skipLifecycle: true,
-        timeout: SELECT_MODAL_TIMEOUT,
       });
     }
   }

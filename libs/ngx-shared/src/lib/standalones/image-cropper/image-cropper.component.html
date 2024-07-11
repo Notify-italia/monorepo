@@ -1,4 +1,9 @@
-<div class="modal-container">
+<div
+  class="modal-container"
+  [ngClass]="{
+  'modalFadeOut': isClosing,
+}"
+>
   <div>
     <div class="modal-content">
       <h1 class="text-2xl font-bold w-full text-start text-white">

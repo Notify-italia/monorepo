@@ -1,6 +1,9 @@
 <div
   class="modal-container overflow-y-auto sm:overflow-hidden"
   (click)="close()"
+  [ngClass]="{
+    'modalFadeOut': isClosing,
+  }"
 >
   <div>
     <div

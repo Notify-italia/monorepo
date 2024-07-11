@@ -1,4 +1,11 @@
-<div *ngIf="profile" class="modal-container" (click)="close()">
+<div
+  *ngIf="profile"
+  class="modal-container"
+  (click)="close()"
+  [ngClass]="{
+  'modalFadeOut': isClosing,
+}"
+>
   <div>
     <div
       class="modal-content !bg-base-100/80"

@@ -1,4 +1,10 @@
-<div class="modal-container" (click)="close()">
+<div
+  class="modal-container"
+  [ngClass]="{
+  'modalFadeOut': isClosing,
+}"
+  (click)="close()"
+>
   <div>
     <div (click)="$event.stopPropagation()" class="modal-content !max-h-[80vh]">
       <div class="modal-icon">
