@@ -125,6 +125,11 @@ export class NavComponent {
       .enable();
   }
 
+  public handleNotificationsClick() {
+    this.capacitor.triggerHapticFeedback(this.capacitor.hFeedbackStyles.Light);
+    this.notificationsClick.emit();
+  }
+
   // public disableScroll(v: Event) {
   //   const isChecked = (v.target as HTMLInputElement).checked;
 

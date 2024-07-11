@@ -23,6 +23,7 @@ import {
 import {
   AgentService,
   AuthService,
+  CapacitorService,
   FormsService,
   LeadsService,
   ProfileService,
@@ -69,6 +70,7 @@ import { LeadSocialsFormComponent } from '../components/detail-sections/lead-soc
     UtilsService,
     AgentService,
     SelectModalFactory,
+    CapacitorService,
   ],
   templateUrl: './lead-detail.component.html',
   styleUrl: './lead-detail.component.scss',
@@ -83,6 +85,7 @@ export class LeadDetailComponent implements OnInit, OnDestroy {
   private _selectModalFactory = inject(SelectModalFactory);
   private _authService = inject(AuthService);
   private _profileService = inject(ProfileService);
+  private _capacitorService = inject(CapacitorService);
 
   public id = this._activatedRoute.snapshot.queryParams['l'];
   public form?: FormGroup<controlsFromObject<INotifyPopulatedLead>>;
@@ -145,6 +148,9 @@ export class LeadDetailComponent implements OnInit, OnDestroy {
   }
 
   public goBack() {
+    this._capacitorService.triggerHapticFeedback(
+      this._capacitorService.hFeedbackStyles.Light
+    );
     this._router.navigate(['/pages/leads']);
   }
 

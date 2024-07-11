@@ -46,7 +46,7 @@
       <div class="relative">
         <label
           class="btn btn-square btn-ghost lg:hidden"
-          (click)="notificationsClick.emit()"
+          (click)="handleNotificationsClick()"
         >
           <ng-container *ngIf="isPhone" [ngTemplateOutlet]="NotificationsBadge">
           </ng-container>
