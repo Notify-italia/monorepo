@@ -235,9 +235,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
     }
 
     if (triggerHaptic) {
-      this._capacitorService.triggerHapticFeedback(
-        this._capacitorService.hFeedbackStyles.Light
-      );
+      this._capacitorService.itemClickedHapticFeedback();
     }
 
     const ref = this._infoPanelFactory.create({
@@ -253,9 +251,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
         takeUntil(ref.instance.destroyed$),
         tap(() => {
           this.selectedHierarchyItem = '';
-          this._capacitorService.triggerHapticFeedback(
-            this._capacitorService.hFeedbackStyles.Light
-          );
+          this._capacitorService.itemClickedHapticFeedback();
           ref.instance.close();
         })
       )

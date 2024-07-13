@@ -80,6 +80,8 @@ export class NotificationsListComponent
   public notificationClicked(notification: INotifyNotification) {
     const { instance } = this._inspectNotification.create({ notification });
 
+    this._capacitorService.itemClickedHapticFeedback();
+
     instance.refreshNotifications
       .pipe(
         takeUntil(instance.destroyed$),
@@ -94,5 +96,10 @@ export class NotificationsListComponent
         tap(() => this.close())
       )
       .subscribe();
+  }
+
+  public handleCloseButtonClick() {
+    this._capacitorService.itemClickedHapticFeedback();
+    this.close();
   }
 }

@@ -39,9 +39,7 @@ export class ConfirmButtonComponent {
   }
 
   public changeStateFeedback() {
-    this._capacitorService.triggerHapticFeedback(
-      this._capacitorService.hFeedbackStyles.Light
-    );
+    this._capacitorService.itemClickedHapticFeedback();
   }
 }
 

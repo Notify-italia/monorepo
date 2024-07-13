@@ -92,6 +92,9 @@ export class InspectNotificationComponent extends ModalBaseComponent {
   }
 
   public handleSubmitted(submitted: ISelectOption) {
+    this._capacitorService.triggerHapticFeedback(
+      this._capacitorService.hFeedbackStyles.Light
+    );
     of(submitted)
       .pipe(
         switchMap((v) => {

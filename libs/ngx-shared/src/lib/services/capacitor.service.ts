@@ -42,6 +42,16 @@ export class CapacitorService {
     });
   }
 
+  public itemClickedHapticFeedback() {
+    if (!this.isNative) {
+      return;
+    }
+
+    return Haptics.impact({ style: ImpactStyle.Light }).catch((error) =>
+      console.error(`Error triggering selection feedback: ${error}`)
+    );
+  }
+
   public triggerHapticFeedback(style: ImpactStyle | NotificationType) {
     // console.log('triggerHapticFeedback', style, this.isNative);
     if (!this.isNative) {

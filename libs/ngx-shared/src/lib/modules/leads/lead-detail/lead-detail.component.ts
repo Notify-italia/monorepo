@@ -158,9 +158,7 @@ export class LeadDetailComponent implements OnInit, OnDestroy {
   }
 
   public goBack() {
-    this._capacitorService.triggerHapticFeedback(
-      this._capacitorService.hFeedbackStyles.Light
-    );
+    this._capacitorService.itemClickedHapticFeedback();
     this._router.navigate(['/pages/leads']);
   }
 

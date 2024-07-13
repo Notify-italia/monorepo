@@ -126,8 +126,12 @@ export class NavComponent {
   }
 
   public handleNotificationsClick() {
-    this.capacitor.triggerHapticFeedback(this.capacitor.hFeedbackStyles.Light);
+    this.capacitor.itemClickedHapticFeedback();
     this.notificationsClick.emit();
+  }
+
+  public handleDrawerControllerClick() {
+    this.capacitor.itemClickedHapticFeedback();
   }
 
   // public disableScroll(v: Event) {

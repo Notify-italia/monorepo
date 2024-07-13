@@ -97,7 +97,7 @@ export class LeadsListComponent implements OnInit {
 
   public handleCardClick(lead: INotifyLead) {
     this._capacitorService.triggerHapticFeedback(
-      this._capacitorService.hFeedbackStyles.Heavy
+      this._capacitorService.hFeedbackStyles.Light
     );
     this._router.navigate(['/pages/leads/inspect'], {
       queryParams: { l: lead._id },

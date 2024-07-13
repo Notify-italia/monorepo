@@ -97,11 +97,7 @@ export class TailwindSliderComponent implements OnInit, OnChanges, OnDestroy {
     this.parent.controls[this.name].valueChanges
       .pipe(
         takeUntil(this._destroy$),
-        tap(() =>
-          this._capacitorService.triggerHapticFeedback(
-            this._capacitorService.hFeedbackStyles.Light
-          )
-        )
+        tap(() => this._capacitorService.itemClickedHapticFeedback())
       )
       .subscribe();
   }
