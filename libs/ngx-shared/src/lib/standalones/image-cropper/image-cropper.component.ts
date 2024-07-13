@@ -65,7 +65,19 @@ export class ImageCropperComponent
 
   public cropperSettings?: CropperSettings;
 
+  public get advancedProfileParent() {
+    return document.querySelector(
+      '#advanced-profile-info-panel'
+    ) as HTMLDivElement;
+  }
+
   public ngOnInit(): void {
+    console.log('advancedProfileParent', this.advancedProfileParent);
+    if (this.advancedProfileParent) {
+      this.advancedProfileParent.scrollTo(0, 0);
+      this.advancedProfileParent.style.cssText = 'overflow: hidden !important';
+    }
+
     this.cropperSettings = new CropperSettings();
 
     this.cropperSettings.canvasHeight = 400;
@@ -107,7 +119,12 @@ export class ImageCropperComponent
   }
 
   override onClose(): void {
-    this.destroyed$.next();
+    console.log('advancedProfileParent', this.advancedProfileParent);
+
+    if (!this.advancedProfileParent) {
+      return;
+    }
+    this.advancedProfileParent.style.cssText = '';
   }
 
   async submit() {
@@ -115,7 +132,7 @@ export class ImageCropperComponent
     const ab = await compressedImage.arrayBuffer();
 
     this.submitted.next(await this._arrayBufferToBase64(ab));
-    this.cf.destroy();
+    this.close();
   }
 
   private async _compressImage() {

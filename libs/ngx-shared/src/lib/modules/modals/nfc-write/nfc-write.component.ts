@@ -33,11 +33,6 @@ export class NfcWriteComponent extends ModalBaseComponent implements OnInit {
   private _nfcUtils = new NfcUtils();
   public isAndroid = this._capacitorService.isAndroid;
 
-  private get _parentElement() {
-    return (this.cf.location.nativeElement as HTMLElement)
-      .parentElement as HTMLElement;
-  }
-
   public progressSubject$ = new BehaviorSubject<INotifyNFCStatus>({
     status: 'scanning',
     currentValue: null,
@@ -64,7 +59,7 @@ export class NfcWriteComponent extends ModalBaseComponent implements OnInit {
   // }
 
   ngOnInit(): void {
-    disableBodyScroll(this._parentElement, {
+    disableBodyScroll(this.parentElement, {
       reserveScrollBarGap: true,
     });
     this.read();
@@ -133,6 +128,6 @@ export class NfcWriteComponent extends ModalBaseComponent implements OnInit {
   }
 
   override onClose(): void {
-    enableBodyScroll(this._parentElement);
+    enableBodyScroll(this.parentElement);
   }
 }

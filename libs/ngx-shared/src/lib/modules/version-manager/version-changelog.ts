@@ -24,6 +24,10 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
     message: `Unificate le animazioni di apertura e chiusura dei modali`,
   },
   {
+    type: 'improvement',
+    message: `Aggiunto feedback haptico alla pressione dei pulsanti`,
+  },
+  {
     type: 'fix',
     message: `Risolti alcuni problemi minori`,
   },

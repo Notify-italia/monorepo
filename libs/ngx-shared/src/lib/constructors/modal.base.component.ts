@@ -27,6 +27,11 @@ export class ModalBaseComponent<Submitted = UnknownType> {
     this._capacitorService.setStatusbarVisibility(false);
   }
 
+  public get parentElement() {
+    return (this.cf.location.nativeElement as HTMLElement)
+      .parentElement as HTMLElement;
+  }
+
   /**
    * This method is called when the modal is closed. It should be overridden by the child component with its own logic.
    */
