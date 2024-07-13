@@ -56,7 +56,7 @@ export class NotificationsListComponent
   );
 
   public currentChunk = 1;
-  public chunkSize = 10;
+  public chunkSize = 15;
   public skeletonArray = new Array(this.chunkSize);
 
   public ngOnInit() {

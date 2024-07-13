@@ -117,6 +117,10 @@ export class AuthService {
       );
   }
 
+  public deleteFCMToken(token: string) {
+    return this._http.delete(`/v1/${this._userType}/fcm`, { token });
+  }
+
   public setFCMToken(token: string) {
     return this._http.patch<{ token: string }, INotifyUser>(
       `/v1/${this._userType}/fcm`,

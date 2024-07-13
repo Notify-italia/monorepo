@@ -85,23 +85,6 @@ export class ProfileViewComponent implements OnInit {
     }
   }
 
-  //TODO questa cosa è temporanea, va rimossa appena ci sarà la personalizzazione avanzata del profilo
-  public get isOssidiana(): boolean {
-    const ids = [
-      '66084f260d1d685e63ecd722', //luca
-      '660850080d1d685e63ecd88f', //giulio
-      '660850a70d1d685e63ecd915', //Matteo
-    ];
-
-    return ids.includes(this.data?._id || '');
-  }
-
-  public get isNewEra(): boolean {
-    const ids = ['660c6cf57cb125be66b84962'];
-
-    return ids.includes(this.data?._id || '');
-  }
-
   public get cssGradientStops(): string {
     const colors = this.data?.colors?.background;
 

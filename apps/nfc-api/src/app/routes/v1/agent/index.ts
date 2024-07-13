@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { deleteAgentRouter } from './delete';
+import { deleteFcmAgentRouter } from './delete.fcm';
 import { getAgentRouter } from './get';
 import { getLicenseRouter } from './get.license';
 import { importAgentsRouter } from './import';
@@ -16,6 +17,7 @@ router.use('/', getAgentRouter);
 router.use('/', patchAgentRouter);
 router.use('/', deleteAgentRouter);
 router.use('/fcm', patchFcmAgentRouter);
+router.use('/fcm', deleteFcmAgentRouter);
 router.use('/import', importAgentsRouter);
 router.use('/signin', postSigninAgentRouter);
 router.use('/refresh', postRefreshAgentRouter);

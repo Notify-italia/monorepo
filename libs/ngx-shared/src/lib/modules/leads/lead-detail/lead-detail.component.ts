@@ -87,12 +87,16 @@ export class LeadDetailComponent implements OnInit, OnDestroy {
   private _profileService = inject(ProfileService);
   private _capacitorService = inject(CapacitorService);
 
-  public id = this._activatedRoute.snapshot.queryParams['l'];
   public form?: FormGroup<controlsFromObject<INotifyPopulatedLead>>;
   public saving = false;
   public isLoadingShare = false;
 
   public destroy$ = new Subject<void>();
+  private _formDestroyed$ = new Subject<void>();
+
+  public get id() {
+    return this._activatedRoute.snapshot.queryParams['l'];
+  }
 
   public get isCompanyBusinessCard() {
     const v = this.form?.value;
@@ -106,9 +110,15 @@ export class LeadDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getLead()
+    this._activatedRoute.queryParams
       .pipe(
-        tap((v) => (this.form = this._formsService.createFormGroup(v))),
+        takeUntil(this.destroy$),
+        tap(() => (this.form = undefined)),
+        switchMap(() => this.getLead()),
+        tap((v) => {
+          this._formDestroyed$.next();
+          this.form = this._formsService.createFormGroup(v);
+        }),
         tap(() => this._listenToFormChanges())
       )
       .subscribe();
@@ -269,6 +279,7 @@ export class LeadDetailComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(500),
         takeUntil(this.destroy$),
+        takeUntil(this._formDestroyed$),
         switchMap(() => {
           if (!this.form) {
             return of();

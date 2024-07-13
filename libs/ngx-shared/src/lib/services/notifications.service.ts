@@ -36,6 +36,10 @@ export class NotificationsService {
 
   constructor(private http: HttpService) {}
 
+  public async getFCMToken() {
+    return await FCM.getToken();
+  }
+
   public getUnreadNotificationsCount() {
     return this.http.get<{ result: number }>('/v1/notifications/count/unread');
   }

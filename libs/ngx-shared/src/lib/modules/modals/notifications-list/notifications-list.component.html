@@ -47,6 +47,7 @@
               ></notify-no-items>
             </div>
             }
+
             <div
               *ngIf="notifications.length"
               #MainContainer
@@ -56,7 +57,7 @@
               [scrollWindow]="false"
               (scrolled)="loadNextChunk()"
               [infiniteScrollContainer]="MainContainer"
-              class="list-container scrollbar-none"
+              class="list-container faded-bottom scrollbar-none"
             >
               @for (item of notifications; track item._id) {
               <div
@@ -80,26 +81,26 @@
                     >
                     </ng-container>
                   </div>
-                  <div class="content-container">
-                    <div>
-                      <span>
-                        {{ item.title }}
-                      </span>
-                    </div>
-                    <small class="opacity-70">
-                      {{ item.createdAt | date : 'dd/MM HH:mm' }} -
-                      {{ getTemporalDelta($any(item.createdAt)) }}
-                    </small>
+                </div>
+                <div class="content-container">
+                  <div>
+                    <span>
+                      {{ item.title }}
+                    </span>
                   </div>
-                  <div class="read-container">
-                    <div class="unread-dot" *ngIf="!item.read"></div>
-                  </div>
+                  <small class="opacity-70">
+                    {{ item.createdAt | date : 'dd/MM HH:mm' }} -
+                    {{ getTemporalDelta($any(item.createdAt)) }}
+                  </small>
+                </div>
+                <div class="read-container">
+                  <div class="unread-dot" *ngIf="!item.read"></div>
                 </div>
               </div>
               }
             </div>
             } @else {
-            <div class="list-container !overflow-hidden">
+            <div class="list-container faded-bottom !overflow-hidden">
               @for (item of skeletonArray; track $index) {
               <div
                 class="list-card animate-pulse pointer-events-none"

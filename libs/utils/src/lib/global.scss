@@ -208,7 +208,7 @@
 }
 
 .notify-scrollbar {
-  @apply scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-current scrollbar-track-transparent;
+  @apply scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar scrollbar-thumb-current scrollbar-track-transparent scrollbar-thin;
   overflow: auto;
   &.scrollbar-white {
     @apply scrollbar-thumb-white;
