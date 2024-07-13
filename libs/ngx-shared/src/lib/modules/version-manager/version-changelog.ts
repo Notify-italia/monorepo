@@ -20,6 +20,10 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
     message: `Migliorata la gestione degli spazi nella sidebar su PC per evitare di dover fare scrolling per visualizzare tutte le pagine navigabili su schermi di piccole dimensioni`,
   },
   {
+    type: 'fix',
+    message: `Risolto un bug che causava la visualizzazione errata del modale di ritaglio immagine`,
+  },
+  {
     type: 'improvement',
     message: `Unificate le animazioni di apertura e chiusura dei modali`,
   },
