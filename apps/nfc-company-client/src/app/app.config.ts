@@ -13,12 +13,14 @@ import { EnumNotifyUserType } from '@notify/interfaces';
 import {
   AuthService,
   ProfileService,
+  SocketService,
   UtilsService,
   provideAuthService,
   provideHttpService,
   providePageTitleService,
   provideTailwindToasts,
 } from '@notify/ngx-shared';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
@@ -60,6 +62,16 @@ export const appConfig: ApplicationConfig = {
       useFactory: initializeApp,
       deps: [AuthService],
       multi: true,
+    },
+    {
+      provide: SocketService,
+      deps: [DeviceDetectorService],
+      useFactory: (detector: DeviceDetectorService) =>
+        new SocketService(
+          environment.socketUrl,
+          environment.socketIdKey,
+          detector
+        ),
     },
   ],
 };

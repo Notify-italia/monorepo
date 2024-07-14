@@ -8,6 +8,11 @@
       currentVersion: currentVersionLabel,
       currentVersionDate: currentVersionDate,
     }"
+    [notifications]="{
+      showBadge: !expiredLicense,
+      count$: unreadNotificationsCount$,
+    }"
+    (notificationsClick)="handleNotificationsClick()"
     [skeletonRows]="skeletonRows"
     (versionClick)="handleVersionClick()"
   ></notify-nav>

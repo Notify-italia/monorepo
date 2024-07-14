@@ -6,7 +6,9 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:3100/api',
   profilesUrl: 'http://localhost:4200',
+  socketUrl: 'http://localhost:3100',
   jwtTokenKey: 'dev.company.token',
+  socketIdKey: 'dev.socketId',
 };
 
 /*

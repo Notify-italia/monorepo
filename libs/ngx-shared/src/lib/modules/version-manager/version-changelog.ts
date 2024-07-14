@@ -11,11 +11,6 @@ const _sharedDescription = `Con Notify 1.1.0 è finalmente possibile digitalizza
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
-    type: 'new',
-    message:
-      "Le Notifiche Push arrivano finalmente su Notify! Ricevi notifiche in tempo reale sull'acquisizione di nuovi contatti, commenti e molto altro!",
-  },
-  {
     type: 'fix',
     message: `Migliorata la gestione degli spazi nella sidebar su PC per evitare di dover fare scrolling per visualizzare tutte le pagine navigabili su schermi di piccole dimensioni`,
   },
@@ -46,6 +41,11 @@ export const agentChangelog: INotifyVersionInfo = {
   changes: [
     ..._sharedChanges,
     {
+      type: 'new',
+      message:
+        "Le Notifiche Push arrivano finalmente su Notify! Ricevi notifiche in tempo reale sull'acquisizione di nuovi contatti, commenti e molto altro!",
+    },
+    {
       type: 'improvement',
       message:
         'La tab "Colleghi" viene nascosta automaticamente in caso di assenza di colleghi',
@@ -59,5 +59,12 @@ export const companyChangelog: INotifyVersionInfo = {
   description: _sharedDescription,
   title: _sharedTitle,
   artPath: _getVersionArt(_sharedTag),
-  changes: [..._sharedChanges],
+  changes: [
+    ..._sharedChanges,
+    {
+      type: 'new',
+      message:
+        "Le Notifiche arrivano finalmente su Notify! Ricevi notifiche in tempo reale sull'acquisizione di nuovi contatti, commenti e molto altro!",
+    },
+  ],
 };

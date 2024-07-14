@@ -1,23 +1,44 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   AuthService,
+  CapacitorService,
   ChangelogFactory,
+  InspectNotificationFactory,
   NavComponent,
   NavItem,
+  NotificationsListFactory,
+  NotificationsService,
+  ProfileService,
+  SocketService,
   companyChangelog,
 } from '@notify/ngx-shared';
-import { Observable, map } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  map,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 
 @Component({
   standalone: true,
   imports: [CommonModule, NavComponent, RouterModule],
-  providers: [ChangelogFactory],
+  providers: [
+    CapacitorService,
+    ChangelogFactory,
+    NotificationsService,
+    ProfileService,
+    NotificationsListFactory,
+    InspectNotificationFactory,
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit, OnDestroy {
   public currentVersionLabel = companyChangelog.tag;
   public currentVersionDate = companyChangelog.date;
 
@@ -25,12 +46,15 @@ export class HomeComponent {
 
   public skeletonRows = 4;
 
+  public unreadNotificationsCount$ = new BehaviorSubject<number>(0);
+  public destroy$ = new Subject<void>();
+
   public topNav$: Observable<NavItem[]> = this._authService.getLicense().pipe(
     map((license) => {
       return [
         {
           hidden: this._authService.featureExcluded('sub-users', license),
-          disabled: !this._authService.activeLicense,
+          disabled: this.expiredLicense,
           label: 'Sub-accounts',
           path: '/pages/users',
           icon: [
@@ -39,7 +63,7 @@ export class HomeComponent {
         },
         {
           hidden: this._authService.featureExcluded('profile', license),
-          disabled: !this._authService.activeLicense,
+          disabled: this.expiredLicense,
           label: 'Profilo Aziendale',
           path: this._authService.user?.advancedProfile
             ? '/pages/profile/editor'
@@ -51,6 +75,7 @@ export class HomeComponent {
         {
           label: 'Contatti',
           hidden: !this._authService.featureIncluded('leads', license),
+          disabled: this.expiredLicense,
           canContainChildren: true,
           badge: 'AI',
           path: '/pages/leads',
@@ -60,7 +85,7 @@ export class HomeComponent {
         },
         {
           hidden: this._authService.featureExcluded('notes', license),
-          disabled: !this._authService.activeLicense,
+          disabled: this.expiredLicense,
           label: 'Area Progetti',
           path: '/pages/notes',
           icon: [
@@ -70,7 +95,7 @@ export class HomeComponent {
         },
         {
           hidden: this._authService.featureExcluded('stats', license),
-          disabled: !this._authService.activeLicense,
+          disabled: this.expiredLicense,
           label: 'Analytics',
           path: '/pages/analytics/dashboard',
           icon: [
@@ -83,16 +108,16 @@ export class HomeComponent {
   );
 
   public bottomNav: NavItem[] = [
+    // {
+    //   label: 'Licenza',
+    //   path: '/pages/license',
+    //   icon: [
+    //     'M4.5 3.75a3 3 0 00-3 3v.75h21v-.75a3 3 0 00-3-3h-15z',
+    //     'M22.5 9.75h-21v7.5a3 3 0 003 3h15a3 3 0 003-3v-7.5zm-18 3.75a.75.75 0 01.75-.75h6a.75.75 0 010 1.5h-6a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z',
+    //   ],
+    // },
     {
-      label: 'Licenza',
-      path: '/pages/license',
-      icon: [
-        'M4.5 3.75a3 3 0 00-3 3v.75h21v-.75a3 3 0 00-3-3h-15z',
-        'M22.5 9.75h-21v7.5a3 3 0 003 3h15a3 3 0 003-3v-7.5zm-18 3.75a.75.75 0 01.75-.75h6a.75.75 0 010 1.5h-6a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z',
-      ],
-    },
-    {
-      disabled: !this._authService.activeLicense,
+      disabled: this.expiredLicense,
       label: 'Impostazioni',
       path: '/pages/settings',
       icon: [
@@ -110,13 +135,80 @@ export class HomeComponent {
     },
   ];
 
+  public get expiredLicense() {
+    return !this._authService.activeLicense;
+  }
+
   constructor(
     private _authService: AuthService,
-    private _changelogFactory: ChangelogFactory
+    private _changelogFactory: ChangelogFactory,
+    private _notificationsService: NotificationsService,
+    private _socket: SocketService,
+    private _profileService: ProfileService,
+    private _notificationsListFactory: NotificationsListFactory,
+    private _inspectNotificationFactory: InspectNotificationFactory
   ) {}
+
+  ngOnInit() {
+    this._updateUnreadNotificationsCount().subscribe();
+
+    this._socket.increaseNotificationsCount$
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap(this._updateUnreadNotificationsCount.bind(this))
+      )
+      .subscribe();
+
+    this._notificationsService.registerPushNotifications();
+
+    //when the fcm token is generated, we send it to the backend
+    this._notificationsService.fcmTokenGenerated$
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap((v) => this._authService.setFCMToken(v.token))
+      )
+      .subscribe();
+
+    //when a notification is clicked, we inspect it
+    this._notificationsService.notificationActionPerform$
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap(
+          (notification) =>
+            this._inspectNotificationFactory.create({ notification }).instance
+              .refreshNotifications
+        ),
+        tap(() => console.log(`refreshing notifications`)),
+        switchMap(this._updateUnreadNotificationsCount.bind(this))
+      )
+      .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  public handleWindowUnload() {
+    this._socket.disconnect();
+  }
 
   public handleVersionClick() {
     //? perchè changlogFactory è un qui e non in version-label? perchè triggerandolo da version labl non applica correttamente il backdrop-blur, oltre che ad avere diversi problemi di alignment
     this._changelogFactory.create(this.latestChangelog);
+  }
+
+  public handleNotificationsClick() {
+    const { instance } = this._notificationsListFactory.create();
+
+    instance.refreshNotificationsCount
+      .pipe(switchMap(() => this._updateUnreadNotificationsCount()))
+      .subscribe();
+  }
+
+  private _updateUnreadNotificationsCount() {
+    return this._notificationsService
+      .getUnreadNotificationsCount()
+      .pipe(tap((v) => this.unreadNotificationsCount$.next(v.result)));
   }
 }

@@ -21,7 +21,7 @@ router.get(
     },
     {
       requireAuth: {
-        requireLicense: true,
+        requireLicense: false,
       },
     }
   )

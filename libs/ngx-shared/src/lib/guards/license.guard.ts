@@ -19,7 +19,7 @@ export const licenseGuard: CanActivateFn = () => {
     !license.enabled ||
     new Date(license.expirationDate) < new Date()
   ) {
-    router.navigate(['/pages/license']);
+    router.navigate(['/pages/settings']);
     return false;
   }
 
