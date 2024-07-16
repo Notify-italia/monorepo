@@ -2,17 +2,14 @@ import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   Component,
+  ElementRef,
   Input,
-  OnInit,
   ViewChild,
 } from '@angular/core';
 import Compressor from 'compressorjs';
 
-import {
-  CropperSettings,
-  ImageCropperComponent as ImgCropperComponent,
-  ImageCropperModule as ImgCropperModule,
-} from 'ngx-img-cropper';
+import Cropper from 'cropperjs';
+
 import {
   baseModalComponentProviders,
   ModalBaseComponent,
@@ -22,12 +19,7 @@ import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 
 export interface IImageCropperConfig {
   imageData: File;
-  minWidth?: number;
-  minHeight?: number;
-  alignImage?: 'center' | 'left';
-  roundCropper?: boolean;
-  onlyScaleDown?: boolean;
-  containWithinAspectRatio?: boolean;
+  aspectRatio?: number;
   resize?: {
     width: number;
     height: number;
@@ -36,34 +28,26 @@ export interface IImageCropperConfig {
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    SvgBoxIconComponent,
-    LoadingComponent,
-    ImgCropperModule,
-  ],
+  imports: [CommonModule, SvgBoxIconComponent, LoadingComponent],
   providers: baseModalComponentProviders,
   templateUrl: './image-cropper.component.html',
   styleUrl: './image-cropper.component.scss',
 })
 export class ImageCropperComponent
   extends ModalBaseComponent<string>
-  implements AfterViewInit, OnInit
+  implements AfterViewInit
 {
-  @ViewChild('IMGCropper') cropper!: ImgCropperComponent;
-
+  @ViewChild('IMGCropper') cropperContainer!: ElementRef<HTMLImageElement>;
   @Input({ required: true }) config!: IImageCropperConfig;
 
-  public value!: {
-    original: string;
-    image: string; // base64
-    size: number; // bytes
-    type: string; // image/png
-  };
+  public cropper?: Cropper;
+  public croppedImage = '';
+
+  public currentRotation = 0;
+  public flippedHorizontal = false;
+  public flippedVertical = false;
 
   public loading = true;
-
-  public cropperSettings?: CropperSettings;
 
   public get advancedProfileParent() {
     return document.querySelector(
@@ -71,51 +55,27 @@ export class ImageCropperComponent
     ) as HTMLDivElement;
   }
 
-  public ngOnInit(): void {
-    console.log('advancedProfileParent', this.advancedProfileParent);
-    if (this.advancedProfileParent) {
-      this.advancedProfileParent.scrollTo(0, 0);
-      this.advancedProfileParent.style.cssText = 'overflow: hidden !important';
-    }
+  public ngAfterViewInit(): void {
+    this.cropper = new Cropper(this.cropperContainer.nativeElement, {
+      aspectRatio: this.config.aspectRatio || 1,
+      dragMode: 'move',
+      viewMode: 2,
+      toggleDragModeOnDblclick: false,
+      ready: () => {
+        this.loading = false;
+        this.croppedImage =
+          this.cropper?.getCroppedCanvas().toDataURL('image/jpeg') || '';
+      },
+    });
 
-    this.cropperSettings = new CropperSettings();
-
-    this.cropperSettings.canvasHeight = 400;
-    this.cropperSettings.canvasWidth = 400;
-
-    this.cropperSettings.rounded = !!this.config.roundCropper;
-    this.cropperSettings.minWidth = this.config.minWidth || 10;
-    this.cropperSettings.minHeight = this.config.minHeight || 10;
-
-    this.cropperSettings.croppedWidth = this.config.resize?.width || 0;
-    this.cropperSettings.croppedHeight = this.config.resize?.height || 0;
-    this.cropperSettings.preserveSize = !this.config.resize;
-    this.cropperSettings.keepAspect = !!this.config.resize;
-    this.cropperSettings.noFileInput = true;
-    this.cropperSettings.fileType = `image/webp`;
-  }
-
-  public async ngAfterViewInit() {
-    const image = new Image();
-    const reader = new FileReader();
-
-    reader.onloadend = async (e) => {
-      image.src = e.target?.result as string;
-
-      if (!image) {
+    this.cropperContainer.nativeElement.addEventListener('cropend', () => {
+      if (!this.cropper) {
         return;
       }
-
-      this.cropper.setImage(image);
-      this.value = {
-        original: image.src,
-        image: image.src,
-        size: this.config.imageData.size,
-        type: this.config.imageData.type,
-      };
-    };
-
-    reader.readAsDataURL(this.config.imageData);
+      this.croppedImage = this.cropper
+        ?.getCroppedCanvas()
+        .toDataURL('image/jpeg');
+    });
   }
 
   override onClose(): void {
@@ -135,14 +95,58 @@ export class ImageCropperComponent
     this.close();
   }
 
+  public flipHorizontal() {
+    if (this.flippedHorizontal) {
+      this.cropper?.scale(1, 1); // Flip horizontal back
+      this.flippedHorizontal = !this.flippedHorizontal;
+      return;
+    }
+
+    this.cropper?.scale(-1, 1); // Flip horizontal back
+    this.flippedHorizontal = !this.flippedHorizontal;
+  }
+
+  public flipVertical() {
+    if (this.flippedVertical) {
+      this.cropper?.scale(1, 1); // Flip vertical back
+      this.flippedVertical = !this.flippedVertical;
+      return;
+    }
+
+    this.cropper?.scale(1, -1); // Flip vertical
+    this.flippedVertical = !this.flippedVertical;
+  }
+
+  public rotateRight() {
+    this.cropper?.rotateTo(this.currentRotation + 90);
+
+    if (this.currentRotation === 270) {
+      this.currentRotation = 0;
+      return;
+    }
+
+    this.currentRotation += 90;
+  }
+
+  public rotateLeft() {
+    this.cropper?.rotateTo(this.currentRotation - 90);
+
+    if (this.currentRotation === 0) {
+      this.currentRotation = 270;
+      return;
+    }
+
+    this.currentRotation -= 90;
+  }
+
   private async _compressImage() {
-    const imgBlob = await this._base64ToBlob(this.value.image);
+    const imgBlob = await this._base64ToBlob(this.croppedImage);
 
     const result = new Promise<File>((resolve) => {
       new Compressor(imgBlob, {
         quality: 0.4,
-        width: 800,
-        height: 800,
+        width: this.config.resize?.width || 800,
+        height: this.config.resize?.height || 800,
         mimeType: 'image/png',
         success: (result) => {
           return resolve(result as File);

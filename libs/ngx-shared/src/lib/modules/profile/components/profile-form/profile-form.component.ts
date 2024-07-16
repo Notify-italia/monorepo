@@ -301,10 +301,7 @@ export class ProfileFormComponent implements OnInit {
 
     const ref = this._imageCropper.create({
       imageData: file,
-      minHeight: 200,
-      minWidth: 200,
-      roundCropper: true,
-      containWithinAspectRatio: true,
+      aspectRatio: 1,
       resize: {
         width: 800,
         height: 800,

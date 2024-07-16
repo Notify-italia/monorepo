@@ -13,19 +13,60 @@
       <div class="divider"></div>
 
       <div
-        class="min-h-[400px] min-w-[400px]"
+        class="h-[400px] w-[400px]"
         [ngClass]="{
           'opacity-0 pointer-events-none absolute': loading
         }"
       >
-        <img-cropper
-          #IMGCropper
-          class="rounded !w-full !h-full"
-          *ngIf="cropperSettings as c"
-          [settings]="cropperSettings"
-          [image]="value"
-          (imageSet)="loading = false"
-        ></img-cropper>
+        <img #IMGCropper [src]="this.config.imageData" />
+      </div>
+      <div class="flex justify-around w-full mt-4">
+        <button
+          class="btn btn-ghost btn-circle"
+          data-theme="notifytheme"
+          (click)="flipHorizontal()"
+        >
+          <notify-svg-box-icon
+            [size]="8"
+            [icon]="{ name: 'flip', set: 'materialui' }"
+          ></notify-svg-box-icon>
+        </button>
+        <button
+          class="btn btn-ghost btn-circle"
+          data-theme="notifytheme"
+          (click)="flipVertical()"
+        >
+          <notify-svg-box-icon
+            class="rotate-90"
+            [size]="8"
+            [icon]="{ name: 'flip', set: 'materialui' }"
+          ></notify-svg-box-icon>
+        </button>
+
+        <div class="divider divider-vertical"></div>
+
+        <button
+          class="btn btn-ghost btn-circle"
+          data-theme="notifytheme"
+          (click)="rotateRight()"
+        >
+          <notify-svg-box-icon
+            class="rotate-90"
+            [size]="8"
+            [icon]="{ name: 'rotate_right', set: 'materialui' }"
+          ></notify-svg-box-icon>
+        </button>
+        <button
+          class="btn btn-ghost btn-circle"
+          data-theme="notifytheme"
+          (click)="rotateLeft()"
+        >
+          <notify-svg-box-icon
+            class="rotate-90"
+            [size]="8"
+            [icon]="{ name: 'rotate_left', set: 'materialui' }"
+          ></notify-svg-box-icon>
+        </button>
       </div>
 
       @if(loading){
