@@ -56,10 +56,16 @@ export class ImageCropperComponent
   }
 
   public ngAfterViewInit(): void {
+    if (this.advancedProfileParent) {
+      this.advancedProfileParent.scrollTo(0, 0);
+      this.advancedProfileParent.style.cssText = 'overflow: hidden !important';
+    }
+
     this.cropper = new Cropper(this.cropperContainer.nativeElement, {
       aspectRatio: this.config.aspectRatio || 1,
       dragMode: 'move',
-      viewMode: 2,
+      viewMode: 0,
+
       toggleDragModeOnDblclick: false,
       ready: () => {
         this.loading = false;
@@ -79,8 +85,6 @@ export class ImageCropperComponent
   }
 
   override onClose(): void {
-    console.log('advancedProfileParent', this.advancedProfileParent);
-
     if (!this.advancedProfileParent) {
       return;
     }
