@@ -87,13 +87,15 @@ export class NavComponent {
     };
   }
 
-  private get _isUserWriting(): boolean {
-    // console.log(document.activeElement?.tagName, document.activeElement);
-
+  private get _hasActiveElement(): boolean {
     return (
       ['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName || '') &&
       document.activeElement?.getAttribute('type') !== 'checkbox'
     );
+  }
+
+  private get _isInModal() {
+    return !!document.querySelector('.modal-container');
   }
 
   constructor(
@@ -108,7 +110,7 @@ export class NavComponent {
           threshold: 15,
           gestureName: 'openDrawer',
           onMove: (ev) => {
-            if (this._isUserWriting) {
+            if (this._hasActiveElement || this._isInModal) {
               return;
             }
 
