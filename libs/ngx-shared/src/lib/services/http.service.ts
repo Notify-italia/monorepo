@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { UnknownType } from '@notify/interfaces';
-import { ObservableInput, catchError, retry } from 'rxjs';
+import { ObservableInput, catchError, retry, timeout } from 'rxjs';
 
 export enum HttpServiceTokenType {
   Bearer = 'bearer',
@@ -53,7 +53,7 @@ export class HttpService {
   public get<T>(url: string, params?: UnknownType) {
     return this.http
       .get<T>(`${this.apiUrl}${url}`, this.genHeaders(params))
-      .pipe(this._unauthorized(), retry(2));
+      .pipe(this._unauthorized(), timeout(10000), retry(2));
   }
 
   public delete<T>(url: string, params?: Record<string, string | undefined>) {
