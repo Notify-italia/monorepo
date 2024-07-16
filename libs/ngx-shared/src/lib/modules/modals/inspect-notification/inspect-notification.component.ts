@@ -160,7 +160,7 @@ export class InspectNotificationComponent extends ModalBaseComponent {
         return of(true).pipe(
           tap(() => {
             this._Router.navigate(['/pages/leads/inspect'], {
-              queryParams: { l: action.data.id },
+              queryParams: { l: action.data.id, cs: Date.now() },
             });
             this.close();
             this.closeParent.emit();
