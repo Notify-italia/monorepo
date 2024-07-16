@@ -7,9 +7,14 @@ const _getVersionArt = (tag: string) => {
 const _sharedTag = 'v1.2.0';
 const _sharedDate = '2024-07-30';
 const _sharedTitle = 'Notifiche Push 🔔';
-const _sharedDescription = `Con Notify 1.1.0 è finalmente possibile digitalizzare i noiosi bigliettini da visita cartaceo con un semplice click o tap, ma non è un semplice OCR.. <br/><br/>Grazie alla nostra AI, le informazioni ottenute saranno contestualizzate e organizzate in modo da essere immediatamente utilizzabili. <br/> Dalla pagina di dettaglio potrai inoltre aggiungere commenti, condividerli col tuo team e altro ancora! Tutto questo senza mai abbandonare la tua app preferita 😉`;
+const _sharedDescription = `Le Notifiche arrivano finalmente su Notify! Ricevi notifiche in tempo reale per le attività più importanti e non perdere mai un'opportunità!`;
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
+  {
+    type: 'new',
+    message:
+      "Tramite il pulsante 'Notifiche' nella navbar o nella top bar da mobile, è ora possibile visualizzare e gestire notifiche relative ad alcune attività all'interno dell'app. Inizialmente le notifiche sono disponibili per le attività di acquisizione contatti e commenti sugli stessi ma verranno estese in futuro",
+  },
   {
     type: 'fix',
     message: `Migliorata la gestione degli spazi nella sidebar su PC per evitare di dover fare scrolling per visualizzare tutte le pagine navigabili su schermi di piccole dimensioni`,
@@ -24,7 +29,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
   },
   {
     type: 'improvement',
-    message: `Aggiunto feedback haptico alla pressione dei pulsanti`,
+    message: `Aggiunto feedback haptico alla pressione dei pulsanti su dispositivi iOS e Android compatibili`,
+  },
+  {
+    type: 'improvement',
+    message: `Migliorato il cropper di immagini, ora è possibile ruotare e specchiare un'immagine, oltre ad offrire una migliore esperienza d'uso su dispositivi mobile`,
   },
   {
     type: 'fix',
@@ -41,11 +50,6 @@ export const agentChangelog: INotifyVersionInfo = {
   changes: [
     ..._sharedChanges,
     {
-      type: 'new',
-      message:
-        "Le Notifiche Push arrivano finalmente su Notify! Ricevi notifiche in tempo reale sull'acquisizione di nuovi contatti, commenti e molto altro!",
-    },
-    {
       type: 'improvement',
       message:
         'La tab "Colleghi" viene nascosta automaticamente in caso di assenza di colleghi',
@@ -59,12 +63,5 @@ export const companyChangelog: INotifyVersionInfo = {
   description: _sharedDescription,
   title: _sharedTitle,
   artPath: _getVersionArt(_sharedTag),
-  changes: [
-    ..._sharedChanges,
-    {
-      type: 'new',
-      message:
-        "Le Notifiche arrivano finalmente su Notify! Ricevi notifiche in tempo reale sull'acquisizione di nuovi contatti, commenti e molto altro!",
-    },
-  ],
+  changes: [..._sharedChanges],
 };
