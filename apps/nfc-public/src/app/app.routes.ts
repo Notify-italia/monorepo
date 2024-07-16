@@ -71,6 +71,20 @@ export const appRoutes: Route[] = [
       ),
   },
   {
+    path: 'thirdparties',
+    children: [
+      {
+        path: 'privacy',
+        loadComponent: () =>
+          import('./pages/redirect.component').then((m) => m.RedirectComponent),
+        data: {
+          assetUrl:
+            'https://s3-api.vps.notifyapp.it/assets/thirdparties-privacy.pdf',
+        },
+      },
+    ],
+  },
+  {
     path: 'termini-e-condizioni',
     loadComponent: () =>
       import('./pages/terms-conditions/terms-conditions.component').then(

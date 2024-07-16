@@ -68,7 +68,7 @@
   }
 
   & .modal-content {
-    @apply rounded lg:rounded-xl p-4 bg-slate-800 border border-slate-700 w-[95vw] lg:w-full md:max-w-[80vw] lg:max-w-[55vw] h-fit flex flex-col items-center;
+    @apply rounded-lg lg:rounded-xl p-4 bg-slate-800 border border-slate-700 w-[95vw] lg:w-full md:max-w-[80vw] lg:max-w-[55vw] h-fit flex flex-col items-center;
 
     &.content-transparent {
       @apply bg-transparent;
