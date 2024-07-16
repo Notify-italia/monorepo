@@ -108,7 +108,9 @@ export class NfcWriteComponent extends ModalBaseComponent implements OnInit {
 
     await this._capacitorService.scanNFCTag((nfc, tag, source) => {
       if (source === 'scanSessionCanceled') {
-        this.close();
+        this.close({
+          timeout: 1,
+        });
         return;
       }
 

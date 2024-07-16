@@ -136,6 +136,8 @@ const _sendNewCommentNotification = async (
     throw new BadRequestError('Non ho trovato il tuo profilo');
   }
 
+  const submitterName = getContactName(submitter);
+
   const usersToBeNotified = lead.sharedBy.filter(
     (x) => String(x) !== String(newComment.createdBy)
   );
@@ -145,9 +147,7 @@ const _sendNewCommentNotification = async (
       {
         owner: userId as unknown as Types.ObjectId,
         notificationType: EnumNotificationTypes.Info,
-        title: `${getContactName(submitter)} ha commentato su "${_getLeadName(
-          lead.toObject()
-        )}!"`,
+        title: `[${_getLeadName(lead.toObject())}] ${submitterName} ha scritto`,
         subtitle: newComment.content,
         actions: [
           {

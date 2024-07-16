@@ -1,3 +1,4 @@
+import { Message } from 'firebase-admin/messaging';
 import { google } from 'googleapis';
 import { declareEnvs } from './service.envs';
 import { mLog } from './service.managed-logs';
@@ -24,16 +25,31 @@ export const getGoogleAccessToken = async () => {
 export const sendFCMNotification = async (options: {
   token: string;
   data: { [key: string]: string };
-  notification: { title: string; body: string };
+  notification: { title: string; body: string; imageUrl?: string };
 }) => {
   try {
     const accessToken = await getGoogleAccessToken();
+
+    const message: Message = options;
+
+    message.android = {
+      notification: {
+        sound: 'default',
+      },
+    };
+    message.apns = {
+      payload: {
+        aps: {
+          sound: 'default',
+        },
+      },
+    };
 
     const response = await fetch(
       `https://fcm.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/messages:send`,
       {
         method: 'POST',
-        body: JSON.stringify({ message: options }),
+        body: JSON.stringify({ message }),
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',

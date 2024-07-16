@@ -9,7 +9,7 @@ import { SocketEmitNewNotification } from '../socketio/events-emitters/socket.em
 
 export const createNotification = async (
   notification: Partial<Notification>,
-  notificationSubtitle?: string
+  fcmBody?: string
 ) => {
   const noti = NotificationModel.build(notification);
 
@@ -26,7 +26,7 @@ export const createNotification = async (
       },
       notification: {
         title: noti.title,
-        body: notificationSubtitle || '',
+        body: fcmBody || '',
       },
     });
 
