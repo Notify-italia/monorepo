@@ -332,9 +332,8 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
     this._profileSerivce
       .patchProfile(parsedProfile)
       .pipe(
-        withLatestFrom(this.profile$),
-        tap(([_, p]) => {
-          this._profileSubject.next(parsedProfile);
+        switchMap(() => this.refreshProfile()),
+        tap((p) => {
           if (value) {
             this.selectedHierarchyItemChanged('background', p, false);
           }
