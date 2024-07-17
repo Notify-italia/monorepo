@@ -91,6 +91,11 @@ export const appRoutes: Route[] = [
         (m) => m.TermsConditionsComponent
       ),
   },
+  // {
+  //   path: 'shop',
+  //   loadComponent: () =>
+  //     import('./pages/shop/shop.component').then((m) => m.ShopComponent),
+  // },
   {
     path: '**',
     pathMatch: 'full',

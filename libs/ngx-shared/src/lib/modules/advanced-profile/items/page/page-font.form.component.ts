@@ -11,7 +11,7 @@ import { FONTS_ICON_SET } from '../../services/fonts.iconset';
   imports: [CommonModule, TailwindFormsModule, IconSelectorComponent],
   template: ` <div class="flex flex-col space-y-4">
     <small class="font-medium">Stile testo</small>
-    <div class="flex justify-between space-x-2 items-center">
+    <div class="flex  space-x-2 items-center">
       <notify-icon-selector
         [iconSet]="fontsIconSet"
         [icon]="pageSettingsForm.value.font"
@@ -26,17 +26,21 @@ import { FONTS_ICON_SET } from '../../services/fonts.iconset';
         class="w-7/12"
         [compact]="true"
       ></notify-tailwind-color-picker>
-      <notify-tailwind-input
-        class="!mb-1 w-3/12"
-        [parent]="pageSettingsForm"
-        name="fontSize"
-        label=" "
-        [compact]="true"
-        [showSpinButtons]="true"
-        type="number"
-        [showClearInput]="false"
-      ></notify-tailwind-input>
     </div>
+    <notify-tailwind-slider
+      [parent]="pageSettingsForm"
+      name="fontSize"
+      [compact]="true"
+      [steps]="fontSizeSettings.steps"
+      [min]="fontSizeSettings.min"
+      [max]="fontSizeSettings.max"
+      [label]="fontSizeSettings.label"
+      [stepsLabels]="{
+        stepSuffix: fontSizeSettings.stepSuffix,
+        showCurrentStep: true,
+        stepPosition: 'bottom'
+      }"
+    ></notify-tailwind-slider>
   </div>`,
 })
 export class AdvancedProfilePageFontFormComponent {
@@ -46,5 +50,15 @@ export class AdvancedProfilePageFontFormComponent {
 
   public setFont(font: string) {
     this.pageSettingsForm.controls['font'].setValue(font);
+  }
+
+  public get fontSizeSettings() {
+    return {
+      label: 'Dimensione Testo',
+      min: 0,
+      max: 50,
+      steps: 20,
+      stepSuffix: 'px',
+    };
   }
 }
