@@ -83,7 +83,8 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
           class="flex flex-col"
           [ngStyle]="{
             'text-align':
-              currentItem.direction === this.context.statics.directions.Vertical
+              currentItem.direction ===
+                this.context.statics.directions.Vertical || !isDaisyUIMask
                 ? alignment
                 : 'start'
           }"
@@ -110,7 +111,8 @@ export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponen
 
   public get alignment() {
     if (
-      this.currentItem.direction === this.context.statics.directions.Vertical
+      this.currentItem.direction === this.context.statics.directions.Vertical ||
+      !this.isDaisyUIMask
     ) {
       switch (this.currentItem.align) {
         case this.context.statics.aligns.Start:

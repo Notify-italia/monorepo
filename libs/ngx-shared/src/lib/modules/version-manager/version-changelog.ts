@@ -24,6 +24,10 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
     message: `Risolto un bug che causava la visualizzazione errata del modale di ritaglio immagine`,
   },
   {
+    type: 'fix',
+    message: `Risolto un bug che impediva il corretto passaggio tra profilo e reindirizzamento ad un URL`,
+  },
+  {
     type: 'improvement',
     message: `Unificate le animazioni di apertura e chiusura dei modali`,
   },
@@ -47,14 +51,7 @@ export const agentChangelog: INotifyVersionInfo = {
   description: _sharedDescription,
   title: _sharedTitle,
   artPath: _getVersionArt(_sharedTag),
-  changes: [
-    ..._sharedChanges,
-    {
-      type: 'improvement',
-      message:
-        'La tab "Colleghi" viene nascosta automaticamente in caso di assenza di colleghi',
-    },
-  ],
+  changes: [..._sharedChanges],
 };
 
 export const companyChangelog: INotifyVersionInfo = {

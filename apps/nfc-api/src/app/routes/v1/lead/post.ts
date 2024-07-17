@@ -109,7 +109,7 @@ router.post(
             },
           ],
         },
-        'Apri Notify per approvare o rifiutare'
+        'Visualizza su Notify'
       );
     }
 

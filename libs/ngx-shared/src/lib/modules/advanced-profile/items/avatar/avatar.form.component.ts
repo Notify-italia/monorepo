@@ -34,6 +34,7 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
           'disabled-control': !isDaisyUIMask
         }"
       ></notify-tailwind-select>
+
       <notify-tailwind-select
         [parent]="form"
         name="align"
@@ -42,7 +43,8 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
         [options]="alignOptions"
         [ngClass]="{
           'disabled-control':
-            form.value.direction === context.statics.directions.Horizontal
+            form.value.direction === context.statics.directions.Horizontal &&
+            isDaisyUIMask
         }"
       ></notify-tailwind-select>
 
@@ -200,7 +202,8 @@ export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<IN
 
   public get alignOptions() {
     return this.context.components.select.align.filter((i) =>
-      this.form.value.direction === EnumNotifyAPDirections.Horizontal
+      this.form.value.direction === EnumNotifyAPDirections.Horizontal &&
+      this.isDaisyUIMask
         ? i.value !== EnumNotifyAPAlign.Center
         : true
     );
