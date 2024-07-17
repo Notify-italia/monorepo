@@ -45,7 +45,7 @@ export class PartSettingsComponent implements OnChanges {
   public showHiddenToggleWithButton = {
     checked: CHECKBOX_TOGGLE_EYE.checked,
     unchecked: CHECKBOX_TOGGLE_EYE.unchecked,
-    button: `btn btn-sm bg-[#191C21] rounded-xl`,
+    button: `btn btn-sm bg-[#191C21]/50 rounded-xl`,
   };
   public fontsIconSet = FONTS_ICON_SET;
 
