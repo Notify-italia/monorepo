@@ -27,7 +27,7 @@
 }
 
 .notify-menu {
-  @apply w-full lg:w-72 h-full rounded-2xl lg:border border-gray-700 bg-[#131417]  p-3 flex;
+  @apply w-full lg:w-72 h-full rounded-2xl lg:border border-gray-700 bg-[#131417] lg:bg-[#131417]/50  p-3 flex;
 
   &.menu-large {
     @apply w-full lg:w-96;
@@ -35,7 +35,7 @@
 }
 
 .root-element {
-  @apply h-full w-full bg-white/5 lg:bg-[#202020] rounded-2xl lg:rounded-3xl lg:border-2 border-gray-700 p-2 overflow-y-auto lg:overflow-hidden;
+  @apply h-full w-full bg-white/5 rounded-2xl lg:rounded-3xl border-gray-700 p-2 overflow-y-auto lg:overflow-hidden;
 }
 
 .item-button {
