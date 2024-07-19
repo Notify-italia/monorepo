@@ -48,8 +48,8 @@ router.post(
         .select('_id');
 
       if (
-        license.license.allowedAgents > 0 &&
-        companyagents.length >= license.license.allowedAgents
+        license.value.allowedAgents > 0 &&
+        companyagents.length >= license.value.allowedAgents
       ) {
         //if the number of agents is greater than or equal to the allowed agents, throw an error
         throw new BadRequestError('Hai raggiunto il numero massimo di agenti');
