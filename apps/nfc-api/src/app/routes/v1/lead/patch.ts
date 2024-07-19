@@ -37,10 +37,13 @@ router.patch(
 
       await _sendSharedByChangedNotification(data, lead, req.currentUser);
 
-      await _sendNewCommentNotification(data, lead);
+      lead.set({ ...data, comments: lead.comments });
 
-      lead.set(data);
+      const newComment = _updateComments(data, lead);
 
+      if (newComment) {
+        await _sendNewCommentNotification(lead, newComment);
+      }
       await lead.save();
 
       res.send(lead);
@@ -114,22 +117,26 @@ const _sendSharedByChangedNotification = async (
   );
 };
 
-const _sendNewCommentNotification = async (
-  data: INotifyLead,
-  lead: LeadDocument
-) => {
-  if (!data.comments || data.comments.length <= lead.comments.length) {
+const _updateComments = (data: INotifyLead, lead: LeadDocument) => {
+  const dataComments = data.comments || [];
+  const _dataCommentsHash = JSON.stringify(dataComments);
+  const _leadCommentsHash = JSON.stringify(lead.comments);
+
+  if (!data.comments || _dataCommentsHash === _leadCommentsHash) {
+    console.log('no new comments');
     return;
   }
 
   const newComment = data.comments[data.comments.length - 1];
+  lead.comments.push(newComment);
 
-  if (!newComment) {
-    throw new BadRequestError(
-      'Stai cercando di aggiungere un commento non valido'
-    );
-  }
+  return newComment;
+};
 
+const _sendNewCommentNotification = async (
+  lead: LeadDocument,
+  newComment: INotifyLead['comments'][0]
+) => {
   const submitter = await getProfile(newComment.createdBy);
 
   if (!submitter) {
