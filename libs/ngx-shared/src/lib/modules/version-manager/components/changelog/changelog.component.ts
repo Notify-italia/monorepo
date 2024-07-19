@@ -19,6 +19,9 @@ export class ChangelogComponent extends ModalBaseComponent implements OnInit {
 
   override onClose() {
     this._utilsService.toggleScrollLock(false);
+    this._capacitorService.triggerHapticFeedback(
+      this._capacitorService.hFeedbackStyles.Light
+    );
   }
 
   constructor(

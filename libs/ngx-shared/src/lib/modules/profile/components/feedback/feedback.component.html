@@ -56,17 +56,26 @@
             </div>
           </div>
           <div class="flex flex-col space-y-2">
-            <button
-              class="btn btn-primary"
-              data-theme="notifytheme"
-              (click)="sendFeedback()"
-              [class.pointer-events-none]="loading"
-              [disabled]="isSendDisabled()"
-            >
-              @if(!loading) { Invia } @else {
-              <span class="loading loading-spinner loading-lg"></span>
-              }
-            </button>
+            <div class="flex justify-between w-full space-x-2">
+              <button
+                (click)="close()"
+                class="btn btn-accent w-full shrink"
+                data-theme="notifytheme"
+              >
+                Annulla
+              </button>
+              <button
+                class="btn btn-primary w-full shrink"
+                data-theme="notifytheme"
+                (click)="sendFeedback()"
+                [class.pointer-events-none]="loading"
+                [disabled]="isSendDisabled()"
+              >
+                @if(!loading) { Invia } @else {
+                <span class="loading loading-spinner loading-lg"></span>
+                }
+              </button>
+            </div>
             <p class="text-xs lg:text-base">
               Il feedback inviato sarà usato per migliorare la tua esperienza e
               non sarà visibile pubblicamente.

@@ -35,7 +35,7 @@ export class ContactFormComponent extends ModalBaseComponent implements OnInit {
   });
 
   public validationErrors = {
-    required: '',
+    required: ' ',
   };
 
   public ngOnInit(): void {

@@ -5,8 +5,8 @@ const _getVersionArt = (tag: string) => {
 };
 
 const _sharedTag = 'v1.2.0';
-const _sharedDate = '2024-07-30';
-const _sharedTitle = 'Notifiche Push 🔔';
+const _sharedDate = '2024-07-22';
+const _sharedTitle = 'Notifiche 🔔';
 const _sharedDescription = `Le Notifiche arrivano finalmente su Notify! Ricevi notifiche in tempo reale per le attività più importanti e non perdere mai un'opportunità!`;
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
@@ -60,5 +60,11 @@ export const companyChangelog: INotifyVersionInfo = {
   description: _sharedDescription,
   title: _sharedTitle,
   artPath: _getVersionArt(_sharedTag),
-  changes: [..._sharedChanges],
+  changes: [
+    ..._sharedChanges,
+    {
+      type: 'improvement',
+      message: `La licenza adesso viene visualizzata nelle impostazioni dell'account e non più in una pagina separata`,
+    },
+  ],
 };
