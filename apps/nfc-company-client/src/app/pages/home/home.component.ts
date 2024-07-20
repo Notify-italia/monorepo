@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           ],
         },
         {
-          hidden: this._authService.featureExcluded('profile', license),
+          hidden: this._authService.featureExcluded('profile-company', license),
           disabled: this.expiredLicense,
           label: 'Profilo Aziendale',
           path: this._authService.user?.advancedProfile

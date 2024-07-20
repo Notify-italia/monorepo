@@ -9,7 +9,7 @@ export const FEATURES = [
   'notes',
   'colleagues',
   'sub-users',
-  'profile',
+  'profile-company',
   'stats',
 ] as const;
 
