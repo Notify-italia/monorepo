@@ -6,7 +6,7 @@ import {
   LoadingComponent,
   PixelService,
 } from '@notify/ngx-shared';
-import { Subject, combineLatest, tap } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
 import { CardBuilderComponent } from '../../sections/card-builder/card-builder.component';
@@ -53,13 +53,13 @@ export class HomeComponent implements AfterContentInit {
 
   public stable = false;
 
-  public pageStable$ = combineLatest([
-    this.splashStable$,
-    this.featuresStable$,
-  ]).pipe(
-    tap(() => this.scrollToElement()),
-    tap(() => (this.stable = true))
-  );
+  public pageStable$ = of(true); //combineLatest([
+  // this.splashStable$,
+  //this.featuresStable$,
+  //]).pipe(
+  // tap(() => this.scrollToElement()),
+  //tap(() => (this.stable = true))
+  //);
 
   constructor(
     private _pixel: PixelService,

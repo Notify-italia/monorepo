@@ -21,7 +21,7 @@
   @apply flex justify-center w-full h-full;
 
   & * {
-    @apply max-w-[1560px];
+    @apply max-w-[1280px];
   }
 }
 
@@ -32,6 +32,10 @@
 .neon {
   user-select: none;
   @apply w-full flex justify-center lg:justify-start;
+}
+
+.h-lscreen {
+  @apply h-[100lvh];
 }
 
 .neon b {

@@ -1,5 +1,5 @@
-<div class="max-content-width">
-  <div class="website-section">
+<div class="max-content-width min-h-[100lvh]">
+  <div class="website-section relative">
     <div class="section-title">Dai un'occhiata a quello che ci rende unici</div>
     <div class="section-subtitle">
       Scopri alcune delle funzionalità che rendono Notify a misura delle tue
@@ -7,54 +7,57 @@
     </div>
 
     <div
-      class="w-full flex flex-col justify-between 2xl:max-w-[60vw] mt-20 items-center space-y-20 pb-5"
+      class="w-full flex justify-center 2xl:max-w-[60vw] mt-20 items-center space-x-20 pb-5"
     >
-      @for (item of buildFeatures; track $index) {
-      <div
-        class="cards-container !space-y-10 lg:!space-y-0 lg:space-x-5 !justify-between lg:!flex-row w-"
-      >
-        <ng-container
-          [ngTemplateOutlet]="Card"
-          [ngTemplateOutletContext]="{item, half: 'first'}"
-        ></ng-container>
-      </div>
+      @for (item of features; track $index) {
+      <button
+        (click)="selectedId = item.id"
+        class="mask mask-squircle size-16 shrink-0 items-center flex flex-col justify-center smooth hover:-translate-y-2 {{
+          item.color
+        }}"
+        [ngClass]="{
+          'pointer-events-none scale-125': item.id === selectedId
+        }"
+        [innerHTML]="item.icon"
+      ></button>
       }
     </div>
-  </div>
 
-  <ng-template let-item="item" let-half="half" #Card>
-    <button
-      class="group/card flex flex-col h-full pointer-events-none w-full smooth opacity-0 intersect:opacity-100"
-      [ngClass]="{
-        'intersect:animate-fade-right animate-ease-out': half === 'first',
-        'intersect:animate-fade-left animate-ease-out': half === 'second',
-    }"
-      tabindex="0"
-    >
+    <div class="flex flex-col space-y-4">
+      <p
+        class="text-center text-xl font-bold font-outfit"
+        [innerHTML]="selectedFeature?.title"
+      ></p>
+      <small>
+        <p class="text-center" [innerHTML]="selectedFeature?.description"></p>
+      </small>
       <div
-        class="flex flex-col justify-around w-full"
-        [ngClass]="{ 'items-end': half === 'second' }"
+        class="mockup-browser bg-gray-200 shrink w-full shadow-xl rounded-md"
       >
-        <div class="flex space-x-2 items-center">
-          <div
-            class="mask mask-squircle h-12 w-12 shrink-0 items-center flex flex-col justify-center {{
-              item.color
-            }}"
-            [innerHTML]="item.icon"
-          ></div>
-          <span
-            [innerHTML]="item.title"
-            class="p-2 !pl-0 items-center w-full font-bold text-xl drop-shadow-lg my-auto text-start"
-            [ngClass]="{ '!text-end': half === 'second' }"
-          ></span>
+        <div class="mockup-browser-toolbar">
+          <div class="input !bg-gray-300"></div>
+        </div>
+        <div class="bg-gray-100">
+          <img
+            [src]="selectedFeature?.desktopImage"
+            alt="Notify Features"
+            class="w-full"
+          />
         </div>
       </div>
 
-      <span
-        [innerHTML]="item.description"
-        class="px-2 pl-0 text-current/80 overflow-hidden opacity-100 max-h-96 smooth text-justify drop-shadow-md font-light leading-relaxed mt-5"
-        [ngClass]="{ 'text-end': half === 'second' }"
-      ></span>
-    </button>
-  </ng-template>
+      <div
+        class="mockup-phone iphone-15-pro scale-75 absolute -right-32 2xl:-right-40 -bottom-32 2xl:-bottom-24 shadow-xl"
+      >
+        <notify-mockup-fill></notify-mockup-fill>
+        <div class="display">
+          <img
+            [src]="selectedFeature?.phoneImage"
+            alt="Notify Features"
+            class="size-full"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -8,6 +8,7 @@ import {
   SplineViewerComponent,
   UtilsService,
 } from '@notify/ngx-shared';
+import { FundedByComponent } from '../funded-by/funded-by.component';
 
 @Component({
   selector: 'notify-splash',
@@ -18,6 +19,7 @@ import {
     SSRDirective,
     SplineViewerComponent,
     AppTitleComponent,
+    FundedByComponent,
   ],
   providers: [UtilsService],
   templateUrl: './splash.component.html',
