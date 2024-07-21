@@ -26,4 +26,21 @@ import { FundedByComponent } from '../funded-by/funded-by.component';
   styleUrl: './splash.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SplashComponent extends SSRBaseComponent {}
+export class SplashComponent extends SSRBaseComponent {
+  public goToShop() {
+    const element = document.getElementById('shop');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    return;
+  }
+
+  public openCalendlyPopup() {
+    window.open(
+      'https://calendly.com/notifyitalia/chiacchierata',
+      '',
+      'popup,left=100,top=100,width=1280,height=700'
+    );
+  }
+}

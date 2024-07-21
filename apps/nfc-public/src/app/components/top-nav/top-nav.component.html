@@ -8,16 +8,9 @@
       />
     </a>
 
-    <div class="flex justify-end w-5/12 space-x-2 items-center h-full">
-      @for (item of options; track item.label) {
-      <a
-        [href]="item.path"
-        data-theme="notifytheme"
-        class="btn btn-link text-white no-underline"
-      >
-        {{ item.label }}
-      </a>
-      }
+    <div>
+      <div class="ec-cart-widget"></div>
+      <div id="ecwidCardWidgetScript"></div>
     </div>
   </div>
 </header>

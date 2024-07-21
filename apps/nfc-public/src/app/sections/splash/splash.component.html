@@ -1,21 +1,22 @@
-<div class="max-content-width h-[90lvh]">
+<div class="max-content-width h-[75lvh]">
   <div class="website-section">
     <div class="flex flex-col space-y-4 lg:max-w-[70vw] items-center">
       <h1 class="splash-header">
         <p>Un nuovo modo</p>
-        <p>di fare networking</p>
+        <p>di fare networking.</p>
       </h1>
 
       <div class="flex flex-col mx-20 px-10 space-y-10">
         <p class="splash-subtitle">
-          <span>
-            Non preoccuparti più di lasciare i tuoi biglietti da visita,
-          </span>
+          <span> Non preoccuparti più di lasciare biglietti da visita, </span>
           <br />
-          <span>da adesso ci pensiamo noi.</span>
+          <span>da adesso ci pensiamo noi</span>
         </p>
         <div>
-          <button class="splash-cta smooth smooth-slower">
+          <button
+            class="splash-cta smooth smooth-slower notify-shadow"
+            (click)="goToShop()"
+          >
             <div>Acquista ora</div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -34,9 +35,7 @@
           </button>
           <div class="text-center">
             <small>
-              <a
-                href="mailto:commerciale@notifyapp.it?subject=Vorrei prenotare una demo di Notify"
-                class="link"
+              <a class="link" (click)="openCalendlyPopup()"
                 >Oppure, richiedi una demo</a
               >
             </small>

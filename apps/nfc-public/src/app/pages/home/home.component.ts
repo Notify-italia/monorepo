@@ -17,6 +17,7 @@ import { PartnersComponent } from '../../sections/partners/partners.component';
 import { PersonalizationComponent } from '../../sections/personalization/personalization.component';
 import { ProfileBuilderComponent } from '../../sections/profile-builder/profile-builder.component';
 import { QuestionsComponent } from '../../sections/questions/questions.component';
+import { ShopComponent } from '../../sections/shop/shop.component';
 import { SoftwareOnlyComponent } from '../../sections/software-only/software-only.component';
 import { SplashComponent } from '../../sections/splash/splash.component';
 import { SustainabilityComponent } from '../../sections/sustainability/sustainability.component';
@@ -40,6 +41,7 @@ import { SustainabilityComponent } from '../../sections/sustainability/sustainab
     CardBuilderComponent,
     SoftwareOnlyComponent,
     ProfileBuilderComponent,
+    ShopComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

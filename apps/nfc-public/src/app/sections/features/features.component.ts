@@ -83,7 +83,7 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
 
 `,
         color: 'bg-green-400/20 text-green-400',
-        desktopImage: this._getFromS3('desktop-projects.webp'),
+        desktopImage: this._getFromS3('desktop-leads.webp'),
         phoneImage: this._getFromS3('phone-leads.webp'),
       },
       {
