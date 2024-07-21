@@ -7,17 +7,22 @@
     </div>
 
     <div
-      class="w-full flex justify-center 2xl:max-w-[60vw] mt-20 items-center space-x-20 pb-5"
+      #FeaturesContainer
+      class="w-full flex justify-between mt-20 items-center mb-5 smooth"
+      [ngStyle]="{
+        translate: 'calc(' + selectedFeatureOffset + 'px )'
+      }"
     >
       @for (item of features; track $index) {
       <button
-        (click)="selectedId = item.id"
-        class="mask mask-squircle size-16 shrink-0 items-center flex flex-col justify-center smooth hover:-translate-y-2 {{
+        (click)="updateSelected(item.id)"
+        class="mask mask-squircle size-16 shrink-0 items-center flex flex-col justify-center smooth hover:scale-110 saturate-0 {{
           item.color
         }}"
         [ngClass]="{
-          'pointer-events-none scale-125': item.id === selectedId
+          'pointer-events-none scale-150 !saturate-100': item.id === selectedId
         }"
+        id="feature-{{ item.id }}"
         [innerHTML]="item.icon"
       ></button>
       }
@@ -47,15 +52,12 @@
       </div>
 
       <div
+        *ngIf="selectedFeature?.phoneImage as phoneImage"
         class="mockup-phone iphone-15-pro scale-75 absolute -right-32 2xl:-right-40 -bottom-32 2xl:-bottom-24 shadow-xl"
       >
         <notify-mockup-fill></notify-mockup-fill>
         <div class="display">
-          <img
-            [src]="selectedFeature?.phoneImage"
-            alt="Notify Features"
-            class="size-full"
-          />
+          <img [src]="phoneImage" alt="Notify Features" class="size-full" />
         </div>
       </div>
     </div>

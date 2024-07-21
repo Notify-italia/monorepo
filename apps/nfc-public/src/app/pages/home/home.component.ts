@@ -12,7 +12,6 @@ import { TopNavComponent } from '../../components/top-nav/top-nav.component';
 import { CardBuilderComponent } from '../../sections/card-builder/card-builder.component';
 import { ContactUsComponent } from '../../sections/contact-us/contact-us.component';
 import { FeaturesComponent } from '../../sections/features/features.component';
-import { FundedByComponent } from '../../sections/funded-by/funded-by.component';
 import { InstructionsComponent } from '../../sections/instructions/instructions.component';
 import { PartnersComponent } from '../../sections/partners/partners.component';
 import { PersonalizationComponent } from '../../sections/personalization/personalization.component';
@@ -40,7 +39,6 @@ import { SustainabilityComponent } from '../../sections/sustainability/sustainab
     PersonalizationComponent,
     CardBuilderComponent,
     SoftwareOnlyComponent,
-    FundedByComponent,
     ProfileBuilderComponent,
   ],
   templateUrl: './home.component.html',
