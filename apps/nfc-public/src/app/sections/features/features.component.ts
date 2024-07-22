@@ -50,7 +50,7 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
         description: `Ricevi feedback in tempo reale dalle persone che visualizzano il tuo profilo. <br /> Scopri cosa funziona e cosa può essere migliorato per stupire ancora di più nel prossimo incontro`,
         icon: `<svg fill="currentColor" class="size-8 pointer-events-none" data-src="https://s2.svgbox.net/materialui.svg?ic=star" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24" color="" data-id="svg-loader_3"><path d="M0 0h24v24H0z" fill="none"></path><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>`,
         color: 'bg-yellow-400/20 text-yellow-400',
-        desktopImage: this._getFromS3('desktop-projects.webp'),
+        desktopImage: this._getFromS3('desktop-feedback.webp'),
         phoneImage: this._getFromS3('phone-feedbacks.webp'),
       },
       {
@@ -60,7 +60,7 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
         // image: 'assets/images/dashboard.webp',
         icon: `<svg fill="currentColor" class="size-8 pointer-events-none" data-src="https://s2.svgbox.net/materialui.svg?ic=show_chart" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24" color="" data-id="svg-loader_4"><path d="M0 0h24v24H0z" fill="none"></path><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"></path></svg>`,
         color: 'bg-purple-400/20 text-purple-400',
-        desktopImage: this._getFromS3('desktop-projects.webp'),
+        desktopImage: this._getFromS3('desktop-analytics.webp'),
         phoneImage: this._getFromS3('phone-analytics.webp'),
       },
       {
@@ -102,7 +102,7 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
         // image: 'assets/images/file-sharing.webp',
         icon: `<svg fill="currentColor" class="size-8 pointer-events-none" data-src="https://s2.svgbox.net/octicons.svg?ic=download" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" color="" data-id="svg-loader_5"><path d="M4.97 11.03a.75.75 0 111.06-1.06L11 14.94V2.75a.75.75 0 011.5 0v12.19l4.97-4.97a.75.75 0 111.06 1.06l-6.25 6.25a.75.75 0 01-1.06 0l-6.25-6.25zm-.22 9.47a.75.75 0 000 1.5h14.5a.75.75 0 000-1.5H4.75z"></path></svg>`,
         color: 'bg-orange-400/20 text-orange-400',
-        desktopImage: this._getFromS3('desktop-projects.webp'),
+        desktopImage: this._getFromS3('desktop-sharing.webp'),
         phoneImage: this._getFromS3('phone-sharing.webp'),
       },
       {
@@ -114,11 +114,11 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
 </svg>
 `,
         color: 'bg-teal-400/20 text-teal-400',
-        desktopImage: this._getFromS3('desktop-projects.webp'),
+        desktopImage: this._getFromS3('desktop-coworking.webp'),
         phoneImage: this._getFromS3('phone-coworking.webp'),
       },
       {
-        id: 'company-subaccounts',
+        id: 'team',
         title: 'Il tuo team, le tue regole',
         description: `Non perdere tempo a cercare la password di ogni utente tra post-it e vecchie e-mail, <br /> Attraverso il portale amministrativo di Notify puoi gestire a 360° ogni utente nella tua organizzazione, in completa autonomia.`,
         icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 pointer-events-none">
@@ -128,7 +128,7 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
 
 `,
         color: 'bg-lime-400/20 text-lime-400',
-        desktopImage: this._getFromS3('desktop-projects.webp'),
+        desktopImage: this._getFromS3('desktop-team.webp'),
       },
     ].map((feature) => {
       this.componentStable.next();
