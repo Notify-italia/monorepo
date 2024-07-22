@@ -47,7 +47,7 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
       {
         id: 'feedback',
         title: 'Dimentica le congetture',
-        description: `Ricevi feedback in tempo reale dalle persone che visualizzano il tuo profilo. <br /> Scopri cosa funziona e cosa può essere migliorato per stupire ancora di più nel prossimo incontro`,
+        description: `Ricevi feedback in tempo reale dalle persone che visualizzano il tuo profilo, <br /> Scopri cosa funziona e cosa può essere migliorato per stupire ancora di più nel prossimo incontro.`,
         icon: `<svg fill="currentColor" class="size-8 pointer-events-none" data-src="https://s2.svgbox.net/materialui.svg?ic=star" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24" color="" data-id="svg-loader_3"><path d="M0 0h24v24H0z" fill="none"></path><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>`,
         color: 'bg-yellow-400/20 text-yellow-400',
         desktopImage: this._getFromS3('desktop-feedback.webp'),
@@ -107,8 +107,8 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
       },
       {
         id: 'coworking',
-        title: 'Non lavorare mai più da solo [TEMP, non mi fa impazzire]',
-        description: `Sblocca il potenziale del tuo team con Notify, <br /> Condividi contatti, progetti e file con i tuoi colleghi in modo semplice e sicuro, per lavorare insieme in modo più efficiente.`,
+        title: 'Nato per il lavoro di squadra',
+        description: `Notify è stato progettato con una mentalità team-first, <br /> è un vero e proprio <i>hub</i> per la collaborazione e la condivisione di informazioni tra i membri del tuo team.`,
         icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 pointer-events-none">
   <path fill-rule="evenodd" d="M3 2.25a.75.75 0 0 0 0 1.5v16.5h-.75a.75.75 0 0 0 0 1.5H15v-18a.75.75 0 0 0 0-1.5H3ZM6.75 19.5v-2.25a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75h-3a.75.75 0 0 1-.75-.75ZM6 6.75A.75.75 0 0 1 6.75 6h.75a.75.75 0 0 1 0 1.5h-.75A.75.75 0 0 1 6 6.75ZM6.75 9a.75.75 0 0 0 0 1.5h.75a.75.75 0 0 0 0-1.5h-.75ZM6 12.75a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 0 1.5h-.75a.75.75 0 0 1-.75-.75ZM10.5 6a.75.75 0 0 0 0 1.5h.75a.75.75 0 0 0 0-1.5h-.75Zm-.75 3.75A.75.75 0 0 1 10.5 9h.75a.75.75 0 0 1 0 1.5h-.75a.75.75 0 0 1-.75-.75ZM10.5 12a.75.75 0 0 0 0 1.5h.75a.75.75 0 0 0 0-1.5h-.75ZM16.5 6.75v15h5.25a.75.75 0 0 0 0-1.5H21v-12a.75.75 0 0 0 0-1.5h-4.5Zm1.5 4.5a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Zm.75 2.25a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75v-.008a.75.75 0 0 0-.75-.75h-.008ZM18 17.25a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Z" clip-rule="evenodd" />
 </svg>

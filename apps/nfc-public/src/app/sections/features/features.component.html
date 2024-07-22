@@ -20,7 +20,7 @@
           item.color
         }}"
         [ngClass]="{
-          'pointer-events-none scale-150 !saturate-100': item.id === selectedId
+          'pointer-events-none scale-150 !saturate-100 ': item.id === selectedId
         }"
         id="feature-{{ item.id }}"
         [innerHTML]="item.icon"
