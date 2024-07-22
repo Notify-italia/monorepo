@@ -15,7 +15,7 @@
     >
       @for (item of features; track $index) {
       <button
-        (click)="updateSelected(item.id)"
+        (click)="updateSelected(item.id); carouselTouched$.next()"
         class="mask mask-squircle size-16 shrink-0 items-center flex flex-col justify-center smooth hover:scale-110 saturate-0 {{
           item.color
         }}"
