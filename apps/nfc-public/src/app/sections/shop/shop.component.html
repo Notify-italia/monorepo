@@ -1,0 +1,61 @@
+<div class="max-content-width min-h-[100lvh]">
+  <div class="website-section relative">
+    <div class="section-title">Pronto per fare il salto di qualità?</div>
+    <div class="section-subtitle mt-5">
+      <p>
+        Scegli un prodotto e inizia subito a rivoluzionare il tuo modo di fare
+        networking.
+      </p>
+    </div>
+
+    <div class="mt-20 flex flex-wrap justify-around w-full">
+      @for (item of products$ | async; track $index) {
+      <div class="wrapper !m-4 border border-gray-300">
+        <div class="container">
+          <div
+            class="top object-cover bg-cover bg-center bg-no-repeat"
+            [ngStyle]="
+              buildCssImgUrl(
+                item.defaultOptionsOverrides.variationOverrides.mediaItems[0]
+                  .imageOriginalUrl
+              )
+            "
+          ></div>
+          <div class="bottom">
+            <div class="left">
+              <div class="details">
+                <h1>{{ item.name }}</h1>
+                <p>
+                  {{
+                    item.defaultOptionsOverrides.pricesOverrides
+                      .basePriceWithModifiersDiscountAndTaxes
+                  }}
+                </p>
+              </div>
+              <div class="buy">
+                <i class="material-icons">add_shopping_cart</i>
+              </div>
+            </div>
+            <div class="right">
+              <div class="done"><i class="material-icons">done</i></div>
+              <div class="details">
+                <h1>Chair</h1>
+                <p>Added to your cart</p>
+              </div>
+              <div class="remove"><i class="material-icons">clear</i></div>
+            </div>
+          </div>
+        </div>
+        <div class="inside">
+          <div class="icon"><i class="material-icons">info_outline</i></div>
+          <div class="inside-contents">
+            <div class="flex flex-col justify-center items-center text-white">
+              <small [innerHTML]="item.description"></small>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>

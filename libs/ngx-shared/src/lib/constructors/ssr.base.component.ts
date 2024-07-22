@@ -9,4 +9,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class SSRBaseComponent {
   @Output() public componentStable = new EventEmitter<void>();
+
+  public componentIsStable(): void {
+    this.componentStable.emit();
+  }
 }

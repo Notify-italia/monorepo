@@ -1,14 +1,14 @@
-<div class="max-content-width min-h-[100lvh]">
-  <div class="website-section relative">
-    <div class="section-title">Dai un'occhiata a quello che ci rende unici</div>
+<div class="max-content-width min-h-[100lvh] h-full">
+  <div class="website-section relative w-full h-full">
+    <!-- <div class="section-title">Dai un'occhiata a quello che ci rende unici</div>
     <div class="section-subtitle">
       Scopri alcune delle funzionalità che rendono Notify a misura delle tue
       esigenze e di quelle dei tuoi clienti.
-    </div>
+    </div> -->
 
     <div
       #FeaturesContainer
-      class="w-full flex justify-around mt-20 items-center mb-5 smooth"
+      class="w-full flex justify-around mt-20 items-center mb-5 smooth space-x-16 lg:space-x-0"
       [ngStyle]="{
         translate: 'calc(' + selectedFeatureOffset + 'px )'
       }"
@@ -28,7 +28,9 @@
       }
     </div>
 
-    <div class="flex flex-col space-y-10">
+    <div
+      class="flex flex-col lg:space-y-10 w-full lg:max-w-[80vw] items-center relative"
+    >
       <div class="space-y-2 mt-1 flex flex-col">
         <p
           class="text-center text-xl font-bold font-outfit"
@@ -39,7 +41,7 @@
         </small>
       </div>
       <div
-        class="mockup-browser bg-gray-200 shrink w-full shadow-xl notify-shadow rounded-md"
+        class="mockup-browser bg-gray-200 border border-gray-300 shrink w-full shadow-xl notify-shadow rounded-md hidden lg:block"
       >
         <div class="mockup-browser-toolbar">
           <div class="input !bg-gray-300"></div>
@@ -53,13 +55,15 @@
         </div>
       </div>
 
-      <div
-        *ngIf="selectedFeature?.phoneImage as phoneImage"
-        class="mockup-phone iphone-15-pro scale-75 absolute -right-32 2xl:-right-40 -bottom-32 2xl:-bottom-24 shadow-lg"
-      >
-        <notify-mockup-fill></notify-mockup-fill>
-        <div class="display">
-          <img [src]="phoneImage" alt="Notify Features" class="size-full" />
+      <div class="flex justify-center items-center -m-10 lg:m-0">
+        <div
+          *ngIf="selectedFeature?.phoneImage as phoneImage"
+          class="mockup-phone iphone-15-pro scale-75 lg:scale-50 2xl:scale-75 shadow-lg lg:absolute -right-32 lg:-bottom-48 2xl:-bottom-24"
+        >
+          <notify-mockup-fill></notify-mockup-fill>
+          <div class="display">
+            <img [src]="phoneImage" alt="Notify Features" class="size-full" />
+          </div>
         </div>
       </div>
     </div>
