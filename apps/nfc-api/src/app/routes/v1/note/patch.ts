@@ -1,11 +1,18 @@
+import { EnumNotificationTypes, INotifyUser } from '@notify/interfaces';
 import {
   BadRequestError,
+  getContactName,
+  getProfile,
+  Note,
   NOTE_VALIDATION_MESSAGES,
+  NoteDocument,
   NoteModel,
   requestHandler,
 } from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { body, query } from 'express-validator';
+import { Types } from 'mongoose';
+import { createNotification } from '../../../services/service.notifications';
 
 //boilderplate for a post request to create an agent
 const router = Router();
@@ -44,3 +51,38 @@ router.patch(
 );
 
 export { router as patchNoteRouter };
+
+const _newEditorNotification = async (
+  noteDoc: NoteDocument,
+  toUpdate: Note,
+  currentUser: INotifyUser
+) => {
+  if (noteDoc.owners.toString() === toUpdate.owners.toString()) {
+    return;
+  }
+
+  const newEditors = toUpdate.owners.filter(
+    (owner) => !noteDoc.owners.includes(owner)
+  );
+
+  if (!newEditors.length) {
+    return;
+  }
+
+  const profile = await getProfile(currentUser._id);
+
+  if (!profile) {
+    return;
+  }
+
+  const userName = getContactName(profile);
+
+  newEditors.forEach(async (editor) => {
+    await createNotification({
+      title: `${toUpdate.title}`,
+      description: `${userName} ti ha aggiunto come editor`,
+      notificationType: EnumNotificationTypes.Info,
+      owner: editor as unknown as Types.ObjectId,
+    });
+  });
+};
