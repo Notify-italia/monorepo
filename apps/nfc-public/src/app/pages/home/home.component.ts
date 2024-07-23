@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, Component, afterNextRender } from '@angular/core';
+import { Component, afterNextRender } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UnknownObject } from '@notify/interfaces';
 import {
   CursorComponent,
   LoadingComponent,
   PixelService,
 } from '@notify/ngx-shared';
-import { Subject, of } from 'rxjs';
+import { Observable, Subject, combineLatest, tap } from 'rxjs';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
 import { CardBuilderComponent } from '../../sections/card-builder/card-builder.component';
@@ -46,20 +47,12 @@ import { SustainabilityComponent } from '../../sections/sustainability/sustainab
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements AfterContentInit {
+export class HomeComponent {
   public instructionsStable$ = new Subject<void>();
   public splashStable$ = new Subject<void>();
   public featuresStable$ = new Subject<void>();
 
-  public stable = false;
-
-  public pageStable$ = of(true); //combineLatest([
-  // this.splashStable$,
-  //this.featuresStable$,
-  //]).pipe(
-  // tap(() => this.scrollToElement()),
-  //tap(() => (this.stable = true))
-  //);
+  public pageStable$ = new Observable<UnknownObject>();
 
   constructor(
     private _pixel: PixelService,
@@ -67,11 +60,11 @@ export class HomeComponent implements AfterContentInit {
   ) {
     afterNextRender(() => {
       this._pixel.track('ViewContent');
+      this.pageStable$ = combineLatest([
+        // this.splashStable$,
+        this.featuresStable$,
+      ]).pipe(tap(() => this.scrollToElement()));
     });
-  }
-
-  public ngAfterContentInit() {
-    this.pageStable$.subscribe();
   }
 
   public scrollToElement() {

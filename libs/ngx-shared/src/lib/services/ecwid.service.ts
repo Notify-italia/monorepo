@@ -1,7 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, inject, Injectable } from '@angular/core';
-import { CatalogResponse } from '@notify/interfaces';
-import { map } from 'rxjs';
+import {
+  afterNextRender,
+  Inject,
+  inject,
+  Injectable,
+  Renderer2,
+} from '@angular/core';
+import { CatalogResponse, UnknownObject } from '@notify/interfaces';
+import { map, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +15,66 @@ import { map } from 'rxjs';
 export class EcwidService {
   private _http = inject(HttpClient);
 
-  constructor(@Inject('storeId') private storeId: number) {}
+  constructor(@Inject('storeId') private storeId: number) {
+    afterNextRender(() => {
+      (window as UnknownObject)._ecwidLoaded$ = new Subject<{
+        ec: UnknownObject;
+        Ecwid: UnknownObject;
+      }>();
+
+      (window as UnknownObject)._ecwidLoaded$.subscribe(() => {
+        console.log('Ecwid API loaded');
+        console.log(`Ecwid`, (window as UnknownObject).Ecwid);
+        console.log(`ec`, (window as UnknownObject).ec);
+      });
+    });
+  }
+
+  public get Ecwid() {
+    return (window as UnknownObject).Ecwid;
+  }
+
+  public get ec() {
+    return (window as UnknownObject).ec;
+  }
+
+  public initEcwidAPI(renderer: Renderer2) {
+    const script: HTMLScriptElement = renderer.createElement('script');
+    script.setAttribute('type', 'text/javascript');
+    script.setAttribute('charset', 'utf-8');
+    script.setAttribute('data-cfasync', 'false');
+    script.setAttribute(
+      'src',
+      `https://app.ecwid.com/script.js?${this.storeId}`
+    );
+    script.onload = () => {
+      const ecwidBrowserScript = document.createElement('script');
+      ecwidBrowserScript.setAttribute('type', 'text/javascript');
+      ecwidBrowserScript.setAttribute('charset', 'utf-8');
+      ecwidBrowserScript.text = `Ecwid.init(); Ecwid.OnAPILoaded.add(() => {
+      window.ec = window.ec || Object();
+      window.Ecwid = window.Ecwid || Object();
+      this.ec.config.store_main_page_url = 'http://localhost:4200/shop';
+      window._ecwidLoaded$.next({
+        ec: window.ec,
+        Ecwid: window.Ecwid,});
+
+      });`;
+      // ecwidBrowserScript.text = `xProduct("id=my-store-${storeId}")`;
+
+      document.head.appendChild(ecwidBrowserScript);
+    };
+
+    renderer.appendChild(
+      document.getElementById('ecwidCardWidgetScript'),
+      script
+    );
+  }
+
+  private handleEcwidScriptLoad() {
+    console.log('Ecwid API loaded', this.ec);
+    this.ec.config.store_main_page_url = 'http://www.example.com/store.html';
+  }
 
   public getProducts() {
     return this._http

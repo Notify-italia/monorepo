@@ -1,3 +1,4 @@
+import { IMAGE_CONFIG } from '@angular/common';
 import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -32,5 +33,12 @@ export const appConfig: ApplicationConfig = {
       projectId: 'l2q2lfi4bb',
     }),
     provideEcwid({ storeId: 104545811 }),
+    {
+      provide: IMAGE_CONFIG,
+      useValue: {
+        disableImageSizeWarning: true,
+        disableImageLazyLoadWarning: true,
+      },
+    },
   ],
 };

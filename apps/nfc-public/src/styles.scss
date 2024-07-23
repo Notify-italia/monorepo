@@ -22,7 +22,7 @@ html {
   }
 
   .section-subtitle {
-    @apply font-medium text-center  text-slate-900/60 px-3 mt-5;
+    @apply font-medium text-center  text-slate-900/60 px-3 mt-5 text-sm lg:text-base;
   }
 }
 
@@ -134,4 +134,12 @@ html {
 .notify-shadow {
   box-shadow: -40px 40px 59px -18px rgb(114 211 179 / 0.6),
     40px -40px 74px -20px rgb(111 165 237 / 0.4);
+}
+
+.fade-down {
+  @apply animate-fade-down animate-once animate-ease-out;
+}
+
+.fade-up-delayed {
+  @apply animate-fade-up animate-once animate-delay-200 animate-ease-out;
 }

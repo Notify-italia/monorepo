@@ -54,7 +54,7 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
         description: `Notify offre un'ampia gamma di opzioni per personalizzare il tuo biglietto digitale. <br /> Scegli tra diversi stili, colori e layout per creare un biglietto che rispecchi al meglio la tua personalità e il tuo brand.`,
         // image: 'assets/images/personalization.webp',
         icon: `<svg fill="currentColor" class="size-8 pointer-events-none" data-src="https://s2.svgbox.net/materialui.svg?ic=color_lens" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24" color="" data-id="svg-loader_1"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 3a9 9 0 000 18c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path></svg>`,
-        color: 'bg-blue-400/20 text-blue-400',
+        color: '!bg-blue-400/20 !text-blue-400',
         desktopImage: this._getFromS3('desktop-profile.webp'),
         phoneImage: this._getFromS3('phone-profile.webp'),
       },
@@ -63,7 +63,7 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
         title: 'Un tocco personale ad ogni incontro',
         description: `Ogni cliente è unico e così deve essere il modo in cui viene trattato. <br /> Con <i>Progetti</i>, puoi annotare dettagli importanti, ricordi o promemoria per poi condividerli col cliente o con i tuoi colleghi.`,
         icon: `<svg fill="currentColor" class="size-8 pointer-events-none" data-src="https://s2.svgbox.net/materialui.svg?ic=notes" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24" color="" data-id="svg-loader_2"><path d="M0 0h24v24H0V0z" fill="none"></path><path d="M3 18h12v-2H3v2zM3 6v2h18V6H3zm0 7h18v-2H3v2z"></path></svg>`,
-        color: 'bg-red-400/20 text-red-400',
+        color: '!bg-red-400/20 !text-red-400',
         desktopImage: this._getFromS3('desktop-projects.webp'),
         phoneImage: this._getFromS3('phone-projects.webp'),
       },
@@ -76,7 +76,7 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
   <path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z" />
 </svg>
 `,
-        color: 'bg-green-400/20 text-green-400',
+        color: '!bg-green-400/20 !text-green-400',
         desktopImage: this._getFromS3('desktop-leads.webp'),
         phoneImage: this._getFromS3('phone-leads.webp'),
       },
@@ -86,7 +86,7 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
         description: `Condividi documenti, presentazioni e file multimediali con i tuoi contatti in modo rapido e sicuro. <br /> <i>Invia File</i> ti permette di inviare file di qualsiasi dimensione senza dover ricorrere a servizi di terze parti.`,
         // image: 'assets/images/file-sharing.webp',
         icon: `<svg fill="currentColor" class="size-8 pointer-events-none" data-src="https://s2.svgbox.net/octicons.svg?ic=download" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" color="" data-id="svg-loader_5"><path d="M4.97 11.03a.75.75 0 111.06-1.06L11 14.94V2.75a.75.75 0 011.5 0v12.19l4.97-4.97a.75.75 0 111.06 1.06l-6.25 6.25a.75.75 0 01-1.06 0l-6.25-6.25zm-.22 9.47a.75.75 0 000 1.5h14.5a.75.75 0 000-1.5H4.75z"></path></svg>`,
-        color: 'bg-orange-400/20 text-orange-400',
+        color: '!bg-orange-400/20 !text-orange-400',
         desktopImage: this._getFromS3('desktop-sharing.webp'),
         phoneImage: this._getFromS3('phone-sharing.webp'),
       },
@@ -100,7 +100,7 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
 </svg>
 
 `,
-        color: 'bg-teal-400/20 text-teal-400',
+        color: '!bg-teal-400/20 !text-teal-400',
         desktopImage: this._getFromS3('desktop-coworking.webp'),
         phoneImage: this._getFromS3('phone-coworking.webp'),
       },
@@ -114,15 +114,16 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
 </svg>
 
 `,
-        color: 'bg-lime-400/20 text-lime-400',
+        color: '!bg-lime-400/20 !text-lime-400',
         desktopImage: this._getFromS3('desktop-team.webp'),
+        phoneImage: this._getFromS3('phone-team.webp'),
       },
       {
         id: 'feedback',
         title: 'Dimentica le congetture',
         description: `Ricevi feedback in tempo reale dalle persone che visualizzano il tuo profilo, <br /> Scopri cosa funziona e cosa può essere migliorato per stupire ancora di più nel prossimo incontro.`,
         icon: `<svg fill="currentColor" class="size-8 pointer-events-none" data-src="https://s2.svgbox.net/materialui.svg?ic=star" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24" color="" data-id="svg-loader_3"><path d="M0 0h24v24H0z" fill="none"></path><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>`,
-        color: 'bg-yellow-400/20 text-yellow-400',
+        color: '!bg-yellow-400/20 !text-yellow-400',
         desktopImage: this._getFromS3('desktop-feedback.webp'),
         phoneImage: this._getFromS3('phone-feedbacks.webp'),
       },
@@ -132,7 +133,7 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
         description: `Ottieni insights dettagliati sulle interazioni con il tuo biglietto digitale,<br /> Non si tratta solo di fare una bella impressione ma di capire come farla al meglio.`,
         // image: 'assets/images/dashboard.webp',
         icon: `<svg fill="currentColor" class="size-8 pointer-events-none" data-src="https://s2.svgbox.net/materialui.svg?ic=show_chart" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24" color="" data-id="svg-loader_4"><path d="M0 0h24v24H0z" fill="none"></path><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"></path></svg>`,
-        color: 'bg-purple-400/20 text-purple-400',
+        color: '!bg-purple-400/20 !text-purple-400',
         desktopImage: this._getFromS3('desktop-analytics.webp'),
         phoneImage: this._getFromS3('phone-analytics.webp'),
       },

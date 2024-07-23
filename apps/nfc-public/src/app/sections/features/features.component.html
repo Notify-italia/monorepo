@@ -16,12 +16,12 @@
       @for (item of features; track $index) {
       <button
         (click)="updateSelected(item.id); carouselTouched$.next()"
-        class="mask mask-squircle size-16 shrink-0 items-center flex flex-col justify-center smooth hover:scale-110 saturate-0 {{
-          item.color
-        }}"
-        [ngClass]="{
-          'pointer-events-none scale-150 !saturate-100 ': item.id === selectedId
-        }"
+        class="mask mask-squircle size-16 shrink-0 items-center flex flex-col justify-center smooth hover:scale-110 saturate-0 bg-gray-200/50 text-gray-400"
+        [ngClass]="
+          item.id === selectedId
+            ? 'pointer-events-none scale-150 !saturate-100 ' + item.color
+            : ''
+        "
         id="feature-{{ item.id }}"
         [innerHTML]="item.icon"
       ></button>
@@ -31,13 +31,16 @@
     <div
       class="flex flex-col lg:space-y-10 w-full lg:max-w-[80vw] items-center relative"
     >
-      <div class="space-y-2 mt-1 flex flex-col">
+      <div class="space-y-2 mt-1 flex-col absolute lg:static">
         <p
           class="text-center text-xl font-bold font-outfit"
           [innerHTML]="selectedFeature?.title"
         ></p>
         <small>
-          <p class="text-center" [innerHTML]="selectedFeature?.description"></p>
+          <p
+            class="text-center mt-3 lg:mt-2"
+            [innerHTML]="selectedFeature?.description"
+          ></p>
         </small>
       </div>
       <div
@@ -55,7 +58,7 @@
         </div>
       </div>
 
-      <div class="flex justify-center items-center -m-10 lg:m-0">
+      <div class="flex justify-center items-center -m-10 mt-20 lg:m-0">
         <div
           *ngIf="selectedFeature?.phoneImage as phoneImage"
           class="mockup-phone iphone-15-pro scale-75 lg:scale-50 2xl:scale-75 shadow-lg lg:absolute -right-32 lg:-bottom-48 2xl:-bottom-24"

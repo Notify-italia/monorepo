@@ -1,20 +1,22 @@
 <div class="max-content-width h-[55lvh] lg:h-[40lvh]">
   <div class="website-section !justify-center">
-    <div class="flex flex-col space-y-4 lg:max-w-[70vw] items-center">
-      <h1 class="splash-header">
+    <div class="flex flex-col space-y-4 items-center">
+      <h1 class="splash-header fade-down">
+        <p>Il <span class="text-secondary-500">networking</span>,</p>
         <p>
-          Fare <span class="text-secondary-500"> networking</span>, <br />
           non è mai stato così
-          <span class="text-primary-500 brightness-110"> semplice</span>.
+          <span class="text-primary-500 brightness-110">semplice</span>.
         </p>
       </h1>
 
-      <div class="flex flex-col lg:mx-20 px-5 lg:px-10 space-y-10">
-        <p class="splash-subtitle">
-          <span> Non preoccuparti più di lasciare biglietti da visita, </span>
-          <br />
-          <span>adesso ci pensiamo noi.</span>
-        </p>
+      <div class="flex flex-col lg:mx-20 px-2 lg:px-10 space-y-10">
+        <div class="splash-subtitle fade-up-delayed">
+          <p class="">
+            Non preoccuparti più di ri-stampare biglietti da visita,
+          </p>
+
+          <p>adesso ci pensiamo noi.</p>
+        </div>
         <div>
           <button
             class="splash-cta smooth smooth-slower notify-shadow mt-5 2xl:mt-10"
@@ -36,7 +38,7 @@
               />
             </svg>
           </button>
-          <div class="text-center">
+          <div class="text-center text-sm lg:text-base">
             <small>
               <a class="link opacity-75" (click)="openCalendlyPopup()"
                 >Oppure, richiedi una demo</a

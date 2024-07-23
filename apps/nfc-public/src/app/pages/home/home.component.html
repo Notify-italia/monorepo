@@ -2,7 +2,7 @@
   <div
     class="fixed w-full h-full top-0 left-0 z-[999] bg-black smooth"
     [ngClass]="{
-      'opacity-0 pointer-events-none': pageStable$ | async
+      'opacity-0 pointer-events-none': pageStable$ | async,
     }"
   >
     <notify-loading></notify-loading>
@@ -16,12 +16,11 @@
     <div class="w-full h-full flex flex-col relative p-5 space-y-14">
       <notify-top-nav></notify-top-nav>
 
-      <notify-splash
-        id="splash"
-        (componentStable)="splashStable$.next()"
-      ></notify-splash>
+      <notify-splash id="splash"></notify-splash>
 
-      <notify-features></notify-features>
+      <notify-features
+        (componentStable)="featuresStable$.next()"
+      ></notify-features>
 
       <div class="divider" id="shop"></div>
 
