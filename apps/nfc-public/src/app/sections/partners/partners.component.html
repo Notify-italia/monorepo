@@ -1,14 +1,8 @@
-<div class="max-content-width">
-  <div class="w-full flex flex-col justify-center items-center h-full">
-    <!-- ? AUMENTA lg:grid-cols-n se aumenti gli items in questo for -->
-    <div class="slider grid-cols-2 lg:grid-cols-4">
+<div class="flex justify-center items-center w-[120vw]">
+  <div class="marquee w-full">
+    <ul class="marquee-content w-full">
       @for (item of partners; track $index) {
-
-      <button
-        class="slide smooth cursor-pointer intersect:animate-jump-in animate-duration-500 animate-ease-out animate-normal opacity-0 intersect:opacity-100"
-        [title]="item.title"
-        (click)="showProfile(item.profile)"
-      >
+      <li [title]="item.title" class="">
         <img
           loading="lazy"
           [src]="item.image"
@@ -22,9 +16,8 @@
         >
           <!-- {{ item.title }} -->
         </h1>
-      </button>
-
+      </li>
       }
-    </div>
+    </ul>
   </div>
 </div>

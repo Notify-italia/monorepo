@@ -20,7 +20,6 @@ export class AppComponent implements OnInit {
   private _ecwid = inject(EcwidService);
   private _renderer = inject(Renderer2);
   private _platformId = inject(PLATFORM_ID);
-  constructor() {}
 
   ngOnInit() {
     if (!isPlatformBrowser(this._platformId)) {

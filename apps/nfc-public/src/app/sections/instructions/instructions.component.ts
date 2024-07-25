@@ -31,19 +31,17 @@ export class InstructionsComponent
 
   public steps = [
     {
-      title: 'Richiedi',
-      description:
-        'Contattaci tramite il form di contatto per scegliere il piano perfetto per la tua azienda e informarci sul design delle tue tessere, il nostro team è pronto a supportarti in ogni fase',
+      title: 'Prova.',
+      description: `<p>Apri <a class="link" target="_blank" href="https://aziende.notifyapp.it">aziende.notifyapp.it</a> su un qualsiasi browser e crea un account aziendale senza alcun impegno. Potrai dare un'occhiata a come Notify ti aiuterà a trasformare il tuo business.</p>`,
     },
     {
-      title: 'Iscriviti',
-      description:
-        'Vai su aziende.notifyapp.it, crea un account master e immetti la tua licenza dopo aver eseguito il login',
+      title: 'Acquista.',
+      description: `<p>Se Ritieni che Notify sia all'altezza delle tue necessità di networking, visita il nostro <a class="link" target="_blank" href="https://notifyapp.it/shop">shop</a>, scegli il piano che fa per te e procedi con l'acquisto.</p>`,
     },
     {
-      title: 'Esplora ',
+      title: 'Enjoy.',
       description:
-        'Crea il tuo profilo aziendale e gli accounts per i tuoi dipendenti, distribuisci le tessere ai tuoi collaboratori e inizia subito la tua avventura spaziale!',
+        '<p> Vai nelle impostazioni del tuo account aziendale, inserisci la licenza ricevuta via email e goditi Notify al massimo delle sue potenzialità!</p>',
     },
   ];
 

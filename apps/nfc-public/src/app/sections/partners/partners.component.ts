@@ -1,18 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { ProfilePlayerFactory, ProfileService } from '@notify/ngx-shared';
-import { tap } from 'rxjs';
-import { environment } from '../../../environments/environment.prod';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'notify-partners',
   standalone: true,
   imports: [CommonModule],
-  providers: [ProfilePlayerFactory, ProfileService],
   templateUrl: './partners.component.html',
   styleUrl: './partners.component.scss',
 })
-export class PartnersComponent {
+export class PartnersComponent implements OnInit {
   public partners = [
     {
       title: 'Recivu',
@@ -44,25 +40,32 @@ export class PartnersComponent {
       class: 'p-3  opacity-75',
       image: '/assets/partners/menumal.webp',
     },
+    {
+      title: 'Green - Glam Restaurant',
+      profile: 'green',
+      class: 'p-2',
+      image: '/assets/partners/green.webp',
+    },
   ];
 
-  constructor(
-    private _profileService: ProfileService,
-    private _profilePlayer: ProfilePlayerFactory
-  ) {}
+  ngOnInit() {
+    const root = document.documentElement;
+    const marqueeElementsDisplayed = getComputedStyle(root).getPropertyValue(
+      '--marquee-elements-displayed'
+    );
+    const marqueeContent = document.querySelector('ul.marquee-content');
 
-  public showProfile(id: string) {
-    this._profileService
-      .getProfile(id)
-      .pipe(
-        tap((v) =>
-          this._profilePlayer.create({
-            profile: v,
-            baseUrl: environment.profilesUrl,
-            hideShare: true,
-          })
-        )
-      )
-      .subscribe();
+    console.log(`childrne`, marqueeContent?.children);
+
+    if (!marqueeContent?.children.length) return;
+
+    root.style.setProperty(
+      '--marquee-elements',
+      marqueeContent.children.length as unknown as string
+    );
+
+    for (let i = 0; i < Number(marqueeElementsDisplayed); i++) {
+      marqueeContent.appendChild(marqueeContent.children[i].cloneNode(true));
+    }
   }
 }

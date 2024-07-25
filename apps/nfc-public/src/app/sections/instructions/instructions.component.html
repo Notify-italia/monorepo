@@ -2,25 +2,24 @@
   class="w-full relative min-h-[30rem] flex flex-col justify-center items-center 2xl:p-10"
 >
   <div class="website-section">
-    <h1 class="section-title">"Si ma come funziona? 🤔"</h1>
+    <h1 class="section-title">Jump in, senza stress.</h1>
   </div>
   <div
-    class="flex flex-col lg:flex-row justify-center lg:space-x-20 w-full mt-5 h-full items-center"
+    class="flex flex-col lg:flex-row justify-center lg:space-x-20 w-full lg:mt-5 h-full items-center"
   >
     <div
       *ngIf="demoProfile$ | async as demo"
-      class="iphone-15-pro scale-75 lg:scale-90 2xl:scale-100"
+      class="iphone-15-pro scale-75 lg:scale-[.7] 2xl:scale-100"
     >
       <notify-profile-view
         *SSR
         [mockup]="true"
-        class="scale-[80%] lg:scale-[70%] 2xl:scale-100"
         [data]="demo"
         (componentReady)="componentStable.emit(); isProfileReady = true"
       ></notify-profile-view>
     </div>
     <div
-      class="w-10/12 lg:w-6/12 flex flex-col h-full min-h-[80vh] lg:min-h-[50vh] justify-around"
+      class="w-10/12 lg:w-6/12 flex flex-col h-full min-h-[80vh] lg:min-h-[50vh] justify-around space-y-10"
     >
       @for (item of steps; track $index) {
       <div class="flex flex-col w-full">
@@ -28,7 +27,9 @@
           <div
             class="intersect:animate-fade-right animate-ease-out smooth opacity-0 intersect:opacity-100 smooth"
           >
-            <div class="neon w-20">
+            <div
+              class="font-ebGaramond text-center text-[12vh] w-20 text-secondary-300"
+            >
               <b
                 [ngClass]="{
                   'blink -z-1': $index % 2 === 1
@@ -39,12 +40,15 @@
             </div>
           </div>
           <span
-            class="font-bold text-4xl font-rocaTwoBold intersect:animate-fade-down animate-ease-out opacity-0 intersect:opacity-100 smooth"
+            class="intersect:animate-fade-down animate-ease-out opacity-0 intersect:opacity-100 smooth"
           >
-            {{ item.title }}
-            <div class="flex space-x-2 font-normal text-base font-mulish">
-              {{ item.description }}
-            </div>
+            <h2 class="font-bold text-4xl font-outfit">
+              {{ item.title }}
+            </h2>
+            <div
+              class="flex space-x-2 font-normal"
+              [innerHTML]="item.description"
+            ></div>
           </span>
         </div>
       </div>

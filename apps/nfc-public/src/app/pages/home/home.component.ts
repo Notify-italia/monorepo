@@ -22,6 +22,7 @@ import { ShopComponent } from '../../sections/shop/shop.component';
 import { SoftwareOnlyComponent } from '../../sections/software-only/software-only.component';
 import { SplashComponent } from '../../sections/splash/splash.component';
 import { SustainabilityComponent } from '../../sections/sustainability/sustainability.component';
+import { TrustedByComponent } from '../../sections/trusted-by/trusted-by.component';
 
 @Component({
   standalone: true,
@@ -43,6 +44,7 @@ import { SustainabilityComponent } from '../../sections/sustainability/sustainab
     SoftwareOnlyComponent,
     ProfileBuilderComponent,
     ShopComponent,
+    TrustedByComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

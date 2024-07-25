@@ -1,4 +1,4 @@
-<div class="max-content-width min-h-[100lvh] h-full">
+<div class="max-content-width h-full">
   <div class="website-section relative w-full h-full">
     <!-- <div class="section-title">Dai un'occhiata a quello che ci rende unici</div>
     <div class="section-subtitle">
@@ -18,9 +18,7 @@
         (click)="updateSelected(item.id); carouselTouched$.next()"
         class="mask mask-squircle size-16 shrink-0 items-center flex flex-col justify-center smooth hover:scale-110 saturate-0 bg-gray-200/50 text-gray-400"
         [ngClass]="
-          item.id === selectedId
-            ? 'pointer-events-none scale-150 !saturate-100 ' + item.color
-            : ''
+          item.id === selectedId ? 'scale-150 !saturate-100 ' + item.color : ''
         "
         id="feature-{{ item.id }}"
         [innerHTML]="item.icon"

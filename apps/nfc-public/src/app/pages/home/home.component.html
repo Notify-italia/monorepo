@@ -13,25 +13,27 @@
     class="h-full w-full flex flex-col overflow-hidden scroll-smooth text-slate-900 bg-slate-50"
   >
     <!-- SPLASH E TOP NAV -->
-    <div class="w-full h-full flex flex-col relative p-5 space-y-14">
-      <notify-top-nav></notify-top-nav>
+    <div class="w-full h-full flex flex-col relative">
+      <notify-top-nav class="p-5"></notify-top-nav>
 
-      <notify-splash id="splash"></notify-splash>
+      <notify-splash id="splash" class="p-5"></notify-splash>
 
       <notify-features
         (componentStable)="featuresStable$.next()"
+        class="p-5 pb-10 mt-10"
       ></notify-features>
 
-      <div class="divider" id="shop"></div>
+      <notify-trusted-by></notify-trusted-by>
 
-      <notify-shop></notify-shop>
+      <notify-instructions class="p-5 -mt-20"></notify-instructions>
 
-      <div class="divider"></div>
+      <notify-shop class="mt-20 p-5"></notify-shop>
+
+      <div class="divider p-5"></div>
 
       <notify-questions></notify-questions>
-    </div>
 
-    <!-- <notify-profile-builder></notify-profile-builder>
+      <!-- <notify-profile-builder></notify-profile-builder>
 
       <div class="divider"></div>
       <notify-features
@@ -49,6 +51,7 @@
     <notify-questions></notify-questions>
 
     <notify-contact-us id="contactus" class="mt-20"></notify-contact-us> -->
-    <notify-footer class="z-10 mt-20"></notify-footer>
+      <notify-footer class="z-10 mt-20"></notify-footer>
+    </div>
   </div>
 </div>
