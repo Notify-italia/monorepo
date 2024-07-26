@@ -38,7 +38,7 @@ export class InstructionsComponent
   public steps = [
     {
       title: 'Prova.',
-      description: `<p>Apri <a class="link" target="_blank" href="https://aziende.notifyapp.it">aziende.notifyapp.it</a> su un qualsiasi browser e crea un account aziendale senza alcun impegno. Potrai dare un'occhiata a come Notify ti aiuterà a trasformare il tuo business.</p>`,
+      description: `<p>Apri <a class="link" target="_blank" href="https://aziende.notifyapp.it/signup">aziende.notifyapp.it</a> su un qualsiasi browser e crea un account aziendale senza alcun impegno. Potrai dare un'occhiata a come Notify ti aiuterà a trasformare il tuo business.</p>`,
     },
     {
       title: 'Acquista.',
