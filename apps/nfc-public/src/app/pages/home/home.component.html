@@ -1,4 +1,4 @@
-<div class="flex justify-center font-poppins notify-scrollbar scroll-smooth">
+<div class="flex justify-center font-poppins">
   <div
     class="fixed w-full h-lscreen top-0 left-0 z-[999] bg-slate-50 smooth"
     [ngClass]="{
@@ -24,37 +24,19 @@
         class="p-5 pb-10 mt-10 z-10"
       ></notify-features>
 
-      <notify-trusted-by id="trustedby" class="-mt-10"></notify-trusted-by>
+      <notify-trusted-by id="trustedby" class="-mt-10 z-0"></notify-trusted-by>
 
       <notify-instructions
         id="instructions"
-        class="p-5 -mt-20 lax lax_preset_fadeInOut:301.5:0 lax_preset_blurInOut:188:20"
+        class="p-5 -mt-20"
       ></notify-instructions>
 
-      <notify-shop class="mt-20 p-5"></notify-shop>
+      <notify-shop class="mt-20 p-5" id="shop"></notify-shop>
 
       <div class="divider p-5"></div>
 
-      <notify-questions class="p-5"></notify-questions>
+      <notify-questions class="p-5" id="questions"></notify-questions>
 
-      <!-- <notify-profile-builder></notify-profile-builder>
-
-      <div class="divider"></div>
-      <notify-features
-        id="features"
-        (componentStable)="featuresStable$.next()"
-      ></notify-features>
-    </div>
-
-    <div class="divider"></div>
-
-    <notify-partners id="partners"></notify-partners>
-
-    <div class="divider"></div>
-
-    <notify-questions></notify-questions>
-
-    <notify-contact-us id="contactus" class="mt-20"></notify-contact-us> -->
       <notify-footer class="z-10 mt-20"></notify-footer>
     </div>
   </div>

@@ -8,6 +8,7 @@ import {
 import {
   ProfileService,
   ProfileViewComponent,
+  SplineViewerComponent,
   SSRBaseComponent,
   SSRDirective,
 } from '@notify/ngx-shared';
@@ -16,7 +17,12 @@ import { Observable, of } from 'rxjs';
 @Component({
   selector: 'notify-instructions',
   standalone: true,
-  imports: [CommonModule, SSRDirective, ProfileViewComponent],
+  imports: [
+    CommonModule,
+    SSRDirective,
+    ProfileViewComponent,
+    SplineViewerComponent,
+  ],
   providers: [ProfileService],
   templateUrl: './instructions.component.html',
   styleUrl: './instructions.component.scss',

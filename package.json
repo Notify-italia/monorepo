@@ -36,7 +36,7 @@
     "@sentry/browser": "^7.102.1",
     "@sentry/bun": "^7.103.0",
     "@splinetool/runtime": "^1.0.55",
-    "@splinetool/viewer": "^1.0.55",
+    "@splinetool/viewer": "^1.9.3",
     "angularx-qrcode": "^17.0.0",
     "animate.css": "^4.1.1",
     "apexcharts": "^3.45.2",

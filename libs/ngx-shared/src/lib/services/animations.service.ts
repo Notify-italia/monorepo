@@ -47,7 +47,7 @@ export class AnimationsService {
           EnumAnimationsDrivers.ScrollY
         );
 
-        const maxBlur = 5;
+        const maxBlur = 2;
         const minScale = 0.9;
 
         return {
@@ -96,9 +96,13 @@ export class AnimationsService {
   }
 
   public declareAnimation(
-    element: HTMLElement | null,
+    element: HTMLElement | string | null,
     transformers: Transformer
   ) {
+    if (typeof element === 'string') {
+      element = document.querySelector(element) as HTMLElement;
+    }
+
     if (!element) {
       return;
     }
