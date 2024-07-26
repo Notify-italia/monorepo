@@ -1,6 +1,6 @@
-<div class="flex justify-center scroll-smooth font-poppins">
+<div class="flex justify-center font-poppins notify-scrollbar scroll-smooth">
   <div
-    class="fixed w-full h-full top-0 left-0 z-[999] bg-black smooth"
+    class="fixed w-full h-lscreen top-0 left-0 z-[999] bg-slate-50 smooth"
     [ngClass]="{
       'opacity-0 pointer-events-none': pageStable$ | async,
     }"
@@ -10,7 +10,7 @@
   <!-- <notify-cursor></notify-cursor> -->
 
   <div
-    class="h-full w-full flex flex-col overflow-hidden scroll-smooth text-slate-900 bg-slate-50"
+    class="h-full w-full flex flex-col overflow-hidden text-slate-900 bg-slate-50"
   >
     <!-- SPLASH E TOP NAV -->
     <div class="w-full h-full flex flex-col relative">
@@ -19,19 +19,23 @@
       <notify-splash id="splash" class="p-5"></notify-splash>
 
       <notify-features
+        id="features"
         (componentStable)="featuresStable$.next()"
-        class="p-5 pb-10 mt-10"
+        class="p-5 pb-10 mt-10 z-10"
       ></notify-features>
 
-      <notify-trusted-by></notify-trusted-by>
+      <notify-trusted-by id="trustedby" class="-mt-10"></notify-trusted-by>
 
-      <notify-instructions class="p-5 -mt-20"></notify-instructions>
+      <notify-instructions
+        id="instructions"
+        class="p-5 -mt-20 lax lax_preset_fadeInOut:301.5:0 lax_preset_blurInOut:188:20"
+      ></notify-instructions>
 
       <notify-shop class="mt-20 p-5"></notify-shop>
 
       <div class="divider p-5"></div>
 
-      <notify-questions></notify-questions>
+      <notify-questions class="p-5"></notify-questions>
 
       <!-- <notify-profile-builder></notify-profile-builder>
 

@@ -1,29 +1,30 @@
-import { CommonModule } from '@angular/common';
-import { Component, afterNextRender } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  HostListener,
+  PLATFORM_ID,
+  afterNextRender,
+  inject,
+} from '@angular/core';
 import { UnknownObject } from '@notify/interfaces';
 import {
-  CursorComponent,
+  AnimationsService,
+  EnumAnimationsDrivers,
   LoadingComponent,
   PixelService,
+  UtilsService,
 } from '@notify/ngx-shared';
-import { Observable, Subject, combineLatest, tap } from 'rxjs';
+import { Observable, Subject, combineLatest } from 'rxjs';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
-import { CardBuilderComponent } from '../../sections/card-builder/card-builder.component';
-import { ContactUsComponent } from '../../sections/contact-us/contact-us.component';
 import { FeaturesComponent } from '../../sections/features/features.component';
 import { InstructionsComponent } from '../../sections/instructions/instructions.component';
-import { PartnersComponent } from '../../sections/partners/partners.component';
-import { PersonalizationComponent } from '../../sections/personalization/personalization.component';
 import { ProfileBuilderComponent } from '../../sections/profile-builder/profile-builder.component';
 import { QuestionsComponent } from '../../sections/questions/questions.component';
 import { ShopComponent } from '../../sections/shop/shop.component';
-import { SoftwareOnlyComponent } from '../../sections/software-only/software-only.component';
 import { SplashComponent } from '../../sections/splash/splash.component';
-import { SustainabilityComponent } from '../../sections/sustainability/sustainability.component';
 import { TrustedByComponent } from '../../sections/trusted-by/trusted-by.component';
-
 @Component({
   standalone: true,
   imports: [
@@ -33,50 +34,108 @@ import { TrustedByComponent } from '../../sections/trusted-by/trusted-by.compone
     FeaturesComponent,
     FooterComponent,
     LoadingComponent,
-    ContactUsComponent,
-    PartnersComponent,
     InstructionsComponent,
-    SustainabilityComponent,
     QuestionsComponent,
-    CursorComponent,
-    PersonalizationComponent,
-    CardBuilderComponent,
-    SoftwareOnlyComponent,
     ProfileBuilderComponent,
     ShopComponent,
     TrustedByComponent,
   ],
+  providers: [AnimationsService, UtilsService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements AfterViewInit {
+  private _platformId = inject(PLATFORM_ID);
+
+  private _pixel = inject(PixelService);
+  private _animationsService = inject(AnimationsService);
+  private _utilsService = inject(UtilsService);
+
   public instructionsStable$ = new Subject<void>();
   public splashStable$ = new Subject<void>();
   public featuresStable$ = new Subject<void>();
 
   public pageStable$ = new Observable<UnknownObject>();
 
-  constructor(
-    private _pixel: PixelService,
-    private _activatedRoute: ActivatedRoute
-  ) {
+  constructor() {
     afterNextRender(() => {
       this._pixel.track('ViewContent');
       this.pageStable$ = combineLatest([
         // this.splashStable$,
         this.featuresStable$,
-      ]).pipe(tap(() => this.scrollToElement()));
+      ]);
     });
   }
 
-  public scrollToElement() {
-    this._activatedRoute.fragment.subscribe((fragment) => {
-      if (fragment) {
-        const element = document.getElementById(fragment);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
+  public ngAfterViewInit() {
+    if (
+      !isPlatformBrowser(this._platformId) ||
+      this._utilsService.currentTailwindMediaQuery() === 'none'
+    ) {
+      return;
+    }
+
+    this._animationsService.declareAnimation(
+      document.querySelector('#instructions'),
+      {
+        scrollY: this._animationsService.presets.blurInOut(),
       }
-    });
+    );
+
+    this._animationsService.declareAnimation(
+      document.querySelector('#features'),
+      {
+        scrollY: this._animationsService.presets.blurInOut(),
+      }
+    );
+
+    this._animationsService.declareAnimation(
+      document.querySelector('#splash'),
+      {
+        scrollY: this._animationsService.presets.blurInOut(),
+      }
+    );
+    this._animationsService.declareAnimation(
+      document.querySelector('#trustedby'),
+      {
+        scrollY: this._animationsService.presets.blurInOut({
+          ignoreScaling: true,
+        }),
+      }
+    );
+
+    this._animationsService.updateDrivers([
+      {
+        driver: EnumAnimationsDrivers.ScrollY,
+        currentValue: window.scrollY,
+      },
+    ]);
   }
+
+  @HostListener('window:scroll')
+  public onScroll() {
+    this._animationsService.updateDriver(
+      EnumAnimationsDrivers.ScrollY,
+      window.scrollY
+    );
+    // this._animationsService.updateDriver(
+    //   EnumAnimationsDrivers.ScrollX,
+    //   window.scrollY
+    // );
+  }
+
+  // @HostListener('window:resize', ['$event'])
+  // public onResize() {
+  //   if (!isPlatformBrowser(this._platformId)) {
+  //     return;
+  //   }
+  //   this._animationsService.updateDriver(
+  //     EnumAnimationsDrivers.PageWidth,
+  //     window.innerWidth
+  //   );
+  //   this._animationsService.updateDriver(
+  //     EnumAnimationsDrivers.PageHeight,
+  //     window.innerHeight
+  //   );
+  // }
 }

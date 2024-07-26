@@ -1,23 +1,14 @@
-<div class="flex justify-center items-center w-[120vw]">
-  <div class="marquee w-full">
-    <ul class="marquee-content w-full">
-      @for (item of partners; track $index) {
-      <li [title]="item.title" class="">
-        <img
-          loading="lazy"
-          [src]="item.image"
-          alt=""
-          class=" {{
-            item.class
-          }} h-24 w-24 object-contain shrink-0 pointer-events-none"
-        />
-        <h1
-          class="text-black/40 text-lg tracking-tighter font-work font-medium ites whitespace-nowrap"
-        >
-          <!-- {{ item.title }} -->
-        </h1>
-      </li>
-      }
-    </ul>
-  </div>
+<div class="marquee">
+  <ul class="marquee-content" #MarqueeContent>
+    @for (item of partners; track $index) {
+    <li [title]="item.title">
+      <img
+        loading="lazy"
+        [src]="item.image"
+        alt=""
+        class=" {{ item.class }} w-32 h-32 object-contain grayscale"
+      />
+    </li>
+    }
+  </ul>
 </div>
