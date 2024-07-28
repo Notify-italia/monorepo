@@ -49,6 +49,7 @@ export class HomeComponent {
       this._pixel.track('ViewContent');
       this.pageStable$ = combineLatest([
         // this.splashStable$,
+        this.instructionsStable$,
         this.featuresStable$,
       ]);
     });

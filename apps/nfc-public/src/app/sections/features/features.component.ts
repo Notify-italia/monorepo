@@ -10,6 +10,7 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import {
   MockupFillComponent,
+  SplineViewerComponent,
   SSRBaseComponent,
   SvgBoxIconComponent,
   UtilsService,
@@ -25,6 +26,7 @@ import { FeatureCardComponent } from '../../components/feature-card/feature-card
     FeatureCardComponent,
     SvgBoxIconComponent,
     MockupFillComponent,
+    SplineViewerComponent,
   ],
   providers: [UtilsService],
   templateUrl: './features.component.html',
@@ -50,7 +52,7 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
     return [
       {
         id: 'profile',
-        title: 'Personalizzazione illimitata',
+        title: 'Il tuo biglietto, la tua personalità',
         description: `Notify offre un'ampia gamma di opzioni per personalizzare il tuo biglietto digitale. <br /> Scegli tra diversi stili, colori e layout per creare un biglietto che rispecchi al meglio la tua personalità e il tuo brand.`,
         // image: 'assets/images/personalization.webp',
         icon: `<svg fill="currentColor" class="size-8 pointer-events-none" data-src="https://s2.svgbox.net/materialui.svg?ic=color_lens" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24" color="" data-id="svg-loader_1"><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 3a9 9 0 000 18c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"></path></svg>`,
@@ -131,14 +133,27 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
         id: 'analytics',
         title: "Statistiche, a colpo d'occhio",
         description: `Ottieni insights dettagliati sulle interazioni con il tuo biglietto digitale,<br /> Non si tratta solo di fare una bella impressione ma di capire come farla al meglio.`,
-        // image: 'assets/images/dashboard.webp',
         icon: `<svg fill="currentColor" class="size-8 pointer-events-none" data-src="https://s2.svgbox.net/materialui.svg?ic=show_chart" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24" color="" data-id="svg-loader_4"><path d="M0 0h24v24H0z" fill="none"></path><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"></path></svg>`,
         color: '!bg-purple-400/20 !text-purple-400',
         desktopImage: this._getFromS3('desktop-analytics.webp'),
         phoneImage: this._getFromS3('phone-analytics.webp'),
       },
+      {
+        id: 'notifications',
+        title: `Non perdere mai un'opportunità`,
+        description: `Come suggerisce il nostro nome, siamo qui per <i>notificarti</i> tutto ciò che è importante per te.
+        <br /> Con le nostre notifiche push in tempo reale per tenerti sempre aggiornato sulle interazioni con il tuo biglietto digitale o con il tuo team.`,
+
+        icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-8 pointer-events-none">
+  <path d="M5.85 3.5a.75.75 0 0 0-1.117-1 9.719 9.719 0 0 0-2.348 4.876.75.75 0 0 0 1.479.248A8.219 8.219 0 0 1 5.85 3.5ZM19.267 2.5a.75.75 0 1 0-1.118 1 8.22 8.22 0 0 1 1.987 4.124.75.75 0 0 0 1.48-.248A9.72 9.72 0 0 0 19.266 2.5Z" />
+  <path fill-rule="evenodd" d="M12 2.25A6.75 6.75 0 0 0 5.25 9v.75a8.217 8.217 0 0 1-2.119 5.52.75.75 0 0 0 .298 1.206c1.544.57 3.16.99 4.831 1.243a3.75 3.75 0 1 0 7.48 0 24.583 24.583 0 0 0 4.83-1.244.75.75 0 0 0 .298-1.205 8.217 8.217 0 0 1-2.118-5.52V9A6.75 6.75 0 0 0 12 2.25ZM9.75 18c0-.034 0-.067.002-.1a25.05 25.05 0 0 0 4.496 0l.002.1a2.25 2.25 0 1 1-4.5 0Z" clip-rule="evenodd" />
+</svg>
+`,
+        color: '!bg-purple-400/20 !text-purple-400',
+        desktopImage: this._getFromS3('desktop-notifications.webp'),
+        phoneImage: this._getFromS3('phone-notifications.webp'),
+      },
     ].map((feature) => {
-      this.componentStable.next();
       return {
         ...feature,
         description: this._domSanitizer.bypassSecurityTrustHtml(
@@ -170,6 +185,11 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
     if (!isPlatformBrowser(this._platformId)) {
       return;
     }
+
+    setTimeout(() => {
+      this.componentIsStable();
+    }, 300);
+
     interval(2500)
       .pipe(
         takeUntil(this.carouselTouched$),

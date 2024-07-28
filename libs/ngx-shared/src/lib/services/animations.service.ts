@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { UnknownObject } from '@notify/interfaces';
 
 export enum EnumAnimationsDrivers {
@@ -35,6 +36,12 @@ type Transformer = {
 
 @Injectable()
 export class AnimationsService {
+  private _platformId = inject(PLATFORM_ID);
+
+  public get isCapable() {
+    return isPlatformBrowser(this._platformId);
+  }
+
   public presets = {
     blurInOut:
       (options?: { ignoreScaling?: boolean }) =>
@@ -86,6 +93,13 @@ export class AnimationsService {
     this._updateAnimations(currentValue);
   }
 
+  public initDriver(
+    driver: EnumAnimationsDrivers,
+    currentValue: _absoluteAnimationsDrivers[EnumAnimationsDrivers]
+  ) {
+    this.updateDriver(driver, currentValue);
+  }
+
   public updateDrivers(
     array: {
       driver: EnumAnimationsDrivers;
@@ -99,6 +113,10 @@ export class AnimationsService {
     element: HTMLElement | string | null,
     transformers: Transformer
   ) {
+    if (!isPlatformBrowser(this._platformId)) {
+      return;
+    }
+
     if (typeof element === 'string') {
       element = document.querySelector(element) as HTMLElement;
     }
@@ -163,6 +181,9 @@ export class AnimationsService {
   // }
 
   private _updateAnimations(currentValue: UnknownObject) {
+    if (!isPlatformBrowser(this._platformId)) {
+      return;
+    }
     this._activeAnimations.forEach((animation) => {
       // if (!this._isElementVisible(animation.element)) {
       //   return;

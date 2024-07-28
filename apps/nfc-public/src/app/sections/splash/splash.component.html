@@ -2,27 +2,31 @@
   <div class="website-section !justify-center">
     <div class="flex flex-col space-y-4 items-center z-10">
       <h1 class="section-title fade-down">
-        <p>Il <span class="text-secondary-500">networking</span>,</p>
         <p>
-          non è mai stato così
-          <span class="text-primary-500 brightness-110">semplice</span>.
+          Il biglietto da visita
+          <span class="text-secondary-500"> digitale</span>,
         </p>
+        <p>per il tuo <span class="text-primary-500"> business</span>.</p>
       </h1>
 
       <div class="flex flex-col lg:mx-20 px-2 lg:px-10 space-y-10">
-        <div class="splash-subtitle fade-up-delayed">
-          <p class="">
-            Non preoccuparti più di ri-stampare biglietti da visita,
+        <div class="splash-subtitle">
+          <p class="fade-up">"commercialisto"? "abbocato"?</p>
+          <p class="fade-up-delayed">
+            errori di battitura e ri-stampe sono un ricordo del passato.
           </p>
-
-          <p>adesso ci pensiamo noi.</p>
+          <!-- <p class="fade-up-delayed">
+            Notify è il primo biglietto da visita costruito con una mentalità
+            team-first.
+          </p> -->
         </div>
-        <div>
+
+        <div class="animate-fade-up">
           <button
-            class="splash-cta smooth smooth-slower notify-shadow mt-5 2xl:mt-10"
+            class="splash-cta smooth smooth-slower notify-shadow mt-5"
             (click)="goToShop()"
           >
-            <div>Acquista ora</div>
+            <div>Sfoglia le cards</div>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -40,13 +44,17 @@
           </button>
           <div class="text-center text-sm lg:text-base">
             <small>
-              <a class="link opacity-75" (click)="openCalendlyPopup()"
+              <a
+                class="link opacity-75 animate-fade"
+                (click)="openCalendlyPopup()"
                 >Oppure, richiedi una demo</a
               >
             </small>
           </div>
         </div>
-        <notify-funded-by></notify-funded-by>
+        <notify-funded-by
+          class="animate-fade-right animate-delay-150 animate-ease-out"
+        ></notify-funded-by>
       </div>
     </div>
   </div>

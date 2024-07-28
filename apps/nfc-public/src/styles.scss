@@ -132,12 +132,16 @@ html {
 }
 
 .notify-shadow {
-  box-shadow: -40px 40px 59px -18px rgb(114 211 179 / 0.6),
-    40px -40px 74px -20px rgb(111 165 237 / 0.4);
+  filter: drop-shadow(-40px 40px 59px -18px rgb(114 211 179 / 0.6))
+    drop-shadow(40px -40px 74px -20px rgb(111 165 237 / 0.4));
 }
 
 .fade-down {
   @apply animate-fade-down animate-once animate-ease-out;
+}
+
+.fade-up {
+  @apply animate-fade-up animate-once animate-ease-out;
 }
 
 .fade-up-delayed {

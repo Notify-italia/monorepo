@@ -1,18 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, Component } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import {
-  EnumNotifyUserType,
-  INotifyProfile,
-  NotifyPopulatedNote,
-} from '@notify/interfaces';
-import {
-  ProfileService,
+  AnimationsService,
+  EnumAnimationsDrivers,
   ProfileViewComponent,
   SplineViewerComponent,
   SSRBaseComponent,
   SSRDirective,
 } from '@notify/ngx-shared';
-import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'notify-instructions',
@@ -23,18 +18,12 @@ import { Observable, of } from 'rxjs';
     ProfileViewComponent,
     SplineViewerComponent,
   ],
-  providers: [ProfileService],
+  providers: [AnimationsService],
   templateUrl: './instructions.component.html',
   styleUrl: './instructions.component.scss',
 })
-export class InstructionsComponent
-  extends SSRBaseComponent
-  implements AfterContentInit
-{
-  public isProfileReady = false;
-
-  public demoProfile$!: Observable<INotifyProfile>;
-
+export class InstructionsComponent extends SSRBaseComponent implements OnInit {
+  private _animationsService = inject(AnimationsService);
   public steps = [
     {
       title: 'Prova.',
@@ -42,65 +31,45 @@ export class InstructionsComponent
     },
     {
       title: 'Acquista.',
-      description: `<p>Se Ritieni che Notify sia all'altezza delle tue necessità di networking, visita il nostro <a class="link" target="_blank" href="https://notifyapp.it/shop">shop</a>, scegli il piano che fa per te e procedi con l'acquisto.</p>`,
+      description: `<p>Se Ritieni che Notify sia all'altezza delle tue necessità di networking, visita il nostro <a class="link" target="_blank" href="https://notifyapp.it/shop">shop</a>, scegli le cards perfette per il tuo team e procedi con l'acquisto.</p>`,
     },
     {
       title: 'Enjoy.',
       description:
-        '<p> Vai nelle impostazioni del tuo account aziendale, inserisci la licenza ricevuta via email e goditi Notify al massimo delle sue potenzialità!</p>',
+        '<p>Inserisci la licenza ricevuta via e-mail, Spartisci le cards acquistate e goditi Notify al massimo delle sue potenzialità!</p>',
     },
   ];
 
-  ngAfterContentInit(): void {
-    this.demoProfile$ = of(_DEMO_PROFILE);
+  constructor() {
+    super();
+  }
+
+  ngOnInit(): void {
+    if (!this._animationsService.isCapable) {
+      return;
+    }
+    this._animationsService.declareAnimation('#instruction-cards', {
+      scrollY: (driver, element) => {
+        return {
+          transform: `rotate(-${driver / 80}deg)`,
+        };
+      },
+    });
+
+    this._animationsService.initDriver(
+      EnumAnimationsDrivers.ScrollY,
+      window.scrollY
+    );
+  }
+
+  @HostListener('window:scroll')
+  public onScroll(): void {
+    if (!this._animationsService.isCapable) {
+      return;
+    }
+    this._animationsService.updateDriver(
+      EnumAnimationsDrivers.ScrollY,
+      window.scrollY
+    );
   }
 }
-
-const _DEMO_PROFILE: INotifyProfile<EnumNotifyUserType.Company> = {
-  _id: '655805c8f5638dc5ef4b3590',
-  name: 'Notify Italia',
-  surname: null,
-  email: 'notifyitalia@gmail.com',
-  piva: '02585410976',
-  phoneNumber: '3240552651',
-  bio: 'Regala un effetto wow ai tuoi clienti. Notify è il software che ti mette in contatto con i tuoi clienti in un modo mai visto prima!',
-  avatar: `https://s3-api.vps.notifyapp.it/notify-api-dev/profiles/655805c8f5638dc5ef4b3590/avatar.webp?cz=1716325796196`,
-  config: {
-    whatsappEnabled: true,
-    phoneCallEnabled: true,
-    emailEnabled: false,
-    avatarMask: 'hexagon',
-    smsEnabled: false,
-    redirectEnabled: false,
-    feedbackEnabled: true,
-  },
-  type: EnumNotifyUserType.Company,
-  owner: '655805c8f5638dc5ef4b358f',
-  customFields: [
-    {
-      iconName: 'instagram',
-      value: 'notify_it',
-    },
-    {
-      iconName: 'globe',
-      value: 'notifyapp.it',
-    },
-  ],
-  createdAt: new Date('2023-11-18T00:31:04.645Z'),
-  updatedAt: new Date('2024-02-27T18:13:21.069Z'),
-  address: {
-    street: 'Via lorenzo ciulli',
-    city: 'Prato',
-    number: '40',
-  },
-  role: null,
-  reviewRedirect: 'https://g.page/r/CR140V5wBLmJEBM/review',
-  colors: {
-    background: ['#0A2859', '#041127'],
-    elements: '#F9F9F9',
-    useCompanyColors: null,
-  },
-  redirectUrl: 'notifyapp.it',
-  profileIdentifier: 'notify',
-  note: null as unknown as NotifyPopulatedNote,
-};

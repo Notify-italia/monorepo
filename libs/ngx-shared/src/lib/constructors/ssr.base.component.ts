@@ -11,6 +11,7 @@ export class SSRBaseComponent {
   @Output() public componentStable = new EventEmitter<void>();
 
   public componentIsStable(): void {
+    console.log(`Component is stable.`);
     this.componentStable.emit();
   }
 }

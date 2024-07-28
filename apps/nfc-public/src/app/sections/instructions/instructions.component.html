@@ -1,19 +1,25 @@
-<div class="max-content-width relative">
-  <div class="website-section">
-    <h1 class="section-title">Jump in, senza stress.</h1>
+<div class="relative w-screen">
+  <div
+    class="w-full lg:w-6/12 h-full rotate-[72deg] lg:rotate-[65deg] absolute -left-[45vw] lg:-left-[20vw] top-[50%] translate-y-[-50%]"
+  >
+    <img
+      src="/assets/images/cards.webp"
+      id="instruction-cards"
+      class="size-full object-contain opacity-25 lg:opacity-100"
+      style="transform-origin: 'bottom left'"
+      (load)="componentIsStable()"
+    />
+  </div>
 
-    <div
-      class="flex flex-col lg:flex-row justify-center lg:space-x-20 w-full lg:mt-20 h-full items-center"
-    >
-      <notify-spline-viewer
-        sceneId="dk861HTC3-7031NY"
-        class="w-full lg:w-5/12 h-full hidden lg:block -mr-5 -mb-5"
-      ></notify-spline-viewer>
+  <div class="max-content-width z-0">
+    <div class="website-section">
+      <h1 class="section-title">jump in, senza stress.</h1>
+
       <div
-        class="w-10/12 lg:w-6/12 flex flex-col h-full min-h-[80vh] lg:min-h-[50vh] justify-around space-y-10 lg:-ml-10"
+        class="flex flex-col h-full min-h-[80vh] lg:min-h-[50vh] justify-around space-y-10 items-center mt-20"
       >
         @for (item of steps; track $index) {
-        <div class="flex flex-col w-full">
+        <div class="flex flex-col w-10/12 lg:w-6/12">
           <div class="flex space-x-5 lg:space-x-10 w-full items-center">
             <div
               class="intersect:animate-fade-right animate-ease-out smooth opacity-0 intersect:opacity-100 smooth"

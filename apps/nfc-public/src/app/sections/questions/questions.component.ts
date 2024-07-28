@@ -52,9 +52,9 @@ export class QuestionsComponent extends SSRBaseComponent {
     },
     {
       question:
-        "Come posso inserire i miei dati all'interno dell'NFC del biglietto da visita digitale?",
+        "Come posso inserire i miei dati all'interno del biglietto da visita digitale?",
       answer:
-        "È semplice! <br /><br /> Dopo aver creato il profilo sulla nostra piattaforma, avrai l'opzione di includere i tuoi dati all'interno di un qualsiasi dispositivo NFC. Sarà sufficente poi selezionare il pulsante dell'NFC disponibile sulla Dashboard o sulla pagina di modifica profilo e seguire le istruzioni a schermo. Una volta completato il processo, i destinatari potranno semplicemente avvicinare il loro smartphone al biglietto per accedere rapidamente e facilmente alle tue informazioni di contatto.  <br /><br /> È un modo conveniente e innovativo per scambiare dati durante le interazioni di networking!",
+        "È semplice! <br /><br /> Su Notify è sufficente selezionare il pulsante dell'NFC disponibile sulla Dashboard o sulla pagina di modifica profilo e seguire le istruzioni a schermo. Una volta completato il processo, i destinatari potranno avvicinare il loro smartphone al tuo biglietto per accedere rapidamente e facilmente alle tue informazioni di contatto.",
     },
   ].map((item) => ({
     question: this._domSanitizer.bypassSecurityTrustHtml(item.question),

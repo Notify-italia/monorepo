@@ -28,7 +28,8 @@
 
       <notify-instructions
         id="instructions"
-        class="p-5 -mt-20"
+        class="-mt-20 pr-5 2xl:pr-0"
+        (componentStable)="instructionsStable$.next()"
       ></notify-instructions>
 
       <notify-shop class="mt-20 p-5" id="shop"></notify-shop>
