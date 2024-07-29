@@ -7,7 +7,7 @@
   <div
     class="fixed w-full h-lscreen top-0 left-0 z-[999] bg-slate-50 smooth"
     [ngClass]="{
-      'opacity-0 pointer-events-none':true,
+      'opacity-0 pointer-events-none':  pageStable$  | async,
     }"
   >
     <notify-loading></notify-loading>

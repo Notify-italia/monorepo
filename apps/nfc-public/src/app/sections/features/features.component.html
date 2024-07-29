@@ -9,9 +9,6 @@
     <div
       #FeaturesContainer
       class="w-full flex justify-around mt-20 items-center mb-5 smooth space-x-16 lg:space-x-0"
-      [ngStyle]="{
-        translate: 'calc(' + selectedFeatureOffset + 'px )'
-      }"
     >
       @for (item of features; track $index) {
       <button
@@ -28,17 +25,15 @@
 
     <div
       class="flex flex-col lg:space-y-10 w-full lg:max-w-[80vw] items-center relative"
+      *ngIf="selectedFeature as f"
     >
       <div class="space-y-2 mt-1 flex-col absolute lg:static">
         <p
           class="text-center text-xl font-bold font-outfit"
-          [innerHTML]="selectedFeature?.title"
+          [innerHTML]="f.title"
         ></p>
         <small>
-          <p
-            class="text-center mt-3 lg:mt-2"
-            [innerHTML]="selectedFeature?.description"
-          ></p>
+          <p class="text-center mt-3 lg:mt-2" [innerHTML]="f.description"></p>
         </small>
       </div>
       <div class="flex">
@@ -50,7 +45,7 @@
           </div>
           <div class="bg-gray-100">
             <img
-              [src]="selectedFeature?.desktopImage"
+              [src]="f.desktopImage"
               alt="Notify Features"
               class="w-full h-[50%]"
             />
@@ -59,7 +54,7 @@
       </div>
       <div class="flex justify-center items-center -m-10 mt-20 lg:m-0">
         <div
-          *ngIf="selectedFeature?.phoneImage as phoneImage"
+          *ngIf="f.phoneImage as phoneImage"
           class="mockup-phone iphone-15-pro scale-75 lg:scale-50 2xl:scale-75 shadow-lg lg:absolute -right-32 lg:-bottom-48 2xl:-bottom-24"
         >
           <notify-mockup-fill></notify-mockup-fill>

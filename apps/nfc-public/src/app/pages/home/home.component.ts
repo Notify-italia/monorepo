@@ -71,7 +71,7 @@ export class HomeComponent implements AfterViewInit {
       this._pixel.track('ViewContent');
       this.pageStable$ = combineLatest([
         // this.splashStable$,
-        this.instructionsStable$,
+        // this.instructionsStable$,
         this.featuresStable$,
       ]);
     });

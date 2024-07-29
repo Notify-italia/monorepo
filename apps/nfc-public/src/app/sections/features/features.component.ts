@@ -1,5 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   inject,
@@ -32,7 +33,10 @@ import { FeatureCardComponent } from '../../components/feature-card/feature-card
   templateUrl: './features.component.html',
   styleUrl: './features.component.scss',
 })
-export class FeaturesComponent extends SSRBaseComponent implements OnInit {
+export class FeaturesComponent
+  extends SSRBaseComponent
+  implements OnInit, AfterViewInit
+{
   private _platformId = inject(PLATFORM_ID);
   private _domSanitizer = inject(DomSanitizer);
 
@@ -189,15 +193,19 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
 
   override ngOnInit(): void {
     super.ngOnInit();
+    this.updateSelected(this.features[0].id);
 
+    setTimeout(() => {
+      console.log('Component is stable');
+      this.componentIsStable();
+    }, 300);
+  }
+
+  ngAfterViewInit(): void {
     this.updateSelected(this.features[0].id);
     if (!isPlatformBrowser(this._platformId)) {
       return;
     }
-
-    setTimeout(() => {
-      this.componentIsStable();
-    }, 300);
 
     interval(2500)
       .pipe(
@@ -215,6 +223,14 @@ export class FeaturesComponent extends SSRBaseComponent implements OnInit {
 
   public updateSelected(id: string) {
     this.selectedId = id;
+
+    if (!this.featuresContainer) {
+      return;
+    }
+
+    this.featuresContainer.nativeElement.style.transform = `translateX(${
+      this.selectedFeatureOffset + 'px'
+    })`;
   }
 
   private _getImage(file: string) {
