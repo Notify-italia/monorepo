@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { UnknownObject } from '@notify/interfaces';
+import _ from 'lodash';
 
 export enum EnumAnimationsDrivers {
   ScrollY = 'scrollY',
@@ -27,7 +28,7 @@ interface IAnimationCSSStyle {
   [key: string]: string | number;
 }
 
-type Transformer = {
+export type AnimationTransformer = {
   [key in EnumAnimationsDrivers]?: (
     driverValue: _absoluteAnimationsDrivers[key],
     element: HTMLElement
@@ -37,10 +38,6 @@ type Transformer = {
 @Injectable()
 export class AnimationsService {
   private _platformId = inject(PLATFORM_ID);
-
-  public get isCapable() {
-    return isPlatformBrowser(this._platformId);
-  }
 
   public presets = {
     blurInOut:
@@ -77,8 +74,21 @@ export class AnimationsService {
   private _activeAnimations: {
     id: string;
     element: HTMLElement;
-    transformers: Transformer;
+    transformers: AnimationTransformer;
   }[] = [];
+
+  public get isCapable() {
+    return isPlatformBrowser(this._platformId);
+  }
+
+  public constructor() {
+    this._updateAnimations = _.throttle(this._updateAnimations.bind(this), 100);
+    this.updateDriver = _.throttle(this.updateDriver.bind(this), 100);
+  }
+
+  public getAnimation(id: string) {
+    return this._activeAnimations.find((v) => v.id === id);
+  }
 
   public updateDriver<T extends EnumAnimationsDrivers>(
     driver: T,
@@ -111,7 +121,7 @@ export class AnimationsService {
 
   public declareAnimation(
     element: HTMLElement | string | null,
-    transformers: Transformer
+    transformers: AnimationTransformer
   ) {
     if (!isPlatformBrowser(this._platformId)) {
       return;
@@ -126,7 +136,7 @@ export class AnimationsService {
     }
 
     this._activeAnimations.push({
-      id: new Date().getTime().toString(),
+      id: element.id,
       element,
       transformers,
     });
@@ -165,29 +175,15 @@ export class AnimationsService {
     return 0;
   }
 
-  // private _isElementVisible(element: HTMLElement) {
-  //   const rect = element.getBoundingClientRect();
-  //   const windowHeight =
-  //     window.innerHeight || document.documentElement.clientHeight;
-  //   const windowWidth =
-  //     window.innerWidth || document.documentElement.clientWidth;
-
-  //   return (
-  //     rect.bottom >= 0 &&
-  //     rect.right >= 0 &&
-  //     rect.top <= windowHeight &&
-  //     rect.left <= windowWidth
-  //   );
-  // }
-
   private _updateAnimations(currentValue: UnknownObject) {
     if (!isPlatformBrowser(this._platformId)) {
       return;
     }
     this._activeAnimations.forEach((animation) => {
-      // if (!this._isElementVisible(animation.element)) {
+      // if (!this._elementIsVisible(animation.element)) {
       //   return;
       // }
+
       const computedStyles = Object.values(animation.transformers)
         .map((value) => value(currentValue, animation.element))
         .filter((v) => v) as IAnimationCSSStyle[];
@@ -198,5 +194,20 @@ export class AnimationsService {
         }, '')}`;
       }, '');
     });
+  }
+
+  private _elementIsVisible(element: HTMLElement) {
+    const rect = element.getBoundingClientRect();
+    const html = document.documentElement;
+    const windowHeight = window.innerHeight || html.clientHeight;
+    const windowWidth = window.innerWidth || html.clientWidth;
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom >= 0 &&
+      rect.right >= 0 &&
+      rect.top <= windowHeight &&
+      rect.left <= windowWidth
+    );
   }
 }

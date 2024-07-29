@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
-  AnimationsService,
   ProfileViewComponent,
   SplineViewerComponent,
   SSRBaseComponent,
@@ -17,12 +16,11 @@ import {
     ProfileViewComponent,
     SplineViewerComponent,
   ],
-  providers: [AnimationsService],
+
   templateUrl: './instructions.component.html',
   styleUrl: './instructions.component.scss',
 })
 export class InstructionsComponent extends SSRBaseComponent implements OnInit {
-  private _animationsService = inject(AnimationsService);
   public steps = [
     {
       title: 'Prova.',
@@ -38,39 +36,4 @@ export class InstructionsComponent extends SSRBaseComponent implements OnInit {
         '<p>Inserisci la licenza ricevuta via e-mail, Spartisci le cards acquistate e goditi Notify al massimo delle sue potenzialità!</p>',
     },
   ];
-
-  constructor() {
-    super();
-  }
-
-  // override ngOnInit(): void {
-  //   super.ngOnInit();
-
-  //   if (!this._animationsService.isCapable) {
-  //     return;
-  //   }
-  //   this._animationsService.declareAnimation('#instruction-cards', {
-  //     scrollY: (driver) => {
-  //       return {
-  //         transform: `rotate(-${driver / 80}deg)`,
-  //       };
-  //     },
-  //   });
-
-  //   this._animationsService.initDriver(
-  //     EnumAnimationsDrivers.ScrollY,
-  //     window.scrollY
-  //   );
-  // }
-
-  // @HostListener('window:scroll')
-  // public onScroll(): void {
-  //   if (!this._animationsService.isCapable) {
-  //     return;
-  //   }
-  //   this._animationsService.updateDriver(
-  //     EnumAnimationsDrivers.ScrollY,
-  //     window.scrollY
-  //   );
-  // }
 }

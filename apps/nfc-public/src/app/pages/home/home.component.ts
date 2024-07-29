@@ -29,7 +29,7 @@ import { SplashComponent } from '../../sections/splash/splash.component';
 import { TrustedByComponent } from '../../sections/trusted-by/trusted-by.component';
 
 interface IAnchorOptions {
-  skipHashUpdate?: boolean;
+  ignoreBlur?: boolean;
 }
 @Component({
   standalone: true,
@@ -84,29 +84,40 @@ export class HomeComponent implements AfterViewInit {
       return;
     }
 
-    const _enlargeAnimation = {
-      scrollY: (value: number) => ({
-        height: value > 0 ? `100lvh` : '',
-        width: value > 0 ? `100lvw` : '',
-        ['border-radius']: value > 0 ? '0%' : '100%',
-        top: value > 0 ? '0' : '',
-        ['box-shadow']: value > 0 ? '0 0 0 0 rgba(0, 0, 0, 0)' : '',
-      }),
-    };
+    const transitionThreshold = 50;
 
-    this._animationsService.declareAnimation('#bubble', _enlargeAnimation);
+    this._animationsService.declareAnimation('#bubble', {
+      scrollY: (value: number) => {
+        const aboveThreshold = value > transitionThreshold;
+        return {
+          height: aboveThreshold ? `100lvh` : '',
+          width: aboveThreshold ? `100lvw` : '',
+          ['border-radius']: aboveThreshold ? '0%' : '100%',
+          top: aboveThreshold ? '0' : '',
+          ['box-shadow']: aboveThreshold ? '0 0 0 0 rgba(0, 0, 0, 0)' : '',
+        };
+      },
+    });
+
+    this._animationsService.declareAnimation('#mouseGlpyh', {
+      scrollY: (value: number) => ({
+        opacity: value > transitionThreshold ? 0 : 1,
+      }),
+    });
+
     this._animationsService.declareAnimation('#bubbleOutline', {
       scrollY: (value: number) => ({
-        ..._enlargeAnimation.scrollY(value),
-        opacity: value > 0 ? 0 : 1,
+        opacity: value > transitionThreshold ? 0 : 1,
       }),
     });
 
-    this.anchors.forEach((anchor) => {
-      this._animationsService.declareAnimation(`#${anchor.fragment}`, {
-        scrollY: this._animationsService.presets.blurInOut(),
-      });
-    });
+    // this.anchors
+    //   .filter((v) => !v.options?.ignoreBlur)
+    //   .forEach((anchor) => {
+    //     this._animationsService.declareAnimation(`#${anchor.fragment}`, {
+    //       scrollY: this._animationsService.presets.blurInOut(),
+    //     });
+    //   });
 
     this._animationsService.initDriver(EnumAnimationsDrivers.ScrollY, 0);
 
@@ -120,9 +131,8 @@ export class HomeComponent implements AfterViewInit {
 
   @HostListener('wheel', ['$event'])
   public onScroll(event: WheelEvent) {
-    event.preventDefault();
-
-    this._scrollAnchors(event.deltaY > 0 ? 'down' : 'up');
+    // event.preventDefault();
+    // this._scrollAnchors(event.deltaY > 0 ? 'down' : 'up');
   }
 
   public publishAnchor(fragment: string, options?: IAnchorOptions): void {

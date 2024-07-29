@@ -37,18 +37,20 @@
         (componentInit)="publishAnchor('features')"
       ></notify-features>
 
-      <notify-trusted-by
-        id="trustedby"
-        (componentInit)="publishAnchor('trustedby')"
-        class="z-0"
-      ></notify-trusted-by>
-
       <notify-instructions
         id="instructions"
-        class="pr-5 2xl:pr-0"
+        class="mt-20"
         (componentInit)="publishAnchor('instructions')"
         (componentStable)="instructionsStable$.next()"
       ></notify-instructions>
+
+      <div class="divider"></div>
+
+      <notify-trusted-by
+        id="trustedby"
+        (componentInit)="publishAnchor('trustedby')"
+        class="z-0 mt-20"
+      ></notify-trusted-by>
 
       <notify-shop
         class="mt-20 p-5"
@@ -59,9 +61,11 @@
       <div class="divider p-5"></div>
 
       <notify-questions
-        class="p-5"
+        class="p-5 ignore-height"
         id="questions"
-        (componentInit)="publishAnchor('questions')"
+        (componentInit)="publishAnchor('questions', {
+          ignoreBlur: true,
+        })"
       ></notify-questions>
 
       <notify-footer class="z-10 mt-20 w-full"></notify-footer>
