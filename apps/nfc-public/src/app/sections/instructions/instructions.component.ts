@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   AnimationsService,
-  EnumAnimationsDrivers,
   ProfileViewComponent,
   SplineViewerComponent,
   SSRBaseComponent,
@@ -44,32 +43,34 @@ export class InstructionsComponent extends SSRBaseComponent implements OnInit {
     super();
   }
 
-  ngOnInit(): void {
-    if (!this._animationsService.isCapable) {
-      return;
-    }
-    this._animationsService.declareAnimation('#instruction-cards', {
-      scrollY: (driver, element) => {
-        return {
-          transform: `rotate(-${driver / 80}deg)`,
-        };
-      },
-    });
+  // override ngOnInit(): void {
+  //   super.ngOnInit();
 
-    this._animationsService.initDriver(
-      EnumAnimationsDrivers.ScrollY,
-      window.scrollY
-    );
-  }
+  //   if (!this._animationsService.isCapable) {
+  //     return;
+  //   }
+  //   this._animationsService.declareAnimation('#instruction-cards', {
+  //     scrollY: (driver) => {
+  //       return {
+  //         transform: `rotate(-${driver / 80}deg)`,
+  //       };
+  //     },
+  //   });
 
-  @HostListener('window:scroll')
-  public onScroll(): void {
-    if (!this._animationsService.isCapable) {
-      return;
-    }
-    this._animationsService.updateDriver(
-      EnumAnimationsDrivers.ScrollY,
-      window.scrollY
-    );
-  }
+  //   this._animationsService.initDriver(
+  //     EnumAnimationsDrivers.ScrollY,
+  //     window.scrollY
+  //   );
+  // }
+
+  // @HostListener('window:scroll')
+  // public onScroll(): void {
+  //   if (!this._animationsService.isCapable) {
+  //     return;
+  //   }
+  //   this._animationsService.updateDriver(
+  //     EnumAnimationsDrivers.ScrollY,
+  //     window.scrollY
+  //   );
+  // }
 }

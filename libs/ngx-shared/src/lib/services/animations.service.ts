@@ -24,7 +24,7 @@ interface _absoluteAnimationsDrivers {
 }
 
 interface IAnimationCSSStyle {
-  [key: string]: string;
+  [key: string]: string | number;
 }
 
 type Transformer = {
@@ -54,8 +54,8 @@ export class AnimationsService {
           EnumAnimationsDrivers.ScrollY
         );
 
-        const maxBlur = 2;
-        const minScale = 0.9;
+        const maxBlur = 6;
+        const minScale = 0.6;
 
         return {
           filter: `blur(${maxBlur - (maxBlur * visible) / 100}px)`,

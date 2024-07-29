@@ -1,44 +1,70 @@
-<div class="flex justify-center font-poppins">
+<img
+  src="/assets/images/background.svg"
+  class="w-[100vw] h-[100lvh] fixed top-0 left-0 object-cover"
+  alt=""
+/>
+<div class="flex justify-center font-poppins bg-slate-50 overflow-hidden">
   <div
     class="fixed w-full h-lscreen top-0 left-0 z-[999] bg-slate-50 smooth"
     [ngClass]="{
-      'opacity-0 pointer-events-none': pageStable$ | async,
+      'opacity-0 pointer-events-none':true,
     }"
   >
     <notify-loading></notify-loading>
   </div>
-  <!-- <notify-cursor></notify-cursor> -->
 
   <div
-    class="h-full w-full flex flex-col overflow-hidden text-slate-900 bg-slate-50"
-  >
-    <!-- SPLASH E TOP NAV -->
-    <div class="w-full h-full flex flex-col relative">
-      <notify-top-nav class="p-5"></notify-top-nav>
+    id="bubbleOutline"
+    class="fixed size-[120vh] lg:size-[170lvh] p-2 rounded-full shrink-0 bg-gray-300/50 -top-[10vh] lg:-top-[35vh] smooth smooth-linear smooth-fast"
+  ></div>
+  <notify-top-nav class="p-5 w-full fixed z-10"></notify-top-nav>
 
-      <notify-splash id="splash" class="p-5"></notify-splash>
+  <div
+    id="bubble"
+    #CircleContainer
+    class="fixed flex flex-col justify-center items-center size-[100vh] lg:size-[150lvh] p-2 rounded-full shadow-xl shrink-0 bg-white/40 overflow-x-hidden overflow-y-visible text-slate-800 smooth smooth-linear smooth-fast scrollbar-none main-circle glassmorph -top-0 lg:-top-[25vh] scroll-smooth"
+  >
+    <div class="h-lscreen w-[100vw] flex flex-col">
+      <notify-splash
+        id="splash"
+        (componentInit)="publishAnchor('splash')"
+      ></notify-splash>
 
       <notify-features
         id="features"
         (componentStable)="featuresStable$.next()"
-        class="p-5 pb-10 mt-10 z-10"
+        class="z-10"
+        (componentInit)="publishAnchor('features')"
       ></notify-features>
 
-      <notify-trusted-by id="trustedby" class="-mt-10 z-0"></notify-trusted-by>
+      <notify-trusted-by
+        id="trustedby"
+        (componentInit)="publishAnchor('trustedby')"
+        class="z-0"
+      ></notify-trusted-by>
 
       <notify-instructions
         id="instructions"
-        class="-mt-20 pr-5 2xl:pr-0"
+        class="pr-5 2xl:pr-0"
+        (componentInit)="publishAnchor('instructions')"
         (componentStable)="instructionsStable$.next()"
       ></notify-instructions>
 
-      <notify-shop class="mt-20 p-5" id="shop"></notify-shop>
+      <notify-shop
+        class="mt-20 p-5"
+        id="shop"
+        (componentInit)="publishAnchor('shop')"
+      ></notify-shop>
 
       <div class="divider p-5"></div>
 
-      <notify-questions class="p-5" id="questions"></notify-questions>
+      <notify-questions
+        class="p-5"
+        id="questions"
+        (componentInit)="publishAnchor('questions')"
+      ></notify-questions>
 
-      <notify-footer class="z-10 mt-20"></notify-footer>
+      <notify-footer class="z-10 mt-20 w-full"></notify-footer>
     </div>
   </div>
 </div>

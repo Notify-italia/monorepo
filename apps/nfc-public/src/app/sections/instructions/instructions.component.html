@@ -1,56 +1,42 @@
-<div class="relative w-screen">
-  <div
-    class="w-full lg:w-6/12 h-full rotate-[72deg] lg:rotate-[65deg] absolute -left-[45vw] lg:-left-[20vw] top-[50%] translate-y-[-50%]"
-  >
-    <img
-      src="/assets/images/cards.webp"
-      id="instruction-cards"
-      class="size-full object-contain opacity-25 lg:opacity-100"
-      style="transform-origin: 'bottom left'"
-      (load)="componentIsStable()"
-    />
-  </div>
+<div class="max-content-width z-0">
+  <div class="website-section">
+    <h1 class="section-title">jump in, senza stress.</h1>
 
-  <div class="max-content-width z-0">
-    <div class="website-section">
-      <h1 class="section-title">jump in, senza stress.</h1>
-
-      <div
-        class="flex flex-col h-full min-h-[80vh] lg:min-h-[50vh] justify-around space-y-10 items-center mt-20"
-      >
-        @for (item of steps; track $index) {
-        <div class="flex flex-col w-10/12 lg:w-6/12">
-          <div class="flex space-x-5 lg:space-x-10 w-full items-center">
+    <div
+      class="flex flex-col h-full min-h-[80vh] lg:min-h-[50vh] justify-around space-y-10 items-center mt-20"
+    >
+      @for (item of steps; track $index) {
+      <div class="flex flex-col w-10/12 lg:w-6/12">
+        <div class="flex space-x-5 lg:space-x-10 w-full items-center">
+          <div
+            class="intersect:animate-fade-right animate-ease-out smooth opacity-0 intersect:opacity-100 smooth"
+          >
             <div
-              class="intersect:animate-fade-right animate-ease-out smooth opacity-0 intersect:opacity-100 smooth"
+              class="font-ebGaramond text-center text-[14vh] w-20 text-secondary-500"
             >
-              <div
-                class="font-ebGaramond text-center text-[14vh] w-20 text-secondary-500"
+              <b
+                [ngClass]="{
+                  'blink -z-1': $index % 2 === 1
+                }"
               >
-                <b
-                  [ngClass]="{
-                    'blink -z-1': $index % 2 === 1
-                  }"
-                >
-                  {{ $index + 1 }}
-                </b>
-              </div>
+                {{ $index + 1 }}
+              </b>
             </div>
-            <span
-              class="intersect:animate-fade-down animate-ease-out opacity-0 intersect:opacity-100 smooth space-y-2"
-            >
-              <h2 class="font-bold text-4xl font-outfit">
-                {{ item.title }}
-              </h2>
-              <div
-                class="flex space-x-2 text-xs lg:text-base"
-                [innerHTML]="item.description"
-              ></div>
-            </span>
           </div>
+          <span
+            class="intersect:animate-fade-down animate-ease-out opacity-0 intersect:opacity-100 smooth space-y-2"
+          >
+            <h2 class="font-bold text-4xl font-outfit">
+              {{ item.title }}
+            </h2>
+            <div
+              class="flex space-x-2 text-xs lg:text-base"
+              [innerHTML]="item.description"
+            ></div>
+          </span>
         </div>
-        }
       </div>
+      }
     </div>
   </div>
 </div>

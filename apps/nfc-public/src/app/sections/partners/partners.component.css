@@ -3,10 +3,10 @@
 }
 
 :host {
-  --marquee-width: 80vw;
+  --marquee-width: 110vw;
   --marquee-height: 20vh;
   /* --marquee-elements: 12; */ /* defined with JavaScript */
-  --marquee-elements-displayed: 3.7;
+  --marquee-elements-displayed: 5;
   --marquee-element-width: calc(
     var(--marquee-width) / var(--marquee-elements-displayed)
   );
@@ -24,7 +24,7 @@
   overflow: hidden;
   position: relative;
 }
-.marquee:before,
+/* .marquee:before,
 .marquee:after {
   position: absolute;
   top: 0;
@@ -32,15 +32,15 @@
   height: 100%;
   content: '';
   z-index: 1;
-}
-.marquee:before {
+} */
+/* .marquee:before {
   left: 0;
   background: linear-gradient(to right, #2678e4 0%, transparent 100%);
 }
 .marquee:after {
   right: 0;
   background: linear-gradient(to left, #2678e4 0%, transparent 100%);
-}
+} */
 .marquee-content {
   list-style: none;
   height: 100%;
