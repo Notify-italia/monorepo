@@ -84,17 +84,18 @@ export class HomeComponent implements AfterViewInit {
       return;
     }
 
-    const transitionThreshold = 50;
+    const transitionThreshold = 200;
 
     this._animationsService.declareAnimation('#bubble', {
       scrollY: (value: number) => {
         const aboveThreshold = value > transitionThreshold;
         return {
-          height: aboveThreshold ? `100lvh` : '',
-          width: aboveThreshold ? `100lvw` : '',
-          ['border-radius']: aboveThreshold ? '0%' : '100%',
-          top: aboveThreshold ? '0' : '',
-          ['box-shadow']: aboveThreshold ? '0 0 0 0 rgba(0, 0, 0, 0)' : '',
+          transform: `scaleX(${aboveThreshold ? 2 : 1}) scaleY(${
+            aboveThreshold ? 2 : 1
+          })`,
+          // ['border-radius']: aboveThreshold ? '0%' : '100%',
+          // top: aboveThreshold ? '0' : '',
+          // ['box-shadow']: aboveThreshold ? '0 0 0 0 rgba(0, 0, 0, 0)' : '',
         };
       },
     });

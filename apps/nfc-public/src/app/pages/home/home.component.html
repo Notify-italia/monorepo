@@ -1,9 +1,16 @@
 <img
   src="/assets/images/background.svg"
-  class="w-[100vw] h-[100lvh] fixed top-0 left-0 object-cover"
+  class="w-[100vw] h-[100lvh] fixed top-0 left-0 object-cover z-0"
   alt=""
 />
-<div class="flex justify-center font-poppins bg-slate-50 overflow-hidden">
+
+<img
+  src="/assets/images/noise.svg"
+  class="w-[100vw] h-[100lvh] fixed top-0 left-0 object-cover pointer-events-none opacity-50"
+  alt=""
+/>
+
+<div class="flex justify-center font-poppins bg-slate-50 overflow-hidden z-20">
   <div
     class="fixed w-full h-lscreen top-0 left-0 z-[999] bg-slate-50 smooth"
     [ngClass]="{
@@ -15,14 +22,18 @@
 
   <div
     id="bubbleOutline"
-    class="fixed size-[120vh] lg:size-[170lvh] p-2 rounded-full shrink-0 bg-gray-300/50 -top-[10vh] lg:-top-[35vh] smooth smooth-linear smooth-fast"
+    class="fixed size-[120vh] lg:size-[170lvh] p-2 rounded-full shrink-0 bg-gray-300/50 -top-[10vh] lg:-top-[35vh] smooth"
   ></div>
   <notify-top-nav class="p-5 w-full fixed z-10"></notify-top-nav>
 
   <div
+    class="fixed flex flex-col justify-center items-center size-[100vh] lg:size-[150lvh] p-2 rounded-full shadow-xl shrink-0 bg-white/40 overflow-x-hidden overflow-y-visible smooth glassmorph -top-0 lg:-top-[25vh]"
     id="bubble"
+  ></div>
+
+  <div
     #CircleContainer
-    class="fixed flex flex-col justify-center items-center size-[100vh] lg:size-[150lvh] p-2 rounded-full shadow-xl shrink-0 bg-white/40 overflow-x-hidden overflow-y-visible text-slate-800 smooth smooth-linear smooth-fast scrollbar-none main-circle glassmorph -top-0 lg:-top-[25vh] scroll-smooth"
+    class="fixed flex flex-col justify-center items-center size-[100vh] lg:size-[150lvh] p-2 overflow-x-hidden overflow-y-visible text-slate-800 main-circle -top-0 lg:-top-[25vh] scroll-smooth scrollbar-none"
   >
     <div class="h-lscreen w-[100vw] flex flex-col">
       <notify-splash
