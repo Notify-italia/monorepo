@@ -40,7 +40,7 @@ import {
   }
   
   .style-button {
-    @apply p-4 rounded-md shadow-md bg-[#038DE2] text-white w-48 h-16 hover:brightness-125 hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-50 hover:h-48 hover:rounded-2xl;
+    @apply p-4 rounded-md shadow-md backdrop-blur-md bg-white/10 text-slate-800 w-48 h-16 hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-50 hover:h-48 hover:rounded-2xl hover:text-white;
   }
   `,
 })

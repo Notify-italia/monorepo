@@ -24,7 +24,10 @@
     id="bubbleOutline"
     class="fixed size-[100vh] lg:size-[170lvh] p-2 rounded-full shrink-0 bg-gray-300/50 -top-[0vh] lg:-top-[35vh] smooth"
   ></div>
-  <notify-top-nav class="p-5 w-full fixed z-10 top-0 left-0"></notify-top-nav>
+
+  <div class="fixed z-50 top-0 left-0 w-full">
+    <notify-top-nav></notify-top-nav>
+  </div>
 
   <div
     class="fixed flex flex-col justify-center items-center size-[90vh] lg:size-[150lvh] p-2 rounded-full shadow-xl shrink-0 bg-white/40 overflow-x-hidden overflow-y-visible smooth glassmorph top-[5vh] lg:-top-[25vh]"
@@ -47,17 +50,24 @@
       (componentInit)="publishAnchor('features')"
     ></notify-features>
 
-    <notify-instructions
-      id="instructions"
-      (componentInit)="publishAnchor('instructions')"
-      (componentStable)="instructionsStable$.next()"
-    ></notify-instructions>
-
     <notify-trusted-by
       id="trustedby"
       (componentInit)="publishAnchor('trustedby')"
-      class="z-0 mt-20 ignore-height"
+      class="z-0 mt-10 ignore-height"
     ></notify-trusted-by>
+
+    <notify-profile-builder
+      id="builder"
+      (componentInit)="publishAnchor('builder')"
+      class="mt-20"
+    ></notify-profile-builder>
+
+    <notify-instructions
+      id="instructions"
+      class="mt-20"
+      (componentInit)="publishAnchor('instructions')"
+      (componentStable)="instructionsStable$.next()"
+    ></notify-instructions>
 
     <notify-shop
       class="mt-20 p-5"

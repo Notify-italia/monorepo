@@ -1,16 +1,22 @@
 <div class="max-content-width">
   <div class="website-section">
-    <h1 class="section-title">Canva, ma per biglietti da visita digitali</h1>
+    <h1 class="section-title">Canva, per biglietti da visita.</h1>
     <p class="section-subtitle">
-      Compila i dati sottostanti e scegli uno stile per farti un'idea di come
-      potrebbe apparire il tuo biglietto da visita digitale!
+      Abbiamo selezionato per te alcuni stili predefiniti per darti un'anteprima
+      delle potenzialità del nostro editor.
+      <br />
+      Inserisci i tuoi dati e scegli uno stile per scoprire come potrebbe
+      apparire il tuo profilo.
     </p>
     <div
-      class="flex justify-between items-center space-x-4 relative min-h-[90vh] px-5"
+      class="flex justify-between items-start relative px-5"
+      [ngClass]="{
+        'space-x-4': showProfile
+      }"
     >
       <form
         [formGroup]="form"
-        class="flex flex-col space-y-4 smooth smooth-slow max-w-[90vw] lg:translate-x-[25%]"
+        class="flex flex-col space-y-4 smooth smooth-slow max-w-[90vw] lg:translate-x-[25%] mt-10"
         (ngSubmit)="onSubmit()"
         [ngClass]="{
           'lg:!-translate-x-0 2xl:!-translate-x-10': showProfile
@@ -20,19 +26,19 @@
           (fileChanged)="this.form.controls.image.setValue($any($event.blob))"
           acceptedFiles="image/*"
           class="h-48"
-          uploadLabel="Carica una foto di te!"
+          uploadLabel="Carica il tuo logo o una tua foto da usare come avatar "
         ></notify-upload>
         <div class="flex space-x-2 w-full">
           <notify-tailwind-input
             name="name"
-            label="Nome completo"
+            label="Nome"
             placeholder="Mario Rossi"
             [compact]="true"
             [parent]="form"
           ></notify-tailwind-input>
           <notify-tailwind-input
             name="phone"
-            label="numero di telefono"
+            label="N. telefono"
             placeholder="333 1234567"
             [compact]="true"
             [parent]="form"
@@ -55,14 +61,7 @@
           placeholder="Inserisci una breve descrizione di te stesso/a"
         ></notify-tailwind-textarea>
 
-        <div class="divider"></div>
-        <p class="section-subtitle whitespace-pre-wrap">
-          Abbiamo selezionato per te alcuni stili predefiniti <br />
-          scegli quello che più ti rispecchia per vedere come apparirà il tuo
-          biglietto da visita digitale!
-        </p>
-
-        <div class="flex space-x-2 justify-around items-center h-48">
+        <div class="flex space-x-2 justify-around items-center lg:h-48">
           <button
             [disabled]="form.invalid"
             (click)="this.form.controls.type.setValue('chill')"
@@ -98,7 +97,7 @@
           'translate-y-10 lg:-translate-x-0 2xl:-translate-y-20 opacity-100 pointer-events-auto':
             showProfile
         }"
-        class="iphone-15-pro absolute lg:static pointer-events-none smooth opacity-0 mx-auto scale-75 2xl:scale-100"
+        class="iphone-15-pro absolute lg:static pointer-events-none smooth opacity-0 mx-auto scale-75 2xl:scale-90 mt-20"
         [data]="currentTemplate"
         [mockup]="true"
         [isRunningOnPlayer]="true"

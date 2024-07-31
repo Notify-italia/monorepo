@@ -84,7 +84,7 @@ export class HomeComponent implements AfterViewInit {
       return;
     }
 
-    const transitionThreshold = 200;
+    const transitionThreshold = 100;
 
     this._animationsService.declareAnimation('#bubble', {
       scrollY: (value: number) => {
