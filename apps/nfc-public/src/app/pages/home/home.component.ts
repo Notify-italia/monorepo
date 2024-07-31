@@ -2,9 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   Component,
-  ElementRef,
   HostListener,
-  ViewChild,
   afterNextRender,
   inject,
 } from '@angular/core';
@@ -15,6 +13,7 @@ import {
   LoadingComponent,
   PixelService,
   SplineViewerComponent,
+  UtilsService,
 } from '@notify/ngx-shared';
 import _ from 'lodash';
 import { Observable, Subject, combineLatest } from 'rxjs';
@@ -47,15 +46,16 @@ interface IAnchorOptions {
     TrustedByComponent,
     SplineViewerComponent,
   ],
-  providers: [AnimationsService],
+  providers: [AnimationsService, UtilsService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements AfterViewInit {
-  @ViewChild('CircleContainer')
-  private _circleContainer!: ElementRef<HTMLDivElement>;
+  // @ViewChild('CircleContainer')
+  // private _circleContainer!: ElementRef<HTMLDivElement>;
   private _pixel = inject(PixelService);
   private _animationsService = inject(AnimationsService);
+  private _utilsSerivce = inject(UtilsService);
 
   public instructionsStable$ = new Subject<void>();
   public splashStable$ = new Subject<void>();
@@ -93,9 +93,6 @@ export class HomeComponent implements AfterViewInit {
           transform: `scaleX(${aboveThreshold ? 2 : 1}) scaleY(${
             aboveThreshold ? 2 : 1
           })`,
-          // ['border-radius']: aboveThreshold ? '0%' : '100%',
-          // top: aboveThreshold ? '0' : '',
-          // ['box-shadow']: aboveThreshold ? '0 0 0 0 rgba(0, 0, 0, 0)' : '',
         };
       },
     });
@@ -112,13 +109,15 @@ export class HomeComponent implements AfterViewInit {
       }),
     });
 
-    // this.anchors
-    //   .filter((v) => !v.options?.ignoreBlur)
-    //   .forEach((anchor) => {
-    //     this._animationsService.declareAnimation(`#${anchor.fragment}`, {
-    //       scrollY: this._animationsService.presets.blurInOut(),
+    // if (!this._utilsSerivce.isMobile) {
+    //   this.anchors
+    //     .filter((v) => !v.options?.ignoreBlur)
+    //     .forEach((anchor) => {
+    //       this._animationsService.declareAnimation(`#${anchor.fragment}`, {
+    //         scrollY: this._animationsService.presets.blurInOut(),
+    //       });
     //     });
-    //   });
+    // }
 
     this._animationsService.initDriver(
       EnumAnimationsDrivers.ScrollY,
@@ -126,8 +125,8 @@ export class HomeComponent implements AfterViewInit {
     );
   }
 
-  @HostListener('wheel', ['$event'])
-  public onScroll(event: WheelEvent) {
+  @HostListener('window:scroll', ['$event'])
+  public onScroll() {
     // event.preventDefault();
     // this._scrollAnchors(event.deltaY > 0 ? 'down' : 'up');
     this._animationsService.updateDriver(

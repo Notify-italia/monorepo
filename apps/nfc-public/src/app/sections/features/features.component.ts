@@ -57,6 +57,10 @@ export class FeaturesComponent
     return this.features.find((f) => f.id === this.selectedId);
   }
 
+  public get fcStartingPosition() {
+    return this.featuresContainer.nativeElement.offsetWidth / 2;
+  }
+
   public features = [
     {
       id: 'profile',
@@ -172,26 +176,22 @@ export class FeaturesComponent
     };
   });
 
-  public get selectedFeatureOffset() {
+  public get pxOffsetToCenterSelectedFeature() {
     if (!isPlatformBrowser(this._platformId)) {
       return 0;
     }
-    //controllo se la larghezza della finestra è maggiore o uguale a 1280
-    const greaterThanMaxWidth = window.innerWidth >= 1280;
 
-    //ottengo la feature selezionata
-    const featureBtn = document.getElementById(`feature-${this.selectedId}`);
+    const _feature = document.querySelector(
+      `#feature-${this.selectedId}`
+    ) as HTMLButtonElement;
+    if (!_feature) {
+      return 0;
+    }
 
-    //ottengo la posizione x del pulsante
-    const x = featureBtn?.offsetLeft ?? 0;
+    const featureWidth = _feature.offsetWidth / 2;
+    const offset = _feature.offsetLeft;
 
-    //calcolo la larghezza del pulsante diviso 2
-    const width = (featureBtn?.offsetWidth ?? 0) / 2;
-
-    //calcolo il centro della pagina
-    const pageCenter = (greaterThanMaxWidth ? 1280 : window.innerWidth) / 2;
-
-    return pageCenter - x - width;
+    return this.fcStartingPosition - offset - featureWidth;
   }
 
   override ngOnInit(): void {
@@ -246,7 +246,7 @@ export class FeaturesComponent
     }
 
     this.featuresContainer.nativeElement.style.transform = `translateX(${
-      this.selectedFeatureOffset + 'px'
+      this.pxOffsetToCenterSelectedFeature + 'px'
     })`;
   }
 
