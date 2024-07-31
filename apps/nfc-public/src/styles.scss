@@ -18,11 +18,11 @@ html {
   @apply flex flex-col items-center;
 
   .section-title {
-    @apply text-[2.5rem] lg:text-[4rem] font-extrabold text-center font-outfit lg:px-3 leading-[3rem] lg:leading-[4rem] whitespace-pre-wrap;
+    @apply text-[2.5rem] lg:text-[4rem] font-extrabold text-center font-outfit lg:px-3 leading-[3rem] lg:leading-[4rem] whitespace-pre-wrap z-10;
   }
 
   .section-subtitle {
-    @apply font-medium text-center text-slate-900/60 px-3 mt-5 text-sm lg:text-base;
+    @apply font-medium text-center text-slate-900/60 px-3 mt-5 text-sm lg:text-base z-10;
   }
 }
 

@@ -1,4 +1,4 @@
-<div class="max-content-width">
+<div class="max-content-width static">
   <div class="website-section relative w-full">
     <!-- <div class="section-title">Dai un'occhiata a quello che ci rende unici</div>
     <div class="section-subtitle">
@@ -8,7 +8,7 @@
 
     <div
       #FeaturesContainer
-      class="w-full flex justify-around mt-20 items-center mb-5 smooth space-x-16 lg:space-x-0"
+      class="w-full flex justify-around items-center mb-5 smooth space-x-16 lg:space-x-0"
     >
       @for (item of features; track $index) {
       <button
@@ -38,16 +38,19 @@
       </div>
       <div class="flex">
         <div
-          class="mockup-browser bg-gray-300/50 border border-gray-300/70 shrink w-full shadow-xl notify-shadow rounded-md hidden lg:block"
+          class="mockup-browser bg-gray-300/50 border border-gray-300/40 shrink w-full shadow-xl notify-shadow rounded-md hidden lg:block static"
         >
           <div class="mockup-browser-toolbar">
             <div class="input !bg-gray-200/50"></div>
           </div>
-          <div class="bg-gray-100">
+          <div class="bg-gray-100" #FeatureImgContainer>
             <img
-              [src]="f.desktopImage"
+              [ngSrc]="f.desktopImage"
               alt="Notify Features"
+              loading="eager"
               class="w-full h-[50%]"
+              width="{{ 4112 }}"
+              height="{{ 2150 }}"
             />
           </div>
         </div>

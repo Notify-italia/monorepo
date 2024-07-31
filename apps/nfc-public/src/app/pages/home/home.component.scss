@@ -12,7 +12,7 @@
 
 .main-circle {
   & *:not(.ignore-height) {
-    height: 90lvh !important;
+    min-height: 90lvh !important;
     transition: all 0.1s linear;
     /* background-color: red; */
   }

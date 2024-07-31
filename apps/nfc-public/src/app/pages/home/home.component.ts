@@ -120,20 +120,20 @@ export class HomeComponent implements AfterViewInit {
     //     });
     //   });
 
-    this._animationsService.initDriver(EnumAnimationsDrivers.ScrollY, 0);
-
-    this._circleContainer.nativeElement.addEventListener('scroll', () => {
-      this._animationsService.updateDriver(
-        EnumAnimationsDrivers.ScrollY,
-        this._circleContainer.nativeElement.scrollTop
-      );
-    });
+    this._animationsService.initDriver(
+      EnumAnimationsDrivers.ScrollY,
+      window.scrollY
+    );
   }
 
   @HostListener('wheel', ['$event'])
   public onScroll(event: WheelEvent) {
     // event.preventDefault();
     // this._scrollAnchors(event.deltaY > 0 ? 'down' : 'up');
+    this._animationsService.updateDriver(
+      EnumAnimationsDrivers.ScrollY,
+      window.scrollY
+    );
   }
 
   public publishAnchor(fragment: string, options?: IAnchorOptions): void {
