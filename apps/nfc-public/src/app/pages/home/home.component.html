@@ -53,7 +53,7 @@
     <notify-trusted-by
       id="trustedby"
       (componentInit)="publishAnchor('trustedby')"
-      class="z-0 mt-10 ignore-height"
+      class="z-0 ignore-height -mt-10"
     ></notify-trusted-by>
 
     <notify-profile-builder
@@ -64,7 +64,6 @@
 
     <notify-instructions
       id="instructions"
-      class="mt-20"
       (componentInit)="publishAnchor('instructions')"
       (componentStable)="instructionsStable$.next()"
     ></notify-instructions>

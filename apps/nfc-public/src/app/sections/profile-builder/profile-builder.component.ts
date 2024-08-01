@@ -17,6 +17,7 @@ import {
   EnumNotifyUserType,
   INotifyAPAvatarItem,
   INotifyProfile,
+  UnknownObject,
 } from '@notify/interfaces';
 import {
   ProfileViewComponent,
@@ -62,6 +63,8 @@ export class ProfileBuilderComponent {
         return this._prepareTemplate(PROFILE_TEMPLATES_CORPORATE);
       case 'chill':
         return this._prepareTemplate(PROFILE_TEMPLATES_CHILL);
+      case 'grunge':
+        return this._prepareTemplate(PROFILE_TEMPLATES_GRUNGE);
       default:
         return this._prepareTemplate(PROFILE_TEMPLATES_CORPORATE);
     }
@@ -337,7 +340,7 @@ const PROFILE_TEMPLATES_CHILL: INotifyProfile = {
   piva: null,
 };
 
-const PROFILE_TEMPLATES_CORPORATE: any = {
+const PROFILE_TEMPLATES_CORPORATE: UnknownObject = {
   _id: '65eedfa9ac3a0d7b566667de',
   name: 'Marco',
   surname: 'De Luca',
@@ -607,6 +610,369 @@ const PROFILE_TEMPLATES_CORPORATE: any = {
     },
     _id: {
       $oid: '6670928bac39d3942c5eacfe',
+    },
+  },
+};
+
+const PROFILE_TEMPLATES_GRUNGE: UnknownObject = {
+  _id: {
+    $oid: '657f565d539981b49a39d5a2',
+  },
+  name: 'Leonardo',
+  surname: 'Miraka',
+  email: 'leonardo.m@notifyapp.it',
+  phoneNumber: '3240552651',
+  bio: null,
+  avatar:
+    'https://s3-api.vps.notifyapp.it/notify-api/profiles/657f565d539981b49a39d5a2/avatar.webp',
+  role: 'CEO',
+  config: {
+    whatsappEnabled: true,
+    phoneCallEnabled: true,
+    emailEnabled: true,
+    avatarMask: 'circle',
+    smsEnabled: false,
+    redirectEnabled: false,
+    feedbackEnabled: false,
+  },
+  type: 'agent',
+  owner: {
+    $oid: '657f565c539981b49a39d5a1',
+  },
+  customFields: [
+    {
+      iconName: 'instagram',
+      value: 'leonardo_miraka',
+      _id: {
+        $oid: '6660ccbcb8b2db11b861fe23',
+      },
+    },
+    {
+      iconName: 'linkedin',
+      value:
+        'https://www.linkedin.com/in/leonardo-miraka-20b28a19b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
+      _id: {
+        $oid: '6660ccbcb8b2db11b861fe24',
+      },
+    },
+    {
+      iconName: 'facebook',
+      value: 'https://www.facebook.com/aldo.bhoo',
+      _id: {
+        $oid: '6660ccbcb8b2db11b861fe25',
+      },
+    },
+    {
+      iconName: 'globe',
+      value: 'www.notifyapp.it',
+      _id: {
+        $oid: '6660ccbcb8b2db11b861fe26',
+      },
+    },
+  ],
+  createdAt: {
+    $date: '2023-12-17T20:13:17.069Z',
+  },
+  updatedAt: {
+    $date: '2024-07-21T20:43:08.639Z',
+  },
+  __v: 32,
+  colors: {
+    background: ['#F7AE32', '#8B5CF6'],
+    elements: '#F9F9F9',
+    useCompanyColors: false,
+  },
+  address: null,
+  redirectUrl:
+    'https://profili.notifyapp.it/profile?p=66047289d430a9dccdd7afc6&s=url',
+  noteOptions: {
+    showTitle: false,
+  },
+  note: null,
+  profileIdentifier: 'nardi',
+  advancedProfile: {
+    enabled: true,
+    items: [
+      {
+        type: 'photo',
+        visible: true,
+        title: '',
+        showTitle: true,
+        textConfig: {
+          enabled: false,
+          font: 'poppins',
+          fontSize: 16,
+          textColor: '#ffffff',
+        },
+        imgSrc:
+          'https://s3-api.vps.notifyapp.it/notify-api/profiles/657f565d539981b49a39d5a2/6660cd784dca23b870e0a907/Secondary Logo.png?c=1717713727182',
+        showCompanyOnClick: true,
+        dimension: 34,
+        align: 'center',
+        _id: '6660cd784dca23b870e0a907',
+      },
+      {
+        type: 'divider',
+        visible: false,
+        title: '',
+        showTitle: true,
+        textConfig: {
+          enabled: false,
+          font: 'poppins',
+          fontSize: 16,
+          textColor: '#ffffff',
+        },
+        _id: '6660d2dc4dca23b870e0a90f',
+      },
+      {
+        type: 'avatar',
+        visible: true,
+        title: '',
+        showTitle: true,
+        _id: '6660b5cbb8b2db11b861fc3b',
+        textConfig: {
+          enabled: true,
+          font: 'mplusRounded',
+          fontSize: 20,
+          textColor: '#ffffff',
+        },
+        direction: 'vertical',
+        label: 'Leonardo Miraka',
+        sublabel: 'CEO',
+        useRoleSubLabel: true,
+        description: '',
+        imgSrc:
+          'https://s3-api.vps.notifyapp.it/notify-api/profiles/657f565d539981b49a39d5a2/6660b5cbb8b2db11b861fc3b/WhatsApp Image 2024-06-12 at 00.10.32.jpeg?c=1718183090106',
+        imgMask: 'squircle',
+        ownerImgCorner: 'none',
+        align: 'center',
+        imgSize: 100,
+        imgFit: 'cover',
+      },
+      {
+        type: 'divider',
+        visible: true,
+        title: '',
+        showTitle: true,
+        textConfig: {
+          enabled: false,
+          font: 'poppins',
+          fontSize: 16,
+          textColor: '#ffffff',
+        },
+        _id: '6660d5354dca23b870e0a916',
+      },
+      {
+        type: 'contacts',
+        visible: true,
+        title: '',
+        showTitle: true,
+        _id: '6660b5cbb8b2db11b861fc3d',
+        textConfig: {
+          enabled: true,
+          font: 'poppins',
+          fontSize: 24.5,
+          textColor: '#ffffff',
+        },
+        direction: 'horizontal',
+        style: 'outlined',
+        items: [
+          {
+            icon: 'phone',
+            caption: 'Telefono',
+            url: '3240552651',
+            visible: true,
+          },
+          {
+            icon: 'mail',
+            caption: 'Email',
+            url: 'leonardo.m@notifyapp.it',
+            visible: true,
+          },
+          {
+            icon: 'whatsapp',
+            caption: 'WhatsApp',
+            url: '3240552651',
+            visible: true,
+          },
+        ],
+      },
+      {
+        type: 'links',
+        visible: true,
+        title: '',
+        showTitle: true,
+        _id: '6660b5cbb8b2db11b861fc3e',
+        textConfig: {
+          enabled: true,
+          font: 'poppins',
+          fontSize: 22.5,
+          textColor: '#ffffff',
+        },
+        direction: 'vertical',
+        style: 'outlined',
+        items: [
+          {
+            icon: 'instagram',
+            caption: 'Instagram',
+            url: 'leonardo_miraka',
+            visible: true,
+          },
+          {
+            icon: 'facebook',
+            caption: 'Facebook',
+            url: 'https://www.facebook.com/aldo.bhoo',
+            visible: true,
+          },
+          {
+            icon: 'linkedin',
+            caption: 'Linkedin',
+            url: 'https://www.linkedin.com/in/leonardo-miraka-20b28a19b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
+            visible: true,
+          },
+        ],
+        openInNotify: false,
+      },
+      {
+        type: 'lead',
+        visible: true,
+        title: '',
+        showTitle: true,
+        textConfig: {
+          enabled: true,
+          font: 'poppins',
+          fontSize: 20,
+          textColor: '#ffffff',
+        },
+        buttonLabel: 'Contattami',
+        fields: [
+          {
+            name: 'name',
+            visible: true,
+            required: true,
+          },
+          {
+            name: 'surname',
+            visible: true,
+            required: false,
+          },
+          {
+            name: 'phone',
+            visible: true,
+            required: false,
+          },
+          {
+            name: 'email',
+            visible: true,
+            required: true,
+          },
+          {
+            name: 'acceptanceMessage',
+            visible: true,
+            required: false,
+          },
+        ],
+        style: 'filled',
+        _id: '669d7160a799f54993ab6c80',
+      },
+      {
+        type: 'divider',
+        visible: true,
+        title: '',
+        showTitle: true,
+        textConfig: {
+          enabled: false,
+          font: 'poppins',
+          fontSize: 16,
+          textColor: '#ffffff',
+        },
+        _id: '6660d2d64dca23b870e0a90e',
+      },
+      {
+        type: 'iframe',
+        visible: true,
+        title: '',
+        showTitle: true,
+        textConfig: {
+          enabled: true,
+          font: 'poppins',
+          fontSize: '14',
+          textColor: '#0b0b0b',
+        },
+        url: 'notifyapp.it',
+        openInNotify: true,
+        _id: '6660d2f94dca23b870e0a910',
+      },
+      {
+        type: 'links',
+        visible: true,
+        title: '',
+        showTitle: true,
+        textConfig: {
+          enabled: true,
+          font: 'poppins',
+          fontSize: '20',
+          textColor: '#ffffff',
+        },
+        style: 'text',
+        direction: 'horizontal',
+        openInNotify: false,
+        items: [
+          {
+            icon: 'appstore',
+            url: 'https://apps.apple.com/it/app/notify-italia/id6479890530',
+            caption: 'App Store',
+            visible: true,
+          },
+          {
+            icon: 'googleplay',
+            url: 'https://play.google.com/store/apps/details?id=org.notify.agent.client&hl=it',
+            caption: 'Play Store',
+            visible: true,
+          },
+        ],
+        _id: '6660d1614dca23b870e0a90d',
+      },
+    ],
+    pageSettings: {
+      backgroundType: 'image',
+      imgSrc:
+        'https://s3-api.vps.notifyapp.it/notify-api/profiles/657f565d539981b49a39d5a2/background/Black_and_White_Portfolio_Photography_png.png?c=1717713713818',
+      fill: '',
+      gradient: {
+        direction: 'vertical',
+        colors: [
+          {
+            value: '#000000',
+          },
+          {
+            value: '#000000',
+          },
+        ],
+      },
+      textColor: '#F9F9F9',
+      align: 'flex-start',
+      padding: 0.5,
+      verticalSpacing: 0.4,
+      font: 'poppins',
+      fontSize: 18,
+      redirectUrl:
+        'https://profili.notifyapp.it/profile?p=66047289d430a9dccdd7afc6&s=url',
+      topPadding: 0,
+      hideContactSave: false,
+      useCompanyTheme: false,
+      backgroundBlur: 0,
+      backgroundBrightness: 100,
+      contactOverrides: {
+        name: '',
+      },
+    },
+    requiredItems: {
+      feedback: '',
+      avatar: '6660b5cbb8b2db11b861fc3b',
+    },
+    _id: {
+      $oid: '6660b5cbb8b2db11b861fc3f',
     },
   },
 };

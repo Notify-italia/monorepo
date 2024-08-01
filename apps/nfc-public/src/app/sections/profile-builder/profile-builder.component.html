@@ -9,7 +9,7 @@
       apparire il tuo profilo.
     </p>
     <div
-      class="flex justify-between items-start relative px-5"
+      class="flex justify-between items-center relative px-5"
       [ngClass]="{
         'space-x-4': showProfile
       }"
@@ -78,10 +78,10 @@
           </button>
           <button
             [disabled]="form.invalid"
-            (click)="this.form.controls.type.setValue('influencer')"
+            (click)="this.form.controls.type.setValue('grunge')"
             class="style-button smooth object-contain"
           >
-            INFLUENCER
+            GRUNGE
           </button>
           <button
             [disabled]="form.invalid"
