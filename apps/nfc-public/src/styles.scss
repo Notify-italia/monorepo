@@ -4,16 +4,25 @@
 
 /* You can add global styles to this file, and also import other style files */
 @import url(//fonts.googleapis.com/css?family=Vibur);
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+html {
+  scroll-behavior: smooth !important;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
 
 .website-section {
-  @apply flex flex-col justify-center items-center;
+  @apply flex flex-col items-center;
 
   .section-title {
-    @apply text-white text-3xl lg:text-4xl font-bold text-center font-caveat px-3;
+    @apply text-[3rem] lg:text-[4rem] font-extrabold text-center font-outfit lg:px-3 leading-[3rem] lg:leading-[4rem] whitespace-pre-wrap z-10 w-full;
   }
 
   .section-subtitle {
-    @apply font-medium text-center  text-white/60 px-3;
+    @apply font-medium text-center text-slate-900/60 px-3 mt-5 text-sm lg:text-base z-10;
   }
 }
 
@@ -21,7 +30,7 @@
   @apply flex justify-center w-full h-full;
 
   & * {
-    @apply max-w-[1560px];
+    @apply max-w-[1280px];
   }
 }
 
@@ -32,6 +41,10 @@
 .neon {
   user-select: none;
   @apply w-full flex justify-center lg:justify-start;
+}
+
+.h-lscreen {
+  @apply h-[100lvh];
 }
 
 .neon b {
@@ -60,7 +73,7 @@
       drop-shadow(0 0 0.1rem #a9d8f5) drop-shadow(0 5px 2rem #d8ecff);
   }
   79% {
-    color: #242424;
+    color: #6f6f6f;
   }
   80% {
     filter: none;
@@ -71,7 +84,7 @@
       drop-shadow(0 0 0.1rem #a9d8f5) drop-shadow(0 5px 2rem #d8ecff);
   }
   82% {
-    color: #353535;
+    color: #6f6f6f;
     filter: none;
   }
   83% {
@@ -80,7 +93,7 @@
       drop-shadow(0 0 0.1rem #a9d8f5) drop-shadow(0 5px 2rem #d8ecff);
   }
   92% {
-    color: #353535;
+    color: #6f6f6f;
     filter: none;
   }
   92.5% {
@@ -116,4 +129,21 @@
 #btn-twtr:hover {
   color: #fff;
   opacity: 1;
+}
+
+.notify-shadow {
+  filter: drop-shadow(-40px 40px 59px -18px rgb(114 211 179 / 0.6))
+    drop-shadow(40px -40px 74px -20px rgb(111 165 237 / 0.4));
+}
+
+.fade-down {
+  @apply animate-fade-down animate-once animate-ease-out;
+}
+
+.fade-up {
+  @apply animate-fade-up animate-once animate-ease-out;
+}
+
+.fade-up-delayed {
+  @apply animate-fade-up animate-once animate-delay-200 animate-ease-out;
 }

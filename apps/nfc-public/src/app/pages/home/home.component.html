@@ -1,70 +1,87 @@
-<div class="flex justify-center scroll-smooth font-mulish">
+<img
+  src="/assets/images/background.svg"
+  class="w-[100vw] h-lscreen fixed top-0 left-0 object-cover z-0"
+  alt=""
+/>
+
+<img
+  src="/assets/images/noise.svg"
+  class="w-[100vw] h-lscreen fixed top-0 left-0 object-cover pointer-events-none opacity-50"
+  alt=""
+/>
+
+<div class="flex justify-center font-poppins bg-slate-50 overflow-hidden z-20">
   <div
-    class="fixed w-full h-full top-0 left-0 z-[999] bg-black smooth"
+    class="fixed w-full h-lscreen top-0 left-0 z-[999] bg-slate-50 smooth"
     [ngClass]="{
-      'opacity-0 pointer-events-none': stable
+      'opacity-0 pointer-events-none':  pageStable$  | async,
     }"
   >
     <notify-loading></notify-loading>
   </div>
-  <notify-cursor></notify-cursor>
 
   <div
-    class="h-full w-full flex flex-col overflow-hidden scroll-smooth text-slate-200 bg-[#0E0E0F]"
+    id="bubbleOutline"
+    class="fixed size-[100vh] lg:size-[170lvh] p-2 rounded-full shrink-0 bg-gray-300/50 -top-[0vh] lg:-top-[35vh] smooth"
+  ></div>
+
+  <div class="fixed z-50 top-0 left-0 w-full">
+    <notify-top-nav></notify-top-nav>
+  </div>
+
+  <div
+    class="fixed flex flex-col justify-center items-center size-[90vh] lg:size-[150lvh] p-2 rounded-full shadow-xl shrink-0 bg-white/40 overflow-x-hidden overflow-y-visible smooth glassmorph top-[5vh] lg:-top-[25vh]"
+    id="bubble"
+  ></div>
+
+  <div
+    #CircleContainer
+    class="flex flex-col items-center w-screen p-2 text-slate-800 main-circle scroll-smooth scrollbar-none"
   >
-    <!-- SPLASH E TOP NAV -->
-    <div class="w-full h-full flex flex-col hero-gradient relative">
-      <notify-top-nav></notify-top-nav>
+    <notify-splash
+      id="splash"
+      (componentInit)="publishAnchor('splash')"
+    ></notify-splash>
 
-      <notify-splash id="splash"></notify-splash>
-    </div>
+    <notify-features
+      id="features"
+      (componentStable)="featuresStable$.next()"
+      class="z-10 mt-10"
+      (componentInit)="publishAnchor('features')"
+    ></notify-features>
 
-    <!-- GRADIENT DIVIDER -->
-    <section
-      class="items-center relative py-20 overflow-hidden"
-      data-v-03e9e875
-    >
-      <div style="opacity: 1; transform: none" data-v-03e9e875 data-v-b822103d>
-        <span class="hero-divider" data-v-b822103d></span
-        ><span
-          class="gradient-border gradient-border-right"
-          data-v-b822103d
-        ></span
-        ><span
-          class="gradient-border gradient-border-left"
-          data-v-b822103d
-        ></span>
-      </div>
-    </section>
+    <notify-trusted-by
+      id="trustedby"
+      (componentInit)="publishAnchor('trustedby')"
+      class="z-0 ignore-height -mt-10"
+    ></notify-trusted-by>
 
-    <notify-personalization id="#personalization"></notify-personalization>
-
-    <notify-card-builder class="my-20" id="#card-builder"></notify-card-builder>
-
-    <notify-software-only></notify-software-only>
-
-    <div class="divider"></div>
-
-    <notify-features id="features"></notify-features>
-
-    <notify-sustainability id="sustainability"></notify-sustainability>
-
-    <div class="divider"></div>
-
-    <notify-funded-by id="fundedby" class="mt-20"></notify-funded-by>
-
-    <notify-partners id="partners"></notify-partners>
+    <notify-profile-builder
+      id="builder"
+      (componentInit)="publishAnchor('builder')"
+      class="mt-20"
+    ></notify-profile-builder>
 
     <notify-instructions
-      class="mt-20"
+      id="instructions"
+      (componentInit)="publishAnchor('instructions')"
       (componentStable)="instructionsStable$.next()"
     ></notify-instructions>
 
-    <div class="divider"></div>
+    <notify-shop
+      class="mt-20 p-5"
+      id="shop"
+      (componentInit)="publishAnchor('shop')"
+    ></notify-shop>
 
-    <notify-questions></notify-questions>
+    <notify-questions
+      class="p-5 ignore-height"
+      id="questions"
+      (componentInit)="publishAnchor('questions', {
+          ignoreBlur: true,
+        })"
+    ></notify-questions>
 
-    <notify-contact-us id="contactus" class="mt-20"></notify-contact-us>
-    <notify-footer class="z-10"></notify-footer>
+    <notify-footer class="z-10 mt-20 w-full ignore-height"></notify-footer>
   </div>
 </div>

@@ -1,7 +1,0 @@
-.slider {
-  @apply grid grid-flow-row lg:grid-flow-col  w-full p-4 py-10  2xl:m-5 2xl:rounded-lg  overflow-auto  bg-[#212122] justify-center place-items-center content-center;
-}
-
-.slide {
-  @apply grayscale hover:grayscale-0 object-center  flex flex-col justify-center items-center m-2 lg:m-0;
-}

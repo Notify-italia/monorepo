@@ -1,9 +1,14 @@
+import { IMAGE_CONFIG } from '@angular/common';
 import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
-import { HttpService, providePixelModule } from '@notify/ngx-shared';
+import {
+  HttpService,
+  provideEcwid,
+  providePixelModule,
+} from '@notify/ngx-shared';
 import { provideClarity } from 'ngx-clarity';
 import { provideToastr } from 'ngx-toastr';
 import { environment } from '../environments/environment.prod';
@@ -27,5 +32,13 @@ export const appConfig: ApplicationConfig = {
       enabled: true,
       projectId: 'l2q2lfi4bb',
     }),
+    provideEcwid({ storeId: 104545811 }),
+    {
+      provide: IMAGE_CONFIG,
+      useValue: {
+        disableImageSizeWarning: true,
+        disableImageLazyLoadWarning: true,
+      },
+    },
   ],
 };

@@ -10,14 +10,4 @@ import { AppTitleComponent } from '@notify/ngx-shared';
   templateUrl: './top-nav.component.html',
   styleUrl: './top-nav.component.scss',
 })
-export class TopNavComponent {
-  public options: {
-    label: string;
-    path: string;
-  }[] = [
-    // {
-    //   label: 'Sfoglia le tessere',
-    //   path: '/builder',
-    // },
-  ];
-}
+export class TopNavComponent {}

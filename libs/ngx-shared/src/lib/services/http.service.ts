@@ -1,11 +1,12 @@
+import { isPlatformBrowser } from '@angular/common';
 import {
   HttpClient,
   HttpParams,
   provideHttpClient,
 } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { inject, Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { UnknownType } from '@notify/interfaces';
-import { ObservableInput, catchError, retry, timeout } from 'rxjs';
+import { catchError, ObservableInput, retry, timeout } from 'rxjs';
 
 export enum HttpServiceTokenType {
   Bearer = 'bearer',
@@ -14,11 +15,15 @@ export enum HttpServiceTokenType {
 
 @Injectable()
 export class HttpService {
+  private _platformID = inject(PLATFORM_ID);
   public get apiBaseUrl(): string {
     return this.apiUrl;
   }
 
   private get token() {
+    if (!isPlatformBrowser(this._platformID)) {
+      return 'none';
+    }
     return localStorage.getItem(this.tokenPath);
   }
 

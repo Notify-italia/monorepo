@@ -1,46 +1,68 @@
-<div class="max-content-width">
-  <div
-    class="flex flex-col justify-center w-full lg:h-[90vh] relative py-5 lg:py-0"
-  >
-    <div
-      class="flex flex-col-reverse lg:flex-row lg:justify-around w-full flex-nowrap items-center h-full"
-    >
-      <div class="space-y-10 w-full lg:w-fit lg:max-w-[50vw] mx-8 z-10">
-        <h1
-          class="text-4xl lg:text-5xl font-bold font-caveat text-center lg:text-start flex flex-col justify-center text-white w-full lg:w-fit animate-fade-up lg:animate-fade-right animate-once animate-ease-out"
-        >
-          <span> Regala un effetto </span>
-          <div class="neon">
-            <b class="z-0"> WOW </b> <b class="blink z-0">!</b>
-          </div>
-          <span class="-mt-5"> ai tuoi clienti</span>
-        </h1>
+<div class="max-content-width h-lscreen relative">
+  <div class="website-section !justify-center">
+    <div class="flex flex-col space-y-4 items-center z-10">
+      <h1 class="section-title fade-down saturate-150">
+        <p>
+          Il biglietto da visita
+          <span class="text-secondary-500">smart</span>,
+        </p>
+        <p>
+          per il tuo
+          <span class="text-primary-500">business</span>.
+        </p>
+      </h1>
 
-        <h2
-          class="lg:text-xl mt-5 text-slate-200 whitespace-pre-line px-5 lg:px-0 text-center lg:text-start animate-fade-up lg:animate-fade-right animate-ease-out animate-delay-[300ms]"
-        >
-          <b class="text-gray-50">
-            Hai mai sognato di vedere il tuo biglietto da visita fare un
-            moonwalk nell'era digitale?
-          </b>
-          <br />
-          <br />
-
-          <p class="font-light">
-            Preparati a rimanere senza fiato, <br />
-            Con i nostri biglietti da visita digitali ogni presentazione diventa
-            un'avventura spaziale!
+      <div class="flex flex-col lg:mx-20 px-2 lg:px-10 space-y-5 lg:space-y-10">
+        <div class="splash-subtitle">
+          <p class="fade-up-delayed">
+            Notify è il SaaS che rivoluziona il modo in cui tu e il tuo team
+            <br />
+            vi relazionate con la vostra rete di contatti.
           </p>
-        </h2>
+          <!-- <p class="fade-up-delayed">
+            Notify è il primo biglietto da visita costruito con una mentalità
+            team-first.
+          </p> -->
+        </div>
+
+        <div class="animate-fade-up">
+          <button
+            class="splash-cta smooth smooth-slower notify-shadow"
+            (click)="goToShop()"
+          >
+            <div>Sfoglia le cards</div>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m8.25 4.5 7.5 7.5-7.5 7.5"
+              />
+            </svg>
+          </button>
+          <div class="text-center text-sm lg:text-base">
+            <small>
+              <a
+                class="link opacity-75 animate-fade"
+                (click)="openCalendlyPopup()"
+                >Oppure, richiedi una demo</a
+              >
+            </small>
+          </div>
+        </div>
+        <notify-funded-by
+          class="animate-fade-right animate-delay-150 animate-ease-out"
+        ></notify-funded-by>
       </div>
-      <div
-        class="w-full h-full lg:w-[80%] lg:h-[80%] flex justify-end opacity-90 px-5 lg:px-0 pointer-events-none z-0"
-      >
-        <img
-          src="/assets/images/dashboard.webp"
-          alt="dashbaord"
-          class="object-cover opacity-75 w-full h-full overflow-visible object-left"
-        />
+
+      <div class="mouse smooth hidden lg:block" id="mouseGlpyh">
+        <div class="scroll"></div>
       </div>
     </div>
   </div>

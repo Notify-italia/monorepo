@@ -1,0 +1,66 @@
+<div class="max-content-width h-full">
+  <div class="website-section relative">
+    <div class="section-title dont-break-out">
+      il tuo salto di qualità <br />
+      inizia qui.
+    </div>
+    <div class="section-subtitle mt-5">
+      <p>
+        Scegli le cards che preferisci e procedi con l'acquisto. <br />
+        Il tuo modo di fare netowrking non sarà più lo stesso.
+      </p>
+    </div>
+
+    <div
+      class="mt-10 2xl:mt-20 flex justify-around w-full intersect:animate-fade-down animate-ease-out"
+    >
+      @for (item of products$ | async; track $index) {
+      <div class="wrapper !m-4 border border-gray-300">
+        <div class="container">
+          <div
+            class="top object-cover bg-cover bg-center bg-no-repeat"
+            [ngStyle]="
+              buildCssImgUrl(
+                item.defaultOptionsOverrides.variationOverrides.mediaItems[0]
+                  .imageOriginalUrl
+              )
+            "
+          ></div>
+          <div class="bottom">
+            <div class="left">
+              <div class="details">
+                <h1>{{ item.name }}</h1>
+                <p>
+                  {{
+                    item.defaultOptionsOverrides.pricesOverrides
+                      .basePriceWithModifiersDiscountAndTaxes
+                  }}
+                </p>
+              </div>
+              <div class="buy">
+                <i class="material-icons">add_shopping_cart</i>
+              </div>
+            </div>
+            <div class="right">
+              <div class="done"><i class="material-icons">done</i></div>
+              <div class="details">
+                <h1>Chair</h1>
+                <p>Added to your cart</p>
+              </div>
+              <div class="remove"><i class="material-icons">clear</i></div>
+            </div>
+          </div>
+        </div>
+        <div class="inside">
+          <div class="icon"><i class="material-icons">info_outline</i></div>
+          <div class="inside-contents">
+            <div class="flex flex-col justify-center items-center text-white">
+              <small [innerHTML]="item.description"></small>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>

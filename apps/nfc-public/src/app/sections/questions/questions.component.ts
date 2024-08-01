@@ -26,7 +26,7 @@ export class QuestionsComponent extends SSRBaseComponent {
       question:
         'Quali sono i vantaggi dei biglietti da visita digitali rispetto a quelli tradizionali?',
       answer:
-        "I biglietti da visita digitali offrono numerosi vantaggi rispetto a quelli tradizionali in carta. <br />  Primo, sono ecologici, riducendo l'impatto sull'ambiente. Inoltre, sono più versatili e personalizzabili, consentendo l'aggiunta di elementi multimediali come link, immagini e video. Sono facilmente condivisibili tramite email, messaggi o social media e consentono di ricevere feedback istantanei.",
+        "I biglietti da visita digitali offrono numerosi vantaggi rispetto a quelli tradizionali in carta. <br />  Primo, sono ecologici, riducendo l'impatto sull'ambiente. Inoltre, sono più versatili e personalizzabili, consentendo l'aggiunta di elementi multimediali come link e immagini. Sono facilmente condivisibili tramite email, messaggi o social media e consentono di ricevere feedback istantanei.",
     },
     {
       question: 'Posso personalizzare il mio biglietto da visita digitale?',
@@ -43,18 +43,18 @@ export class QuestionsComponent extends SSRBaseComponent {
       question:
         'Come posso ricevere feedback dai destinatari dei miei biglietti da visita digitali?',
       answer:
-        "La nostra app consente di ricevere feedback istantanei dai destinatari dei tuoi biglietti da visita digitali. Dopo aver scansionato il tuo biglietto, i destinatari possono fornire feedback direttamente tramite l'app, consentendoti di valutare l'efficacia dei tuoi biglietti e apportare eventuali miglioramenti.",
+        "Avrai a disposizione un blocco 'feedback' in fase di creazione del profilo che permetterà, a chi visualizza il tuo profilo, di lasciare un feedback formato da un punteggio a stelle e un messaggio testuale. <br /><br />  Potrai visualizzare la media dei feedback ricevuti direttamente dalla dashboard utente o, in alternativa, nella sezione analytics del pannello amministrativo in formato esteso.",
     },
     {
       question: `Quali sono le opzioni di analytics disponibili per monitorare l'efficacia dei miei biglietti da visita digitali?`,
       answer:
-        "Offriamo una serie di opzioni di analytics per monitorare l'efficacia dei tuoi biglietti da visita digitali. <br />  Puoi visualizzare il numero di scansioni, le interazioni e i feedback ricevuti, nonché le informazioni demografiche dei tuoi contatti. Questi dati ti consentono di valutare il successo della tua strategia di networking e di apportare eventuali aggiustamenti.",
+        "Offriamo una serie di opzioni di analytics per monitorare l'efficacia dei tuoi biglietti da visita digitali. <br />  Puoi visualizzare il numero di scansioni, le interazioni e i feedback ricevuti, nonchè avere un quadro dettagliato delle scansioni per ogni giorno degli ultimi 3 mesi e una leaderboard dei profili più scansionati. <br />  Questi dati ti consentono di valutare il successo della tua strategia di networking e di apportare eventuali aggiustamenti.",
     },
     {
       question:
-        "Come posso inserire i miei dati all'interno dell'NFC del biglietto da visita digitale?",
+        "Come posso inserire i miei dati all'interno del biglietto da visita digitale?",
       answer:
-        "È semplice! <br /><br /> Dopo aver creato il profilo sulla nostra piattaforma, avrai l'opzione di includere i tuoi dati all'interno di un qualsiasi dispositivo NFC. Sarà sufficente poi selezionare il pulsante dell'NFC disponibile sulla Dashboard o sulla pagina di modifica profilo e seguire le istruzioni a schermo. Una volta completato il processo, i destinatari potranno semplicemente avvicinare il loro smartphone al biglietto per accedere rapidamente e facilmente alle tue informazioni di contatto.  <br /><br /> È un modo conveniente e innovativo per scambiare dati durante le interazioni di networking!",
+        "È semplice! <br /><br /> Su Notify è sufficente selezionare il pulsante dell'NFC disponibile sulla Dashboard o sulla pagina di modifica profilo e seguire le istruzioni a schermo. Una volta completato il processo, i destinatari potranno avvicinare il loro smartphone al tuo biglietto per accedere rapidamente e facilmente alle tue informazioni di contatto.",
     },
   ].map((item) => ({
     question: this._domSanitizer.bypassSecurityTrustHtml(item.question),

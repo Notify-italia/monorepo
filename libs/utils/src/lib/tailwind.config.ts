@@ -6,6 +6,7 @@ const tailwindConfig = {
   future: {
     hoverOnlyWhenSupported: true,
   },
+  mode: 'jit',
   theme: {
     extend: {
       fontFamily: {

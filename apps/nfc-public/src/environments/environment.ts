@@ -7,6 +7,7 @@ export const environment = {
   apiUrl: 'http://localhost:3100/api',
   profilesUrl: 'http://localhost:4200',
   jwtTokenKey: 'dev.company.token',
+  shopUrl: 'localhost:4200/shop',
 };
 
 /*

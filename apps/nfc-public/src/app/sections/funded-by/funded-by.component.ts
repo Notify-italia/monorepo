@@ -11,14 +11,14 @@ import { Component } from '@angular/core';
 export class FundedByComponent {
   public funds = [
     {
-      name: 'Regione Toscana',
-      logo: 'assets/funders/toscana.webp',
-      url: 'https://www.regione.toscana.it/',
-    },
-    {
       name: 'Fondazione Monte dei Paschi di Siena',
       logo: 'assets/funders/fmps.webp',
       url: 'https://www.fondazionemps.it/',
+    },
+    {
+      name: 'Regione Toscana',
+      logo: 'assets/funders/toscana.webp',
+      url: 'https://www.regione.toscana.it/',
     },
     {
       name: 'IKIGAI',
