@@ -2,8 +2,9 @@
   <div class="website-section">
     <h1 class="section-title">Canva, per biglietti da visita.</h1>
     <p class="section-subtitle">
-      Tutte le funzionalità di un editor grafico, integrate in un unico
-      strumento di networking.
+      Un profilo completamente personalizzabile e ricco di funzioni,
+      <br />
+      senza la necessità di alcuna competenza tecnica o di design.
     </p>
     <div
       class="flex flex-col lg:flex-row lg:space-x-4 space-y-4 lg:space-y-8 mt-10 items-center"
@@ -28,8 +29,8 @@
             Aggiungi, modifica e riordina i nostri moduli per scolpire il
             profilo che ti rappresenti al meglio;
             <br />
-            Modifica colori, fonts, sfondo e stili in pochi click, senza
-            necessità di alcuna competenza tecnica o grafica.
+            Modifica colori, fonts, sfondo e stili in pochi click, senza dover
+            conoscere alcun linguaggio di programmazione.
           </p>
         </div>
         <div class="editor-feature intersect:animate-fade-down">
@@ -60,6 +61,23 @@
             nome, l'email o il numero di telefono, <br />
             Per poi visualizzarli direttamente in app o sul portale
             amministrativo.
+          </p>
+        </div>
+        <div class="editor-feature intersect:animate-fade-down">
+          <div class="pulsing-dot text-primary-400">
+            <div></div>
+            <div></div>
+            <span>Live</span>
+          </div>
+
+          <h2>Team-first</h2>
+          <p>
+            Ogni profilo Notify permette, tramite un tap o uno swipe, di
+            visualizzare il profilo aziendale in un atimo,
+            <br />
+            permettendo al tuo team di costruire il profilo attorno alle proprie
+            informazioni di contato, anzichè traslare quelle aziendali per ogni
+            membro.
           </p>
         </div>
       </div>
@@ -145,14 +163,12 @@
       >
         <p class="section-subtitle">
           Compila il form sottostante per creare un profilo casuale, e avere
-          subito un'anteprima concreta di come potrebbe apparire il tuo profilo.
+          subito un'anteprima concreta di come potrebbe apparire il tuo.
           <br />
           <br />
           Oppure, in alternativa,
-          <a href="#instructions" class="link"
-            >Crea un'account di prova gratuito</a
-          >
-          e inizia subito a personalizzare il tuo profilo.
+          <a href="#instructions" class="link">prova</a> Notify e inizia subito
+          a personalizzare il tuo profilo, gratuitamente.
         </p>
         <notify-upload
           (fileChanged)="this.form.controls.image.setValue($any($event.blob))"

@@ -28,10 +28,9 @@ router.post(
         }
       );
 
-      console.log('isProduction', isProduction);
       if (!isProduction()) {
         const license = await LicenseManager.generate({
-          allowedAgents: 3,
+          allowedAgents: 1,
           boughtCards: 0,
           expirationDate: undefined,
           features: [
