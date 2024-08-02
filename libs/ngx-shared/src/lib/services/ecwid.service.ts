@@ -6,7 +6,7 @@ import {
   Injectable,
   Renderer2,
 } from '@angular/core';
-import { CatalogResponse, UnknownObject } from '@notify/interfaces';
+import { CatalogResponse, UnknownType } from '@notify/interfaces';
 import { map, Subject } from 'rxjs';
 
 @Injectable({
@@ -17,25 +17,25 @@ export class EcwidService {
 
   constructor(@Inject('storeId') private storeId: number) {
     afterNextRender(() => {
-      (window as UnknownObject)._ecwidLoaded$ = new Subject<{
-        ec: UnknownObject;
-        Ecwid: UnknownObject;
+      (window as UnknownType)._ecwidLoaded$ = new Subject<{
+        ec: UnknownType;
+        Ecwid: UnknownType;
       }>();
 
-      (window as UnknownObject)._ecwidLoaded$.subscribe(() => {
+      (window as UnknownType)._ecwidLoaded$.subscribe(() => {
         console.log('Ecwid API loaded');
-        console.log(`Ecwid`, (window as UnknownObject).Ecwid);
-        console.log(`ec`, (window as UnknownObject).ec);
+        console.log(`Ecwid`, (window as UnknownType).Ecwid);
+        console.log(`ec`, (window as UnknownType).ec);
       });
     });
   }
 
   public get Ecwid() {
-    return (window as UnknownObject).Ecwid;
+    return (window as UnknownType).Ecwid;
   }
 
   public get ec() {
-    return (window as UnknownObject).ec;
+    return (window as UnknownType).ec;
   }
 
   public initEcwidAPI(renderer: Renderer2) {

@@ -6,7 +6,7 @@ import {
   afterNextRender,
   inject,
 } from '@angular/core';
-import { UnknownObject } from '@notify/interfaces';
+import { UnknownType } from '@notify/interfaces';
 import {
   AnimationsService,
   EnumAnimationsDrivers,
@@ -60,8 +60,9 @@ export class HomeComponent implements AfterViewInit {
   public instructionsStable$ = new Subject<void>();
   public splashStable$ = new Subject<void>();
   public featuresStable$ = new Subject<void>();
+  public splineReady$ = new Subject<void>();
 
-  public pageStable$ = new Observable<UnknownObject>();
+  public pageStable$ = new Observable<UnknownType>();
 
   public anchors: { fragment: string; options?: IAnchorOptions }[] = [];
   private _currentAnchor = 0;
@@ -72,6 +73,7 @@ export class HomeComponent implements AfterViewInit {
       this.pageStable$ = combineLatest([
         // this.splashStable$,
         // this.instructionsStable$,
+        this.splineReady$,
         this.featuresStable$,
       ]);
     });
@@ -97,11 +99,11 @@ export class HomeComponent implements AfterViewInit {
       },
     });
 
-    this._animationsService.declareAnimation('#mouseGlpyh', {
-      scrollY: (value: number) => ({
-        opacity: value > transitionThreshold ? 0 : 1,
-      }),
-    });
+    // this._animationsService.declareAnimation('#mouseGlpyh', {
+    //   scrollY: (value: number) => ({
+    //     opacity: value > transitionThreshold ? 0 : 1,
+    //   }),
+    // });
 
     this._animationsService.declareAnimation('#bubbleOutline', {
       scrollY: (value: number) => ({

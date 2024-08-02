@@ -3,14 +3,14 @@
 }
 
 .splash-cta {
-  @apply p-4 rounded-lg w-full whitespace-nowrap text-center text-white flex justify-center items-center bg-gradient-to-br from-cyan-500 to-blue-500 hover:brightness-105 hover:scale-110 font-bold text-lg lg:text-xl active:scale-100 space-x-2;
+  @apply p-4 rounded-lg w-full whitespace-nowrap text-center text-white flex justify-center items-center bg-gradient-to-br from-cyan-500 to-blue-500 hover:brightness-105 lg:hover:scale-110 font-bold text-lg lg:text-xl active:scale-100 space-x-2;
 }
 
 .mouse {
   position: absolute;
   width: 30px;
   height: 50px;
-  bottom: 10rem;
+  bottom: 10%;
   left: 50%;
   margin-left: -12px;
   border-radius: 15px;

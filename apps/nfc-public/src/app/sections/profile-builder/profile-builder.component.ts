@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -9,7 +9,7 @@ import {
 import {
   EnumNotifyAPAlign,
   EnumNotifyAPBackgroundTypes,
-  EnumNotifyAPButtonStyles,
+  EnumNotifyAPContainerStyles,
   EnumNotifyAPCorners,
   EnumNotifyAPDirections,
   EnumNotifyAPObjectFit,
@@ -17,12 +17,14 @@ import {
   EnumNotifyUserType,
   INotifyAPAvatarItem,
   INotifyProfile,
-  UnknownObject,
+  UnknownType,
 } from '@notify/interfaces';
 import {
+  ProfilePlayerFactory,
   ProfileViewComponent,
   TailwindFormsModule,
   UploadComponent,
+  UtilsService,
 } from '@notify/ngx-shared';
 
 @Component({
@@ -35,17 +37,21 @@ import {
     TailwindFormsModule,
     UploadComponent,
   ],
+  providers: [UtilsService, ProfilePlayerFactory],
   templateUrl: './profile-builder.component.html',
   styles: `notify-tailwind-input {
     width: 100%;
   }
   
   .style-button {
-    @apply p-4 rounded-md shadow-md backdrop-blur-md bg-white/10 text-slate-800 w-48 h-16 hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-50 hover:h-48 hover:rounded-2xl hover:text-white;
+    @apply px-4 py-2 rounded-md shadow-md backdrop-blur-md bg-white/10 text-slate-800 w-full lg:w-48 h-16 hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-50 hover:h-48 hover:rounded-2xl hover:text-white;
   }
   `,
 })
 export class ProfileBuilderComponent {
+  public utilsService = inject(UtilsService);
+  private _profileFactory = inject(ProfilePlayerFactory);
+
   public form = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
@@ -65,6 +71,8 @@ export class ProfileBuilderComponent {
         return this._prepareTemplate(PROFILE_TEMPLATES_CHILL);
       case 'grunge':
         return this._prepareTemplate(PROFILE_TEMPLATES_GRUNGE);
+      case 'influencer':
+        return this._prepareTemplate(PROFILE_TEMPLATES_INFLUENCER);
       default:
         return this._prepareTemplate(PROFILE_TEMPLATES_CORPORATE);
     }
@@ -72,6 +80,18 @@ export class ProfileBuilderComponent {
 
   public onSubmit() {
     this.showProfile = true;
+  }
+
+  public handleStyleClick(type: string) {
+    this.form.patchValue({ type });
+
+    if (this.utilsService.isMobile) {
+      this._profileFactory.create({
+        profile: this.currentTemplate,
+        isRunningOnPlayer: true,
+        hideShare: true,
+      });
+    }
   }
 
   private _prepareTemplate(template: INotifyProfile) {
@@ -98,7 +118,7 @@ export class ProfileBuilderComponent {
   }
 }
 
-const PROFILE_TEMPLATES_CHILL: INotifyProfile = {
+const PROFILE_TEMPLATES_CHILL: UnknownType = {
   _id: '657f61da3e18748bb264a57e',
   name: 'Emanuele Andrea',
   surname: 'Ruja',
@@ -218,7 +238,7 @@ const PROFILE_TEMPLATES_CHILL: INotifyProfile = {
           textColor: '',
         },
         direction: EnumNotifyAPDirections.Horizontal,
-        style: EnumNotifyAPButtonStyles.Outlined,
+        style: EnumNotifyAPContainerStyles.Outlined,
         items: [
           {
             icon: 'phone',
@@ -274,7 +294,7 @@ const PROFILE_TEMPLATES_CHILL: INotifyProfile = {
           textColor: '#ffffff',
         },
         direction: EnumNotifyAPDirections.Vertical,
-        style: EnumNotifyAPButtonStyles.Filled,
+        style: EnumNotifyAPContainerStyles.Filled,
         items: [
           {
             icon: 'linkedin',
@@ -340,7 +360,7 @@ const PROFILE_TEMPLATES_CHILL: INotifyProfile = {
   piva: null,
 };
 
-const PROFILE_TEMPLATES_CORPORATE: UnknownObject = {
+const PROFILE_TEMPLATES_CORPORATE: UnknownType = {
   _id: '65eedfa9ac3a0d7b566667de',
   name: 'Marco',
   surname: 'De Luca',
@@ -614,7 +634,7 @@ const PROFILE_TEMPLATES_CORPORATE: UnknownObject = {
   },
 };
 
-const PROFILE_TEMPLATES_GRUNGE: UnknownObject = {
+const PROFILE_TEMPLATES_GRUNGE: UnknownType = {
   _id: {
     $oid: '657f565d539981b49a39d5a2',
   },
@@ -694,35 +714,46 @@ const PROFILE_TEMPLATES_GRUNGE: UnknownObject = {
     enabled: true,
     items: [
       {
-        type: 'photo',
+        type: 'lead',
         visible: true,
         title: '',
         showTitle: true,
         textConfig: {
           enabled: false,
           font: 'poppins',
-          fontSize: 16,
+          fontSize: 20,
           textColor: '#ffffff',
         },
-        imgSrc:
-          'https://s3-api.vps.notifyapp.it/notify-api/profiles/657f565d539981b49a39d5a2/6660cd784dca23b870e0a907/Secondary Logo.png?c=1717713727182',
-        showCompanyOnClick: true,
-        dimension: 34,
-        align: 'center',
-        _id: '6660cd784dca23b870e0a907',
-      },
-      {
-        type: 'divider',
-        visible: false,
-        title: '',
-        showTitle: true,
-        textConfig: {
-          enabled: false,
-          font: 'poppins',
-          fontSize: 16,
-          textColor: '#ffffff',
-        },
-        _id: '6660d2dc4dca23b870e0a90f',
+        buttonLabel: 'Riservami per un evento',
+        fields: [
+          {
+            name: 'name',
+            visible: true,
+            required: true,
+          },
+          {
+            name: 'surname',
+            visible: true,
+            required: false,
+          },
+          {
+            name: 'phone',
+            visible: true,
+            required: false,
+          },
+          {
+            name: 'email',
+            visible: true,
+            required: true,
+          },
+          {
+            name: 'acceptanceMessage',
+            visible: true,
+            required: false,
+          },
+        ],
+        style: 'filled',
+        _id: '669d7160a799f54993ab6c80',
       },
       {
         type: 'avatar',
@@ -731,19 +762,19 @@ const PROFILE_TEMPLATES_GRUNGE: UnknownObject = {
         showTitle: true,
         _id: '6660b5cbb8b2db11b861fc3b',
         textConfig: {
-          enabled: true,
+          enabled: false,
           font: 'mplusRounded',
           fontSize: 20,
           textColor: '#ffffff',
         },
         direction: 'vertical',
         label: 'Leonardo Miraka',
-        sublabel: 'CEO',
+        sublabel: 'Freelance Guitarist',
         useRoleSubLabel: true,
         description: '',
         imgSrc:
           'https://s3-api.vps.notifyapp.it/notify-api/profiles/657f565d539981b49a39d5a2/6660b5cbb8b2db11b861fc3b/WhatsApp Image 2024-06-12 at 00.10.32.jpeg?c=1718183090106',
-        imgMask: 'squircle',
+        imgMask: 'parallelogram-3',
         ownerImgCorner: 'none',
         align: 'center',
         imgSize: 100,
@@ -804,7 +835,7 @@ const PROFILE_TEMPLATES_GRUNGE: UnknownObject = {
         showTitle: true,
         _id: '6660b5cbb8b2db11b861fc3e',
         textConfig: {
-          enabled: true,
+          enabled: false,
           font: 'poppins',
           fontSize: 22.5,
           textColor: '#ffffff',
@@ -834,64 +865,9 @@ const PROFILE_TEMPLATES_GRUNGE: UnknownObject = {
         openInNotify: false,
       },
       {
-        type: 'lead',
-        visible: true,
-        title: '',
-        showTitle: true,
-        textConfig: {
-          enabled: true,
-          font: 'poppins',
-          fontSize: 20,
-          textColor: '#ffffff',
-        },
-        buttonLabel: 'Contattami',
-        fields: [
-          {
-            name: 'name',
-            visible: true,
-            required: true,
-          },
-          {
-            name: 'surname',
-            visible: true,
-            required: false,
-          },
-          {
-            name: 'phone',
-            visible: true,
-            required: false,
-          },
-          {
-            name: 'email',
-            visible: true,
-            required: true,
-          },
-          {
-            name: 'acceptanceMessage',
-            visible: true,
-            required: false,
-          },
-        ],
-        style: 'filled',
-        _id: '669d7160a799f54993ab6c80',
-      },
-      {
-        type: 'divider',
-        visible: true,
-        title: '',
-        showTitle: true,
-        textConfig: {
-          enabled: false,
-          font: 'poppins',
-          fontSize: 16,
-          textColor: '#ffffff',
-        },
-        _id: '6660d2d64dca23b870e0a90e',
-      },
-      {
         type: 'iframe',
         visible: true,
-        title: '',
+        title: 'Visita il mio portfolio',
         showTitle: true,
         textConfig: {
           enabled: true,
@@ -899,39 +875,9 @@ const PROFILE_TEMPLATES_GRUNGE: UnknownObject = {
           fontSize: '14',
           textColor: '#0b0b0b',
         },
-        url: 'notifyapp.it',
-        openInNotify: true,
-        _id: '6660d2f94dca23b870e0a910',
-      },
-      {
-        type: 'links',
-        visible: true,
-        title: '',
-        showTitle: true,
-        textConfig: {
-          enabled: true,
-          font: 'poppins',
-          fontSize: '20',
-          textColor: '#ffffff',
-        },
-        style: 'text',
-        direction: 'horizontal',
+        url: 'brunomars.com',
         openInNotify: false,
-        items: [
-          {
-            icon: 'appstore',
-            url: 'https://apps.apple.com/it/app/notify-italia/id6479890530',
-            caption: 'App Store',
-            visible: true,
-          },
-          {
-            icon: 'googleplay',
-            url: 'https://play.google.com/store/apps/details?id=org.notify.agent.client&hl=it',
-            caption: 'Play Store',
-            visible: true,
-          },
-        ],
-        _id: '6660d1614dca23b870e0a90d',
+        _id: '6660d2f94dca23b870e0a910',
       },
     ],
     pageSettings: {
@@ -954,8 +900,8 @@ const PROFILE_TEMPLATES_GRUNGE: UnknownObject = {
       align: 'flex-start',
       padding: 0.5,
       verticalSpacing: 0.4,
-      font: 'poppins',
-      fontSize: 18,
+      font: 'bitter',
+      fontSize: 20,
       redirectUrl:
         'https://profili.notifyapp.it/profile?p=66047289d430a9dccdd7afc6&s=url',
       topPadding: 0,
@@ -974,5 +920,331 @@ const PROFILE_TEMPLATES_GRUNGE: UnknownObject = {
     _id: {
       $oid: '6660b5cbb8b2db11b861fc3f',
     },
+  },
+};
+
+const PROFILE_TEMPLATES_INFLUENCER: UnknownType = {
+  _id: {
+    $oid: '65ca137c4f774a6d762049eb',
+  },
+  name: 'Luca',
+  surname: 'Venturi',
+  email: 'luca.venturi@squarehead.it',
+  phoneNumber: '3913225127',
+  bio: "Passionate about design, innovation, and all things tech | Let's create something beautiful together!",
+  avatar: '',
+  role: 'Creative Director and Branding',
+  config: {
+    whatsappEnabled: true,
+    phoneCallEnabled: true,
+    emailEnabled: true,
+    avatarMask: 'hexagon',
+    smsEnabled: true,
+    redirectEnabled: false,
+    feedbackEnabled: false,
+  },
+  type: 'agent',
+  owner: {
+    $oid: '65ca137c4f774a6d762049ea',
+  },
+  address: null,
+  reviewRedirect: null,
+  colors: {
+    background: ['#8B5CF6', '#10B981'],
+    elements: '#FFFFFF',
+    useCompanyColors: false,
+  },
+  customFields: [
+    {
+      iconName: 'instagram',
+      value: 'luca',
+      _id: {
+        $oid: '6667702a3d23e2840f0f4f8b',
+      },
+    },
+    {
+      iconName: 'twitter',
+      value: 'luca',
+      _id: {
+        $oid: '6667702a3d23e2840f0f4f8c',
+      },
+    },
+    {
+      iconName: 'linkedin',
+      value: 'luca',
+      _id: {
+        $oid: '6667702a3d23e2840f0f4f8d',
+      },
+    },
+    {
+      iconName: 'freelancer',
+      value: 'dfsf',
+      _id: {
+        $oid: '6667702a3d23e2840f0f4f8e',
+      },
+    },
+    {
+      iconName: 'googlecalendar',
+      value: 'intagram',
+      _id: {
+        $oid: '6667702a3d23e2840f0f4f8f',
+      },
+    },
+  ],
+  createdAt: {
+    $date: '2024-02-12T12:47:56.655Z',
+  },
+  updatedAt: {
+    $date: '2024-08-01T23:45:52.964Z',
+  },
+  advancedProfile: {
+    enabled: true,
+    items: [
+      {
+        type: 'feedback',
+        visible: false,
+        title: '',
+        showTitle: true,
+        textConfig: {
+          enabled: false,
+          font: 'poppins',
+          fontSize: 16,
+          textColor: '#ffffff',
+        },
+        caption: 'Valutaci su Google!',
+        icon: 'google',
+        url: '',
+        style: 'filled',
+        _id: '666773f08af5f85fdfac56a1',
+      },
+      {
+        type: 'avatar',
+        visible: true,
+        title: '',
+        showTitle: true,
+        _id: '666770383d23e2840f0f4fa6',
+        textConfig: {
+          enabled: false,
+          font: 'rocaTwoBold',
+          fontSize: 22.5,
+          textColor: '',
+        },
+        direction: 'vertical',
+        label: 'Luca Venturi',
+        sublabel: 'Travel Blogger',
+        useRoleSubLabel: false,
+        description: '',
+        imgSrc: '',
+        imgMask: 'hexagon-2',
+        ownerImgCorner: 'none',
+        align: 'center',
+        imgSize: 100,
+        imgFit: 'cover',
+      },
+      {
+        type: 'contacts',
+        visible: false,
+        title: '',
+        showTitle: true,
+        _id: '666770383d23e2840f0f4fa8',
+        textConfig: {
+          enabled: false,
+          font: 'poppins',
+          fontSize: '18',
+          textColor: '',
+        },
+        direction: 'horizontal',
+        style: 'outlined',
+        items: [
+          {
+            icon: 'phone',
+            caption: 'Telefono',
+            url: '3913225127',
+            visible: true,
+          },
+          {
+            icon: 'mail',
+            caption: 'Email',
+            url: 'luca.venturi@squarehead.it',
+            visible: true,
+          },
+          {
+            icon: 'whatsapp',
+            caption: 'WhatsApp',
+            url: '3913225127',
+            visible: true,
+          },
+          {
+            icon: 'chat',
+            caption: 'SMS',
+            url: '3913225127',
+            visible: true,
+          },
+        ],
+      },
+      {
+        type: 'note',
+        visible: false,
+        title: '',
+        showTitle: true,
+        textConfig: {
+          enabled: false,
+          font: 'poppins',
+          fontSize: 16,
+          textColor: '#ffffff',
+        },
+        note: '',
+        showNoteTitle: true,
+        _id: '6667733c8af5f85fdfac56a0',
+      },
+      {
+        type: 'links',
+        visible: true,
+        title: 'i miei social',
+        showTitle: false,
+        _id: '666770383d23e2840f0f4fa9',
+        textConfig: {
+          enabled: false,
+          font: 'poppins',
+          fontSize: 24.5,
+          textColor: '#ffffff',
+        },
+        direction: 'horizontal',
+        style: 'text',
+        items: [
+          {
+            icon: 'instagram',
+            caption: 'Instagram',
+            url: 'luca',
+            visible: true,
+          },
+          {
+            icon: 'patreon',
+            url: '',
+            caption: 'Supportami',
+            visible: true,
+          },
+          {
+            icon: 'twitter',
+            caption: 'Twitter',
+            url: 'luca',
+            visible: false,
+          },
+          {
+            icon: 'tiktok',
+            url: '',
+            caption: 'TikTok',
+            visible: true,
+          },
+          {
+            icon: 'youtube',
+            url: '',
+            caption: 'Youtube',
+            visible: true,
+          },
+        ],
+        openInNotify: false,
+      },
+      {
+        type: 'place',
+        visible: true,
+        title: 'Prossima Tappa 🛫 > 22 Agosto',
+        showTitle: true,
+        textConfig: {
+          enabled: false,
+          font: 'poppins',
+          fontSize: 16,
+          textColor: '#ffffff',
+        },
+        address: 'Sa.Pa',
+        civicNumber: '',
+        city: 'Vietnam',
+        companyName: '',
+        showStreetName: false,
+        zoom: 4,
+        _id: '66ac1d197f326a03742dea5a',
+      },
+      {
+        type: 'divider',
+        visible: true,
+        title: '',
+        showTitle: true,
+        textConfig: {
+          enabled: false,
+          font: 'poppins',
+          fontSize: 16,
+          textColor: '#ffffff',
+        },
+        style: 'solid',
+        height: 1,
+        color: '#a8a8a8',
+        _id: '66ac1bc87f326a03742dea59',
+      },
+      {
+        type: 'contacts',
+        visible: true,
+        title: '',
+        showTitle: true,
+        textConfig: {
+          enabled: true,
+          font: 'roboto',
+          fontSize: 12.5,
+          textColor: '#ffffff',
+        },
+        direction: 'vertical',
+        style: 'outlined',
+        items: [
+          {
+            caption: 'Richieste Commerciali',
+            url: '',
+            icon: 'gmail',
+            visible: true,
+          },
+        ],
+        _id: '66ac1bb77f326a03742dea58',
+      },
+    ],
+    pageSettings: {
+      backgroundType: 'image',
+      imgSrc:
+        'https://s3-api.vps.notifyapp.it/notify-api/profiles/65ca137c4f774a6d762049eb/background/papers_co_no59_summer_vacation_ocean_sea_nature_beach_blue_33_iphone6_wallpaper_webp.webp?c=1722555045155',
+      fill: '#fd0839',
+      gradient: {
+        direction: 'vertical',
+        colors: [
+          {
+            value: '#8B5CF6',
+          },
+          {
+            value: '#10B981',
+          },
+        ],
+      },
+      textColor: '#070618',
+      align: 'flex-start',
+      padding: 1,
+      verticalSpacing: 0.7,
+      font: 'caveat',
+      fontSize: 25,
+      redirectUrl: '',
+      topPadding: 5,
+      hideContactSave: false,
+      useCompanyTheme: false,
+      backgroundBlur: 6,
+      backgroundBrightness: 70,
+      contactOverrides: {
+        name: '',
+      },
+    },
+    requiredItems: {
+      feedback: '',
+      avatar: '666770383d23e2840f0f4fa6',
+    },
+    _id: {
+      $oid: '666770383d23e2840f0f4faa',
+    },
+  },
+  noteOptions: {
+    showTitle: true,
   },
 };

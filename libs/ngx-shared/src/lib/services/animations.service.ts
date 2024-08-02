@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { UnknownObject } from '@notify/interfaces';
+import { UnknownType } from '@notify/interfaces';
 import _ from 'lodash';
 
 export enum EnumAnimationsDrivers {
@@ -175,7 +175,7 @@ export class AnimationsService {
     return 0;
   }
 
-  private _updateAnimations(currentValue: UnknownObject) {
+  private _updateAnimations(currentValue: UnknownType) {
     if (!isPlatformBrowser(this._platformId)) {
       return;
     }

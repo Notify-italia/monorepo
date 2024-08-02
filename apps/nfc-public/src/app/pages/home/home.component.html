@@ -43,6 +43,12 @@
       (componentInit)="publishAnchor('splash')"
     ></notify-splash>
 
+    <notify-spline-viewer
+      sceneId="wMo34mvja3Q3wyyS"
+      (ready)="splineReady$.next()"
+      class="left-0 w-screen h-lscreen z-0 pointer-events-none ignore-height -mt-[34vh]"
+    ></notify-spline-viewer>
+
     <notify-features
       id="features"
       (componentStable)="featuresStable$.next()"

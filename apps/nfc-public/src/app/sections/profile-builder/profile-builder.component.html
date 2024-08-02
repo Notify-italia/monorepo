@@ -2,7 +2,7 @@
   <div class="website-section">
     <h1 class="section-title">Canva, per biglietti da visita.</h1>
     <p class="section-subtitle">
-      Abbiamo selezionato per te alcuni stili predefiniti per darti un'anteprima
+      Abbiamo selezionato alcuni stili predefiniti per mostrarti un'anteprima
       delle potenzialità del nostro editor.
       <br />
       Inserisci i tuoi dati e scegli uno stile per scoprire come potrebbe
@@ -24,7 +24,7 @@
       >
         <notify-upload
           (fileChanged)="this.form.controls.image.setValue($any($event.blob))"
-          acceptedFiles="image/*"
+          acceptedFiles="image/webp,image/jpeg,image/png"
           class="h-48"
           uploadLabel="Carica il tuo logo o una tua foto da usare come avatar "
         ></notify-upload>
@@ -61,43 +61,46 @@
           placeholder="Inserisci una breve descrizione di te stesso/a"
         ></notify-tailwind-textarea>
 
-        <div class="flex space-x-2 justify-around items-center lg:h-48">
+        <div
+          class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-2 justify-around items-center lg:h-48 w-full"
+        >
           <button
             [disabled]="form.invalid"
-            (click)="this.form.controls.type.setValue('chill')"
+            (click)="handleStyleClick('chill')"
             class="style-button smooth bg-cover bg-bottom hover:bg-[url('https://s3-api.vps.notifyapp.it/notify-api/profiles/657f61da3e18748bb264a57e/background/Blu_Scuro_Anime_UI_Scuro_Privacy_Citazione__Frase_Sfondo_per_Cellulare_png.png?c=1717710125550')]"
           >
             GEEK
           </button>
           <button
             [disabled]="form.invalid"
-            (click)="this.form.controls.type.setValue('corporate')"
+            (click)="handleStyleClick('corporate')"
             class="style-button smooth object-contain hover:bg-gradient-to-b from-gray-700 to-black"
           >
             CORPORATE
           </button>
           <button
             [disabled]="form.invalid"
-            (click)="this.form.controls.type.setValue('grunge')"
-            class="style-button smooth object-contain"
+            (click)="handleStyleClick('grunge')"
+            class="style-button smooth bg-cover bg-bottom hover:bg-[url('https://s3-api.vps.notifyapp.it/notify-api/profiles/657f565d539981b49a39d5a2/background/Black_and_White_Portfolio_Photography_png.png')]"
           >
             GRUNGE
           </button>
           <button
             [disabled]="form.invalid"
-            (click)="this.form.controls.type.setValue('influencer')"
-            class="style-button smooth object-contain"
+            (click)="handleStyleClick('influencer')"
+            class="style-button smooth bg-cover bg-center hover:bg-[url('https://s3-api.vps.notifyapp.it/notify-api/profiles/65ca137c4f774a6d762049eb/background/papers_co_no59_summer_vacation_ocean_sea_nature_beach_blue_33_iphone6_wallpaper_webp.webp')]"
           >
-            SALES
+            INFLUENCER
           </button>
         </div>
       </form>
       <notify-profile-view
+        *ngIf="!this.utilsService.isMobile"
         [ngClass]="{
           'translate-y-10 lg:-translate-x-0 2xl:-translate-y-20 opacity-100 pointer-events-auto':
             showProfile
         }"
-        class="iphone-15-pro absolute lg:static pointer-events-none smooth opacity-0 mx-auto scale-75 2xl:scale-90 mt-20"
+        class="iphone-15-pro absolute lg:static pointer-events-none smooth opacity-0 mx-auto scale-90"
         [data]="currentTemplate"
         [mockup]="true"
         [isRunningOnPlayer]="true"
