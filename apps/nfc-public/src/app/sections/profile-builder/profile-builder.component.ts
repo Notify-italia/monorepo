@@ -49,7 +49,7 @@ import {
 
 
   .editor-feature {
-    @apply rounded-2xl p-4 bg-white/10 backdrop-blur-xl border border-slate-400 flex flex-col items-center space-y-4 w-80;  
+    @apply rounded-2xl p-4 bg-white/10 backdrop-blur-xl border border-slate-400/50 flex flex-col items-center space-y-4 w-80;  
 
     h2 {
       @apply text-2xl font-bold  w-full italic
