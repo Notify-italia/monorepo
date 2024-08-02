@@ -2,30 +2,162 @@
   <div class="website-section">
     <h1 class="section-title">Canva, per biglietti da visita.</h1>
     <p class="section-subtitle">
-      Abbiamo selezionato alcuni stili predefiniti per mostrarti un'anteprima
-      delle potenzialità del nostro editor.
-      <br />
-      Inserisci i tuoi dati e scegli uno stile per scoprire come potrebbe
-      apparire il tuo profilo.
+      Tutte le funzionalità di un editor grafico, integrate in un unico
+      strumento di networking.
     </p>
     <div
-      class="flex justify-between items-center relative px-5"
+      class="flex flex-col lg:flex-row lg:space-x-4 space-y-4 lg:space-y-8 mt-10 items-center"
+    >
+      <div class="feature-column">
+        <div class="editor-feature intersect:animate-fade-down">
+          <div class="pulsing-dot text-primary-400">
+            <div></div>
+            <div></div>
+            <span>Live</span>
+          </div>
+
+          <h2>
+            <i>Drag & Drop</i>
+          </h2>
+          <p>
+            Abbiamo progettato il nostro editor per essere il più intuitivo e il
+            più potente possibile, permettendoti di modificare ogni aspetto del
+            tuo profilo digitale:
+            <br />
+            <br />
+            Aggiungi, modifica e riordina i nostri moduli per scolpire il
+            profilo che ti rappresenti al meglio;
+            <br />
+            Modifica colori, fonts, sfondo e stili in pochi click, senza
+            necessità di alcuna competenza tecnica o grafica.
+          </p>
+        </div>
+        <div class="editor-feature intersect:animate-fade-down">
+          <div class="pulsing-dot text-primary-400">
+            <div></div>
+            <div></div>
+            <span>Live</span>
+          </div>
+
+          <h2>Quick Share</h2>
+          <p>
+            Personalizza il tuo biglietto da visita con un link rapido per
+            condividerlo facilmente con chiunque, ovunque.
+          </p>
+        </div>
+        <div class="editor-feature intersect:animate-fade-down">
+          <div class="pulsing-dot text-primary-400">
+            <div></div>
+            <div></div>
+            <span>Live</span>
+          </div>
+
+          <h2>
+            <i>Raccolta contatti passiva</i>
+          </h2>
+          <p>
+            Richiedi i dati di contatto a chi visualizza il tuo profilo, come il
+            nome, l'email o il numero di telefono, <br />
+            Per poi visualizzarli direttamente in app o sul portale
+            amministrativo.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature-column">
+        <div class="editor-feature intersect:animate-fade-down">
+          <div class="pulsing-dot text-primary-400">
+            <div></div>
+            <div></div>
+            <span>Live</span>
+          </div>
+
+          <h2>Reindirizzamento</h2>
+          <p>
+            Non hai bisogno di un profilo Notify?<br /><br />
+            Reindirizza automaticamente la tua card ad un qualsiasi URL, come il
+            tuo sito web o un profilo social.
+          </p>
+        </div>
+        <div class="editor-feature intersect:animate-fade-down">
+          <div class="pulsing-dot text-primary-400">
+            <div></div>
+            <div></div>
+            <span>Live</span>
+          </div>
+
+          <h2>Siti Web, interattivi</h2>
+          <p>
+            Inserisci il link al tuo sito web per visualizzarne l'anteprima sul
+            tuo profilo.
+            <br />
+            Al Tap, sarà possibile visitarlo direttamente nel tuo profilo, senza
+            dover navigare in altre pagine.
+          </p>
+        </div>
+        <div class="editor-feature intersect:animate-fade-down">
+          <div class="pulsing-dot text-primary-400">
+            <div></div>
+            <div></div>
+            <span> Live </span>
+          </div>
+
+          <h2>Condivisione immediata</h2>
+          <p>
+            Hai dimenticato la tua card a casa? <br />
+            Condividi il tuo profilo tramite un codice QR, un link o un
+            qualsiasi supporto NFC (NTAG215).
+          </p>
+        </div>
+        <div class="editor-feature intersect:animate-fade-down">
+          <div class="pulsing-dot text-yellow-400/70">
+            <div></div>
+            <div></div>
+            <span>In Arrivo...</span>
+          </div>
+
+          <h2>Sempre con te</h2>
+          <p>
+            Aggiungi il tuo biglietto da visita al Wallet del tuo smartphone,
+            per averlo sempre a portata di mano.
+            <br />
+            <br />
+            Disponibile sia per iPhone che per Android.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider z-10"></div>
+    <div
+      class="flex items-center relative px-5 justify-center"
       [ngClass]="{
         'space-x-4': showProfile
       }"
     >
       <form
         [formGroup]="form"
-        class="flex flex-col space-y-4 smooth smooth-slow max-w-[90vw] lg:translate-x-[25%] mt-10"
+        class="flex flex-col space-y-4 smooth smooth-slow max-w-[90vw] lg:translate-x-[24%] mt-10 w-full"
         (ngSubmit)="onSubmit()"
         [ngClass]="{
           'lg:!-translate-x-0 2xl:!-translate-x-10': showProfile
         }"
       >
+        <p class="section-subtitle">
+          Compila il form sottostante per creare un profilo casuale, e avere
+          subito un'anteprima concreta di come potrebbe apparire il tuo profilo.
+          <br />
+          <br />
+          Oppure, in alternativa,
+          <a href="#instructions" class="link"
+            >Crea un'account di prova gratuito</a
+          >
+          e inizia subito a personalizzare il tuo profilo.
+        </p>
         <notify-upload
           (fileChanged)="this.form.controls.image.setValue($any($event.blob))"
           acceptedFiles="image/webp,image/jpeg,image/png"
-          class="h-48"
+          class="h-48 mt-10"
           uploadLabel="Carica il tuo logo o una tua foto da usare come avatar "
         ></notify-upload>
         <div class="flex space-x-2 w-full">
@@ -61,45 +193,31 @@
           placeholder="Inserisci una breve descrizione di te stesso/a"
         ></notify-tailwind-textarea>
 
-        <div
-          class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 lg:space-x-2 justify-around items-center lg:h-48 w-full"
-        >
-          <button
-            [disabled]="form.invalid"
-            (click)="handleStyleClick('chill')"
-            class="style-button smooth bg-cover bg-bottom hover:bg-[url('https://s3-api.vps.notifyapp.it/notify-api/profiles/657f61da3e18748bb264a57e/background/Blu_Scuro_Anime_UI_Scuro_Privacy_Citazione__Frase_Sfondo_per_Cellulare_png.png?c=1717710125550')]"
+        <button class="randomizer-button smooth" [disabled]="form.invalid">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 640 512"
+            class="size-10"
+            fill="currentColor"
           >
-            GEEK
-          </button>
-          <button
-            [disabled]="form.invalid"
-            (click)="handleStyleClick('corporate')"
-            class="style-button smooth object-contain hover:bg-gradient-to-b from-gray-700 to-black"
-          >
-            CORPORATE
-          </button>
-          <button
-            [disabled]="form.invalid"
-            (click)="handleStyleClick('grunge')"
-            class="style-button smooth bg-cover bg-bottom hover:bg-[url('https://s3-api.vps.notifyapp.it/notify-api/profiles/657f565d539981b49a39d5a2/background/Black_and_White_Portfolio_Photography_png.png')]"
-          >
-            GRUNGE
-          </button>
-          <button
-            [disabled]="form.invalid"
-            (click)="handleStyleClick('influencer')"
-            class="style-button smooth bg-cover bg-center hover:bg-[url('https://s3-api.vps.notifyapp.it/notify-api/profiles/65ca137c4f774a6d762049eb/background/papers_co_no59_summer_vacation_ocean_sea_nature_beach_blue_33_iphone6_wallpaper_webp.webp')]"
-          >
-            INFLUENCER
-          </button>
-        </div>
+            <path
+              d="M274.9 34.3c-28.1-28.1-73.7-28.1-101.8 0L34.3 173.1c-28.1 28.1-28.1 73.7 0 101.8L173.1 413.7c28.1 28.1 73.7 28.1 101.8 0L413.7 274.9c28.1-28.1 28.1-73.7 0-101.8L274.9 34.3zM200 224a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zM96 200a24 24 0 1 1 0 48 24 24 0 1 1 0-48zM224 376a24 24 0 1 1 0-48 24 24 0 1 1 0 48zM352 200a24 24 0 1 1 0 48 24 24 0 1 1 0-48zM224 120a24 24 0 1 1 0-48 24 24 0 1 1 0 48zm96 328c0 35.3 28.7 64 64 64l192 0c35.3 0 64-28.7 64-64l0-192c0-35.3-28.7-64-64-64l-114.3 0c11.6 36 3.1 77-25.4 105.5L320 413.8l0 34.2zM480 328a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"
+            />
+          </svg>
+          <span>
+            {{ showProfile ? 'Creane un altro!' : 'Crea un profilo' }}
+          </span>
+        </button>
+        <p class="section-subtitle -mt-4 !text-xs">
+          Inserisci i tuoi dati per sbloccare il pulsante.
+        </p>
       </form>
       <notify-profile-view
         *ngIf="!this.utilsService.isMobile"
         [ngClass]="{
-          'translate-y-10 opacity-100 pointer-events-auto': showProfile
+          'translate-y-10 opacity-100 pointer-events-auto ': showProfile
         }"
-        class="iphone-15-pro absolute lg:static pointer-events-none smooth opacity-0 mx-auto scale-90"
+        class="iphone-15-pro pointer-events-none smooth opacity-0 mx-auto scale-90"
         [data]="currentTemplate"
         [mockup]="true"
         [isRunningOnPlayer]="true"
