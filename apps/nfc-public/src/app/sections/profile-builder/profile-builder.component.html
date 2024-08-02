@@ -97,8 +97,7 @@
       <notify-profile-view
         *ngIf="!this.utilsService.isMobile"
         [ngClass]="{
-          'translate-y-10 lg:-translate-x-0 2xl:-translate-y-20 opacity-100 pointer-events-auto':
-            showProfile
+          'translate-y-10 opacity-100 pointer-events-auto': showProfile
         }"
         class="iphone-15-pro absolute lg:static pointer-events-none smooth opacity-0 mx-auto scale-90"
         [data]="currentTemplate"

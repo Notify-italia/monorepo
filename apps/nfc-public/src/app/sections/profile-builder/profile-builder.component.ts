@@ -201,7 +201,7 @@ const PROFILE_TEMPLATES_CHILL: UnknownType = {
         },
         direction: EnumNotifyAPDirections.Vertical,
         label: '',
-        sublabel: 'Web Developer Freelancer',
+        sublabel: 'Web Developer',
         useRoleSubLabel: false,
         description: '"Whatever happens, happens"',
         imgSrc:
