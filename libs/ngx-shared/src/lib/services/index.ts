@@ -3,7 +3,7 @@ export * from './animations.service';
 export * from './auth.service';
 export * from './capacitor.service';
 export * from './company.service';
-export * from './ecwid.service';
+export * from './ecommerce.service';
 export * from './feedback.service';
 export * from './forms.service';
 export * from './http.service';

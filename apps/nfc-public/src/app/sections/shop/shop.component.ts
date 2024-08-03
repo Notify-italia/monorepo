@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { EcwidService, SSRBaseComponent } from '@notify/ngx-shared';
-import { tap } from 'rxjs';
+import { Component } from '@angular/core';
+import { SSRBaseComponent } from '@notify/ngx-shared';
 
 @Component({
   standalone: true,
@@ -10,20 +9,4 @@ import { tap } from 'rxjs';
   styleUrls: ['./shop.component.scss'],
   templateUrl: './shop.component.html',
 })
-export class ShopComponent extends SSRBaseComponent {
-  private ecwid = inject(EcwidService);
-
-  public products$ = this.ecwid
-    .getProducts()
-    .pipe(tap(() => this.componentIsStable()));
-
-  constructor() {
-    super();
-  }
-
-  public buildCssImgUrl(url: string) {
-    return {
-      ['background-image']: `url('${url}')`,
-    };
-  }
-}
+export class ShopComponent extends SSRBaseComponent {}
