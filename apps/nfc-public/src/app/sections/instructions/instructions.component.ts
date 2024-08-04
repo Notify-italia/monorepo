@@ -28,7 +28,7 @@ export class InstructionsComponent extends SSRBaseComponent implements OnInit {
     },
     {
       title: 'Acquista.',
-      description: `<p>Se ritieni che Notify sia all'altezza delle tue necessità di networking, visita il nostro <a class="link"  href="#shop">shop</a>, scegli le cards perfette per il tuo team e procedi con l'acquisto.</p>`,
+      description: `<p>Se ti piace Notify e vuoi continuare ad usarlo, visita il nostro <a class="link"  href="#shop">shop</a>, scegli le cards perfette per il tuo team e procedi con l'acquisto.</p>`,
     },
     {
       title: 'Attiva.',

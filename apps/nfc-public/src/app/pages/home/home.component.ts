@@ -6,6 +6,7 @@ import {
   afterNextRender,
   inject,
 } from '@angular/core';
+import { Meta } from '@angular/platform-browser';
 import { UnknownType } from '@notify/interfaces';
 import {
   AnimationsService,
@@ -56,6 +57,7 @@ export class HomeComponent implements AfterViewInit {
   private _pixel = inject(PixelService);
   private _animationsService = inject(AnimationsService);
   private _utilsSerivce = inject(UtilsService);
+  private _meta = inject(Meta);
 
   public instructionsStable$ = new Subject<void>();
   public splashStable$ = new Subject<void>();
@@ -91,6 +93,10 @@ export class HomeComponent implements AfterViewInit {
     this._animationsService.declareAnimation('#bubble', {
       scrollY: (value: number) => {
         const aboveThreshold = value > transitionThreshold;
+        this._meta.updateTag({
+          name: 'theme-color',
+          content: aboveThreshold ? '#99D2D9' : '#8CC5CD',
+        });
         return {
           transform: `scaleX(${aboveThreshold ? 2 : 1}) scaleY(${
             aboveThreshold ? 2 : 1

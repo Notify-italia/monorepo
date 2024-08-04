@@ -8,56 +8,54 @@
       </p>
     </div>
 
-    <!-- <div
-      class="mt-10 2xl:mt-20 flex justify-around w-full intersect:animate-fade-down animate-ease-out"
-    >
-      @for (item of products$ | async; track $index) {
-      <div class="wrapper !m-4 border border-gray-300">
-        <div class="container">
+    <div class="contenedorCards">
+      @for (item of ecommerce.products; track $index) {
+
+      <div class="card intersect:animate-fade-down">
+        <div class="wrapper">
+          <div class="colorProd"></div>
           <div
-            class="top object-cover bg-cover bg-center bg-no-repeat"
-            [ngStyle]="
-              buildCssImgUrl(
-                item.defaultOptionsOverrides.variationOverrides.mediaItems[0]
-                  .imageOriginalUrl
-              )
-            "
+            class="imgProd"
+            [ngStyle]="{ 'background-image': 'url(' + item.hero + ')' }"
           ></div>
-          <div class="bottom">
-            <div class="left">
-              <div class="details">
-                <h1>{{ item.name }}</h1>
-                <p>
-                  {{
-                    item.defaultOptionsOverrides.pricesOverrides
-                      .basePriceWithModifiersDiscountAndTaxes
-                  }}
+          <div class="infoProd">
+            <p class="nombreProd">
+              {{ item.name }}
+            </p>
+            <p class="extraInfo">
+              {{ item.description }}
+            </p>
+            <div class="actions">
+              <div class="preciosGrupo">
+                <p class="precio precioOferta">
+                  {{ item.price * 1.22 | currency : '€' }}
+                </p>
+                <p class="precio precioProd">
+                  {{ item.price | currency : '€' }}
                 </p>
               </div>
-              <div class="buy">
-                <i class="material-icons">add_shopping_cart</i>
+              <div class="icono action aFavs">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                  />
+                </svg>
               </div>
-            </div>
-            <div class="right">
-              <div class="done"><i class="material-icons">done</i></div>
-              <div class="details">
-                <h1>Chair</h1>
-                <p>Added to your cart</p>
-              </div>
-              <div class="remove"><i class="material-icons">clear</i></div>
-            </div>
-          </div>
-        </div>
-        <div class="inside">
-          <div class="icon"><i class="material-icons">info_outline</i></div>
-          <div class="inside-contents">
-            <div class="flex flex-col justify-center items-center text-white">
-              <small [innerHTML]="item.description"></small>
             </div>
           </div>
         </div>
       </div>
+
       }
-    </div> -->
+    </div>
   </div>
 </div>

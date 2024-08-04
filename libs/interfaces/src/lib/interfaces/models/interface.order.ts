@@ -1,5 +1,4 @@
 import { MongodbDocument } from '../interface.mongodb';
-import { INotifyEcommerceCart } from './interface.cart';
 
 enum EcommerceOrderStatus {
   PENDING = 'pending',
@@ -8,10 +7,10 @@ enum EcommerceOrderStatus {
 }
 
 export interface INotifyEcommerceOrder extends MongodbDocument {
-  cart: INotifyEcommerceCart['_id'];
   status: EcommerceOrderStatus;
   trackingNumber: string;
   customerId: string;
+  cart: INotifyEcommerceCart;
   shippingAddress: {
     name: string;
     address: string;
@@ -20,4 +19,18 @@ export interface INotifyEcommerceOrder extends MongodbDocument {
     zip: string;
   } | null;
   orderId: string;
+}
+
+export interface INotifyEcommerceCart {
+  createdAt: string;
+  updateAt?: string;
+  items: {
+    product: string;
+    quantity: number;
+    options: {
+      users?: number;
+      color?: string;
+      qrCode?: string;
+    }[];
+  }[];
 }

@@ -3,39 +3,35 @@
     <h1 class="section-title z-10">Jump in, senza stress.</h1>
 
     <div
-      class="flex flex-col h-full justify-around space-y-5 items-center mt-10"
+      class="flex flex-col lg:flex-row h-full justify-around lg:justify-center space-y-5 lg:space-y-0 items-center mt-10 lg:space-x-4 w-full"
     >
       @for (item of steps; track $index) {
-      <div class="flex flex-col w-10/12 lg:w-6/12">
-        <div class="flex space-x-5 lg:space-x-10 w-full items-center">
+
+      <div
+        class="flex lg:flex-col justify-around space-x-5 lg:space-x-0 items-center h-44 lg:h-96 2xl:h-[28rem] w-full lg:w-auto z-10 bg-white/10 border border-slate-300/50 p-4 rounded-lg aspect-square intersect:animate-fade-left"
+      >
+        <b
+          class="font-ebGaramond text-center text-[14vh] w-20 text-secondary-500 intersect:animate-fade-right animate-ease-out smooth smooth"
+          [ngClass]="{
+            'blink -z-1': $index % 2 === 1
+          }"
+        >
+          {{ $index + 1 }}
+        </b>
+
+        <span
+          class="intersect:animate-fade-down animate-ease-out opacity-0 intersect:opacity-100 smooth space-y-2 lg:h-full lg:space-y-4"
+        >
+          <h2 class="font-bold text-4xl font-outfit lg:text-center">
+            {{ item.title }}
+          </h2>
           <div
-            class="intersect:animate-fade-right animate-ease-out smooth opacity-0 intersect:opacity-100 smooth"
-          >
-            <div
-              class="font-ebGaramond text-center text-[14vh] w-20 text-secondary-500"
-            >
-              <b
-                [ngClass]="{
-                  'blink -z-1': $index % 2 === 1
-                }"
-              >
-                {{ $index + 1 }}
-              </b>
-            </div>
-          </div>
-          <span
-            class="intersect:animate-fade-down animate-ease-out opacity-0 intersect:opacity-100 smooth space-y-2"
-          >
-            <h2 class="font-bold text-4xl font-outfit">
-              {{ item.title }}
-            </h2>
-            <div
-              class="flex space-x-2 text-xs lg:text-base"
-              [innerHTML]="item.description"
-            ></div>
-          </span>
-        </div>
+            class="flex space-x-2 text-xs lg:text-base lg:text-justify"
+            [innerHTML]="item.description"
+          ></div>
+        </span>
       </div>
+
       }
     </div>
   </div>

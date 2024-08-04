@@ -49,10 +49,10 @@ import {
 
 
   .editor-feature {
-    @apply rounded-2xl p-4 bg-white/10 backdrop-blur-xl border border-slate-400/50 flex flex-col items-center space-y-4 w-80;  
+    @apply rounded-2xl p-4 bg-white/10 backdrop-blur-xl border border-slate-300/50 flex flex-col items-center space-y-4 w-80 lg:w-96;  
 
     h2 {
-      @apply text-2xl font-bold  w-full italic
+      @apply text-2xl font-bold  w-full  font-outfit
     }
 
     p {
@@ -61,7 +61,7 @@ import {
   }
 
   .feature-column {
-    @apply flex flex-col space-y-4
+    @apply flex flex-col space-y-4 lg:space-y-6
   }
 
   .pulsing-dot {
@@ -76,7 +76,7 @@ div:nth-child(1) {
   }
 
   span {
-    @apply ml-2 text-slate-800 font-medium  mt-1
+    @apply ml-2 text-slate-800/60 font-medium  mt-1
   }
   }
   `,

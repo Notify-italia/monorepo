@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { SSRBaseComponent } from '@notify/ngx-shared';
+import { Component, inject } from '@angular/core';
+import { EcommerceService, SSRBaseComponent } from '@notify/ngx-shared';
 
 @Component({
   standalone: true,
@@ -9,4 +9,6 @@ import { SSRBaseComponent } from '@notify/ngx-shared';
   styleUrls: ['./shop.component.scss'],
   templateUrl: './shop.component.html',
 })
-export class ShopComponent extends SSRBaseComponent {}
+export class ShopComponent extends SSRBaseComponent {
+  public ecommerce = inject(EcommerceService);
+}

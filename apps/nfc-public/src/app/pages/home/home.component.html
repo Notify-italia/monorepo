@@ -30,7 +30,7 @@
 
   <div
     #CircleContainer
-    class="flex flex-col items-center w-screen p-5 lg:p-2 text-slate-800 main-circle scroll-smooth scrollbar-none bg-[url('/assets/images/background.svg')] bg-cover bg-center bg-no-repeat bg-fixed"
+    class="flex flex-col items-center w-screen p-5 lg:p-2 text-slate-800 main-circle scroll-smooth scrollbar-none bg-cover bg-center bg-no-repeat bg-fixed bg-[url('/assets/images/background.webp')]"
   >
     <notify-splash
       id="splash"
@@ -64,7 +64,7 @@
 
     <notify-instructions
       id="instructions"
-      class="mt-20"
+      class="mt-20 ignore-height min-h-[90lvh] lg:min-h-[90lvh] 2xl:min-h-[60lvh]"
       (componentInit)="publishAnchor('instructions')"
       (componentStable)="instructionsStable$.next()"
     ></notify-instructions>
@@ -75,6 +75,8 @@
       (componentInit)="publishAnchor('shop')"
     ></notify-shop>
 
+    <div class="divider ignore-height"></div>
+
     <notify-questions
       class="ignore-height"
       id="questions"
@@ -82,7 +84,8 @@
           ignoreBlur: true,
         })"
     ></notify-questions>
-
-    <notify-footer class="z-10 mt-20 w-full ignore-height"></notify-footer>
+    <notify-footer
+      class="z-10 mt-20 ignore-height !w-screen -mb-5 lg:-mb-2"
+    ></notify-footer>
   </div>
 </div>
