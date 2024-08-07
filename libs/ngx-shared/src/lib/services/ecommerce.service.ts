@@ -8,6 +8,7 @@ export interface INotifyEcommerceProduct {
   name: string;
   price: number;
   hero: string;
+  type: 'notify' | 'reviews';
   description: string;
   options: {
     users?: boolean;
@@ -29,8 +30,48 @@ export class EcommerceService {
 
   public products: INotifyEcommerceProduct[] = [
     {
+      id: 'tier-1',
+      type: 'notify',
+      name: 'Basic PVC ',
+      price: 29.99,
+      hero: '/assets/shop/tier-1.webp',
+      description:
+        'Una card in PVC con grafica Notify, disponibile in diversi stili.',
+      options: {
+        users: true,
+        qrCode: true,
+      },
+    },
+    {
+      id: 'tier-2',
+      type: 'notify',
+      name: 'Personal PVC',
+      price: 34.99,
+      hero: '/assets/shop/tier-2.webp',
+      description:
+        'Una card in PVC con logo e nome personalizzati, disponibile light e dark.',
+      options: {
+        users: true,
+        qrCode: true,
+      },
+    },
+    {
+      id: 'tier-3',
+      type: 'notify',
+      name: 'Custom PVC',
+      price: 44.99,
+      hero: '/assets/shop/tier-1.webp',
+      description:
+        'Una card in PVC totalmente personalizzabile, ideale per realtà che valorizzano il proprio brand.',
+      options: {
+        users: true,
+        qrCode: true,
+      },
+    },
+    {
       id: 'license',
-      name: 'Solo Licenza',
+      type: 'notify',
+      name: 'Digital',
       price: 19.99,
       hero: '/assets/shop/license.webp',
       description:
@@ -39,10 +80,48 @@ export class EcommerceService {
         users: true,
       },
     },
+    {
+      id: 'google-review',
+      type: 'reviews',
+      name: 'Google',
+      price: 19.99,
+      hero: '/assets/shop/tier-2.webp',
+      description:
+        'Ottieni rapidamente recensioni positive su Google per il tuo business.',
+      options: {},
+    },
+    {
+      id: 'tripadvisor-review',
+      type: 'reviews',
+      name: 'Tripadvisor',
+      price: 19.99,
+      hero: '/assets/shop/tier-2.webp',
+      description:
+        'Ottieni rapidamente recensioni positive su Tripadvisor per il tuo business.',
+      options: {},
+    },
+    {
+      id: 'intagram-review',
+      type: 'reviews',
+      name: 'Instagram',
+      price: 19.99,
+      hero: '/assets/shop/tier-2.webp',
+      description:
+        'Ottieni rapidamente followers su Instagram per il tuo business.',
+      options: {},
+    },
   ];
 
   private _lsCustomerId = 'notify-ecommerce-customer-id';
   private _lsCart = 'notify-ecommerce-cart';
+
+  public get notifyProducts() {
+    return this.products.filter((product) => product.type === 'notify');
+  }
+
+  public get reviewsProducts() {
+    return this.products.filter((product) => product.type === 'reviews');
+  }
 
   public get customerId() {
     return localStorage.getItem(this._lsCustomerId);

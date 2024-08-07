@@ -8,54 +8,81 @@
       </p>
     </div>
 
-    <div class="contenedorCards">
-      @for (item of ecommerce.products; track $index) {
-
-      <div class="card intersect:animate-fade-down">
-        <div class="wrapper">
-          <div class="colorProd"></div>
-          <div
-            class="imgProd"
-            [ngStyle]="{ 'background-image': 'url(' + item.hero + ')' }"
-          ></div>
-          <div class="infoProd">
-            <p class="nombreProd">
-              {{ item.name }}
-            </p>
-            <p class="extraInfo">
-              {{ item.description }}
-            </p>
-            <div class="actions">
-              <div class="preciosGrupo">
-                <p class="precio precioOferta">
-                  {{ item.price * 1.22 | currency : '€' }}
-                </p>
-                <p class="precio precioProd">
-                  {{ item.price | currency : '€' }}
-                </p>
-              </div>
-              <div class="icono action aFavs">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="size-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="flex flex-col z-10 w-full">
+      <div class="ecommerce-cards-container">
+        @for (item of ecommerce.notifyProducts; track $index) {
+        <ng-container
+          [ngTemplateOutlet]="EcommerceCard"
+          [ngTemplateOutletContext]="{
+            item,
+            index: $index
+          }"
+        ></ng-container>
+        }
       </div>
+      <div class="divider"></div>
 
-      }
+      <div class="ecommerce-cards-container">
+        @for (item of ecommerce.reviewsProducts; track $index) {
+        <ng-container
+          [ngTemplateOutlet]="EcommerceCard"
+          [ngTemplateOutletContext]="{
+          item,
+          index: $index
+        }"
+        ></ng-container>
+        }
+      </div>
     </div>
   </div>
 </div>
+
+<ng-template let-item="item" #EcommerceCard>
+  <div
+    class="h-[32rem] w-[18rem] backdrop-blur bg-white/20 border border-gray-300/50 flex flex-col justify-between rounded-lg hover:shadow-xl hover:-translate-y-2 smooth cursor-pointer p-4 group/ecomm-card active:scale-[0.9] relative"
+  >
+    <div
+      class="absolute w-full top-0 h-[40%] group-hover/ecomm-card:h-full smooth bg-white/20 left-0 z-0 rounded-t-lg"
+    ></div>
+    <div class="flex justify-end w-full z-10">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-6"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </svg>
+    </div>
+
+    <img
+      [src]="item.hero"
+      class="size-full object-contain group-hover/ecomm-card:-translate-y-2 group-hover/ecomm-card:drop-shadow-2xl group-hover/ecomm-card:scale-110 group-hover/ecomm-card:-rotate-12 smooth pointer-events-none mt-4 z-10"
+    />
+
+    <div
+      class="flex flex-col items-center justify-start h-2/6 text-center mt-4 z-10"
+    >
+      <h1 class="font-bold text-lg font-outfit">
+        {{ item.name }}
+      </h1>
+      <p class="text-sm font-medium text-slate-600">
+        {{ item.description }}
+      </p>
+    </div>
+    <div class="flex flex-col justify-start w-full mt-4 z-10 font-outfit">
+      <p class="text-red-500 line-through font-medium">
+        {{ item.price + 10.01 | currency : '€ ' }}
+      </p>
+      <p class="font-semibold text-2xl">
+        {{ item.price | currency : '€ ' }}
+      </p>
+    </div>
+  </div>
+</ng-template>
