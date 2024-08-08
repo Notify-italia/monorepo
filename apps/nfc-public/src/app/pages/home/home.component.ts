@@ -11,6 +11,7 @@ import { UnknownType } from '@notify/interfaces';
 import {
   AnimationsService,
   EnumAnimationsDrivers,
+  INotifyEcommerceProduct,
   LoadingComponent,
   PixelService,
   SplineViewerComponent,
@@ -18,6 +19,7 @@ import {
 } from '@notify/ngx-shared';
 import _ from 'lodash';
 import { Observable, Subject, combineLatest } from 'rxjs';
+import { EcommerceItemDetailFactory } from '../../components/ecommerce-item-detail/ecommerce-item-detail.factory';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
 import { FeaturesComponent } from '../../sections/features/features.component';
@@ -47,7 +49,7 @@ interface IAnchorOptions {
     TrustedByComponent,
     SplineViewerComponent,
   ],
-  providers: [AnimationsService, UtilsService],
+  providers: [AnimationsService, UtilsService, EcommerceItemDetailFactory],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -58,6 +60,7 @@ export class HomeComponent implements AfterViewInit {
   private _animationsService = inject(AnimationsService);
   private _utilsSerivce = inject(UtilsService);
   private _meta = inject(Meta);
+  private _itemDetail = inject(EcommerceItemDetailFactory);
 
   public instructionsStable$ = new Subject<void>();
   public splashStable$ = new Subject<void>();
@@ -81,6 +84,7 @@ export class HomeComponent implements AfterViewInit {
     });
 
     this._scrollAnchors = _.debounce(this._scrollAnchors, 250);
+    this.showItemDetail = _.debounce(this.showItemDetail.bind(this), 500);
   }
 
   public ngAfterViewInit(): void {
@@ -147,6 +151,10 @@ export class HomeComponent implements AfterViewInit {
     this.anchors.push({ fragment, options });
   }
 
+  public showItemDetail(item: INotifyEcommerceProduct) {
+    this._itemDetail.create({ item });
+  }
+
   private _scrollAnchors(direction: 'up' | 'down'): void {
     this._currentAnchor = this._currentAnchor + (direction === 'down' ? 1 : -1);
 
@@ -166,7 +174,6 @@ export class HomeComponent implements AfterViewInit {
   }
 
   private _goToAnchror(fragment: string, options: IAnchorOptions = {}): void {
-    console.log('go to anchor', fragment, options);
     document.getElementById(fragment)?.scrollIntoView({
       block: 'center',
     });

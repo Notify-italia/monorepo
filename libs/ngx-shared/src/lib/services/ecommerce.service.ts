@@ -9,13 +9,16 @@ export interface INotifyEcommerceProduct {
   price: number;
   hero: string;
   type: 'notify' | 'reviews';
-  description: string;
+  long_description: string;
+  short_description: string;
+  images: string[];
   options: {
     users?: boolean;
     colors?: {
       label: string;
       id: string;
-      hero: string;
+      long_description: '';
+      image: string;
     }[];
     qrCode?: boolean;
   };
@@ -35,8 +38,26 @@ export class EcommerceService {
       name: 'Basic PVC ',
       price: 29.99,
       hero: '/assets/shop/tier-1.webp',
-      description:
+      images: [
+        '/assets/shop/Tessere shop - Nero.webp',
+        '/assets/shop/Tessere shop - Rosa.webp',
+        '/assets/shop/Tessere shop - Rosso.webp',
+        '/assets/shop/Tessere shop - Verde.webp',
+        '/assets/shop/Tessere shop - Banana pattern Azzurro.webp',
+        '/assets/shop/Tessere shop - Banana pattern Fucsia.webp',
+        '/assets/shop/Tessere shop - Banana pattern Giallo.webp',
+        '/assets/shop/Tessere shop - Hexagon Pattern Azzurro.webp',
+        '/assets/shop/Tessere shop - Hexagon Pattern Fucsia.webp',
+        '/assets/shop/Tessere shop - Hexagon Pattern Giallo.webp',
+        '/assets/shop/Tessere shop - Hive Pattern Giallo.webp',
+        '/assets/shop/Tessere shop - Hive Pattern Azzurro.webp',
+        '/assets/shop/Tessere shop - Hive Pattern Fucsia.webp',
+      ],
+      short_description:
         'Una card in PVC con grafica Notify, disponibile in diversi stili.',
+      long_description: `Le nostre cards Basic PVC sono perfette per chi vuole entrare nel mondo Notify con un prodotto di qualità a un prezzo accessibile.
+        La card Basic PVC è disponibile in diversi stili e colori, con la possibilità di inserire il QR Code del proprio profilo direttamente sulla card.
+        `,
       options: {
         users: true,
         qrCode: true,
@@ -44,11 +65,16 @@ export class EcommerceService {
     },
     {
       id: 'tier-2',
+      long_description: '',
       type: 'notify',
       name: 'Personal PVC',
       price: 34.99,
       hero: '/assets/shop/tier-2.webp',
-      description:
+      images: [
+        '/assets/shop/Tessere shop - Tier2 - Nero.webp',
+        '/assets/shop/Tessere shop - Tier2 - Bianco.webp',
+      ],
+      short_description:
         'Una card in PVC con logo e nome personalizzati, disponibile light e dark.',
       options: {
         users: true,
@@ -57,11 +83,13 @@ export class EcommerceService {
     },
     {
       id: 'tier-3',
+      long_description: '',
+      images: [],
       type: 'notify',
       name: 'Custom PVC',
       price: 44.99,
       hero: '/assets/shop/tier-1.webp',
-      description:
+      short_description:
         'Una card in PVC totalmente personalizzabile, ideale per realtà che valorizzano il proprio brand.',
       options: {
         users: true,
@@ -70,11 +98,13 @@ export class EcommerceService {
     },
     {
       id: 'license',
+      long_description: '',
+      images: [],
       type: 'notify',
       name: 'Digital',
       price: 19.99,
       hero: '/assets/shop/license.webp',
-      description:
+      short_description:
         'Se non hai bisogno di una card fisica, questa è la soluzione per te.',
       options: {
         users: true,
@@ -82,31 +112,37 @@ export class EcommerceService {
     },
     {
       id: 'google-review',
+      long_description: '',
+      images: [],
       type: 'reviews',
       name: 'Google',
       price: 19.99,
       hero: '/assets/shop/tier-2.webp',
-      description:
+      short_description:
         'Ottieni rapidamente recensioni positive su Google per il tuo business.',
       options: {},
     },
     {
       id: 'tripadvisor-review',
+      long_description: '',
+      images: [],
       type: 'reviews',
       name: 'Tripadvisor',
       price: 19.99,
       hero: '/assets/shop/tier-2.webp',
-      description:
+      short_description:
         'Ottieni rapidamente recensioni positive su Tripadvisor per il tuo business.',
       options: {},
     },
     {
       id: 'intagram-review',
+      long_description: '',
+      images: [],
       type: 'reviews',
       name: 'Instagram',
       price: 19.99,
       hero: '/assets/shop/tier-2.webp',
-      description:
+      short_description:
         'Ottieni rapidamente followers su Instagram per il tuo business.',
       options: {},
     },

@@ -1,6 +1,7 @@
 import {
   ApplicationRef,
   Injectable,
+  Injector,
   Type,
   ViewContainerRef,
 } from '@angular/core';
@@ -9,14 +10,16 @@ import {
 export class BaseFactory {
   constructor(
     public vcr: ViewContainerRef,
-    private applicationRef: ApplicationRef
+    public applicationRef: ApplicationRef
   ) {}
 
   public _createComponent<T, D = { [key: string]: unknown }>(
     component: Type<T>,
-    data?: D
+    data?: D,
+    parentInjector?: Injector
   ) {
-    const rootViewContainerRef = this.applicationRef.components[0].injector;
+    const rootViewContainerRef =
+      parentInjector || this.applicationRef.components[0].injector;
 
     const ref = this.vcr.createComponent<T>(component, {
       injector: rootViewContainerRef,

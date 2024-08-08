@@ -1,0 +1,178 @@
+<div class="unfold !z-[999]" (click)="close()" id="modal-container">
+  <div class="modal-background backdrop-blur-lg">
+    <div class="modal-content">
+      <div class="max-content-width">
+        <div
+          class="flex flex-col space-y-2 h-full"
+          (click)="$event.stopPropagation()"
+        >
+          <div
+            class="flex flex-row p-2 justify-between whitespace-nowrap rounded-lg w-full items-center"
+            [ngStyle]="{
+              'background-color': '#96C7DF',
+              color: '#1E293B',
+            }"
+          >
+            <div class="text-xs lg:text-sm truncate w-6/12">
+              <strong>Visualizza prodotto</strong>
+            </div>
+            <div class="flex space-x-2">
+              <button
+                class="btn btn-sm btn-error text-white"
+                (click)="close()"
+                data-theme="notifytheme"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18 18 6M6 6l12 12"
+                  />
+                </svg>
+
+                <span>Chiudi</span>
+              </button>
+              <button
+                class="btn btn-sm text-white"
+                (click)="shareProduct()"
+                data-theme="notifytheme"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z"
+                  />
+                </svg>
+
+                <span>Condividi</span>
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="size-full items-center flex flex-col overflow-y-auto bg-slate-50 border border-slate-300 rounded-xl p-4 notify-scrollbar"
+          >
+            <div
+              class="flex flex-col lg:flex-row justify-between w-full lg:space-x-4 max-h-full lg:h-[50%]"
+            >
+              <div class="flex flex-col w-full lg:w-7/12 space-y-4">
+                <img
+                  [src]="item.images[selectedImage]"
+                  class="rounded-lg size-full object-cover aspect-video brightness-110"
+                />
+
+                <div
+                  class="flex w-full space-x-4 overflow-x-auto size-32 notify-scrollbar"
+                >
+                  @for (imgs of item.images; track $index) {
+                  <img
+                    (click)="selectedImage = $index"
+                    class="rounded size-full aspect-square object-cover smooth hover:brightness-100 brightness-110 cursor-pointer"
+                    [src]="imgs"
+                    alt="immagine prodotto"
+                  />
+                  }
+                </div>
+              </div>
+              <div
+                class="flex flex-col justify-between w-full lg:w-5/12 text-left items-start"
+              >
+                <div class="flex flex-col space-y-5 min-h-96">
+                  <h1 class="font-bold text-3xl font-outfit text-slate-900">
+                    {{ item.name }}
+                  </h1>
+                  <p class="text-5xl font-bold font-outfit text-slate-700">
+                    {{ item.price | currency : '€ ' }}
+                  </p>
+                  <p class="text-slate-600 -mt-3">
+                    {{ item.long_description }}
+                  </p>
+                </div>
+
+                <div class="flex space-x-2 w-full items-center justify-between">
+                  <div class="join w-2/12 text-white">
+                    <button class="btn join-item rounded-l-lg">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                    <input
+                      class="join-item w-12 input !text-white"
+                      placeholder="1"
+                    />
+                    <button class="btn join-item rounded-r-lg">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M16.28 11.47a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 0 1-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 0 1 1.06-1.06l7.5 7.5Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+
+                  <div class="w-7/12 lg:w-8/12">
+                    <button
+                      class="rounded-lg bg-black text-white font-outfit flex space-x-2 items-center shrink-0 py-3 w-full justify-center hover:scale-105 smooth active:scale-95"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 0 0 4.25 22.5h15.5a1.875 1.875 0 0 0 1.865-2.071l-1.263-12a1.875 1.875 0 0 0-1.865-1.679H16.5V6a4.5 4.5 0 1 0-9 0ZM12 3a3 3 0 0 0-3 3v.75h6V6a3 3 0 0 0-3-3Zm-3 8.25a3 3 0 1 0 6 0v-.75a.75.75 0 0 1 1.5 0v.75a4.5 4.5 0 1 1-9 0v-.75a.75.75 0 0 1 1.5 0v.75Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      <span>Aggiungi al carrello</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="flex flex-col space-y-5 w-full text-start">
+              <h2 class="font-bold text-2xl font-outfit text-slate-900">
+                Dettagli
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
