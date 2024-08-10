@@ -38,6 +38,7 @@ export class TailwindCheckboxComponent implements OnInit, OnDestroy {
   @Input() description!: string;
   @Input() compact = false;
   @Input() disabled = false;
+  @Input() toggleColorClass = 'toggle-success';
 
   @Input() validationErrors!: { [key: string]: string };
   /**

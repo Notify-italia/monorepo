@@ -141,8 +141,9 @@
                   <notify-tailwind-checkbox
                     *ngIf="item.options.qrCode"
                     class="w-full"
-                    [parent]="form"
+                    [parent]="form.controls.parsedOptions"
                     [name]="'qrCode'"
+                    toggleColorClass="toggle-primary"
                     [label]="'Includi un QR Code nella card'"
                   ></notify-tailwind-checkbox>
                   <div class="divider"></div>
