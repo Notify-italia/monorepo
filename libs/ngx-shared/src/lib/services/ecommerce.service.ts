@@ -17,7 +17,7 @@ export interface INotifyEcommerceProduct {
     colors?: {
       label: string;
       id: string;
-      long_description: '';
+      thumbnail: string;
       image: string;
     }[];
     qrCode?: boolean;
@@ -43,6 +43,7 @@ export class EcommerceService {
         '/assets/shop/Tessere shop - Rosa.webp',
         '/assets/shop/Tessere shop - Rosso.webp',
         '/assets/shop/Tessere shop - Verde.webp',
+        '/assets/shop/Tessere shop - Blu.webp',
         '/assets/shop/Tessere shop - Banana pattern Azzurro.webp',
         '/assets/shop/Tessere shop - Banana pattern Fucsia.webp',
         '/assets/shop/Tessere shop - Banana pattern Giallo.webp',
@@ -59,8 +60,94 @@ export class EcommerceService {
         La card Basic PVC è disponibile in diversi stili e colori, con la possibilità di inserire il QR Code del proprio profilo direttamente sulla card.
         `,
       options: {
-        users: true,
+        users: false,
         qrCode: true,
+        colors: [
+          {
+            label: 'Nero',
+            id: 'nero',
+            thumbnail: '/assets/cards/pastello/black_thumb.webp',
+            image: '/assets/shop/Tessere shop - Nero.webp',
+          },
+          {
+            label: 'Rosa',
+            id: 'rosa',
+            thumbnail: '/assets/cards/pastello/pink_thumb.webp',
+            image: '/assets/shop/Tessere shop - Rosa.webp',
+          },
+          {
+            label: 'Rosso',
+            id: 'rosso',
+            thumbnail: '/assets/cards/pastello/red_thumb.webp',
+            image: '/assets/shop/Tessere shop - Rosso.webp',
+          },
+          {
+            label: 'Blu',
+            id: 'blu',
+            thumbnail: '/assets/cards/pastello/blue_thumb.webp',
+            image: '/assets/shop/Tessere shop - Blu.webp',
+          },
+          {
+            label: 'Verde',
+            id: 'verde',
+            thumbnail: '/assets/cards/pastello/green_thumb.webp',
+            image: '/assets/shop/Tessere shop - Verde.webp',
+          },
+          {
+            label: 'Banana Pattern Azzurro',
+            id: 'banana-azzurro',
+            thumbnail: '/assets/cards/vermicelli/river_thumb.webp',
+            image: '/assets/shop/Tessere shop - Banana pattern Azzurro.webp',
+          },
+          {
+            label: 'Banana Pattern Fucsia',
+            id: 'banana-fucsia',
+            thumbnail: '/assets/cards/vermicelli/neon_thumb.webp',
+            image: '/assets/shop/Tessere shop - Banana pattern Fucsia.webp',
+          },
+          {
+            label: 'Banana Pattern Giallo',
+            id: 'banana-giallo',
+            thumbnail: '/assets/cards/vermicelli/banana_thumb.webp',
+            image: '/assets/shop/Tessere shop - Banana pattern Giallo.webp',
+          },
+          {
+            label: 'Hexagon Pattern Azzurro',
+            id: 'hexagon-azzurro',
+            thumbnail: '/assets/cards/esagoni/river_thumb.webp',
+            image: '/assets/shop/Tessere shop - Hexagon Pattern Azzurro.webp',
+          },
+          {
+            label: 'Hexagon Pattern Fucsia',
+            id: 'hexagon-fucsia',
+            thumbnail: '/assets/cards/esagoni/neon_thumb.webp',
+            image: '/assets/shop/Tessere shop - Hexagon Pattern Fucsia.webp',
+          },
+          {
+            label: 'Hexagon Pattern Giallo',
+            id: 'hexagon-giallo',
+            thumbnail: '/assets/cards/esagoni/banana_thumb.webp',
+            image: '/assets/shop/Tessere shop - Hexagon Pattern Giallo.webp',
+          },
+          {
+            label: 'Hive Pattern Fucsia',
+            id: 'hive-fucsia',
+            thumbnail: '/assets/cards/rombi/neon_thumb.webp',
+            image: '/assets/shop/Tessere shop - Hive Pattern Fucsia.webp',
+          },
+          {
+            label: 'Hive Pattern Azzurro',
+            id: 'hive-azzurro',
+            thumbnail: '/assets/cards/rombi/river_thumb.webp',
+            image: '/assets/shop/Tessere shop - Hive Pattern Azzurro.webp',
+          },
+          {
+            label: 'Hive Pattern Giallo',
+            id: 'hive-giallo',
+            thumbnail: '/assets/cards/rombi/banana_thumb.webp',
+            image: '/assets/shop/Tessere shop - Hive Pattern Giallo.webp',
+          },
+        ],
       },
     },
     {

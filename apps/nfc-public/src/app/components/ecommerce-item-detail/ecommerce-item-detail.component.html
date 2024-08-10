@@ -68,7 +68,7 @@
             class="size-full items-center flex flex-col overflow-y-auto bg-slate-50 border border-slate-300 rounded-xl p-4 notify-scrollbar"
           >
             <div
-              class="flex flex-col lg:flex-row justify-between w-full lg:space-x-4 max-h-full lg:h-[50%]"
+              class="flex flex-col lg:flex-row justify-between w-full lg:space-x-4 max-h-full"
             >
               <div class="flex flex-col w-full lg:w-7/12 space-y-4">
                 <img
@@ -78,6 +78,10 @@
 
                 <div
                   class="flex w-full space-x-4 overflow-x-auto size-32 notify-scrollbar"
+                  [ngClass]="{
+                    'pointer-events-none opacity-75':
+                      form.value.parsedOptions?.color
+                  }"
                 >
                   @for (imgs of item.images; track $index) {
                   <img
@@ -89,8 +93,9 @@
                   }
                 </div>
               </div>
-              <div
-                class="flex flex-col justify-between w-full lg:w-5/12 text-left items-start"
+              <form
+                [formGroup]="form"
+                class="flex flex-col w-full lg:w-5/12 text-left items-start"
               >
                 <div class="flex flex-col space-y-5 min-h-96">
                   <h1 class="font-bold text-3xl font-outfit text-slate-900">
@@ -104,9 +109,50 @@
                   </p>
                 </div>
 
-                <div class="flex space-x-2 w-full items-center justify-between">
+                <div
+                  class="flex flex-col justify-between text-slate-900 w-full"
+                >
+                  <div class="divider"></div>
+                  @if (item.options.colors?.length) {
+                  <div formControlName="size" class="flex flex-wrap w-full">
+                    @for (color of item.options.colors; track $index) {
+                    <div
+                      (click)="
+                        form.controls.parsedOptions.controls.color?.setValue(
+                          color.id
+                        );
+                        setImage(color.image)
+                      "
+                    >
+                      <img
+                        [src]="color.thumbnail"
+                        class="size-8 rounded-full shrink-0 m-2 smooth cursor-pointer"
+                        [ngClass]="{
+                          'brightness-110 scale-110':
+                            color.id === form.value.parsedOptions?.color
+                        }"
+                      />
+                    </div>
+
+                    }
+                  </div>
+                  }
+
+                  <notify-tailwind-checkbox
+                    *ngIf="item.options.qrCode"
+                    class="w-full"
+                    [parent]="form"
+                    [name]="'qrCode'"
+                    [label]="'Includi un QR Code nella card'"
+                  ></notify-tailwind-checkbox>
+                  <div class="divider"></div>
+                </div>
+                <div class="flex space-x-4 w-full items-center justify-between">
                   <div class="join w-2/12 text-white">
-                    <button class="btn join-item rounded-l-lg">
+                    <button
+                      class="btn join-item rounded-l-lg"
+                      (click)="updateQuantity(-1)"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -123,8 +169,12 @@
                     <input
                       class="join-item w-12 input !text-white"
                       placeholder="1"
+                      formControlName="quantity"
                     />
-                    <button class="btn join-item rounded-r-lg">
+                    <button
+                      class="btn join-item rounded-r-lg"
+                      (click)="updateQuantity(1)"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -140,9 +190,10 @@
                     </button>
                   </div>
 
-                  <div class="w-7/12 lg:w-8/12">
+                  <div class="w-7/12 lg:w-8/12 shrink">
                     <button
-                      class="rounded-lg bg-black text-white font-outfit flex space-x-2 items-center shrink-0 py-3 w-full justify-center hover:scale-105 smooth active:scale-95"
+                      [disabled]="form.invalid"
+                      class="rounded-lg bg-black text-white font-outfit flex space-x-2 items-center py-3 w-full justify-center hover:-translate-y-2 smooth active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -160,16 +211,16 @@
                     </button>
                   </div>
                 </div>
-              </div>
+              </form>
             </div>
 
-            <div class="divider"></div>
+            <!-- <div class="divider"></div>
 
             <div class="flex flex-col space-y-5 w-full text-start">
               <h2 class="font-bold text-2xl font-outfit text-slate-900">
                 Dettagli
               </h2>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
