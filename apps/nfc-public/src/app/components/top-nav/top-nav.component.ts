@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppTitleComponent } from '@notify/ngx-shared';
+import { AppTitleComponent, EcommerceService } from '@notify/ngx-shared';
 
 @Component({
   selector: 'notify-top-nav',
@@ -10,4 +10,6 @@ import { AppTitleComponent } from '@notify/ngx-shared';
   templateUrl: './top-nav.component.html',
   styleUrl: './top-nav.component.scss',
 })
-export class TopNavComponent {}
+export class TopNavComponent {
+  public ecommerce = inject(EcommerceService);
+}

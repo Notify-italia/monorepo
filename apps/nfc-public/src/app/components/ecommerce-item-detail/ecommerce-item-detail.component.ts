@@ -93,4 +93,16 @@ export class EcommerceItemDetailComponent
 
     this.selectedImage = index;
   }
+
+  public submit() {
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.submitted.next({
+      ...this.form.value,
+      item: this.item,
+    });
+    this.close();
+  }
 }

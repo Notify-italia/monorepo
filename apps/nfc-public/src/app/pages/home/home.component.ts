@@ -10,6 +10,7 @@ import { Meta } from '@angular/platform-browser';
 import { UnknownType } from '@notify/interfaces';
 import {
   AnimationsService,
+  EcommerceService,
   EnumAnimationsDrivers,
   INotifyEcommerceProduct,
   LoadingComponent,
@@ -59,6 +60,7 @@ export class HomeComponent implements AfterViewInit {
   private _pixel = inject(PixelService);
   private _animationsService = inject(AnimationsService);
   private _utilsSerivce = inject(UtilsService);
+  private _ecommService = inject(EcommerceService);
   private _meta = inject(Meta);
   private _itemDetail = inject(EcommerceItemDetailFactory);
 
@@ -152,7 +154,15 @@ export class HomeComponent implements AfterViewInit {
   }
 
   public showItemDetail(item: INotifyEcommerceProduct) {
-    this._itemDetail.create({ item });
+    const ref = this._itemDetail.create({ item });
+
+    ref.instance.submitted.subscribe((v) => {
+      if (!v) {
+        return;
+      }
+
+      this._ecommService.addToCart(item, v.quantity, v.parsedOptions);
+    });
   }
 
   private _scrollAnchors(direction: 'up' | 'down'): void {

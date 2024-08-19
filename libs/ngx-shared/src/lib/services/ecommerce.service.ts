@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { INotifyEcommerceCart, UnknownType } from '@notify/interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from './http.service';
@@ -30,6 +31,7 @@ export interface INotifyEcommerceProduct {
 export class EcommerceService {
   private _http = inject(HttpService);
   private _toast = inject(ToastrService);
+  private platformId = inject(PLATFORM_ID);
 
   public products: INotifyEcommerceProduct[] = [
     {
@@ -56,8 +58,8 @@ export class EcommerceService {
       ],
       short_description:
         'Una card in PVC con grafica Notify, disponibile in diversi stili.',
-      long_description: `Le nostre cards Basic PVC sono perfette per chi vuole entrare nel mondo Notify con un prodotto di qualità a un prezzo accessibile.
-        La card Basic PVC è disponibile in diversi stili e colori, con la possibilità di inserire il QR Code del proprio profilo direttamente sulla card.
+      long_description: `Le nostre cards Basic PVC sono perfette per chi vuole entrare nel mondo Notify con un prodotto di qualità ad un prezzo accessibile.
+        Le cards Basic PVC sono disponibili in diversi stili e colori.
         `,
       options: {
         users: false,
@@ -152,7 +154,8 @@ export class EcommerceService {
     },
     {
       id: 'tier-2',
-      long_description: '',
+      long_description:
+        'Le nostre cards Personal PVC sono perfette per chi valorizza la propria identità e vuole distinguersi con una card unica, pur mantendo uno stile pulito e minimalista. Le cards Personal PVC sono disponibili in stile light e dark.',
       type: 'notify',
       name: 'Personal PVC',
       price: 34.99,
@@ -162,10 +165,24 @@ export class EcommerceService {
         '/assets/shop/Tessere shop - Tier2 - Bianco.webp',
       ],
       short_description:
-        'Una card in PVC con logo e nome personalizzati, disponibile light e dark.',
+        'Una card in PVC con logo e nome personalizzati, disponibile in 2 stili.',
       options: {
         users: true,
         qrCode: true,
+        colors: [
+          {
+            label: 'Bianco',
+            id: 'white',
+            thumbnail: '/assets/cards/personal/white_thumb.webp',
+            image: '/assets/shop/Tessere shop - Tier2 - Bianco.webp',
+          },
+          {
+            label: 'Nero',
+            id: 'black',
+            thumbnail: '/assets/cards/personal/black_thumb.webp',
+            image: '/assets/shop/Tessere shop - Tier2 - Nero.webp',
+          },
+        ],
       },
     },
     {
@@ -177,7 +194,7 @@ export class EcommerceService {
       price: 44.99,
       hero: '/assets/shop/tier-1.webp',
       short_description:
-        'Una card in PVC totalmente personalizzabile, ideale per realtà che valorizzano il proprio brand.',
+        'Una card in PVC personalizzabile nella sua interezza.',
       options: {
         users: true,
         qrCode: true,
@@ -251,10 +268,31 @@ export class EcommerceService {
   }
 
   public get cart(): INotifyEcommerceCart {
-    return JSON.parse(localStorage.getItem(this._lsCart) || '{}');
+    if (!this._isBrowser) {
+      return {
+        createdAt: new Date().toISOString(),
+        updateAt: new Date().toISOString(),
+        items: [],
+      };
+    }
+    const result = JSON.parse(localStorage.getItem(this._lsCart) || '{}');
+
+    return {
+      createdAt: result.createdAt,
+      updateAt: result.updateAt,
+      items: result.items,
+    };
+  }
+
+  private get _isBrowser() {
+    return isPlatformBrowser(this.platformId);
   }
 
   public init() {
+    if (!this._isBrowser) {
+      return;
+    }
+
     if (!this.customerId) {
       this._generateCustomerId();
     }
@@ -262,6 +300,7 @@ export class EcommerceService {
     if (!localStorage.getItem(this._lsCart)) {
       this._generateCart();
     }
+    console.log(`ecommerce service initialized`, this.cart);
   }
 
   public addToCart(
@@ -282,6 +321,7 @@ export class EcommerceService {
     localStorage.setItem(this._lsCart, JSON.stringify(cart));
 
     this._toast.success('Prodotto aggiunto al carrello');
+    console.log('cart updated', this.cart);
   }
 
   private _generateCart(): INotifyEcommerceCart {
