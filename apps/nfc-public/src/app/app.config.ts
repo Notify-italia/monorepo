@@ -7,7 +7,7 @@ import { provideRouter } from '@angular/router';
 import { HttpService, providePixelModule } from '@notify/ngx-shared';
 import { provideClarity } from 'ngx-clarity';
 import { provideToastr } from 'ngx-toastr';
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {

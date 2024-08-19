@@ -7,12 +7,11 @@ import {
   inject,
 } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
-import { UnknownType } from '@notify/interfaces';
+import { INotifyEcommerceProduct, UnknownType } from '@notify/interfaces';
 import {
   AnimationsService,
   EcommerceService,
   EnumAnimationsDrivers,
-  INotifyEcommerceProduct,
   LoadingComponent,
   PixelService,
   SplineViewerComponent,
@@ -163,6 +162,10 @@ export class HomeComponent implements AfterViewInit {
 
       this._ecommService.addToCart(item, v.quantity, v.parsedOptions);
     });
+  }
+
+  public showCart() {
+    //TODO: Implement
   }
 
   private _scrollAnchors(direction: 'up' | 'down'): void {

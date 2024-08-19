@@ -1,10 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, inject, Output } from '@angular/core';
-import {
-  EcommerceService,
-  INotifyEcommerceProduct,
-  SSRBaseComponent,
-} from '@notify/ngx-shared';
+import { INotifyEcommerceProduct } from '@notify/interfaces';
+import { EcommerceService, SSRBaseComponent } from '@notify/ngx-shared';
 
 @Component({
   standalone: true,

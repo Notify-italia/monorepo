@@ -1,29 +1,12 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import { INotifyEcommerceCart, UnknownType } from '@notify/interfaces';
+import {
+  INotifyEcommerceCart,
+  INotifyEcommerceProduct,
+  UnknownType,
+} from '@notify/interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { HttpService } from './http.service';
-
-export interface INotifyEcommerceProduct {
-  id: string;
-  name: string;
-  price: number;
-  hero: string;
-  type: 'notify' | 'reviews';
-  long_description: string;
-  short_description: string;
-  images: string[];
-  options: {
-    users?: boolean;
-    colors?: {
-      label: string;
-      id: string;
-      thumbnail: string;
-      image: string;
-    }[];
-    qrCode?: boolean;
-  };
-}
 
 @Injectable({
   providedIn: 'root',
@@ -62,7 +45,7 @@ export class EcommerceService {
         Le cards Basic PVC sono disponibili in diversi stili e colori.
         `,
       options: {
-        users: false,
+        usersInfo: false,
         qrCode: true,
         colors: [
           {
@@ -167,7 +150,8 @@ export class EcommerceService {
       short_description:
         'Una card in PVC con logo e nome personalizzati, disponibile in 2 stili.',
       options: {
-        users: true,
+        usersInfo: true,
+        uploadLogo: true,
         qrCode: true,
         colors: [
           {
@@ -196,7 +180,6 @@ export class EcommerceService {
       short_description:
         'Una card in PVC personalizzabile nella sua interezza.',
       options: {
-        users: true,
         qrCode: true,
       },
     },
@@ -211,7 +194,8 @@ export class EcommerceService {
       short_description:
         'Se non hai bisogno di una card fisica, questa è la soluzione per te.',
       options: {
-        users: true,
+        userCount: true,
+        noQuantity: true,
       },
     },
     {
@@ -303,6 +287,18 @@ export class EcommerceService {
     console.log(`ecommerce service initialized`, this.cart);
   }
 
+  public goToCheckout() {
+    if (!this._isBrowser) {
+      return;
+    }
+
+    this._http
+      .post('/v1/sales/checkout', {
+        cart: this.cart,
+      })
+      .subscribe();
+  }
+
   public addToCart(
     product: INotifyEcommerceProduct,
     quantity: number,
@@ -316,6 +312,8 @@ export class EcommerceService {
     cart.items.push({
       product: product.id,
       quantity,
+      price: product.price,
+      name: product.name,
       options: parsedOptions,
     });
     localStorage.setItem(this._lsCart, JSON.stringify(cart));

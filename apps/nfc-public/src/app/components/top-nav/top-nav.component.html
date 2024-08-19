@@ -9,6 +9,7 @@
   <div>
     @if (ecommerce.cart.items.length; as items) {
     <button
+      (click)="CartClicked.emit()"
       class="relative text-[#033669] smooth smooth-faster active:scale-95"
     >
       <div

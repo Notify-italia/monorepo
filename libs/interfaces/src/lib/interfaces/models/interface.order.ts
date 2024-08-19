@@ -1,3 +1,4 @@
+import { INotifyEcommerceCart } from '../interface.ecommerce';
 import { MongodbDocument } from '../interface.mongodb';
 
 enum EcommerceOrderStatus {
@@ -19,18 +20,4 @@ export interface INotifyEcommerceOrder extends MongodbDocument {
     zip: string;
   } | null;
   orderId: string;
-}
-
-export interface INotifyEcommerceCart {
-  createdAt: string;
-  updateAt?: string;
-  items: {
-    product: string;
-    quantity: number;
-    options: {
-      users?: number;
-      color?: string;
-      qrCode?: string;
-    }[];
-  }[];
 }

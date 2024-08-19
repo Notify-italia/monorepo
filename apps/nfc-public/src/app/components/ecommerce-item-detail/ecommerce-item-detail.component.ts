@@ -6,10 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { INotifyEcommerceProduct } from '@notify/interfaces';
 import {
   baseModalComponentProviders,
   controlsFromObject,
-  INotifyEcommerceProduct,
   ModalBaseComponent,
   TailwindFormsModule,
 } from '@notify/ngx-shared';
