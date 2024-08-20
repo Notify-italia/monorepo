@@ -65,7 +65,7 @@
           </div>
 
           <div
-            class="size-full items-center flex flex-col overflow-y-auto bg-slate-50 border border-slate-300 rounded-xl p-4 notify-scrollbar"
+            class="w-full items-center flex flex-col overflow-y-auto bg-slate-50 border border-slate-300 rounded-xl p-4 notify-scrollbar"
           >
             <div
               class="flex flex-col lg:flex-row justify-between w-full lg:space-x-4 max-h-full"
@@ -105,7 +105,7 @@
                   <p class="text-5xl font-bold font-outfit text-slate-700">
                     {{ item.price | currency : '€ ' }}
                   </p>
-                  <p class="text-slate-600 -mt-3">
+                  <p class="text-slate-600 -mt-3 whitespace-pre-line">
                     {{ item.long_description }}
                   </p>
                 </div>
@@ -129,7 +129,7 @@
                         [src]="color.thumbnail"
                         class="size-8 rounded-full shrink-0 m-2 smooth cursor-pointer border border-gray-300/50"
                         [ngClass]="{
-                          'brightness-110 scale-110':
+                          'brightness-110 scale-125 -translate-y-2':
                             color.id === form.value.parsedOptions?.color
                         }"
                       />
@@ -137,6 +137,15 @@
 
                     }
                   </div>
+                  } @if (item.options.userCount) {
+                  <notify-tailwind-input
+                    class="w-full"
+                    [parent]="form.controls.parsedOptions"
+                    [name]="'userCount'"
+                    [label]="'Membri del team'"
+                    helpText="Numero di sotto-utenti che possono essere gestiti da questa licenza"
+                    [type]="'number'"
+                  ></notify-tailwind-input>
                   }
 
                   <!-- <notify-tailwind-checkbox
@@ -150,7 +159,10 @@
                   <div class="divider"></div>
                 </div>
                 <div class="flex space-x-4 w-full items-center justify-between">
-                  <div class="join w-2/12 text-white">
+                  <div
+                    class="join w-2/12 text-white"
+                    *ngIf="!item.options.noQuantity"
+                  >
                     <button
                       type="button"
                       class="btn join-item rounded-l-lg"
@@ -194,10 +206,15 @@
                     </button>
                   </div>
 
-                  <div class="w-7/12 lg:w-8/12 shrink">
+                  <div
+                    class="w-full shrink"
+                    [ngClass]="{
+                      'w-7/12 lg:w-8/12': !item.options.noQuantity
+                    }"
+                  >
                     <button
                       [disabled]="form.invalid"
-                      class="rounded-lg bg-[#1D232A] text-white font-outfit flex space-x-2 items-center py-3 w-full justify-center hover:-translate-y-2 smooth active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
+                      class="rounded-lg bg-[#1D232A] text-white font-outfit flex space-x-2 items-center py-3 w-full justify-center hover:brightness-75 smooth active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

@@ -10,7 +10,6 @@ import {
   provideTailwindToasts,
 } from '@notify/ngx-shared';
 import { provideClarity } from 'ngx-clarity';
-import { provideToastr } from 'ngx-toastr';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
@@ -28,7 +27,7 @@ export const appConfig: ApplicationConfig = {
         new HttpService(environment.apiUrl, environment.jwtTokenKey, http),
     },
     provideAnimations(),
-    provideToastr(),
+    // provideToastr(),
     provideClarity({
       enabled: true,
       projectId: 'l2q2lfi4bb',

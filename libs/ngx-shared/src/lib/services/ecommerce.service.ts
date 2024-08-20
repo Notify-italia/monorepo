@@ -43,6 +43,10 @@ export class EcommerceService {
         'Una card in PVC con grafica Notify, disponibile in diversi stili.',
       long_description: `Le nostre cards Basic PVC sono perfette per chi vuole entrare nel mondo Notify con un prodotto di qualità ad un prezzo accessibile.
         Le cards Basic PVC sono disponibili in diversi stili e colori.
+\n
+        Acquistando una card Basic PVC riceverai:
+        - La card con lo stile che hai scelto
+        - Una licenza d'uso per l'app Notify in caso di acquisto singolo. In caso di acquisto multiplo sarà aggiunto automaticamente un'utente alla licenza generata.
         `,
       options: {
         usersInfo: false,
@@ -137,8 +141,11 @@ export class EcommerceService {
     },
     {
       id: 'tier-2',
-      long_description:
-        'Le nostre cards Personal PVC sono perfette per chi valorizza la propria identità e vuole distinguersi con una card unica, pur mantendo uno stile pulito e minimalista. Le cards Personal PVC sono disponibili in stile light e dark.',
+      long_description: `Le nostre cards Personal PVC sono perfette per chi valorizza la propria identità e vuole distinguersi con una card unica, pur mantendo uno stile pulito e minimalista. Le cards Personal PVC sono disponibili in stile light e dark.
+        \n
+        Acquistando una card Basic PVC riceverai:
+        - La card con lo stile che hai scelto
+        - Una licenza d'uso per l'app Notify in caso di acquisto singolo. In caso di acquisto multiplo sarà aggiunto automaticamente un'utente alla licenza generata.`,
       type: 'notify',
       name: 'Personal PVC',
       price: 34.99,
@@ -188,7 +195,7 @@ export class EcommerceService {
       long_description: '',
       images: [],
       type: 'notify',
-      name: 'Digital',
+      name: 'Solo Licenza',
       price: 19.99,
       hero: '/assets/shop/license.webp',
       short_description:

@@ -32,7 +32,7 @@ export class EcommerceItemDetailComponent
   public selectedImage = 0;
   public form!: FormGroup<
     controlsFromObject<{
-      quantity: number | null;
+      quantity?: number | null;
       parsedOptions: {
         qrCode?: boolean;
         color?: string;
@@ -42,9 +42,15 @@ export class EcommerceItemDetailComponent
 
   public ngOnInit(): void {
     this.form = new FormGroup({
-      quantity: new FormControl(1, [Validators.required, Validators.min(1)]),
       parsedOptions: new FormGroup({}),
     });
+
+    if (!this.item.options.noQuantity) {
+      this.form.controls['quantity'] = new FormControl(1, [
+        Validators.required,
+        Validators.min(1),
+      ]);
+    }
 
     if (this.item.options.qrCode) {
       this.form.controls['parsedOptions'].addControl(
@@ -105,7 +111,7 @@ export class EcommerceItemDetailComponent
   }
 
   public updateQuantity(value: number) {
-    this.form.controls['quantity'].setValue(
+    this.form.controls['quantity']?.setValue(
       (this.form.controls['quantity'].value || 0) + value
     );
   }
