@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { INotifyEcommerceCartItem } from '@notify/interfaces';
+import {
+  INotifyEcommerceCartItem,
+  INotifyEcommerceProduct,
+} from '@notify/interfaces';
 import { EcommerceService, ModalBaseComponent } from '@notify/ngx-shared';
 
 @Component({
@@ -27,7 +30,7 @@ export class EcommerceCartComponent extends ModalBaseComponent {
           (item.quantity || item.options.userCount || 1) *
           (productData?.price || 0),
         product_data: productData,
-        description: this._createItemDescription(item),
+        description: this._createItemDescription(item, productData),
       };
     });
   }
@@ -36,7 +39,10 @@ export class EcommerceCartComponent extends ModalBaseComponent {
     return this.cartItems.reduce((acc, item) => acc + item.total, 0);
   }
 
-  private _createItemDescription(item: INotifyEcommerceCartItem) {
+  private _createItemDescription(
+    item: INotifyEcommerceCartItem,
+    productData?: INotifyEcommerceProduct
+  ) {
     const labels: { [key: string]: string } = {};
 
     if (item.options.color) {
@@ -55,6 +61,10 @@ export class EcommerceCartComponent extends ModalBaseComponent {
 
     if (item.options.logo) {
       labels['logo'] = `Logo: ${item.options.logo.filename}`;
+    }
+
+    if (productData?.options.includesLicense) {
+      labels['license'] = '<br/> Slot utente incluso';
     }
 
     return this._sanitizer.bypassSecurityTrustHtml(

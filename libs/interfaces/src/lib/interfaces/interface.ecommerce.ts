@@ -19,6 +19,7 @@ export interface INotifyEcommerceProduct {
       image: string;
     }[];
     qrCode?: boolean;
+    includesLicense?: boolean;
   };
 }
 
@@ -28,6 +29,7 @@ export interface INotifyEcommerceCartItem {
   price: number;
   name: string;
   options: {
+    includesLicense?: boolean;
     usersInfo?: string[];
     userCount?: number;
     logo?: {

@@ -33,7 +33,7 @@
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    d="M6 18 18 6M6 6l12 12"
+                    d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
                   />
                 </svg>
 
@@ -55,6 +55,7 @@
                 <div class="flex flex-row space-x-2 items-center">
                   <div class="flex flex-row space-x-2 items-center">
                     <button
+                      (click)="ecommerce.removeFromCart($index)"
                       class="btn btn-sm btn-ghost"
                       data-theme="notifytheme"
                     >
@@ -132,7 +133,8 @@
 
               <!-- GO TO CHECKOUT -->
               <button
-                class="text-3xl text-black flex space-x-2 font-bold !bg-transparent items-center"
+                [disabled]="!cartItems.length"
+                class="text-3xl text-black flex space-x-2 font-bold !bg-transparent items-center disabled:pointer-events-none disabled:opacity-75"
                 data-theme="notifytheme"
               >
                 <span>Vai al checkout</span>

@@ -45,8 +45,8 @@ export class EcommerceService {
         Le cards Basic PVC sono disponibili in diversi stili e colori.
 \n
         Acquistando una card Basic PVC riceverai:
-        - La card con lo stile che hai scelto
-        - Una licenza d'uso per l'app Notify in caso di acquisto singolo. In caso di acquisto multiplo sarà aggiunto automaticamente un'utente alla licenza generata.
+        - La card con lo stile che hai scelto.
+        - Una licenza d'uso per Notify in caso di acquisto singolo. In caso di acquisto multiplo sarà aggiunto automaticamente un'utente alla licenza ricevuta.
         `,
       options: {
         usersInfo: false,
@@ -137,6 +137,7 @@ export class EcommerceService {
             image: '/assets/shop/Tessere shop - Hive Pattern Giallo.webp',
           },
         ],
+        includesLicense: true,
       },
     },
     {
@@ -144,8 +145,8 @@ export class EcommerceService {
       long_description: `Le nostre cards Personal PVC sono perfette per chi valorizza la propria identità e vuole distinguersi con una card unica, pur mantendo uno stile pulito e minimalista. Le cards Personal PVC sono disponibili in stile light e dark.
         \n
         Acquistando una card Basic PVC riceverai:
-        - La card con lo stile che hai scelto
-        - Una licenza d'uso per l'app Notify in caso di acquisto singolo. In caso di acquisto multiplo sarà aggiunto automaticamente un'utente alla licenza generata.`,
+        - La card con lo stile che hai scelto.
+        - Una licenza d'uso per Notify in caso di acquisto singolo. In caso di acquisto multiplo sarà aggiunto automaticamente un'utente alla licenza ricevuta.`,
       type: 'notify',
       name: 'Personal PVC',
       price: 34.99,
@@ -160,6 +161,7 @@ export class EcommerceService {
         usersInfo: true,
         logo: true,
         qrCode: true,
+        includesLicense: true,
         colors: [
           {
             label: 'Bianco',
@@ -188,6 +190,7 @@ export class EcommerceService {
         'Una card in PVC personalizzabile nella sua interezza.',
       options: {
         qrCode: true,
+        includesLicense: true,
       },
     },
     {
@@ -304,6 +307,17 @@ export class EcommerceService {
         cart: this.cart,
       })
       .subscribe();
+  }
+
+  public removeFromCart(index: number) {
+    const cart = this.cart;
+    cart.updateAt = new Date().toISOString();
+
+    cart.items.splice(index, 1);
+    localStorage.setItem(this._lsCart, JSON.stringify(cart));
+
+    this._toast.info('Prodotto rimosso dal carrello');
+    console.log('cart updated', this.cart);
   }
 
   public addToCart(
