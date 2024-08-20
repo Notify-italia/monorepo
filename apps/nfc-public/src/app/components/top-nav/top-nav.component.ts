@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppTitleComponent, EcommerceService } from '@notify/ngx-shared';
 
@@ -13,5 +13,5 @@ import { AppTitleComponent, EcommerceService } from '@notify/ngx-shared';
 export class TopNavComponent {
   public ecommerce = inject(EcommerceService);
 
-  public CartClicked = new EventEmitter<void>();
+  @Output() CartClicked = new EventEmitter<void>();
 }

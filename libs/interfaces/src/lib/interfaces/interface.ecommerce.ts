@@ -11,7 +11,7 @@ export interface INotifyEcommerceProduct {
     usersInfo?: boolean;
     userCount?: boolean;
     noQuantity?: boolean;
-    uploadLogo?: boolean;
+    logo?: boolean;
     colors?: {
       label: string;
       id: string;
@@ -22,18 +22,25 @@ export interface INotifyEcommerceProduct {
   };
 }
 
+export interface INotifyEcommerceCartItem {
+  product: string;
+  quantity: number;
+  price: number;
+  name: string;
+  options: {
+    usersInfo?: string[];
+    userCount?: number;
+    logo?: {
+      filename: string;
+      url: string;
+    };
+    color?: string;
+    qrCode?: string;
+  };
+}
+
 export interface INotifyEcommerceCart {
   createdAt: string;
   updateAt?: string;
-  items: {
-    product: string;
-    quantity: number;
-    price: number;
-    name: string;
-    options: {
-      users?: number;
-      color?: string;
-      qrCode?: string;
-    }[];
-  }[];
+  items: INotifyEcommerceCartItem[];
 }

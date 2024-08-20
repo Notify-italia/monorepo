@@ -1,0 +1,160 @@
+<div class="unfold !z-[999]" (click)="close()" id="modal-container">
+  <div class="modal-background backdrop-blur-lg">
+    <div class="modal-content">
+      <div class="max-content-width">
+        <div
+          class="flex flex-col space-y-2 size-full"
+          (click)="$event.stopPropagation()"
+        >
+          <div
+            class="flex flex-row p-2 justify-between whitespace-nowrap rounded-lg w-full items-center"
+            [ngStyle]="{
+                'background-color': '#998CE9',
+                color: '#1E293B',
+              }"
+          >
+            <div class="text-sm lg:text-sm truncate w-6/12 text-white pl-2">
+              <strong>Il tuo carrello</strong>
+            </div>
+            <div class="flex space-x-2">
+              <button
+                class="btn btn-sm text-white"
+                (click)="close()"
+                data-theme="notifytheme"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="size-4"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18 18 6M6 6l12 12"
+                  />
+                </svg>
+
+                <span>Torna al sito</span>
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="size-full items-center flex flex-col overflow-y-auto bg-slate-50 border border-slate-300 rounded-xl notify-scrollbar min-w-full"
+          >
+            <div
+              class="flex flex-col w-full space-y-4 h-[95%] overflow-y-auto p-4"
+            >
+              @for (item of cartItems; track $index) {
+              <div
+                class="flex flex-row w-full justify-between items-center border-b pb-2"
+              >
+                <div class="flex flex-row space-x-2 items-center">
+                  <div class="flex flex-row space-x-2 items-center">
+                    <button
+                      class="btn btn-sm btn-ghost"
+                      data-theme="notifytheme"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18 18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+
+                  <div class="flex flex-col items-center">
+                    <img
+                      class="w-12 h-12 rounded-lg"
+                      [src]="item.product_data?.hero"
+                      alt="product image"
+                    />
+                  </div>
+                  <div class="flex flex-col space-y-1">
+                    <div class="text-sm font-semibold text-slate-900">
+                      {{ item.product_data?.name }}
+                    </div>
+                    <div
+                      class="text-xs text-slate-500"
+                      [innerHTML]="item.description"
+                    ></div>
+                  </div>
+                </div>
+                <div class="flex flex-row space-x-2 items-center">
+                  <div class="flex flex-col space-y-1">
+                    <div class="text-sm font-semibold text-slate-900 text-end">
+                      {{ item.total | currency : 'EUR' }}
+                    </div>
+                    <div class="text-xs text-slate-500">
+                      @if(!item.options.userCount) {
+                      {{ item.quantity || 1 }} } @else
+                      {{{item.options.userCount}} Utenti} x
+                      {{ item.product_data?.price | currency : 'EUR' }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              }
+            </div>
+
+            <small class="flex justify-end w-full items-center p-4">
+              Ultimo aggiornamento il
+              {{ ecommerce.cart.updateAt | date : 'dd/MM HH:mm' }}
+            </small>
+
+            <div
+              class="py-5 total-shadow p-4 bg-gray-50 flex justify-end space-x-4 w-full border-t"
+            >
+              <!-- TOTAL -->
+              <div class="flex flex-col items-end">
+                <div class="flex justify-end space-x-2 items-end">
+                  <h1 class="text-xl font-bold text-black">Totale</h1>
+                  <h1 class="text-3xl font-bold text-black">
+                    {{ cartTotal | currency : 'EUR' }}
+                  </h1>
+                </div>
+                <small> Spese di spedizione calcolate al checkout </small>
+              </div>
+
+              <div class="divider divider-horizontal"></div>
+
+              <!-- GO TO CHECKOUT -->
+              <button
+                class="text-3xl text-black flex space-x-2 font-bold !bg-transparent items-center"
+                data-theme="notifytheme"
+              >
+                <span>Vai al checkout</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="3"
+                  stroke="currentColor"
+                  class="size-8"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

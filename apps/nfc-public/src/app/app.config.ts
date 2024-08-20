@@ -4,7 +4,11 @@ import { ApplicationConfig } from '@angular/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
-import { HttpService, providePixelModule } from '@notify/ngx-shared';
+import {
+  HttpService,
+  providePixelModule,
+  provideTailwindToasts,
+} from '@notify/ngx-shared';
 import { provideClarity } from 'ngx-clarity';
 import { provideToastr } from 'ngx-toastr';
 import { environment } from '../environments/environment';
@@ -16,6 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     providePixelModule({ pixelId: '1035992114161358', enabled: true }),
     provideHttpClient(withFetch()),
+    provideTailwindToasts(),
     {
       provide: HttpService,
       deps: [HttpClient],

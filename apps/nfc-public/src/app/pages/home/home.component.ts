@@ -19,6 +19,7 @@ import {
 } from '@notify/ngx-shared';
 import _ from 'lodash';
 import { Observable, Subject, combineLatest } from 'rxjs';
+import { EcommerceCartFactory } from '../../components/ecommerce-cart/ecommerce-cart.factory';
 import { EcommerceItemDetailFactory } from '../../components/ecommerce-item-detail/ecommerce-item-detail.factory';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
@@ -49,7 +50,12 @@ interface IAnchorOptions {
     TrustedByComponent,
     SplineViewerComponent,
   ],
-  providers: [AnimationsService, UtilsService, EcommerceItemDetailFactory],
+  providers: [
+    AnimationsService,
+    UtilsService,
+    EcommerceItemDetailFactory,
+    EcommerceCartFactory,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -62,6 +68,7 @@ export class HomeComponent implements AfterViewInit {
   private _ecommService = inject(EcommerceService);
   private _meta = inject(Meta);
   private _itemDetail = inject(EcommerceItemDetailFactory);
+  private _cart = inject(EcommerceCartFactory);
 
   public instructionsStable$ = new Subject<void>();
   public splashStable$ = new Subject<void>();
@@ -165,7 +172,7 @@ export class HomeComponent implements AfterViewInit {
   }
 
   public showCart() {
-    //TODO: Implement
+    this._cart.create();
   }
 
   private _scrollAnchors(direction: 'up' | 'down'): void {

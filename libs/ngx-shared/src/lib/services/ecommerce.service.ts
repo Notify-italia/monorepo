@@ -151,7 +151,7 @@ export class EcommerceService {
         'Una card in PVC con logo e nome personalizzati, disponibile in 2 stili.',
       options: {
         usersInfo: true,
-        uploadLogo: true,
+        logo: true,
         qrCode: true,
         colors: [
           {

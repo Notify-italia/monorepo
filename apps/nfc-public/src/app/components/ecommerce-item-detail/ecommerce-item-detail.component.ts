@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import {
+  FormArray,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -55,6 +56,31 @@ export class EcommerceItemDetailComponent
     if (this.item.options.colors?.length) {
       this.form.controls['parsedOptions'].addControl(
         'color',
+        new FormControl(null, [Validators.required])
+      );
+    }
+
+    if (this.item.options.usersInfo) {
+      this.form.controls['parsedOptions'].addControl(
+        'usersInfo',
+        new FormArray([
+          new FormGroup({
+            alias: new FormControl(null, [Validators.required]),
+          }),
+        ])
+      );
+    }
+
+    if (this.item.options.logo) {
+      this.form.controls['parsedOptions'].addControl(
+        'uploadLogo',
+        new FormControl(null, [Validators.required])
+      );
+    }
+
+    if (this.item.options.userCount) {
+      this.form.controls['parsedOptions'].addControl(
+        'userCount',
         new FormControl(null, [Validators.required])
       );
     }
