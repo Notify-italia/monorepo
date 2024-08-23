@@ -29,6 +29,10 @@ export class EcommerceCartComponent extends ModalBaseComponent {
         total:
           (item.quantity || item.options.userCount || 1) *
           (productData?.price || 0),
+        price:
+          item.options.userCount && productData?.options.noQuantity
+            ? item.price * item.options.userCount
+            : item.price,
         product_data: productData,
         description: this._createItemDescription(item, productData),
       };
@@ -37,6 +41,18 @@ export class EcommerceCartComponent extends ModalBaseComponent {
 
   public get cartTotal() {
     return this.cartItems.reduce((acc, item) => acc + item.total, 0);
+  }
+
+  public goToCheckout() {
+    const cart = {
+      ...this.ecommerce.cart,
+      items: this.cartItems.map((item) => ({
+        ...item,
+        description: '',
+        product_data: undefined,
+      })),
+    };
+    this.ecommerce.goToCheckout(cart);
   }
 
   private _createItemDescription(

@@ -298,7 +298,7 @@ export class EcommerceService {
     console.log(`ecommerce service initialized`, this.cart);
   }
 
-  public goToCheckout() {
+  public goToCheckout(cart: INotifyEcommerceCart) {
     if (!this._isBrowser) {
       return;
     }
@@ -307,13 +307,13 @@ export class EcommerceService {
       .post<{ cart: INotifyEcommerceCart }, { checkout_url: string }>(
         '/v1/sales/checkout',
         {
-          cart: this.cart,
+          cart: cart,
         }
       )
       .pipe(
         tap((v) => {
           console.log('checkout response', v);
-          window.open(v.checkout_url);
+          window.open(v.checkout_url, '_self');
         })
       )
       .subscribe();
