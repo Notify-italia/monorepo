@@ -6,6 +6,7 @@ import {
   UnknownType,
 } from '@notify/interfaces';
 import { ToastrService } from 'ngx-toastr';
+import { tap } from 'rxjs';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -303,9 +304,18 @@ export class EcommerceService {
     }
 
     this._http
-      .post('/v1/sales/checkout', {
-        cart: this.cart,
-      })
+      .post<{ cart: INotifyEcommerceCart }, { checkout_url: string }>(
+        '/v1/sales/checkout',
+        {
+          cart: this.cart,
+        }
+      )
+      .pipe(
+        tap((v) => {
+          console.log('checkout response', v);
+          window.open(v.checkout_url);
+        })
+      )
       .subscribe();
   }
 

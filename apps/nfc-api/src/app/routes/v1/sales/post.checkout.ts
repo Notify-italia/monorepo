@@ -32,11 +32,12 @@ router.post(
       })),
       mode: 'payment',
 
-      // success_url: `${YOUR_DOMAIN}/success.html`,
-      // cancel_url: `${YOUR_DOMAIN}/cancel.html`,
+      success_url: `${PUBLIC_WEBSITE_URL}/checkout-success`,
+      cancel_url: `${PUBLIC_WEBSITE_URL}/checkout-cancel`,
+      // return_url: `${PUBLIC_WEBSITE_URL}#cart`,
     });
 
-    res.redirect(303, session.url || PUBLIC_WEBSITE_URL);
+    res.send({ checkout_url: session.url || PUBLIC_WEBSITE_URL });
   })
 );
 
