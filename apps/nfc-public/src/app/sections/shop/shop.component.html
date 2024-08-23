@@ -1,14 +1,16 @@
 <div class="max-content-width">
   <div class="website-section">
-    <h1 class="section-title">Siamo all'altezza delle tue esigenze?</h1>
-    <div class="section-subtitle">
-      <p>
-        Scegli tra le nostre cards quella che fa per te e procedi con
-        l'acquisto. <br />
-      </p>
+    <div class="z-10 text-wrap w-full">
+      <h1 class="section-title">Siamo all'altezza delle tue esigenze?</h1>
+      <div class="section-subtitle">
+        <p>
+          Scegli tra le nostre cards quella che fa per te e procedi con
+          l'acquisto. <br />
+        </p>
+      </div>
     </div>
 
-    <div class="flex flex-col z-10 w-full">
+    <div class="flex flex-col z-10 w-full overflow-x-auto">
       <div class="ecommerce-cards-container">
         @for (item of ecommerce.notifyProducts; track $index) {
         <ng-container
