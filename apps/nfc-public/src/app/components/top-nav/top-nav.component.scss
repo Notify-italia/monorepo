@@ -27,3 +27,7 @@
 .topnav-menu {
   @apply relative flex justify-between items-center w-full z-10;
 }
+
+svg {
+  @apply size-6 lg:size-10;
+}
