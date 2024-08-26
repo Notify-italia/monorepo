@@ -25,6 +25,11 @@ router.post(
           currency: 'eur',
           product_data: {
             name: item.name,
+            metadata: {
+              item_data: `${item.name} x ${
+                item.quantity || 1
+              } | ${JSON.stringify(item.options)}`,
+            },
           },
           unit_amount: Math.floor(item.price * 100),
         },
@@ -36,9 +41,13 @@ router.post(
         allowed_countries: ['IT'],
       },
       billing_address_collection: 'required',
-      metadata: {
-        cart: JSON.stringify(cart),
-      },
+      //       metadata: {
+      //         cart_data: `Iniz. Carrello: ${format(
+      //           new Date(cart.createdAt),
+      //           'dd/MM/yyyy HH:mm'
+      //         )}
+      // dettaglio oggetti: `,
+      //       },
       shipping_options: [
         {
           shipping_rate_data: {

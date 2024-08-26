@@ -40,8 +40,14 @@
     <notify-spline-viewer
       sceneId="wMo34mvja3Q3wyyS"
       (ready)="splineReady$.next()"
-      class="left-0 w-screen h-[90lvh] lg:h-lscreen z-0 pointer-events-none ignore-height -mt-[32vh] lg:-mt-[34vh]"
+      class="left-0 w-screen h-[90lvh] lg:h-lscreen z-0 pointer-events-none ignore-height -mt-[30vh] lg:-mt-[34vh]"
     ></notify-spline-viewer>
+
+    <notify-profile-builder
+      id="builder"
+      (componentInit)="publishAnchor('builder')"
+      class="mt-20"
+    ></notify-profile-builder>
 
     <notify-features
       id="features"
@@ -55,12 +61,6 @@
       (componentInit)="publishAnchor('trustedby')"
       class="z-0 ignore-height"
     ></notify-trusted-by>
-
-    <notify-profile-builder
-      id="builder"
-      (componentInit)="publishAnchor('builder')"
-      class="mt-20"
-    ></notify-profile-builder>
 
     <notify-instructions
       id="instructions"

@@ -10,8 +10,10 @@
       </div>
     </div>
 
-    <div class="flex flex-col z-10 w-full overflow-x-auto">
-      <div class="ecommerce-cards-container">
+    <div class="flex flex-col z-10 w-full">
+      <div
+        class="ecommerce-cards-container notify-scrollbar scrollbar-absolute"
+      >
         @for (item of ecommerce.notifyProducts; track $index) {
         <ng-container
           [ngTemplateOutlet]="EcommerceCard"
@@ -24,7 +26,9 @@
       </div>
       <div class="divider"></div>
 
-      <div class="ecommerce-cards-container">
+      <div
+        class="ecommerce-cards-container notify-scrollbar scrollbar-absolute"
+      >
         @for (item of ecommerce.reviewsProducts; track $index) {
         <ng-container
           [ngTemplateOutlet]="EcommerceCard"

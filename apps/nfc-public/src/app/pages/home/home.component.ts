@@ -104,7 +104,9 @@ export class HomeComponent implements AfterViewInit {
 
     this._animationsService.declareAnimation('#bubble', {
       scrollY: (value: number) => {
-        const aboveThreshold = value > transitionThreshold;
+        const aboveThreshold = this._utilsSerivce.isMobile
+          ? true
+          : value > transitionThreshold;
         this._meta.updateTag({
           name: 'theme-color',
           content: aboveThreshold ? '#99D2D9' : '#8CC5CD',
@@ -125,7 +127,8 @@ export class HomeComponent implements AfterViewInit {
 
     this._animationsService.declareAnimation('#bubbleOutline', {
       scrollY: (value: number) => ({
-        opacity: value > transitionThreshold ? 0 : 1,
+        opacity:
+          value > transitionThreshold || this._utilsSerivce.isMobile ? 0 : 1,
       }),
     });
 

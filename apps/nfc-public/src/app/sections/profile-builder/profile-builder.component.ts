@@ -49,7 +49,7 @@ import {
 
 
   .editor-feature {
-    @apply rounded-2xl p-4 bg-white/10 backdrop-blur-xl border border-slate-300/50 flex flex-col items-center space-y-4 w-80 lg:w-96;  
+    @apply rounded-2xl p-4 bg-white/10 backdrop-blur-xl border border-slate-300/50 flex flex-col items-center space-y-4 w-80 lg:w-96 shadow-md; 
 
     h2 {
       @apply text-2xl font-bold  w-full  font-outfit
@@ -68,15 +68,15 @@ import {
 @apply flex w-full relative items-center;
 
 div:nth-child(1) {
-    @apply size-4 rounded-full bg-current
+    @apply size-4 rounded-full bg-current scale-0 intersect:scale-100
   }
 
   div:nth-child(2) {
-    @apply size-4 rounded-full  absolute shadow-md shadow-current top-1.5 left-0
+    @apply size-4 rounded-full  absolute shadow-md shadow-current top-1.5 left-0 scale-0 intersect:scale-100
   }
 
   span {
-    @apply ml-2 text-slate-800/60 font-medium  mt-1
+    @apply ml-2 text-slate-800/70 font-medium  mt-1 -translate-x-3 opacity-0 intersect:opacity-100 intersect:translate-x-0 transition-transform
   }
   }
   `,
