@@ -83,7 +83,7 @@ router.post(
         },
       ],
       success_url: `${PUBLIC_WEBSITE_URL}/checkout-success`,
-      cancel_url: `${PUBLIC_WEBSITE_URL}/checkout-cancel`,
+      cancel_url: `${PUBLIC_WEBSITE_URL}#cart`,
       // return_url: `${PUBLIC_WEBSITE_URL}#cart`,
     });
 

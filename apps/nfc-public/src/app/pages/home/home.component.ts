@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -7,6 +7,7 @@ import {
   inject,
 } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { INotifyEcommerceProduct, UnknownType } from '@notify/interfaces';
 import {
   AnimationsService,
@@ -49,6 +50,7 @@ interface IAnchorOptions {
     ShopComponent,
     TrustedByComponent,
     SplineViewerComponent,
+    RouterModule,
   ],
   providers: [
     AnimationsService,
@@ -69,6 +71,8 @@ export class HomeComponent implements AfterViewInit {
   private _meta = inject(Meta);
   private _itemDetail = inject(EcommerceItemDetailFactory);
   private _cart = inject(EcommerceCartFactory);
+  private _activatedRoute = inject(ActivatedRoute);
+  private _location = inject(Location);
 
   public instructionsStable$ = new Subject<void>();
   public splashStable$ = new Subject<void>();
@@ -91,7 +95,6 @@ export class HomeComponent implements AfterViewInit {
       ]);
     });
 
-    this._scrollAnchors = _.debounce(this._scrollAnchors, 250);
     this.showItemDetail = _.debounce(this.showItemDetail.bind(this), 500);
   }
 
@@ -119,12 +122,6 @@ export class HomeComponent implements AfterViewInit {
       },
     });
 
-    // this._animationsService.declareAnimation('#mouseGlpyh', {
-    //   scrollY: (value: number) => ({
-    //     opacity: value > transitionThreshold ? 0 : 1,
-    //   }),
-    // });
-
     this._animationsService.declareAnimation('#bubbleOutline', {
       scrollY: (value: number) => ({
         opacity:
@@ -132,26 +129,24 @@ export class HomeComponent implements AfterViewInit {
       }),
     });
 
-    // if (!this._utilsSerivce.isMobile) {
-    //   this.anchors
-    //     .filter((v) => !v.options?.ignoreBlur)
-    //     .forEach((anchor) => {
-    //       this._animationsService.declareAnimation(`#${anchor.fragment}`, {
-    //         scrollY: this._animationsService.presets.blurInOut(),
-    //       });
-    //     });
-    // }
-
     this._animationsService.initDriver(
       EnumAnimationsDrivers.ScrollY,
       window.scrollY
     );
+
+    this._activatedRoute.fragment.subscribe((fragment) => {
+      if (!fragment) {
+        return;
+      }
+
+      if (fragment === 'cart') {
+        this.showCart();
+      }
+    });
   }
 
   @HostListener('window:scroll', ['$event'])
   public onScroll() {
-    // event.preventDefault();
-    // this._scrollAnchors(event.deltaY > 0 ? 'down' : 'up');
     this._animationsService.updateDriver(
       EnumAnimationsDrivers.ScrollY,
       window.scrollY
@@ -175,30 +170,13 @@ export class HomeComponent implements AfterViewInit {
   }
 
   public showCart() {
-    this._cart.create();
-  }
+    this._location.replaceState('/#cart');
 
-  private _scrollAnchors(direction: 'up' | 'down'): void {
-    this._currentAnchor = this._currentAnchor + (direction === 'down' ? 1 : -1);
+    const ref = this._cart.create();
+    ref.instance.destroyed$.subscribe(() => {
+      const pathWithoutHash = this._location.path(false);
 
-    if (this._currentAnchor >= this.anchors.length) {
-      this._currentAnchor = this.anchors.length - 1;
-      return;
-    }
-
-    if (this._currentAnchor < 0) {
-      this._currentAnchor = 0;
-    }
-
-    this._goToAnchror(
-      this.anchors[this._currentAnchor].fragment,
-      this.anchors[this._currentAnchor].options
-    );
-  }
-
-  private _goToAnchror(fragment: string, options: IAnchorOptions = {}): void {
-    document.getElementById(fragment)?.scrollIntoView({
-      block: 'center',
+      this._location.replaceState(pathWithoutHash);
     });
   }
 }

@@ -91,6 +91,13 @@ export const appRoutes: Route[] = [
         (m) => m.TermsConditionsComponent
       ),
   },
+  {
+    path: 'checkout-success',
+    loadComponent: () =>
+      import('./pages/checkout-success/checkout-success.component').then(
+        (m) => m.CheckoutSuccessComponent
+      ),
+  },
   // {
   //   path: 'shop',
   //   loadComponent: () =>

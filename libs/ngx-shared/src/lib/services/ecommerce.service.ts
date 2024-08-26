@@ -47,7 +47,7 @@ export class EcommerceService {
 \n
         Acquistando una card Basic PVC riceverai:
         - La card con lo stile che hai scelto.
-        - Una licenza d'uso per Notify in caso di acquisto singolo. In caso di acquisto multiplo sarà aggiunto automaticamente un'utente alla licenza ricevuta.
+        - Una licenza d'uso per Notify in caso di acquisto singolo. In caso di acquisto multiplo sarà aggiunto uno slot utente alla licenza ricevuta.
         `,
       options: {
         usersInfo: false,
@@ -103,38 +103,38 @@ export class EcommerceService {
           },
           {
             label: 'Hexagon Pattern Azzurro',
-            id: 'hexagon-azzurro',
-            thumbnail: '/assets/cards/esagoni/river_thumb.webp',
+            id: 'cubi-azzurro',
+            thumbnail: '/assets/cards/rombi/river_thumb.webp',
             image: '/assets/shop/Tessere shop - Hexagon Pattern Azzurro.webp',
           },
           {
             label: 'Hexagon Pattern Fucsia',
-            id: 'hexagon-fucsia',
-            thumbnail: '/assets/cards/esagoni/neon_thumb.webp',
+            id: 'cubi-fucsia',
+            thumbnail: '/assets/cards/rombi/neon_thumb.webp',
             image: '/assets/shop/Tessere shop - Hexagon Pattern Fucsia.webp',
           },
           {
             label: 'Hexagon Pattern Giallo',
-            id: 'hexagon-giallo',
-            thumbnail: '/assets/cards/esagoni/banana_thumb.webp',
+            id: 'cubi-giallo',
+            thumbnail: '/assets/cards/rombi/banana_thumb.webp',
             image: '/assets/shop/Tessere shop - Hexagon Pattern Giallo.webp',
           },
           {
-            label: 'Hive Pattern Fucsia',
-            id: 'hive-fucsia',
-            thumbnail: '/assets/cards/rombi/neon_thumb.webp',
-            image: '/assets/shop/Tessere shop - Hive Pattern Fucsia.webp',
-          },
-          {
             label: 'Hive Pattern Azzurro',
-            id: 'hive-azzurro',
-            thumbnail: '/assets/cards/rombi/river_thumb.webp',
+            id: 'Hive-azzurro',
+            thumbnail: '/assets/cards/esagoni/river_thumb.webp',
             image: '/assets/shop/Tessere shop - Hive Pattern Azzurro.webp',
           },
           {
+            label: 'Hive Pattern Fucsia',
+            id: 'Hive-fucsia',
+            thumbnail: '/assets/cards/esagoni/neon_thumb.webp',
+            image: '/assets/shop/Tessere shop - Hive Pattern Fucsia.webp',
+          },
+          {
             label: 'Hive Pattern Giallo',
-            id: 'hive-giallo',
-            thumbnail: '/assets/cards/rombi/banana_thumb.webp',
+            id: 'Hive-giallo',
+            thumbnail: '/assets/cards/esagoni/banana_thumb.webp',
             image: '/assets/shop/Tessere shop - Hive Pattern Giallo.webp',
           },
         ],
@@ -296,6 +296,11 @@ export class EcommerceService {
       this._generateCart();
     }
     console.log(`ecommerce service initialized`, this.cart);
+  }
+
+  public clearCart() {
+    localStorage.removeItem(this._lsCart);
+    this._generateCart();
   }
 
   public goToCheckout(cart: INotifyEcommerceCart) {
