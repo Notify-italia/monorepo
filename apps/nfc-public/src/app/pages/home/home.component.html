@@ -49,6 +49,8 @@
       class="mt-20"
     ></notify-profile-builder>
 
+    <div class="divider"></div>
+
     <notify-features
       id="features"
       (componentStable)="featuresStable$.next()"
@@ -79,7 +81,7 @@
     <div class="divider ignore-height"></div>
 
     <notify-questions
-      class="ignore-height"
+      class="ignore-height mt-20"
       id="questions"
       (componentInit)="publishAnchor('questions', {
           ignoreBlur: true,
