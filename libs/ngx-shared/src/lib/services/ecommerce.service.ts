@@ -47,7 +47,7 @@ export class EcommerceService {
 \n
         Acquistando una card Basic PVC riceverai:
         - La card con lo stile che hai scelto.
-        - Una licenza d'uso per Notify in caso di acquisto singolo. In caso di acquisto multiplo sarà aggiunto uno slot utente alla licenza ricevuta.
+        - Una licenza d'uso per Notify (in caso di acquisto multiplo sarà aggiunto uno slot utente alla licenza ricevuta).
         `,
       options: {
         usersInfo: false,
@@ -147,7 +147,7 @@ export class EcommerceService {
         \n
         Acquistando una card Basic PVC riceverai:
         - La card con lo stile che hai scelto.
-        - Una licenza d'uso per Notify in caso di acquisto singolo. In caso di acquisto multiplo sarà aggiunto automaticamente un'utente alla licenza ricevuta.`,
+        - Una licenza d'uso per Notify (in caso di acquisto multiplo sarà aggiunto uno slot utente alla licenza ricevuta).`,
       type: 'notify',
       name: 'Personal PVC',
       price: 34.99,
