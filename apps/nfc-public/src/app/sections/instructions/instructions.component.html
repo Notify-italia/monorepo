@@ -8,10 +8,10 @@
       @for (item of steps; track $index) {
 
       <div
-        class="flex lg:flex-col justify-around space-x-5 lg:space-x-0 items-center h-44 lg:h-96 2xl:h-[28rem] w-full lg:w-auto z-10 bg-white/10 border border-slate-300/50 p-4 rounded-lg aspect-square intersect-once intersect:animate-fade-left bg-cyan-50/50"
+        class="flex lg:flex-col justify-around space-x-5 lg:space-x-0 items-center h-44 lg:h-96 2xl:h-[28rem] w-full lg:w-auto z-10 p-4 rounded-lg aspect-square intersect-once intersect:animate-fade-left bg-teal-100/50"
       >
         <b
-          class="font-ebGaramond text-center text-[14vh] w-20 text-secondary-500 intersect-once intersect:animate-fade-right animate-ease-out smooth smooth"
+          class="font-ebGaramond text-center text-[14vh] w-20 text-accent-color intersect-once intersect:animate-fade-right animate-ease-out smooth smooth"
           [ngClass]="{
             'blink -z-1': $index % 2 === 1
           }"

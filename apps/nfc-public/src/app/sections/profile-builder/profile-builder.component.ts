@@ -49,7 +49,7 @@ import {
 
 
   .editor-feature {
-    @apply rounded-2xl p-4 bg-cyan-50/50 border border-slate-300/50 flex flex-col items-center space-y-4 w-80 lg:w-96 ; 
+    @apply rounded-2xl p-4 bg-teal-100/50 flex flex-col items-center space-y-4 w-80 lg:w-96 ; 
 
     h2 {
       @apply text-2xl font-bold  w-full  font-outfit
@@ -67,21 +67,19 @@ import {
   .pulsing-dot {
 @apply flex w-full relative items-center;
 
-div:nth-child(1) {
-    @apply size-4 rounded-full bg-current scale-0 intersect:scale-100
-  }
 
-  div:nth-child(2) {
-    @apply size-4 rounded-full absolute top-0.5 left-0 scale-0 intersect:scale-100;
+
+  div:nth-child(1) {
+    @apply size-2 rounded-full top-[50%] left-0 scale-0 intersect:scale-100;
   }
 
   span {
-    @apply ml-2 text-sm font-medium text-black/50 -translate-x-3 opacity-0 intersect:opacity-100 intersect:translate-x-0 transition-transform
+    @apply ml-2 text-sm font-medium text-slate-600/80 -translate-x-3 opacity-0 intersect:opacity-100 intersect:translate-x-0 transition-transform
   }
 
   &.dot-live {
-    div:nth-child(2) {
-        @apply bg-green-500;
+    div:nth-child(1) {
+        @apply bg-green-400;
       box-shadow: inset 0px 0px 10px 2px rgba(0,255,182,0.5),
     0px 0px 10px 2px rgba(0,255,135,1);
   }
@@ -89,8 +87,8 @@ div:nth-child(1) {
   }
 
   &.dot-coming-soon {
-    div:nth-child(2) {
-        @apply bg-yellow-500;
+    div:nth-child(1) {
+        @apply bg-yellow-400;
         box-shadow: inset 0px 0px 10px 2px rgba(235, 178, 0.5),
         0px 0px 10px 2px rgba(235, 178, 0.5);
   }
@@ -113,6 +111,8 @@ export class ProfileBuilderComponent {
   });
 
   public showProfile = false;
+  public nowLiveLabel = 'disponibile';
+  public comingSoonLabel = 'in arrivo';
 
   public get currentTemplate() {
     switch (this.form.value.type) {

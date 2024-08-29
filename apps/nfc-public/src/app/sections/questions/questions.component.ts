@@ -51,10 +51,9 @@ export class QuestionsComponent extends SSRBaseComponent {
         "Offriamo una serie di opzioni di analytics per monitorare l'efficacia dei tuoi biglietti da visita digitali. <br />  Puoi visualizzare il numero di scansioni, le interazioni e i feedback ricevuti, nonchè avere un quadro dettagliato delle scansioni per ogni giorno degli ultimi 3 mesi e una leaderboard dei profili più scansionati. <br />  Questi dati ti consentono di valutare il successo della tua strategia di networking e di apportare eventuali aggiustamenti.",
     },
     {
-      question:
-        "Come posso inserire i miei dati all'interno del biglietto da visita digitale?",
+      question: "Come posso scrivere il mio profilo all'interno della card?",
       answer:
-        "È semplice! <br /><br /> Su Notify è sufficente selezionare il pulsante dell'NFC disponibile sulla Dashboard o sulla pagina di modifica profilo e seguire le istruzioni a schermo. Una volta completato il processo, i destinatari potranno avvicinare il loro smartphone al tuo biglietto per accedere rapidamente e facilmente alle tue informazioni di contatto.",
+        "Sarà sufficente selezionare il pulsante dell'NFC disponibile sulla Dashboard o sulla pagina di modifica profilo e seguire le istruzioni a schermo. Una volta completato il processo, i destinatari potranno avvicinare il loro smartphone alla tua card per accedere rapidamente e facilmente alle tue informazioni di contatto.",
     },
   ].map((item) => ({
     question: this._domSanitizer.bypassSecurityTrustHtml(item.question),
