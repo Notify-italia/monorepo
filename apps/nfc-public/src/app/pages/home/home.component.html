@@ -52,13 +52,13 @@
     <notify-trusted-by
       id="trustedby"
       (componentInit)="publishAnchor('trustedby')"
-      class="z-0 ignore-height mt-5"
+      class="z-0 ignore-height my-5 mt-20 lg:mt-5"
     ></notify-trusted-by>
 
     <notify-features
       id="features"
       (componentStable)="featuresStable$.next()"
-      class="z-10 mt-10"
+      class="z-10"
       (componentInit)="publishAnchor('features')"
     ></notify-features>
 
