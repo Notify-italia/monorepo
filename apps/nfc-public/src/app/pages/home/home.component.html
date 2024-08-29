@@ -6,7 +6,7 @@
 
 <div class="flex justify-center font-poppins overflow-hidden z-20">
   <div
-    class="fixed w-full h-lscreen top-0 left-0 z-[999] bg-[#99D2D9] smooth"
+    class="fixed w-full h-lscreen top-0 left-0 z-[999] bg-white smooth"
     [ngClass]="{
       'opacity-0 pointer-events-none':  pageStable$  | async,
     }"
@@ -16,7 +16,7 @@
 
   <div
     id="bubbleOutline"
-    class="fixed size-[100vh] lg:size-[170lvh] p-2 rounded-full shrink-0 bg-gray-300/50 -top-[0vh] lg:-top-[35vh] smooth"
+    class="fixed size-[100vh] lg:size-[170lvh] p-2 rounded-full shrink-0 bg-gray-300/30 -top-[0vh] lg:-top-[35vh] smooth"
   ></div>
 
   <div class="fixed z-50 top-0 left-0 w-full">
@@ -24,7 +24,7 @@
   </div>
 
   <div
-    class="fixed flex flex-col justify-center items-center size-[90vh] lg:size-[150lvh] p-2 rounded-full shadow-xl shrink-0 bg-white/40 overflow-x-hidden overflow-y-visible smooth glassmorph top-[5vh] lg:-top-[25vh]"
+    class="fixed flex flex-col justify-center items-center size-[90vh] lg:size-[150lvh] p-2 rounded-full shadow-xl shrink-0 bg-white overflow-x-hidden overflow-y-visible smooth top-[5vh] lg:-top-[25vh]"
     id="bubble"
   ></div>
 
@@ -37,11 +37,11 @@
       (componentInit)="publishAnchor('splash')"
     ></notify-splash>
 
-    <notify-spline-viewer
+    <!-- <notify-spline-viewer
       sceneId="wMo34mvja3Q3wyyS"
       (ready)="splineReady$.next()"
       class="left-0 w-screen h-[90lvh] lg:h-lscreen z-0 pointer-events-none ignore-height -mt-[30vh] lg:-mt-[34vh]"
-    ></notify-spline-viewer>
+    ></notify-spline-viewer> -->
 
     <notify-profile-builder
       id="builder"
@@ -49,7 +49,11 @@
       class="mt-20"
     ></notify-profile-builder>
 
-    <div class="divider ignore-height"></div>
+    <notify-trusted-by
+      id="trustedby"
+      (componentInit)="publishAnchor('trustedby')"
+      class="z-0 ignore-height mt-5"
+    ></notify-trusted-by>
 
     <notify-features
       id="features"
@@ -57,12 +61,6 @@
       class="z-10 mt-10"
       (componentInit)="publishAnchor('features')"
     ></notify-features>
-
-    <notify-trusted-by
-      id="trustedby"
-      (componentInit)="publishAnchor('trustedby')"
-      class="z-0 ignore-height"
-    ></notify-trusted-by>
 
     <notify-instructions
       id="instructions"

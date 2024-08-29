@@ -44,12 +44,12 @@ import {
   }
   
   .randomizer-button {
-    @apply w-full font-bold p-4 rounded-2xl backdrop-blur-xl bg-white/10 flex justify-center space-x-4 items-center text-slate-800 text-lg active:scale-90  border-opacity-0 hover:border-opacity-100 border border-slate-400 disabled:pointer-events-none disabled:opacity-50;
+    @apply w-full font-bold p-4 rounded-2xl backdrop-blur-xl bg-slate-200/50 flex justify-center space-x-4 items-center text-secondary-500 text-lg active:scale-90  border-opacity-0 hover:border-opacity-100 border border-slate-400 disabled:pointer-events-none disabled:opacity-75 disabled:border-opacity-75 disabled:bg-slate-300/80 disabled:text-slate-500;
   }
 
 
   .editor-feature {
-    @apply rounded-2xl p-4 bg-white/10 backdrop-blur-xl border border-slate-300/50 flex flex-col items-center space-y-4 w-80 lg:w-96 shadow-md; 
+    @apply rounded-2xl p-4 bg-cyan-50/50 border border-slate-300/50 flex flex-col items-center space-y-4 w-80 lg:w-96 ; 
 
     h2 {
       @apply text-2xl font-bold  w-full  font-outfit
@@ -61,7 +61,7 @@ import {
   }
 
   .feature-column {
-    @apply flex flex-col space-y-4 lg:space-y-6
+    @apply flex flex-col space-y-2 lg:space-y-2
   }
 
   .pulsing-dot {
@@ -72,11 +72,29 @@ div:nth-child(1) {
   }
 
   div:nth-child(2) {
-    @apply size-4 rounded-full  absolute shadow-md shadow-current top-1.5 left-0 scale-0 intersect:scale-100
+    @apply size-4 rounded-full absolute top-0.5 left-0 scale-0 intersect:scale-100;
   }
 
   span {
-    @apply ml-2 text-slate-800/70 font-medium  mt-1 -translate-x-3 opacity-0 intersect:opacity-100 intersect:translate-x-0 transition-transform
+    @apply ml-2 text-sm font-medium text-black/50 -translate-x-3 opacity-0 intersect:opacity-100 intersect:translate-x-0 transition-transform
+  }
+
+  &.dot-live {
+    div:nth-child(2) {
+        @apply bg-green-500;
+      box-shadow: inset 0px 0px 10px 2px rgba(0,255,182,0.5),
+    0px 0px 10px 2px rgba(0,255,135,1);
+  }
+    
+  }
+
+  &.dot-coming-soon {
+    div:nth-child(2) {
+        @apply bg-yellow-500;
+        box-shadow: inset 0px 0px 10px 2px rgba(235, 178, 0.5),
+        0px 0px 10px 2px rgba(235, 178, 0.5);
+  }
+    
   }
   }
   `,

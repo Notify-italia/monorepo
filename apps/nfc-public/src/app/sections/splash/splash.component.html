@@ -3,20 +3,26 @@
     <div
       class="flex flex-col space-y-10 lg:space-y-20 items-center z-10 justify-center h-full lg:py-0"
     >
-      <div class="flex flex-col space-y-2">
+      <div class="flex flex-col space-y-2 h-[65%]">
+        <video
+          src="/assets/videos/splash_video.mp4"
+          autoplay
+          muted
+          class="h-[35%] lg:h-[70%]"
+        ></video>
         <h1 class="section-title fade-down">
           <p class="text-center whitespace-nowrap">
             Il biglietto da visita
             <br class="lg:hidden" />
-            <span
-              class="text-secondary-500 text-[5rem] lg:text-[6rem] font-caveat"
+            <span class="text-blue-500 text-[5rem] lg:text-[6rem] font-caveat"
               >smart</span
             >
           </p>
           <p class="text-center leading-[3.5rem] lg:leading-[5rem]">
             per il tuo
             <br class="lg:hidden" />
-            <span class="text-primary-500 underline text-[4rem] font-bitter"
+            <span
+              class="text-green-500 underline text-[3.5rem] lg:text-[4rem] font-bitter"
               >business.</span
             >
           </p>
@@ -66,7 +72,7 @@
               <a
                 class="link opacity-75 animate-fade"
                 (click)="openCalendlyPopup()"
-                >Oppure, richiedi una demo</a
+                >Oppure, richiedi una demo senza impegno</a
               >
             </small>
           </div>

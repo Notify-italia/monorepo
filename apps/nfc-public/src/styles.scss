@@ -14,15 +14,19 @@ html {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
+.bg-accent-color {
+  @apply bg-[#26acff];
+}
+
 .website-section {
   @apply flex flex-col items-center;
 
   .section-title {
-    @apply text-[2.5rem] lg:text-[4rem] font-extrabold text-center font-outfit lg:px-3 leading-[3rem] lg:leading-[4rem] whitespace-pre-wrap z-10 w-full min-w-full;
+    @apply text-[2.5rem] lg:text-[4rem] font-extrabold text-center font-outfit lg:px-3 leading-[2.5rem] lg:leading-[4rem] whitespace-pre-wrap z-10 w-full min-w-full;
   }
 
   .section-subtitle {
-    @apply font-medium text-center text-slate-900/60 px-3 mt-5 text-sm lg:text-base z-10;
+    @apply font-medium text-center text-slate-900/60 px-3 mt-2 text-sm lg:text-base z-10;
   }
 }
 

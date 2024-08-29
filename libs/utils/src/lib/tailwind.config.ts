@@ -34,6 +34,8 @@ const tailwindConfig = {
         pacifico: ['Pacifico', 'cursive'],
         chakraPetch: ['Chakra Petch', 'sans-serif'],
         figtree: ['Figtree', 'sans-serif'],
+        quicksand: ['Quicksand', 'sans-serif'],
+        victorMono: ['Victor Mono', 'monospace'],
       },
       dropShadow: {
         glow: [

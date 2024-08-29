@@ -8,11 +8,11 @@
       Senza la necessità di alcuna competenza tecnica o di design.
     </p>
     <div
-      class="flex flex-col lg:flex-row lg:space-x-6 space-y-4 lg:space-y-6 mt-10 items-center"
+      class="flex flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-2 mt-10 items-center"
     >
       <div class="feature-column">
         <div class="editor-feature intersect-once intersect:animate-fade-down">
-          <div class="pulsing-dot smooth text-green-500/80">
+          <div class="pulsing-dot smooth dot-live">
             <div></div>
             <div></div>
             <span>Live</span>
@@ -32,7 +32,7 @@
           </p>
         </div>
         <div class="editor-feature intersect-once intersect:animate-fade-down">
-          <div class="pulsing-dot smooth text-green-500/80">
+          <div class="pulsing-dot smooth dot-live">
             <div></div>
             <div></div>
             <span>Live</span>
@@ -45,7 +45,7 @@
           </p>
         </div>
         <div class="editor-feature intersect-once intersect:animate-fade-down">
-          <div class="pulsing-dot smooth text-green-500/80">
+          <div class="pulsing-dot smooth dot-live">
             <div></div>
             <div></div>
             <span> Live </span>
@@ -62,7 +62,7 @@
 
       <div class="feature-column">
         <div class="editor-feature intersect-once intersect:animate-fade-down">
-          <div class="pulsing-dot smooth text-green-500/80">
+          <div class="pulsing-dot smooth dot-live">
             <div></div>
             <div></div>
             <span>Live</span>
@@ -77,7 +77,7 @@
           </p>
         </div>
         <div class="editor-feature intersect-once intersect:animate-fade-down">
-          <div class="pulsing-dot smooth text-green-500/80">
+          <div class="pulsing-dot smooth dot-live">
             <div></div>
             <div></div>
             <span>Live</span>
@@ -95,10 +95,10 @@
           </p>
         </div>
         <div class="editor-feature intersect-once intersect:animate-fade-down">
-          <div class="pulsing-dot smooth text-[#F99442]">
+          <div class="pulsing-dot smooth dot-coming-soon">
             <div></div>
             <div></div>
-            <span>In Arrivo...</span>
+            <span>In arrivo...</span>
           </div>
 
           <h2>Book a meeting</h2>
@@ -117,7 +117,7 @@
 
       <div class="feature-column">
         <div class="editor-feature intersect-once intersect:animate-fade-down">
-          <div class="pulsing-dot smooth text-green-500/80">
+          <div class="pulsing-dot smooth dot-live">
             <div></div>
             <div></div>
             <span>Live</span>
@@ -132,7 +132,7 @@
           </p>
         </div>
         <div class="editor-feature intersect-once intersect:animate-fade-down">
-          <div class="pulsing-dot smooth text-green-500/80">
+          <div class="pulsing-dot smooth dot-live">
             <div></div>
             <div></div>
             <span>Live</span>
@@ -148,10 +148,10 @@
           </p>
         </div>
         <div class="editor-feature intersect-once intersect:animate-fade-down">
-          <div class="pulsing-dot smooth text-[#F99442]">
+          <div class="pulsing-dot smooth dot-coming-soon">
             <div></div>
             <div></div>
-            <span>In Arrivo...</span>
+            <span>In arrivo...</span>
           </div>
 
           <h2>Sempre con te</h2>
@@ -166,7 +166,6 @@
       </div>
     </div>
 
-    <div class="divider z-10"></div>
     <div
       class="flex items-center relative px-5 justify-center"
       [ngClass]="{
@@ -182,13 +181,13 @@
         }"
       >
         <p class="section-subtitle">
-          Inserisci i tuoi dati e crea subito un profilo casuale per avere
-          un'anteprima concreta di come potrebbe apparire il tuo.
+          Genera un profilo causale in pochi click, per vedere in anteprima le
+          potenzialità del nostro editor.
           <br />
           <small>
-            Oppure, in alternativa,
+            oppure, in alternativa,
             <a href="#instructions" class="link">prova Notify</a> gratuitamente
-            per iniziare a creare il tuo profilo personalizzato.
+            e inizia subito a creare il profilo del tuo business.
           </small>
         </p>
         <notify-upload
@@ -232,24 +231,28 @@
           placeholder="Inserisci una breve descrizione di te stesso/a"
         ></notify-tailwind-textarea>
 
-        <button class="randomizer-button smooth" [disabled]="form.invalid">
+        <button
+          class="randomizer-button smooth group/randomizer"
+          [disabled]="form.invalid"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 640 512"
-            class="size-10"
-            fill="currentColor"
+            class="size-10 group-active/randomizer:rotate-180 smooth smooth-fast"
+            viewBox="0 0 32 32"
           >
             <path
-              d="M274.9 34.3c-28.1-28.1-73.7-28.1-101.8 0L34.3 173.1c-28.1 28.1-28.1 73.7 0 101.8L173.1 413.7c28.1 28.1 73.7 28.1 101.8 0L413.7 274.9c28.1-28.1 28.1-73.7 0-101.8L274.9 34.3zM200 224a24 24 0 1 1 48 0 24 24 0 1 1 -48 0zM96 200a24 24 0 1 1 0 48 24 24 0 1 1 0-48zM224 376a24 24 0 1 1 0-48 24 24 0 1 1 0 48zM352 200a24 24 0 1 1 0 48 24 24 0 1 1 0-48zM224 120a24 24 0 1 1 0-48 24 24 0 1 1 0 48zm96 328c0 35.3 28.7 64 64 64l192 0c35.3 0 64-28.7 64-64l0-192c0-35.3-28.7-64-64-64l-114.3 0c11.6 36 3.1 77-25.4 105.5L320 413.8l0 34.2zM480 328a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"
-            />
+              fill="currentcolor"
+              fill-rule="nonzero"
+              stroke="none"
+              stroke-width="1"
+              d="M7.38 5.555l15.592-1.367A3.419 3.419 0 0126.673 7.3L28.05 23.06a3.422 3.422 0 01-3.106 3.71L9.352 28.137a3.419 3.419 0 01-3.702-3.113L4.275 9.265a3.422 3.422 0 013.106-3.71zm.2 2.274a1.14 1.14 0 00-1.036 1.237l1.375 15.759a1.14 1.14 0 001.234 1.038l15.591-1.368a1.14 1.14 0 001.036-1.236l-1.376-15.76a1.14 1.14 0 00-1.234-1.037L7.58 7.829zm3.254 5.39a1.69 1.69 0 01-1.825-1.545 1.692 1.692 0 011.53-1.84 1.69 1.69 0 011.825 1.546 1.692 1.692 0 01-1.53 1.839zm10.065-.883a1.69 1.69 0 01-1.826-1.545 1.692 1.692 0 011.53-1.84 1.69 1.69 0 011.825 1.546 1.692 1.692 0 01-1.53 1.84zM11.72 23.373a1.69 1.69 0 01-1.825-1.545 1.692 1.692 0 011.53-1.84 1.69 1.69 0 011.825 1.545 1.692 1.692 0 01-1.53 1.84zm10.065-.883a1.69 1.69 0 01-1.825-1.545 1.692 1.692 0 011.53-1.84 1.69 1.69 0 011.825 1.546 1.692 1.692 0 01-1.53 1.84zm-5.476-4.635a1.69 1.69 0 01-1.825-1.546 1.692 1.692 0 011.53-1.839 1.69 1.69 0 011.825 1.545 1.692 1.692 0 01-1.53 1.84zM29.183 6.823l-.015.002A.915.915 0 0128.167 6c-.265-2.544-2.523-4.39-5.045-4.121h-.007a.916.916 0 01-1.002-.824.922.922 0 01.808-1.018h.002l.007-.001a6.387 6.387 0 014.718 1.408 6.498 6.498 0 012.347 4.363.922.922 0 01-.812 1.016zM8.547 32h-.008a6.395 6.395 0 01-4.578-1.818 6.51 6.51 0 01-1.96-4.553.92.92 0 01.895-.942h.016c.503-.008.917.4.926.91.044 2.559 2.134 4.595 4.67 4.55h.006a.918.918 0 01.927.91.92.92 0 01-.894.943z"
+            ></path>
           </svg>
+
           <span>
             {{ showProfile ? 'Creane un altro!' : 'Crea un profilo' }}
           </span>
         </button>
-        <p class="section-subtitle !text-xs">
-          Compila il form per sbloccare il pulsante.
-        </p>
       </form>
       <notify-profile-view
         *ngIf="!this.utilsService.isMobile"

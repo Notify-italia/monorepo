@@ -90,7 +90,7 @@ export class HomeComponent implements AfterViewInit {
       this.pageStable$ = combineLatest([
         // this.splashStable$,
         // this.instructionsStable$,
-        this.splineReady$,
+        // this.splineReady$,
         this.featuresStable$,
       ]);
     });
