@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { afterNextRender, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EcommerceService } from '@notify/ngx-shared';
 
@@ -14,6 +14,8 @@ export class CheckoutSuccessComponent {
   private ecommerceService = inject(EcommerceService);
 
   constructor() {
-    this.ecommerceService.clearCart();
+    afterNextRender(() => {
+      this.ecommerceService.clearCart();
+    });
   }
 }

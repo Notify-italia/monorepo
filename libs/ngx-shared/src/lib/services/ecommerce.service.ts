@@ -203,7 +203,7 @@ export class EcommerceService {
       price: 19.99,
       hero: '/assets/shop/license.webp',
       short_description:
-        'Se non hai bisogno di una card fisica, questa è la soluzione per te.',
+        'La soluzione perfetta per chi vuole usare Notify senza una card fisiche.',
       options: {
         userCount: true,
         noQuantity: true,

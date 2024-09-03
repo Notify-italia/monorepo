@@ -30,11 +30,12 @@ export interface INotifyEcommerceCartItem {
   name: string;
   options: {
     includesLicense?: boolean;
-    usersInfo?: string[];
+    usersInfo?: { alias: string }[];
     userCount?: number;
     logo?: {
       filename: string;
-      url: string;
+      url?: string;
+      blob?: string;
     };
     color?: string;
     qrCode?: string;

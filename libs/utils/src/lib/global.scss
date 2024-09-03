@@ -424,6 +424,14 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
+.modalFadeIn {
+  animation: modalFadeInAnimation 0.3s ease-out;
+}
+
+.modalFadeOut {
+  animation: modalFadeOutAnimation 0.2s ease-out;
+}
+
 .dont-break-out {
   /* These are technically the same, but use both */
   overflow-wrap: break-word;
@@ -442,12 +450,16 @@
   hyphens: auto;
 }
 
-.modalFadeIn {
-  animation: modalFadeInAnimation 0.3s ease-out;
-}
+@layer components {
+  .no-spinner {
+    -moz-appearance: textfield;
+  }
 
-.modalFadeOut {
-  animation: modalFadeOutAnimation 0.2s ease-out;
+  .no-spinner::-webkit-outer-spin-button,
+  .no-spinner::-webkit-inner-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+  }
 }
 
 @keyframes modalFadeInAnimation {

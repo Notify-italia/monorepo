@@ -65,9 +65,15 @@ export class EcommerceCartComponent extends ModalBaseComponent {
       labels['color'] = `${item.options.color}`;
     }
 
+    if (item.options.logo) {
+      labels['logo'] = `${item.options.logo.filename}`;
+    }
+
     if (item.options.usersInfo) {
-      labels['usersInfo'] = `Anagrafiche: <ul>
-      ${item.options.usersInfo.map((info) => `<li>${info}</li>`).join('')}
+      labels['usersInfo'] = `<ul>
+      ${item.options.usersInfo
+        .map((info, i) => `<li>${i + 1}. ${info.alias}</li>`)
+        .join('')}
        </ul>`;
     }
 
@@ -75,18 +81,16 @@ export class EcommerceCartComponent extends ModalBaseComponent {
     //   labels['userCount'] = `${item.options.userCount} Utenti`;
     // }
 
-    if (item.options.logo) {
-      labels['logo'] = `Logo: ${item.options.logo.filename}`;
-    }
-
     if (productData?.options.includesLicense) {
-      labels['license'] = '<br/> Slot utente incluso';
+      labels['license'] = '<small>Licenza notify inclusa</small>';
     }
 
-    return this._sanitizer.bypassSecurityTrustHtml(
-      Object.keys(labels)
-        .map((key) => labels[key].toUpperCase())
-        .join('<br>')
-    );
+    return this._sanitizer
+      .bypassSecurityTrustHtml(`<div class="flex flex-col space-y-2">
+      ${Object.keys(labels)
+        .map((key) => `<div>${labels[key].toUpperCase()}</div>`)
+        .join('')}
+        </div>
+        `);
   }
 }

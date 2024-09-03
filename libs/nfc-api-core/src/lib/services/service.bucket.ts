@@ -88,6 +88,7 @@ export const S3Upload = async (config: {
     });
   } catch (err) {
     const message = `Error uploading file: ${JSON.stringify(err)} `;
+
     mLog(message, 'error');
     Sentry.captureException(message);
   }

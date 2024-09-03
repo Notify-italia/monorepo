@@ -13,12 +13,18 @@ import {
   controlsFromObject,
   ModalBaseComponent,
   TailwindFormsModule,
+  UploadComponent,
 } from '@notify/ngx-shared';
 import { environment } from '../../../environments/environment';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TailwindFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TailwindFormsModule,
+    UploadComponent,
+  ],
   providers: [...baseModalComponentProviders],
   templateUrl: './ecommerce-item-detail.component.html',
   styleUrl: './ecommerce-item-detail.component.scss',
@@ -36,9 +42,16 @@ export class EcommerceItemDetailComponent
       parsedOptions: {
         qrCode?: boolean;
         color?: string;
+        usersInfo?: {
+          alias: string;
+        }[];
       };
     }>
   >;
+
+  public get iterableQuantity() {
+    return Array.from({ length: this.form.value.quantity || 0 });
+  }
 
   public ngOnInit(): void {
     this.form = new FormGroup({
@@ -79,7 +92,7 @@ export class EcommerceItemDetailComponent
 
     if (this.item.options.logo) {
       this.form.controls['parsedOptions'].addControl(
-        'uploadLogo',
+        'logo',
         new FormControl(null, [Validators.required])
       );
     }
@@ -111,12 +124,58 @@ export class EcommerceItemDetailComponent
   }
 
   public updateQuantity(value: number) {
+    value = Number(value);
+
     this.form.controls['quantity']?.setValue(
       (this.form.controls['quantity'].value || 0) + value
     );
+
+    if (!this.item.options.usersInfo) {
+      return;
+    }
+
+    Array.from({ length: Math.abs(value) }).forEach(() => {
+      if (value > 0) {
+        (
+          this.form.controls.parsedOptions.controls
+            .usersInfo as unknown as FormArray
+        ).push(
+          new FormGroup({
+            alias: new FormControl(null, [Validators.required]),
+          })
+        );
+      }
+
+      if (value < 0) {
+        (
+          this.form.controls.parsedOptions.controls
+            .usersInfo as unknown as FormArray
+        ).removeAt(
+          (
+            this.form.controls.parsedOptions.controls
+              .usersInfo as unknown as FormArray
+          ).length - 1
+        );
+      }
+    });
   }
 
-  public setImage(filename: string) {
+  public setQuantity = (value: string) => {
+    this.updateQuantity(
+      Number(value) - (this.form.controls['quantity']?.value || 0)
+    );
+  };
+
+  public setLogo = (blob: string | ArrayBuffer | null, filename: string) => {
+    (this.form.controls['parsedOptions'] as FormGroup).controls[
+      'logo'
+    ]?.setValue({
+      filename,
+      blob: blob as string,
+    });
+  };
+
+  public setCarouselImage(filename: string) {
     const index = this.item.images.findIndex((image) => image === filename);
 
     if (index === -1) {

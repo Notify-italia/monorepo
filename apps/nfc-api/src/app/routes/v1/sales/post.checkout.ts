@@ -1,5 +1,10 @@
 import { INotifyEcommerceCart } from '@notify/interfaces';
-import { declareEnvs, requestHandler } from '@notify/nfc-api-core';
+import {
+  asyncForEach,
+  declareEnvs,
+  requestHandler,
+  S3Upload,
+} from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { body } from 'express-validator';
 import Stripe from 'stripe';
@@ -18,6 +23,23 @@ router.post(
   body('cart').isObject().withMessage('Carrello non valido'),
   requestHandler(async (req, res) => {
     const cart: INotifyEcommerceCart = req.body.cart;
+
+    await asyncForEach(
+      cart.items.filter((v) => v.options.logo?.blob),
+      async (v) => {
+        if (!v.options.logo?.blob) {
+          return;
+        }
+        const result = await S3Upload({
+          src: v.options.logo?.blob || '',
+          name: v.options.logo?.filename || '',
+          path: 'ecommerce/cart/uploaded',
+        });
+
+        v.options.logo.url = result;
+        delete v.options.logo.blob;
+      }
+    );
 
     const session = await stripe.checkout.sessions.create({
       line_items: cart.items.map((item) => ({

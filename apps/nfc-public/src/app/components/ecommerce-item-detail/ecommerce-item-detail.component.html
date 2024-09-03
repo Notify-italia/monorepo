@@ -7,9 +7,8 @@
           (click)="$event.stopPropagation()"
         >
           <div
-            class="flex flex-row p-2 justify-end lg:justify-between whitespace-nowrap rounded-lg w-full items-center"
+            class="flex flex-row p-2 justify-end lg:justify-between whitespace-nowrap rounded-lg w-full items-center bg-accent-color"
             [ngStyle]="{
-              'background-color': '#998CE9',
               color: '#1E293B',
             }"
           >
@@ -104,7 +103,7 @@
                   <h1 class="font-bold text-3xl font-outfit text-slate-900">
                     {{ item.name }}
                   </h1>
-                  <p class="text-5xl font-bold font-outfit text-slate-700">
+                  <p class="text-5xl font-bold font-outfit text-accent-color">
                     {{ item.price | currency : '€ ' }}
                   </p>
                   <p class="text-slate-600 -mt-3 whitespace-pre-line">
@@ -112,32 +111,36 @@
                   </p>
                 </div>
 
+                <div class="divider"></div>
                 <div
-                  class="flex flex-col justify-between text-slate-900 w-full"
+                  class="flex flex-col justify-between text-slate-900 w-full space-y-5"
                 >
-                  <div class="divider"></div>
                   @if (item.options.colors?.length) {
-                  <div class="flex flex-wrap w-full">
-                    @for (color of item.options.colors; track $index) {
-                    <div
-                      (click)="
-                        form.controls.parsedOptions.controls.color?.setValue(
-                          color.id
-                        );
-                        setImage(color.image)
-                      "
-                    >
-                      <img
-                        [src]="color.thumbnail"
-                        class="size-8 rounded-full shrink-0 m-2 smooth cursor-pointer border border-gray-300/50"
-                        [ngClass]="{
-                          'brightness-110 scale-125 -translate-y-2':
-                            color.id === form.value.parsedOptions?.color
-                        }"
-                      />
-                    </div>
 
-                    }
+                  <div class="option-column">
+                    <h1>COLORE</h1>
+                    <div class="flex flex-wrap w-full">
+                      @for (color of item.options.colors; track $index) {
+                      <div
+                        (click)="
+                          form.controls.parsedOptions.controls.color?.setValue(
+                            color.id
+                          );
+                          setCarouselImage(color.image)
+                        "
+                      >
+                        <img
+                          [src]="color.thumbnail"
+                          class="size-8 rounded-full shrink-0 m-2 smooth cursor-pointer border border-gray-300/50"
+                          [ngClass]="{
+                            'brightness-110 scale-125 -translate-y-2':
+                              color.id === form.value.parsedOptions?.color
+                          }"
+                        />
+                      </div>
+
+                      }
+                    </div>
                   </div>
                   } @if (item.options.userCount) {
                   <notify-tailwind-input
@@ -148,7 +151,37 @@
                     helpText="Numero di utenti gestibili tramite questa licenza"
                     [type]="'number'"
                     placeholder="10"
+                    [compact]="true"
                   ></notify-tailwind-input>
+                  } @if (item.options.logo) {
+                  <div class="option-column">
+                    <h1>Logo</h1>
+                    <notify-upload
+                      class="h-48"
+                      acceptedFiles="image/png, image/svg+xml, image/webp"
+                      uploadLabel="Carica il tuo logo in formato PNG,SVG o WEBP"
+                      (fileChanged)="
+                        setLogo($event.blob, $event.file?.name || '')
+                      "
+                    ></notify-upload>
+                  </div>
+                  } @if(item.options.usersInfo) {
+                  <div class="option-column">
+                    <h1>Informazioni</h1>
+                    @for (user of iterableQuantity; track $index) {
+                    <notify-tailwind-input
+                      [parent]="
+                        $any(form.controls.parsedOptions.controls.usersInfo)
+                          .controls[$index]
+                      "
+                      [name]="'alias'"
+                      label="Alias n.{{ $index + 1 }}"
+                      helpText="Questo campo di testo sarà stampato sulla card."
+                      placeholder="Mario Rossi"
+                      [compact]="true"
+                    ></notify-tailwind-input>
+                    }
+                  </div>
                   }
 
                   <!-- <notify-tailwind-checkbox
@@ -185,9 +218,12 @@
                       </svg>
                     </button>
                     <input
-                      class="join-item w-12 input !text-white"
+                      class="join-item w-12 input !text-white no-spinner"
                       placeholder="1"
-                      formControlName="quantity"
+                      type="number"
+                      #QuantityInput
+                      [defaultValue]="1"
+                      (change)="setQuantity(QuantityInput.value)"
                     />
                     <button
                       type="button"

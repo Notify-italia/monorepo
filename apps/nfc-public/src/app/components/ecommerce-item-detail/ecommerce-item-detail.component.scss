@@ -331,3 +331,11 @@
     width: 227px;
   }
 }
+
+.option-column {
+  @apply flex flex-col space-x-5 space-y-2;
+
+  & > h1 {
+    @apply text-lg uppercase font-bold font-outfit;
+  }
+}
