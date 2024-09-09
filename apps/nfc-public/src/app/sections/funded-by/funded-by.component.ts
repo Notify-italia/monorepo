@@ -25,5 +25,10 @@ export class FundedByComponent {
       logo: 'assets/funders/ikigai.webp',
       url: 'https://www.ikigaihub.it/ikigai-toscana/',
     },
+    {
+      name: 'Pluriversum',
+      logo: 'assets/funders/pluriversum.webp',
+      url: 'https://www.pluriversum.eu/',
+    },
   ];
 }

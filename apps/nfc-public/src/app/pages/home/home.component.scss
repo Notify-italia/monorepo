@@ -14,6 +14,9 @@
   & *:not(.ignore-height) {
     min-height: 90lvh !important;
     transition: all 0.1s linear;
-    /* background-color: red; */
+  }
+
+  & *:not(.ignore-padding) {
+    @apply px-5 lg:px-2;
   }
 }

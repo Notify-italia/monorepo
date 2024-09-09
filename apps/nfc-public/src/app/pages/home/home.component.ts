@@ -103,6 +103,16 @@ export class HomeComponent implements AfterViewInit {
       return;
     }
 
+    this._activatedRoute.fragment.subscribe((fragment) => {
+      if (!fragment) {
+        return;
+      }
+
+      if (fragment === 'cart') {
+        this.showCart();
+      }
+    });
+
     const transitionThreshold = 100;
 
     this._animationsService.declareAnimation('#bubble', {
@@ -133,16 +143,6 @@ export class HomeComponent implements AfterViewInit {
       EnumAnimationsDrivers.ScrollY,
       window.scrollY
     );
-
-    this._activatedRoute.fragment.subscribe((fragment) => {
-      if (!fragment) {
-        return;
-      }
-
-      if (fragment === 'cart') {
-        this.showCart();
-      }
-    });
   }
 
   @HostListener('window:scroll', ['$event'])

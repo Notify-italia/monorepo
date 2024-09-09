@@ -1,11 +1,10 @@
 <div class="topnav-menu h-16 lg:h-20 p-5">
-  <a routerLink="/" class="h-full">
-    <img
-      src="https://s3-api.vps.notifyapp.it/assets/Primary%20Logo.png"
-      alt=""
-      class="h-full w-4/12 lg:size-full object-contain"
-    />
-  </a>
+  <img
+    src="https://s3-api.vps.notifyapp.it/assets/Primary%20Logo.png"
+    alt=""
+    class="h-8 lg:h-full object-contain"
+  />
+
   <div>
     @if (ecommerce.cart.items.length; as items) {
     <button
@@ -18,7 +17,6 @@
         {{ items }}
       </div>
       <svg
-        class=""
         fill="currentColor"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"

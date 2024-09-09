@@ -155,3 +155,9 @@ html {
 .fade-up-delayed {
   @apply animate-fade-up animate-once animate-delay-200 animate-ease-out;
 }
+
+.iubenda-default-z-index {
+  button[class='iubenda-tp-btn iubenda-cs-preferences-link'] {
+    z-index: 10 !important;
+  }
+}

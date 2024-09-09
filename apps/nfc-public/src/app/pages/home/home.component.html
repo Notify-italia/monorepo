@@ -30,7 +30,7 @@
 
   <div
     #CircleContainer
-    class="flex flex-col items-center w-screen p-5 lg:p-2 text-slate-800 main-circle scroll-smooth scrollbar-none bg-cover bg-center bg-no-repeat bg-fixed bg-[url('/assets/images/background.webp')]"
+    class="flex flex-col items-stretch lg:items-center max-w-[100vw] text-slate-800 main-circle scroll-smooth scrollbar-none bg-cover bg-center bg-no-repeat bg-fixed bg-[url('/assets/images/background.webp')]"
   >
     <notify-splash
       id="splash"
@@ -52,7 +52,7 @@
     <notify-trusted-by
       id="trustedby"
       (componentInit)="publishAnchor('trustedby')"
-      class="z-0 ignore-height my-5 mt-20 lg:mt-5"
+      class="z-0 ignore-height my-5 mt-20 lg:mt-5 ignore-padding"
     ></notify-trusted-by>
 
     <notify-features
@@ -70,7 +70,7 @@
     ></notify-instructions>
 
     <notify-shop
-      class="mt-20"
+      class="mt-20 ignore-padding"
       id="cards-shop"
       (componentInit)="publishAnchor('shop')"
       (handleItemClicked)="showItemDetail($event)"
@@ -86,7 +86,7 @@
         })"
     ></notify-questions>
     <notify-footer
-      class="z-10 mt-20 ignore-height !w-screen -mb-5 lg:-mb-2"
+      class="z-10 mt-20 ignore-height ignore-padding !w-screen -mb-5 lg:-mb-2"
     ></notify-footer>
   </div>
 </div>
