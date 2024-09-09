@@ -189,8 +189,8 @@ const PROFILE_TEMPLATES_CHILL: UnknownType = {
   _id: '657f61da3e18748bb264a57e',
   name: 'Emanuele Andrea',
   surname: 'Ruja',
-  email: 'ruja.andrea1@gmail.com',
-  phoneNumber: '3270851896',
+  email: 'infor@notifyapp.it',
+  phoneNumber: '+39 324 055 2651',
   bio: '"Whatever happens, happens"',
   avatar:
     'https://s3-api.vps.notifyapp.it/notify-api/profiles/657f61da3e18748bb264a57e/avatar.webp?c=1715467592369',
@@ -209,15 +209,15 @@ const PROFILE_TEMPLATES_CHILL: UnknownType = {
   customFields: [
     {
       iconName: 'linkedin',
-      value: 'https://it.linkedin.com/in/andrea-ruja-b409531b3',
+      value: 'https://it.linkedin.com/company/notifyitalia/',
     },
     {
       iconName: 'instagram',
-      value: 'ruja.exe',
+      value: 'notify_it',
     },
     {
       iconName: 'facebook',
-      value: 'https://www.facebook.com/profile.php?id=61553259225621',
+      value: 'https://www.facebook.com/people/Notify-ITA/61555763732300/',
     },
   ],
   createdAt: new Date(),
@@ -310,25 +310,25 @@ const PROFILE_TEMPLATES_CHILL: UnknownType = {
           {
             icon: 'phone',
             caption: 'Telefono',
-            url: '3270851896',
+            url: '+39 324 055 2651',
             visible: false,
           },
           {
             icon: 'mail',
             caption: 'Email',
-            url: 'ruja.andrea1@gmail.com',
+            url: 'infor@notifyapp.it',
             visible: true,
           },
           {
             icon: 'whatsapp',
             caption: 'WhatsApp',
-            url: '3270851896',
+            url: '+39 324 055 2651',
             visible: true,
           },
           {
             icon: 'chat',
             caption: 'SMS',
-            url: '3270851896',
+            url: '+39 324 055 2651',
             visible: true,
           },
         ],
@@ -366,19 +366,19 @@ const PROFILE_TEMPLATES_CHILL: UnknownType = {
           {
             icon: 'linkedin',
             caption: 'Linkedin',
-            url: 'in/andrea-ruja-b409531b3?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+            url: 'company/notifyitalia',
             visible: true,
           },
           {
             icon: 'instagram',
             caption: 'Instagram',
-            url: 'ruja.exe',
+            url: 'notify_it',
             visible: true,
           },
           {
             icon: 'facebook',
             caption: 'Facebook',
-            url: 'https://www.facebook.com/profile.php?id=61553259225621',
+            url: 'https://www.facebook.com/people/Notify-ITA/61555763732300/',
             visible: true,
           },
         ],
@@ -431,8 +431,8 @@ const PROFILE_TEMPLATES_CORPORATE: UnknownType = {
   _id: '65eedfa9ac3a0d7b566667de',
   name: 'Marco',
   surname: 'De Luca',
-  email: 'marco.deluca@squarehead.it',
-  phoneNumber: '321456987',
+  email: 'info@notifyapp.it',
+  phoneNumber: '+39 324 055 2651',
   bio: 'Presso Squarehead Italia',
   avatar:
     'https://s3-api.vps.notifyapp.it/notify-api/profiles/65eedfa9ac3a0d7b566667de/avatar.webp',
@@ -610,13 +610,13 @@ const PROFILE_TEMPLATES_CORPORATE: UnknownType = {
           {
             icon: 'phone',
             caption: 'Telefono',
-            url: '321456987',
+            url: '+39 324 055 2651',
             visible: true,
           },
           {
             icon: 'mail',
             caption: 'Email',
-            url: 'marco.deluca@squarehead.it',
+            url: 'info@notifyapp.it',
             visible: true,
           },
           {
@@ -729,22 +729,21 @@ const PROFILE_TEMPLATES_GRUNGE: UnknownType = {
   customFields: [
     {
       iconName: 'instagram',
-      value: 'leonardo_miraka',
+      value: 'notify_it',
       _id: {
         $oid: '6660ccbcb8b2db11b861fe23',
       },
     },
     {
       iconName: 'linkedin',
-      value:
-        'https://www.linkedin.com/in/leonardo-miraka-20b28a19b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
+      value: 'company/notifyitalia/',
       _id: {
         $oid: '6660ccbcb8b2db11b861fe24',
       },
     },
     {
       iconName: 'facebook',
-      value: 'https://www.facebook.com/aldo.bhoo',
+      value: 'https://www.facebook.com/people/Notify-ITA/61555763732300/',
       _id: {
         $oid: '6660ccbcb8b2db11b861fe25',
       },
@@ -913,19 +912,19 @@ const PROFILE_TEMPLATES_GRUNGE: UnknownType = {
           {
             icon: 'instagram',
             caption: 'Instagram',
-            url: 'leonardo_miraka',
+            url: 'notify_it',
             visible: true,
           },
           {
             icon: 'facebook',
             caption: 'Facebook',
-            url: 'https://www.facebook.com/aldo.bhoo',
+            url: 'https://www.facebook.com/people/Notify-ITA/61555763732300/',
             visible: true,
           },
           {
             icon: 'linkedin',
             caption: 'Linkedin',
-            url: 'https://www.linkedin.com/in/leonardo-miraka-20b28a19b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
+            url: 'company/notifyitalia/',
             visible: true,
           },
         ],
@@ -1024,7 +1023,7 @@ const PROFILE_TEMPLATES_INFLUENCER: UnknownType = {
   customFields: [
     {
       iconName: 'instagram',
-      value: 'luca',
+      value: 'notify_it',
       _id: {
         $oid: '6667702a3d23e2840f0f4f8b',
       },
