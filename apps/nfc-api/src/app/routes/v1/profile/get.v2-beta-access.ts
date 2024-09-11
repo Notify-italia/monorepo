@@ -64,9 +64,7 @@ router.get(
       const { profile } = req.query;
 
       res.send({
-        hasAccess: [...V2_BETA_ACCESS, ...ADVANCED_PROFILE_BETA].includes(
-          profile as string
-        ),
+        hasAccess: true,
       });
     },
     {

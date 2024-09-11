@@ -77,9 +77,6 @@ router.post(
         throw new BadRequestError('Errore durante la creazione del profilo');
       }
 
-      // profile.advancedProfile = createAdvancedProfile(profile?.toObject());
-      //agent.advancedProfile = true
-
       await profile.save();
       await agent?.save();
 

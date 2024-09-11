@@ -2,7 +2,6 @@ import {
   BadRequestError,
   COMPANY_VALIDATION_MESSAGES,
   CompanyModel,
-  isProduction,
   LicenseManager,
   mLog,
   requestHandler,
@@ -28,21 +27,19 @@ router.post(
         }
       );
 
-      if (!isProduction()) {
-        const license = await LicenseManager.generate({
-          allowedAgents: 1,
-          boughtCards: 0,
-          expirationDate: undefined,
-          features: [
-            {
-              type: 'include',
-              name: 'leads',
-            },
-          ],
-        });
+      const license = await LicenseManager.generate({
+        allowedAgents: 1,
+        boughtCards: 0,
+        expirationDate: undefined,
+        features: [
+          {
+            type: 'include',
+            name: 'leads',
+          },
+        ],
+      });
 
-        company.license = license.value._id;
-      }
+      company.license = license.value._id;
 
       await company?.save();
 
