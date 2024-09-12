@@ -7,8 +7,7 @@ import {
   Renderer2,
   RendererFactory2,
 } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import {
   PixelConfiguration,
   PixelEventName,
@@ -40,16 +39,16 @@ export class PixelService {
     this.doc = injectedDocument as Document;
     this.renderer = rendererFactory.createRenderer(null, null);
 
-    if (router) {
-      // Log page views after router navigation ends
-      router.events
-        .pipe(filter((event) => event instanceof NavigationEnd))
-        .subscribe(() => {
-          if (this.isLoaded()) {
-            this.track('PageView');
-          }
-        });
-    }
+    // if (router) {
+    //   // Log page views after router navigation ends
+    //   router.events
+    //     .pipe(
+    //       filter((event) => event instanceof NavigationEnd && this.isLoaded())
+    //     )
+    //     .subscribe(() => {
+
+    //     });
+    // }
   }
 
   /**

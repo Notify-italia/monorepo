@@ -19,7 +19,7 @@ import {
   UtilsService,
 } from '@notify/ngx-shared';
 import _ from 'lodash';
-import { Observable, Subject, combineLatest } from 'rxjs';
+import { Observable, Subject, combineLatest, tap } from 'rxjs';
 import { EcommerceCartFactory } from '../../components/ecommerce-cart/ecommerce-cart.factory';
 import { EcommerceItemDetailFactory } from '../../components/ecommerce-item-detail/ecommerce-item-detail.factory';
 import { FooterComponent } from '../../components/footer/footer.component';
@@ -85,13 +85,16 @@ export class HomeComponent implements AfterViewInit {
 
   constructor() {
     afterNextRender(() => {
-      this._pixel.track('ViewContent');
       this.pageStable$ = combineLatest([
         // this.splashStable$,
         // this.instructionsStable$,
         // this.splineReady$,
         this.featuresStable$,
-      ]);
+      ]).pipe(
+        tap(() => {
+          // this._pixel.track('PageView');
+        })
+      );
     });
 
     this.showItemDetail = _.debounce(this.showItemDetail.bind(this), 500);
@@ -163,6 +166,13 @@ export class HomeComponent implements AfterViewInit {
 
   public showItemDetail(item: INotifyEcommerceProduct) {
     this._location.replaceState('/#shop/' + item.id);
+    this._pixel.track('ViewContent', {
+      content_ids: [item.id],
+      content_name: item.name,
+      content_type: 'product',
+      value: item.price,
+      currency: 'EUR',
+    });
     const ref = this._itemDetail.create({ item });
 
     ref.instance.submitted.subscribe((v) => {
