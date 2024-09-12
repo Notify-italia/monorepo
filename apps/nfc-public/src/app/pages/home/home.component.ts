@@ -82,7 +82,6 @@ export class HomeComponent implements AfterViewInit {
   public pageStable$ = new Observable<UnknownType>();
 
   public anchors: { fragment: string; options?: IAnchorOptions }[] = [];
-  private _currentAnchor = 0;
 
   constructor() {
     afterNextRender(() => {
@@ -104,12 +103,17 @@ export class HomeComponent implements AfterViewInit {
     }
 
     this._activatedRoute.fragment.subscribe((fragment) => {
+      console.log('fragment', fragment);
       if (!fragment) {
         return;
       }
 
       if (fragment === 'cart') {
         this.showCart();
+      }
+
+      if (fragment.startsWith('shop')) {
+        this._fetchItem(fragment.replace('shop/', ''));
       }
     });
 
@@ -158,6 +162,7 @@ export class HomeComponent implements AfterViewInit {
   }
 
   public showItemDetail(item: INotifyEcommerceProduct) {
+    this._location.replaceState('/#shop/' + item.id);
     const ref = this._itemDetail.create({ item });
 
     ref.instance.submitted.subscribe((v) => {
@@ -165,7 +170,24 @@ export class HomeComponent implements AfterViewInit {
         return;
       }
 
+      this._pixel.track('AddToCart', {
+        content_ids: [item.id],
+        contents: [
+          {
+            id: item.id,
+            quantity: v.quantity,
+          },
+        ],
+        value: item.price,
+        currency: 'EUR',
+      });
       this._ecommService.addToCart(item, v.quantity, v.parsedOptions);
+    });
+
+    ref.instance.destroyed$.subscribe(() => {
+      const pathWithoutHash = this._location.path(false);
+
+      this._location.replaceState(pathWithoutHash);
     });
   }
 
@@ -178,5 +200,17 @@ export class HomeComponent implements AfterViewInit {
 
       this._location.replaceState(pathWithoutHash);
     });
+  }
+
+  private _fetchItem(item: INotifyEcommerceProduct['id']) {
+    const product = this._ecommService.products.find(
+      (product) => product.id === item
+    );
+
+    if (!product) {
+      return;
+    }
+
+    this.showItemDetail(product);
   }
 }

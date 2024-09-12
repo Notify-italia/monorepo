@@ -109,9 +109,7 @@ export class EcommerceItemDetailComponent
     console.log('Sharing product...');
 
     if (!navigator.share) {
-      navigator.clipboard.writeText(
-        `${environment.shopUrl}?product=${this.item.id}`
-      );
+      navigator.clipboard.writeText(`${environment.shopUrl}/${this.item.id}`);
       alert('Link copiato negli appunti');
       return;
     }

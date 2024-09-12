@@ -5,7 +5,11 @@ import {
   INotifyEcommerceCartItem,
   INotifyEcommerceProduct,
 } from '@notify/interfaces';
-import { EcommerceService, ModalBaseComponent } from '@notify/ngx-shared';
+import {
+  EcommerceService,
+  ModalBaseComponent,
+  PixelService,
+} from '@notify/ngx-shared';
 
 @Component({
   standalone: true,
@@ -17,6 +21,7 @@ import { EcommerceService, ModalBaseComponent } from '@notify/ngx-shared';
 export class EcommerceCartComponent extends ModalBaseComponent {
   public ecommerce = inject(EcommerceService);
   private _sanitizer = inject(DomSanitizer);
+  private _pixel = inject(PixelService);
 
   public get cartItems() {
     return this.ecommerce.cart.items.map((item) => {
@@ -52,6 +57,10 @@ export class EcommerceCartComponent extends ModalBaseComponent {
         product_data: undefined,
       })),
     };
+    this._pixel.track('InitiateCheckout', {
+      value: this.cartTotal,
+      currency: 'EUR',
+    });
     this.ecommerce.goToCheckout(cart);
   }
 

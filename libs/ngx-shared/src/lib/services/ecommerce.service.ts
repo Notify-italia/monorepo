@@ -19,7 +19,7 @@ export class EcommerceService {
 
   public products: INotifyEcommerceProduct[] = [
     {
-      id: 'tier-1',
+      id: 'basic-pvc',
       type: 'notify',
       name: 'Basic PVC ',
       price: 29.99,
@@ -42,8 +42,7 @@ export class EcommerceService {
       ],
       short_description:
         'Una card in PVC con grafica Notify, disponibile in diversi stili.',
-      long_description: `Le nostre cards Basic PVC sono perfette per chi vuole entrare nel mondo Notify con un prodotto di qualità ad un prezzo accessibile.
-        Le cards Basic PVC sono disponibili in diversi stili e colori.
+      long_description: `Presentati con eleganza e innovazione con una tessera Basic PVC. Questo biglietto da visita unisce il prestigio di una tessera di alta qualità con la tecnologia NFC, permettendo ai tuoi contatti di accedere ai tuoi dettagli con un semplice tocco. Il logo Notify, sinonimo di avanguardia e professionalità, fa da cornice a un'esperienza di networking indimenticabile.
 \n
         Acquistando una card Basic PVC riceverai:
         - La card con lo stile che hai scelto.
@@ -142,10 +141,11 @@ export class EcommerceService {
       },
     },
     {
-      id: 'tier-2',
-      long_description: `Le nostre cards Personal PVC sono perfette per chi valorizza la propria identità e vuole distinguersi con una card unica, pur mantendo uno stile pulito e minimalista. Le cards Personal PVC sono disponibili in stile light e dark.
+      id: 'personal-pvc',
+      long_description: `Il biglietto da visita che combina il design sofisticato Notify con la tua identità personale. Il tuo nome è impresso sulla carta, rendendo ogni interazione unica e memorabile. Perfetto per chi desidera un tocco personale senza rinunciare all'innovazione.
+
         \n
-        Acquistando una card Basic PVC riceverai:
+        Acquistando una card Personal PVC riceverai:
         - La card con lo stile che hai scelto.
         - Una licenza d'uso per Notify (in caso di acquisto multiplo sarà aggiunto uno slot utente alla licenza ricevuta).`,
       type: 'notify',
@@ -180,8 +180,16 @@ export class EcommerceService {
       },
     },
     {
-      id: 'tier-3',
-      long_description: '',
+      id: 'custom-pvc',
+      long_description: `Crea un biglietto da visita che rispecchia al 100% il tuo brand, completamente personalizzato. Scegli ogni dettaglio, dal design ai colori, per un biglietto che parla davvero di te. Con la tecnologia NFC integrata, basta un tocco per condividere i tuoi contatti, mentre il design su misura garantisce un'impressione duratura.
+      
+      \n
+        Acquistando una card Personal PVC riceverai:
+        - La card personalizzata.
+        - Una licenza d'uso per Notify (in caso di acquisto multiplo sarà aggiunto uno slot utente alla licenza ricevuta).
+      \n
+      
+      Il nostro team grafico ti contatterà per definire i dettagli della tua card una volta effettuato l'ordine.`,
       images: [],
       type: 'notify',
       name: 'Custom PVC',
@@ -195,8 +203,9 @@ export class EcommerceService {
       },
     },
     {
-      id: 'license',
-      long_description: '',
+      id: 'notify-digital',
+      long_description:
+        'Semplifica il tuo networking con Notify Digital, la soluzione digitale che trasforma il tuo smartphone in un biglietto da visita interattivo. Personalizza le informazioni in tempo reale, condividi i tuoi contatti istantaneamente e ottieni analisi dettagliate su chi visualizza il tuo profilo. Perfetto per chi vuole un approccio moderno ed ecologico senza la necessità di supporti fisici.',
       images: [],
       type: 'notify',
       name: 'Solo Licenza',
