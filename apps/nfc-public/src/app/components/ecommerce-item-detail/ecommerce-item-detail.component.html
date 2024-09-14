@@ -7,7 +7,7 @@
           (click)="$event.stopPropagation()"
         >
           <div
-            class="flex flex-row p-2 justify-end lg:justify-between whitespace-nowrap rounded-lg w-full items-center bg-accent-color"
+            class="flex flex-row justify-end lg:justify-between whitespace-nowrap rounded-lg w-full items-center bg-accent-color p-2"
             [ngStyle]="{
               color: '#1E293B',
             }"
@@ -66,13 +66,13 @@
           </div>
 
           <div
-            class="w-full items-center flex flex-col overflow-y-auto bg-slate-50 border border-slate-300 rounded-xl p-2 lg:p-4 notify-scrollbar"
+            class="w-full items-center flex flex-col overflow-y-auto bg-slate-50 border border-slate-300 rounded-xl py-2 lg:p-4 notify-scrollbar"
           >
             <div
               class="flex flex-col lg:flex-row justify-between w-[95%] lg:w-full lg:space-x-4"
             >
               <div
-                class="flex flex-col w-full lg:w-7/12 space-y-4 lg:h-[65lvh]"
+                class="flex flex-col w-full lg:w-7/12 space-y-2 lg:space-y-4 lg:h-[65lvh]"
               >
                 <img
                   [src]="item.images[selectedImage]"
@@ -80,7 +80,7 @@
                 />
 
                 <div
-                  class="flex w-full space-x-4 overflow-x-auto size-32 notify-scrollbar"
+                  class="flex w-full space-x-2 overflow-x-auto notify-scrollbar size-32"
                   [ngClass]="{
                     'pointer-events-none opacity-75':
                       form.value.parsedOptions?.color
@@ -96,27 +96,32 @@
                   }
                 </div>
               </div>
+              <div class="divider lg:hidden"></div>
               <form
                 [formGroup]="form"
                 (ngSubmit)="submit()"
                 class="flex flex-col w-full lg:w-5/12 text-left items-start"
               >
                 <div class="flex flex-col space-y-5 min-h-96">
-                  <h1 class="font-bold text-3xl font-outfit text-slate-900">
+                  <h1 class="font-bold text-5xl font-outfit text-slate-900">
                     {{ item.name }}
                   </h1>
-                  <p class="text-5xl font-bold font-outfit text-accent-color">
+                  <p
+                    class="text-4xl font-bold font-quicksand text-accent-color"
+                  >
                     {{ item.price | currency : '€ ' }}
                   </p>
-                  <p class="text-slate-600 -mt-3 whitespace-pre-line">
+                  <p
+                    class="text-opacity-60 text-black -mt-3 whitespace-pre-line font-outfit"
+                  >
                     {{ item.long_description }}
                   </p>
                 </div>
 
-                <div class="divider"></div>
                 <div
-                  class="flex flex-col justify-between text-slate-900 w-full space-y-5"
+                  class="flex flex-col text-slate-900 w-full space-y-5 justify-end h-full"
                 >
+                  <div class="divider"></div>
                   @if (item.options.colors?.length) {
 
                   <div class="option-column">
@@ -135,7 +140,7 @@
                           [src]="color.thumbnail"
                           class="size-8 rounded-full shrink-0 m-2 smooth cursor-pointer border border-gray-300/50"
                           [ngClass]="{
-                            'brightness-110 scale-125 -translate-y-2':
+                            'ring ring-accent-color ring-offset-2':
                               color.id === form.value.parsedOptions?.color
                           }"
                         />

@@ -50,13 +50,13 @@
             >
               @for (item of cartItems; track $index) {
               <div
-                class="flex flex-row w-full justify-between items-center border-b pb-2"
+                class="flex flex-row w-full justify-between items-center border-b pb-2 min-h-24"
               >
                 <div class="flex flex-row space-x-2 items-center">
                   <div class="flex flex-row space-x-2 items-center">
                     <button
                       (click)="ecommerce.removeFromCart($index)"
-                      class="btn btn-sm btn-ghost"
+                      class="btn btn-sm btn-ghost btn-square"
                       data-theme="notifytheme"
                     >
                       <svg
@@ -78,7 +78,7 @@
 
                   <div class="flex flex-col items-center">
                     <img
-                      class="w-12 h-12 rounded-lg"
+                      class="size-12 lg:size-16 rounded-lg object-contain"
                       [src]="item.product_data?.hero"
                       alt="product image"
                     />
@@ -98,10 +98,11 @@
                     <div class="text-sm font-semibold text-slate-900 text-end">
                       {{ item.total | currency : 'EUR' }}
                     </div>
-                    <div class="text-xs text-slate-500">
+                    <div class="text-xs text-slate-500 text-end">
                       @if(!item.options.userCount) {
-                      {{ item.quantity || 1 }} } @else
-                      {{{item.options.userCount}} utenti} x
+                      {{ item.quantity || 1 }}
+                      } @else {
+                      {{ item.options.userCount }} utenti } x
                       {{ item.product_data?.price | currency : 'EUR' }}
                     </div>
                   </div>

@@ -22,6 +22,10 @@ html {
   @apply bg-[#26acff];
 }
 
+.ring-accent-color {
+  @apply ring-[#26acff];
+}
+
 .website-section {
   @apply flex flex-col items-center;
 
