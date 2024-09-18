@@ -1,14 +1,18 @@
 <div class="max-content-width">
   <div class="website-section">
-    <div class="w-screen flex flex-col text-wrap">
+    <div class="w-screen flex flex-col items-center text-wrap">
       <div
         #FeaturesContainer
-        class="w-[50rem] lg:!w-[100rem] flex justify-between mb-5 mt-20 items-center smooth whitespace-nowrap space-x-16 lg:space-x-0"
+        class="w-[50rem] lg:!w-[100rem] flex justify-between mb-5 lg:mb-0 mt-20 items-center smooth whitespace-nowrap space-x-16 lg:space-x-0"
       >
         @for (item of features; track $index) {
         <button
-          (click)="updateSelected(item.id); carouselTouched$.next()"
-          class="mask mask-squircle size-16 shrink-0 items-center flex flex-col justify-center smooth hover:scale-110 saturate-0 bg-gray-200/30 text-gray-400"
+          (click)="
+            updateSelected(item.id);
+            stopCarousel();
+            timeLeftUntilNextFeature = carouselSpeed
+          "
+          class="mask mask-squircle size-16 shrink-0 items-center flex flex-col justify-center smooth hover:-translate-y-2 saturate-0 bg-gray-200/30 text-gray-400"
           [ngClass]="
             item.id === selectedId
               ? 'scale-150 !saturate-100 ' + item.color
@@ -21,9 +25,65 @@
       </div>
 
       <div
-        class="flex flex-col lg:space-y-10 lg:max-w-[95vw] items-center relative"
+        class="flex flex-col lg:space-y-10 lg:max-w-[95vw] items-center relative group/selectedItem"
         *ngIf="selectedFeature as f"
       >
+        <!-- PLAY/PAUSE carousel -->
+        <div
+          class="absolute top-0 left-0 lg:left-10 size-full z-20 flex flex-col justify-center items-center smooth"
+          [ngClass]="{
+            'scale-50': !carouselRunning,
+          }"
+        >
+          <button
+            class="size-72 opacity-0 hover:opacity-100 active:scale-95 rounded-full aspect-square shrink-0 opacity-0 group-hover/selectedItem:opacity-100 active:scale-95 rounded-full aspect-square shrink-0 bg-gray-900/50 text-white smooth flex justify-center items-center hover:scale-110"
+            [ngClass]="{
+              'opacity-100': !carouselRunning,
+            }"
+            (click)="carouselRunning ? stopCarousel() : startCarousel()"
+          >
+            @if (carouselRunning) {
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-[50%]"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 5.25v13.5m-7.5-13.5v13.5"
+              />
+            </svg>
+            } @else {
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-[50%]"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"
+              />
+            </svg>
+            }
+          </button>
+        </div>
+        <div
+          class="absolute hidden lg:block bottom-0 left-auto lg:left-0 smooth"
+        >
+          <progress
+            class="progress bg-accent-color w-56"
+            value="{{ nextFeatureTimer }}"
+            max="100"
+          ></progress>
+        </div>
         <div
           class="space-y-2 mt-1 flex flex-col min-w-full text-wrap absolute lg:static"
         >
@@ -31,9 +91,9 @@
             class="text-center text-xl font-bold font-outfit"
             [innerHTML]="f.title"
           ></p>
-          <small class="text-center mt-3 lg:mt-2"
+          <span class="text-center mt-3 lg:mt-2 text-sm"
             ><p [innerHTML]="f.description"></p>
-          </small>
+          </span>
         </div>
         <div class="flex">
           <div

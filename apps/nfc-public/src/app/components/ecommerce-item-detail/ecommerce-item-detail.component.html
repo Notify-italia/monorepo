@@ -97,7 +97,7 @@
                 </div>
               </div>
               <div class="divider lg:hidden"></div>
-              <pre>{{ form.value | json }}</pre>
+
               <form
                 [formGroup]="form"
                 (ngSubmit)="submit()"
@@ -232,6 +232,7 @@
                       placeholder="1"
                       type="number"
                       #QuantityInput
+                      formControlName="quantity"
                       [defaultValue]="1"
                       (change)="setQuantity(QuantityInput.value)"
                     />

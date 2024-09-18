@@ -60,14 +60,14 @@ export class EcommerceItemDetailComponent
     });
 
     if (!this.item.options.noQuantity) {
-      this.form.controls['quantity'] = new FormControl(1, [
-        Validators.required,
-        Validators.min(1),
-      ]);
+      this.form.addControl(
+        'quantity',
+        new FormControl(1, [Validators.required])
+      );
     }
 
     if (this.item.options.qrCode) {
-      this.form.controls['parsedOptions'].addControl(
+      this.form.controls.parsedOptions.addControl(
         'qrCode',
         new FormControl(false, [Validators.required])
       );

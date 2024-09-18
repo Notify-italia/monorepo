@@ -50,6 +50,11 @@ export class FeaturesComponent
 
   public carouselTouched$ = new Subject<void>();
 
+  public carouselRunning = false;
+  public carouselSpeed = 2500;
+  public timeLeftUntilNextFeature = this.carouselSpeed;
+  public nextFeatureTimer = 100;
+
   public selectedId = '';
   private _selectedIndex = 0;
 
@@ -207,12 +212,40 @@ export class FeaturesComponent
       return;
     }
 
-    interval(2500)
+    this.startCarousel();
+  }
+
+  public startCarousel() {
+    const _refreshInterval = 10;
+    interval(_refreshInterval)
       .pipe(
         takeUntil(this.carouselTouched$),
-        tap(() => this._nextFeature())
+        tap(() => {
+          this.timeLeftUntilNextFeature -= _refreshInterval;
+          if (this.timeLeftUntilNextFeature <= 0) {
+            this._nextFeature();
+            this.timeLeftUntilNextFeature = this.carouselSpeed;
+          }
+
+          this.nextFeatureTimer =
+            (this.timeLeftUntilNextFeature / this.carouselSpeed) * 100;
+        })
       )
       .subscribe();
+
+    // interval(this.carouselSpeed)
+    //   .pipe(
+    //     takeUntil(this.carouselTouched$),
+    //     tap(() => this._nextFeature())
+    //   )
+    //   .subscribe();
+
+    this.carouselRunning = true;
+  }
+
+  public stopCarousel() {
+    this.carouselTouched$.next();
+    this.carouselRunning = false;
   }
 
   // @HostListener('wheel', ['$event'])
@@ -238,6 +271,7 @@ export class FeaturesComponent
 
   public updateSelected(id: string) {
     this.selectedId = id;
+    this._selectedIndex = this.features.findIndex((f) => f.id === id);
 
     if (!this.featuresContainer) {
       return;
