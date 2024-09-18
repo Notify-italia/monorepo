@@ -37,6 +37,19 @@
       (componentInit)="publishAnchor('splash')"
     ></notify-splash>
 
+    <notify-features
+      id="features"
+      (componentStable)="featuresStable$.next()"
+      class="z-10 p-2"
+      (componentInit)="publishAnchor('features')"
+    ></notify-features>
+
+    <notify-trusted-by
+      id="trustedby"
+      (componentInit)="publishAnchor('trustedby')"
+      class="z-0 ignore-height my-5 mt-20 lg:mt-5 ignore-padding"
+    ></notify-trusted-by>
+
     <!-- <notify-spline-viewer
       sceneId="wMo34mvja3Q3wyyS"
       (ready)="splineReady$.next()"
@@ -49,22 +62,9 @@
       class="mt-20"
     ></notify-profile-builder>
 
-    <notify-trusted-by
-      id="trustedby"
-      (componentInit)="publishAnchor('trustedby')"
-      class="z-0 ignore-height my-5 mt-20 lg:mt-5 ignore-padding"
-    ></notify-trusted-by>
-
-    <notify-features
-      id="features"
-      (componentStable)="featuresStable$.next()"
-      class="z-10"
-      (componentInit)="publishAnchor('features')"
-    ></notify-features>
-
     <notify-instructions
       id="instructions"
-      class="mt-20 ignore-height min-h-[90lvh] lg:min-h-[90lvh] 2xl:min-h-[60lvh]"
+      class="mt-20 ignore-height min-h-[90lvh] lg:min-h-[90lvh] 2xl:min-h-[60lvh] b"
       (componentInit)="publishAnchor('instructions')"
       (componentStable)="instructionsStable$.next()"
     ></notify-instructions>

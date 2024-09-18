@@ -71,7 +71,9 @@ export class EcommerceCartComponent extends ModalBaseComponent {
     const labels: { [key: string]: string } = {};
 
     if (item.options.color) {
-      labels['color'] = `${item.options.color}`;
+      labels['color'] =
+        productData?.options.colors?.find((v) => v.id === item.options.color)
+          ?.label || '';
     }
 
     if (item.options.logo) {

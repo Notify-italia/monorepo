@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import {
   FormArray,
   FormControl,
@@ -33,6 +33,7 @@ export class EcommerceItemDetailComponent
   extends ModalBaseComponent
   implements OnInit
 {
+  @ViewChild(`QuantityInput`) quantityInput!: ElementRef<HTMLInputElement>;
   @Input() item!: INotifyEcommerceProduct;
 
   public selectedImage = 0;
@@ -124,8 +125,14 @@ export class EcommerceItemDetailComponent
   public updateQuantity(value: number) {
     value = Number(value);
 
-    this.form.controls['quantity']?.setValue(
-      (this.form.controls['quantity'].value || 0) + value
+    this.form.controls.quantity?.setValue(
+      (this.form.controls.quantity?.value ?? 0) + value
+    );
+
+    console.log(this.form.value);
+
+    this.quantityInput.nativeElement.value = String(
+      this.form.controls.quantity?.value
     );
 
     if (!this.item.options.usersInfo) {

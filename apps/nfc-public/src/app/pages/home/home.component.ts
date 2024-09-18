@@ -106,7 +106,6 @@ export class HomeComponent implements AfterViewInit {
     }
 
     this._activatedRoute.fragment.subscribe((fragment) => {
-      console.log('fragment', fragment);
       if (!fragment) {
         return;
       }
@@ -129,7 +128,7 @@ export class HomeComponent implements AfterViewInit {
           : value > transitionThreshold;
         this._meta.updateTag({
           name: 'theme-color',
-          content: aboveThreshold ? '#99D2D9' : '#8CC5CD',
+          content: '#ffffff',
         });
         return {
           transform: `scaleX(${aboveThreshold ? 2 : 1}) scaleY(${

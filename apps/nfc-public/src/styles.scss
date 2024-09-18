@@ -2,18 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* You can add global styles to this file, and also import other style files */
-@import url(//fonts.googleapis.com/css?family=Vibur);
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
-
-html {
-  scroll-behavior: smooth !important;
-}
-
-.material-symbols-outlined {
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-
 .text-accent-color {
   @apply text-[#26acff];
 }
@@ -24,6 +12,22 @@ html {
 
 .ring-accent-color {
   @apply ring-[#26acff];
+}
+
+.bg-secondary-accent-color {
+  @apply border shadow bg-green-100;
+}
+
+/* You can add global styles to this file, and also import other style files */
+@import url(//fonts.googleapis.com/css?family=Vibur);
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+html {
+  scroll-behavior: smooth !important;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 .website-section {

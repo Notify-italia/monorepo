@@ -53,4 +53,11 @@ export const FONTS_ICON_SET: SvgBoxIcon[] = generateIconSet([
   generateIcon('figtree', 'Figtree', 'fonts', _generateFormThumbnail),
   generateIcon('quicksand', 'Quicksand', 'fonts', _generateFormThumbnail),
   generateIcon('victorMono', 'Victor Mono', 'fonts', _generateFormThumbnail),
+  generateIcon(
+    'robotoCondensed',
+    'Roboto Condensed',
+    'fonts',
+    _generateFormThumbnail
+  ),
+  generateIcon('lato', 'Lato', 'fonts', _generateFormThumbnail),
 ]);

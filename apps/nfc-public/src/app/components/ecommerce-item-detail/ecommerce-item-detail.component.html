@@ -97,19 +97,18 @@
                 </div>
               </div>
               <div class="divider lg:hidden"></div>
+              <pre>{{ form.value | json }}</pre>
               <form
                 [formGroup]="form"
                 (ngSubmit)="submit()"
                 class="flex flex-col w-full lg:w-5/12 text-left items-start"
               >
-                <div class="flex flex-col space-y-5 min-h-96">
-                  <h1 class="font-bold text-5xl font-outfit text-slate-900">
+                <div class="flex flex-col space-y-5 min-h-96 text-slate-900">
+                  <h1 class="font-bold text-4xl font-outfit">
                     {{ item.name }}
                   </h1>
-                  <p
-                    class="text-4xl font-bold font-quicksand text-accent-color"
-                  >
-                    {{ item.price | currency : '€ ' }}
+                  <p class="text-5xl font-lato font-bold">
+                    {{ item.price | currency : '€' }}
                   </p>
                   <p
                     class="text-opacity-60 text-black -mt-3 whitespace-pre-line font-outfit"
@@ -128,7 +127,10 @@
                     <h1>COLORE</h1>
                     <div class="flex flex-wrap w-full">
                       @for (color of item.options.colors; track $index) {
+
                       <div
+                        class="tooltip"
+                        [attr.data-tip]="color.label"
                         (click)="
                           form.controls.parsedOptions.controls.color?.setValue(
                             color.id
@@ -208,7 +210,8 @@
                   >
                     <button
                       type="button"
-                      class="btn join-item rounded-l-lg"
+                      class="btn join-item rounded-l-lg disabled:bg-gray-600"
+                      [disabled]="(form.controls.quantity?.value ?? 0) <= 1"
                       (click)="updateQuantity(-1)"
                     >
                       <svg
@@ -234,7 +237,7 @@
                     />
                     <button
                       type="button"
-                      class="btn join-item rounded-r-lg"
+                      class="btn join-item rounded-r-lg disabled:bg-gray-600"
                       (click)="updateQuantity(1)"
                     >
                       <svg

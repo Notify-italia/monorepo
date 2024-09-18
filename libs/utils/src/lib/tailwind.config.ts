@@ -36,6 +36,8 @@ const tailwindConfig = {
         figtree: ['Figtree', 'sans-serif'],
         quicksand: ['Quicksand', 'sans-serif'],
         victorMono: ['Victor Mono', 'monospace'],
+        robotoCondensed: ['Roboto Condensed', 'sans-serif'],
+        lato: ['Lato', 'sans-serif'],
       },
       dropShadow: {
         glow: [
