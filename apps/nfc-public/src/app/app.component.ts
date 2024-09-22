@@ -5,7 +5,6 @@ import { EcommerceService } from '@notify/ngx-shared';
 @Component({
   standalone: true,
   imports: [RouterModule],
-  providers: [EcommerceService],
   selector: 'notify-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

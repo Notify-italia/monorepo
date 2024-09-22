@@ -6,10 +6,12 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import {
   HttpService,
+  provideEcommerceService,
   providePixelModule,
   provideTailwindToasts,
 } from '@notify/ngx-shared';
 import { provideClarity } from 'ngx-clarity';
+import { ecommerceProducts } from '../assets/shop/_products';
 import { environment } from '../environments/environment';
 import { appRoutes } from './app.routes';
 
@@ -39,5 +41,6 @@ export const appConfig: ApplicationConfig = {
         disableImageLazyLoadWarning: true,
       },
     },
+    provideEcommerceService(ecommerceProducts),
   ],
 };

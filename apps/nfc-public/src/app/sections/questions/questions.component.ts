@@ -63,6 +63,14 @@ export class QuestionsComponent extends SSRBaseComponent {
   constructor(private _domSanitizer: DomSanitizer) {
     super();
   }
+
+  public openCalendlyPopup() {
+    window.open(
+      'https://calendly.com/notifyitalia/chiacchierata',
+      '',
+      'popup,left=100,top=100,width=1280,height=700'
+    );
+  }
 }
 
 /*
