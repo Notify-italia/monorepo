@@ -1,9 +1,11 @@
 <div class="max-content-width">
   <div class="website-section">
-    <h1 class="section-title" id="profile-builder">1. Prova</h1>
+    <h1 class="section-title" id="profile-builder">
+      1. scopri il nostro editor
+    </h1>
     <p class="section-subtitle">
-      Genera un profilo causale in pochi click <br />
-      e scopri in anteprima le potenzialità del nostro editor.
+      Inserisci i tuoi dati in un profilo Notify causale <br />
+      e visualizza in anteprima le potenzialità del nostro editor.
     </p>
     <div
       class="flex items-center relative px-5 justify-around w-full"
@@ -85,9 +87,10 @@
             ></path>
           </svg>
 
-          <span>
+          <span class="hidden lg:block">
             {{ showProfile ? 'Cambia stile' : 'Crea un profilo' }}
           </span>
+          <span class="lg:hidden"> Mostra profilo </span>
         </button>
       </form>
       <notify-profile-view

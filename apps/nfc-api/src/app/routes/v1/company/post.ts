@@ -8,7 +8,7 @@ import {
   sendEmail,
   userSignInValidation,
 } from '@notify/nfc-api-core';
-import { addMonths } from 'date-fns';
+import { addWeeks } from 'date-fns';
 import { Request, Router } from 'express';
 
 //boilderplate for a post request to create an agent
@@ -31,7 +31,7 @@ router.post(
       const license = await LicenseManager.generate({
         allowedAgents: 1,
         boughtCards: 0,
-        expirationDate: addMonths(new Date(), 1),
+        expirationDate: addWeeks(new Date(), 1),
         features: [
           {
             type: 'include',
