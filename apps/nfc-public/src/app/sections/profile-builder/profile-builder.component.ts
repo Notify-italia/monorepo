@@ -7,13 +7,13 @@ import {
   Validators,
 } from '@angular/forms';
 import {
+  EnumNotifyAdvancedProfileItems,
   EnumNotifyAPAlign,
   EnumNotifyAPBackgroundTypes,
   EnumNotifyAPContainerStyles,
   EnumNotifyAPCorners,
   EnumNotifyAPDirections,
   EnumNotifyAPObjectFit,
-  EnumNotifyAdvancedProfileItems,
   EnumNotifyUserType,
   INotifyAPAvatarItem,
   INotifyProfile,
@@ -22,10 +22,13 @@ import {
 import {
   ProfilePlayerFactory,
   ProfileViewComponent,
+  SSRBaseComponent,
   TailwindFormsModule,
   UploadComponent,
   UtilsService,
 } from '@notify/ngx-shared';
+import { addMonths, format } from 'date-fns';
+import { it } from 'date-fns/locale';
 
 @Component({
   selector: 'notify-profile-builder',
@@ -41,7 +44,7 @@ import {
   templateUrl: './profile-builder.component.html',
   styleUrls: ['./profile-builder.component.scss'],
 })
-export class ProfileBuilderComponent {
+export class ProfileBuilderComponent extends SSRBaseComponent {
   public utilsService = inject(UtilsService);
   private _profileFactory = inject(ProfilePlayerFactory);
 
@@ -55,8 +58,6 @@ export class ProfileBuilderComponent {
   });
 
   public showProfile = false;
-  public nowLiveLabel = 'disponibile';
-  public comingSoonLabel = 'in arrivo';
 
   public get currentTemplate() {
     switch (this.form.value.type) {
@@ -75,21 +76,17 @@ export class ProfileBuilderComponent {
     }
   }
 
-  public onSubmit(): void {
-    const templates = [
-      'corporate',
-      'chill',
-      'grunge',
-      'influencer',
-      'squarehead',
-    ];
-    const randomIndex = Math.floor(Math.random() * templates.length);
-
-    if (templates[randomIndex] === this.form.value.type) {
-      return this.onSubmit();
+  override componentInitialized(): void {
+    if (this.utilsService.isMobile) {
+      return;
     }
 
-    this._loadTemplate(templates[randomIndex]);
+    this.showProfile = true;
+    this._randomizeTemplate();
+  }
+
+  public onSubmit(): void {
+    this._randomizeTemplate();
     this.showProfile = true;
   }
 
@@ -105,6 +102,19 @@ export class ProfileBuilderComponent {
     }
   }
 
+  private _randomizeTemplate() {
+    const templates = [
+      'corporate',
+      'chill',
+      'grunge',
+      'influencer',
+      'squarehead',
+    ];
+    const randomIndex = Math.floor(Math.random() * templates.length);
+
+    this._loadTemplate(templates[randomIndex]);
+  }
+
   private _prepareTemplate(template: INotifyProfile) {
     if (!template.advancedProfile) {
       return template;
@@ -115,15 +125,18 @@ export class ProfileBuilderComponent {
     );
 
     (template.advancedProfile.items[avatarIndex] as INotifyAPAvatarItem).label =
-      this.form.value.name || '';
+      this.form.value.name || 'Sara Nardi';
 
     (
       template.advancedProfile.items[avatarIndex] as INotifyAPAvatarItem
-    ).description = this.form.value.description || '';
+    ).description =
+      this.form.value.description || 'Il miglior profilo di sempre';
 
     (
       template.advancedProfile.items[avatarIndex] as INotifyAPAvatarItem
-    ).imgSrc = this.form.value.image || '';
+    ).imgSrc =
+      this.form.value.image ||
+      'https://s3-api.vps.notifyapp.it/notify-api/profiles/66f306b3cc20dab6892bee90/66f30c95cc20dab6892bf02c/Francesca%20Moretti.png?c=1727204520171?cz=1727268722950';
 
     return template;
   }
@@ -1158,7 +1171,13 @@ const PROFILE_TEMPLATES_INFLUENCER: UnknownType = {
       {
         type: 'place',
         visible: true,
-        title: 'Prossima Tappa 🛫 > 22 Agosto',
+        title: `Prossima Tappa 🛫 > ${format(
+          addMonths(new Date(), 1),
+          'dd MMMM',
+          {
+            locale: it,
+          }
+        )}`,
         showTitle: true,
         textConfig: {
           enabled: false,

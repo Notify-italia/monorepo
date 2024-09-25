@@ -24,7 +24,7 @@ export const ecommerceProducts: INotifyEcommerceProduct[] = [
       '/assets/shop/Tessere shop - Hive Pattern Fucsia.webp',
     ],
     short_description:
-      'Una card in PVC con grafica Notify, disponibile in diversi stili.',
+      'Card in PVC con grafica Notify, disponibile in diversi stili.',
     long_description: `Presentati con eleganza e innovazione con una tessera Basic PVC. Questo biglietto da visita unisce il prestigio di una tessera di alta qualità con la tecnologia NFC, permettendo ai tuoi contatti di accedere ai tuoi dettagli con un semplice tocco. Il logo Notify, sinonimo di avanguardia e professionalità, fa da cornice a un'esperienza di networking indimenticabile.
   
           Acquistando una card Basic PVC riceverai:
@@ -139,7 +139,7 @@ export const ecommerceProducts: INotifyEcommerceProduct[] = [
       '/assets/shop/Tessere shop - Tier2 - Bianco.webp',
     ],
     short_description:
-      'Una card in PVC con logo e nome personalizzati, disponibile in 2 stili.',
+      'Card in PVC con logo e nome personalizzati, disponibile in 2 stili.',
     options: {
       usersInfo: true,
       logo: true,
@@ -172,7 +172,7 @@ export const ecommerceProducts: INotifyEcommerceProduct[] = [
   
         Il nostro team grafico ti contatterà per definire i dettagli della tua card una volta effettuato l'ordine.`,
     images: [
-      '/assets/shop/Tessere shop - custom - 4.webp',
+      // '/assets/shop/Tessere shop - custom - 4.webp',
       '/assets/shop/Tessere shop - custom - 1.webp',
       '/assets/shop/Tessere shop - custom - 2.webp',
       '/assets/shop/Tessere shop - custom - 3.webp',
@@ -182,7 +182,8 @@ export const ecommerceProducts: INotifyEcommerceProduct[] = [
     name: 'Custom PVC',
     price: 44.99,
     hero: '/assets/shop/tier-3.webp',
-    short_description: 'Una card in PVC personalizzabile nella sua interezza.',
+    short_description:
+      'Card in PVC interamente personalizzata secondo le tue esigenze.',
     options: {
       qrCode: true,
       includesLicense: true,

@@ -56,18 +56,24 @@
       class="left-0 w-screen h-[90lvh] lg:h-lscreen z-0 pointer-events-none ignore-height -mt-[30vh] lg:-mt-[34vh]"
     ></notify-spline-viewer> -->
 
-    <notify-profile-builder
-      id="builder"
-      (componentInit)="publishAnchor('builder')"
+    <notify-editor-features
+      id="notify-editor-features"
+      (componentInit)="publishAnchor('editor-features')"
       class="mt-20"
-    ></notify-profile-builder>
+    ></notify-editor-features>
 
     <notify-instructions
       id="instructions"
-      class="ignore-height min-h-[90lvh] lg:min-h-[90lvh] 2xl:min-h-[60lvh] b"
+      class="ignore-height min-h-[90lvh] lg:min-h-[90lvh] 2xl:min-h-[60lvh]"
       (componentInit)="publishAnchor('instructions')"
       (componentStable)="instructionsStable$.next()"
+      (stepClicked)="scrollTo($event)"
     ></notify-instructions>
+
+    <notify-profile-builder
+      id="builder"
+      (componentInit)="publishAnchor('profile-builder')"
+    ></notify-profile-builder>
 
     <notify-shop
       class="mt-20 ignore-padding"

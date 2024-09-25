@@ -3,7 +3,7 @@
 }
 
 .splash-cta {
-  @apply p-3 rounded-lg w-full whitespace-nowrap text-center text-white flex justify-center items-center bg-gradient-to-br from-cyan-500 to-blue-500 hover:brightness-105 lg:hover:scale-110 font-bold lg:text-xl active:scale-100 space-x-2;
+  @apply p-3 rounded-xl w-full whitespace-nowrap text-center text-white flex justify-center items-center bg-gradient-to-br from-cyan-500 to-blue-500 hover:brightness-105 lg:hover:scale-105 font-bold lg:text-xl active:scale-100 space-x-2 hover:shadow-lg;
 }
 
 .mouse {

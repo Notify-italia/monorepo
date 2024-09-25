@@ -8,7 +8,8 @@
       @for (item of steps; track $index) {
 
       <div
-        class="flex lg:flex-col justify-around space-x-5 lg:space-x-0 items-center h-44 lg:h-96 2xl:h-[28rem] w-full lg:w-auto z-10 p-4 rounded-lg aspect-square intersect-once intersect:animate-fade-left bg-secondary-accent-color"
+        class="flex lg:flex-col justify-around space-x-5 lg:space-x-0 items-center h-44 lg:h-96 2xl:h-[30rem] w-full lg:w-auto z-10 p-4 rounded-lg aspect-square intersect-once intersect:animate-fade-left bg-secondary-accent-color hover:brightness-95 cursor-pointer"
+        (click)="stepClicked.emit(item.anchor)"
       >
         <b
           class="font-ebGaramond text-center text-[14vh] w-20 text-accent-color intersect-once intersect:animate-fade-right animate-ease-out smooth smooth"
@@ -20,13 +21,13 @@
         </b>
 
         <span
-          class="intersect-once intersect:animate-fade-down animate-ease-out opacity-0 intersect-once intersect:opacity-100 smooth space-y-2 lg:h-full lg:space-y-4"
+          class="animate-ease-out opacity-0 intersect-once intersect:opacity-100 smooth space-y-2 lg:h-full lg:space-y-4"
         >
           <h2 class="font-bold text-4xl font-outfit lg:text-center">
             {{ item.title }}
           </h2>
           <div
-            class="flex space-x-2 text-xs lg:text-base lg:text-justify"
+            class="flex space-x-2 text-xs lg:text-base lg:text-center items-center"
             [innerHTML]="item.description"
           ></div>
         </span>

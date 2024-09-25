@@ -24,6 +24,7 @@ import { EcommerceCartFactory } from '../../components/ecommerce-cart/ecommerce-
 import { EcommerceItemDetailFactory } from '../../components/ecommerce-item-detail/ecommerce-item-detail.factory';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
+import { EditorFeaturesComponent } from '../../sections/editor-features/editor-features.component';
 import { FeaturesComponent } from '../../sections/features/features.component';
 import { InstructionsComponent } from '../../sections/instructions/instructions.component';
 import { ProfileBuilderComponent } from '../../sections/profile-builder/profile-builder.component';
@@ -51,6 +52,7 @@ interface IAnchorOptions {
     TrustedByComponent,
     SplineViewerComponent,
     RouterModule,
+    EditorFeaturesComponent,
   ],
   providers: [
     AnimationsService,
@@ -221,5 +223,25 @@ export class HomeComponent implements AfterViewInit {
     }
 
     this.showItemDetail(product);
+  }
+
+  public scrollTo(fragment: string) {
+    const anchor = this.anchors.find((a) => a.fragment === fragment);
+
+    if (!anchor) {
+      return;
+    }
+
+    const el = document.getElementById(fragment);
+
+    if (!el) {
+      return;
+    }
+
+    const yOffset = -80;
+
+    const y = el.getBoundingClientRect().top + window.scrollY + yOffset;
+
+    window.scrollTo({ top: y, behavior: 'smooth' });
   }
 }

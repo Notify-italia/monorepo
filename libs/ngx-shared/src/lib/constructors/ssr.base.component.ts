@@ -11,8 +11,13 @@ export class SSRBaseComponent implements OnInit {
   @Output() public componentStable = new EventEmitter<void>();
   @Output() public componentInit = new EventEmitter<void>();
 
+  public componentInitialized() {
+    return;
+  }
+
   public ngOnInit(): void {
     this.componentInit.emit();
+    this.componentInitialized();
   }
 
   public componentIsStable(): void {
