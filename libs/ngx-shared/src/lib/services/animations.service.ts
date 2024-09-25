@@ -24,9 +24,11 @@ interface _absoluteAnimationsDrivers {
   [EnumAnimationsDrivers.PageWidth]: number;
 }
 
-interface IAnimationCSSStyle {
-  [key: string]: string | number;
-}
+export type IAnimationCSSStyle =
+  | {
+      [key: string]: string | number;
+    }
+  | Record<string, never>;
 
 export type AnimationTransformer = {
   [key in EnumAnimationsDrivers]?: (

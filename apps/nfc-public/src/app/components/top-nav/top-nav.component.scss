@@ -1,11 +1,8 @@
 .backdrop {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
+  @apply size-full absolute top-0 
 
   /*  where the real magic happens  */
-  backdrop-filter: blur(30px);
+  /* backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
 
   background: rgba(225, 225, 225, 0.05);
@@ -20,8 +17,8 @@
     rgb(0, 0, 0) 50%,
     rgba(0, 0, 0, 0.8) 70%,
     rgba(0, 0, 0, 0) 100%
-  );
-  /* inset: -1rem 0; */
+  ); */
+  /* inset: -1rem 0; */;
 }
 
 .topnav-menu {

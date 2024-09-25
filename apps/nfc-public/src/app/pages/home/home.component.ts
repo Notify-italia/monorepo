@@ -13,6 +13,7 @@ import {
   AnimationsService,
   EcommerceService,
   EnumAnimationsDrivers,
+  IAnimationCSSStyle,
   LoadingComponent,
   PixelService,
   SplineViewerComponent,
@@ -136,6 +137,41 @@ export class HomeComponent implements AfterViewInit {
           transform: `scaleX(${aboveThreshold ? 2 : 1}) scaleY(${
             aboveThreshold ? 2 : 1
           })`,
+        };
+      },
+    });
+    this._animationsService.declareAnimation('#topnav', {
+      scrollY: (value: number) => {
+        const aboveThreshold = this._utilsSerivce.isMobile
+          ? true
+          : value > transitionThreshold;
+
+        if (!aboveThreshold) {
+          return {
+            ['backdrop-filter']: `blur(30px) !important`,
+            ['-webkit-backdrop-filter']: `blur(30px) !important`,
+
+            ['background']: `rgba(225, 225, 225, 0.05) !important`,
+
+            ['mask-image']: `linear-gradient(
+    rgb(0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.8) 70%,
+    rgba(0, 0, 0, 0) 100%
+  ) !important`,
+
+            [`-webkit-mask-image`]: `linear-gradient(
+    rgb(0, 0, 0) 50%,
+    rgba(0, 0, 0, 0.8) 70%,
+    rgba(0, 0, 0, 0) 100%
+  ) !important`,
+          } as IAnimationCSSStyle;
+        }
+
+        return {
+          ['background-color']: `rgba(255, 255, 255)`,
+          ['--tw-shadow']: `0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)`,
+          ['--tw-shadow-colored']: `0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color)`,
+          ['box-shadow']: `var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)`,
         };
       },
     });
