@@ -1,11 +1,21 @@
 <div class="topnav-menu h-16 lg:h-20 p-5">
-  <img
-    src="https://s3-api.vps.notifyapp.it/assets/Primary%20Logo.png"
-    alt=""
-    class="h-8 lg:h-full object-contain"
-  />
+  <div class="flex left h-10">
+    <img
+      src="https://s3-api.vps.notifyapp.it/assets/Primary%20Logo.png"
+      alt=""
+      class="h-8 lg:h-full object-contain"
+    />
+  </div>
 
-  <div>
+  <a
+    href="https://aziende.notifyapp.it/signup"
+    target="_blank"
+    class="rounded-full px-4 py-2 bg-accent-color bg-on-hover border border-accent-color text-accent-color hover:!text-white font-medium font-outfit text-xs lg:text-base smooth"
+  >
+    Prova gratuitamente
+  </a>
+
+  <div class="right flex justify-end">
     @if (ecommerce.cart.items.length; as items) {
     <button
       (click)="CartClicked.emit()"

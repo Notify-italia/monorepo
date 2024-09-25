@@ -14,4 +14,5 @@ export class TopNavComponent {
   public ecommerce = inject(EcommerceService);
 
   @Output() CartClicked = new EventEmitter<void>();
+  @Output() startFreeClicked = new EventEmitter<void>();
 }

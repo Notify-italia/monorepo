@@ -8,6 +8,14 @@
 
 .bg-accent-color {
   @apply bg-[#26acff];
+
+  &.bg-on-hover {
+    @apply bg-transparent hover:bg-[#26acff];
+  }
+}
+
+.border-accent-color {
+  @apply border-[#26acff];
 }
 
 .ring-accent-color {

@@ -26,6 +26,12 @@
 
 .topnav-menu {
   @apply relative flex justify-between items-center w-full z-10;
+
+  .left,
+  .right {
+    flex-grow: 1;
+    flex-basis: 0;
+  }
 }
 
 svg {
