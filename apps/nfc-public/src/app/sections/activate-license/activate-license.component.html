@@ -1,16 +1,55 @@
 <img
   src="/assets/images/grid-pattern.webp"
-  class="object-none size-full absolute left-0"
+  class="object-none size-full absolute left-0 pointer-events-none mt-[10rem] lg:mt-auto"
 />
 <div class="max-content-width relative">
   <div class="website-section">
     <h1 class="section-title">3. attiva la tua licenza</h1>
-    <!-- <p class="section-subtitle">
-      Inserisci sul portale amministrativo la licenza ricevuta con l'acquisto di
-      una card o in versione digital only.
-    </p> -->
 
-    <div class="flex relative justify-between size-full mt-20">
+    <!-- MOBILE -->
+    <div
+      class="lg:hidden flex flex-col justify-around size-full relative h-[70rem]"
+    >
+      <div
+        class="rounded-xl relative w-full h-72 flex flex-col items-center justify-end pb-8 px-10 text-center bg-gradient-to-br from-cyan-400 to-accent-color text-white mt-20 z-20"
+      >
+        <img
+          src="/assets/images/notify-nav.webp"
+          alt=""
+          class="rounded-lg drop-shadow-md w-[95%] absolute -top-[40%] shrink-0 border border-gray-400"
+        />
+
+        <p class="z-10">
+          Apri
+          <a
+            href="https://aziende.notifyapp.it/pages/settings"
+            target="_blank"
+            class="underline"
+            >la pagina impostazioni del tuo account aziendale</a
+          >
+          e fai click su "Modifica licenza", nell'intestazione della pagina.
+        </p>
+      </div>
+
+      <div
+        class="bg-gradient-to-l from-cyan-400 to-accent-color text-white rounded-xl w-full h-72 flex flex-col justify-end items-center self-end mb-20 pb-8 px-10 text-center z-20 relative"
+      >
+        <img
+          src="/assets/images/license-form.webp"
+          alt=""
+          class="drop-shadow-lg w-[95%] shrink-0 -top-[47%] object-contain absolute"
+        />
+        <p class="mt-14">
+          ...e inserisci la licenza ricevuta via e-mail dal nostro Customer
+          Service per iniziare a usare Notify senza alcun limite di tempo.
+        </p>
+      </div>
+    </div>
+
+    <!-- DESKTOP -->
+    <div
+      class="hidden lg:flex relative justify-between size-full h-[60rem] mt-20"
+    >
       <div
         class="rounded-xl relative w-[35%] h-72 flex flex-col items-center justify-end pb-8 px-10 text-center bg-gradient-to-br from-cyan-400 to-accent-color text-white mt-20 z-20"
       >
@@ -34,7 +73,7 @@
 
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="text-accent-color absolute top-[40%] left-[21%] size-[40%] z-10 rotate-[95deg]"
+        class="text-accent-color absolute top-[33%] left-[22%] size-96 z-10 rotate-[85deg]"
         fill="currentColor"
         width="800"
         height="800"
