@@ -142,9 +142,7 @@ export class HomeComponent implements AfterViewInit {
     });
     this._animationsService.declareAnimation('#topnav', {
       scrollY: (value: number) => {
-        const aboveThreshold = this._utilsSerivce.isMobile
-          ? true
-          : value > transitionThreshold;
+        const aboveThreshold = value > transitionThreshold;
 
         if (!aboveThreshold) {
           return {
