@@ -44,6 +44,7 @@ export class FeaturesComponent
 {
   private _platformId = inject(PLATFORM_ID);
   private _domSanitizer = inject(DomSanitizer);
+  private _utilsService = inject(UtilsService);
 
   @ViewChild('FeaturesContainer')
   public featuresContainer!: ElementRef<HTMLDivElement>;
@@ -193,8 +194,13 @@ export class FeaturesComponent
     const screenWidth = window.innerWidth > 1280 ? 1280 : window.innerWidth;
     const featureWidth = _feature.offsetWidth / 2;
     const offset = _feature.offsetLeft;
+    const _subtraction = offset + featureWidth;
 
-    return screenWidth / 2 - (offset + featureWidth);
+    if (this._utilsService.isMobile) {
+      return screenWidth - _subtraction;
+    }
+
+    return screenWidth / 2 - _subtraction;
   }
 
   override ngOnInit(): void {
