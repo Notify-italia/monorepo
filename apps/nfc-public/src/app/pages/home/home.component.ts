@@ -25,6 +25,7 @@ import { EcommerceCartFactory } from '../../components/ecommerce-cart/ecommerce-
 import { EcommerceItemDetailFactory } from '../../components/ecommerce-item-detail/ecommerce-item-detail.factory';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
+import { ActivateLicenseComponent } from '../../sections/activate-license/activate-license.component';
 import { EditorFeaturesComponent } from '../../sections/editor-features/editor-features.component';
 import { FeaturesComponent } from '../../sections/features/features.component';
 import { InstructionsComponent } from '../../sections/instructions/instructions.component';
@@ -54,6 +55,7 @@ interface IAnchorOptions {
     SplineViewerComponent,
     RouterModule,
     EditorFeaturesComponent,
+    ActivateLicenseComponent,
   ],
   providers: [
     AnimationsService,

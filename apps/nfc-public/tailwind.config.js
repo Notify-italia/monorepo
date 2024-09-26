@@ -1,6 +1,6 @@
 const { createGlobPatternsForDependencies } = require('@nx/angular/tailwind');
 const { join } = require('path');
-const { tailwindConfig } = require('../../libs/utils/src/index');
+const { generateNotifyTailwindConfig } = require('../../libs/utils/src/index');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -8,5 +8,9 @@ module.exports = {
     join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
-  ...tailwindConfig,
+  ...generateNotifyTailwindConfig({
+    colors: {
+      'accent-color': { DEFAULT: '#26acff' }
+    }
+  }),
 };

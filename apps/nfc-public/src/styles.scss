@@ -2,26 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.text-accent-color {
-  @apply text-[#26acff];
-}
-
-.bg-accent-color {
-  @apply bg-[#26acff];
-
-  &.bg-on-hover {
-    @apply bg-transparent hover:bg-[#26acff];
-  }
-}
-
-.border-accent-color {
-  @apply border-[#26acff];
-}
-
-.ring-accent-color {
-  @apply ring-[#26acff];
-}
-
 .bg-secondary-accent-color {
   @apply border shadow bg-green-50;
 }

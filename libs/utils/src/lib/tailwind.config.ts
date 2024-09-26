@@ -131,4 +131,19 @@ tailwindConfig.daisyui.themes.push('dark', {
   },
 });
 
-export { tailwindConfig };
+const generateNotifyTailwindConfig = (
+  extendTheme: {
+    colors?: {
+      [key: string]: { [key: string]: string };
+    };
+  } = {}
+) => {
+  tailwindConfig.theme.extend.colors = {
+    ...tailwindConfig.theme.extend.colors,
+    ...extendTheme?.colors,
+  };
+
+  return tailwindConfig;
+};
+
+export { generateNotifyTailwindConfig, tailwindConfig };
