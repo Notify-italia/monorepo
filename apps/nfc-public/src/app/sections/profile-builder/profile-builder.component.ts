@@ -1,11 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   EnumNotifyAdvancedProfileItems,
   EnumNotifyAPAlign,
@@ -49,15 +44,17 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
   private _profileFactory = inject(ProfilePlayerFactory);
 
   public form = new FormGroup({
-    name: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
-    phone: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
-    image: new FormControl('', Validators.required),
+    name: new FormControl(''),
+    email: new FormControl(''),
+    phone: new FormControl(''),
+    role: new FormControl(''),
+    image: new FormControl(''),
     type: new FormControl('corporate'),
   });
 
   public showProfile = false;
+  public inputElementsCss =
+    'bg-gray-100 focus:ring-2 ring-accent-color rounded-2xl pl-4 py-6 !outline-none ring-offset-2 w-full smooth hover:brightness-90 backdrop-blur';
 
   public get currentTemplate() {
     switch (this.form.value.type) {
@@ -75,6 +72,14 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
         return this._prepareTemplate(PROFILE_TEMPLATES_CORPORATE);
     }
   }
+
+  private _templates: INotifyProfile[] = [
+    PROFILE_TEMPLATES_CORPORATE,
+    PROFILE_TEMPLATES_CHILL,
+    PROFILE_TEMPLATES_GRUNGE,
+    PROFILE_TEMPLATES_INFLUENCER,
+    PROFILE_TEMPLATES_SQUAREHEAD,
+  ];
 
   override componentInitialized(): void {
     if (this.utilsService.isMobile) {
@@ -129,8 +134,7 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
 
     (
       template.advancedProfile.items[avatarIndex] as INotifyAPAvatarItem
-    ).description =
-      this.form.value.description || 'Il miglior profilo di sempre';
+    ).sublabel = this.form.value.role || '';
 
     (
       template.advancedProfile.items[avatarIndex] as INotifyAPAvatarItem
@@ -540,7 +544,7 @@ const PROFILE_TEMPLATES_CORPORATE: UnknownType = {
         label: 'Marco De Luca',
         sublabel: "Responsabile del Design e dell'Innovazione",
         useRoleSubLabel: true,
-        description: 'Presso Squarehead Italia',
+        description: 'Currently @Squarehead Italia',
         imgSrc:
           'https://s3-api.vps.notifyapp.it/notify-api/profiles/65eedfa9ac3a0d7b566667de/avatar.webp',
         imgMask: 'squircle',

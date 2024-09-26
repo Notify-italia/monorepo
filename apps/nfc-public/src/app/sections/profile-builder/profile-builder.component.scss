@@ -1,3 +1,19 @@
+:host ::ng-deep ngx-dropzone {
+  background-color: rgba(243, 244, 246, 0.5) !important;
+  color: rgb(17 24 39) !important;
+  border-width: 0.1rem !important;
+  border-color: rgb(190, 197, 211) !important;
+  border-radius: 0.7rem !important;
+  transition: all 0.3s !important;
+}
+
+:host ::ng-deep ngx-dropzone:hover {
+  filter: brightness(0.9);
+}
+
+notify-tailwind-input {
+  @apply w-full;
+}
 .randomizer-button {
   @apply w-full font-bold p-4 rounded-2xl backdrop-blur-xl bg-slate-200/50 flex justify-center space-x-4 items-center text-secondary-500 text-lg active:scale-90  border-opacity-0 hover:border-opacity-100 border border-slate-400 disabled:pointer-events-none disabled:opacity-75 disabled:border-opacity-75 disabled:bg-slate-300/80 disabled:text-slate-500;
 }

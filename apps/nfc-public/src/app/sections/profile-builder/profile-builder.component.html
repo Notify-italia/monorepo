@@ -1,26 +1,31 @@
+<img
+  src="/assets/images/grid-pattern.webp"
+  class="object-none size-full absolute left-0 pointer-events-none mt-[10rem] lg:mt-auto"
+/>
 <div class="max-content-width">
   <div class="website-section">
-    <h1 class="section-title" id="profile-builder">
-      1. scopri il nostro editor
-    </h1>
+    <h1 class="section-title" id="profile-builder">1. risalta il tuo brand</h1>
     <p class="section-subtitle">
-      Inserisci i tuoi dati in un profilo Notify causale <br />
-      e visualizza in anteprima le potenzialità del nostro editor.
+      Il tuo biglietto da visita è la prima cosa che i tuoi potenziali clienti
+      giudicano e noi lo sappiamo bene. <br />
     </p>
     <div
-      class="flex items-center relative px-5 justify-around w-full"
+      class="flex items-center relative justify-around size-full"
       [ngClass]="{
-        'space-x-4': showProfile
+        'space-x-10': showProfile
       }"
     >
       <form
         [formGroup]="form"
-        class="flex flex-col space-y-4 smooth smooth-slow max-w-[90vw] lg:translate-x-[24%] mt-10 w-full"
+        class="flex flex-col space-y-4 smooth smooth-slow mt-10 w-full"
         (ngSubmit)="onSubmit()"
-        [ngClass]="{
-          'lg:!-translate-x-0 2xl:!-translate-x-10': showProfile
-        }"
       >
+        <p
+          class="text-accent-color text-center text-lg lg:text-2xl font-semibold"
+        >
+          Fai un test di come potrebbe apparire <br />
+          il tuo profilo Notify compilando i campi sottostanti.
+        </p>
         <!-- <p class="section-subtitle">
           Genera un profilo causale in pochi click, per vedere in anteprima le
           potenzialità del nostro editor.
@@ -35,42 +40,60 @@
           (fileChanged)="this.form.controls.image.setValue($any($event.blob))"
           acceptedFiles="image/webp,image/jpeg,image/png"
           class="h-48 mt-10"
-          uploadLabel="Carica il tuo logo o una tua foto da usare come avatar "
+          uploadLabel="Trascina qui una bellissima foto di te."
         ></notify-upload>
-        <div
-          class="flex lg:flex-row flex-col space-y-4 lg:space-y-0 lg:space-x-2 w-full"
-        >
+        <div class="flex flex-col space-y-4 w-full">
           <notify-tailwind-input
+            [titlecaseLabel]="false"
+            [cssClass]="inputElementsCss"
             name="name"
             label="Nome"
             placeholder="Mario Rossi"
             [compact]="true"
             [parent]="form"
+            [validationErrors]="{
+              required: ' '
+            }"
           ></notify-tailwind-input>
           <notify-tailwind-input
+            [titlecaseLabel]="false"
+            [cssClass]="inputElementsCss"
             name="phone"
-            label="N. telefono"
+            label="Cellulare"
             placeholder="333 1234567"
             [compact]="true"
             [parent]="form"
+            [validationErrors]="{
+              required: ' '
+            }"
           ></notify-tailwind-input>
           <notify-tailwind-input
+            [titlecaseLabel]="false"
+            [cssClass]="inputElementsCss"
             name="email"
-            label="email"
+            label="E-mail"
             type="email"
-            placeholder="email@esempio.dominio"
+            placeholder="email@esempio.it"
             [compact]="true"
             [parent]="form"
+            [validationErrors]="{
+              required: ' '
+            }"
+          ></notify-tailwind-input>
+          <notify-tailwind-input
+            [titlecaseLabel]="false"
+            [cssClass]="inputElementsCss"
+            name="role"
+            label="Ruolo in azienda"
+            type="text"
+            placeholder="CEO"
+            [compact]="true"
+            [parent]="form"
+            [validationErrors]="{
+              required: ' '
+            }"
           ></notify-tailwind-input>
         </div>
-        <notify-tailwind-textarea
-          [parent]="form"
-          name="description"
-          [compact]="true"
-          [rows]="3"
-          label="Parlaci di te"
-          placeholder="Inserisci una breve descrizione di te stesso/a"
-        ></notify-tailwind-textarea>
 
         <button class="randomizer-button smooth group/randomizer">
           <svg
@@ -90,7 +113,7 @@
           <span class="hidden lg:block">
             {{ showProfile ? 'Cambia stile' : 'Crea un profilo' }}
           </span>
-          <span class="lg:hidden"> Mostra profilo </span>
+          <span class="lg:hidden"> Genera un profilo </span>
         </button>
       </form>
       <notify-profile-view

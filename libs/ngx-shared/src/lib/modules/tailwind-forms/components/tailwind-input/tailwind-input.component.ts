@@ -34,6 +34,9 @@ export class TailwindInputComponent
   @Input() mask!: string;
   @Input() thousandSeparator!: string;
   @Input() maxLength!: number;
+  @Input() titlecaseLabel = true;
+  @Input() cssClass =
+    'w-full backdrop-blur lg:text-auto input input-style input-bordered';
   @Input() patterns!: {
     [character: string]: {
       pattern: RegExp;

@@ -33,6 +33,7 @@ export class TailwindTextareaComponent
     horizontal: false,
     vertical: false,
   };
+  @Input() titlecaseLabel = true;
   @Input() compact = false;
   @Input() validationErrors!: { [key: string]: string };
   @Input() disableAutocomplete = false;
@@ -48,6 +49,8 @@ export class TailwindTextareaComponent
 
   @Input() prefix = '';
   @Input() suffix = '';
+  @Input() cssClass =
+    'textarea w-full textarea-bordered backdrop-blur input-style resize-none';
 
   @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
 

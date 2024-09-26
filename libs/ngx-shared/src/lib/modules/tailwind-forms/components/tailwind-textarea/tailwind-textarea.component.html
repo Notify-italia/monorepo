@@ -4,10 +4,11 @@
     id="input-label"
     class="block text-sm font-medium"
     [ngClass]="{
-      'text-xs': compact
+      'text-xs': compact,
+      capitalize: titlecaseLabel
     }"
   >
-    {{ label | titlecase }}
+    {{ label }}
   </label>
   <div class="relative mt-1">
     <span
@@ -30,7 +31,7 @@
       [suffix]="suffix"
       [thousandSeparator]="thousandSeparator"
       [patterns]="patterns"
-      class="textarea w-full textarea-bordered backdrop-blur input-style resize-none"
+      [class]="cssClass"
       [ngClass]="{
         'resize-x': allowResize?.horizontal,
         'resize-y': allowResize?.vertical,

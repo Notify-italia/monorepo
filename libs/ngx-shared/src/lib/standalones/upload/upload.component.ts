@@ -27,7 +27,6 @@ export class UploadComponent implements OnChanges, OnDestroy, OnInit {
 
   @Input() disabled = false;
   @Input() acceptedFiles = '*';
-
   @Input()
   uploadLabel = `Fai click per caricare un file, oppure trascinalo in questo riquadro`;
   @Input() file: File | null = null;

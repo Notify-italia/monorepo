@@ -38,7 +38,7 @@ export class InstructionsComponent extends SSRBaseComponent implements OnInit {
       title: 'Attiva la tua licenza.',
       description:
         '<p>Inserisci la licenza ricevuta via e-mail, Spartisci le cards acquistate e goditi Notify al massimo delle sue potenzialità!</p>',
-      anchor: 'license-activation',
+      anchor: 'activate-license',
     },
   ];
 }
