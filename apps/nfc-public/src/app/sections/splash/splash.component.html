@@ -1,76 +1,77 @@
-<div class="max-content-width h-lscreen relative">
-  <div class="website-section lg:!justify-center">
+<img
+  [src]="mockupAssetPath"
+  class="h-[80%] absolute right-0 top-[58%] lg:top-[25%] drop-shadow shrink-0 object-contain"
+/>
+<div class="max-content-width relative w-full min-h-[100svh] lg:h-[100lvh]">
+  <div class="website-section !items-start !justify-center w-full">
     <div
-      class="flex flex-col space-y-10 lg:space-y-20 items-center z-10 justify-center bg-gradient-to-r h-full lg:py-0"
+      class="flex flex-col space-y-7 lg:justify-center z-10 h-[90%] lg:scale-75 2xl:scale-100 lg:ml-2 mt-20 lg:mt-0"
     >
-      <div class="flex flex-col space-y-2 h-[65%]">
-        <video
-          src="/assets/videos/splash_video.mp4"
-          autoplay
-          muted
-          playsinline
-          class="h-[35%] lg:h-[70%] w-full"
-        ></video>
-        <h1 class="section-title fade-down">
-          <p class="text-center whitespace-nowrap">
-            Il biglietto da visita
-            <br class="lg:hidden" />
-            <span
-              class="text-accent-color text-[5rem] lg:text-[6rem] font-caveat"
-              >smart</span
-            >
-          </p>
-          <p class="text-center leading-[3.5rem] lg:leading-[5rem]">
-            per il tuo
-            <br class="lg:hidden" />
-            <span
-              class="text-green-500 underline text-[3.5rem] lg:text-[4rem] font-bitter"
-              >business.</span
-            >
+      <!-- MAIN TITLE  -->
+      <div class="flex flex-col space-y-3 w-full">
+        <h1 class="section-title fade-down !text-[#013166]">
+          <p class="text-center leading-[2.7rem] lg:leading-none lg:text-start">
+            <span class="lg:whitespace-nowrap">
+              <span> Il biglietto da visita </span>
+
+              <span class="text-accent-color underline">smart</span>
+              <span class="absolute">,</span>
+            </span>
+            <br />
+
+            <span>per il tuo </span>
+            <span class="text-green-500 underline -ml-1">business</span>
+            <span class="absolute">.</span>
           </p>
         </h1>
-
-        <div
-          class="flex flex-col lg:mx-20 px-2 lg:px-10 space-y-5 lg:space-y-10"
+        <div class="splash-subtitle !px-0">
+          <p class="fade-up-delayed lg:!text-start">
+            Notify è il software che rivoluziona il modo in cui <br />
+            tu e il tuo team costruite il vostro network.
+          </p>
+        </div>
+      </div>
+      <!-- CALL TO ACTIONS -->
+      <div
+        class="animate-fade-up w-full flex flex-col lg:flex-row justify-center space-y-2 lg:space-y-0 lg:space-x-4"
+      >
+        <a
+          href="https://aziende.notifyapp.it/signup"
+          target="_blank"
+          class="splash-cta cta-secondary smooth smooth-faster"
         >
-          <div class="splash-subtitle">
-            <p class="fade-up-delayed">
-              Notify è il SaaS che rivoluziona il modo in cui tu e il tuo team
-              <br />
-              costruite il vostro network.
-            </p>
-            <!-- <p class="fade-up-delayed">
-            Notify è il primo biglietto da visita costruito con una mentalità
-            team-first.
-          </p> -->
-          </div>
-        </div>
+          Provalo gratis
+        </a>
+
+        <button class="splash-cta smooth smooth-faster" (click)="goToShop()">
+          <div>Sfoglia le cards</div>
+        </button>
       </div>
 
-      <div class="flex flex-col space-y-5 w-full lg:w-96">
-        <div class="animate-fade-up w-full">
-          <button
-            class="splash-cta smooth smooth-slower notify-shadow"
-            (click)="goToShop()"
-          >
-            <div>Sfoglia le cards</div>
-          </button>
-          <!-- <div class="text-center text-sm lg:text-base opacity-75">
-            <small>
-              <a class="link animate-fade" (click)="openCalendlyPopup()"
-                >Oppure, richiedi una demo gratuita</a
-              >
-            </small>
-          </div> -->
-        </div>
-        <notify-funded-by
-          class="animate-fade-right animate-delay-150 animate-ease-out"
-        ></notify-funded-by>
+      <div class="lg:w-10/12 lg:self-center">
+        <notify-funded-by></notify-funded-by>
       </div>
-      <!-- 
-      <div class="mouse smooth hidden lg:block" id="mouseGlpyh">
-        <div class="scroll"></div>
-      </div> -->
+    </div>
+
+    <!-- ANIMATED CHEVRON -->
+    <div
+      class="flex flex-col justify-end items-center w-full text-white lg:text-black z-10 space-y-2 drop-shadow"
+    >
+      <small class="font-bold font-sans">Scopri di più</small>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-10 bounce-arrow"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m19.5 8.25-7.5 7.5-7.5-7.5"
+        />
+      </svg>
     </div>
   </div>
 </div>

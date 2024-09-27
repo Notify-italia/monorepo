@@ -10,7 +10,7 @@ module.exports = {
   ],
   ...generateNotifyTailwindConfig({
     colors: {
-      'accent-color': { DEFAULT: '#26acff' }
+      'accent-color': { DEFAULT: '#0086FF' }
     }
   }),
 };

@@ -6,6 +6,10 @@
   @apply border bg-gray-50/50;
 }
 
+.text-secondary-accent-color {
+  @apply text-green-500;
+}
+
 /* You can add global styles to this file, and also import other style files */
 @import url(//fonts.googleapis.com/css?family=Vibur);
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
@@ -22,7 +26,7 @@ html {
   @apply flex flex-col items-center;
 
   .section-title {
-    @apply text-[2.7rem] lg:text-[4rem] font-extrabold text-center font-outfit lg:px-3 leading-[2.5rem] lg:leading-[4rem] whitespace-pre-wrap z-10 w-full min-w-full;
+    @apply text-[2.7rem] lg:text-[4rem] font-extrabold text-center font-outfit  leading-[2.5rem] lg:leading-[4rem] whitespace-pre-wrap z-10  text-accent-color;
   }
 
   .section-subtitle {

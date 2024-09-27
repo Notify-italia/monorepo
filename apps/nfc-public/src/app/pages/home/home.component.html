@@ -37,13 +37,14 @@
   >
     <notify-splash
       id="splash"
+      class="w-full ignore-height"
       (componentInit)="publishAnchor('splash')"
     ></notify-splash>
 
     <notify-features
       id="features"
       (componentStable)="featuresStable$.next()"
-      class="z-10 p-2"
+      class="z-10 p-2 mt-20 lg:mt-0"
       (componentInit)="publishAnchor('features')"
     ></notify-features>
 
