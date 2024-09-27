@@ -115,6 +115,10 @@
     transition-duration: 200ms;
   }
 
+  &.smooth-fastest {
+    transition-duration: 100ms;
+  }
+
   &.smooth-linear {
     transition-timing-function: linear;
   }
