@@ -40,19 +40,30 @@
         }
       </div>
       <div class="divider"></div>
+      <div class="flex flex-col text-center">
+        <!-- <h3 class="section-title !text-white">
+          <small> Vuoi solo incrementare la tua visibilità online? </small>
+        </h3> -->
+        <p class="section-subtitle !text-white">
+          Non tutti hanno bisogno di un prodotto all-in-one come Notify, lo
+          capiamo. <br />
+          Se vuoi solo incrementare la tua visibilità online dai un'occhiata
+          alla nostra selezione.
+        </p>
 
-      <div
-        class="ecommerce-cards-container notify-scrollbar scrollbar-absolute"
-      >
-        @for (item of ecommerce.reviewsProducts; track $index) {
-        <ng-container
-          [ngTemplateOutlet]="EcommerceCard"
-          [ngTemplateOutletContext]="{
+        <div
+          class="ecommerce-cards-container notify-scrollbar scrollbar-absolute"
+        >
+          @for (item of ecommerce.reviewsProducts; track $index) {
+          <ng-container
+            [ngTemplateOutlet]="EcommerceCard"
+            [ngTemplateOutletContext]="{
           item,
           index: $index
         }"
-        ></ng-container>
-        }
+          ></ng-container>
+          }
+        </div>
       </div>
     </div>
   </div>
