@@ -3,19 +3,19 @@ notify-tailwind-input {
 }
 
 .editor-feature {
-  @apply rounded-2xl p-4 flex flex-col space-y-4 w-80 lg:w-96 border shadow bg-gray-50/50 backdrop-blur-sm;
+  @apply rounded-2xl p-6 flex flex-col space-y-4 w-80 lg:w-96 border shadow bg-gray-50/50 backdrop-blur-sm;
 
   h2 {
     @apply text-2xl font-bold  w-full  font-outfit;
   }
 
   p {
-    @apply text-sm;
+    @apply text-sm opacity-65  leading-[1.35rem];
   }
 }
 
 .feature-column {
-  @apply flex flex-col space-y-2 lg:space-y-2 w-full;
+  @apply flex flex-col space-y-2 lg:space-y-4 w-full;
 }
 
 .pulsing-dot {

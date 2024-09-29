@@ -9,10 +9,11 @@
     @if (ecommerce.cart.items.length; as items) {
     <button
       (click)="CartClicked.emit()"
-      class="relative text-accent-color drop-shadow-md smooth smooth-faster active:scale-95 brightness-110"
+      id="filled-cart"
+      class="relative drop-shadow-md smooth smooth-faster active:scale-95 brightness-110 text-accent-color"
     >
       <div
-        class="absolute size-4 lg:size-6 bg-white border border-slate-300 rounded-full p-2 -top-2 -right-2 z-10 flex justify-center items-center font-medium font-outfit text-xs lg:text-base"
+        class="absolute size-4 lg:size-6 bg-white border border-slate-300 rounded-full p-2 -top-2 -right-2 z-10 flex justify-center items-center font-medium font-outfit text-xs lg:text-base text-accent-color"
       >
         {{ items }}
       </div>
