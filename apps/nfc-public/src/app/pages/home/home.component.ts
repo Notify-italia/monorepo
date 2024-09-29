@@ -150,21 +150,7 @@ export class HomeComponent implements AfterViewInit {
         const aboveThreshold = value > transitionThreshold;
 
         if (!aboveThreshold) {
-          return {
-            ['backdrop-filter']: `blur(30px) !important`,
-            ['-webkit-backdrop-filter']: `blur(30px) !important`,
-            ['background']: `rgba(225, 225, 225, 0.05) !important`,
-            ['mask-image']: `linear-gradient(
-    rgb(0, 0, 0) 50%,
-    rgba(0, 0, 0, 0.8) 70%,
-    rgba(0, 0, 0, 0) 100%
-  ) !important`,
-            [`-webkit-mask-image`]: `linear-gradient(
-    rgb(0, 0, 0) 50%,
-    rgba(0, 0, 0, 0.8) 70%,
-    rgba(0, 0, 0, 0) 100%
-  ) !important`,
-          } as IAnimationCSSStyle;
+          return {} as IAnimationCSSStyle;
         }
 
         return {
@@ -185,6 +171,18 @@ export class HomeComponent implements AfterViewInit {
 
         return {
           color: aboveThreshold ? 'auto' : '#ffffff',
+        };
+      },
+    });
+
+    this._animationsService.declareAnimation('#app-logo', {
+      scrollY: (value: number) => {
+        const aboveThreshold = this._utilsSerivce.isMobile
+          ? true
+          : value > transitionThreshold;
+
+        return {
+          filter: aboveThreshold ? 'brightness(1)' : 'brightness(100)',
         };
       },
     });
