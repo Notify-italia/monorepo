@@ -8,6 +8,11 @@ export interface INotifyEcommerceProduct {
   short_description: string;
   images: string[];
   options: {
+    companyName?: {
+      enabled: boolean;
+      label: string;
+      placeholder: string;
+    };
     usersInfo?: boolean;
     userCount?: boolean;
     noQuantity?: boolean;
@@ -37,6 +42,7 @@ export interface INotifyEcommerceCartItem {
       url?: string;
       blob?: string;
     };
+    companyName?: string;
     color?: string;
     qrCode?: string;
   };

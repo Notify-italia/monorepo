@@ -88,6 +88,16 @@ export class EcommerceCartComponent extends ModalBaseComponent {
        </ul>`;
     }
 
+    if (item.options.companyName) {
+      const _name = item.options.companyName
+        .trim()
+        .replace('https://', '')
+        .replace('www.', '');
+      const _threshold = 50;
+      labels['companyName'] =
+        _name.length > _threshold ? `${_name.slice(0, _threshold)}...` : _name;
+    }
+
     // if (item.options.userCount) {
     //   labels['userCount'] = `${item.options.userCount} Utenti`;
     // }

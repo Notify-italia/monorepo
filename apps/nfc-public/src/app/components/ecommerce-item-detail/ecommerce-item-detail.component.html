@@ -80,6 +80,7 @@
                 />
 
                 <div
+                  *ngIf="item.images.length > 1"
                   class="flex w-full space-x-2 overflow-x-auto notify-scrollbar size-32"
                   [ngClass]="{
                     'pointer-events-none opacity-75':
@@ -161,6 +162,7 @@
                     [type]="'number'"
                     placeholder="10"
                     [compact]="true"
+                    [titlecaseLabel]="false"
                   ></notify-tailwind-input>
                   } @if (item.options.logo) {
                   <div class="option-column">
@@ -188,9 +190,22 @@
                       helpText="Questo campo di testo sarà stampato sulla card."
                       placeholder="Mario Rossi"
                       [compact]="true"
+                      [titlecaseLabel]="false"
                     ></notify-tailwind-input>
                     }
                   </div>
+                  } @if(item.options.companyName?.enabled) {
+                  <notify-tailwind-input
+                    class="w-full"
+                    [parent]="form.controls.parsedOptions"
+                    [name]="'companyName'"
+                    [label]="item.options.companyName?.label || 'Nome azienda'"
+                    [placeholder]="
+                      item.options.companyName?.placeholder || 'Esempio'
+                    "
+                    [compact]="true"
+                    [titlecaseLabel]="false"
+                  ></notify-tailwind-input>
                   }
 
                   <!-- <notify-tailwind-checkbox

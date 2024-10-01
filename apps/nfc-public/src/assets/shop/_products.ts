@@ -219,37 +219,56 @@ export const ecommerceProducts: INotifyEcommerceProduct[] = [
   {
     id: 'google-review',
     long_description: '',
-    images: [],
+    images: ['/assets/shop/Tessere shop - Google.webp'],
     type: 'reviews',
-    name: 'Google',
+    name: 'Google Reviews PVC',
     price: 19.99,
     hero: '/assets/shop/tier-2.webp',
     short_description:
       'Ottieni rapidamente recensioni positive su Google per il tuo business.',
-    options: {},
+    options: {
+      companyName: {
+        enabled: true,
+        label: 'Nome della tua attività su Google',
+        placeholder: 'Offcenter SRL (Notify)',
+      },
+    },
   },
   {
     id: 'tripadvisor-review',
     long_description: '',
-    images: [],
+    images: ['/assets/shop/Tessere shop - Tripadvisor.webp'],
     type: 'reviews',
-    name: 'Tripadvisor',
+    name: 'Tripadvisor Reviews PVC',
     price: 19.99,
     hero: '/assets/shop/tier-2.webp',
     short_description:
       'Ottieni rapidamente recensioni positive su Tripadvisor per il tuo business.',
-    options: {},
+    options: {
+      companyName: {
+        enabled: true,
+        label: 'Link alla tua attività su Tripadvisor',
+        placeholder:
+          'https://www.tripadvisor.com/Restaurant_Review-g187791-d1234567-Reviews-Example_Restaurant-Rome_Lazio.html',
+      },
+    },
   },
   {
     id: 'intagram-review',
     long_description: '',
-    images: [],
+    images: ['/assets/shop/Tessere shop - Instagram.webp'],
     type: 'reviews',
-    name: 'Instagram',
+    name: 'Instagram Followers PVC',
     price: 19.99,
     hero: '/assets/shop/tier-2.webp',
     short_description:
       'Ottieni rapidamente followers su Instagram per il tuo business.',
-    options: {},
+    options: {
+      companyName: {
+        enabled: true,
+        label: 'Handle del tuo profilo Instagram',
+        placeholder: '@notify_it',
+      },
+    },
   },
 ];

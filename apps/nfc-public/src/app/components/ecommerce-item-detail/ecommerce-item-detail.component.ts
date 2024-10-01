@@ -43,6 +43,7 @@ export class EcommerceItemDetailComponent
       parsedOptions: {
         qrCode?: boolean;
         color?: string;
+        companyName?: string;
         usersInfo?: {
           alias: string;
         }[];
@@ -88,6 +89,13 @@ export class EcommerceItemDetailComponent
             alias: new FormControl(null, [Validators.required]),
           }),
         ])
+      );
+    }
+
+    if (this.item.options.companyName) {
+      this.form.controls['parsedOptions'].addControl(
+        'companyName',
+        new FormControl(null, [Validators.required])
       );
     }
 
