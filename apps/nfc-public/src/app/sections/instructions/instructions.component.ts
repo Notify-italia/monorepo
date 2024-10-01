@@ -31,7 +31,7 @@ export class InstructionsComponent extends SSRBaseComponent implements OnInit {
     },
     {
       title: 'Scegli le cards.',
-      description: `<p>Se siamo riusciti a convincerti, visita il nostro <a class="link"  href="#shop">shop</a>, scegli le cards e procedi con l'acquisto.</p>`,
+      description: `<p>Se siamo riusciti a convincerti, visita il nostro shop, scegli le cards e procedi con l'acquisto.</p>`,
       anchor: 'shop',
     },
     {
