@@ -207,13 +207,13 @@ export class FeaturesComponent
     super.ngOnInit();
     this.updateSelected(this.features[0].id);
 
-    this.features.forEach((feature) => {
-      const image = new Image();
-      image.src = feature.desktopImage;
-      image.src = feature.phoneImage;
-    });
+    this.preloadImages(
+      this.features
+        .map((f) => f.desktopImage)
+        .concat(this.features.map((f) => f.phoneImage))
+    );
 
-    setTimeout(() => this.componentIsStable(), 1000);
+    this.componentIsStable();
   }
 
   ngAfterViewInit(): void {

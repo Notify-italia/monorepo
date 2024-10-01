@@ -38,6 +38,7 @@
     <notify-splash
       id="splash"
       class="w-full ignore-height"
+      (componentStable)="splashStable$.next()"
       (componentInit)="publishAnchor('splash')"
     ></notify-splash>
 

@@ -37,6 +37,19 @@ export class SplashComponent extends SSRBaseComponent {
       : '/assets/images/mockup-desktop.png';
   }
 
+  override componentInitialized() {
+    if (!this.isPlatformBrowser) {
+      return;
+    }
+
+    this.preloadImages([
+      '/assets/images/mockup-mobile.png',
+      '/assets/images/mockup-desktop.png',
+    ]);
+
+    setTimeout(() => this.componentIsStable(), 1000);
+  }
+
   public goToShop() {
     const element = document.getElementById('shop');
     if (element) {

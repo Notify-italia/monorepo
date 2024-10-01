@@ -93,7 +93,7 @@ export class HomeComponent implements AfterViewInit {
   constructor() {
     afterNextRender(() => {
       this.pageStable$ = combineLatest([
-        // this.splashStable$,
+        this.splashStable$,
         // this.instructionsStable$,
         // this.splineReady$,
         this.featuresStable$,
