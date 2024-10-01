@@ -207,9 +207,13 @@ export class FeaturesComponent
     super.ngOnInit();
     this.updateSelected(this.features[0].id);
 
-    setTimeout(() => this.componentIsStable(), 300);
+    this.features.forEach((feature) => {
+      const image = new Image();
+      image.src = feature.desktopImage;
+      image.src = feature.phoneImage;
+    });
 
-    // this.onScroll = _.throttle(this.onScroll, 200);
+    setTimeout(() => this.componentIsStable(), 1000);
   }
 
   ngAfterViewInit(): void {
@@ -239,13 +243,6 @@ export class FeaturesComponent
       )
       .subscribe();
 
-    // interval(this.carouselSpeed)
-    //   .pipe(
-    //     takeUntil(this.carouselTouched$),
-    //     tap(() => this._nextFeature())
-    //   )
-    //   .subscribe();
-
     this.carouselRunning = true;
   }
 
@@ -253,27 +250,6 @@ export class FeaturesComponent
     this.carouselTouched$.next();
     this.carouselRunning = false;
   }
-
-  // @HostListener('wheel', ['$event'])
-  // public onScroll(event: WheelEvent) {
-  //   if (!isPlatformBrowser(this._platformId)) {
-  //     return;
-  //   }
-
-  //   of(true)
-  //     .pipe(
-  //       takeUntil(this.carouselTouched$),
-  //       tap(() => {
-  //         if (event.deltaY < 0) {
-  //           this._previousFeature();
-  //           return;
-  //         }
-
-  //         this._nextFeature();
-  //       })
-  //     )
-  //     .subscribe();
-  // }
 
   public updateSelected(id: string) {
     this.selectedId = id;
@@ -294,14 +270,6 @@ export class FeaturesComponent
 
   private _nextFeature() {
     this._selectedIndex += 1;
-
-    this.updateSelected(
-      this.features[this._selectedIndex % this.features.length].id
-    );
-  }
-
-  private _previousFeature() {
-    this._selectedIndex -= 1;
 
     this.updateSelected(
       this.features[this._selectedIndex % this.features.length].id
