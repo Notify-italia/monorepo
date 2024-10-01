@@ -206,11 +206,11 @@ export const ecommerceProducts: INotifyEcommerceProduct[] = [
       '/assets/features/desktop-team.webp',
     ],
     type: 'notify',
-    name: 'Solo Licenza',
+    name: 'Digital',
     price: 19.99,
     hero: '/assets/shop/license.webp',
     short_description:
-      'La soluzione perfetta per chi vuole usare Notify senza una card fisiche.',
+      'La soluzione perfetta per chi vuole usare Notify senza cards fisiche.',
     options: {
       userCount: true,
       noQuantity: true,
@@ -223,7 +223,7 @@ export const ecommerceProducts: INotifyEcommerceProduct[] = [
     type: 'reviews',
     name: 'Google Reviews PVC',
     price: 19.99,
-    hero: '/assets/shop/tier-2.webp',
+    hero: '/assets/shop/tier-google.webp',
     short_description:
       'Ottieni rapidamente recensioni positive su Google per il tuo business.',
     options: {
@@ -241,7 +241,7 @@ export const ecommerceProducts: INotifyEcommerceProduct[] = [
     type: 'reviews',
     name: 'Tripadvisor Reviews PVC',
     price: 19.99,
-    hero: '/assets/shop/tier-2.webp',
+    hero: '/assets/shop/tier-tripadvisor.webp',
     short_description:
       'Ottieni rapidamente recensioni positive su Tripadvisor per il tuo business.',
     options: {
@@ -260,7 +260,7 @@ export const ecommerceProducts: INotifyEcommerceProduct[] = [
     type: 'reviews',
     name: 'Instagram Followers PVC',
     price: 19.99,
-    hero: '/assets/shop/tier-2.webp',
+    hero: '/assets/shop/tier-instagram.webp',
     short_description:
       'Ottieni rapidamente followers su Instagram per il tuo business.',
     options: {
