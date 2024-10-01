@@ -194,6 +194,12 @@ export class HomeComponent implements AfterViewInit {
       }),
     });
 
+    this._animationsService.declareAnimation('#splash-chevron', {
+      scrollY: (value: number) => ({
+        opacity: value > transitionThreshold ? 0 : 1,
+      }),
+    });
+
     this._animationsService.initDriver(
       EnumAnimationsDrivers.ScrollY,
       window.scrollY
