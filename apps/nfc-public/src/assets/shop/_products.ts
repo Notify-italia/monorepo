@@ -66,19 +66,19 @@ export const ecommerceProducts: INotifyEcommerceProduct[] = [
           image: '/assets/shop/Tessere shop - Verde.webp',
         },
         {
-          label: 'Banana Pattern Azzurro',
+          label: 'Worms Pattern Azzurro',
           id: 'banana-azzurro',
           thumbnail: '/assets/cards/vermicelli/river_thumb.webp',
           image: '/assets/shop/Tessere shop - Banana pattern Azzurro.webp',
         },
         {
-          label: 'Banana Pattern Fucsia',
+          label: 'Worms Pattern Fucsia',
           id: 'banana-fucsia',
           thumbnail: '/assets/cards/vermicelli/neon_thumb.webp',
           image: '/assets/shop/Tessere shop - Banana pattern Fucsia.webp',
         },
         {
-          label: 'Banana Pattern Giallo',
+          label: 'Worms Pattern Giallo',
           id: 'banana-giallo',
           thumbnail: '/assets/cards/vermicelli/banana_thumb.webp',
           image: '/assets/shop/Tessere shop - Banana pattern Giallo.webp',
