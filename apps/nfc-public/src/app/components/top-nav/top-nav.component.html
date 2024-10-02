@@ -1,12 +1,30 @@
 <div class="topnav-menu h-16 px-4 smooth" id="topnav">
+  <!-- LOGO -->
   <img
     id="app-logo"
     src="https://s3-api.vps.notifyapp.it/assets/Primary%20Logo.png"
     alt=""
-    class="h-8 lg:h-10 object-contain smooth"
+    class="h-8 lg:h-10 object-contain smooth left object-left"
   />
 
-  <div class="right flex justify-end">
+  <!-- DESKTOP MENU -->
+  <div class="hidden lg:flex flex-1 justify-around items-center w-full">
+    @for (item of menuItems; track $index) {
+    <a
+      href="{{ item.href }}"
+      routerLinkActive="text-accent-color"
+      class="font-medium font-outfit text-sm lg:text-base mx-4 smooth text-[#01396D] hover:underline whitespace-nowrap"
+    >
+      {{ item.label }}
+    </a>
+    <span
+      class="last:hidden size-1 bg-[#01396D] p-1 mask mask-hexagon rounded-full"
+    ></span>
+    }
+  </div>
+
+  <!-- CART -->
+  <div class="right flex justify-end right">
     @if (ecommerce.cart.items.length; as items) {
     <button
       (click)="CartClicked.emit()"
@@ -51,5 +69,52 @@
 
     }
   </div>
+
+  <div class="ml-3 lg:hidden">
+    <div class="drawer drawer-end">
+      <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
+        <!-- Page content here -->
+        <label for="mobile-drawer" class="cursor-pointer text-accent-color">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+          </svg>
+        </label>
+      </div>
+      <div class="drawer-side">
+        <label
+          #DrawerClose
+          for="mobile-drawer"
+          aria-label="close sidebar"
+          class="drawer-overlay"
+        ></label>
+        <ul
+          class="menu bg-white text-base-content min-h-full w-[50%] p-4 items-end text-lg"
+        >
+          @for (item of menuItems; track $index) {
+          <li>
+            <a
+              href="{{ item.href }}"
+              class="menu-title text-base font-medium font-outfit text-[#01396D]"
+              (click)="DrawerClose.click()"
+            >
+              {{ item.label }}
+            </a>
+          </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="backdrop z-0"></div>

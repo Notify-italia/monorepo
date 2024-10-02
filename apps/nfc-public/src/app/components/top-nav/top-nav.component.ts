@@ -15,4 +15,23 @@ export class TopNavComponent {
 
   @Output() CartClicked = new EventEmitter<void>();
   @Output() startFreeClicked = new EventEmitter<void>();
+
+  public menuItems = [
+    {
+      label: 'Crea un account',
+      href: 'https://aziende.notifyapp.it/signup',
+    },
+    {
+      label: "Scarica l'app",
+      href: '#stores',
+    },
+    {
+      label: 'Acquista',
+      href: '#shop',
+    },
+    {
+      label: 'Q&A',
+      href: '#faq',
+    },
+  ];
 }
