@@ -9,6 +9,10 @@ const tailwindConfig = {
   mode: 'jit',
   theme: {
     extend: {
+      screens: {
+        '2xs': '320px',
+        xs: '380px',
+      },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
         anek: ['Anek Devanagari', 'sans-serif'],

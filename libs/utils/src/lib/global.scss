@@ -61,7 +61,7 @@
 }
 
 .modal-container {
-  @apply fixed w-screen h-[100svh] backdrop-blur-xl backdrop-brightness-50 z-[999] top-0 left-0 flex justify-center items-center modalFadeIn;
+  @apply fixed w-screen h-[100lvh] backdrop-blur-xl backdrop-brightness-50 z-[999] top-0 left-0 flex justify-center items-center modalFadeIn;
 
   &.container-static {
     @apply animate-none;
