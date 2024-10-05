@@ -228,7 +228,7 @@ export class AdvancedProfileItemFormBaseComponent<
     if (this._imageCropperConfig) {
       const { instance } = this._imageCropper.create({
         ...this._imageCropperConfig,
-        imageData: event.blob as any,
+        imageData: event.blob,
       });
 
       instance.destroyed$.pipe(takeUntil(this._destroy$)).subscribe(() => {

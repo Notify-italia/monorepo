@@ -330,7 +330,7 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
       redirectUrl: '',
     };
     this._profileSerivce
-      .patchProfile(parsedProfile)
+      .patchProfile(parsedProfile, this.providedId)
       .pipe(
         switchMap(() => this.refreshProfile()),
         tap((p) => {

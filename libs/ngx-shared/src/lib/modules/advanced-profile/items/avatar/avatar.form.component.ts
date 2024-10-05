@@ -41,11 +41,6 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
         [compact]="true"
         label="Allineamento"
         [options]="alignOptions"
-        [ngClass]="{
-          'disabled-control':
-            form.value.direction === context.statics.directions.Horizontal &&
-            isDaisyUIMask
-        }"
       ></notify-tailwind-select>
 
       <div class="divider"></div>

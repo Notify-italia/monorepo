@@ -88,7 +88,7 @@ export class NotePhotoItemComponent extends NoteItemBaseComponent {
     }
 
     const ref = this._imageCropperFactory.create({
-      imageData: event.file as File,
+      imageData: event.blob,
     });
 
     ref.instance.destroyed$.subscribe(() => {

@@ -18,7 +18,7 @@ import { LoadingComponent } from '../loading/loading.component';
 import { SvgBoxIconComponent } from '../svg-box-icon/svg-box-icon.component';
 
 export interface IImageCropperConfig {
-  imageData: File;
+  imageData: string | ArrayBuffer | null;
   aspectRatio?: number;
   resize?: {
     width: number;

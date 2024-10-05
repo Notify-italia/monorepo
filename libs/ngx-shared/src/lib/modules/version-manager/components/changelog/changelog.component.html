@@ -28,14 +28,19 @@
         >
           <p class="changelog-title" [innerHTML]="titleHTML"></p>
           <p class="text-sm lg:text-base" [innerHTML]="descriptionHTML"></p>
+
           <object
             class="w-full h-full !border-none skeleton aspect-[2/1]"
+            [ngClass]="{
+              'hidden': !versionInfo.artPath,
+            }"
             #VersionArtSkeleton
             width="1200px"
             height="600px"
           ></object>
 
           <img
+            *ngIf="versionInfo.artPath"
             (load)="VersionArtSkeleton?.setAttribute('hidden', 'true')"
             #VersionImg
             [src]="versionInfo.artPath"

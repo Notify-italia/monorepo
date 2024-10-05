@@ -59,6 +59,9 @@ router.post(
       })),
       locale: 'it',
       mode: 'payment',
+      automatic_tax: {
+        enabled: true,
+      },
       phone_number_collection: {
         enabled: true,
       },
@@ -66,20 +69,16 @@ router.post(
         allowed_countries: _countryCodes,
       },
       billing_address_collection: 'required',
-      //       metadata: {
-      //         cart_data: `Iniz. Carrello: ${format(
-      //           new Date(cart.createdAt),
-      //           'dd/MM/yyyy HH:mm'
-      //         )}
-      // dettaglio oggetti: `,
-      //       },
+      invoice_creation: {
+        enabled: true,
+      },
 
       shipping_options: [
         {
           shipping_rate_data: {
             type: 'fixed_amount',
             fixed_amount: {
-              amount: 490,
+              amount: 0,
               currency: 'eur',
             },
             tax_code: 'txcd_99999999',

@@ -25,14 +25,15 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
         [ngClass]="{
           'flex-col space-y-4':
             currentItem.direction === this.context.statics.directions.Vertical || !isDaisyUIMask,
-          'flex-row space-x-6':
+          'space-x-6':
             currentItem.direction ===
             this.context.statics.directions.Horizontal && isDaisyUIMask,
-
+          
         }"
         [ngStyle]="{
           'align-items':!isDaisyUIMask ?'stretch' : alignment ,
           height: currentItem.imgSize + '%',
+          'flex-direction': flexDirection,
         }"
       >
         @switch (currentItem.imgMask) { @case ('adaptive') {
@@ -125,6 +126,20 @@ export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponen
     }
 
     return 'center';
+  }
+
+  public get flexDirection() {
+    if (
+      this.currentItem.direction !==
+        this.context.statics.directions.Horizontal ||
+      !this.isDaisyUIMask
+    ) {
+      return 'column';
+    }
+
+    return this.currentItem.align === this.context.statics.aligns.Start
+      ? 'row'
+      : 'row-reverse';
   }
 
   public get isDaisyUIMask() {

@@ -293,14 +293,16 @@ export class ProfileFormComponent implements OnInit {
     );
   }
 
-  public setUploadedFile(file: File | null) {
+  public async setUploadedFile(file: File | null) {
     if (!file) {
       this.controls.avatar.setValue(file);
       return;
     }
 
     const ref = this._imageCropper.create({
-      imageData: file,
+      imageData: await this._utils.arrayBufferToBase64(
+        await file.arrayBuffer()
+      ),
       aspectRatio: 1,
       resize: {
         width: 800,
