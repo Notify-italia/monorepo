@@ -26,6 +26,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
   },
   {
     type: 'fix',
+    message:
+      'Corretto un bug che aggiungeva uno sfondo nero alle immagini con trasparenza inserite come avatar',
+  },
+  {
+    type: 'fix',
     message: 'Risoluzioni di bugs minori e miglioramenti delle performance',
   },
 ];

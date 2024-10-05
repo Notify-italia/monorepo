@@ -7,9 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import Compressor from 'compressorjs';
-
 import Cropper from 'cropperjs';
-
 import {
   baseModalComponentProviders,
   ModalBaseComponent,
@@ -65,12 +63,11 @@ export class ImageCropperComponent
       aspectRatio: this.config.aspectRatio || 1,
       dragMode: 'move',
       viewMode: 0,
-
       toggleDragModeOnDblclick: false,
       ready: () => {
         this.loading = false;
         this.croppedImage =
-          this.cropper?.getCroppedCanvas().toDataURL('image/jpeg') || '';
+          this.cropper?.getCroppedCanvas().toDataURL('image/webp') || '';
       },
     });
 
@@ -80,7 +77,7 @@ export class ImageCropperComponent
       }
       this.croppedImage = this.cropper
         ?.getCroppedCanvas()
-        .toDataURL('image/jpeg');
+        .toDataURL('image/webp');
     });
   }
 
