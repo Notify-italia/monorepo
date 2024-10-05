@@ -40,7 +40,7 @@ export const agentChangelog: INotifyVersionInfo = {
 };
 
 export const companyChangelog: INotifyVersionInfo = {
-  tag: '1.2.5', //_sharedTag,
+  tag: '1.2.2', //_sharedTag,
   date: _sharedDate,
   description: _sharedDescription,
   title: _sharedTitle,
