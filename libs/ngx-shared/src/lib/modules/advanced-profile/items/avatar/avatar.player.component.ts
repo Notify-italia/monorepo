@@ -137,9 +137,16 @@ export class AvatarPlayerComponent extends AdvancedProfileItemPlayerBaseComponen
       return 'column';
     }
 
-    return this.currentItem.align === this.context.statics.aligns.Start
-      ? 'row'
-      : 'row-reverse';
+    switch (this.currentItem.align) {
+      case this.context.statics.aligns.Start:
+        return 'row';
+      case this.context.statics.aligns.Center:
+        return 'row';
+      case this.context.statics.aligns.End:
+        return 'row-reverse';
+    }
+
+    return 'row';
   }
 
   public get isDaisyUIMask() {
