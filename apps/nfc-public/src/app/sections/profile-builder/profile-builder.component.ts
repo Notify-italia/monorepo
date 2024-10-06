@@ -70,11 +70,11 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
   }
 
   override async componentInitialized() {
+    await this._prepareProfiles();
+
     if (this.utilsService.isMobile) {
       return;
     }
-
-    await this._prepareProfiles();
 
     this.showProfile = true;
 
