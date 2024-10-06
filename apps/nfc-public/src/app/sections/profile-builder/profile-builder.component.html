@@ -20,7 +20,6 @@
       <form
         [formGroup]="form"
         class="flex flex-col space-y-4 smooth smooth-slow mt-10 w-full"
-        (ngSubmit)="onSubmit()"
       >
         <p
           class="text-accent-color text-center text-lg lg:text-2xl font-semibold"
@@ -97,7 +96,10 @@
           ></notify-tailwind-input>
         </div>
 
-        <button class="randomizer-button smooth group/randomizer">
+        <button
+          class="randomizer-button smooth group/randomizer"
+          (click)="shuffleTemplates()"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="size-10 group-active/randomizer:rotate-180 smooth smooth-fast"
@@ -120,12 +122,12 @@
       </form>
 
       <div
-        *ngIf="!this.utilsService.isMobile"
+        *ngIf="!this.utilsService.isMobile && preparedTemplate"
         class="size-full opacity-0 intersect:opacity-100 smooth iphone-15-pro smooth mx-auto scale-90"
       >
         <notify-profile-view
           class="size-full"
-          [data]="currentTemplate"
+          [data]="preparedTemplate"
           [mockup]="true"
           [isRunningOnPlayer]="true"
         ></notify-profile-view>

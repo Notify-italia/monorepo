@@ -36,11 +36,8 @@ router.post(
 
     await lead.save();
 
-    console.log(`lead saved`);
-
-    // await sendConfirmationEmail(lead, user);
-
     if (lead.origin === EnumNotifyLeadOrigins.ProfileContactForm) {
+      await sendConfirmationEmail(lead, user);
       await createNotification(
         {
           title: 'Nuovo contatto per te!',
