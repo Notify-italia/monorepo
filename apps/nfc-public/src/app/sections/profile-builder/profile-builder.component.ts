@@ -7,6 +7,7 @@ import {
   INotifyAPAvatarItem,
   INotifyAPBaseButton,
   INotifyAPContactsItem,
+  INotifyAPLinksItem,
   INotifyProfile,
 } from '@notify/interfaces';
 import {
@@ -157,12 +158,11 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
     ).data.profiles;
 
     this.templates = this.templates.map((v) => {
+      //replace contacts with offcenter phone number
       const contacts = v.advancedProfile?.items.filter(
         (i) => i.type === EnumNotifyAdvancedProfileItems.Contacts
       ) as INotifyAPContactsItem[];
-
       const offcenterPhoneNumber = '3517410976';
-
       contacts?.forEach((i) => {
         if (!i?.items) {
           return;
@@ -189,6 +189,55 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
             }
           }),
         };
+      });
+
+      //replace links with offcenter links
+      const links = v.advancedProfile?.items.filter(
+        (i) => i.type === EnumNotifyAdvancedProfileItems.Links
+      ) as INotifyAPLinksItem[];
+
+      links?.forEach((i) => {
+        if (!i?.items) {
+          return;
+        }
+        return {
+          ...i,
+          items: i?.items?.forEach((z: INotifyAPBaseButton) => {
+            switch (z.icon) {
+              case 'instagram':
+                z.url = `notify_it`;
+                break;
+              case 'facebook':
+                z.url = `https://www.facebook.com/people/Notify-ITA/61555763732300/`;
+                break;
+              case 'linkedin':
+                z.url = `company/notifyitalia/`;
+                break;
+              case 'mail':
+                z.url = `mailto:info@notifyapp.it`;
+                break;
+              case 'globe':
+                z.url = `https://notifyapp.it`;
+                break;
+            }
+          }),
+        };
+      });
+
+      v.advancedProfile?.items.forEach((i) => {
+        const link = links.find((l) => l._id === i._id);
+
+        if (link) {
+          return link;
+        }
+
+        const contact = contacts.find((c) => c._id === i._id);
+
+        if (contact) {
+          return contact;
+        }
+
+        return i;
       });
 
       return v;
