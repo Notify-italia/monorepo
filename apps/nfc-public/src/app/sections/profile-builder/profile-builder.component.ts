@@ -219,6 +219,9 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
               case 'globe':
                 z.url = `https://notifyapp.it`;
                 break;
+              case 'gmail':
+                z.url = `mailto:info@notifyapp.it`;
+                break;
             }
           }),
         };
