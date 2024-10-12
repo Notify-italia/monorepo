@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(),
     provideRouter(appRoutes),
-    providePixelModule({ pixelId: '1035992114161358', enabled: true }),
+    providePixelModule({ pixelId: '1105803970565876', enabled: true }),
     provideHttpClient(withFetch()),
     provideTailwindToasts(),
     {

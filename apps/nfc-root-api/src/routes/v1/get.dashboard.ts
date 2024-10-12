@@ -53,11 +53,13 @@ router.get(
       );
 
       const profileVisit = _allUsers
-        .map((agent) => agent.statsTotals['profile:visit'])
+        .map((agent) => agent.statsTotals?.['profile:visit'])
+        .filter((i) => i)
         .reduce((a, b) => a + (b || 0), 0);
 
       const provileSave = _allUsers
-        .map((agent) => agent.statsTotals['profile:save'])
+        .map((agent) => agent.statsTotals?.['profile:save'])
+        .filter((i) => i)
         .reduce((a, b) => a + (b || 0), 0);
 
       const _latestVisit = await StatModel.find({

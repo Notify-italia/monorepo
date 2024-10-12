@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
   <head>
     <meta charset="utf-8" />
     <title>Notify - Il biglietto da visita smart, per il tuo business</title>
@@ -35,6 +35,7 @@
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
     <meta name="theme-color" content="#99D2D9" />
+
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
@@ -87,11 +88,15 @@
         siteId: 3535602,
         whitelabel: false,
         cookiePolicyId: 45892149,
+        priorConsent: false,
         backgroundColor: '#FFFFFF',
         closeButtonDisplay: false,
         customizeButtonCaptionColor: '#4D4D4D',
         customizeButtonColor: '#DADADA',
         lang: 'it',
+        callback: {
+          onConsentGiven: function () {},
+        },
         banner: {
           acceptButtonDisplay: true,
           closeButtonDisplay: false,
@@ -131,6 +136,15 @@
           w.onload = loader;
         }
       })(window, document);
+    </script>
+    <script async src-"https://www.googletagmanager.com/gtag/js?
+    id=G-1CHXQYPN1J">
+    </script>
+    <script>
+    window.datalayer = window.dataLayer || [];
+    function gtag () {dataLayer.push(arguments) ; }
+    gtag ('js', new Date ());
+    gtag ('config', 'G-1CHXQYPN1J') ;
     </script>
   </head>
   <body class="scrollbar-none bg-white iubenda-default-z-index">

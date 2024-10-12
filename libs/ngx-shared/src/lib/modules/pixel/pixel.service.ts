@@ -8,17 +8,15 @@ import {
   RendererFactory2,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { UnknownType } from '@notify/interfaces';
+import axios from 'axios';
 import {
   PixelConfiguration,
   PixelEventName,
   PixelEventProperties,
 } from './pixel.models';
 
-declare const fbq: (
-  type: 'track' | 'trackCustom',
-  eventName: PixelEventName | string,
-  properties?: PixelEventProperties
-) => void;
+declare const fbq: UnknownType;
 
 @Injectable({
   providedIn: 'root',
@@ -29,8 +27,8 @@ export class PixelService {
 
   constructor(
     @Inject('config') private config: PixelConfiguration,
-    @Inject(DOCUMENT) private injectedDocument: unknown,
-    @Inject(PLATFORM_ID) private platformId: object,
+    @Inject(DOCUMENT) private injectedDocument: UnknownType,
+    @Inject(PLATFORM_ID) private platformId: typeof PLATFORM_ID,
     @Optional() private router: Router,
     private rendererFactory: RendererFactory2
   ) {
@@ -42,11 +40,11 @@ export class PixelService {
     // if (router) {
     //   // Log page views after router navigation ends
     //   router.events
-    //     .pipe(
-    //       filter((event) => event instanceof NavigationEnd && this.isLoaded())
-    //     )
+    //     .pipe(filter((event) => event instanceof NavigationEnd))
     //     .subscribe(() => {
-
+    //       if (this.isLoaded()) {
+    //         this.track('PageView');
+    //       }
     //     });
     // }
   }
@@ -63,8 +61,12 @@ export class PixelService {
       );
       return;
     }
-    this.config.enabled = true;
-    this.addPixelScript(pixelId, this.config.appId, this.config.hash);
+    try {
+      this.config.enabled = true;
+      this.addPixelScript(pixelId);
+    } catch (e) {
+      console.error(`Error initializing Facebook Pixel: ${e}`);
+    }
   }
 
   /** Remove the Pixel tracking script */
@@ -92,11 +94,34 @@ export class PixelService {
       return;
     }
 
-    if (properties) {
-      fbq('track', eventName, properties);
-    } else {
-      fbq('track', eventName);
+    //* alla menopeggio dato che i pixels non funzionano sul sito deployato
+    axios.get(
+      `https://www.facebook.com/tr/?id=${
+        this.config.pixelId
+      }&ev=${eventName}${this._buildQueryString(properties)}`
+    );
+
+    // if (properties) {
+    //   fbq('track', eventName, properties);
+    // } else {
+    //   fbq('track', eventName);
+    // }
+  }
+
+  private _buildQueryString(params: PixelEventProperties | undefined): string {
+    if (!params) {
+      return '';
     }
+    return (
+      '&' +
+      Object.keys(params)
+        .map((key) => {
+          return `cd[${encodeURIComponent(key)}]=${encodeURIComponent(
+            (params as UnknownType)[key]
+          )}`;
+        })
+        .join('&')
+    );
   }
 
   /**
@@ -128,34 +153,41 @@ export class PixelService {
   /**
    * Adds the Facebook Pixel tracking script to the application
    * @param pixelId The Facebook Pixel ID to use
-   * @param appId The Facebook Pixel APP ID to use
    */
-  private addPixelScript(pixelId: string, appId?: string, hash?: string): void {
+  private addPixelScript(pixelId: string): void {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
 
-    const scriptMobileBridge = appId
-      ? `fbq('set', 'mobileBridge', '${pixelId}', '${appId}');`
-      : '';
-
     const pixelCode = `
-    var pixelCode = function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '${pixelId}');
-    ${scriptMobileBridge}
-    fbq('track', 'PageView');`;
+    var pixelCode = (function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = '2.0';
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        'script',
+        'https://connect.facebook.net/en_US/fbevents.js'
+      );
+      fbq('init', ${pixelId});`;
 
     const scriptElement = this.renderer.createElement('script');
     this.renderer.setAttribute(scriptElement, 'id', 'pixel-script');
     this.renderer.setAttribute(scriptElement, 'type', 'text/javascript');
-    if (hash) this.renderer.setAttribute(scriptElement, 'nonce', hash);
     this.renderer.setProperty(scriptElement, 'innerHTML', pixelCode);
     this.renderer.appendChild(this.doc.head, scriptElement);
   }

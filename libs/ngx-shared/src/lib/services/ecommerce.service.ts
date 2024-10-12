@@ -49,6 +49,15 @@ export class EcommerceService {
     };
   }
 
+  public get cartTotal() {
+    return this.cart.items
+      .map((i) => ({
+        ...i,
+        quantity: i.options.userCount || i.quantity || 1,
+      }))
+      .reduce((acc, item) => acc + item.price * item.quantity, 0);
+  }
+
   private get _isBrowser() {
     return isPlatformBrowser(this.platformId);
   }

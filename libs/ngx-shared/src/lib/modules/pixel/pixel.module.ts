@@ -1,10 +1,10 @@
 import { isPlatformBrowser } from '@angular/common';
 import {
+  importProvidersFrom,
   Inject,
   ModuleWithProviders,
   NgModule,
   PLATFORM_ID,
-  importProvidersFrom,
 } from '@angular/core';
 import { PixelConfiguration } from './pixel.models';
 import { PixelService } from './pixel.service';
@@ -17,7 +17,7 @@ export class PixelModule {
 
   constructor(
     private pixel: PixelService,
-    @Inject(PLATFORM_ID) platformId: object
+    @Inject(PLATFORM_ID) platformId: typeof PLATFORM_ID
   ) {
     if (!PixelModule.config) {
       throw Error(
@@ -59,7 +59,6 @@ export class PixelModule {
     }
   }
 }
-
 export const providePixelModule = (config: PixelConfiguration) => {
   return importProvidersFrom(PixelModule.forRoot(config));
 };
