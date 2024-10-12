@@ -1,10 +1,15 @@
-import { EnumNotifyUserType, INotifyCompany } from '@notify/interfaces';
+import {
+  EnumNotifyUserType,
+  INotifyCompany,
+  UserDocument,
+} from '@notify/interfaces';
 import {
   Agent,
   AgentModel,
   Company,
   CompanyModel,
   StatModel,
+  asyncForEach,
   genericUserQuery,
   requestHandler,
 } from '@notify/nfc-api-core';
@@ -62,26 +67,38 @@ router.get(
         .filter((i) => i)
         .reduce((a, b) => a + (b || 0), 0);
 
-      const _latestVisit = await StatModel.find({
+      const _latestVisits = await StatModel.find({
         owner: { $in: _allUsers.map((u) => u._id) },
       })
-        .limit(1)
+        .limit(10)
         .sort({ updatedAt: -1 });
 
-      const latestVisitUser = [
-        await genericUserQuery<true, Agent>(
-          EnumNotifyUserType.Agent,
-          { _id: _latestVisit?.[0].owner },
-          true,
-          'profile'
-        ),
-        await genericUserQuery<true, Company>(
-          EnumNotifyUserType.Company,
-          { _id: _latestVisit?.[0].owner },
-          true,
-          'profile'
-        ),
-      ];
+      const latestVisits: {
+        date: Date;
+        user: UserDocument;
+      }[] = new Array(_latestVisits.length);
+
+      await asyncForEach(_latestVisits, async (v, index) => {
+        const latestVisitUser = [
+          await genericUserQuery<true, Agent>(
+            EnumNotifyUserType.Agent,
+            { _id: v.owner },
+            true,
+            'profile'
+          ),
+          await genericUserQuery<true, Company>(
+            EnumNotifyUserType.Company,
+            { _id: v.owner },
+            true,
+            'profile'
+          ),
+        ].filter((i) => i)?.[0];
+
+        latestVisits[index] = {
+          date: v.updatedAt,
+          user: latestVisitUser,
+        };
+      });
 
       res.send({
         companies: companies.length,
@@ -91,10 +108,7 @@ router.get(
         totalAgents: _agents.length,
         profileVisit,
         provileSave,
-        latestVisit: {
-          date: _latestVisit?.[0].updatedAt,
-          user: latestVisitUser.find((user) => user)?.toObject(),
-        },
+        latestVisits,
       });
     },
     {

@@ -11,6 +11,8 @@ export const asyncForEach = async <T>(
   for (let i = 0; i < array.length; i++) {
     await callback(array[i], i, array);
   }
+
+  return array;
 };
 
 export const isValidObjectId = (id: string): boolean => {

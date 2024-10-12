@@ -59,10 +59,10 @@ export class RootService {
       provileSave: number;
       boughtCards: number;
       totalAgents: number;
-      latestVisit: {
+      latestVisits: {
         date: Date;
         user: INotifyUser;
-      };
+      }[];
     }>('/v1/dashboard');
   }
 

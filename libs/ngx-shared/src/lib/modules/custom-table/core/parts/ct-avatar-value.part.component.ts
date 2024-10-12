@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { DaisyUIAvatarMasks } from '@notify/interfaces';
+import { DaisyUIAvatarMasks, UnknownType } from '@notify/interfaces';
 import {
   CustomTableValueBaseComponent,
   INotifyCustomTableValueBase,
@@ -23,7 +23,7 @@ export interface ICTAvatarValue extends INotifyCustomTableValueBase {
   avatarSize: string;
   scrambleCacheOnChange?: boolean;
   fields?: ICTAvatarValueFields;
-  computedValues?: (iterate: unknown) => ICTAvatarValueFields | undefined;
+  computedValues?: (iterate: UnknownType) => ICTAvatarValueFields | undefined;
 }
 
 @Component({
