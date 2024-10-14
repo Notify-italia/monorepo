@@ -11,6 +11,8 @@ export const environment = {
   socketUrl: 'http://localhost:3100',
   apiKeyKey: 'dev.apikey',
   socketIdKey: 'dev.socketId',
+  stripeKey:
+    'pk_test_51PhT9ARxRGHcCuklficCjch8Kk9SU73gLyLJh5D69uQwqd0tzUMnA2HzK3buGpzJazcjD6kwSZ30sHO5CIziJmFP00SqKqtR85',
 };
 
 /*

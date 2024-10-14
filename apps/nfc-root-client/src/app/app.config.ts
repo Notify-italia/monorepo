@@ -8,6 +8,7 @@ import {
   HttpServiceTokenType,
   provideHttpService,
   provideRootService,
+  provideStripeService,
   provideTailwindToasts,
 } from '@notify/ngx-shared';
 import { environment } from '../environments/environment';
@@ -24,5 +25,6 @@ export const appConfig: ApplicationConfig = {
     provideRootService(environment.apiKeyKey),
     provideAnimations(),
     provideTailwindToasts(),
+    provideStripeService(),
   ],
 };

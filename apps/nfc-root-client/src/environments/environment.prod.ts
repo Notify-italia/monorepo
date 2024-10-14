@@ -7,4 +7,6 @@ export const environment = {
   apiKeyKey: 'prod.apikey',
   socketUrl: 'https://notify-api.vps.notifyapp.it',
   socketIdKey: 'prod.socketId',
+  stripeKey:
+    'pk_live_51PhT9ARxRGHcCukldrIibXwQN4MiKomnkh7SeHSUx753fIqPrO9VAY3WWdiEfjkYBQvCoLXIgY5eKih0Er20DY9J006zzsHOJA',
 };

@@ -24,6 +24,17 @@ export class RootService {
     localStorage.setItem(this.tokenPath, data);
   }
 
+  public sendEmail(data: { address: string; title: string; content: string }) {
+    return this.httpService.post<
+      {
+        address: string;
+        title: string;
+        content: string;
+      },
+      { success: boolean }
+    >('/v1/email', data);
+  }
+
   public getCustomers(config: { page: number; items: number }) {
     return this.httpService.get<INotifyCompany<true>>('/v1/customers', config);
   }

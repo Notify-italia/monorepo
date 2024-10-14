@@ -50,6 +50,13 @@ export const appRoutes: Route[] = [
             (m) => m.LicensesComponent
           ),
       },
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./pages/orders/orders.component').then(
+            (m) => m.OrdersComponent
+          ),
+      },
     ],
   },
   {

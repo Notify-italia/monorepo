@@ -18,3 +18,4 @@ export * from './socket.service';
 export * from './stat.service';
 export * from './svgbox.service';
 export * from './utils.service';
+export * from './stripe.service';
