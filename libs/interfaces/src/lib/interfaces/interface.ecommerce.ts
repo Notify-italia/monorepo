@@ -1,5 +1,6 @@
 export interface INotifyEcommerceProduct {
   id: string;
+  stripeProductId?: string;
   name: string;
   price: number;
   hero: string;
@@ -31,6 +32,7 @@ export interface INotifyEcommerceProduct {
 export interface INotifyEcommerceCartItem {
   product: string;
   quantity: number;
+  stripeProductId?: string;
   price: number;
   name: string;
   options: {

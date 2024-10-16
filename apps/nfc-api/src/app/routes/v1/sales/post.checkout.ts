@@ -70,6 +70,7 @@ router.post(
       invoice_creation: {
         enabled: true,
       },
+      allow_promotion_codes: true,
       consent_collection: {
         terms_of_service: 'required',
       },

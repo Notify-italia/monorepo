@@ -191,6 +191,7 @@ export const ecommerceProducts: INotifyEcommerceProduct[] = [
   },
   {
     id: 'notify-digital',
+    stripeProductId: 'prod_R2b5Q0l32zm62I',
     long_description:
       'Semplifica il tuo networking con Notify Digital, la soluzione digitale che trasforma il tuo smartphone in un biglietto da visita interattivo. Personalizza le informazioni in tempo reale, condividi i tuoi contatti istantaneamente e ottieni analisi dettagliate su chi visualizza il tuo profilo. Perfetto per chi vuole un approccio moderno ed ecologico senza la necessità di supporti fisici.',
     images: [

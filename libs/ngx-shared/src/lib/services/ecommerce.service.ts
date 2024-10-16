@@ -128,6 +128,7 @@ export class EcommerceService {
 
     cart.items.push({
       product: product.id,
+      stripeProductId: product.stripeProductId,
       quantity,
       price: product.price,
       name: product.name,
