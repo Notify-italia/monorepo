@@ -139,10 +139,10 @@ export const ecommerceProducts: INotifyEcommerceProduct[] = [
       '/assets/shop/Tessere shop - Tier2 - Bianco.webp',
     ],
     short_description:
-      'Card in PVC con logo e nome personalizzati, disponibile in 2 stili.',
+      'Card in PVC con nome personalizzato, disponibile in 2 stili.',
     options: {
       usersInfo: true,
-      logo: true,
+      logo: false,
       qrCode: true,
       includesLicense: true,
       colors: [
