@@ -48,9 +48,7 @@ router.post(
           product_data: {
             name: item.name,
             metadata: {
-              item_data: `${item.name} x ${
-                item.quantity || 1
-              } | ${JSON.stringify(item.options)}`,
+              options: JSON.stringify(item.options),
             },
           },
           unit_amount: Math.floor(item.price * 100),
@@ -72,7 +70,9 @@ router.post(
       invoice_creation: {
         enabled: true,
       },
-
+      consent_collection: {
+        terms_of_service: 'required',
+      },
       shipping_options: [
         {
           shipping_rate_data: {

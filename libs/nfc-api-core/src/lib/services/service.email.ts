@@ -50,6 +50,7 @@ export const sendEmail = async (config: {
   to: string[];
   title: string;
   body?: string;
+  bcc?: string[];
   attachments?: Attachment[];
   transporter?: {
     fromLabel: string;
@@ -60,7 +61,7 @@ export const sendEmail = async (config: {
     replyTo?: string;
   };
 }) => {
-  const { to, title, body: text, attachments, transporter } = config;
+  const { to, title, body: text, attachments, transporter, bcc } = config;
 
   const emails = isProduction() ? to : [DEBUG_EMAIL];
 
@@ -73,6 +74,7 @@ export const sendEmail = async (config: {
       from: transporter?.fromLabel || process.env.SMTP_FROM,
       to: emails.join(', '),
       subject: title,
+      bcc,
       html:
         text +
         `<br><br><i><small>Questa è una mail automatica, Si prega di non ripondere direttamente e di contattarci a <a href="mailto:supporto@notifyapp.it">supporto@notifyapp.it</a> per qualsiasi domanda o problema.

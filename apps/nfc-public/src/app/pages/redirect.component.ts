@@ -8,7 +8,7 @@ import { LoadingComponent } from '@notify/ngx-shared';
   standalone: true,
   imports: [CommonModule, LoadingComponent],
   template: `
-    <div class="h-screen w-screen">
+    <div class="h-screen w-screen ">
       <notify-loading></notify-loading>
     </div>
   `,
