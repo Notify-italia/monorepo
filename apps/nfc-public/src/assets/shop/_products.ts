@@ -220,7 +220,7 @@ export const ecommerceProducts: INotifyEcommerceProduct[] = [
     id: 'google-review',
     long_description: `
     Notify trasforma l’esperienza dei tuoi clienti in un gesto semplice e sorprendente. 
-Basta un tocco con lo smartphone alla tessera, e in un istante il cliente è sul profilo della tua attività Google, pronto per lasciare una recensione. Niente link da cercare o codici da inserire, solo un’azione intuitiva e immediata. Con la tecnologia contactless di Notify, raccogliere recensioni su Google diventa naturale, veloce e, soprattutto, efficace, proprio come estrarre una carta dal portafoglio.
+Basta un tocco con lo smartphone o una scansione del codice QR impresso sulla tessera, e in un istante il cliente è sul profilo della tua attività Google, pronto per lasciare una recensione. Niente link da cercare o codici da inserire, solo un’azione intuitiva e immediata. Con la tecnologia contactless di Notify, raccogliere recensioni su Google diventa naturale, veloce e, soprattutto, efficace, proprio come estrarre una carta dal portafoglio.
     `,
     images: ['/assets/shop/Tessere shop - Google.webp'],
     type: 'reviews',
@@ -241,7 +241,7 @@ Basta un tocco con lo smartphone alla tessera, e in un istante il cliente è sul
     id: 'tripadvisor-review',
     long_description: `
     Notify trasforma l’esperienza dei tuoi clienti in un gesto semplice e sorprendente. 
-Basta un tocco con lo smartphone alla tessera, e in un istante il cliente è sulla tua pagina TripAdvisor, pronto per lasciare una recensione. Niente link da cercare o codici da inserire, solo un’azione intuitiva e immediata. Con la tecnologia contactless di Notify, raccogliere recensioni su TripAdvisor diventa naturale, veloce e, soprattutto, efficace, proprio come estrarre una carta dal portafoglio.
+Basta un tocco con lo smartphone o una scansione del codice QR impresso sulla tessera, e in un istante il cliente è sulla tua pagina TripAdvisor, pronto per lasciare una recensione. Niente link da cercare o codici da inserire, solo un’azione intuitiva e immediata. Con la tecnologia contactless di Notify, raccogliere recensioni su TripAdvisor diventa naturale, veloce e, soprattutto, efficace, proprio come estrarre una carta dal portafoglio.
     `,
     images: ['/assets/shop/Tessere shop - Tripadvisor.webp'],
     type: 'reviews',
@@ -263,7 +263,7 @@ Basta un tocco con lo smartphone alla tessera, e in un istante il cliente è sul
     id: 'intagram-review',
     long_description: `
     Notify trasforma l’esperienza dei tuoi clienti in un gesto semplice e sorprendente. 
-Basta un tocco con lo smartphone alla tessera, e in un istante il cliente è sul tuo profilo Instagram, niente link da cercare o codici da inserire, solo un’azione intuitiva e immediata. Con la tecnologia contactless di Notify, raccogliere followers diventa naturale, veloce e, soprattutto, efficace, proprio come estrarre una carta dal portafoglio.
+Basta un tocco con lo smartphone o una scansione del codice QR impresso sulla tessera, e in un istante il cliente è sul tuo profilo Instagram, niente link da cercare o codici da inserire, solo un’azione intuitiva e immediata. Con la tecnologia contactless di Notify, raccogliere followers diventa naturale, veloce e, soprattutto, efficace, proprio come estrarre una carta dal portafoglio.
     `,
     images: ['/assets/shop/Tessere shop - Instagram.webp'],
     type: 'reviews',
