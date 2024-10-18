@@ -36,6 +36,16 @@ export class OrdersComponent {
   public invoiceId = '';
   public orderStatus = '';
 
+  public S3EmailTemplates: {
+    [key: string]: string;
+  } = {
+    meetingRequired: 'emailMeetingRequired',
+    licenseCreated:
+      'https://s3-api.vps.notifyapp.it/assets/backoffice/email-templates/license-created-email.html?cache=12331',
+    shipped:
+      'https://s3-api.vps.notifyapp.it/assets/backoffice/email-templates/order-sent-email.html',
+  };
+
   public emailCustomField: {
     definition:
       | {
@@ -54,7 +64,11 @@ export class OrdersComponent {
   public orderStatuses = [
     {
       value: 'meetingRequired',
-      label: 'Chiamata Richiesta',
+      label: 'Ordine Confermato',
+    },
+    {
+      value: 'meetingRequired',
+      label: 'Contatto Richiesto',
     },
     {
       value: 'licenseCreated',
@@ -81,10 +95,15 @@ export class OrdersComponent {
   }
 
   private get _personalizedEmailTemplate() {
-    return (this.emailCustomField?.emailContent || '').replace(
-      '[CODICE LICENZA]',
-      this.emailCustomField.value || ''
-    );
+    return (this.emailCustomField?.emailContent || '')
+      .replace(
+        '[CODICE_LICENZA]',
+        this.emailCustomField.value || '[CODICE_LICENZA]'
+      )
+      .replace(
+        '[TRACKING_TESSERE]',
+        this.emailCustomField.value || '[TRACKING_TESSERE]'
+      );
   }
 
   public getInvoice() {
@@ -178,27 +197,15 @@ export class OrdersComponent {
       value: '',
       emailContent: (await this._getEmailTemplate()).replace(
         '[NOME CLIENTE]',
-        invoice.customer_name
+        invoice.customer_name.split(' ')[0] + '!'
       ),
     };
   }
 
   private async _getEmailTemplate() {
-    switch (this.orderStatus) {
-      case 'meetingRequired':
-        return 'emailMeetingRequired';
-      case 'licenseCreated': {
-        const template = (
-          await axios.get(
-            'https://s3-api.vps.notifyapp.it/assets/backoffice/email-templates/license-created-email.html'
-          )
-        ).data as HTML;
-        return template.toString();
-      }
-      case 'shipped':
-        return 'emailShipped';
-      default:
-        return '';
-    }
+    const template = (
+      await axios.get(this.S3EmailTemplates[this.orderStatus] as string)
+    ).data as HTML;
+    return template.toString();
   }
 }
