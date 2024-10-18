@@ -12,12 +12,16 @@
       <div class="label">
         <span class="label-text">ID FATTURA</span>
       </div>
-      <input
-        type="text"
-        [(ngModel)]="invoiceId"
-        placeholder="in_1Q5ZyURxRGHcCuklXVa8Eh7D"
-        class="input input-bordered w-full"
-      />
+      <select class="select select-bordered w-full" [(ngModel)]="invoiceId">
+        <option value="" disabled selected>Seleziona una fattura</option>
+        @for (invoice of invoices$ | async ; track $index) {
+        <option [value]="invoice.id">
+          {{ invoice.account_name }} |
+          {{ invoice.amount_paid / 100 | currency : 'EUR' }} |
+          {{ invoice.created * 1000 | date : 'dd/MM/yyyy HH:mm' }}
+        </option>
+        }
+      </select>
     </label>
     <button
       class="btn btn-primary"
@@ -145,6 +149,14 @@
             class="input input-bordered w-full"
           />
         </label>
+
+        <button
+          *ngIf="emailCustomField.emailContent"
+          class="btn btn-primary"
+          (click)="sendStatusUpdate(stripeInvoice.customer_email)"
+        >
+          Invia Aggiornamento
+        </button>
 
         <iframe
           *ngIf="emailCustomField.emailContent"

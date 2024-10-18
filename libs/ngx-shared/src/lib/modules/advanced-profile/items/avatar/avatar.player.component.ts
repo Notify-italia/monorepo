@@ -37,12 +37,11 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
         }"
       >
         @switch (currentItem.imgMask) { @case ('adaptive') {
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center" *ngIf="currentItem.imgSrc">
           <img
             [src]="currentItem.imgSrc"
             class="size-full rounded-xl"
             loading="lazy"
-            alt="Avatar"
             [ngStyle]="{
               scale: currentItem.imgSize / 100,
               'object-fit': currentItem.imgFit
@@ -50,10 +49,11 @@ import { AvatarComponent, INotifyAvatarConfig } from '../../../../standalones';
           />
         </div>
         } @case ('banner') {
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center" *ngIf="currentItem.imgSrc">
           <img
             (load)="avatarLoaded = true"
             [src]="currentItem.imgSrc"
+            *ngIf="currentItem.imgSrc"
             class="w-full h-48 rounded-xl"
             alt="Avatar"
             [ngStyle]="{

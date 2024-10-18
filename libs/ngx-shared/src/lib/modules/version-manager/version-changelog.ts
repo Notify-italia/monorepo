@@ -20,6 +20,10 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
       'Adesso è possibile impostare il proprio avatar a destra o a sinistra nella visualizzazione orizzontale del profilo',
   },
   {
+    type: 'improvement',
+    message: 'Adesso è possibile avere un blocco informazioni senza avatar',
+  },
+  {
     type: 'fix',
     message:
       'Risoluzione di un bug che impediva il caricamento di alcune immagini nelle note',
@@ -28,6 +32,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
     type: 'fix',
     message:
       'Corretto un bug che aggiungeva uno sfondo nero alle immagini con trasparenza inserite come avatar',
+  },
+  {
+    type: 'fix',
+    message:
+      'Corretto un bug che causava uno sfondo del profilo non centrato in caso di immagine su alcuni dispositivi',
   },
   {
     type: 'fix',
@@ -45,7 +54,7 @@ export const agentChangelog: INotifyVersionInfo = {
 };
 
 export const companyChangelog: INotifyVersionInfo = {
-  tag: '1.2.2', //_sharedTag,
+  tag: '1.2.2.r1', //_sharedTag,
   date: _sharedDate,
   description: _sharedDescription,
   title: _sharedTitle,

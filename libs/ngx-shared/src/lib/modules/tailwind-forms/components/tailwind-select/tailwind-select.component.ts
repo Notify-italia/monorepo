@@ -11,6 +11,7 @@ import { TailwindFormsService } from '../../services/tailwind-forms.service';
 export interface ITailwindSelectOption {
   name: string;
   value: string | number;
+  disabled?: boolean;
 }
 
 @Component({

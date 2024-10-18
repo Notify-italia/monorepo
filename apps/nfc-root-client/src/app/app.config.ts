@@ -23,8 +23,8 @@ export const appConfig: ApplicationConfig = {
       HttpServiceTokenType.XApiKey
     ),
     provideRootService(environment.apiKeyKey),
-    provideAnimations(),
     provideTailwindToasts(),
+    provideAnimations(),
     provideStripeService(),
   ],
 };

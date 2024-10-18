@@ -182,13 +182,16 @@ import { IImageCropperConfig } from '../../../../standalones/image-cropper/image
 })
 export class AvatarFormComponent extends AdvancedProfileItemFormBaseComponent<INotifyAPAvatarItem> {
   public avatarMaskOptions = [
-    ...daisyUIAvatarMaks.map((item) => ({
-      name: new TitleCasePipe().transform(daisyUIAvatarMaksIT[item]),
-      value: item,
-    })),
     { name: 'Banner', value: 'banner' },
     { name: 'Adattiva', value: 'adaptive' },
-  ].sort((a, b) => a.name.localeCompare(b.name));
+    { name: '------------------', value: '/', disabled: true },
+    ...daisyUIAvatarMaks
+      .map((item) => ({
+        name: new TitleCasePipe().transform(daisyUIAvatarMaksIT[item]),
+        value: item,
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name)),
+  ];
 
   public cornerSelectOptions = Object.values(EnumNotifyAPCorners).map((v) => ({
     name: NOTIFY_AP_OWNER_IMG_CORNER_IT[v],

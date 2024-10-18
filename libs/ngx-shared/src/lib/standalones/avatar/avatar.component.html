@@ -49,7 +49,7 @@
     </div>
     <!-- SKELETON -->
     <div
-      *ngIf="!loaded[avatarType]"
+      *ngIf="!loaded[avatarType] && config.mask"
       class="mask mask-{{
         config.mask
       }} object-contain smooth bg-gray-600 animate-pulse "

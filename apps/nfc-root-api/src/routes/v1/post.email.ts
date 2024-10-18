@@ -19,6 +19,10 @@ router.post(
         body: content as string,
         bcc: ['notifyitalia@gmail.com'],
       });
+
+      res.send({
+        success: true,
+      });
     },
     {
       errorMessage: 'ERRORE!',

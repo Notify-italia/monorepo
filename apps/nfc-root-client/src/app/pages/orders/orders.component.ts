@@ -29,6 +29,8 @@ export class OrdersComponent {
   private _rootService = inject(RootService);
   private _domSanitizer = inject(DomSanitizer);
 
+  public invoices$ = this._stripeService.getInvoices();
+
   public stripeInvoice$ = new Subject<IStripeInvoice>();
   public loading = false;
   public invoiceId = '';
@@ -74,15 +76,15 @@ export class OrdersComponent {
 
   public get currentEmailTemplate() {
     return this._domSanitizer.bypassSecurityTrustHtml(
-      (this.emailCustomField?.emailContent || '').replace(
-        '[CODICE LICENZA]',
-        this.emailCustomField.value || ''
-      )
+      this._personalizedEmailTemplate
     );
   }
 
-  constructor() {
-    this.pasteInvoiceId();
+  private get _personalizedEmailTemplate() {
+    return (this.emailCustomField?.emailContent || '').replace(
+      '[CODICE LICENZA]',
+      this.emailCustomField.value || ''
+    );
   }
 
   public getInvoice() {
@@ -100,12 +102,6 @@ export class OrdersComponent {
         })
       )
       .subscribe();
-  }
-
-  public pasteInvoiceId() {
-    navigator.clipboard.readText().then((text) => {
-      this.invoiceId = text;
-    });
   }
 
   public openLicenseForm(license?: INotifyPopulatedLicense): void {
@@ -127,6 +123,41 @@ export class OrdersComponent {
                 })
               )
         )
+      )
+      .subscribe();
+  }
+
+  public sendStatusUpdate(email: string) {
+    const confirmed = confirm(
+      `Sei sicuro di voler inviare questa email a ${email}?`
+    );
+    if (!confirmed) {
+      return;
+    }
+
+    this.loading = true;
+    this._rootService
+      .sendEmail({
+        address: 'stefano.vecchietti.99@gmail.com',
+        title: 'Nuovo aggiornamento del tuo ordine Notify!',
+        content: this._personalizedEmailTemplate,
+      })
+      .pipe(
+        tap(() => {
+          this.loading = false;
+          this._toastr.success('Email inviata');
+          console.log('Email inviata');
+          this.invoiceId = '';
+          this.orderStatus = '';
+          this.emailCustomField = {
+            definition: null,
+          };
+        }),
+        catchError(() => {
+          this.loading = false;
+          this._toastr.error("Errore nell'invio dell'email");
+          return [];
+        })
       )
       .subscribe();
   }

@@ -41,6 +41,7 @@ export class PagePlayerComponent {
           color: this.textColor,
           'background-image': `url(${this.pageSettings.imgSrc})`,
           'background-size': 'cover',
+          'background-position': 'center',
           'background-repeat': 'no-repeat',
           'background-attachment': 'fixed',
         };

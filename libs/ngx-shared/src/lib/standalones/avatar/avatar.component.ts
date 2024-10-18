@@ -103,6 +103,17 @@ export class AvatarComponent implements OnChanges {
   }
 
   public get placeholderAvatar(): { [key: string]: string } {
+    if (!this.cleanedConfigs.main.mask) {
+      return {
+        main: '',
+        sub: this._utils.diceBearAvatar({
+          style:
+            this.subAvatarConfig?.placeholderStyle ||
+            EnumDicebearAvatarStyles.BigSmile,
+          seed: this.subAvatarConfig?.placeholderSeed || '',
+        }),
+      };
+    }
     return {
       main: this._utils.diceBearAvatar({
         style:

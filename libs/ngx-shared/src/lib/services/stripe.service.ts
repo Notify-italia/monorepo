@@ -12,6 +12,10 @@ export class StripeService {
       invoiceId,
     });
   }
+
+  public getInvoices() {
+    return this._httpService.get<IStripeInvoice[]>('/v1/stripe/invoices');
+  }
 }
 
 export const provideStripeService = () => ({
