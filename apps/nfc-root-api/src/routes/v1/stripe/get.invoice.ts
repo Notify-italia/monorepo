@@ -13,7 +13,9 @@ router.get(
     async (req, res) => {
       const { invoiceId } = req.query;
 
-      const invoice = await stripe.invoices.retrieve(invoiceId as string);
+      const invoice = await stripe.invoices.retrieve(invoiceId as string, {
+        expand: ['lines.data.price.product'],
+      });
 
       res.send(invoice);
     },

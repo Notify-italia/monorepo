@@ -12,7 +12,11 @@
       <div class="label">
         <span class="label-text">ID FATTURA</span>
       </div>
-      <select class="select select-bordered w-full" [(ngModel)]="invoiceId">
+      <select
+        class="select select-bordered w-full"
+        [(ngModel)]="invoiceId"
+        (ngModelChange)="getInvoice()"
+      >
         <option value="" disabled selected>Seleziona una fattura</option>
         @for (invoice of invoices$ | async ; track $index) {
         <option [value]="invoice.id">
@@ -23,36 +27,19 @@
         }
       </select>
     </label>
-    <button
-      class="btn btn-primary"
-      data-theme="notifytheme"
-      [disabled]="!invoiceId || loading"
-      (click)="getInvoice()"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        class="size-6"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
-          clip-rule="evenodd"
-        />
-      </svg>
-
-      <span>Cerca</span>
-    </button>
   </div>
 
   <div class="divider"></div>
 
-  <notify-loading *ngIf="loading"></notify-loading>
-
+  @if (loading) {
+  <notify-loading></notify-loading>
+  }
   <div
     *ngIf="stripeInvoice$ | async as stripeInvoice"
     class="flex flex-col space-y-4"
+    [ngClass]="{
+      hidden: loading
+    }"
   >
     <div class="flex space-x-2">
       <a
@@ -106,6 +93,9 @@
                 <p>
                   {{ item.quantity }} x {{ item.price.unit_amount / 100 }} €
                 </p>
+                <p>
+                  {{ translateMetadata(item.price.product.metadata) }}
+                </p>
               </div>
             </div>
           </div>
@@ -127,31 +117,34 @@
       <select
         class="select select-bordered w-full max-w-xs"
         [(ngModel)]="orderStatus"
-        (ngModelChange)="setEmailCustomField(stripeInvoice)"
+        (ngModelChange)="setEmailData(stripeInvoice)"
       >
-        <option value="">Seleziona lo stato</option>
+        <option value="" disabled selected>Seleziona lo stato</option>
         @for (item of orderStatuses; track $index) {
         <option value="{{ item.value }}">{{ item.label }}</option>
         }
       </select>
 
       <div class="flex flex-col space-y-4">
-        <label class="form-control w-full" *ngIf="emailCustomField.definition">
+        <label
+          class="form-control w-full"
+          *ngIf="emailData.customFieldDefinition"
+        >
           <div class="label">
             <span class="label-text">{{
-              emailCustomField.definition.name
+              emailData.customFieldDefinition.name
             }}</span>
           </div>
           <input
             type="text"
-            [(ngModel)]="emailCustomField.value"
+            [(ngModel)]="emailData.customFieldValue"
             placeholder="Inserisci il valore"
             class="input input-bordered w-full"
           />
         </label>
 
         <button
-          *ngIf="emailCustomField.emailContent"
+          *ngIf="emailData.emailContent"
           class="btn btn-primary"
           (click)="sendStatusUpdate(stripeInvoice.customer_email)"
         >
@@ -159,7 +152,7 @@
         </button>
 
         <iframe
-          *ngIf="emailCustomField.emailContent"
+          *ngIf="emailData.emailContent"
           [srcdoc]="currentEmailTemplate"
           frameborder="0"
           class="h-screen rounded-lg"

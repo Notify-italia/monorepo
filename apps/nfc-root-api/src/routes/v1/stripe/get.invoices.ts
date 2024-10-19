@@ -11,7 +11,6 @@ router.get(
     async (req, res) => {
       const invoices = await stripe.invoices.list({
         limit: 25,
-        status: 'paid',
       });
 
       res.send(invoices.data);

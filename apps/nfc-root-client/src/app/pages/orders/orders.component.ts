@@ -2,7 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import { INotifyPopulatedLicense } from '@notify/interfaces';
+import {
+  INotifyEcommerceCartItem,
+  INotifyPopulatedLicense,
+  UnknownType,
+} from '@notify/interfaces';
 import {
   IStripeInvoice,
   LicenseFormFullFactory,
@@ -40,14 +44,16 @@ export class OrdersComponent {
     [key: string]: string;
   } = {
     meetingRequired: 'emailMeetingRequired',
+    orderConfirmed:
+      'https://s3-api.vps.notifyapp.it/assets/backoffice/email-templates/order-confirmed-email.html?cache=12331',
     licenseCreated:
       'https://s3-api.vps.notifyapp.it/assets/backoffice/email-templates/license-created-email.html?cache=12331',
     shipped:
       'https://s3-api.vps.notifyapp.it/assets/backoffice/email-templates/order-sent-email.html',
   };
 
-  public emailCustomField: {
-    definition:
+  public emailData: {
+    customFieldDefinition:
       | {
           name: string;
           id: string;
@@ -55,15 +61,16 @@ export class OrdersComponent {
       | null
       | undefined;
     emailContent?: string;
-    value?: string;
+    emailTitle?: string;
+    customFieldValue?: string;
   } = {
-    definition: null,
-    value: '',
+    customFieldDefinition: null,
+    customFieldValue: '',
   };
 
   public orderStatuses = [
     {
-      value: 'meetingRequired',
+      value: 'orderConfirmed',
       label: 'Ordine Confermato',
     },
     {
@@ -95,14 +102,14 @@ export class OrdersComponent {
   }
 
   private get _personalizedEmailTemplate() {
-    return (this.emailCustomField?.emailContent || '')
+    return (this.emailData?.emailContent || '')
       .replace(
         '[CODICE_LICENZA]',
-        this.emailCustomField.value || '[CODICE_LICENZA]'
+        this.emailData.customFieldValue || '[CODICE_LICENZA]'
       )
       .replace(
         '[TRACKING_TESSERE]',
-        this.emailCustomField.value || '[TRACKING_TESSERE]'
+        this.emailData.customFieldValue || '[TRACKING_TESSERE]'
       );
   }
 
@@ -112,6 +119,7 @@ export class OrdersComponent {
       .getInvoice(this.invoiceId)
       .pipe(
         tap((invoice) => {
+          this.setEmailData(invoice);
           this.stripeInvoice$.next(invoice);
           this.loading = false;
         }),
@@ -158,7 +166,7 @@ export class OrdersComponent {
     this._rootService
       .sendEmail({
         address: 'stefano.vecchietti.99@gmail.com',
-        title: 'Nuovo aggiornamento del tuo ordine Notify!',
+        title: this.emailData.emailTitle || '',
         content: this._personalizedEmailTemplate,
       })
       .pipe(
@@ -168,8 +176,8 @@ export class OrdersComponent {
           console.log('Email inviata');
           this.invoiceId = '';
           this.orderStatus = '';
-          this.emailCustomField = {
-            definition: null,
+          this.emailData = {
+            customFieldDefinition: null,
           };
         }),
         catchError(() => {
@@ -181,10 +189,10 @@ export class OrdersComponent {
       .subscribe();
   }
 
-  public async setEmailCustomField(invoice: IStripeInvoice) {
+  public async setEmailData(invoice: IStripeInvoice) {
     if (!this.orderStatus) {
-      this.emailCustomField = {
-        definition: null,
+      this.emailData = {
+        customFieldDefinition: null,
       };
       return;
     }
@@ -192,17 +200,78 @@ export class OrdersComponent {
     const emailCustomField = this.orderStatuses.find(
       (status) => status.value === this.orderStatus
     )?.customField;
-    this.emailCustomField = {
-      definition: emailCustomField,
-      value: '',
-      emailContent: (await this._getEmailTemplate()).replace(
-        '[NOME CLIENTE]',
-        invoice.customer_name.split(' ')[0] + '!'
-      ),
+    this.emailData = {
+      customFieldDefinition: emailCustomField,
+      customFieldValue: '',
+      emailTitle: `Aggiornamento ordine Notify - ${invoice.number}`,
+      emailContent: (await this._getCurrentTemplate())
+        .replace('[NOME CLIENTE]', invoice.customer_name.split(' ')[0] + '!')
+        .replace('[ORDER_NUMBER]', invoice.number || '[ORDER_NUMBER]')
+        .replace(
+          '[ORDER_TOTAL]',
+          `<p style="text-align: end;">€ ${
+            (invoice.amount_paid / 100).toFixed(2) || '[ORDER_TOTAL]'
+          }</p>`
+        )
+        .replace(
+          '[ITEMS_DATA]',
+          invoice.lines.data
+            .map(
+              (line) =>
+                `<li style="display:flex; justify-content: space-between; align-items: center; list-style-type: none; margin-bottom: 10px;
+              "><p>${line.description}</p> <p>${line.quantity} Pz. - € ${(
+                  line.price.unit_amount / 100
+                ).toFixed(2)}</p></li>`
+            )
+            .join('')
+        ),
     };
   }
 
-  private async _getEmailTemplate() {
+  public translateMetadata(
+    metadata: IStripeInvoice['lines']['data'][0]['price']['product']['metadata']
+  ) {
+    if (!metadata) {
+      return '';
+    }
+
+    const cleanedUpMetadata =
+      (metadata?.item_data || metadata?.options)?.split('|')?.[1] ||
+      metadata?.item_data ||
+      metadata?.options ||
+      '{}';
+
+    const metadataObj: {
+      [key in keyof INotifyEcommerceCartItem['options']]: UnknownType;
+    } = JSON.parse(cleanedUpMetadata);
+
+    const keysDictionary: {
+      [key in keyof INotifyEcommerceCartItem['options']]: string;
+    } = {
+      userCount: 'Numero Utenti',
+      logo: 'Logo',
+      companyName: 'Informazioni Azienda',
+      color: 'Colore',
+      qrCode: 'QR Code',
+      usersInfo: 'Informazioni Utenti',
+      includesLicense: 'Licenza Inclusa',
+    };
+
+    return Object.entries(metadataObj)
+      .map(([key, value]) => {
+        if (key === 'usersInfo') {
+          return `${keysDictionary[key]}: ${value.map(
+            (user: { alias: string }) => user.alias
+          )}`;
+        }
+        return `${
+          keysDictionary[key as keyof INotifyEcommerceCartItem['options']]
+        }: ${value}`;
+      })
+      .join(', ');
+  }
+
+  private async _getCurrentTemplate() {
     const template = (
       await axios.get(this.S3EmailTemplates[this.orderStatus] as string)
     ).data as HTML;

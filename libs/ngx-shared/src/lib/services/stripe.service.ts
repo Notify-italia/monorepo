@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { UnknownType } from '@notify/interfaces';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -120,7 +121,7 @@ interface Issuer {
 }
 interface Lines {
   object: string;
-  data: any[];
+  data: Line[];
   has_more: boolean;
   total_count: number;
   url: string;
@@ -150,3 +151,80 @@ type IStripeCustomerShipping = {
   name: string;
   phone: string;
 };
+
+type Line = {
+  id: string;
+  object: string;
+  amount: number;
+  amount_excluding_tax: number;
+  currency: string;
+  description: string;
+  discount_amounts: any[];
+  discountable: boolean;
+  discounts: any[];
+  invoice_item: string;
+  livemode: boolean;
+  metadata: Metadata;
+  period: UnknownType;
+  plan: UnknownType;
+  price: Price;
+  proration: boolean;
+  quantity: number;
+  proration_details: UnknownType;
+  subscription: string;
+  subscription_item: string;
+  tax_amounts: any[];
+  tax_rates: any[];
+  type: string;
+  unit_amount_excluding_tax: number;
+};
+
+interface Price {
+  id: string;
+  object: string;
+  active: boolean;
+  billing_scheme: string;
+  created: number;
+  currency: string;
+  custom_unit_amount: null;
+  livemode: boolean;
+  lookup_key: null;
+  metadata: Metadata;
+  nickname: null;
+  product: Product;
+  recurring: null;
+  tax_behavior: string;
+  tiers_mode: null;
+  transform_quantity: null;
+  type: string;
+  unit_amount: number;
+  unit_amount_decimal: string;
+}
+
+interface Product {
+  product?: Product;
+  id?: string;
+  object?: string;
+  active?: boolean;
+  attributes?: any[];
+  created?: number;
+  default_price?: null;
+  description?: null;
+  images?: any[];
+  livemode?: boolean;
+  marketing_features?: any[];
+  metadata?: Metadata;
+  name?: string;
+  package_dimensions?: null;
+  shippable?: null;
+  statement_descriptor?: null;
+  tax_code?: null;
+  type?: string;
+  unit_label?: null;
+  updated?: number;
+  url?: null;
+}
+interface Metadata {
+  item_data?: string;
+  options?: string;
+}

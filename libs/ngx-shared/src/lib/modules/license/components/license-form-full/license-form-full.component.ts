@@ -68,7 +68,12 @@ export class LicenseFormFullComponent
         Validators.required,
       ]),
       features: this._formsService.createFormArray(
-        this.license?.features || []
+        this.license?.features || [
+          {
+            type: 'include',
+            name: 'leads',
+          },
+        ]
       ),
     });
   }
