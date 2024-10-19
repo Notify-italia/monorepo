@@ -93,6 +93,14 @@ export class OrdersComponent {
         id: 'trackingCode',
       },
     },
+    {
+      value: 'customMessage',
+      label: 'Messaggio Personalizzato',
+      customField: {
+        name: 'Messaggio',
+        id: 'customMessage',
+      },
+    },
   ];
 
   public get currentEmailTemplate() {
