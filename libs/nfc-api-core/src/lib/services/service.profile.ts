@@ -166,7 +166,7 @@ export const createAdvancedProfile = (
       hideContactSave: false,
       backgroundBlur: 0,
       backgroundBrightness: 100,
-      useCompanyTheme: false,
+      useCompanyTheme: profile.colors.useCompanyColors || false,
       contactOverrides: {
         name: '',
       },
