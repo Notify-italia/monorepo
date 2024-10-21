@@ -29,7 +29,7 @@
         <option value="" disabled selected>Seleziona una fattura</option>
         @for (invoice of invoices$ | async ; track $index) {
         <option [value]="invoice.id">
-          {{ invoice.account_name }} |
+          {{ invoice.customer_name }} |
           {{ invoice.amount_paid / 100 | currency : 'EUR' }} |
           {{ invoice.created * 1000 | date : 'dd/MM/yyyy HH:mm' }}
         </option>
