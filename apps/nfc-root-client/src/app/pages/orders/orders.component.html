@@ -72,6 +72,13 @@
       </button>
     </div>
 
+    <div class="p-2 px-4 rounded-lg border border-gray-500">
+      <h1 class="text-lg font-bold text-white">Contatti</h1>
+      <p>Nome: {{ stripeInvoice.customer_name }}</p>
+      <p>Email: {{ stripeInvoice.customer_email }}</p>
+      <p>Telefono: {{ stripeInvoice.customer_phone }}</p>
+    </div>
+
     <div
       *ngIf="stripeInvoice.customer_shipping as shipping"
       class="p-2 px-4 rounded-lg border border-gray-500"
@@ -144,12 +151,12 @@
               emailData.customFieldDefinition.name
             }}</span>
           </div>
-          <input
+          <textarea
             type="text"
             [(ngModel)]="emailData.customFieldValue"
             placeholder="Inserisci il valore"
-            class="input input-bordered w-full"
-          />
+            class="input input-bordered w-full py-1"
+          ></textarea>
         </label>
 
         <button

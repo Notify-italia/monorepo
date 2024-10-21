@@ -52,6 +52,7 @@ export const sendEmail = async (config: {
   body?: string;
   bcc?: string[];
   attachments?: Attachment[];
+  hideFooter?: boolean;
   transporter?: {
     fromLabel: string;
     host: string;
@@ -61,7 +62,15 @@ export const sendEmail = async (config: {
     replyTo?: string;
   };
 }) => {
-  const { to, title, body: text, attachments, transporter, bcc } = config;
+  const {
+    to,
+    title,
+    body: text,
+    attachments,
+    transporter,
+    bcc,
+    hideFooter,
+  } = config;
 
   const emails = isProduction() ? to : [DEBUG_EMAIL];
 
@@ -77,8 +86,10 @@ export const sendEmail = async (config: {
       bcc,
       html:
         text +
-        `<br><br><i><small>Questa è una mail automatica, Si prega di non ripondere direttamente e di contattarci a <a href="mailto:supporto@notifyapp.it">supporto@notifyapp.it</a> per qualsiasi domanda o problema.
-        </small></i><br>`,
+        (hideFooter
+          ? ''
+          : `<br><br><i><small>Questa è una mail automatica, Si prega di non ripondere direttamente e di contattarci a <a href="mailto:supporto@notifyapp.it">supporto@notifyapp.it</a> per qualsiasi domanda o problema.
+        </small></i><br>`),
       attachments,
     })
     .catch((error) => {

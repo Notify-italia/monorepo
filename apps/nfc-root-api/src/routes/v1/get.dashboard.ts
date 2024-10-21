@@ -76,6 +76,7 @@ router.get(
       const latestVisits: {
         date: Date;
         user: UserDocument;
+        count: number;
       }[] = new Array(_latestVisits.length);
 
       await asyncForEach(_latestVisits, async (v, index) => {
@@ -96,6 +97,7 @@ router.get(
 
         latestVisits[index] = {
           date: v.updatedAt,
+          count: v.value,
           user: latestVisitUser,
         };
       });

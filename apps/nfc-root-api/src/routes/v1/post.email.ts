@@ -17,7 +17,8 @@ router.post(
         to: [address as string],
         title: title as string,
         body: content as string,
-        bcc: ['notifyitalia@gmail.com'],
+        bcc: ['supporto@notifyapp.it'],
+        hideFooter: true,
       });
 
       res.send({

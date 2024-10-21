@@ -44,6 +44,8 @@ export class OrdersComponent {
     [key: string]: string;
   } = {
     meetingRequired: 'emailMeetingRequired',
+    customMessage:
+      'https://s3-api.vps.notifyapp.it/assets/backoffice/email-templates/custom-message-email.html',
     orderConfirmed:
       'https://s3-api.vps.notifyapp.it/assets/backoffice/email-templates/order-confirmed-email.html?cache=12331',
     licenseCreated:
@@ -118,6 +120,10 @@ export class OrdersComponent {
       .replace(
         '[TRACKING_TESSERE]',
         this.emailData.customFieldValue || '[TRACKING_TESSERE]'
+      )
+      .replace(
+        '[CUSTOM_MESSAGE]',
+        this.emailData.customFieldValue || '[CUSTOM_MESSAGE]'
       );
   }
 
@@ -181,7 +187,6 @@ export class OrdersComponent {
         tap(() => {
           this.loading = false;
           this._toastr.success('Email inviata');
-          console.log('Email inviata');
           this.invoiceId = '';
           this.orderStatus = '';
           this.emailData = {

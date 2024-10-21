@@ -85,8 +85,19 @@ export class DashboardComponent {
         },
       },
       {
+        id: 'todayVisits',
+        label: 'Visite in giornata',
+        hidden: () => false,
+        value: {
+          //transformer: (v) => format(new Date(v), 'dd/MM/yyyy HH:mm'),
+          valueType: 'field',
+          fieldName: 'count',
+          skeletonLength: 10,
+        },
+      },
+      {
         id: 'date',
-        label: 'Data',
+        label: 'Ultima scansione',
         hidden: () => false,
         value: {
           transformer: (v) => format(new Date(v), 'dd/MM/yyyy HH:mm'),
