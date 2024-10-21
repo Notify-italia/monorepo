@@ -43,7 +43,8 @@ export class OrdersComponent {
   public S3EmailTemplates: {
     [key: string]: string;
   } = {
-    meetingRequired: 'emailMeetingRequired',
+    infoNeeded:
+      'https://s3-api.vps.notifyapp.it/assets/backoffice/email-templates/info-needed-email.html',
     customMessage:
       'https://s3-api.vps.notifyapp.it/assets/backoffice/email-templates/custom-message-email.html',
     orderConfirmed:
@@ -76,8 +77,8 @@ export class OrdersComponent {
       label: 'Ordine Confermato',
     },
     {
-      value: 'meetingRequired',
-      label: 'Contatto Richiesto',
+      value: 'infoNeeded',
+      label: 'Informazioni tessera necessarie',
     },
     {
       value: 'licenseCreated',
@@ -123,7 +124,9 @@ export class OrdersComponent {
       )
       .replace(
         '[CUSTOM_MESSAGE]',
-        this.emailData.customFieldValue || '[CUSTOM_MESSAGE]'
+        `<p style="text-align: center; white-space: pre-wrap;">${
+          this.emailData.customFieldValue || '[CUSTOM_MESSAGE]'
+        }</p>`
       );
   }
 
