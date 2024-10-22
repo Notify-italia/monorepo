@@ -50,7 +50,13 @@ export const agentChangelog: INotifyVersionInfo = {
   description: _sharedDescription,
   title: _sharedTitle,
   artPath: _getVersionArt(_sharedTag),
-  changes: [..._sharedChanges],
+  changes: [
+    ..._sharedChanges,
+    {
+      type: 'improvement',
+      message: 'La dashboard adesso ricarica automaticamente le statistiche',
+    },
+  ],
 };
 
 export const companyChangelog: INotifyVersionInfo = {

@@ -25,7 +25,15 @@ import {
   WidgetPieChartComponent,
 } from '@notify/ngx-shared';
 import { ApexAxisChartSeries } from 'ng-apexcharts';
-import { Subject, combineLatest, map, tap } from 'rxjs';
+import {
+  Subject,
+  combineLatest,
+  interval,
+  map,
+  startWith,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -91,6 +99,13 @@ export class DashboardComponent {
     private _capacitorService: CapacitorService
   ) {
     this.getProfileVisits(AREA_CHART_DEFAULT_PERIOD).subscribe();
+
+    interval(30000)
+      .pipe(
+        startWith(0),
+        switchMap(() => this._authService.refreshToken())
+      )
+      .subscribe();
   }
 
   public getProfileVisits(period: { from: Date; to: Date }) {

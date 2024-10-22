@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ApexNonAxisChartSeries, ApexOptions } from 'ng-apexcharts';
 import { SSRDirective } from '../../../../directives';
 import { ApexChartSsrComponent } from '../../../../standalones/apex-chart-ssr/apex-chart-ssr.component';
-
 @Component({
   selector: 'notify-widget-pie-chart',
   standalone: true,
@@ -11,13 +10,15 @@ import { ApexChartSsrComponent } from '../../../../standalones/apex-chart-ssr/ap
   templateUrl: './widget-pie-chart.component.html',
   styleUrls: ['./widget-pie-chart.component.scss', '../../widgets.styles.scss'],
 })
-export class WidgetPieChartComponent {
+export class WidgetPieChartComponent implements OnInit {
   @Input() title = '';
   @Input() series: ApexNonAxisChartSeries = [];
   @Input() disableExport = false;
   @Input() legendValues: string[] = [];
 
   public backgroundColor = 'transparent';
+
+  public isLoaded = false;
 
   public chartConfig: ApexOptions = {
     noData: {
@@ -101,10 +102,26 @@ export class WidgetPieChartComponent {
 
     this.chartConfig.chart.toolbar.show = !this.disableExport;
 
+    if (!this.chartConfig.chart.animations?.enabled) {
+      this.chartConfig.chart.animations = {
+        ...this.chartConfig.chart.animations,
+        enabled: true,
+      };
+    }
+
+    this.chartConfig.chart.animations.enabled = !this.isLoaded;
+
     return {
       ...this.chartConfig,
       series: this.series,
       labels: this.legendValues,
     };
+  }
+
+  public ngOnInit(): void {
+    //We assume that the chart will be ready after 1 second
+    setTimeout(() => {
+      this.isLoaded = true;
+    }, 1000);
   }
 }
