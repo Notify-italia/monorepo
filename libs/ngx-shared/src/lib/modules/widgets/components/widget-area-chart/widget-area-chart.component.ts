@@ -58,7 +58,14 @@ export class WidgetAreaChartComponent {
 
   public backgroundColor = 'transparent';
 
-  public constructor(private _utilsService: UtilsService) {}
+  public isLoaded = false;
+
+  public constructor(private _utilsService: UtilsService) {
+    //We assume that the chart will ready after 1 second
+    setTimeout(() => {
+      this.isLoaded = true;
+    }, 1000);
+  }
 
   public get chartOptions(): ApexOptions {
     return {
@@ -97,6 +104,10 @@ export class WidgetAreaChartComponent {
         ...DEFAULT_CHART,
         sparkline: {
           enabled: true,
+        },
+        animations: {
+          ...DEFAULT_CHART.animations,
+          enabled: !this.isLoaded,
         },
         toolbar: {
           show: !this.disableExport,

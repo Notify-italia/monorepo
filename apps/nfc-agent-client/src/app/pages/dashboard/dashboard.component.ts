@@ -98,12 +98,11 @@ export class DashboardComponent {
     private _noteService: NoteService,
     private _capacitorService: CapacitorService
   ) {
-    this.getProfileVisits(AREA_CHART_DEFAULT_PERIOD).subscribe();
-
     interval(30000)
       .pipe(
         startWith(0),
-        switchMap(() => this._authService.refreshToken())
+        switchMap(() => this._authService.refreshToken()),
+        switchMap(() => this.getProfileVisits(AREA_CHART_DEFAULT_PERIOD))
       )
       .subscribe();
   }
