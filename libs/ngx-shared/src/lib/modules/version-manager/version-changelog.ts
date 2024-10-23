@@ -40,6 +40,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
   },
   {
     type: 'fix',
+    message:
+      'Corretto il flickering che poteva verificarsi durante la chiusura dei popups',
+  },
+  {
+    type: 'fix',
     message: 'Risoluzioni di bugs minori e miglioramenti delle performance',
   },
 ];

@@ -451,7 +451,7 @@
 }
 
 .modalFadeOut {
-  animation: modalFadeOutAnimation 0.2s ease-out;
+  animation: modalFadeOutAnimation 0.2s ease-out forwards;
 }
 
 .dont-break-out {

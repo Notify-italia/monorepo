@@ -182,7 +182,7 @@ export class OrdersComponent {
     this.loading = true;
     this._rootService
       .sendEmail({
-        address: 'stefano.vecchietti.99@gmail.com',
+        address: email,
         title: this.emailData.emailTitle || '',
         content: this._personalizedEmailTemplate,
       })
@@ -288,9 +288,13 @@ export class OrdersComponent {
   }
 
   private async _getCurrentTemplate() {
-    const template = (
+    const axiosResponse = (
       await axios.get(this.S3EmailTemplates[this.orderStatus] as string)
     ).data as HTML;
-    return template.toString();
+    const template = axiosResponse.toString();
+
+    return `<html style="color: red; background-color: white">
+      ${template}
+    </html>`;
   }
 }
