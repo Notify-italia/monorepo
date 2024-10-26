@@ -114,10 +114,7 @@ export class OrdersComponent {
 
   private get _personalizedEmailTemplate() {
     return (this.emailData?.emailContent || '')
-      .replace(
-        '[CODICE_LICENZA]',
-        this.emailData.customFieldValue || '[CODICE_LICENZA]'
-      )
+      .replace('[LICENSE]', this.emailData.customFieldValue || '[LICENSE]')
       .replace(
         '[TRACKING_TESSERE]',
         this.emailData.customFieldValue || '[TRACKING_TESSERE]'
