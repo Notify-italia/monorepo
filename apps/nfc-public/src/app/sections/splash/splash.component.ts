@@ -33,8 +33,8 @@ export class SplashComponent extends SSRBaseComponent {
 
   public get mockupAssetPath() {
     return this._utilsService.isMobile
-      ? '/assets/images/mockup-mobile.png'
-      : '/assets/images/mockup-desktop.png';
+      ? '/assets/images/mockup-mobile.webp'
+      : '/assets/images/mockup-desktop.webp';
   }
 
   override componentInitialized() {
@@ -42,10 +42,7 @@ export class SplashComponent extends SSRBaseComponent {
       return;
     }
 
-    this.preloadImages([
-      '/assets/images/mockup-mobile.png',
-      '/assets/images/mockup-desktop.png',
-    ]);
+    this.preloadImages([this.mockupAssetPath]);
 
     setTimeout(() => this.componentIsStable(), 1000);
   }

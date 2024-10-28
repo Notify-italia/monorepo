@@ -99,7 +99,6 @@ export class HomeComponent implements AfterViewInit {
         this.featuresStable$,
       ]).pipe(
         tap(() => {
-          console.log('page stable');
           this._pixel.track('PageView');
         })
       );
