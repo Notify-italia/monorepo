@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { SSRBaseComponent } from '@notify/ngx-shared';
 
@@ -8,6 +8,7 @@ import { SSRBaseComponent } from '@notify/ngx-shared';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './questions.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './questions.component.scss',
 })
 export class QuestionsComponent extends SSRBaseComponent {

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'notify-funded-by',
@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   imports: [CommonModule],
   templateUrl: './funded-by.component.html',
   styleUrl: './funded-by.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FundedByComponent {
   public funds = [

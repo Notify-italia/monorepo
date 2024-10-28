@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SSRBaseComponent } from '@notify/ngx-shared';
 
 @Component({
@@ -8,6 +8,7 @@ import { SSRBaseComponent } from '@notify/ngx-shared';
   imports: [CommonModule],
   templateUrl: './editor-features.component.html',
   styleUrl: './editor-features.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditorFeaturesComponent extends SSRBaseComponent {
   public nowLiveLabel = 'disponibile';

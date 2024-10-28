@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   ProfileViewComponent,
   SplineViewerComponent,
@@ -18,6 +24,7 @@ import {
   ],
 
   templateUrl: './instructions.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './instructions.component.scss',
 })
 export class InstructionsComponent extends SSRBaseComponent implements OnInit {

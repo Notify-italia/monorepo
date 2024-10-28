@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SSRBaseComponent } from '@notify/ngx-shared';
 import { PartnersComponent } from '../partners/partners.component';
 
@@ -7,6 +7,7 @@ import { PartnersComponent } from '../partners/partners.component';
   selector: 'notify-trusted-by',
   standalone: true,
   imports: [CommonModule, PartnersComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './trusted-by.component.html',
   styleUrl: './trusted-by.component.scss',
 })
