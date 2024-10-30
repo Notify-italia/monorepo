@@ -32,6 +32,9 @@ export class SplashComponent extends SSRBaseComponent {
   private _utilsService = inject(UtilsService);
 
   public get mockupAssetPath() {
+    if (this._utilsService.currentTailwindMediaQuery() === 'lg') {
+      return '/assets/images/mockup-mobile.webp';
+    }
     return this._utilsService.isMobile
       ? '/assets/images/mockup-mobile.webp'
       : '/assets/images/mockup-desktop.webp';
