@@ -42,10 +42,16 @@
       (componentInit)="publishAnchor('splash')"
     ></notify-splash>
 
+    <notify-users-feedback
+      id="users-feedback"
+      class="ignore-height w-full z-10 mt-20"
+      (componentInit)="publishAnchor('feedback')"
+    ></notify-users-feedback>
+
     <notify-features
       id="features"
       (componentStable)="featuresStable$.next()"
-      class="z-10 p-2 mt-20 lg:mt-0"
+      class="z-10 p-2 mt-20 lg:mt-10"
       (componentInit)="publishAnchor('features')"
     ></notify-features>
 

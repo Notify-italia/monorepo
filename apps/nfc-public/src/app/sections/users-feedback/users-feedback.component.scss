@@ -1,0 +1,13 @@
+.whatsapp-wallpaper {
+  background-color: #161618;
+  position: relative;
+
+  & > img {
+    background-image: url('/assets/users-feedback/whatsapp-wallpaper.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    @apply bg-cover bg-no-repeat bg-center rounded-xl absolute top-0 left-0 size-full opacity-[0.1] rounded-t-none;
+  }
+}

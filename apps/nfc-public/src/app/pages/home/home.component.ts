@@ -35,6 +35,7 @@ import { QuestionsComponent } from '../../sections/questions/questions.component
 import { ShopComponent } from '../../sections/shop/shop.component';
 import { SplashComponent } from '../../sections/splash/splash.component';
 import { TrustedByComponent } from '../../sections/trusted-by/trusted-by.component';
+import { UsersFeedbackComponent } from '../../sections/users-feedback/users-feedback.component';
 
 interface IAnchorOptions {
   ignoreBlur?: boolean;
@@ -58,6 +59,7 @@ interface IAnchorOptions {
     EditorFeaturesComponent,
     ActivateLicenseComponent,
     AvailableStoresComponent,
+    UsersFeedbackComponent,
   ],
   providers: [
     AnimationsService,
