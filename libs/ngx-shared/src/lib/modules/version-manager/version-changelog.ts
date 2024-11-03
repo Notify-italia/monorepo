@@ -26,7 +26,7 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
     type: 'fix',
     message:
-      'Risoluzione di un bug che impediva il caricamento di alcune immagini nelle note',
+      'Corretto un bug che impediva il caricamento di alcune immagini nei progetti',
   },
   {
     type: 'fix',
@@ -75,7 +75,7 @@ export const companyChangelog: INotifyVersionInfo = {
     {
       type: 'fix',
       message:
-        'Risoluzione di un bug che impediva di visualizzare la tabella degli accounts in alcuni casi',
+        'Corretto un bug che impediva di visualizzare la tabella degli accounts in alcuni casi',
     },
   ],
 };
