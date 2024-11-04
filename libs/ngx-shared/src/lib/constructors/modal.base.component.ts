@@ -3,6 +3,7 @@ import {
   ComponentRef,
   HostListener,
   Input,
+  OnInit,
   Output,
   inject,
 } from '@angular/core';
@@ -12,24 +13,39 @@ import { CapacitorService } from '../services';
 
 export const baseModalComponentProviders = [CapacitorService];
 
+export interface IBaseModalOptions {
+  showStatusBar?: boolean;
+}
+
 @Component({
   template: '',
 })
-export class ModalBaseComponent<Submitted = UnknownType> {
+export class ModalBaseComponent<Submitted = UnknownType> implements OnInit {
   public _capacitorService = inject(CapacitorService);
+
   @Input({ required: true }) cf!: ComponentRef<ModalBaseComponent>;
+  @Input() baseModalOptions?: IBaseModalOptions;
+  @Input() isClosing = false;
+
   @Output() destroyed$ = new Subject<void>();
 
-  @Input() isClosing = false;
   public submitted = new Subject<Submitted>();
-
-  constructor() {
-    this._capacitorService.setStatusbarVisibility(false);
-  }
 
   public get parentElement() {
     return (this.cf.location.nativeElement as HTMLElement)
       .parentElement as HTMLElement;
+  }
+
+  public ngOnInit() {
+    if (!this.baseModalOptions?.showStatusBar) {
+      this._capacitorService.setStatusbarVisibility(false);
+    }
+
+    this.onInit();
+  }
+
+  public onInit(): void {
+    return;
   }
 
   /**

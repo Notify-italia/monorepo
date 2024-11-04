@@ -57,7 +57,7 @@ export class LicenseFormFullComponent
     },
   ];
 
-  public ngOnInit(): void {
+  override onInit(): void {
     this.form = new FormGroup({
       expirationDate: new FormControl(this.license?.expirationDate || null, []),
       enabled: new FormControl(this.license?.enabled ?? true, []),

@@ -61,6 +61,11 @@ export const agentChangelog: INotifyVersionInfo = {
       type: 'improvement',
       message: 'La dashboard adesso ricarica automaticamente le statistiche',
     },
+    {
+      type: 'fix',
+      message:
+        'Corretto un bug che causava una visualizzazione non corretta dei fonts',
+    },
   ],
 };
 

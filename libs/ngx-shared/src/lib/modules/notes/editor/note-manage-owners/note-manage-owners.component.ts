@@ -33,7 +33,7 @@ export class NoteManageOwnersComponent
 
   public usersSubject$ = new Subject<INotifyUser[]>();
 
-  public ngOnInit() {
+  override onInit() {
     this.refreshUserSubject();
   }
 

@@ -58,7 +58,7 @@ export class NfcWriteComponent extends ModalBaseComponent implements OnInit {
   //   super();
   // }
 
-  ngOnInit(): void {
+  override onInit(): void {
     disableBodyScroll(this.parentElement, {
       reserveScrollBarGap: true,
     });

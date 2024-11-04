@@ -72,7 +72,7 @@ export class UserFormComponent
     minLength: 'Minimo 6 caratteri',
   };
 
-  ngOnInit(): void {
+  override onInit(): void {
     this.cf.onDestroy(() => {
       this.destroyed$.next();
       this.destroyed$.complete();

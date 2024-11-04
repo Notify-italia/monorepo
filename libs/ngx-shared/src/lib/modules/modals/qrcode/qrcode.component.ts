@@ -38,7 +38,7 @@ export class QrcodeComponent extends ModalBaseComponent implements OnInit {
     super();
   }
 
-  async ngOnInit() {
+  override async onInit() {
     this._storedBrightness = await this._capacitorService.brightness;
     console.log(this._storedBrightness);
     this._capacitorService.setBrightness(1);

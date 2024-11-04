@@ -67,6 +67,11 @@
     @apply animate-none;
   }
 
+  &.container-flat {
+    backdrop-filter: initial;
+    -webkit-backdrop-filter: initial;
+  }
+
   & > div {
     @apply flex flex-col justify-center items-center;
   }

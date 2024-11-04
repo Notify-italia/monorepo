@@ -47,7 +47,7 @@ export class ProfileShareSettingsComponent
     return this.baseUrl.replace('https://', '').replace('http://', '');
   }
 
-  public ngOnInit(): void {
+  override onInit(): void {
     this.form = new FormGroup({
       profileIdentifier: new FormControl(
         this.profile.profileIdentifier || '',

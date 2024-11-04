@@ -31,7 +31,7 @@ export class ChangelogComponent extends ModalBaseComponent implements OnInit {
     super();
   }
 
-  ngOnInit(): void {
+  override onInit(): void {
     this._utilsService.toggleScrollLock(true);
   }
 

@@ -6,7 +6,7 @@
   @apply btn btn-square btn-ghost bg-base-300/50 flex flex-col  hover:scale-110;
 }
 .selector-container {
-  @apply fixed w-screen min-h-screen flex flex-col top-0 backdrop-blur left-0 z-[999] items-center backdrop-brightness-50 rounded-xl;
+  @apply fixed w-screen h-screen flex flex-col top-0 backdrop-blur left-0 z-[999] items-center backdrop-brightness-50 lg:rounded-xl py-safe;
 }
 
 .cards {
@@ -33,7 +33,7 @@
   );
   transition: 0.15s;
 
-  @apply relative flex justify-center items-center rounded-lg lg:w-28;
+  @apply relative flex justify-center items-center rounded-lg w-24 lg:w-28;
 }
 
 .cards .card:hover::before {

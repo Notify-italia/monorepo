@@ -35,7 +35,7 @@
 }
 
 .root-element {
-  @apply h-full w-full bg-white/5 rounded-2xl lg:rounded-3xl border-gray-700 p-2 overflow-y-auto lg:overflow-hidden;
+  @apply h-full w-full lg:bg-white/5 rounded-2xl lg:rounded-3xl border-gray-700 px-2 py-safe lg:py-2 overflow-y-auto lg:overflow-hidden;
 }
 
 .item-button {

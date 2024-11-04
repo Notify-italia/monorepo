@@ -59,7 +59,7 @@ export class NotificationsListComponent
   public chunkSize = 15;
   public skeletonArray = new Array(this.chunkSize);
 
-  public ngOnInit() {
+  override onInit() {
     this.refreshNotifications().subscribe();
   }
 

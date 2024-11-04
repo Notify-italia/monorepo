@@ -38,7 +38,7 @@ export class ContactFormComponent extends ModalBaseComponent implements OnInit {
     required: ' ',
   };
 
-  public ngOnInit(): void {
+  override onInit(): void {
     const requiredFields = this.visibleFields.filter((field) => field.required);
 
     requiredFields.forEach((field) => {

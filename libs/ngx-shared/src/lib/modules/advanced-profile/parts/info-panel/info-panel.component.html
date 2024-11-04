@@ -1,13 +1,13 @@
 <div
   id="advanced-profile-info-panel"
-  class="modal-container !overflow-y-auto overflow-x-hidden !items-start !justify-stretch"
+  class="modal-container container-flat !overflow-y-auto overflow-x-hidden !items-start !justify-stretch"
   *ngIf="selectedHierarchyItem"
   (click)="close()"
   [ngClass]="{
     'modalFadeOut': isClosing,
   }"
 >
-  <div class="!justify-start p-3 !items-stretch w-full mt-safe">
+  <div class="!justify-start p-3 !items-stretch w-full my-safe">
     <notify-right-panel
       (click)="$event.stopPropagation()"
       class="size-full"

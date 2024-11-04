@@ -1,10 +1,10 @@
 import {
   ApplicationRef,
   Injectable,
-  Injector,
   Type,
   ViewContainerRef,
 } from '@angular/core';
+import { IBaseModalOptions } from './modal.base.component';
 
 @Injectable()
 export class BaseFactory {
@@ -16,16 +16,16 @@ export class BaseFactory {
   public _createComponent<T, D = { [key: string]: unknown }>(
     component: Type<T>,
     data?: D,
-    parentInjector?: Injector
+    baseModalOptions?: IBaseModalOptions
   ) {
-    const rootViewContainerRef =
-      parentInjector || this.applicationRef.components[0].injector;
+    const rootViewContainerRef = this.applicationRef.components[0].injector;
 
     const ref = this.vcr.createComponent<T>(component, {
       injector: rootViewContainerRef,
     });
 
     ref.setInput('cf', ref);
+    ref.setInput('baseModalOptions', baseModalOptions);
 
     for (const key in data) {
       ref.setInput(key, data[key]);

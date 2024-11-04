@@ -14,6 +14,8 @@ export class InfoPanelFactory extends BaseFactory {
     form: FormGroup<controlsFromObject<INotifyProfile['advancedProfile']>>;
     selectedHierarchyItem: string;
   }) {
-    return this._createComponent(InfoPanelComponent, config);
+    return this._createComponent(InfoPanelComponent, config, {
+      showStatusBar: true,
+    });
   }
 }

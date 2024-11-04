@@ -51,7 +51,7 @@ export class NoteAddOwnerComponent
     };
   }>;
 
-  public ngOnInit() {
+  override onInit() {
     this.enrichedUsers$ = this.users$.pipe(
       map((users) => ({
         users,
