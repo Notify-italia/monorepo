@@ -6,12 +6,12 @@
   @apply btn btn-square btn-ghost bg-base-300/50 flex flex-col  hover:scale-110;
 }
 .selector-container {
-  @apply fixed w-screen min-h-screen top-0 backdrop-blur left-0 z-[999] items-center backdrop-brightness-50 rounded-xl;
+  @apply fixed w-screen min-h-screen flex flex-col top-0 backdrop-blur left-0 z-[999] items-center backdrop-brightness-50 rounded-xl;
 }
 
 .cards {
   display: grid;
-  gap: 0.4rem;
+  gap: 0.6rem;
   padding: 32px;
 
   @apply grid-cols-3 lg:grid-cols-6;
