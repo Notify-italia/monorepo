@@ -60,7 +60,7 @@
         </div>
       </div>
 
-      <div class="h-4/6 lg:h-3/6 overflow-y-auto">
+      <div class="h-full lg:h-3/6 overflow-y-auto">
         <div class="cards">
           @for (item of filteredIcons$ | async; track item.name) {
 
@@ -72,9 +72,9 @@
           >
             <div class="card-content">
               <notify-svg-box-icon [icon]="item"></notify-svg-box-icon>
-              <label class="text-sm truncate w-28 text-center">
+              <span class="text-sm truncate w-full text-center opacity-50">
                 {{ item.expanded }}
-              </label>
+              </span>
             </div>
           </button>
 

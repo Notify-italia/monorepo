@@ -9,8 +9,8 @@ const _generateFormThumbnail = (name: string) => {
   const publicName = `${f.toUpperCase()}${s}`;
 
   return `
-    <svg class="w-full h-full" viewBox="0 0 25 25" fill="currentColor">
-      <text x="2" y="19"  class="fonts font-${name} text-lg">
+    <svg class="size-full" viewBox="0 0 26 26" fill="currentColor">
+      <text x="2" y="19"  class="fonts font-${name} text-lg text-center">
       ${publicName}
       </text>
     </svg>

@@ -25,6 +25,7 @@
   <div class="root-element mt-2 lg:mt-auto">
     @if(profile$ | async; as profile) {
 
+    <!-- MOBILE -->
     <div class="mobile-only-flex flex-col">
       <notify-share-item
         *ngIf="shareConfig"
@@ -63,6 +64,7 @@
       ></notify-hierarchy-button>
     </div>
 
+    <!-- DESKTOP -->
     <div
       class="flex flex-col lg:flex-row justify-between size-full items-stretch desktop-only-flex"
     >

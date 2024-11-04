@@ -6,7 +6,7 @@
   @apply btn btn-square btn-ghost bg-base-300/50 flex flex-col  hover:scale-110;
 }
 .selector-container {
-  @apply fixed w-screen h-screen top-0 backdrop-blur left-0 z-[999]  items-center backdrop-brightness-50 rounded-xl;
+  @apply fixed w-screen min-h-screen top-0 backdrop-blur left-0 z-[999] items-center backdrop-brightness-50 rounded-xl;
 }
 
 .cards {
@@ -33,7 +33,7 @@
   );
   transition: 0.15s;
 
-  @apply relative flex justify-center items-center rounded-lg;
+  @apply relative flex justify-center items-center rounded-lg lg:w-28;
 }
 
 .cards .card:hover::before {
@@ -53,17 +53,8 @@
 }
 
 .card-content {
-  @apply p-5 flex flex-col justify-center items-center gap-4 bg-base-300/90 rounded-lg transition-all w-full h-full;
+  @apply p-5 px-1 flex flex-col justify-center items-center gap-4 bg-base-300/90 rounded-lg transition-all;
   height: calc(100% - 2px);
   width: calc(100% - 2px);
   border-radius: inherit;
-}
-
-.card :is(label, notify-svg-box-icon) {
-  opacity: 0.45;
-  transition: 0.3s;
-}
-
-.card:hover :is(label, notify-svg-box-icon) {
-  opacity: 1;
 }

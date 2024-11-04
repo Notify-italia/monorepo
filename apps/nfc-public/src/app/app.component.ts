@@ -19,7 +19,7 @@ import { EcommerceService } from '@notify/ngx-shared';
 })
 export class AppComponent {
   private platformId = inject(PLATFORM_ID);
-  private googleTagId = 'G-1CHXQYPN1J';
+  private googleTagId = 'AW-16462555562';
   private renderer = inject(Renderer2);
   private ecommerceService = inject(EcommerceService);
   private el = inject(ElementRef);
