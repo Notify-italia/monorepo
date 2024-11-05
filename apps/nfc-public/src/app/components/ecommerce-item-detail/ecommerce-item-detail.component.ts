@@ -55,7 +55,7 @@ export class EcommerceItemDetailComponent
     return Array.from({ length: this.form.value.quantity || 0 });
   }
 
-  public ngOnInit(): void {
+  override onInit(): void {
     this.form = new FormGroup({
       parsedOptions: new FormGroup({}),
     });

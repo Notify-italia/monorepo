@@ -68,12 +68,10 @@
       capacitor.isNative ? 'Scrivi su NFC' : 'Disponibile solo su app nativa.'
     "
   >
-    <!-- [disabled]="!capacitor.isNative" -->
     <button
       class="btn btn-circle"
       [ngClass]="compactConditionalClasses.button"
       (click)="writeNfc()"
-      [disabled]="!capacitor.isNative"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

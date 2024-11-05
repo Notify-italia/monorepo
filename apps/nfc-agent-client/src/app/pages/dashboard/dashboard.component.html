@@ -10,13 +10,17 @@
         <div class="v-spacing lg:w-full">
           <div class="dashboard-cards-container h-spacing">
             <div class="dashboard-cards-container h-spacing">
-              <notify-share-item
-                class="w-full"
-                [config]="data.profile.shareConfig"
-                source="root"
-              ></notify-share-item>
-
-              <notify-widget-note [note]="data.latestNote" class="w-full h-20">
+              <div class="w-full">
+                <notify-share-item
+                  class="w-full"
+                  [config]="data.profile.shareConfig"
+                  source="root"
+                ></notify-share-item>
+              </div>
+              <notify-widget-note
+                [note]="data.latestNote"
+                class="w-full h-20 mt-5"
+              >
               </notify-widget-note>
             </div>
           </div>
@@ -24,7 +28,7 @@
           <div class="divider"></div>
           <div class="dashboard-cards-container h-spacing">
             <notify-widget-counter
-              class="dashboard-card animate__fadeInDown animate__animated"
+              class="dashboard-card"
               [ngStyle]="{
                 'animation-delay': '0s'
               }"
@@ -36,7 +40,7 @@
               countSuffix="Visite"
             ></notify-widget-counter>
             <notify-widget-counter
-              class="dashboard-card animate__fadeInDown animate__animated"
+              class="dashboard-card"
               [ngStyle]="{
                 'animation-delay': '0.2s'
               }"
@@ -48,7 +52,7 @@
               countSuffix="Salvataggi"
             ></notify-widget-counter>
             <notify-widget-counter
-              class="dashboard-card animate__fadeInDown animate__animated"
+              class="dashboard-card"
               [ngStyle]="{
                 'animation-delay': '0.4s'
               }"
@@ -75,7 +79,7 @@
             </notify-widget-area-chart>
             <div class="flex flex-col lg:w-5/12 h-full items-center v-spacing">
               <notify-widget-feedback
-                class="flex w-full dashboard-card animate__fadeInRight animate__animated"
+                class="flex w-full dashboard-card"
                 [value]="data.user.averageFeedback"
                 [totalFeedbacksCount]="data.user['profile:feedback:count']"
               >

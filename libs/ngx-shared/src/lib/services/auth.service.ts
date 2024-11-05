@@ -9,6 +9,7 @@ import {
   INotifyPopulatedLicense,
   INotifyUser,
 } from '@notify/interfaces';
+import { format } from 'date-fns';
 import { BehaviorSubject, catchError, of, tap } from 'rxjs';
 import { HttpService } from './http.service';
 
@@ -110,7 +111,12 @@ export class AuthService {
       .post<null, INotifyUser>(`/v1/${this._userType}/refresh`, null)
       .pipe(
         tap((user) => this._assignToken(user)),
-        catchError(() => {
+        catchError((e) => {
+          console.log(
+            'Error refreshing token',
+            format(new Date(), 'HH:mm:ss'),
+            e
+          );
           this.signOut();
           return of(null);
         })

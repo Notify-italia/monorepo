@@ -1,8 +1,8 @@
 .widget-container {
-  @apply w-full h-full text-white relative overflow-clip rounded-2xl shadow-xl bg-primary-500/10;
+  @apply size-full text-white relative overflow-clip rounded-2xl shadow-xl bg-primary-500/10 will-change-transform;
 
   & > svg {
-    @apply absolute opacity-50 w-full h-full bottom-0;
+    @apply absolute opacity-50 size-full bottom-0;
   }
 
   & > div {

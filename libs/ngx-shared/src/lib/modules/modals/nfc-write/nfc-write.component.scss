@@ -1,8 +1,8 @@
-.container {
+.nfc-write-root-container {
   @apply fixed h-screen w-screen top-0 left-0 backdrop-brightness-50 backdrop-blur z-[999] text-white;
 
   & > div {
-    @apply flex flex-col justify-center items-center h-full w-full;
+    @apply flex flex-col justify-center items-center size-full;
   }
 }
 
