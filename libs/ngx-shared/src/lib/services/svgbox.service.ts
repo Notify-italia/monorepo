@@ -49,6 +49,7 @@ export class SvgboxService {
   }
 }
 
+//TODO trasformare questo array in un iconset e gestirlo come tale
 const AVAILABLE_ICONS: SvgBoxIcon[] = [
   {
     expanded: 'Apple Pay',
