@@ -10,6 +10,7 @@ export interface SvgBoxIcon {
   placeholder?: string;
   publicPrefix?: string;
   data?: string;
+  mask?: string;
 }
 
 @Injectable({
@@ -375,4 +376,20 @@ const AVAILABLE_ICONS: SvgBoxIcon[] = [
     set: 'materialui',
   },
   { expanded: 'Punti vendita', name: 'point_of_sale', set: 'materialui' },
+  {
+    expanded: 'Caffè',
+    name: 'coffee',
+    set: 'social',
+    data: `<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M19 5h-1V4a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v9a4 4 0 0 0 4 4h6c1.858 0 3.411-1.279 3.858-3H19a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3Zm1 6a1 1 0 0 1-1 1h-1V7h1a1 1 0 0 1 1 1v3Zm-2 8H3c0 1.654 1.346 3 3 3h11c1.654 0 3-1.346 3-3h-2Z"></path>
+</svg>`,
+  },
+  {
+    expanded: 'Caffè (Alt)',
+    name: 'coffee-2',
+    set: 'social',
+    data: `<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <path d="M5 2h2v3H5V2Zm4 0h2v3H9V2Zm4 0h2v3h-2V2Zm6 7h-2V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3h2c1.103 0 2-.897 2-2v-5c0-1.103-.897-2-2-2Zm-2 7v-5h2l.002 5H17Z"></path>
+</svg>`,
+  },
 ].sort((a, b) => a.expanded.localeCompare(b.expanded));

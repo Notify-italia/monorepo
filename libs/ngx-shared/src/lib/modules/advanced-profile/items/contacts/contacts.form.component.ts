@@ -82,6 +82,7 @@ import { CONTACTS_ICON_SET } from './contacts.iconset';
           name="url"
           label=" "
           [showClearInput]="false"
+          [mask]="IconSelector?.currentIcon?.mask || undefined"
           [prefix]="IconSelector?.currentIcon?.publicPrefix || ''"
           [placeholder]="
             IconSelector?.currentIcon?.placeholder || 'Inserisci un valore'

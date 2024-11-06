@@ -11,6 +11,14 @@ const _sharedDescription = `Un altro aggiornamento per migliorare la tua esperie
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
+    type: 'improvement',
+    message: `Aggiunte due nuove icone per i tuoi links nel profilo: "Caffè" e "Caffè (alt)"`,
+  },
+  {
+    type: 'fix',
+    message: `Rimosso prefisso dai contatti di tipo "Telefono", "Messaggio" e "Telefono Fisso" dall'editor di profili`,
+  },
+  {
     type: 'fix',
     message: 'Risoluzioni di bugs minori e miglioramenti delle performance',
   },

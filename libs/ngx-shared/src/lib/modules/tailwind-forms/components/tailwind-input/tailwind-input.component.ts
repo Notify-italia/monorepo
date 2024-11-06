@@ -31,7 +31,7 @@ export class TailwindInputComponent
   @Input() validationErrors!: { [key: string]: string };
   @Input() disableAutocomplete = false;
   @Input() showSpinButtons = false;
-  @Input() mask!: string;
+  @Input() mask?: string | undefined;
   @Input() thousandSeparator!: string;
   @Input() maxLength!: number;
   @Input() titlecaseLabel = true;
