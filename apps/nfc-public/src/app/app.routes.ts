@@ -9,7 +9,7 @@ export const appRoutes: Route[] = [
   {
     path: 'linee-guida',
     loadComponent: () =>
-      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+      import('@notify/ngx-shared').then((m) => m.RedirectComponent),
     data: {
       assetUrl:
         'https://s3-api.vps.notifyapp.it/assets/linee-guida-tessere.pdf',
@@ -18,7 +18,7 @@ export const appRoutes: Route[] = [
   {
     path: 'guida-nfc',
     loadComponent: () =>
-      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+      import('@notify/ngx-shared').then((m) => m.RedirectComponent),
     data: {
       assetUrl: 'https://s3-api.vps.notifyapp.it/assets/Guida_NFC_notify.pdf',
     },
@@ -26,7 +26,7 @@ export const appRoutes: Route[] = [
   {
     path: 'guida-aziendale',
     loadComponent: () =>
-      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+      import('@notify/ngx-shared').then((m) => m.RedirectComponent),
     data: {
       assetUrl: `https://s3-api.vps.notifyapp.it/assets/guida_pannello_aziendale_notify.pdf'`,
     },
@@ -34,7 +34,7 @@ export const appRoutes: Route[] = [
   {
     path: 'guida-app',
     loadComponent: () =>
-      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+      import('@notify/ngx-shared').then((m) => m.RedirectComponent),
     data: {
       assetUrl: `https://s3-api.vps.notifyapp.it/assets/guida_app_notify.pdf`,
     },
@@ -42,7 +42,7 @@ export const appRoutes: Route[] = [
   {
     path: 'brochure',
     loadComponent: () =>
-      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+      import('@notify/ngx-shared').then((m) => m.RedirectComponent),
     data: {
       assetUrl: 'https://s3-api.vps.notifyapp.it/assets/brochure-cliente.pdf',
     },
@@ -50,7 +50,7 @@ export const appRoutes: Route[] = [
   {
     path: 'guide',
     loadComponent: () =>
-      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+      import('@notify/ngx-shared').then((m) => m.RedirectComponent),
     data: {
       assetUrl: 'https://noty.li/p/guide',
     },
@@ -58,7 +58,7 @@ export const appRoutes: Route[] = [
   {
     path: 'download',
     loadComponent: () =>
-      import('./pages/redirect.component').then((m) => m.RedirectComponent),
+      import('@notify/ngx-shared').then((m) => m.RedirectComponent),
     data: {
       assetUrl: 'https://noty.li/p/downloads',
     },
@@ -76,7 +76,7 @@ export const appRoutes: Route[] = [
       {
         path: 'privacy',
         loadComponent: () =>
-          import('./pages/redirect.component').then((m) => m.RedirectComponent),
+          import('@notify/ngx-shared').then((m) => m.RedirectComponent),
         data: {
           assetUrl:
             'https://s3-api.vps.notifyapp.it/assets/thirdparties-privacy.pdf',

@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 import {
   AdvancedProfileComponent,
   PageNotFoundComponent,
+  RedirectComponent,
   advancedProfileGuard,
   authGuard,
   leadModuleRoutes,
@@ -197,6 +198,15 @@ export const appRoutes: Route[] = [
               ).then((m) => m.AnalyticsDetailComponent),
           },
         ],
+      },
+      {
+        path: 'feature-request',
+        canActivate: [licenseGuard],
+        loadComponent: () => RedirectComponent,
+        data: {
+          assetUrl:
+            'https://airtable.com/appjkDvJZjxGv4BFX/pagWI1Y7nd5U9fsm6/form',
+        },
       },
       {
         path: 'signout',

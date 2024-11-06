@@ -7,7 +7,7 @@ const _getVersionArt = (tag: string) => {
 const _sharedTag = 'v1.2.6';
 const _sharedDate = '2024-11-10';
 const _sharedTitle = '';
-const _sharedDescription = `Un altro aggiornamento per migliorare la tua esperienza con Notify!`;
+const _sharedDescription = `Un altro aggiornamento per migliorare la tua esperienza con Notify! Con questa versione, ci siamo concentrati sul supportare ufficialmente iOS 18 e Safari 18, risolvendo alcuni bug che si sono presentati con questi aggiornamenti.`;
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
@@ -51,9 +51,9 @@ export const companyChangelog: INotifyVersionInfo = {
   changes: [
     ..._sharedChanges,
     {
-      type: 'fix',
+      type: 'improvement',
       message:
-        'Corretto un bug che impediva di visualizzare la tabella degli accounts in alcuni casi',
+        "Aggiunta, nella navbar, un'opzione per suggerire nuove features!",
     },
   ],
 };
