@@ -7,7 +7,7 @@ const _getVersionArt = (tag: string) => {
 const _sharedTag = 'v1.2.6';
 const _sharedDate = '2024-11-10';
 const _sharedTitle = '';
-const _sharedDescription = ``;
+const _sharedDescription = `Un altro aggiornamento per migliorare la tua esperienza con Notify!`;
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
@@ -26,12 +26,18 @@ export const agentChangelog: INotifyVersionInfo = {
     ..._sharedChanges,
     {
       type: 'fix',
-      message: 'Supporto ad iOS 18.1',
+      message:
+        'Risolto un bug che causava un colore indesiderato dei widget nella dashbaord su iPhones aggiornati ad iOS 18 e su Safari 18',
     },
     {
       type: 'fix',
       message:
-        'Corretto un bug che causava una visualizzazione non corretta del pop up di accoppiamento NFC su dispositivi mobile',
+        'Risolto un bug che causava disconnessioni inaspettate su iPhones aggiornati ad iOS 18 e su Safari 18',
+    },
+    {
+      type: 'fix',
+      message:
+        'Corretto un bug che causava una visualizzazione non corretta del pop-up di accoppiamento NFC',
     },
   ],
 };
