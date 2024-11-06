@@ -20,6 +20,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
   },
   {
     type: 'fix',
+    message:
+      'Risolto un bug che causava disconnessioni inaspettate su iPhones aggiornati ad iOS 18 e su Safari 18',
+  },
+  {
+    type: 'fix',
     message: 'Risoluzioni di bugs minori e miglioramenti delle performance',
   },
 ];
@@ -36,11 +41,6 @@ export const agentChangelog: INotifyVersionInfo = {
       type: 'fix',
       message:
         'Risolto un bug che causava un colore indesiderato dei widget nella dashbaord su iPhones aggiornati ad iOS 18 e su Safari 18',
-    },
-    {
-      type: 'fix',
-      message:
-        'Risolto un bug che causava disconnessioni inaspettate su iPhones aggiornati ad iOS 18 e su Safari 18',
     },
     {
       type: 'fix',
