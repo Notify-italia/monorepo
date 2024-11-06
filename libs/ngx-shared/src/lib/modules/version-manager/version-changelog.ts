@@ -51,9 +51,9 @@ export const companyChangelog: INotifyVersionInfo = {
   changes: [
     ..._sharedChanges,
     {
-      type: 'improvement',
+      type: 'new',
       message:
-        "Aggiunta, nella navbar, un'opzione per suggerire nuove features!",
+        "Aggiunta nella sidebar un'opzione per suggerire nuove features!",
     },
   ],
 };
