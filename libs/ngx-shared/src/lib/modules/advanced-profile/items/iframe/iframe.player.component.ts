@@ -180,13 +180,13 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
 
   public async shareLink() {
     if (!navigator.share) {
-      await navigator.clipboard.writeText(this.context.getters.currentItem.url);
+      await navigator.clipboard.writeText(this.currentUrl);
       this.context.services.toastr.info('URL del sito web copiato');
       return;
     }
     try {
       return await navigator.share({
-        url: this.context.getters.currentItem.url,
+        url: this.currentUrl,
       });
     } catch (error) {
       console.error('Error sharing:', error);
