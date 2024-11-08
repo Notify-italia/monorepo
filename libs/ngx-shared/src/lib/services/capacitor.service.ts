@@ -52,6 +52,8 @@ export class CapacitorService {
     );
   }
 
+  public addToWallet() {}
+
   public triggerHapticFeedback(style: ImpactStyle | NotificationType) {
     // console.log('triggerHapticFeedback', style, this.isNative);
     if (!this.isNative) {

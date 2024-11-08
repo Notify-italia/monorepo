@@ -98,6 +98,8 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
   public updatedAt = new Date();
   private destroy$ = new Subject<void>();
 
+  public isNative = this._capacitorService.isNative;
+
   public get providedId() {
     return this._route.snapshot.queryParamMap.get('p') || undefined;
   }
