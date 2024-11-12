@@ -49,11 +49,11 @@ router.get(
            * model from FS, even if not specified here below
            */
           model: `${ASSETS_PATH}/pkpasses/examples/examplePass.pass`,
-          // certificates: {
-          //   wwdr,
-          //   signerCert,
-          //   signerKey,
-          // },
+          certificates: {
+            wwdr,
+            signerCert,
+            signerKey,
+          },
         },
         {
           // keys to be added or overridden
