@@ -55,7 +55,7 @@ export const getAgentOwnerProfile = async (agentId: Types.ObjectId) => {
   ).profile;
 };
 
-export const getProfile = async (
+export const getProfileFromUserId = async (
   user: Types.ObjectId | string
 ): Promise<INotifyProfile | undefined> => {
   const profile = await ProfileModel.findOne({ owner: user }).lean();

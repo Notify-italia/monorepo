@@ -250,6 +250,14 @@ export class ProfileService {
     };
   }
 
+  public getPkpass(profile?: string) {
+    return this.http.get<{
+      base64: string;
+    }>(`/v1/profile/pkpass`, {
+      profile,
+    });
+  }
+
   public async saveContact(d: INotifyProfile, publicUrl: string) {
     if (!d) {
       return;

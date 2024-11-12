@@ -21,6 +21,7 @@ import {
   NfcTagScannedEvent,
   NfcUtils,
 } from '@capawesome-team/capacitor-nfc';
+import { CapacitorPassToWallet } from 'capacitor-pass-to-wallet';
 
 @Injectable()
 export class CapacitorService {
@@ -52,7 +53,11 @@ export class CapacitorService {
     );
   }
 
-  public addToWallet() {}
+  public async addToWallet(base64: string) {
+    return CapacitorPassToWallet.addToWallet({
+      base64,
+    });
+  }
 
   public triggerHapticFeedback(style: ImpactStyle | NotificationType) {
     // console.log('triggerHapticFeedback', style, this.isNative);

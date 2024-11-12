@@ -25,6 +25,8 @@ mLog(
   'start'
 );
 
+mLog(`Current dir is ${import.meta.path}`, 'info');
+
 connectToDatabase();
 
 server.listen(port, () => {

@@ -345,6 +345,17 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
+  public addToWallet(profile: INotifyProfile['_id']) {
+    this._profileSerivce
+      .getPkpass(profile)
+      .pipe(
+        tap(async (v) => {
+          await this._capacitorService.addToWallet(v.base64);
+        })
+      )
+      .subscribe();
+  }
+
   private _providedProfileSubscription(profile: string | undefined) {
     return this._route.queryParams.pipe(
       takeUntil(this.destroy$),
