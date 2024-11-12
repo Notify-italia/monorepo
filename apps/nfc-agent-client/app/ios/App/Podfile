@@ -23,6 +23,7 @@ def capacitor_pods
   pod 'CapacitorCommunityFcm', :path => '../../../../../node_modules/@capacitor-community/fcm'
   pod 'CapacitorPushNotifications', :path => '../../../../../node_modules/@capacitor/push-notifications'
   pod 'CapacitorSuppressLongpressGesture', :path => '../../../../../node_modules/capacitor-suppress-longpress-gesture'
+  pod 'CapacitorPassToWallet', :path => '../../../../../node_modules/capacitor-pass-to-wallet'
 end
 
 target 'App' do
@@ -39,6 +40,7 @@ target 'App' do
   pod 'CapacitorStatusBar', :path => '../../../../../node_modules/@capacitor/status-bar'
   pod 'CapacitorPushNotifications', :path => '../../../../../node_modules/@capacitor/push-notifications'
   pod 'CapacitorCommunityFcm', :path => '../../../../../node_modules/@capacitor-community/fcm'
+  pod 'CapacitorPassToWallet', :path => '../../../../../node_modules/capacitor-pass-to-wallet'
 end
 
 post_install do |installer|

@@ -20,6 +20,8 @@ PODS:
     - Capacitor
   - CapacitorHaptics (6.0.1):
     - Capacitor
+  - CapacitorPassToWallet (3.0.0):
+    - Capacitor
   - CapacitorPushNotifications (6.0.2):
     - Capacitor
   - CapacitorStatusBar (6.0.1):
@@ -103,6 +105,7 @@ DEPENDENCIES:
   - "CapacitorCordova (from `../../../../../node_modules/@capacitor/ios`)"
   - "CapacitorFilesystem (from `../../../../../node_modules/@capacitor/filesystem`)"
   - "CapacitorHaptics (from `../../../../../node_modules/@capacitor/haptics`)"
+  - CapacitorPassToWallet (from `../../../../../node_modules/capacitor-pass-to-wallet`)
   - "CapacitorPushNotifications (from `../../../../../node_modules/@capacitor/push-notifications`)"
   - "CapacitorStatusBar (from `../../../../../node_modules/@capacitor/status-bar`)"
   - CapacitorSuppressLongpressGesture (from `../../../../../node_modules/capacitor-suppress-longpress-gesture`)
@@ -143,6 +146,8 @@ EXTERNAL SOURCES:
     :path: "../../../../../node_modules/@capacitor/filesystem"
   CapacitorHaptics:
     :path: "../../../../../node_modules/@capacitor/haptics"
+  CapacitorPassToWallet:
+    :path: "../../../../../node_modules/capacitor-pass-to-wallet"
   CapacitorPushNotifications:
     :path: "../../../../../node_modules/@capacitor/push-notifications"
   CapacitorStatusBar:
@@ -163,6 +168,7 @@ SPEC CHECKSUMS:
   CapacitorCordova: f48c89f96c319101cd2f0ce8a2b7449b5fb8b3dd
   CapacitorFilesystem: 37fb3aa5c945b4539ab11c74a5c57925a302bf24
   CapacitorHaptics: fe689ade56ef20ec9b041a753c6da70c5d8ec9a9
+  CapacitorPassToWallet: 360069957039790f7a1112cc50a40f4987f0fcab
   CapacitorPushNotifications: ccd797926c030acad3d5498ef452c735c90a2c89
   CapacitorStatusBar: b81d4fb5d4e0064c712018071b3ab4b810b39a63
   CapacitorSuppressLongpressGesture: 3b825d2c887c95abeb6c1f3913593c3bc6b96cf2
@@ -178,6 +184,6 @@ SPEC CHECKSUMS:
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   SDWebImage: a81bbb3ba4ea5f810f4069c68727cb118467a04a
 
-PODFILE CHECKSUM: fce83d16af9889c6fe228d0ea75077c0c98bf0db
+PODFILE CHECKSUM: c21b822d161c1297ef1805ca4134c9b06ef5b5ae
 
 COCOAPODS: 1.15.2
