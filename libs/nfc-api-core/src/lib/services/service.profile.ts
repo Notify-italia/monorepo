@@ -97,30 +97,6 @@ export const getProfileAvatar = (profile: INotifyProfile) => {
   );
 };
 
-const _getContactOverrides = (profile: INotifyProfile) => {
-  if (!profile.advancedProfile?.enabled) {
-    return null;
-  }
-
-  return profile.advancedProfile.pageSettings.contactOverrides;
-};
-
-const _getProfileName = (profile: INotifyProfile): string => {
-  if (!profile.advancedProfile?.enabled) {
-    return (profile.name || '') + ' ' + (profile.surname || '');
-  }
-
-  const avatar = profile.advancedProfile.items.find(
-    (i) => i._id === profile.advancedProfile?.requiredItems.avatar
-  ) as INotifyAPAvatarItem;
-
-  if (!avatar) {
-    return 'Ignoto';
-  }
-
-  return avatar.label || 'Ignoto';
-};
-
 export const createAdvancedProfile = (
   profile: INotifyProfile
 ): INotifyAdvancedProfile => {
@@ -184,6 +160,37 @@ export const generateFeedbackItem = (profile: INotifyProfile) => {
       url: '',
     }
   );
+};
+
+export const getProfilePlayerUrl = (
+  profile: INotifyProfile,
+  PLAYER_WEBSITE_URL: string
+) => {
+  return `${PLAYER_WEBSITE_URL}/p/${profile._id}`;
+};
+
+const _getContactOverrides = (profile: INotifyProfile) => {
+  if (!profile.advancedProfile?.enabled) {
+    return null;
+  }
+
+  return profile.advancedProfile.pageSettings.contactOverrides;
+};
+
+const _getProfileName = (profile: INotifyProfile): string => {
+  if (!profile.advancedProfile?.enabled) {
+    return (profile.name || '') + ' ' + (profile.surname || '');
+  }
+
+  const avatar = profile.advancedProfile.items.find(
+    (i) => i._id === profile.advancedProfile?.requiredItems.avatar
+  ) as INotifyAPAvatarItem;
+
+  if (!avatar) {
+    return 'Ignoto';
+  }
+
+  return avatar.label || 'Ignoto';
 };
 
 const _generateNoteItem = (profile: INotifyProfile) => {

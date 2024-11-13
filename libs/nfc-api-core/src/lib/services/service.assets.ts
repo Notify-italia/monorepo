@@ -2,15 +2,21 @@ import { UnknownType } from '@notify/interfaces';
 import { declareEnvs } from './service.envs';
 import { asyncForEach, asyncReduce } from './service.utils';
 
-//TODO fix
+export enum EnumAssetExtractTo {
+  String = 'string',
+  Buffer = 'buffer',
+}
+
 export const extractAssetFiles = async (
   assets: {
     path: string;
     id: string;
-    extraction: 'string' | 'buffer';
+    extractTo: EnumAssetExtractTo;
   }[]
 ) => {
+  //faccio il declar dell'env all'interno della funzione così che non dia errore in altri progetti api-core che non hanno bisogno di ASSETS_PATH
   const { ASSETS_PATH } = declareEnvs(['ASSETS_PATH']);
+
   await asyncForEach(assets, async (asset) => {
     const file = Bun.file(`${ASSETS_PATH}/${asset.path}`);
 
@@ -30,7 +36,7 @@ export const extractAssetFiles = async (
 
   return (await asyncReduce(
     files,
-    async (acc, { id, file, extraction }) => {
+    async (acc, { id, file, extractTo: extraction }) => {
       switch (extraction) {
         case 'string':
           acc[id] = await file.text();
