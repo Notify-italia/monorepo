@@ -1,0 +1,24 @@
+<div
+  class="modal-container !backdrop-blur-0 !backdrop-brightness-50"
+  [ngClass]="{
+  'modalFadeOut': isClosing,
+}"
+  (click)="close()"
+>
+  <div class="!flex !flex-row !justify-center !items-center max-content-width">
+    <div (click)="$event.stopPropagation()" class="w-11/12">
+      <div
+        (click)="handleClickInteraction()"
+        class="tooltip-{{ interactions?.tooltip?.position || 'bottom' }}"
+        [attr.data-tip]="interactions?.tooltip?.value"
+        [ngClass]="{
+          tooltip: interactions?.tooltip,
+          'tooltip-open': interactions?.tooltip?.type === 'always',
+          'active:scale-95 smooth ': interactions?.onClick
+        }"
+      >
+        <img [src]="bannerUrl" alt="" class="pointer-events-none size-full" />
+      </div>
+    </div>
+  </div>
+</div>

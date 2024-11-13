@@ -10,16 +10,17 @@ import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { INotifyEcommerceProduct, UnknownType } from '@notify/interfaces';
 import {
+  AdsBannerFactory,
   AnimationsService,
   EcommerceService,
   EnumAnimationsDrivers,
   IAnimationCSSStyle,
   LoadingComponent,
   PixelService,
-  SplineViewerComponent,
   UtilsService,
 } from '@notify/ngx-shared';
 import _ from 'lodash';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, combineLatest, tap } from 'rxjs';
 import { EcommerceCartFactory } from '../../components/ecommerce-cart/ecommerce-cart.factory';
 import { EcommerceItemDetailFactory } from '../../components/ecommerce-item-detail/ecommerce-item-detail.factory';
@@ -54,7 +55,6 @@ interface IAnchorOptions {
     ProfileBuilderComponent,
     ShopComponent,
     TrustedByComponent,
-    SplineViewerComponent,
     RouterModule,
     EditorFeaturesComponent,
     ActivateLicenseComponent,
@@ -66,6 +66,7 @@ interface IAnchorOptions {
     UtilsService,
     EcommerceItemDetailFactory,
     EcommerceCartFactory,
+    AdsBannerFactory,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -82,6 +83,8 @@ export class HomeComponent implements AfterViewInit {
   private _cart = inject(EcommerceCartFactory);
   private _activatedRoute = inject(ActivatedRoute);
   private _location = inject(Location);
+  private _adsBanner = inject(AdsBannerFactory);
+  private _toastrService = inject(ToastrService);
 
   public instructionsStable$ = new Subject<void>();
   public splashStable$ = new Subject<void>();
@@ -101,6 +104,31 @@ export class HomeComponent implements AfterViewInit {
         this.featuresStable$,
       ]).pipe(
         tap(() => {
+          if (new Date() <= new Date('2024-11-30')) {
+            this._adsBanner.create({
+              desktopBanner:
+                'https://s3-api.vps.notifyapp.it/assets/banners/desktop-black-friday-2024.webp',
+              mobileBanner:
+                'https://s3-api.vps.notifyapp.it/assets/banners/mobile-black-friday-2024.webp',
+              interactions: {
+                tooltip: {
+                  type: 'always',
+                  value: this._utilsSerivce.isMobile
+                    ? 'Tappa per copiare il coupon!'
+                    : 'Fai click per copiare coupon!',
+                },
+                bannerData: 'BLACKFRIDAY20',
+                onClick: (v) => {
+                  navigator.clipboard.writeText(v);
+                  this._toastrService.info('Coupon copiato negli appunti');
+
+                  return {
+                    closeModal: true,
+                  };
+                },
+              },
+            });
+          }
           this._pixel.track('PageView');
         })
       );

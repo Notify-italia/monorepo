@@ -1,3 +1,4 @@
+export * from './ads-banner';
 export * from './confirm';
 export * from './contact-form';
 export * from './iframe';
