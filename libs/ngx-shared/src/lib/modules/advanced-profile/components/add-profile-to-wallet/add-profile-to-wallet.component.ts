@@ -34,6 +34,10 @@ export class AddProfileToWalletComponent {
   }
 
   public addToWallet(profile: INotifyProfile['_id']) {
+    this._capacitorService.triggerHapticFeedback(
+      this._capacitorService.hFeedbackStyles.Heavy
+    );
+
     this._profileSerivce
       .getPkpass(profile)
       .pipe(
