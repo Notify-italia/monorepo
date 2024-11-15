@@ -3,7 +3,6 @@
 	"passTypeIdentifier": "pass.com.offcenter.notify.profile",
 	"serialNumber": "nmyuxofgna",
 	"teamIdentifier": "PLACEHOLDER",
-	"webServiceURL": "https://192.168.1.254:80/",
 	"authenticationToken": "vxwxd7J8AlNNFPS8k0a0FfUFtq0ewzFdc",
 	"relevantDate": "2100-12-31T13:00-08:00",
 	"barcodes": [
@@ -15,10 +14,9 @@
 	],
 	"organizationName": "Offcenter SRL",
 	"description": "Il tuo pass Notify",
-	"foregroundColor": "#0098FF",
-	"backgroundColor": "#FFFFFF",
-	"type": "storeCard",
-	"eventTicket": {
+	"foregroundColor": "#FFFFFF",
+	"backgroundColor": "#013166",
+	"generic": {
 		"primaryFields": [
 			{
 				"key": "name",

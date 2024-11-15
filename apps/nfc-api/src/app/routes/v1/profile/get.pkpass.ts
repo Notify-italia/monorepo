@@ -37,44 +37,58 @@ const {
 ]);
 
 /** Each, but last, can be either a string or a Buffer. See API Documentation for more */
-const { wwdr, signerCert, signerKey, logo, passJson, icon, icon2x } =
-  await extractAssetFiles([
-    {
-      id: 'wwdr',
-      extractTo: EnumAssetExtractTo.String,
-      path: 'certs/apple/wwdr.pem',
-    },
-    {
-      path: 'certs/apple/signerCert.pem',
-      id: 'signerCert',
-      extractTo: EnumAssetExtractTo.String,
-    },
-    {
-      path: 'certs/apple/signerKey.key',
-      id: 'signerKey',
-      extractTo: EnumAssetExtractTo.String,
-    },
-    {
-      path: 'pkpasses/notifyProfile.pass/logo.png',
-      id: 'logo',
-      extractTo: EnumAssetExtractTo.Buffer,
-    },
-    {
-      path: 'pkpasses/notifyProfile.pass/pass.json',
-      id: 'passJson',
-      extractTo: EnumAssetExtractTo.String,
-    },
-    {
-      path: 'pkpasses/notifyProfile.pass/icon.png',
-      id: 'icon',
-      extractTo: EnumAssetExtractTo.Buffer,
-    },
-    {
-      path: 'pkpasses/notifyProfile.pass/icon@2x.png',
-      id: 'icon2x',
-      extractTo: EnumAssetExtractTo.Buffer,
-    },
-  ]);
+const {
+  wwdr,
+  signerCert,
+  signerKey,
+  logo,
+  passJson,
+  icon,
+  icon2x,
+  logo2x,
+  background,
+} = await extractAssetFiles([
+  {
+    id: 'wwdr',
+    extractTo: EnumAssetExtractTo.String,
+    path: 'certs/apple/wwdr.pem',
+  },
+  {
+    path: 'certs/apple/signerCert.pem',
+    id: 'signerCert',
+    extractTo: EnumAssetExtractTo.String,
+  },
+  {
+    path: 'certs/apple/signerKey.key',
+    id: 'signerKey',
+    extractTo: EnumAssetExtractTo.String,
+  },
+  {
+    path: 'pkpasses/notifyProfile.pass/logo.png',
+    id: 'logo',
+    extractTo: EnumAssetExtractTo.Buffer,
+  },
+  {
+    path: 'pkpasses/notifyProfile.pass/logo@2x.png',
+    id: 'logo2x',
+    extractTo: EnumAssetExtractTo.Buffer,
+  },
+  {
+    path: 'pkpasses/notifyProfile.pass/pass.json',
+    id: 'passJson',
+    extractTo: EnumAssetExtractTo.String,
+  },
+  {
+    path: 'pkpasses/notifyProfile.pass/icon.png',
+    id: 'icon',
+    extractTo: EnumAssetExtractTo.Buffer,
+  },
+  {
+    path: 'pkpasses/notifyProfile.pass/icon@2x.png',
+    id: 'icon2x',
+    extractTo: EnumAssetExtractTo.Buffer,
+  },
+]);
 
 router.get(
   '/',
@@ -96,12 +110,15 @@ router.get(
       }
 
       //arrotondo i bordi dell'immagine
-      const thumbnail = await _getThumbnail(profile);
+      const thumbnail = await _getThumbnail(profile, 80);
+      const thumbnail2x = await _getThumbnail(profile, 160);
 
       const pass = new PKPass(
         {
           'thumbnail.png': Buffer.from(thumbnail),
+          'thumbnail@2x.png': Buffer.from(thumbnail2x),
           'logo.png': Buffer.from(logo),
+          'logo@2x.png': Buffer.from(logo2x),
           'pass.json': passJson as Buffer,
           'icon.png': Buffer.from(icon),
           'icon@2x.png': Buffer.from(icon2x),
@@ -141,7 +158,7 @@ export { router as getPkpassRouter };
 /**
  * Rounds the corners of the provided profile's avatar
  */
-const _getThumbnail = async (profile: INotifyProfile) => {
+const _getThumbnail = async (profile: INotifyProfile, size: number) => {
   const _s3Url = getProfileAvatar(profile);
 
   if (!_s3Url?.length) {
@@ -151,6 +168,6 @@ const _getThumbnail = async (profile: INotifyProfile) => {
   const s3Path = `${getPathFromUrl(_s3Url)}/${getFilenameFromUrl(_s3Url)}`;
 
   return await fetch(
-    `https://${S3_BUCKET}.imgix.net${s3Path}?w=80&h=80&corner-radius=5%2C5%2C5%2C5&mask=corners&fm=png&auto=format&fit=crop&ixlib=js-2.0.0&s=e62ba672dfe60e2fd7131f0e31ca26a3`
+    `https://${S3_BUCKET}.imgix.net${s3Path}?w=${size}&h=${size}&corner-radius=5%2C5%2C5%2C5&mask=corners&fm=png&auto=format&fit=crop&ixlib=js-2.0.0&s=e62ba672dfe60e2fd7131f0e31ca26a3`
   ).then(async (res) => await res.arrayBuffer());
 };

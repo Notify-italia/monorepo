@@ -31,11 +31,11 @@ import {
   ProfileViewComponent,
   ShareItemComponent,
 } from '../profile';
+import { AddProfileToWalletComponent } from './components/add-profile-to-wallet/add-profile-to-wallet.component';
 import { RedirectToggleButtonComponent } from './components/redirect-toggle-button/redirect-toggle-button.component';
 import { ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS } from './items/page/page.form.component';
 import { AddItemButtonComponent } from './parts/add-item-button/add-item-button.component';
 import { HierarchyButtonComponent } from './parts/hierarchy-button/hierarchy-button.component';
-import { InfoPanelComponent } from './parts/info-panel/info-panel.component';
 import { InfoPanelFactory } from './parts/info-panel/info-panel.factory';
 import { LeftPanelComponent } from './parts/left-panel/left-panel.component';
 import { RightPanelComponent } from './parts/right-panel/right-panel.component';
@@ -52,11 +52,11 @@ import { AdvancedProfileItemOutputsService } from './services/advanced-profile-i
     ProfileViewComponent,
     CachedSrcDirective,
     AddItemButtonComponent,
-    InfoPanelComponent,
     HierarchyButtonComponent,
     SaveIndicatorComponent,
     ShareItemComponent,
     RedirectToggleButtonComponent,
+    AddProfileToWalletComponent,
   ],
   providers: [
     FormsService,
@@ -97,8 +97,6 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
   } = this._route.snapshot.data['environment'];
   public updatedAt = new Date();
   private destroy$ = new Subject<void>();
-
-  public isNative = this._capacitorService.isNative;
 
   public get providedId() {
     return this._route.snapshot.queryParamMap.get('p') || undefined;
@@ -340,17 +338,6 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
             this.selectedHierarchyItemChanged('background', p, false);
           }
           this.loading = false;
-        })
-      )
-      .subscribe();
-  }
-
-  public addToWallet(profile: INotifyProfile['_id']) {
-    this._profileSerivce
-      .getPkpass(profile)
-      .pipe(
-        tap(async (v) => {
-          await this._capacitorService.addToWallet(v.base64);
         })
       )
       .subscribe();

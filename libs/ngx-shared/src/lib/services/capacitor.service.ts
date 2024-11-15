@@ -23,12 +23,24 @@ import {
 } from '@capawesome-team/capacitor-nfc';
 import { CapacitorPassToWallet } from 'capacitor-pass-to-wallet';
 
+export interface IAddToWalletError {
+  message: string;
+}
+
+export interface IAddToWalletErrorParsed {
+  message: string;
+  /**
+   * 100 = Pass already exists in the wallet
+   */
+  code: 100;
+}
 @Injectable()
 export class CapacitorService {
   public isNative = Capacitor.isNativePlatform();
   public isIOS = Capacitor.getPlatform() === 'ios';
   public isAndroid = Capacitor.getPlatform() === 'android';
   public isDesktop = Capacitor.getPlatform() === 'web';
+  public devicePlatform = Capacitor.getPlatform() as 'ios' | 'android' | 'web';
   public hFeedbackStyles = { ...ImpactStyle, ...NotificationType };
   public nfcUtils = new NfcUtils();
 
