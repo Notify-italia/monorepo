@@ -148,7 +148,7 @@ export class ImageCropperComponent
         quality: 0.4,
         width: this.config.resize?.width || 800,
         height: this.config.resize?.height || 800,
-        mimeType: 'image/png',
+        mimeType: 'image/jpeg',
         success: (result) => {
           return resolve(result as File);
         },

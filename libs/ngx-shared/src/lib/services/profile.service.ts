@@ -278,7 +278,7 @@ export class ProfileService {
 VERSION:3.0
 ${this._buildVcardName(d)}
 ORG:${_cName}
-PHOTO;ENCODING=b:${avatar?.split(',')[1]}
+PHOTO;BASE64;TYPE=IMAGE:${avatar?.split(',')[1]}
 item2.URL;type=pref:${`${publicUrl}/p/${d._id}?s=${EnumNotifyProfileSources.Contacts}`}
 ${this._buildVcardPhoneNumbers(this.getPhoneNumbers(d))}
 ${this._buildVcardLocations(this.getLocations(d))}
