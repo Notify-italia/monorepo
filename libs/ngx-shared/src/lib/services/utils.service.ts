@@ -50,6 +50,10 @@ export class UtilsService {
     return ['none', 'sm', 'md'].includes(this.currentTailwindMediaQuery());
   }
 
+  public get isTablet(): boolean {
+    return ['md', 'lg'].includes(this.currentTailwindMediaQuery());
+  }
+
   public get availableScreenHeight() {
     if (!this.isMobile) {
       return { height: '99vh' };
