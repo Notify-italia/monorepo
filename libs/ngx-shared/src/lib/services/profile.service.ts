@@ -253,7 +253,15 @@ export class ProfileService {
   public getPkpass(profile?: string) {
     return this.http.get<{
       base64: string;
-    }>(`/v1/profile/pkpass`, {
+    }>(`/v1/profile/wallet/pkpass`, {
+      profile,
+    });
+  }
+
+  public getGooglePass(profile?: string) {
+    return this.http.get<{
+      passUrl: string;
+    }>(`/v1/profile/wallet/google-pass`, {
       profile,
     });
   }

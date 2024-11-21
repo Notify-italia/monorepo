@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { INotifyProfile } from '@notify/interfaces';
-import { tap } from 'rxjs';
+import { catchError, Observable, switchMap, tap } from 'rxjs';
 import {
   CapacitorService,
-  IAddToWalletError,
-  IAddToWalletErrorParsed,
+  IAddToAppleWalletError,
+  IAddToAppleWalletErrorParsed,
   ProfileService,
 } from '../../../../services';
 import { EnumSelectOptionStyle, SelectModalFactory } from '../../../modals';
@@ -38,39 +38,108 @@ export class AddProfileToWalletComponent {
       this._capacitorService.hFeedbackStyles.Heavy
     );
 
-    this._profileSerivce
-      .getPkpass(profile)
-      .pipe(
-        tap(async (v) => {
-          await this._capacitorService
-            .addToWallet(v.base64)
-            .catch((error: IAddToWalletError) => {
-              const errorParsed = JSON.parse(
-                error.message
-              ) as IAddToWalletErrorParsed;
-              console.log('errorParsed', errorParsed);
-              const ref = this._selectModal.create({
-                title: 'Errore',
-                subtitle:
-                  errorParsed.code === 100
-                    ? `Questo profilo è già presente nel tuo wallet.`
-                    : `Errore sconosciuto. Riprova più tardi o contattaci a supporto@notifyapp.it`,
-                hideCancel: true,
-                options: [
-                  {
-                    label: 'Ok',
-                    value: null,
-                    style: EnumSelectOptionStyle.DEFAULT,
-                  },
-                ],
-              });
+    this._addToWallet$(profile).subscribe();
+  }
 
-              ref.instance.optionSelected.subscribe(() => {
-                ref.instance.close();
-              });
+  private _addToWallet$(profile: INotifyProfile['_id']) {
+    switch (this.nativeDeviceType) {
+      case 'ios':
+        return this._addAppleWallet$(profile);
+
+      case 'android':
+        return this._addToGoogleWallet$(profile);
+    }
+
+    const ref = this._selectModal.create({
+      title: 'Errore',
+      subtitle: `Scegli il dispositivo su cui vuoi aggiungere il profilo al wallet.`,
+      options: [
+        {
+          label: 'Android',
+          value: 'android',
+          style: EnumSelectOptionStyle.DEFAULT,
+        },
+        {
+          label: 'iOS',
+          value: 'ios',
+          style: EnumSelectOptionStyle.DEFAULT,
+        },
+      ],
+    });
+
+    return ref.instance.optionSelected.pipe(
+      switchMap((v) => {
+        ref.instance.close();
+
+        switch (v.value) {
+          case 'android':
+            return this._addToGoogleWallet$(profile);
+          case 'ios':
+            return this._addAppleWallet$(profile);
+        }
+
+        return new Observable();
+      })
+    );
+  }
+
+  private _addToGoogleWallet$(profile: INotifyProfile['_id']) {
+    return this._profileSerivce.getGooglePass(profile).pipe(
+      tap((v) => {
+        const a = document.createElement('a');
+        a.href = v.passUrl;
+        a.target = '_blank';
+        a.click();
+      }),
+      catchError(() => {
+        this._selectModal.create({
+          title: 'Errore',
+          subtitle: `Errore sconosciuto. Riprova più tardi o contattaci a supporto@notifyapp.it`,
+          hideCancel: true,
+          options: [
+            {
+              label: 'Ok',
+              value: null,
+              style: EnumSelectOptionStyle.DEFAULT,
+            },
+          ],
+        });
+        return new Observable();
+      })
+    );
+  }
+
+  private _addAppleWallet$(profile: INotifyProfile['_id']) {
+    return this._profileSerivce.getPkpass(profile).pipe(
+      tap(async (v) => {
+        await this._capacitorService
+          .addToWallet(v.base64)
+          .catch((error: IAddToAppleWalletError) => {
+            const errorParsed = JSON.parse(
+              error.message
+            ) as IAddToAppleWalletErrorParsed;
+            console.log('errorParsed', errorParsed);
+            const ref = this._selectModal.create({
+              title: 'Errore',
+              subtitle:
+                errorParsed.code === 100
+                  ? `Questo profilo è già presente nel tuo wallet.`
+                  : `Errore sconosciuto. Riprova più tardi o contattaci a supporto@notifyapp.it`,
+              hideCancel: true,
+              options: [
+                {
+                  label: 'Ok',
+                  value: null,
+                  style: EnumSelectOptionStyle.DEFAULT,
+                },
+              ],
             });
-        })
-      )
-      .subscribe();
+
+            ref.instance.optionSelected.subscribe(() => {
+              ref.instance.close();
+            });
+          });
+      })
+    );
   }
 }

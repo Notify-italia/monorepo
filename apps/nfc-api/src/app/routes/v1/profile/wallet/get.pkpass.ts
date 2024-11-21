@@ -37,58 +37,49 @@ const {
 ]);
 
 /** Each, but last, can be either a string or a Buffer. See API Documentation for more */
-const {
-  wwdr,
-  signerCert,
-  signerKey,
-  logo,
-  passJson,
-  icon,
-  icon2x,
-  logo2x,
-  background,
-} = await extractAssetFiles([
-  {
-    id: 'wwdr',
-    extractTo: EnumAssetExtractTo.String,
-    path: 'certs/apple/wwdr.pem',
-  },
-  {
-    path: 'certs/apple/signerCert.pem',
-    id: 'signerCert',
-    extractTo: EnumAssetExtractTo.String,
-  },
-  {
-    path: 'certs/apple/signerKey.key',
-    id: 'signerKey',
-    extractTo: EnumAssetExtractTo.String,
-  },
-  {
-    path: 'pkpasses/notifyProfile.pass/logo.png',
-    id: 'logo',
-    extractTo: EnumAssetExtractTo.Buffer,
-  },
-  {
-    path: 'pkpasses/notifyProfile.pass/logo@2x.png',
-    id: 'logo2x',
-    extractTo: EnumAssetExtractTo.Buffer,
-  },
-  {
-    path: 'pkpasses/notifyProfile.pass/pass.json',
-    id: 'passJson',
-    extractTo: EnumAssetExtractTo.String,
-  },
-  {
-    path: 'pkpasses/notifyProfile.pass/icon.png',
-    id: 'icon',
-    extractTo: EnumAssetExtractTo.Buffer,
-  },
-  {
-    path: 'pkpasses/notifyProfile.pass/icon@2x.png',
-    id: 'icon2x',
-    extractTo: EnumAssetExtractTo.Buffer,
-  },
-]);
+const { wwdr, signerCert, signerKey, logo, passJson, icon, icon2x, logo2x } =
+  await extractAssetFiles([
+    {
+      id: 'wwdr',
+      extractTo: EnumAssetExtractTo.String,
+      path: 'certs/apple/wwdr.pem',
+    },
+    {
+      path: 'certs/apple/signerCert.pem',
+      id: 'signerCert',
+      extractTo: EnumAssetExtractTo.String,
+    },
+    {
+      path: 'certs/apple/signerKey.key',
+      id: 'signerKey',
+      extractTo: EnumAssetExtractTo.String,
+    },
+    {
+      path: 'pkpasses/notifyProfile.pass/logo.png',
+      id: 'logo',
+      extractTo: EnumAssetExtractTo.Buffer,
+    },
+    {
+      path: 'pkpasses/notifyProfile.pass/logo@2x.png',
+      id: 'logo2x',
+      extractTo: EnumAssetExtractTo.Buffer,
+    },
+    {
+      path: 'pkpasses/notifyProfile.pass/pass.json',
+      id: 'passJson',
+      extractTo: EnumAssetExtractTo.String,
+    },
+    {
+      path: 'pkpasses/notifyProfile.pass/icon.png',
+      id: 'icon',
+      extractTo: EnumAssetExtractTo.Buffer,
+    },
+    {
+      path: 'pkpasses/notifyProfile.pass/icon@2x.png',
+      id: 'icon2x',
+      extractTo: EnumAssetExtractTo.Buffer,
+    },
+  ]);
 
 router.get(
   '/',

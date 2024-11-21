@@ -46,6 +46,7 @@ export class SocketService {
   ) {}
 
   public connect(profile: string, owner = '', userId?: string) {
+    console.log(`Connecting to socket server`);
     this._populateUserInfo(userId);
 
     this._socket = io(this._socketUrl, {

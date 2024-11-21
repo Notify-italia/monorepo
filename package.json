@@ -65,6 +65,7 @@
     "express-validator": "^7.0.1",
     "file-type": "^19.0.0",
     "firebase-admin": "^12.2.0",
+    "google-wallet": "^1.0.21",
     "googleapis": "^140.0.1",
     "http": "^0.0.1-security",
     "jquery": "^3.7.1",

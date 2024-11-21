@@ -23,11 +23,11 @@ import {
 } from '@capawesome-team/capacitor-nfc';
 import { CapacitorPassToWallet } from 'capacitor-pass-to-wallet';
 
-export interface IAddToWalletError {
+export interface IAddToAppleWalletError {
   message: string;
 }
 
-export interface IAddToWalletErrorParsed {
+export interface IAddToAppleWalletErrorParsed {
   message: string;
   /**
    * 100 = Pass already exists in the wallet
