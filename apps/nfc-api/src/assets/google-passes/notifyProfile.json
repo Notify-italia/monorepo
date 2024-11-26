@@ -1,0 +1,50 @@
+{
+    "id": "[[ID]]",
+    "classId": "[[CLASSID]]",
+    "logo": {
+        "sourceUri": {
+            "uri": "https://s3-api.vps.notifyapp.it/assets/illustrazione.png"
+        },
+        "contentDescription": {
+            "defaultValue": {
+                "language": "it-IT",
+                "value": "LOGO_IMAGE_DESCRIPTION"
+            }
+        }
+    },
+    "cardTitle": {
+        "defaultValue": {
+            "language": "it-IT",
+            "value": "[[fullName]]"
+        }
+    },
+    "subheader": {
+        "defaultValue": {
+            "language": "it-IT",
+            "value": "Account"
+        }
+    },
+    "header": {
+        "defaultValue": {
+            "language": "it-IT",
+            "value": "[[accountEmail]]"
+        }
+    },
+    "barcode": {
+        "type": "QR_CODE",
+        "value": "BARCODE_VALUE",
+        "alternateText": ""
+    },
+    "hexBackgroundColor": "#01396d",
+    "heroImage": {
+        "sourceUri": {
+            "uri": "https://s3-api.vps.notifyapp.it/assets/White%20logo-padded.png"
+        },
+        "contentDescription": {
+            "defaultValue": {
+                "language": "it-IT",
+                "value": "HERO_IMAGE_DESCRIPTION"
+            }
+        }
+    }
+}

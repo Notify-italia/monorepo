@@ -26,6 +26,7 @@ export class AddProfileToWalletComponent {
   @Input({ required: true }) profile!: INotifyProfile;
 
   public get nativeDeviceType() {
+    return 'ios';
     if (!this._capacitorService.isNative) {
       return null;
     }
@@ -86,13 +87,10 @@ export class AddProfileToWalletComponent {
   private _addToGoogleWallet$(profile: INotifyProfile['_id']) {
     return this._profileSerivce.getGooglePass(profile).pipe(
       tap((v) => {
-        const a = document.createElement('a');
-        a.href = v.passUrl;
-        a.target = '_blank';
-        a.click();
+        window.open(v.passUrl, '_blank');
       }),
       catchError(() => {
-        this._selectModal.create({
+        const ref = this._selectModal.create({
           title: 'Errore',
           subtitle: `Errore sconosciuto. Riprova più tardi o contattaci a supporto@notifyapp.it`,
           hideCancel: true,
@@ -103,6 +101,10 @@ export class AddProfileToWalletComponent {
               style: EnumSelectOptionStyle.DEFAULT,
             },
           ],
+        });
+
+        ref.instance.optionSelected.subscribe(() => {
+          ref.instance.close();
         });
         return new Observable();
       })
