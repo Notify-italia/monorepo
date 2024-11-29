@@ -7,26 +7,26 @@
         },
         "contentDescription": {
             "defaultValue": {
-                "language": "it-IT",
+                "language": "en-IT",
                 "value": "LOGO_IMAGE_DESCRIPTION"
             }
         }
     },
     "cardTitle": {
         "defaultValue": {
-            "language": "it-IT",
+            "language": "en-IT",
             "value": "[[fullName]]"
         }
     },
     "subheader": {
         "defaultValue": {
-            "language": "it-IT",
+            "language": "en-IT",
             "value": "Account"
         }
     },
     "header": {
         "defaultValue": {
-            "language": "it-IT",
+            "language": "en-IT",
             "value": "[[accountEmail]]"
         }
     },
@@ -42,7 +42,7 @@
         },
         "contentDescription": {
             "defaultValue": {
-                "language": "it-IT",
+                "language": "en-IT",
                 "value": "HERO_IMAGE_DESCRIPTION"
             }
         }

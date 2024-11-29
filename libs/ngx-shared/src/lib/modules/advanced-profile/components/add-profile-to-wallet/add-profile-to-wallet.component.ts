@@ -26,7 +26,6 @@ export class AddProfileToWalletComponent {
   @Input({ required: true }) profile!: INotifyProfile;
 
   public get nativeDeviceType() {
-    return 'ios';
     if (!this._capacitorService.isNative) {
       return null;
     }
