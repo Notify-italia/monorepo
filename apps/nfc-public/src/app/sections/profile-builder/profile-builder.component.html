@@ -4,7 +4,7 @@
 />
 <div class="max-content-width">
   <div class="website-section">
-    <h1 class="section-title" id="profile-builder">{{ title }}</h1>
+    <h1 class="section-title" id="profile-builder">{{ sectionTitle }}</h1>
     <p class="section-subtitle">
       Il tuo biglietto da visita è la prima cosa che i tuoi potenziali clienti
       giudicano e noi lo sappiamo bene. <br />
@@ -22,7 +22,7 @@
         class="flex flex-col space-y-4 smooth smooth-slow mt-10 w-full"
       >
         <p
-          class="text-accent-color text-center text-lg lg:text-2xl font-semibold"
+          class="text-accent-color text-center text-lg lg:text-2xl font-medium font-quicksand"
         >
           Fai un test di come potrebbe apparire <br />
           il tuo profilo Notify compilando i campi sottostanti.
@@ -87,15 +87,13 @@
           ></notify-tailwind-input>
           <notify-tailwind-checkbox
             name="consentAccepted"
-            label="acconsento al trattamento dei miei dati personali per <a href='https://notifyapp.it/thirdparties/privacy' target='_blank' class='link'>fini commerciali</a>"
+            label="acconsento al trattamento dei miei dati personali per <a href='https://notifyapp.it/thirdparties/privacy' target='_blank' class='link'>fini promozionali</a>"
             [overrideToggleIcon]="checkboxBoxed"
             [parent]="form"
             [compact]="true"
+            [disabled]="!!form.value.consentAccepted"
             [validationErrors]="{
               required: ' '
-            }"
-            [ngClass]="{
-              'opacity-50 pointer-events-none': form.value.consentAccepted
             }"
           >
           </notify-tailwind-checkbox>
@@ -131,7 +129,7 @@
         *ngIf="!this.utilsService.isMobile && preparedTemplate"
         class="size-full hidden intersect:block smooth iphone-15-pro smooth mx-auto scale-90 relative"
         [ngClass]="{
-          'blur-md': !form.value.consentAccepted
+          'blur-sm pointer-events-none': !form.value.consentAccepted
         }"
       >
         <notify-profile-view

@@ -2,7 +2,7 @@
   class="relative flex justify-between w-full"
   [formGroup]="parent"
   [ngClass]="{
-    'pointer-events-none opacity-25': disabled,
+    'opacity-25': disabled,
   }"
   id="form-wrapper"
 >
@@ -15,7 +15,12 @@
   ></label>
 
   @if(!overrideToggleIcon) {
-  <div class="form-control">
+  <div
+    class="form-control"
+    [ngClass]="{
+    'pointer-events-none': disabled,
+  }"
+  >
     <label class="cursor-pointer label">
       <input
         type="checkbox"
@@ -28,6 +33,9 @@
   </div>
   } @else {
   <button
+    [ngClass]="{
+    'pointer-events-none': disabled,
+  }"
     (click)="toggleCheckbox()"
     class="my-auto hover:brightness-125 {{ overrideToggleIcon.button || '' }} "
   >

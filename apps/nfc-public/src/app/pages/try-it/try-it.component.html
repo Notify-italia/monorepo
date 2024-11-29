@@ -20,7 +20,7 @@
     class="flex flex-col items-stretch lg:items-center max-w-[100vw] text-slate-800 main-circle scroll-smooth scrollbar-none justify-between"
   >
     <notify-profile-builder
-      title="Un piccolo assaggio."
+      sectionTitle="Un piccolo assaggio."
       (componentStable)="builderStable$.next(true)"
       class="mt-20 h-[90lvh]"
     ></notify-profile-builder>
@@ -28,18 +28,23 @@
     <div class="divider z-10"></div>
 
     <div class="max-content-width h-fit">
-      <div class="flex space-y-1 flex-col w-full items-center">
-        <button
-          class="w-full font-bold p-4 rounded-2xl backdrop-blur-xl bg-slate-200/50 flex justify-center space-x-4 items-center text-secondary-500 text-lg active:scale-90 border-opacity-0 hover:border-opacity-100 border border-slate-400 disabled:pointer-events-none disabled:opacity-75 disabled:border-opacity-75 disabled:bg-slate-300/80 disabled:text-slate-500 lg:max-w-[50%]"
-        >
-          Acquista la tua licenza
-        </button>
-        <a
-          class="text-center font-medium text-gray-800 link z-10 text-sm"
-          routerLink="/"
-        >
-          Oppure, scopri Notify in tutte le sue funzionalità
-        </a>
+      <div class="flex space-y-6 flex-col w-full items-center">
+        <h2 class="text-center font-bold text-2xl text-slate-800">
+          Siamo riusciti a convincerti?
+        </h2>
+        <div class="space-y-1 flex flex-col w-full items-center">
+          <button
+            class="w-full font-bold p-4 rounded-2xl backdrop-blur-xl bg-slate-200/50 flex justify-center space-x-4 items-center text-secondary-500 active:scale-90 border-opacity-0 hover:border-opacity-100 border border-slate-400 disabled:pointer-events-none disabled:opacity-75 disabled:border-opacity-75 disabled:bg-slate-300/80 disabled:text-slate-500 lg:max-w-[50%] smooth text-2xl"
+          >
+            Rendilo reale.
+          </button>
+          <a
+            class="text-center font-medium text-gray-500 link z-10 text-xs"
+            routerLink="/"
+          >
+            Oppure, scopri Notify in tutte le sue funzionalità
+          </a>
+        </div>
       </div>
     </div>
 

@@ -37,7 +37,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./profile-builder.component.scss'],
 })
 export class ProfileBuilderComponent extends SSRBaseComponent {
-  @Input() public title = '1. Un piccolo assaggio.';
+  @Input() public sectionTitle = '1. Un piccolo assaggio.';
   public utilsService = inject(UtilsService);
   private _profileFactory = inject(ProfilePlayerFactory);
 
