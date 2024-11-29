@@ -91,6 +91,11 @@ export const appRoutes: Route[] = [
         (m) => m.CheckoutSuccessComponent
       ),
   },
+  {
+    path: 'provalo',
+    loadComponent: () =>
+      import('./pages/try-it/try-it.component').then((m) => m.TryItComponent),
+  },
   // {
   //   path: 'shop',
   //   loadComponent: () =>

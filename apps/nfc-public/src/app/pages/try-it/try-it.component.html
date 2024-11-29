@@ -1,0 +1,50 @@
+<div class="flex justify-center font-poppins overflow-hidden z-20 bg-white">
+  <div
+    class="fixed w-full h-lscreen top-0 left-0 z-[999] bg-white smooth"
+    [ngClass]="{
+        'opacity-0 pointer-events-none':  pageStable$  | async,
+      }"
+  >
+    <notify-loading></notify-loading>
+  </div>
+
+  <div class="fixed z-50 top-0 left-0 w-full">
+    <notify-top-nav
+      (CartClicked)="showCart()"
+      class="topNav-container"
+    ></notify-top-nav>
+  </div>
+
+  <div
+    #CircleContainer
+    class="flex flex-col items-stretch lg:items-center max-w-[100vw] text-slate-800 main-circle scroll-smooth scrollbar-none justify-between"
+  >
+    <notify-profile-builder
+      title="Un piccolo assaggio."
+      (componentStable)="builderStable$.next(true)"
+      class="mt-20 h-[90lvh]"
+    ></notify-profile-builder>
+
+    <div class="divider z-10"></div>
+
+    <div class="max-content-width h-fit">
+      <div class="flex space-y-1 flex-col w-full items-center">
+        <button
+          class="w-full font-bold p-4 rounded-2xl backdrop-blur-xl bg-slate-200/50 flex justify-center space-x-4 items-center text-secondary-500 text-lg active:scale-90 border-opacity-0 hover:border-opacity-100 border border-slate-400 disabled:pointer-events-none disabled:opacity-75 disabled:border-opacity-75 disabled:bg-slate-300/80 disabled:text-slate-500 lg:max-w-[50%]"
+        >
+          Acquista la tua licenza
+        </button>
+        <a
+          class="text-center font-medium text-gray-800 link z-10 text-sm"
+          routerLink="/"
+        >
+          Oppure, scopri Notify in tutte le sue funzionalità
+        </a>
+      </div>
+    </div>
+
+    <notify-footer
+      class="z-10 mt-20 ignore-height ignore-padding !w-screen -mb-5 lg:-mb-2"
+    ></notify-footer>
+  </div>
+</div>

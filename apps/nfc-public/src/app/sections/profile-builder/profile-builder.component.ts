@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   EnumNotifyAdvancedProfileItems,
@@ -21,6 +21,7 @@ import {
 import axios from 'axios';
 import { debounceTime, takeUntil, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'notify-profile-builder',
   standalone: true,
@@ -36,8 +37,18 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./profile-builder.component.scss'],
 })
 export class ProfileBuilderComponent extends SSRBaseComponent {
+  @Input() public title = '1. Un piccolo assaggio.';
   public utilsService = inject(UtilsService);
   private _profileFactory = inject(ProfilePlayerFactory);
+
+  public checkboxBoxed = {
+    checked: `<svg class="size-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 9 5 5 9-9-1.41-1.42L10 14.17l-3.59-3.58L5 12Z" clip-rule="evenodd"></path>
+  </svg>`,
+    unchecked: `<svg class="size-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 5v14H5V5h14Zm0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2Z"></path>
+  </svg>`,
+  };
 
   public form = new FormGroup({
     name: new FormControl(''),
@@ -45,6 +56,7 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
     phone: new FormControl(''),
     role: new FormControl(''),
     image: new FormControl(''),
+    consentAccepted: new FormControl(false),
   });
 
   public showProfile = false;

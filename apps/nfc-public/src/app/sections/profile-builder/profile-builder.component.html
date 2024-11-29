@@ -4,7 +4,7 @@
 />
 <div class="max-content-width">
   <div class="website-section">
-    <h1 class="section-title" id="profile-builder">1. Un piccolo assaggio.</h1>
+    <h1 class="section-title" id="profile-builder">{{ title }}</h1>
     <p class="section-subtitle">
       Il tuo biglietto da visita è la prima cosa che i tuoi potenziali clienti
       giudicano e noi lo sappiamo bene. <br />
@@ -27,16 +27,7 @@
           Fai un test di come potrebbe apparire <br />
           il tuo profilo Notify compilando i campi sottostanti.
         </p>
-        <!-- <p class="section-subtitle">
-          Genera un profilo causale in pochi click, per vedere in anteprima le
-          potenzialità del nostro editor.
-          <br />
-          <small>
-            oppure, in alternativa,
-            <a href="#instructions" class="link">prova Notify</a> gratuitamente
-            e inizia subito a creare il profilo del tuo business.
-          </small>
-        </p> -->
+
         <notify-upload
           (fileChanged)="this.form.controls.image.setValue($any($event.blob))"
           acceptedFiles="image/webp,image/jpeg,image/png"
@@ -94,8 +85,23 @@
               required: ' '
             }"
           ></notify-tailwind-input>
+          <notify-tailwind-checkbox
+            name="consentAccepted"
+            label="acconsento al trattamento dei miei dati personali per <a href='https://notifyapp.it/thirdparties/privacy' target='_blank' class='link'>fini commerciali</a>"
+            [overrideToggleIcon]="checkboxBoxed"
+            [parent]="form"
+            [compact]="true"
+            [validationErrors]="{
+              required: ' '
+            }"
+            [ngClass]="{
+              'opacity-50 pointer-events-none': form.value.consentAccepted
+            }"
+          >
+          </notify-tailwind-checkbox>
         </div>
 
+        <div class="divider"></div>
         <button
           class="randomizer-button smooth group/randomizer"
           (click)="shuffleTemplates()"
@@ -124,6 +130,9 @@
       <div
         *ngIf="!this.utilsService.isMobile && preparedTemplate"
         class="size-full hidden intersect:block smooth iphone-15-pro smooth mx-auto scale-90 relative"
+        [ngClass]="{
+          'blur-md': !form.value.consentAccepted
+        }"
       >
         <notify-profile-view
           class="size-full"
