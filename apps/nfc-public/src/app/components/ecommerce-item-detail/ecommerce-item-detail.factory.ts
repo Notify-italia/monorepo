@@ -6,7 +6,13 @@ import { EcommerceItemDetailComponent } from './ecommerce-item-detail.component'
 
 @Injectable()
 export class EcommerceItemDetailFactory extends BaseFactory {
-  public create(config: { item: INotifyEcommerceProduct }) {
+  public create(config: {
+    item: INotifyEcommerceProduct;
+    submitLabel?: {
+      mobile: string;
+      desktop: string;
+    };
+  }) {
     return this._createComponent(EcommerceItemDetailComponent, {
       ...config,
     });

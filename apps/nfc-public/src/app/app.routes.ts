@@ -96,11 +96,7 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./pages/try-it/try-it.component').then((m) => m.TryItComponent),
   },
-  // {
-  //   path: 'shop',
-  //   loadComponent: () =>
-  //     import('./pages/shop/shop.component').then((m) => m.ShopComponent),
-  // },
+
   {
     path: '**',
     pathMatch: 'full',

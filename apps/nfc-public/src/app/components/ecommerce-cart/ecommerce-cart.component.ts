@@ -2,10 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
-  INotifyEcommerceCartItem,
-  INotifyEcommerceProduct,
-} from '@notify/interfaces';
-import {
   EcommerceService,
   ModalBaseComponent,
   PixelService,
@@ -24,24 +20,7 @@ export class EcommerceCartComponent extends ModalBaseComponent {
   private _pixel = inject(PixelService);
 
   public get cartItems() {
-    return this.ecommerce.cart.items.map((item) => {
-      const productData = this.ecommerce.products.find(
-        (product) => product.id === item.product
-      );
-
-      return {
-        ...item,
-        total:
-          (item.quantity || item.options.userCount || 1) *
-          (productData?.price || 0),
-        price:
-          item.options.userCount && productData?.options.noQuantity
-            ? item.price * item.options.userCount
-            : item.price,
-        product_data: productData,
-        description: this._createItemDescription(item, productData),
-      };
-    });
+    return this.ecommerce.populateCart();
   }
 
   public get cartTotal() {
@@ -49,69 +28,10 @@ export class EcommerceCartComponent extends ModalBaseComponent {
   }
 
   public goToCheckout() {
-    const cart = {
-      ...this.ecommerce.cart,
-      items: this.cartItems.map((item) => ({
-        ...item,
-        description: '',
-        product_data: undefined,
-      })),
-    };
     this._pixel.track('InitiateCheckout', {
       value: this.cartTotal,
       currency: 'EUR',
     });
-    this.ecommerce.goToCheckout(cart);
-  }
-
-  private _createItemDescription(
-    item: INotifyEcommerceCartItem,
-    productData?: INotifyEcommerceProduct
-  ) {
-    const labels: { [key: string]: string } = {};
-
-    if (item.options.color) {
-      labels['color'] =
-        productData?.options.colors?.find((v) => v.id === item.options.color)
-          ?.label || '';
-    }
-
-    if (item.options.logo) {
-      labels['logo'] = `${item.options.logo.filename}`;
-    }
-
-    if (item.options.usersInfo) {
-      labels['usersInfo'] = `<ul>
-      ${item.options.usersInfo
-        .map((info, i) => `<li>${i + 1}. ${info.alias}</li>`)
-        .join('')}
-       </ul>`;
-    }
-
-    if (item.options.companyName) {
-      const _name = item.options.companyName
-        .trim()
-        .replace('https://', '')
-        .replace('www.', '');
-      const _threshold = 50;
-      labels['companyName'] =
-        _name.length > _threshold ? `${_name.slice(0, _threshold)}...` : _name;
-    }
-
-    // if (item.options.userCount) {
-    //   labels['userCount'] = `${item.options.userCount} Utenti`;
-    // }
-
-    if (productData?.options.includesLicense) {
-      labels['license'] = '<small>Licenza notify inclusa</small>';
-    }
-
-    return this._sanitizer
-      .bypassSecurityTrustHtml(`<div class="flex flex-col space-y-2">
-      ${Object.keys(labels)
-        .map((key) => `<div>${labels[key].toUpperCase()}</div>`)
-        .join('')}
-        </div>
-        `);
+    this.ecommerce.goToCheckout();
   }
 }

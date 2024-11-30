@@ -1,9 +1,11 @@
 import { CommonModule, Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { LoadingComponent } from '@notify/ngx-shared';
-import { combineLatest, Subject } from 'rxjs';
+import { RouterModule } from '@angular/router';
+import { INotifyEcommerceProduct } from '@notify/interfaces';
+import { EcommerceService, LoadingComponent } from '@notify/ngx-shared';
+import { combineLatest, Subject, tap } from 'rxjs';
 import { EcommerceCartFactory } from '../../components/ecommerce-cart/ecommerce-cart.factory';
+import { EcommerceItemDetailFactory } from '../../components/ecommerce-item-detail/ecommerce-item-detail.factory';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { TopNavComponent } from '../../components/top-nav/top-nav.component';
 import { ProfileBuilderComponent } from '../../sections/profile-builder/profile-builder.component';
@@ -19,14 +21,15 @@ import { ProfileBuilderComponent } from '../../sections/profile-builder/profile-
     FooterComponent,
     RouterModule,
   ],
-  providers: [EcommerceCartFactory],
+  providers: [EcommerceCartFactory, EcommerceItemDetailFactory],
   templateUrl: './try-it.component.html',
   styleUrl: './try-it.component.scss',
 })
 export class TryItComponent {
   private _location = inject(Location);
   private _cart = inject(EcommerceCartFactory);
-  private _router = inject(Router);
+  private _ecommerce = inject(EcommerceService);
+  private _productFactory = inject(EcommerceItemDetailFactory);
 
   public builderStable$ = new Subject<boolean>();
   public pageStable$ = combineLatest([this.builderStable$]);
@@ -40,5 +43,28 @@ export class TryItComponent {
 
       this._location.replaceState(pathWithoutHash);
     });
+  }
+
+  public showProductDetail() {
+    const item = this._ecommerce.products.find(
+      (p) => p.id === 'notify-digital'
+    ) as INotifyEcommerceProduct;
+
+    const ref = this._productFactory.create({
+      item,
+      submitLabel: {
+        mobile: 'Acquista',
+        desktop: 'Vai al checkout',
+      },
+    });
+
+    ref.instance.submitted
+      .pipe(
+        tap((i) => {
+          this._ecommerce.addToCart(item, i.quantity, i.parsedOptions);
+          this._ecommerce.goToCheckout();
+        })
+      )
+      .subscribe();
   }
 }

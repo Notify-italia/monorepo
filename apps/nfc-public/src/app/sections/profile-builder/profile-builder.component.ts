@@ -277,7 +277,7 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
       role: this.form.value.role,
     };
     //collect user informations if he fills out at least name and either email or phone
-    if (!fV.name) {
+    if (!fV.name || !this.form.value.consentAccepted) {
       return;
     }
 

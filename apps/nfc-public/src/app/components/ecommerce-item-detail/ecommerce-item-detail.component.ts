@@ -35,6 +35,10 @@ export class EcommerceItemDetailComponent
 {
   @ViewChild(`QuantityInput`) quantityInput!: ElementRef<HTMLInputElement>;
   @Input() item!: INotifyEcommerceProduct;
+  @Input() submitLabel = {
+    mobile: 'Aggiungi',
+    desktop: 'Aggiungi al carrello',
+  };
 
   public selectedImage = 0;
   public form!: FormGroup<

@@ -1,7 +1,9 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID, inject } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   INotifyEcommerceCart,
+  INotifyEcommerceCartItem,
   INotifyEcommerceProduct,
   UnknownType,
 } from '@notify/interfaces';
@@ -16,6 +18,7 @@ export class EcommerceService {
   private _http = inject(HttpService);
   private _toast = inject(ToastrService);
   private platformId = inject(PLATFORM_ID);
+  private _sanitizer = inject(DomSanitizer);
 
   private _lsCustomerId = 'notify-ecommerce-customer-id';
   private _lsCart = 'notify-ecommerce-cart';
@@ -84,24 +87,49 @@ export class EcommerceService {
     this._generateCart();
   }
 
-  public goToCheckout(cart: INotifyEcommerceCart) {
+  public populateCart() {
+    return this.cart.items.map((item) => {
+      const productData = this.products.find(
+        (product) => product.id === item.product
+      );
+
+      return {
+        ...item,
+        total:
+          (item.quantity || item.options.userCount || 1) *
+          (productData?.price || 0),
+        price:
+          item.options.userCount && productData?.options.noQuantity
+            ? item.price * item.options.userCount
+            : item.price,
+        product_data: productData,
+        description: this._createItemDescription(item, productData),
+      };
+    });
+  }
+
+  public goToCheckout() {
     if (!this._isBrowser) {
       return;
     }
+
+    const normalized = {
+      ...this.cart,
+      items: this.populateCart().map((item) => ({
+        ...item,
+        description: '',
+        product_data: undefined,
+      })),
+    };
 
     this._http
       .post<{ cart: INotifyEcommerceCart }, { checkout_url: string }>(
         '/v1/sales/checkout',
         {
-          cart: cart,
+          cart: normalized,
         }
       )
-      .pipe(
-        tap((v) => {
-          console.log('checkout response', v);
-          window.open(v.checkout_url, '_self');
-        })
-      )
+      .pipe(tap((v) => window.open(v.checkout_url, '_self')))
       .subscribe();
   }
 
@@ -155,6 +183,57 @@ export class EcommerceService {
   private _generateCustomerId() {
     const customerId = Math.random().toString(36).substring(2, 15);
     localStorage.setItem(this._lsCustomerId, customerId);
+  }
+
+  private _createItemDescription(
+    item: INotifyEcommerceCartItem,
+    productData?: INotifyEcommerceProduct
+  ) {
+    const labels: { [key: string]: string } = {};
+
+    if (item.options.color) {
+      labels['color'] =
+        productData?.options.colors?.find((v) => v.id === item.options.color)
+          ?.label || '';
+    }
+
+    if (item.options.logo) {
+      labels['logo'] = `${item.options.logo.filename}`;
+    }
+
+    if (item.options.usersInfo) {
+      labels['usersInfo'] = `<ul>
+      ${item.options.usersInfo
+        .map((info, i) => `<li>${i + 1}. ${info.alias}</li>`)
+        .join('')}
+       </ul>`;
+    }
+
+    if (item.options.companyName) {
+      const _name = item.options.companyName
+        .trim()
+        .replace('https://', '')
+        .replace('www.', '');
+      const _threshold = 50;
+      labels['companyName'] =
+        _name.length > _threshold ? `${_name.slice(0, _threshold)}...` : _name;
+    }
+
+    // if (item.options.userCount) {
+    //   labels['userCount'] = `${item.options.userCount} Utenti`;
+    // }
+
+    if (productData?.options.includesLicense) {
+      labels['license'] = '<small>Licenza notify inclusa</small>';
+    }
+
+    return this._sanitizer
+      .bypassSecurityTrustHtml(`<div class="flex flex-col space-y-2">
+      ${Object.keys(labels)
+        .map((key) => `<div>${labels[key].toUpperCase()}</div>`)
+        .join('')}
+        </div>
+        `);
   }
 }
 
