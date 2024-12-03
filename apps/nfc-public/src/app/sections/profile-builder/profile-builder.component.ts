@@ -85,6 +85,7 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
     await this._prepareProfiles();
 
     if (this.utilsService.isMobile) {
+      this.componentIsStable();
       return;
     }
 

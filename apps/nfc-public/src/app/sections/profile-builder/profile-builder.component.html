@@ -4,12 +4,14 @@
 />
 <div class="max-content-width">
   <div class="website-section">
-    <h1 class="section-title" id="profile-builder">{{ sectionTitle }}</h1>
+    <h1 class="section-title" id="profile-builder">
+      {{ sectionTitle }}
+    </h1>
     <p class="section-subtitle">
-      Il tuo biglietto da visita è la prima cosa che i tuoi potenziali clienti
-      giudicano e noi lo sappiamo bene. <br />
-      Per questo abbiamo inserito una versione <i>lite</i> del nostro editor,
-      per darti un'idea della potenza di personalizzazione che offre Notify.
+      Notify ti permette di creare un biglietto da visita digitale che veramente
+      ti rappresenta. <br />
+      Ogni elemento è personalizzabile, dallo stile grafico alla disposizione
+      delle informazioni.
     </p>
     <div
       class="flex items-center relative justify-around size-full"
@@ -21,11 +23,22 @@
         [formGroup]="form"
         class="flex flex-col space-y-4 smooth smooth-slow mt-10 w-full"
       >
-        <p
-          class="text-accent-color text-center text-lg lg:text-2xl font-medium font-quicksand"
-        >
-          Fai un test di come potrebbe apparire <br />
-          il tuo profilo Notify compilando i campi sottostanti.
+        <p class="text-center font-figtree text-gray-600">
+          <span class="text-2xl font-bold">
+            Inserisci i tuoi dati e crea un profilo con stile casuale 👇
+          </span>
+          <br />
+          <span class="text-xs lg:text-sm !leading-0 lg:!leading-3 font-medium">
+            Vuoi provare sin da subito l'editor grafico?
+
+            <a
+              class="link text-accent-color"
+              href="http://aziende.notifyapp.it/signup"
+              target="_blank"
+              >Crea un'account</a
+            >.
+            <br />
+          </span>
         </p>
 
         <notify-upload
@@ -85,9 +98,10 @@
               required: ' '
             }"
           ></notify-tailwind-input>
+          <div class="divider"></div>
           <notify-tailwind-checkbox
             name="consentAccepted"
-            label="acconsento al trattamento dei miei dati personali per <a href='https://notifyapp.it/thirdparties/privacy' target='_blank' class='link'>fini promozionali</a>"
+            label="Trattamento dei miei dati personali a <a href='https://notifyapp.it/thirdparties/privacy' target='_blank' class='link'>fini promozionali</a>"
             [overrideToggleIcon]="checkboxBoxed"
             [parent]="form"
             [compact]="true"
@@ -99,8 +113,8 @@
           </notify-tailwind-checkbox>
         </div>
 
-        <div class="divider"></div>
         <button
+          [disabled]="!form.value.consentAccepted"
           class="randomizer-button smooth group/randomizer"
           (click)="shuffleTemplates()"
         >
