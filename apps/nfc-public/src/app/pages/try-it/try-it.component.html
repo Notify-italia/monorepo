@@ -17,12 +17,12 @@
 
   <div
     #CircleContainer
-    class="flex flex-col items-stretch lg:items-center px-4 max-w-[100vw] text-slate-800 min-h-screen main-circle scroll-smooth scrollbar-none justify-between space-y-10"
+    class="flex flex-col items-stretch lg:items-center px-4 max-w-[100vw] text-slate-800 main-circle scroll-smooth scrollbar-none justify-between space-y-10"
   >
     <notify-profile-builder
       sectionTitle="Un piccolo assaggio."
       (componentStable)="builderStable$.next(true)"
-      class="mt-20 lg:h-[90lvh]"
+      class="mt-20 h-full"
     ></notify-profile-builder>
 
     <h2 class="text-center font-figtree font-medium text-2xl text-slate-800">
