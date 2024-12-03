@@ -3,7 +3,7 @@
     "classId": "[[CLASSID]]",
     "logo": {
         "sourceUri": {
-            "uri": "https://s3-api.vps.notifyapp.it/assets/illustrazione.png"
+            "uri": "https://s3-api.vps.notifyapp.it/assets/illustrazione-padded.jpg"
         },
         "contentDescription": {
             "defaultValue": {
@@ -21,13 +21,13 @@
     "subheader": {
         "defaultValue": {
             "language": "en-IT",
-            "value": "Account"
+            "value": "[[accountEmail]]"
         }
     },
     "header": {
         "defaultValue": {
             "language": "en-IT",
-            "value": "[[accountEmail]]"
+            "value": "[[accountFullName]]"
         }
     },
     "barcode": {

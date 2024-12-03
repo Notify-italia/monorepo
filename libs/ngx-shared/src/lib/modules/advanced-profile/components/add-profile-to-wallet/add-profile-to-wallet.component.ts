@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
-import { INotifyProfile } from '@notify/interfaces';
+import { AppError, INotifyProfile } from '@notify/interfaces';
 import { catchError, Observable, switchMap, tap } from 'rxjs';
 import {
   CapacitorService,
@@ -88,10 +88,12 @@ export class AddProfileToWalletComponent {
       tap((v) => {
         window.open(v.passUrl, '_blank');
       }),
-      catchError(() => {
+      catchError((e: AppError) => {
         const ref = this._selectModal.create({
           title: 'Errore',
-          subtitle: `Errore sconosciuto. Riprova più tardi o contattaci a supporto@notifyapp.it`,
+          subtitle:
+            e.error.errors?.[0].message ||
+            `Errore sconosciuto. Riprova più tardi o contattaci a supporto@notifyapp.it`,
           hideCancel: true,
           options: [
             {

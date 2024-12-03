@@ -2,6 +2,7 @@ import {
   IGoogleGenericPassNotifyProfile,
   INotifyProfile,
   INotifyUser,
+  UnknownType,
 } from '@notify/interfaces';
 import {
   BadRequestError,
@@ -9,7 +10,6 @@ import {
   EnumAssetExtractTo,
   extractAssetFiles,
   getContactName,
-  getProfileAvatar,
   getProfileFromUserId,
   getProfilePlayerUrl,
   PROFILE_VALIDATION_MESSAGES,
@@ -18,6 +18,7 @@ import {
 } from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { query } from 'express-validator';
+import { GenericClient } from 'google-wallet';
 import jwt from 'jsonwebtoken';
 
 //boilderplate for a post request to create an agent
@@ -31,7 +32,7 @@ const { PLAYER_WEBSITE_URL, GOOGLE_ISSUER_ID } = declareEnvs([
 /** Each, but last, can be either a string or a Buffer. See API Documentation for more */
 const { googleCredentials, notifyProfile } = await extractAssetFiles([
   {
-    path: 'certs/google/application-credentials.json',
+    path: 'certs/google/notify-wallet-credentials.json',
     id: 'googleCredentials',
     extractTo: EnumAssetExtractTo.String,
   },
@@ -62,11 +63,7 @@ router.get(
 
       const credentials = JSON.parse(googleCredentials as string);
 
-      // const generic = new GoogleWallet.GenericClient(credentials);
-
-      // const pass = await _fetchWallet(profile, generic);
-
-      const pass = _fetchWallet(profile, user);
+      const pass = await _fetchWallet(profile, user, credentials);
 
       const token = jwt.sign(
         {
@@ -101,18 +98,55 @@ router.get(
 
 export { router as getGooglePassRouter };
 
-const _fetchWallet = (
+const _fetchWallet = async (
   profile: INotifyProfile,
-  user: INotifyUser
-): IGoogleGenericPassNotifyProfile => {
-  const pass = JSON.parse(notifyProfile as string);
+  user: INotifyUser,
+  credentials: UnknownType
+): Promise<IGoogleGenericPassNotifyProfile> => {
+  const generic = new GenericClient(credentials);
 
-  pass.id = `${GOOGLE_ISSUER_ID}.${profile._id}`;
-  pass.logo.sourceUri.uri = getProfileAvatar(profile);
-  pass.classId = `${GOOGLE_ISSUER_ID}.${profile._id}`;
-  pass.cardTitle.defaultValue.value = getContactName(profile);
-  pass.header.defaultValue.value = user.email;
-  pass.barcode.value = getProfilePlayerUrl(profile, PLAYER_WEBSITE_URL);
+  const _pass = JSON.parse(notifyProfile as string);
 
-  return pass;
+  _pass.id = `${GOOGLE_ISSUER_ID}.${profile._id}`;
+  _pass.classId = `${GOOGLE_ISSUER_ID}.${profile._id}`;
+  // _pass.logo.sourceUri.uri = getProfileAvatar(profile);
+  _pass.cardTitle.defaultValue.value = 'Notify';
+  _pass.subheader.defaultValue.value = user.email;
+  _pass.header.defaultValue.value = getContactName(profile);
+
+  if (!_pass.header.defaultValue.value.trim().length) {
+    throw new BadRequestError(
+      'Per poter creare il pass è necessario inserire un nome nel profilo'
+    );
+  }
+
+  _pass.barcode.value = getProfilePlayerUrl(profile, PLAYER_WEBSITE_URL);
+  _pass.heroImage = undefined;
+
+  let genericObject = await generic
+    .getObject(GOOGLE_ISSUER_ID, profile._id)
+    .catch(
+      (e) => new BadRequestError(`ERROR WHILE FETCHING GOOGLE PASS: ${e}`)
+    );
+
+  if (!genericObject) {
+    await generic
+      .createClass({
+        id: `${GOOGLE_ISSUER_ID}.${profile._id}`,
+      })
+      .catch((e) =>
+        console.warn(
+          `error while creating class, probabily already exists: ${e}`
+        )
+      );
+    genericObject = await generic.createObject(_pass);
+  }
+
+  await generic
+    .patchObject(_pass)
+    .catch(
+      (e) => new BadRequestError(`ERROR WHILE PATCHING GOOGLE PASS: ${e}`)
+    );
+
+  return genericObject as IGoogleGenericPassNotifyProfile;
 };
