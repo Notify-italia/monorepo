@@ -1,9 +1,13 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { afterNextRender, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { INotifyEcommerceProduct } from '@notify/interfaces';
-import { EcommerceService, LoadingComponent } from '@notify/ngx-shared';
-import { combineLatest, Subject, tap } from 'rxjs';
+import { INotifyEcommerceProduct, UnknownType } from '@notify/interfaces';
+import {
+  EcommerceService,
+  LoadingComponent,
+  PixelService,
+} from '@notify/ngx-shared';
+import { combineLatest, Observable, Subject, tap } from 'rxjs';
 import { EcommerceCartFactory } from '../../components/ecommerce-cart/ecommerce-cart.factory';
 import { EcommerceItemDetailFactory } from '../../components/ecommerce-item-detail/ecommerce-item-detail.factory';
 import { FooterComponent } from '../../components/footer/footer.component';
@@ -30,10 +34,22 @@ export class TryItComponent {
   private _cart = inject(EcommerceCartFactory);
   private _ecommerce = inject(EcommerceService);
   private _productFactory = inject(EcommerceItemDetailFactory);
+  private _pixel = inject(PixelService);
 
   public builderStable$ = new Subject<boolean>();
-  public pageStable$ = combineLatest([this.builderStable$]);
+  public pageStable$ = new Observable<UnknownType>();
 
+  constructor() {
+    afterNextRender(() => {
+      this.pageStable$ = combineLatest([this.builderStable$]).pipe(
+        tap(() => {
+          this._pixel.track('PageView', {
+            content_name: 'provalo',
+          });
+        })
+      );
+    });
+  }
   public showCart() {
     this._location.replaceState('/#cart');
 

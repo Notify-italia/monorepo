@@ -104,31 +104,6 @@ export class HomeComponent implements AfterViewInit {
         this.featuresStable$,
       ]).pipe(
         tap(() => {
-          // if (new Date() <= new Date('2024-11-30')) {
-          //   this._adsBanner.create({
-          //     desktopBanner:
-          //       'https://s3-api.vps.notifyapp.it/assets/banners/desktop-black-friday-2024.webp',
-          //     mobileBanner:
-          //       'https://s3-api.vps.notifyapp.it/assets/banners/mobile-black-friday-2024.webp',
-          //     interactions: {
-          //       tooltip: {
-          //         type: 'always',
-          //         value: this._utilsSerivce.isMobile
-          //           ? 'Tappa per copiare il coupon!'
-          //           : 'Fai click per copiare coupon!',
-          //       },
-          //       bannerData: 'BLACKFRIDAY20',
-          //       onClick: (v) => {
-          //         navigator.clipboard.writeText(v);
-          //         this._toastrService.info('Coupon copiato negli appunti');
-
-          //         return {
-          //           closeModal: true,
-          //         };
-          //       },
-          //     },
-          //   });
-          // }
           this._pixel.track('PageView');
         })
       );
