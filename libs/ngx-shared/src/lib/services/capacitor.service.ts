@@ -21,13 +21,26 @@ import {
   NfcTagScannedEvent,
   NfcUtils,
 } from '@capawesome-team/capacitor-nfc';
+import { CapacitorPassToWallet } from 'capacitor-pass-to-wallet';
 
+export interface IAddToAppleWalletError {
+  message: string;
+}
+
+export interface IAddToAppleWalletErrorParsed {
+  message: string;
+  /**
+   * 100 = Pass already exists in the wallet
+   */
+  code: 100;
+}
 @Injectable()
 export class CapacitorService {
   public isNative = Capacitor.isNativePlatform();
   public isIOS = Capacitor.getPlatform() === 'ios';
   public isAndroid = Capacitor.getPlatform() === 'android';
   public isDesktop = Capacitor.getPlatform() === 'web';
+  public devicePlatform = Capacitor.getPlatform() as 'ios' | 'android' | 'web';
   public hFeedbackStyles = { ...ImpactStyle, ...NotificationType };
   public nfcUtils = new NfcUtils();
 
@@ -50,6 +63,12 @@ export class CapacitorService {
     return Haptics.impact({ style: ImpactStyle.Light }).catch((error) =>
       console.error(`Error triggering selection feedback: ${error}`)
     );
+  }
+
+  public async addToWallet(base64: string) {
+    return CapacitorPassToWallet.addToWallet({
+      base64,
+    });
   }
 
   public triggerHapticFeedback(style: ImpactStyle | NotificationType) {

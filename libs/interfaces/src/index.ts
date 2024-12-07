@@ -14,4 +14,5 @@ export * from './lib/interfaces/models/interface.notification';
 export * from './lib/interfaces/models/interface.order';
 export * from './lib/interfaces/models/interface.profile';
 export * from './lib/interfaces/models/interface.stat';
+export * from './lib/interfaces/passes/interface.notify-profile-pass';
 export * from './lib/types.utils';

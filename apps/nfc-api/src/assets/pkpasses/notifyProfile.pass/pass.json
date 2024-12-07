@@ -1,0 +1,35 @@
+{
+	"formatVersion": 1,
+	"passTypeIdentifier": "pass.com.offcenter.notify.profile",
+	"serialNumber": "nmyuxofgna",
+	"teamIdentifier": "PLACEHOLDER",
+	"authenticationToken": "vxwxd7J8AlNNFPS8k0a0FfUFtq0ewzFdc",
+	"relevantDate": "2100-12-31T13:00-08:00",
+	"barcodes": [
+		{
+			"message": "PLACEHOLDER",
+			"format": "PKBarcodeFormatQR",
+			"messageEncoding": "iso-8859-1"
+		}
+	],
+	"organizationName": "Offcenter SRL",
+	"description": "Il tuo pass Notify",
+	"foregroundColor": "#FFFFFF",
+	"backgroundColor": "#013166",
+	"generic": {
+		"primaryFields": [
+			{
+				"key": "name",
+				"label": "Nome e Cognome",
+				"value": "PLACEHOLDER"
+			}
+		],
+		"secondaryFields": [
+			{
+				"key": "account",
+				"label": "Account",
+				"value": "PLACEHOLDER"
+			}
+		]
+	}
+}

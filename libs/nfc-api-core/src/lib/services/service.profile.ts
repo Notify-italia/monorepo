@@ -55,7 +55,7 @@ export const getAgentOwnerProfile = async (agentId: Types.ObjectId) => {
   ).profile;
 };
 
-export const getProfile = async (
+export const getProfileFromUserId = async (
   user: Types.ObjectId | string
 ): Promise<INotifyProfile | undefined> => {
   const profile = await ProfileModel.findOne({ owner: user }).lean();
@@ -95,30 +95,6 @@ export const getProfileAvatar = (profile: INotifyProfile) => {
       ) as INotifyAPAvatarItem
     )?.imgSrc || ''
   );
-};
-
-const _getContactOverrides = (profile: INotifyProfile) => {
-  if (!profile.advancedProfile?.enabled) {
-    return null;
-  }
-
-  return profile.advancedProfile.pageSettings.contactOverrides;
-};
-
-const _getProfileName = (profile: INotifyProfile): string => {
-  if (!profile.advancedProfile?.enabled) {
-    return (profile.name || '') + ' ' + (profile.surname || '');
-  }
-
-  const avatar = profile.advancedProfile.items.find(
-    (i) => i._id === profile.advancedProfile?.requiredItems.avatar
-  ) as INotifyAPAvatarItem;
-
-  if (!avatar) {
-    return 'Ignoto';
-  }
-
-  return avatar.label || 'Ignoto';
 };
 
 export const createAdvancedProfile = (
@@ -184,6 +160,37 @@ export const generateFeedbackItem = (profile: INotifyProfile) => {
       url: '',
     }
   );
+};
+
+export const getProfilePlayerUrl = (
+  profile: INotifyProfile,
+  PLAYER_WEBSITE_URL: string
+) => {
+  return `${PLAYER_WEBSITE_URL}/p/${profile._id}`;
+};
+
+const _getContactOverrides = (profile: INotifyProfile) => {
+  if (!profile.advancedProfile?.enabled) {
+    return null;
+  }
+
+  return profile.advancedProfile.pageSettings.contactOverrides;
+};
+
+const _getProfileName = (profile: INotifyProfile): string => {
+  if (!profile.advancedProfile?.enabled) {
+    return (profile.name || '') + ' ' + (profile.surname || '');
+  }
+
+  const avatar = profile.advancedProfile.items.find(
+    (i) => i._id === profile.advancedProfile?.requiredItems.avatar
+  ) as INotifyAPAvatarItem;
+
+  if (!avatar) {
+    return 'Ignoto';
+  }
+
+  return avatar.label || 'Ignoto';
 };
 
 const _generateNoteItem = (profile: INotifyProfile) => {

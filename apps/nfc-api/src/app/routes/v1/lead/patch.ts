@@ -8,7 +8,7 @@ import {
   asyncForEach,
   BadRequestError,
   getContactName,
-  getProfile,
+  getProfileFromUserId,
   LeadDocument,
   LeadModel,
   requestHandler,
@@ -83,7 +83,7 @@ const _sendSharedByChangedNotification = async (
     );
   }
 
-  const profile = await getProfile(currentUser._id);
+  const profile = await getProfileFromUserId(currentUser._id);
 
   if (!profile) {
     throw new BadRequestError('Non ho trovato il tuo profilo');
@@ -137,7 +137,7 @@ const _sendNewCommentNotification = async (
   lead: LeadDocument,
   newComment: INotifyLead['comments'][0]
 ) => {
-  const submitter = await getProfile(newComment.createdBy);
+  const submitter = await getProfileFromUserId(newComment.createdBy);
 
   if (!submitter) {
     throw new BadRequestError('Non ho trovato il tuo profilo');

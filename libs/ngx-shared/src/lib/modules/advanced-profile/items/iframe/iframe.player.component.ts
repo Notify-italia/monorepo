@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { INotifyAPIFrameItem } from '@notify/interfaces';
-import { OgObject } from 'open-graph-scraper/dist/lib/types';
+import { OgObject } from 'open-graph-scraper/types/lib/types';
 import { catchError, debounceTime, of, switchMap, tap } from 'rxjs';
 import {
   AdvancedItemPlayerBaseImports,

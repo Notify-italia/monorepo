@@ -3,7 +3,7 @@ import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { AppError } from '@notify/interfaces';
 import { format } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
-import { ErrorResult, SuccessResult } from 'open-graph-scraper';
+import { ErrorResult, SuccessResult } from 'open-graph-scraper/types/lib/types';
 import { of } from 'rxjs';
 import { HttpService } from './http.service';
 

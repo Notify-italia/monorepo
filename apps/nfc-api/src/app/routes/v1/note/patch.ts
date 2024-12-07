@@ -2,7 +2,7 @@ import { EnumNotificationTypes, INotifyUser } from '@notify/interfaces';
 import {
   BadRequestError,
   getContactName,
-  getProfile,
+  getProfileFromUserId,
   Note,
   NOTE_VALIDATION_MESSAGES,
   NoteDocument,
@@ -69,7 +69,7 @@ const _newEditorNotification = async (
     return;
   }
 
-  const profile = await getProfile(currentUser._id);
+  const profile = await getProfileFromUserId(currentUser._id);
 
   if (!profile) {
     return;

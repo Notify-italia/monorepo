@@ -31,11 +31,11 @@ import {
   ProfileViewComponent,
   ShareItemComponent,
 } from '../profile';
+import { AddProfileToWalletComponent } from './components/add-profile-to-wallet/add-profile-to-wallet.component';
 import { RedirectToggleButtonComponent } from './components/redirect-toggle-button/redirect-toggle-button.component';
 import { ADVANCED_PROFILE_PAGE_SETTINGS_DEFAULTS } from './items/page/page.form.component';
 import { AddItemButtonComponent } from './parts/add-item-button/add-item-button.component';
 import { HierarchyButtonComponent } from './parts/hierarchy-button/hierarchy-button.component';
-import { InfoPanelComponent } from './parts/info-panel/info-panel.component';
 import { InfoPanelFactory } from './parts/info-panel/info-panel.factory';
 import { LeftPanelComponent } from './parts/left-panel/left-panel.component';
 import { RightPanelComponent } from './parts/right-panel/right-panel.component';
@@ -52,11 +52,11 @@ import { AdvancedProfileItemOutputsService } from './services/advanced-profile-i
     ProfileViewComponent,
     CachedSrcDirective,
     AddItemButtonComponent,
-    InfoPanelComponent,
     HierarchyButtonComponent,
     SaveIndicatorComponent,
     ShareItemComponent,
     RedirectToggleButtonComponent,
+    AddProfileToWalletComponent,
   ],
   providers: [
     FormsService,

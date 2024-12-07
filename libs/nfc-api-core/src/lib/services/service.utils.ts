@@ -18,3 +18,16 @@ export const asyncForEach = async <T>(
 export const isValidObjectId = (id: string): boolean => {
   return id.match(/^[0-9a-fA-F]{24}$/) !== null;
 };
+
+export const asyncReduce = async <T, U>(
+  array: T[],
+  callback: (acc: U, curr: T, index: number, array: T[]) => U,
+  initialValue: U
+) => {
+  let accumulator = initialValue;
+  for (let i = 0; i < array.length; i++) {
+    accumulator = await callback(accumulator, array[i], i, array);
+  }
+
+  return accumulator;
+};

@@ -1,3 +1,4 @@
+export * from './service.assets';
 export * from './service.bucket';
 export * from './service.db';
 export * from './service.email';
