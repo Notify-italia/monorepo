@@ -1,5 +1,6 @@
 <!-- *ngIf="nativeDeviceType" -->
 <button
+  *ngIf="nativeDeviceType"
   (click)="addToWallet(profile._id)"
   class="smooth active:scale-95 !w-full !py-2 flex justify-center"
   [ngClass]="{
