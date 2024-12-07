@@ -4,25 +4,17 @@ const _getVersionArt = (tag: string) => {
   return `https://s3-api.vps.notifyapp.it/assets/version-art/${tag}.webp`;
 };
 
-const _sharedTag = 'v1.2.6';
-const _sharedDate = '2024-11-10';
-const _sharedTitle = '';
-const _sharedDescription = `Un altro aggiornamento per migliorare la tua esperienza con Notify! Con questa versione, ci siamo concentrati sul supportare ufficialmente iOS 18 e Safari 18, risolvendo alcuni bug che si sono presentati con questi aggiornamenti.`;
+const _sharedTag = 'v1.3.0';
+const _sharedDate = '2024-12-15';
+const _sharedTitle = 'Sempre con te.';
+const _sharedDescription = `A grande richiesta, abbiamo introdotto in Notify la possibilità di inserire un codice QR del tuo profilo sul tuo Wallet. <br /> Vai nella sezione <i>Profilo</i> del tuo account e fai click su Aggiungi ad Apple/Google Wallet. <br /><br /> Inoltre, come di consueto abbiamo risolto alcuni bug minori e migliorato le performance del tuo biglietto da visita digitale preferito <3.`;
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
-    type: 'improvement',
-    message: `Aggiunte due nuove icone per i tuoi links nel profilo: "Caffè" e "Caffè (alt)"`,
+    type: 'new',
+    message: `Possibilità di inserire un codice QR del tuo profilo sul tuo Wallet`,
   },
-  {
-    type: 'fix',
-    message: `Rimosso prefisso dai contatti di tipo "Telefono", "Messaggio" e "Telefono Fisso" dall'editor di profili`,
-  },
-  {
-    type: 'fix',
-    message:
-      'Risolto un bug che causava disconnessioni inaspettate su iPhones aggiornati ad iOS 18 e su Safari 18',
-  },
+
   {
     type: 'fix',
     message: 'Risoluzioni di bugs minori e miglioramenti delle performance',
@@ -35,19 +27,7 @@ export const agentChangelog: INotifyVersionInfo = {
   description: _sharedDescription,
   title: _sharedTitle,
   artPath: _getVersionArt(_sharedTag),
-  changes: [
-    ..._sharedChanges,
-    {
-      type: 'fix',
-      message:
-        'Risolto un bug che causava un colore indesiderato dei widget nella dashbaord su iPhones aggiornati ad iOS 18 e su Safari 18',
-    },
-    {
-      type: 'fix',
-      message:
-        'Corretto un bug che causava una visualizzazione non corretta del pop-up di accoppiamento NFC',
-    },
-  ],
+  changes: [..._sharedChanges],
 };
 
 export const companyChangelog: INotifyVersionInfo = {
@@ -56,12 +36,5 @@ export const companyChangelog: INotifyVersionInfo = {
   description: _sharedDescription,
   title: _sharedTitle,
   artPath: _getVersionArt(_sharedTag),
-  changes: [
-    ..._sharedChanges,
-    {
-      type: 'new',
-      message:
-        "Aggiunta nella sidebar un'opzione per suggerire nuove features!",
-    },
-  ],
+  changes: [..._sharedChanges],
 };
