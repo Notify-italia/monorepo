@@ -2,14 +2,17 @@ import {
   BadRequestError,
   COMPANY_VALIDATION_MESSAGES,
   CompanyModel,
+  declareEnvs,
   LicenseManager,
   mLog,
   requestHandler,
   sendEmail,
   userSignInValidation,
 } from '@notify/nfc-api-core';
-import { addWeeks } from 'date-fns';
+import { addDays } from 'date-fns';
 import { Request, Router } from 'express';
+
+const { COMPANY_TRIAL_DAYS } = declareEnvs(['COMPANY_TRIAL_DAYS']);
 
 //boilderplate for a post request to create an agent
 const router = Router();
@@ -31,7 +34,7 @@ router.post(
       const license = await LicenseManager.generate({
         allowedAgents: 1,
         boughtCards: 0,
-        expirationDate: addWeeks(new Date(), 1),
+        expirationDate: addDays(new Date(), Number(COMPANY_TRIAL_DAYS)),
         features: [
           {
             type: 'include',

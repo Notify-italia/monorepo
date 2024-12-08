@@ -14,7 +14,10 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
     type: 'new',
     message: `Possibilità di inserire un codice QR del tuo profilo sul tuo Wallet`,
   },
-
+  {
+    type: 'improvement',
+    message: `Reso più chiaro il pulsante di ritorno alla lista contatti dal dettaglio contatto`,
+  },
   {
     type: 'fix',
     message: 'Risoluzioni di bugs minori e miglioramenti delle performance',
