@@ -34,6 +34,27 @@
               </button>
             </div>
             <div class="divider"></div>
+            <div class="flex space-x-4 items-center w-full justify-start">
+              <button
+                class="w-fit smooth"
+                (click)="selectedOption.next('unread')"
+                [ngClass]="{
+                  'notification-type-active': selectedOption.value === 'unread'
+                }"
+              >
+                Da leggere
+              </button>
+              <span>|</span>
+              <button
+                class="w-fit smooth"
+                (click)="selectedOption.next('all')"
+                [ngClass]="{
+                  'notification-type-active': selectedOption.value === 'all'
+                }"
+              >
+                Tutte
+              </button>
+            </div>
           </div>
           <div
             class="flex flex-col w-full h-full overflow-y-auto space-y-4 mt-2"

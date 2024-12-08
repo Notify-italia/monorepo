@@ -44,7 +44,7 @@ export class NotificationsListComponent
 
   @Output() refreshNotificationsCount = new EventEmitter<void>();
 
-  public selectedOption: 'all' | 'unread' | 'read' = 'all';
+  public selectedOption = new BehaviorSubject<'unread' | 'all'>('unread');
 
   public currentChunk$ = new BehaviorSubject<number>(1);
   public notificationsSubject$ = new Subject<INotifyNotification[]>();
@@ -56,11 +56,19 @@ export class NotificationsListComponent
   );
 
   public currentChunk = 1;
-  public chunkSize = 15;
+  public chunkSize = 10;
   public skeletonArray = new Array(this.chunkSize);
 
   override onInit() {
     this.refreshNotifications().subscribe();
+
+    this.selectedOption
+      .pipe(
+        takeUntil(this.destroyed$),
+        switchMap(() => this.refreshNotifications()),
+        tap(() => this.refreshNotificationsCount.emit())
+      )
+      .subscribe();
   }
 
   public loadNextChunk() {
@@ -73,7 +81,7 @@ export class NotificationsListComponent
 
   public refreshNotifications() {
     return this._notificationsService
-      .getNotifications(this.selectedOption)
+      .getNotifications(this.selectedOption.value)
       .pipe(tap((v) => this.notificationsSubject$.next(v)));
   }
 
