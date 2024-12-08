@@ -36,7 +36,7 @@
             <div class="divider"></div>
             <div class="flex space-x-4 items-center w-full justify-start">
               <button
-                class="w-fit smooth"
+                class="w-fit smooth hover:brightness-150"
                 (click)="selectedOption.next('unread')"
                 [ngClass]="{
                   'notification-type-active': selectedOption.value === 'unread'
@@ -46,7 +46,7 @@
               </button>
               <span>|</span>
               <button
-                class="w-fit smooth"
+                class="w-fit smooth hover:brightness-150"
                 (click)="selectedOption.next('all')"
                 [ngClass]="{
                   'notification-type-active': selectedOption.value === 'all'

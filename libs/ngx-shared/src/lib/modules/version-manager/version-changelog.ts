@@ -19,6 +19,10 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
     message: `Reso più chiaro il pulsante di ritorno alla lista contatti dal dettaglio contatto`,
   },
   {
+    type: 'improvement',
+    message: `La lista notifiche adesso mostra, inizialmente, solo le notifiche non lette`,
+  },
+  {
     type: 'fix',
     message: 'Risoluzioni di bugs minori e miglioramenti delle performance',
   },
