@@ -84,16 +84,6 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
   override async componentInitialized() {
     await this._prepareProfiles();
 
-    if (this.utilsService.isMobile) {
-      this.componentIsStable();
-      return;
-    }
-
-    this.showProfile = true;
-
-    this.shuffleTemplates();
-    this.componentIsStable();
-
     this.form.valueChanges
       .pipe(
         debounceTime(5000),
@@ -101,6 +91,13 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
         tap(() => this._collectData())
       )
       .subscribe();
+
+    if (!this.utilsService.isMobile) {
+      this.showProfile = true;
+      this.shuffleTemplates();
+    }
+
+    this.componentIsStable();
   }
 
   public shuffleTemplates() {
@@ -111,7 +108,7 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
       JSON.stringify(this.templates[randomIndex])
     );
 
-    if (!this.utilsService.isMobile) {
+    if (!this.utilsService.isMobile || !this.currentTemplate.template) {
       return;
     }
 
@@ -120,8 +117,9 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
 
   private _createMobileProfile() {
     this._profileFactory.create({
-      profile: this.currentTemplate
-        .template as INotifyProfile<EnumNotifyUserType>,
+      profile: this._prepareTemplate(
+        this.currentTemplate.template as INotifyProfile<EnumNotifyUserType>
+      ),
       isRunningOnPlayer: true,
       hideShare: true,
     });
