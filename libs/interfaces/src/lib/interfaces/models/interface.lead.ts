@@ -78,7 +78,7 @@ export interface INotifyLead extends MongodbDocument {
    */
   role: string;
   /**
-   * data di nascita del contatto
+   * messaggio di accettazione del contatto
    */
   acceptanceMessage: string;
 }

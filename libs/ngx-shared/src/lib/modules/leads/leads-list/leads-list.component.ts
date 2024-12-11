@@ -7,7 +7,6 @@ import { ToastrService } from 'ngx-toastr';
 import {
   BehaviorSubject,
   ReplaySubject,
-  Subject,
   catchError,
   combineLatest,
   of,
@@ -26,7 +25,6 @@ import {
   LoadingComponent,
   NoItemsComponent,
   PageHeaderComponent,
-  PullToRefreshComponent,
   SearchBarComponent,
 } from '../../../standalones';
 import { LeadCardComponent } from '../components/lead-card/lead-card.component';
@@ -41,7 +39,6 @@ import { LeadCardComponent } from '../components/lead-card/lead-card.component';
     SearchBarComponent,
     InfiniteScrollModule,
     LeadCardComponent,
-    PullToRefreshComponent,
     NoItemsComponent,
   ],
   providers: [CapacitorService, LeadsService, OpenAIService],
@@ -61,7 +58,7 @@ export class LeadsListComponent implements OnInit {
 
   public leadsSubject$ = new ReplaySubject<INotifyLead[]>(1);
   private _currentChunk = new BehaviorSubject<number>(1);
-  public filteredLeads$ = new Subject<INotifyLead[]>();
+  public filteredLeads$ = new ReplaySubject<INotifyLead[]>(1);
   public chunkedLeads$ = combineLatest([
     this.filteredLeads$,
     this._currentChunk,
@@ -146,9 +143,13 @@ export class LeadsListComponent implements OnInit {
         this._scanBusinessCard();
         break;
       case 'exportLeads': {
-        this.leadsSubject$.pipe(take(1)).subscribe((leads) => {
-          this._leadsService.exportLeads(leads, 'csv');
-        });
+        this.filteredLeads$
+          .pipe(
+            take(1),
+            tap((leads) => this._leadsService.exportLeads(leads, 'csv'))
+          )
+          .subscribe();
+
         break;
       }
     }

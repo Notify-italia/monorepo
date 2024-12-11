@@ -18,11 +18,13 @@
         (filteredArray)="onFilteredLeadsChange($event)"
         [filterableFields]="[
           'name',
+          'surname',
           'emails',
           'phoneNumbers',
           'socials.name',
           'socials.url',
-          'company'
+          'company',
+          'acceptanceMessage'
         ]"
       ></notify-search-bar>
       @if(chunkedLeads$ | async; as leads) {

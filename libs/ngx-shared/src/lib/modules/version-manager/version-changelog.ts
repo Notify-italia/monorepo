@@ -7,7 +7,7 @@ const _getVersionArt = (tag: string) => {
 const _sharedTag = 'v1.3.0';
 const _sharedDate = '2024-12-15';
 const _sharedTitle = 'Sempre con te.';
-const _sharedDescription = `A grande richiesta, abbiamo introdotto in Notify la possibilità di inserire un codice QR del tuo profilo sul tuo Wallet. <br /> Vai nella sezione <i>Profilo</i> del tuo account e fai click su Aggiungi ad Apple/Google Wallet. <br /><br /> Inoltre, come di consueto abbiamo risolto alcuni bug minori e migliorato le performance del tuo biglietto da visita digitale preferito <3.`;
+const _sharedDescription = `A grande richiesta, abbiamo introdotto in Notify la possibilità di inserire un codice QR del tuo profilo sul tuo Wallet su applicazioni iOS e Android. <br /> Vai nella sezione <i>Profilo</i> del tuo account e fai click su Aggiungi ad Apple/Google Wallet. <br /><br /> Inoltre, come di consueto abbiamo risolto alcuni bug minori e migliorato le performance del tuo biglietto da visita digitale preferito <3.`;
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
@@ -17,6 +17,10 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
     type: 'improvement',
     message: `Reso più chiaro il pulsante di ritorno alla lista contatti dal dettaglio contatto`,
+  },
+  {
+    type: 'improvement',
+    message: `Esportare un CSV dei contatti adesso esporta solo la ricerca corrente`,
   },
   {
     type: 'improvement',
