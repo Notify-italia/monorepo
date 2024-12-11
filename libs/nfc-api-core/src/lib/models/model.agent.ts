@@ -2,6 +2,7 @@ import {
   EnumNotifyUserType,
   INotifyAgent,
   ModifyDeep,
+  UserDocument,
 } from '@notify/interfaces';
 import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
@@ -13,6 +14,7 @@ import mongoose, {
   model,
 } from 'mongoose';
 
+import { upgradeProfileToV2 } from '../services';
 import { Password } from '../services/users/service.password';
 import { ProfileModel } from './model.profile';
 
@@ -150,10 +152,12 @@ AgentSchema.statics.build = async (
   }
 
   //creates a profile for the agent
-  await ProfileModel.build({
+  const profile = await ProfileModel.build({
     email: agent.email,
     type: EnumNotifyUserType.Agent,
     owner: agent._id,
+    name: 'Il tuo',
+    surname: 'Nome',
     config: {
       avatarMask: 'circle',
       whatsappEnabled: true,
@@ -165,6 +169,8 @@ AgentSchema.statics.build = async (
     },
     ...profileData,
   }).save();
+
+  await upgradeProfileToV2(profile, agent as unknown as UserDocument);
 
   return agent;
 };

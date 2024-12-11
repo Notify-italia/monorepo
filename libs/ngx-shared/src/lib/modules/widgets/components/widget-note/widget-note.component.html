@@ -1,4 +1,4 @@
-<div class="box w-full h-full flex items-center">
+<div class="box size-full flex items-center">
   @if (note) {
 
   <div
@@ -11,8 +11,8 @@
       [ngStyle]="{ 'background-color': note.color }"
     ></div>
 
-    <div class="flex flex-col">
-      <h1 class="text-lg font-bold truncate text-white/80 w-full">
+    <div class="flex flex-col truncate">
+      <h1 class="text-lg font-bold text-white/80 truncate">
         {{ note.title || '‎ ' }}
       </h1>
       <div>
@@ -25,7 +25,7 @@
   </div>
 
   } @else {
-  <div class="flex !lex-col !justify-center w-full h-full items-center">
+  <div class="flex !lex-col !justify-center size-full items-center">
     <div class="flex shrink-0 space-x-2">
       <svg
         xmlns="http://www.w3.org/2000/svg"

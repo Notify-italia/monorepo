@@ -2,6 +2,7 @@ import {
   EnumNotifyUserType,
   INotifyCompany,
   ModifyDeep,
+  UserDocument,
 } from '@notify/interfaces';
 import { ErrorMessage } from 'express-validator/src/base';
 import mongoose, {
@@ -13,6 +14,7 @@ import mongoose, {
   model,
 } from 'mongoose';
 
+import { upgradeProfileToV2 } from '../services';
 import { Password } from '../services/users/service.password';
 import { ProfileModel } from './model.profile';
 
@@ -128,10 +130,12 @@ CompanySchema.statics.build = async (doc: Partial<Company>) => {
   company.password = await Password.toHash(company.password as string);
 
   //creates a profile for the company
-  await ProfileModel.build({
+  const profile = await ProfileModel.build({
     email: company.email,
     type: EnumNotifyUserType.Company,
     owner: company._id,
+    name: 'La tua',
+    surname: 'azienda',
     config: {
       avatarMask: 'squircle',
       whatsappEnabled: false,
@@ -141,6 +145,8 @@ CompanySchema.statics.build = async (doc: Partial<Company>) => {
       redirectEnabled: false,
     },
   }).save();
+
+  await upgradeProfileToV2(profile, company as unknown as UserDocument);
 
   return company;
 };

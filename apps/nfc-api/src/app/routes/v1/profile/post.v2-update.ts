@@ -4,9 +4,9 @@ import {
   BadRequestError,
   ProfileModel,
   UserDocTypes,
-  createAdvancedProfile,
   genericUserQuery,
   requestHandler,
+  upgradeProfileToV2,
 } from '@notify/nfc-api-core';
 import { Router } from 'express';
 import { body } from 'express-validator';
@@ -43,30 +43,16 @@ router.post(
         true
       );
 
-      if (!profile || !user) {
-        throw new BadRequestError('Utente non trovato');
-      }
-
       if (
         isProvidedAgent &&
-        String((user as AgentDocument).owner) !== req.currentUser._id
+        String((user as unknown as AgentDocument).owner) !== req.currentUser._id
       ) {
         throw new BadRequestError(
           'Non hai i permessi per aggiornare il profilo di un agente non appartenente alla tua azienda'
         );
       }
 
-      //check if the user has already upgraded to v2
-      if (user.advancedProfile) {
-        throw new BadRequestError('Profilo già aggiornato');
-      }
-
-      user.advancedProfile = true;
-      await user.save();
-
-      profile.advancedProfile = createAdvancedProfile(profile.toObject());
-
-      await profile.save();
+      await upgradeProfileToV2(profile, user);
 
       res.status(201).send(profile);
     },

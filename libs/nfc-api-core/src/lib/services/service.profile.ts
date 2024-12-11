@@ -16,6 +16,7 @@ import {
   INotifyCompany,
   INotifyProfile,
   NotifyAdvancedProfileItem,
+  UserDocument,
 } from '@notify/interfaces';
 import mongoose, { Types } from 'mongoose';
 import { BadRequestError } from '../errors';
@@ -97,7 +98,72 @@ export const getProfileAvatar = (profile: INotifyProfile) => {
   );
 };
 
-export const createAdvancedProfile = (
+export const generateFeedbackItem = (profile: INotifyProfile) => {
+  return _generateItem<INotifyAPFeedbackItem>(
+    EnumNotifyAdvancedProfileItems.Feedback,
+    {
+      caption: '',
+      icon: '',
+      url: '',
+    }
+  );
+};
+
+export const upgradeProfileToV2 = async (
+  profile: ProfileDocument | null,
+  user: UserDocument
+) => {
+  if (!profile || !user) {
+    throw new BadRequestError('Utente non trovato');
+  }
+
+  //check if the user has already upgraded to v2
+  if (user.advancedProfile) {
+    throw new BadRequestError('Profilo già aggiornato');
+  }
+
+  user.advancedProfile = true;
+  await user.save();
+
+  profile.advancedProfile = _createAdvancedProfile(profile.toObject());
+
+  await profile.save();
+
+  return { profile, user };
+};
+
+export const getProfilePlayerUrl = (
+  profile: INotifyProfile,
+  PLAYER_WEBSITE_URL: string
+) => {
+  return `${PLAYER_WEBSITE_URL}/p/${profile._id}`;
+};
+
+const _getContactOverrides = (profile: INotifyProfile) => {
+  if (!profile.advancedProfile?.enabled) {
+    return null;
+  }
+
+  return profile.advancedProfile.pageSettings.contactOverrides;
+};
+
+const _getProfileName = (profile: INotifyProfile): string => {
+  if (!profile.advancedProfile?.enabled) {
+    return (profile.name || '') + ' ' + (profile.surname || '');
+  }
+
+  const avatar = profile.advancedProfile.items.find(
+    (i) => i._id === profile.advancedProfile?.requiredItems.avatar
+  ) as INotifyAPAvatarItem;
+
+  if (!avatar) {
+    return 'Ignoto';
+  }
+
+  return avatar.label || 'Ignoto';
+};
+
+export const _createAdvancedProfile = (
   profile: INotifyProfile
 ): INotifyAdvancedProfile => {
   const _requiredItems = _generateRequiredItems(profile);
@@ -149,48 +215,6 @@ export const createAdvancedProfile = (
     },
     requiredItems,
   };
-};
-
-export const generateFeedbackItem = (profile: INotifyProfile) => {
-  return _generateItem<INotifyAPFeedbackItem>(
-    EnumNotifyAdvancedProfileItems.Feedback,
-    {
-      caption: '',
-      icon: '',
-      url: '',
-    }
-  );
-};
-
-export const getProfilePlayerUrl = (
-  profile: INotifyProfile,
-  PLAYER_WEBSITE_URL: string
-) => {
-  return `${PLAYER_WEBSITE_URL}/p/${profile._id}`;
-};
-
-const _getContactOverrides = (profile: INotifyProfile) => {
-  if (!profile.advancedProfile?.enabled) {
-    return null;
-  }
-
-  return profile.advancedProfile.pageSettings.contactOverrides;
-};
-
-const _getProfileName = (profile: INotifyProfile): string => {
-  if (!profile.advancedProfile?.enabled) {
-    return (profile.name || '') + ' ' + (profile.surname || '');
-  }
-
-  const avatar = profile.advancedProfile.items.find(
-    (i) => i._id === profile.advancedProfile?.requiredItems.avatar
-  ) as INotifyAPAvatarItem;
-
-  if (!avatar) {
-    return 'Ignoto';
-  }
-
-  return avatar.label || 'Ignoto';
 };
 
 const _generateNoteItem = (profile: INotifyProfile) => {
@@ -247,8 +271,8 @@ const _generateContactsItem = (profile: INotifyProfile) => {
   const contacts = _generateItem<INotifyAPContactsItem>(
     EnumNotifyAdvancedProfileItems.Contacts,
     {
-      direction: EnumNotifyAPDirections.Horizontal,
-      style: EnumNotifyAPContainerStyles.Text,
+      direction: EnumNotifyAPDirections.Vertical,
+      style: EnumNotifyAPContainerStyles.Outlined,
       items: [],
     }
   );
@@ -291,6 +315,11 @@ const _generateContactsItem = (profile: INotifyProfile) => {
 
   if (!contacts.items.length) {
     return null;
+  }
+
+  if (contacts.items.length > 3) {
+    contacts.direction = EnumNotifyAPDirections.Horizontal;
+    contacts.style = EnumNotifyAPContainerStyles.Text;
   }
 
   return contacts;

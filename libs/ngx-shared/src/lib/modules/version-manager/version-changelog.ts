@@ -12,7 +12,7 @@ const _sharedDescription = `A grande richiesta, abbiamo introdotto in Notify la 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
     type: 'new',
-    message: `Possibilità di inserire un codice QR del tuo profilo sul tuo Wallet`,
+    message: `Possibilità di inserire un codice QR del tuo profilo sul tuo Wallet su dispositivi Android e iOS`,
   },
   {
     type: 'improvement',
