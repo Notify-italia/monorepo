@@ -8,6 +8,7 @@ export const environment = {
   profilesUrl: 'http://localhost:4200',
   jwtTokenKey: 'dev.company.token',
   shopUrl: 'localhost:4200#shop',
+  metaPixelId: '1070486241275303',
 };
 
 /*

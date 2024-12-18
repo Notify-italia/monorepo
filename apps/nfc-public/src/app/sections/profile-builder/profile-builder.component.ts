@@ -11,6 +11,7 @@ import {
   INotifyProfile,
 } from '@notify/interfaces';
 import {
+  PixelService,
   ProfilePlayerFactory,
   ProfileViewComponent,
   SSRBaseComponent,
@@ -40,6 +41,7 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
   @Input() public sectionTitle = '1. Un piccolo assaggio.';
   public utilsService = inject(UtilsService);
   private _profileFactory = inject(ProfilePlayerFactory);
+  private _pixel = inject(PixelService);
 
   public checkboxBoxed = {
     checked: `<svg class="size-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -86,7 +88,7 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
 
     this.form.valueChanges
       .pipe(
-        debounceTime(5000),
+        debounceTime(2500),
         takeUntil(this.destroyed$),
         tap(() => this._collectData())
       )
@@ -113,6 +115,11 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
     }
 
     this._createMobileProfile();
+  }
+
+  public navigateToCompanySignup() {
+    this._pixel.track('StartTrial');
+    window.open('https://aziende.notifyapp.it/signup', '_blank');
   }
 
   private _createMobileProfile() {
@@ -294,6 +301,8 @@ export class ProfileBuilderComponent extends SSRBaseComponent {
       phone: this.form.value.phone,
       role: this.form.value.role,
     };
+
+    this._pixel.track('Lead');
 
     axios.post(`${environment.apiUrl}/v1/sales/collect`, {
       d: Buffer.from(JSON.stringify(fV)).toString('base64'),

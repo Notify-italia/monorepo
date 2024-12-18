@@ -4,4 +4,5 @@ export const environment = {
   profilesUrl: 'https://noty.li',
   jwtTokenKey: 'prod.company.token',
   shopUrl: 'https://notifyapp.it/shop',
+  metaPixelId: '1105803970565876',
 };

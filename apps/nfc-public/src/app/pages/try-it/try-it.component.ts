@@ -62,6 +62,7 @@ export class TryItComponent {
   }
 
   public showProductDetail() {
+    this._pixel.track('SubmitApplication');
     const item = this._ecommerce.products.find(
       (p) => p.id === 'notify-digital'
     ) as INotifyEcommerceProduct;
