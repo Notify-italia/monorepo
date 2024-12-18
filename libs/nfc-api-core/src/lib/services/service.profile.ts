@@ -277,6 +277,8 @@ const _generateContactsItem = (profile: INotifyProfile) => {
     }
   );
 
+  profile.phoneNumber = profile.phoneNumber || '';
+
   if (profile.phoneNumber && profile.config.phoneCallEnabled) {
     contacts.items.push({
       icon: 'phone',
@@ -290,7 +292,7 @@ const _generateContactsItem = (profile: INotifyProfile) => {
     contacts.items.push({
       icon: 'mail',
       caption: 'Email',
-      url: `${profile.email}`,
+      url: profile.email || '',
       visible: true,
     });
   }
@@ -299,7 +301,7 @@ const _generateContactsItem = (profile: INotifyProfile) => {
     contacts.items.push({
       icon: 'whatsapp',
       caption: 'WhatsApp',
-      url: `${profile.phoneNumber}`,
+      url: profile.phoneNumber,
       visible: true,
     });
   }
@@ -308,7 +310,7 @@ const _generateContactsItem = (profile: INotifyProfile) => {
     contacts.items.push({
       icon: 'chat',
       caption: 'SMS',
-      url: `${profile.phoneNumber}`,
+      url: profile.phoneNumber,
       visible: true,
     });
   }
