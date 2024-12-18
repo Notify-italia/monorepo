@@ -93,7 +93,7 @@ export const sendEmail = async (config: {
       attachments,
     })
     .catch((error) => {
-      mLog('error', error);
+      mLog('Error sending email: ' + error.message, 'warning');
     });
 
   return email;
