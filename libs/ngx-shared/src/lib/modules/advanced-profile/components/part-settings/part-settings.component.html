@@ -9,6 +9,7 @@
 
   @if(currentItem; as item) {
   <form
+    *ngIf="settingsHostVisible"
     [formGroup]="item.form"
     class="flex flex-col space-y-4"
     [ngClass]="{
@@ -90,7 +91,10 @@
           <div class="flex justify-around space-x-2 items-center">
             <notify-icon-selector
               [iconSet]="fontsIconSet"
-              [icon]="item.form.value.textConfig?.font"
+              [icon]="
+                item.form.value.textConfig?.font ||
+                form.value?.pageSettings?.font
+              "
               title="Carattere"
               [openSelectorOnBoot]="false"
               [showIconLabel]="true"
@@ -126,7 +130,6 @@
 
       } @if(item.manifest.formComponent; as cf) {
       <ng-container
-        *ngIf="settingsHostVisible"
         [ngComponentOutlet]="cf"
         [ngComponentOutletInputs]="{
           form: item.form,

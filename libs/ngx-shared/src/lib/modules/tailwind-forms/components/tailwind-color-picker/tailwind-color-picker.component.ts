@@ -53,17 +53,11 @@ export class TailwindColorPickerComponent
   ngOnInit(): void {
     const formColor = this.parent.controls[this.name].value;
 
-    this.color = this.defaultColor;
-
-    if (formColor.length) {
-      this.color = formColor;
-    }
+    this.color = formColor.length ? formColor : this.defaultColor;
 
     this.parent.controls[this.name].valueChanges
       .pipe(startWith(this.color), takeUntil(this.destroy$))
-      .subscribe((value) => {
-        this.color = value;
-      });
+      .subscribe((value) => (this.color = value));
   }
 
   ngOnChanges(changes: SimpleChanges): void {

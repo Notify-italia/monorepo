@@ -9,18 +9,12 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { INotifyProfile, NotifyAdvancedProfileItem } from '@notify/interfaces';
-import { AvailableItemsComponent } from '../../components/available-items/available-items.component';
 import { HierarchyComponent } from '../../components/hierarchy/hierarchy.component';
 
 @Component({
   selector: 'notify-hierarchy-button',
   standalone: true,
-  imports: [
-    CommonModule,
-    AvailableItemsComponent,
-    HierarchyButtonComponent,
-    HierarchyComponent,
-  ],
+  imports: [CommonModule, HierarchyComponent],
   templateUrl: './hierarchy-button.component.html',
   styleUrls: ['../../advanced-profile.styles.scss'],
 })

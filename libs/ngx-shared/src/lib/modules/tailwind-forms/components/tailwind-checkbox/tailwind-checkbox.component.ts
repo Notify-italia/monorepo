@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
@@ -42,7 +43,7 @@ export const CHECKBOX_PADLOCK_CLOSED: ITailwindCheckboxToggleIcon = {
   selector: 'notify-tailwind-checkbox',
   templateUrl: './tailwind-checkbox.component.html',
 })
-export class TailwindCheckboxComponent implements OnInit, OnDestroy {
+export class TailwindCheckboxComponent implements OnInit, OnChanges, OnDestroy {
   private _domSanitizer = inject(DomSanitizer);
   private _capacitorService = inject(CapacitorService);
   private _platformId = inject(PLATFORM_ID);
@@ -108,6 +109,10 @@ export class TailwindCheckboxComponent implements OnInit, OnDestroy {
       )
       .subscribe();
 
+    this._updateToggleIcon();
+  }
+
+  ngOnChanges(): void {
     this._updateToggleIcon();
   }
 

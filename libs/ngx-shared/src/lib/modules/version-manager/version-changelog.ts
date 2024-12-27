@@ -4,31 +4,30 @@ const _getVersionArt = (tag: string) => {
   return `https://s3-api.vps.notifyapp.it/assets/version-art/${tag}.webp`;
 };
 
-const _sharedTag = 'v1.3.0';
+const _sharedTag = 'v1.4';
 const _sharedDate = '2024-12-15';
-const _sharedTitle = 'Sempre con te.';
-const _sharedDescription = `A grande richiesta, abbiamo introdotto in Notify la possibilità di inserire un codice QR del tuo profilo sul tuo Wallet su applicazioni iOS e Android. <br /> Vai nella sezione <i>Profilo</i> del tuo account e fai click su Aggiungi ad Apple/Google Wallet. <br /><br /> Inoltre, come di consueto abbiamo risolto alcuni bug minori e migliorato le performance del tuo biglietto da visita digitale preferito <3.`;
+const _sharedTitle = 'Stabilità e performance (3)';
+const _sharedDescription = `Piccole ma importanti correzioni e miglioramenti per garantire che il tuo biglietto da visita digitale sia sempre al top!`;
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
-    type: 'new',
-    message: `Possibilità di inserire un codice QR del tuo profilo sul tuo Wallet su dispositivi Android e iOS`,
+    type: 'improvement',
+    message: 'Aggiunta la possibilità di inserire un link ad x.com nel profilo',
   },
   {
     type: 'improvement',
-    message: `Reso più chiaro il pulsante di ritorno alla lista contatti dal dettaglio contatto`,
-  },
-  {
-    type: 'improvement',
-    message: `Esportare un CSV dei contatti adesso esporta solo la ricerca corrente`,
-  },
-  {
-    type: 'improvement',
-    message: `La lista notifiche adesso mostra, inizialmente, solo le notifiche non lette`,
+    message:
+      "Adesso, attivando l'opzione 'personalizza stile', viene usato come base lo stile corrente del profilo",
   },
   {
     type: 'fix',
-    message: 'Risoluzioni di bugs minori e miglioramenti delle performance',
+    message:
+      'Risolto un bug che causava una visualizzazione errata dello stato di visualizzazione di un blocco nel profilo, in alcuni casi',
+  },
+  {
+    type: 'fix',
+    message:
+      'Risolto un bug che causava una visualizzazione errata del colore corrente nei color pickers alla prima apertura',
   },
 ];
 

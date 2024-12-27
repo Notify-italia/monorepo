@@ -19,9 +19,9 @@ export const itemManifest: INotifyAdvancedProfileManifest = {
     _id: '',
     textConfig: {
       enabled: false,
-      font: 'poppins',
-      fontSize: 16,
-      textColor: '#ffffff',
+      font: '',
+      fontSize: 0,
+      textColor: '',
     },
   },
 };
