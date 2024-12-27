@@ -36,7 +36,7 @@ import { TailwindFormsModule } from '../../../tailwind-forms/tailwind-forms.modu
         [prefix]="displayFriendlyUrl"
         name="profileIdentifier"
         [placeholder]="profile._id"
-        label="URL profilo"
+        label="URL personalizzato"
         [showClearInput]="false"
         [compact]="true"
         [parent]="form"
