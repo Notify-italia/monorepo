@@ -21,7 +21,6 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPVideoItem> = {
   ],
   formOptions: {
     hideTextSettings: true,
-    hideTitle: true,
   },
   playerComponent: VideoPlayerComponent,
   formComponent: VideoFormComponent,
