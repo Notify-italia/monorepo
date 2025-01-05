@@ -49,9 +49,11 @@ export class VideoPlayerComponent extends AdvancedProfileItemPlayerBaseComponent
     return this.context.services.sanitizer.bypassSecurityTrustResourceUrl(
       `https://www.youtube.com/embed/${videoId}?playsinline=1&fs=0&autoplay=${
         this.currentItem.autoplay ? 1 : 0
-      }&playlist=${videoId}&loop=${this.currentItem.loop ? 1 : 0}&mute=${
-        this.currentItem.muted ? 1 : 0
-      }&controls=${this.currentItem.controls ? 1 : 0}`
+      }${videoId ? `&playlist=${videoId}` : ''}&loop=${
+        this.currentItem.loop ? 1 : 0
+      }&mute=${this.currentItem.muted ? 1 : 0}&controls=${
+        this.currentItem.controls ? 1 : 0
+      }`
     );
   }
 }

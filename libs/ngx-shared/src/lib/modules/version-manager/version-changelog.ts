@@ -11,6 +11,11 @@ const _sharedDescription = `Piccole ma importanti correzioni e miglioramenti per
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
+    type: 'new',
+    message:
+      "Inserito un nuovo blocco sull'editor del tuo profilo: 'Video Youtube', per mostrare ai tuoi contatti i tuoi video preferiti",
+  },
+  {
     type: 'improvement',
     message: 'Aggiunta la possibilità di inserire un link ad x.com nel profilo',
   },
