@@ -11,3 +11,4 @@ export * from './note/note.manifest';
 export * from './page/page.manifest';
 export * from './photo/photo.manifest';
 export * from './place/place.manifest';
+export * from './video/video.manifest';

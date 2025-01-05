@@ -25,7 +25,8 @@ export type NotifyAdvancedProfileItem =
   | INotifyAPIFrameItem
   | INotifyAPDividerItem
   | INotifyAPLabelItem
-  | INoitfyAPLeadItem;
+  | INoitfyAPLeadItem
+  | INotifyAPVideoItem;
 
 export type NotifyAdvancedProfileItemTypes =
   | NotifyAdvancedProfileItem['type']
@@ -105,6 +106,16 @@ export interface INotifyAPDividerItem
   style: EnumNotifyAPBorderStyles;
   height: number;
   color: string;
+}
+
+export interface INotifyAPVideoItem
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Video> {
+  autoplay: boolean;
+  loop: boolean;
+  muted: boolean;
+  source: string;
+  controls: boolean;
+  height: number;
 }
 
 export interface INotifyAPIFrameItem
@@ -243,6 +254,7 @@ export enum EnumNotifyAdvancedProfileItems {
   Divider = 'divider',
   Label = 'label',
   Lead = 'lead',
+  Video = 'video',
 }
 
 export const NOTIFY_AP_FONTS = {
