@@ -7,12 +7,11 @@ import {
   AdvancedItemPlayerBaseProviders,
   AdvancedProfileItemPlayerBaseComponent,
 } from '../../../../constructors/ap-item.player.base.component';
-import { CachedSrcDirective } from '../../../../directives';
 import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
 
 @Component({
   standalone: true,
-  imports: [...AdvancedItemPlayerBaseImports, CachedSrcDirective],
+  imports: [...AdvancedItemPlayerBaseImports],
   providers: [...AdvancedItemPlayerBaseProviders, iframeFactory],
   styleUrl: '../../advanced-profile.styles.scss',
   template: `

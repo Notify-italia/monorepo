@@ -83,6 +83,17 @@ export class PartSettingsComponent implements OnChanges {
     );
   }
 
+  public get areStylesSynced() {
+    const itemTextConfig = this._getCurrentItem()?.form.controls.textConfig;
+    const pageSettings = this.form.value?.pageSettings;
+
+    return (
+      itemTextConfig?.controls.font.value === pageSettings?.font &&
+      itemTextConfig?.controls.fontSize.value === pageSettings?.fontSize &&
+      itemTextConfig?.controls.textColor.value === pageSettings?.textColor
+    );
+  }
+
   public get currentItem() {
     const form = this.form.controls?.['items'].controls?.find(
       (fg) => fg.controls._id.value === this.selectedHierarchyItem
@@ -122,7 +133,7 @@ export class PartSettingsComponent implements OnChanges {
           const _textConfigValue = itemTextConfig?.value;
           const pageSettings = this.form.value?.pageSettings;
 
-          if (!itemTextConfig?.controls.enabled.value) {
+          if (!itemTextConfig?.controls.enabled) {
             return;
           }
 
@@ -155,6 +166,17 @@ export class PartSettingsComponent implements OnChanges {
     }
 
     this.removeItem.emit(this.currentItem?.form.value._id);
+  }
+
+  public syncStyleWithPage() {
+    const itemTextConfig = this._getCurrentItem()?.form.controls.textConfig;
+    const pageSettings = this.form.value?.pageSettings;
+
+    itemTextConfig?.controls.font.setValue(pageSettings?.font || 'poppins');
+    itemTextConfig?.controls.fontSize.setValue(pageSettings?.fontSize || 16);
+    itemTextConfig?.controls.textColor.setValue(
+      pageSettings?.textColor || '#000000'
+    );
   }
 
   private _getCurrentItem() {
