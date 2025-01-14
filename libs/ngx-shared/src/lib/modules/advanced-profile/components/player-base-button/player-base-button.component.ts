@@ -20,18 +20,19 @@ import { SvgBoxIconComponent } from '../../../../standalones';
   template: `<button
     ontouchstart
     (click)="buttonClicked.emit(button)"
-    class="btn !flex-nowrap min-h-1 !h-fit py-2"
+    class="btn !flex-nowrap min-h-1 h-fit"
     [ngClass]="{
     'w-full justify-between': isVertical,
-    'space-x-2 m-1 btn-square ': isHorizontal,
+    'space-x-2 m-1 aspect-square': isHorizontal,
     'btn-outline': isOutlined,
     'btn-ghost': isText,
-    'bg-transparent border-none': isFilled && isHorizontal,
+    'bg-transparent border-none': isFilled && isHorizontal && !isCircular,
+    'rounded-full': isCircular,
   }"
     [ngStyle]="{
   'font-size': context.getters.fontSize,
   'color':computedTextColor,
-  'background-color': isFilled && !isHorizontal ?  context.getters.textColor : '',
+  'background-color': (isFilled && !isHorizontal) || isFilledCircular ?  context.getters.textColor : '',
   'border-color': isFilled && !isHorizontal? context.getters.textColor : '',
 }"
   >
@@ -39,7 +40,10 @@ import { SvgBoxIconComponent } from '../../../../standalones';
       [icon]="icon"
       [pixelSize]="iconSize"
     ></notify-svg-box-icon>
-    <span *ngIf="isVertical" class="truncate">{{ button.caption }}</span>
+
+    <span *ngIf="isVertical" class="truncate items-center flex h-full ">
+      {{ button.caption }}
+    </span>
   </button>`,
 })
 export class PlayerBaseButtonComponent {
@@ -61,7 +65,10 @@ export class PlayerBaseButtonComponent {
   }
 
   public get isOutlined(): boolean {
-    return this.style === EnumNotifyAPContainerStyles.Outlined;
+    return [
+      EnumNotifyAPContainerStyles.Outlined,
+      EnumNotifyAPContainerStyles.CircularOutlined,
+    ].includes(this.style);
   }
 
   public get isText(): boolean {
@@ -69,11 +76,25 @@ export class PlayerBaseButtonComponent {
   }
 
   public get isFilled(): boolean {
-    return this.style === EnumNotifyAPContainerStyles.Filled;
+    return [
+      EnumNotifyAPContainerStyles.Filled,
+      EnumNotifyAPContainerStyles.CircularFilled,
+    ].includes(this.style);
+  }
+
+  public get isCircular(): boolean {
+    return [
+      EnumNotifyAPContainerStyles.CircularFilled,
+      EnumNotifyAPContainerStyles.CircularOutlined,
+    ].includes(this.style);
+  }
+
+  public get isFilledCircular(): boolean {
+    return this.style === EnumNotifyAPContainerStyles.CircularFilled;
   }
 
   public get iconSize(): number {
-    return Number(this.context.getters.fontSize.replace('px', ''));
+    return Number(this.context.getters.fontSize.replace('px', '')) * 1.3;
   }
 
   public get computedTextColor() {

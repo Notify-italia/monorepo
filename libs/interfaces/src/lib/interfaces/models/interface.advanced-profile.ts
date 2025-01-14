@@ -210,6 +210,8 @@ export enum EnumNotifyAPCorners {
 export enum EnumNotifyAPContainerStyles {
   Filled = 'filled',
   Outlined = 'outlined',
+  CircularFilled = 'circular-filled',
+  CircularOutlined = 'circular-outlined',
   Text = 'text',
 }
 
@@ -298,9 +300,11 @@ export const NOTIFY_AP_DIRECTIONS_IT: {
 export const NOTIFY_AP_BUTTON_STYLES_IT: {
   [key in EnumNotifyAPContainerStyles]: string;
 } = {
-  [EnumNotifyAPContainerStyles.Filled]: 'Riempito',
-  [EnumNotifyAPContainerStyles.Outlined]: 'Tracciato',
-  [EnumNotifyAPContainerStyles.Text]: 'Testo',
+  [EnumNotifyAPContainerStyles.Filled]: 'Squadrato (Riempito)',
+  [EnumNotifyAPContainerStyles.Outlined]: 'Squadrato (Tracciato)',
+  [EnumNotifyAPContainerStyles.Text]: 'Solo Testo',
+  [EnumNotifyAPContainerStyles.CircularFilled]: 'Circolare (Riempito)',
+  [EnumNotifyAPContainerStyles.CircularOutlined]: 'Circolare (Tracciato)',
 };
 
 export const NOTIFY_AP_OWNER_IMG_CORNER_IT: {

@@ -34,6 +34,16 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
     message:
       'Risolto un bug che causava una visualizzazione errata del colore corrente nei color pickers alla prima apertura',
   },
+  {
+    type: 'fix',
+    message:
+      'Risolto un bug che causava clipping del testo in alcuni blocchi del profilo, in particolari condizioni',
+  },
+  {
+    type: 'improvement',
+    message:
+      'Aggiunti 2 nuovi stili per i pulsanti del profilo: "Circolare (Riempito)" e "Circolare (Tracciato)"',
+  },
 ];
 
 export const agentChangelog: INotifyVersionInfo = {

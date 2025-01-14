@@ -68,7 +68,7 @@ export class PartSettingsComponent implements OnChanges {
     const defaultValue = {
       label: 'Dimensione Testo',
       min: 0,
-      max: 50,
+      max: 35,
       steps: 20,
       stepSuffix: 'px',
     };

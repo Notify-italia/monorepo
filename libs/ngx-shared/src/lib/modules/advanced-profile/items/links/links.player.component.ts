@@ -6,11 +6,10 @@ import {
   AdvancedProfileItemPlayerBaseComponent,
 } from '../../../../constructors/ap-item.player.base.component';
 import { SvgboxService } from '../../../../services';
-import { SvgBoxIconComponent } from '../../../../standalones';
 
 @Component({
   standalone: true,
-  imports: [...AdvancedItemPlayerBaseImports, SvgBoxIconComponent],
+  imports: [...AdvancedItemPlayerBaseImports],
   providers: [...AdvancedItemPlayerBaseProviders, SvgboxService],
   styleUrl: '../../advanced-profile.styles.scss',
   template: `
