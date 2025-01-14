@@ -20,7 +20,7 @@ import { SvgBoxIconComponent } from '../../../../standalones';
   template: `<button
     ontouchstart
     (click)="buttonClicked.emit(button)"
-    class="btn !flex-nowrap min-h-1 h-fit"
+    class="btn !flex-nowrap min-h-1 h-fit py-1 "
     [ngClass]="{
     'w-full justify-between': isVertical,
     'space-x-2 m-1 aspect-square': isHorizontal,
@@ -41,7 +41,7 @@ import { SvgBoxIconComponent } from '../../../../standalones';
       [pixelSize]="iconSize"
     ></notify-svg-box-icon>
 
-    <span *ngIf="isVertical" class="truncate items-center flex h-full ">
+    <span *ngIf="isVertical" class="truncate items-center flex h-full pr-1">
       {{ button.caption }}
     </span>
   </button>`,
