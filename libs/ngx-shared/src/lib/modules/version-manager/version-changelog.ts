@@ -44,6 +44,21 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
     message:
       'Aggiunti 2 nuovi stili per i pulsanti del profilo: "Circolare (Riempito)" e "Circolare (Tracciato)"',
   },
+  {
+    type: 'improvement',
+    message:
+      'Aggiunte 3 nuove icone per i links inseribili nel profilo: "Ristorante", "Fast Food" e "Menù"',
+  },
+  {
+    type: 'improvement',
+    message:
+      'Adesso è possibile reindirizzare ad un URL facendo tap o click su un blocco immagine del profilo',
+  },
+  {
+    type: 'improvement',
+    message:
+      'Rimosse le restrizioni di personalizzazione per i pulsanti di richiesta feedback obbligatori',
+  },
 ];
 
 export const agentChangelog: INotifyVersionInfo = {

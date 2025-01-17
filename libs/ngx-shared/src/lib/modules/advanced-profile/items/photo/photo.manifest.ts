@@ -31,6 +31,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPPhotoItem> = {
     showCompanyOnClick: false,
     dimension: 100,
     align: EnumNotifyAPAlign.Center,
+    redirectUrl: '',
   },
 };
 

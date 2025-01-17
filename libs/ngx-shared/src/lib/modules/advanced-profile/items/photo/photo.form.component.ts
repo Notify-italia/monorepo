@@ -53,8 +53,23 @@ import {
       [parent]="form"
       [compact]="true"
       name="showCompanyOnClick"
-      label="Mostra azienda al tap"
+      label="Mostra profilo aziendale al tap"
     ></notify-tailwind-checkbox>
+
+    <notify-tailwind-input
+      [ngClass]="{
+        '-translate-y-5 opacity-0 h-0': form.value.showCompanyOnClick
+      }"
+      class="smooth"
+      [parent]="form"
+      name="redirectUrl"
+      label="Reindirizza ad un URL al tap"
+      [compact]="true"
+      [titlecaseLabel]="false"
+      placeholder="Inserisci un URL"
+      prefix="https://"
+      helpText="Lascia vuoto per non reindirizzare"
+    ></notify-tailwind-input>
   </div>`,
 })
 export class PhotoFormComponent extends AdvancedProfileItemFormBaseComponent<INotifyAPPhotoItem> {

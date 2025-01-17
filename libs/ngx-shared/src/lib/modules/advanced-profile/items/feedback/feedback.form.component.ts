@@ -27,13 +27,6 @@ import { FEEDBACK_ICON_SET } from './feedback.iconset';
         [compact]="true"
       ></notify-tailwind-select>
 
-      @if(this.context.getters.isRequired) {
-      <div class="w-full text-center">
-        Blocco non modificabile, in quanto obbligatorio
-      </div>
-
-      } @else {
-
       <div class="flex space-x-2 items-center">
         <notify-icon-selector
           class="items-end mt-6"
@@ -125,7 +118,6 @@ import { FEEDBACK_ICON_SET } from './feedback.iconset';
           </a>
         </div>
       </div>
-      }
     </div>
   `,
 })

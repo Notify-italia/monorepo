@@ -23,6 +23,7 @@ import {
         [src]="context.getters.currentItem.imgSrc"
         class="w-full rounded-lg pointer-events-none object-center"
         [ngClass]="{
+          '!pointer-events-auto !cursor-pointer': !context.getters.currentItem.showCompanyOnClick && context.getters.currentItem.redirectUrl?.length,
         'cursor-pointer active:scale-95 smooth pointer-events-auto': context.getters.currentItem.showCompanyOnClick && ['none', 'sm', 'md'].includes(context.services.utils.currentTailwindMediaQuery()),
       }"
         [ngStyle]="fitNgStyle"
@@ -39,9 +40,15 @@ import {
 })
 export class PhotoPlayerComponent extends AdvancedProfileItemPlayerBaseComponent<INotifyAPPhotoItem> {
   public handleClick() {
-    if (!this.context.getters.currentItem.showCompanyOnClick) {
+    if (!this.context.getters.isRunningOnPlayer) {
       return;
     }
+
+    if (!this.context.getters.currentItem.showCompanyOnClick) {
+      this._openLink();
+      return;
+    }
+
     this.context.emitters.itemEvent(null, 'SHOW_COMPANY_PROFILE');
   }
 
@@ -50,5 +57,20 @@ export class PhotoPlayerComponent extends AdvancedProfileItemPlayerBaseComponent
       height: this.context.getters.currentItem.dimension + '%',
       width: this.context.getters.currentItem.dimension + '%',
     };
+  }
+
+  private _openLink() {
+    const link = this.context.getters.currentItem.redirectUrl;
+    if (!link?.length) {
+      return;
+    }
+    console.log('handleClick');
+
+    this.context.emitters.itemEvent(link, 'LINK_CLICKED');
+    window.open(
+      this.context.services.utils.populateWebProtocol('https://', link),
+      '_blank'
+    );
+    return;
   }
 }

@@ -92,6 +92,7 @@ export interface INotifyAPPhotoItem
   showCompanyOnClick: boolean;
   dimension: number;
   align: EnumNotifyAPAlign;
+  redirectUrl: string;
 }
 
 //note
