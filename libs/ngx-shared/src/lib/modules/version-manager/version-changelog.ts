@@ -4,7 +4,7 @@ const _getVersionArt = (tag: string) => {
   return `https://s3-api.vps.notifyapp.it/assets/version-art/${tag}.webp`;
 };
 
-const _sharedTag = 'v1.4';
+const _sharedTag = 'v1.4.0';
 const _sharedDate = '2024-12-15';
 const _sharedTitle = 'Stabilità e performance (3)';
 const _sharedDescription = `Piccole ma importanti correzioni e miglioramenti per garantire che il tuo biglietto da visita digitale sia sempre al top!`;
