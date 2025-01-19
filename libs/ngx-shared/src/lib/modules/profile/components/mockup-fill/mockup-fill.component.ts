@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'notify-mockup-fill',
@@ -8,4 +8,6 @@ import { Component } from '@angular/core';
   templateUrl: './mockup-fill.component.html',
   styleUrls: ['./mockup-fill.component.scss', '../profile.styles.scss'],
 })
-export class MockupFillComponent {}
+export class MockupFillComponent {
+  @Input() statusBarColor = 'white';
+}

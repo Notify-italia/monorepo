@@ -3,7 +3,6 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  EnumNotifyAPBackgroundTypes,
   EnumNotifyProfileSources,
   EnumNotifyStatType,
   EnumNotifyUserType,
@@ -18,19 +17,15 @@ import {
   FeedbackFactory,
   FileRecievedFactory,
   FloatingButtonComponent,
-  GesturesDirective,
   IAdvancedProfileItemEvent,
   LoadingComponent,
   ProfileService,
   ProfileViewComponent,
   SocketService,
   StatService,
-  SwipeAvailableComponent,
   UtilsService,
-  defaultGradientStops,
   iframeFactory,
 } from '@notify/ngx-shared';
-import { prominent } from 'color.js';
 import {
   Observable,
   Subject,
@@ -51,8 +46,6 @@ import { environment } from '../../../environments/environment';
   imports: [
     CommonModule,
     ProfileViewComponent,
-    GesturesDirective,
-    SwipeAvailableComponent,
     LoadingComponent,
     FloatingButtonComponent,
   ],
@@ -452,7 +445,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       ? `Visualizza il profilo di ${name} via Notify!`
       : `Visualizza ${name} via Notify!`;
 
-    const topThemeColor = await this._getThemeColor(profile);
+    const topThemeColor = await this._profileService.getThemeColor(profile);
 
     this._titleService.setTitle(`${name} - Notify`);
 
@@ -504,27 +497,5 @@ export class ProfileComponent implements OnInit, OnDestroy {
       name: 'msapplication-TileColor',
       content: topThemeColor,
     });
-  }
-
-  private async _getThemeColor(profile: INotifyProfile): Promise<string> {
-    if (!profile.advancedProfile?.enabled) {
-      return profile.colors.background[0] || defaultGradientStops[0];
-    }
-
-    const ps = profile.advancedProfile.pageSettings;
-
-    const type = ps.backgroundType;
-
-    switch (type) {
-      case EnumNotifyAPBackgroundTypes.Fill:
-        return ps.fill;
-      case EnumNotifyAPBackgroundTypes.Gradient:
-        return ps.gradient.colors[0].value;
-      case EnumNotifyAPBackgroundTypes.Image:
-        return (await prominent(ps.imgSrc, {
-          format: 'hex',
-          amount: 1,
-        })) as string;
-    }
   }
 }

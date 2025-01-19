@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import {
   EnumNotifyAdvancedProfileItems,
+  EnumNotifyAPBackgroundTypes,
   EnumNotifyProfileSources,
   EnumNotifyUserType,
   INotifyAPAvatarItem,
@@ -10,12 +11,18 @@ import {
   INotifyAPPlaceItem,
   INotifyProfile,
 } from '@notify/interfaces';
+import { prominent } from 'color.js';
+
 import { INotifyAvatarConfig } from '../standalones';
 import { HttpService } from './http.service';
 
+export const DEFAULT_GRADIENT_STOPS = ['#0A2859', '#041127'];
+
 @Injectable()
 export class ProfileService {
-  constructor(private http: HttpService) {}
+  public defaultGradientStops = DEFAULT_GRADIENT_STOPS;
+
+  private http = inject(HttpService);
 
   public cleanPhoneNumber(phoneNumber: string): string {
     return phoneNumber?.replace(/[^0-9]/g, '');
@@ -52,6 +59,28 @@ export class ProfileService {
       address: `${_address} ${p.name || ''}`?.replace(' ', '+').toLowerCase(),
       label: _address,
     };
+  }
+
+  public async getThemeColor(profile: INotifyProfile): Promise<string> {
+    if (!profile.advancedProfile?.enabled) {
+      return profile.colors.background[0] || this.defaultGradientStops[0];
+    }
+
+    const ps = profile.advancedProfile.pageSettings;
+
+    const type = ps.backgroundType;
+
+    switch (type) {
+      case EnumNotifyAPBackgroundTypes.Fill:
+        return ps.fill;
+      case EnumNotifyAPBackgroundTypes.Gradient:
+        return ps.gradient.colors[0].value;
+      case EnumNotifyAPBackgroundTypes.Image:
+        return (await prominent(ps.imgSrc, {
+          format: 'hex',
+          amount: 1,
+        })) as string;
+    }
   }
 
   public patchProfile<T extends EnumNotifyUserType>(

@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   EnumNotifyAPBackgroundTypes,
   EnumNotifyUserType,
@@ -17,8 +24,6 @@ import { AdvancedViewComponent } from '../../views/advanced-view/advanced-view.c
 import { ProfileDefaultViewComponent } from '../../views/default-view/default-view.component';
 import { FeedbackFactory } from '../feedback/feedback.factory';
 import { MockupFillComponent } from '../mockup-fill/mockup-fill.component';
-
-export const defaultGradientStops = ['#0A2859', '#041127'];
 
 @Component({
   selector: 'notify-profile-view',
@@ -39,7 +44,7 @@ export const defaultGradientStops = ['#0A2859', '#041127'];
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss', '../profile.styles.scss'],
 })
-export class ProfileViewComponent implements OnInit {
+export class ProfileViewComponent implements OnInit, OnChanges {
   @Input() data?: INotifyProfile;
   @Input() mockup = false;
   @Input() footer?: SafeHtml;
@@ -53,6 +58,8 @@ export class ProfileViewComponent implements OnInit {
   >();
   @Output() public feedbackClicked = new EventEmitter<void>();
   @Output() public componentReady = new EventEmitter<void>();
+
+  public mockupThemeColor = 'white';
 
   public get isAgent(): boolean {
     return this.data?.type === EnumNotifyUserType.Agent;
@@ -91,12 +98,12 @@ export class ProfileViewComponent implements OnInit {
     if (this.data?.colors?.useCompanyColors) {
       return (
         this.data.company?.colors?.background.join(',') ||
-        defaultGradientStops.join(',')
+        this.profileService.defaultGradientStops.join(',')
       );
     }
 
     if (!colors?.length) {
-      return defaultGradientStops.join(',');
+      return this.profileService.defaultGradientStops.join(',');
     }
 
     if (colors.length === 1) {
@@ -120,7 +127,23 @@ export class ProfileViewComponent implements OnInit {
 
   constructor(public profileService: ProfileService) {}
 
-  public ngOnInit(): void {
+  public async ngOnInit() {
     this.componentReady.emit();
+
+    await this._setMockupThemeColor();
+  }
+
+  public async ngOnChanges() {
+    await this._setMockupThemeColor();
+  }
+
+  private async _setMockupThemeColor() {
+    console.log('this.mockup', this.data);
+    if (!this.data) {
+      this.mockupThemeColor = 'white';
+      return;
+    }
+
+    this.mockupThemeColor = await this.profileService.getThemeColor(this.data);
   }
 }

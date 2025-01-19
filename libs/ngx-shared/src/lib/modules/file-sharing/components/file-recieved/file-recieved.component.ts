@@ -5,7 +5,7 @@ import {
   baseModalComponentProviders,
   ModalBaseComponent,
 } from '../../../../constructors/modal.base.component';
-import { defaultGradientStops } from '../../../profile';
+import { DEFAULT_GRADIENT_STOPS } from '../../../../services';
 
 @Component({
   standalone: true,
@@ -18,7 +18,7 @@ export class FileRecievedComponent extends ModalBaseComponent {
   @Input() fileName?: string;
   @Input() fileData?: Buffer;
   @Input() colors: INotifyProfile['colors'] = {
-    background: defaultGradientStops,
+    background: DEFAULT_GRADIENT_STOPS,
     elements: 'white',
     useCompanyColors: false,
   };
