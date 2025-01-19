@@ -25,19 +25,25 @@ import { AvailableItemsComponent } from '../../components/available-items/availa
 export class AddItemButtonComponent {
   private _capacitorService = inject(CapacitorService);
 
-  @ViewChild('LoseBlur') loseBlur!: ElementRef<HTMLButtonElement>;
+  @ViewChild('loseFocus') loseFocus!: ElementRef<HTMLButtonElement>;
   @Output() addItem = new EventEmitter<FormGroup>();
 
-  public toggleState(event: MouseEvent): void {
-    const activeElement = document.activeElement;
+  public get activeElement() {
+    return document.activeElement;
+  }
 
+  public toggleState(event: MouseEvent): void {
     this._capacitorService.triggerHapticFeedback(
       this._capacitorService.hFeedbackStyles.Medium
     );
 
-    if (activeElement?.id !== (event.target as HTMLButtonElement).id) {
-      this.loseBlur.nativeElement.click();
-      this.loseBlur.nativeElement.focus();
+    if (this.activeElement?.id !== (event.target as HTMLButtonElement).id) {
+      this.closeMenu();
     }
+  }
+
+  public closeMenu() {
+    this.loseFocus.nativeElement.click();
+    this.loseFocus.nativeElement.focus();
   }
 }

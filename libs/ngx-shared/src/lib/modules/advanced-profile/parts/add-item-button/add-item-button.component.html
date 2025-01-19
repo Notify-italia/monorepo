@@ -1,21 +1,20 @@
 <button
   class="absolute pointer-events-none w-0 h-0 opacity-0"
-  #LoseBlur
+  #loseFocus
   tabindex="0"
 ></button>
 
 <div class="group flex flex-col items-center" tabindex="0">
-  <button
-    type="button"
-    #AddItemButton
-    tabindex="0"
-    id="add-item-button"
-    class="sm-btn smooth"
-    (click)="toggleState($event)"
-  >
-    <div
+  <div tabindex="0" class="sm-btn smooth">
+    <button
+      #AddItemButton
+      id="add-item-button"
+      type="button"
       tabindex="0"
-      class="flex justify-center space-x-4 items-center pointer-events-none group-focus-within:pointer-events-auto group-focus-within:w-full"
+      (click)="
+        activeElement === AddItemButton ? closeMenu() : toggleState($event)
+      "
+      class="flex justify-center space-x-4 items-center pointer-events-none group-focus-within:pointer-events-auto group-focus-within:w-full active:scale-95 smooth"
     >
       <svg
         tabindex="0"
@@ -36,16 +35,16 @@
         Aggiungi un blocco
       </span>
       <span tabindex="0" class="hidden group-focus-within:block"> Chiudi</span>
-    </div>
+    </button>
 
     <div
       tabindex="0"
-      class="flex flex-col w-full opacity-0 h-0 pointer-events-none group-focus-within:h-32 group-focus-within:opacity-100 group-focus-within:pointer-events-auto smooth smooth-fast z-50 min-h-0"
+      class="flex flex-col w-full opacity-0 h-0 pointer-events-none group-focus-within:h-80 group-focus-within:opacity-100 group-focus-within:pointer-events-auto smooth smooth-fast z-50 min-h-0"
     >
       <notify-available-items
         tabindex="0"
-        (addItem)="addItem.emit($event); LoseBlur.click(); LoseBlur.focus()"
+        (addItem)="addItem.emit($event); closeMenu()"
       ></notify-available-items>
     </div>
-  </button>
+  </div>
 </div>

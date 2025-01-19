@@ -59,6 +59,16 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
     message:
       'Rimosse le restrizioni di personalizzazione per i pulsanti di richiesta feedback obbligatori',
   },
+  {
+    type: 'improvement',
+    message:
+      'Migliorata la visualizzazione dei blocchi disponibili sul profilo, con un nuovo stile e barra di ricerca anche da mobile',
+  },
+  {
+    type: 'fix',
+    message:
+      'Risolto un bug che impediva la chiusura del menu di inserimento di un nuovo blocco su app iOS e Android',
+  },
 ];
 
 export const agentChangelog: INotifyVersionInfo = {

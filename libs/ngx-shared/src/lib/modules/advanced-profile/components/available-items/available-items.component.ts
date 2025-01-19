@@ -40,6 +40,7 @@ export class AvailableItemsComponent {
       .sort((a, b) => a.label.localeCompare(b.label))
   );
   public availableItems: INotifyAPAvailableItem[] = [];
+  public availableItemsSkeleton = Array(12).fill(0);
 
   public emitAddItem(item: NotifyAdvancedProfileItemTypes) {
     this.addItem.emit(this._apItemSerivce.generateFormGroup(item));
