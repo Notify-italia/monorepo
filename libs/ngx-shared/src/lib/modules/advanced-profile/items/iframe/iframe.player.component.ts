@@ -25,6 +25,9 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
         class="flex space-x-2 items-center justify-evenly  rounded-xl  text-start p-2 pr-4 w-full h-32 active:scale-95 smooth smooth-fast"
         ontouchstart
         (click)="handleClick()"
+        [ngClass]="{
+          'flex-col h-full !space-x-0 space-y-2 !pr-2': context.getters.currentItem.direction === 'vertical',
+        }"
         [ngStyle]="{
           'background-color': context.getters.textColor,
           color: ogMetadataTextColor
@@ -32,9 +35,12 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
       >
         @if(openGraphMetadata) {
         <img
+          *ngIf="imageUrl"
           [src]="imageUrl"
           class=" w-24 h-24 rounded-lg object-cover shrink-0"
-          *ngIf="imageUrl"
+          [ngClass]="{
+          'w-full h-32 ': context.getters.currentItem.direction === 'vertical',
+        }"
         />
 
         <div
@@ -59,11 +65,34 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
         </div>
 
         <div
-          class="dropdown text-sm dropdown-left dropdown-bottom"
+          class="dropdown text-sm dropdown-left dropdown-bottom w-full"
           (click)="$event.stopPropagation()"
         >
-          <div tabindex="0" role="button" class="">
+          <div
+            tabindex="0"
+            role="button"
+            [ngClass]="{
+          'flex w-full justify-end': context.getters.currentItem.direction === 'vertical',
+        }"
+          >
             <svg
+              *ngIf="context.getters.currentItem.direction === 'vertical'"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6 rotate-180"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="m19.5 8.25-7.5 7.5-7.5-7.5"
+              />
+            </svg>
+
+            <svg
+              *ngIf="context.getters.currentItem.direction === 'horizontal'"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"

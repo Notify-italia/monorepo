@@ -1,5 +1,6 @@
 import {
   EnumNotifyAdvancedProfileItems,
+  EnumNotifyAPDirections,
   INotifyAPIFrameItem,
 } from '@notify/interfaces';
 import {
@@ -28,6 +29,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPIFrameItem> = {
     ...itemManifest.definitions,
     url: '',
     openInNotify: true,
+    direction: EnumNotifyAPDirections.Vertical,
   },
 };
 

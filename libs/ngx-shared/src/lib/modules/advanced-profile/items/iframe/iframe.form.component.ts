@@ -14,7 +14,14 @@ import {
   providers: AdvancedItemFormBaseProviders,
   styleUrls: ['../../advanced-profile.styles.scss'],
   template: `
-    <div class="flex flex-col space-y-1">
+    <div class="flex flex-col space-y-4">
+      <notify-tailwind-select
+        [parent]="form"
+        name="direction"
+        [compact]="true"
+        label="Orientamento"
+        [options]="context.components.select.directions"
+      ></notify-tailwind-select>
       <notify-tailwind-input
         [parent]="form"
         name="url"

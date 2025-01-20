@@ -121,6 +121,7 @@ export interface INotifyAPVideoItem
 
 export interface INotifyAPIFrameItem
   extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.IFrame> {
+  direction: EnumNotifyAPDirections;
   url: string;
   openInNotify: boolean;
 }

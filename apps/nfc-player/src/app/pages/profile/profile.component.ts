@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
-import { DomSanitizer, Meta, Title } from '@angular/platform-browser';
+import { DomSanitizer, Meta, SafeHtml, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   EnumNotifyProfileSources,
@@ -77,10 +77,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public companyProfileX = this._thresholds.maxTranslate;
   public companyIsVisible = false;
   public profileColors?: INotifyProfile['colors'];
-
-  public get footer() {
-    return this._profileService.getProfileFooter(this.socketId);
-  }
+  public footer: SafeHtml = '';
 
   private _destroy$ = new Subject<void>();
 
@@ -142,6 +139,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this._setMeta(profile);
         this.profileColors = profile.colors;
         this._socket.connect(profile._id);
+        this.footer = this._profileService.getProfileFooter(this.socketId);
       }),
       catchError((err) => {
         this._router.navigate(['/404']);
