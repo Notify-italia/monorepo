@@ -51,7 +51,7 @@ export class PagePlayerComponent {
   }
 
   public get baseClass(): string {
-    return `w-full h-full fonts font-${this.pageSettings.font} text-[${this.pageSettings.textColor}]`;
+    return `size-full fonts font-${this.pageSettings.font} text-[${this.pageSettings.textColor}] `;
   }
 
   public get fontSize() {
