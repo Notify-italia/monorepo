@@ -79,23 +79,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public profileColors?: INotifyProfile['colors'];
 
   public get footer() {
-    return this._domSanitizer.bypassSecurityTrustHtml(
-      `<div class="text-xs">
-      <div
-        class="flex flex-col w-full lg:!text-current"
-        [style.color]="p.colors.elements"
-      >
-        <div>
-          Condivisione files: <span class="font-bold">${this.socketId}</span>
-        </div>
-        <div>
-          <a href="https://notifyapp.it" target="_blank">
-            Provided by <span class="font-bold">Notify</span>
-          </a>
-        </div>
-      </div>
-    </div>`
-    );
+    return this._profileService.getProfileFooter(this.socketId);
   }
 
   private _destroy$ = new Subject<void>();

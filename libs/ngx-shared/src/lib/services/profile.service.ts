@@ -13,6 +13,7 @@ import {
 } from '@notify/interfaces';
 import { prominent } from 'color.js';
 
+import { DomSanitizer } from '@angular/platform-browser';
 import { INotifyAvatarConfig } from '../standalones';
 import { HttpService } from './http.service';
 
@@ -20,16 +21,17 @@ export const DEFAULT_GRADIENT_STOPS = ['#0A2859', '#041127'];
 
 @Injectable()
 export class ProfileService {
-  public defaultGradientStops = DEFAULT_GRADIENT_STOPS;
+  private _http = inject(HttpService);
+  private _domSanitizer = inject(DomSanitizer);
 
-  private http = inject(HttpService);
+  public defaultGradientStops = DEFAULT_GRADIENT_STOPS;
 
   public cleanPhoneNumber(phoneNumber: string): string {
     return phoneNumber?.replace(/[^0-9]/g, '');
   }
 
   public v2Update(agent?: string) {
-    return this.http.post<
+    return this._http.post<
       {
         agent?: string;
       },
@@ -39,8 +41,28 @@ export class ProfileService {
     });
   }
 
+  public getProfileFooter(socketId: string) {
+    return this._domSanitizer.bypassSecurityTrustHtml(
+      `<div class="text-xs">
+      <div
+        class="flex flex-col w-full lg:!text-current"
+        [style.color]="p.colors.elements"
+      >
+        <div>
+          Condivisione files: <span class="font-bold">${socketId}</span>
+        </div>
+        <div>
+          <a href="https://notifyapp.it" target="_blank">
+            Provided by <span class="font-bold">Notify</span>
+          </a>
+        </div>
+      </div>
+    </div>`
+    );
+  }
+
   public v2BetaAccess(profile: string) {
-    return this.http.get<{
+    return this._http.get<{
       hasAccess: boolean;
     }>(`/v1/profile/v2-beta-access`, {
       profile,
@@ -87,7 +109,7 @@ export class ProfileService {
     body: Partial<INotifyProfile>,
     id?: string
   ) {
-    return this.http.patch<Partial<INotifyProfile>, INotifyProfile<T>>(
+    return this._http.patch<Partial<INotifyProfile>, INotifyProfile<T>>(
       `/v1/profile`,
       body,
       id ? { id } : undefined
@@ -95,14 +117,14 @@ export class ProfileService {
   }
 
   public getProfile<T extends EnumNotifyUserType>(id?: string) {
-    return this.http.get<INotifyProfile<T>>(
+    return this._http.get<INotifyProfile<T>>(
       `/v1/profile`,
       id ? { id } : undefined
     );
   }
 
   public checkProfileIdentifier(profileIdentifier: string) {
-    return this.http.post<
+    return this._http.post<
       {
         profileIdentifier: string;
       },
@@ -122,7 +144,7 @@ export class ProfileService {
     profile: string,
     item: string
   ) {
-    return this.http.post<unknown, { url: string }>(`/v1/profile/file`, {
+    return this._http.post<unknown, { url: string }>(`/v1/profile/file`, {
       profile,
       item,
       file,
@@ -130,7 +152,7 @@ export class ProfileService {
   }
 
   public deleteFile(profile: string, item: string, name: string) {
-    return this.http.delete(`/v1/profile/file`, {
+    return this._http.delete(`/v1/profile/file`, {
       profile,
       item,
       name,
@@ -280,7 +302,7 @@ export class ProfileService {
   }
 
   public getPkpass(profile?: string) {
-    return this.http.get<{
+    return this._http.get<{
       base64: string;
     }>(`/v1/profile/wallet/pkpass`, {
       profile,
@@ -288,7 +310,7 @@ export class ProfileService {
   }
 
   public getGooglePass(profile?: string) {
-    return this.http.get<{
+    return this._http.get<{
       passUrl: string;
     }>(`/v1/profile/wallet/google-pass`, {
       profile,

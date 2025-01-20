@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { UtilsService } from '../../../../services';
 
 @Component({
   selector: 'notify-mockup-fill',
@@ -9,5 +10,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./mockup-fill.component.scss', '../profile.styles.scss'],
 })
 export class MockupFillComponent {
+  private _utilsService = inject(UtilsService);
+
   @Input() statusBarColor = 'white';
+
+  public get textColor(): string {
+    return this._utilsService.getContrastingColor(this.statusBarColor);
+  }
 }

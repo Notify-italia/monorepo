@@ -96,6 +96,9 @@ export class AdvancedProfileComponent implements OnInit, OnDestroy {
     profilesUrl: string;
   } = this._route.snapshot.data['environment'];
   public updatedAt = new Date();
+  public profileFooter = this._profileSerivce.getProfileFooter(
+    'NON DISPONIBILE IN MODIFICA'
+  );
   private destroy$ = new Subject<void>();
 
   public get providedId() {

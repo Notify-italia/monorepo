@@ -65,6 +65,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
       'Migliorata la visualizzazione dei blocchi disponibili sul profilo, con un nuovo stile e barra di ricerca anche da mobile',
   },
   {
+    type: 'improvement',
+    message:
+      'Migliorata la status bar del mockup di visualizzazione dei profili per rispecchiare al meglio la realtà',
+  },
+  {
     type: 'fix',
     message:
       'Risolto un bug che impediva la chiusura del menu di inserimento di un nuovo blocco su app iOS e Android',
