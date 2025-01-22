@@ -57,6 +57,8 @@ export class TailwindSliderComponent implements OnInit, OnChanges, OnDestroy {
 
   private _destroy$ = new Subject<void>();
 
+  public infinity = Infinity;
+
   public get stepsIterable() {
     return Array.from({ length: this.steps + 1 }, (_, i) => i);
   }

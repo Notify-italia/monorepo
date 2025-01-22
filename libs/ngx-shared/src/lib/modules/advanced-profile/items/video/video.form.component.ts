@@ -86,10 +86,12 @@ const CHECKBOX_TOGGLE_LOOP = {
       name="height"
       label="Altezza"
       [compact]="true"
-      [steps]="20"
-      [min]="203"
+      [steps]="0"
+      [min]="180"
       [max]="640"
       [stepsLabels]="{
+        startLabel:'Video',
+        endLabel:'Short',
         showCurrentStep:false,
         showCurrentStepWhileDragging:false,
         

@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 
 import { Validators } from '@angular/forms';
-import { INotifyAPIFrameItem } from '@notify/interfaces';
+import {
+  EnumNotifyAPDirections,
+  INotifyAPIFrameItem,
+} from '@notify/interfaces';
+import { tap } from 'rxjs';
 import {
   AdvancedItemFormBaseImports,
   AdvancedItemFormBaseProviders,
@@ -15,13 +19,6 @@ import {
   styleUrls: ['../../advanced-profile.styles.scss'],
   template: `
     <div class="flex flex-col space-y-4">
-      <notify-tailwind-select
-        [parent]="form"
-        name="direction"
-        [compact]="true"
-        label="Orientamento"
-        [options]="context.components.select.directions"
-      ></notify-tailwind-select>
       <notify-tailwind-input
         [parent]="form"
         name="url"
@@ -35,7 +32,7 @@ import {
         <notify-tailwind-checkbox
           [parent]="form"
           name="openInNotify"
-          label="Apri in Notify (beta)"
+          label="Apri in Notify"
           [compact]="true"
           class="w-full"
         ></notify-tailwind-checkbox>
@@ -43,6 +40,36 @@ import {
           >Non supportato da tutti i siti web.</small
         >
       </div>
+      <div class="divider"></div>
+      <notify-tailwind-select
+        [parent]="form"
+        name="direction"
+        [compact]="true"
+        label="Orientamento"
+        [options]="context.components.select.directions"
+      ></notify-tailwind-select>
+      <notify-tailwind-select
+        [parent]="form"
+        name="imgFit"
+        [compact]="true"
+        label="Riempimento immagine"
+        [options]="context.components.select.objectFit"
+      ></notify-tailwind-select>
+      <notify-tailwind-slider
+        *ngIf="
+          form.controls.direction.value === context.statics.directions.Vertical
+        "
+        [parent]="form"
+        name="boxHeight"
+        label="Altezza"
+        [steps]="20"
+        [min]="100"
+        [max]="400"
+        [compact]="true"
+        [stepsLabels]="{
+        showCurrentStepWhileDragging: false,
+      }"
+      ></notify-tailwind-slider>
     </div>
   `,
 })
@@ -65,5 +92,18 @@ export class IFrameFormComponent extends AdvancedProfileItemFormBaseComponent<IN
         )
       ),
     ]);
+
+    this.form.controls.direction.valueChanges
+      .pipe(
+        tap((v) => {
+          if (v === EnumNotifyAPDirections.Vertical) {
+            this.form.controls.boxHeight.setValue(288);
+            return;
+          }
+
+          this.form.controls.boxHeight.setValue(128);
+        })
+      )
+      .subscribe();
   }
 }

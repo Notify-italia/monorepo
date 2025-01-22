@@ -70,6 +70,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
       'Migliorata la status bar del mockup di visualizzazione dei profili per rispecchiare al meglio la realtà',
   },
   {
+    type: 'improvement',
+    message:
+      'Il blocco "Sito web" ora ha 2 possibili orientamenti, quello classico orizzontale e il nuovo verticale',
+  },
+  {
     type: 'fix',
     message:
       'Risolto un bug che impediva la chiusura del menu di inserimento di un nuovo blocco su app iOS e Android',

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { INotifyAPIFrameItem } from '@notify/interfaces';
+import {
+  EnumNotifyAPDirections,
+  INotifyAPIFrameItem,
+} from '@notify/interfaces';
 import { OgObject } from 'open-graph-scraper/types/lib/types';
 import { catchError, debounceTime, of, switchMap, tap } from 'rxjs';
 import {
@@ -22,40 +25,48 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
       [ngClass]="container.ngClass"
     >
       <button
-        class="flex space-x-2 items-center justify-evenly  rounded-xl  text-start p-2 pr-4 w-full h-32 active:scale-95 smooth smooth-fast"
+        class="flex space-x-2 items-center justify-evenly overflow-hidden rounded-xl  text-start p-2 pr-4 w-full active:scale-95 smooth smooth-fast"
         ontouchstart
         (click)="handleClick()"
         [ngClass]="{
-          'flex-col h-full !space-x-0 space-y-2 !pr-2': context.getters.currentItem.direction === 'vertical',
+          'flex-col !space-x-0 space-y-2 !pr-2 !justify-between ': isVertical,
         }"
         [ngStyle]="{
           'background-color': context.getters.textColor,
-          color: ogMetadataTextColor
+          color: ogMetadataTextColor,
+          height: context.getters.currentItem.boxHeight + 'px',
         }"
       >
         @if(openGraphMetadata) {
         <img
           *ngIf="imageUrl"
           [src]="imageUrl"
-          class=" w-24 h-24 rounded-lg object-cover shrink-0"
+          class=" w-24 h-24 rounded-lg shrink-0"
+          [ngStyle]="{
+            'object-fit': context.getters.currentItem.imgFit || 'cover'
+          }"
           [ngClass]="{
-          'w-full h-32 ': context.getters.currentItem.direction === 'vertical',
+          'w-full h-36 object-fill': isVertical,
         }"
         />
-
         <div
           class="max-w-full truncate max-h-full w-full"
           [ngClass]="{
             'text-left': !imageUrl
           }"
         >
-          <p class="truncate">
+          <p class="truncate text-left w-full shrink-0">
             <small>
               <strong>{{ ogTitle }}</strong>
             </small>
           </p>
 
-          <p class=" whitespace-normal max-h-20 leading-tight line-clamp-3">
+          <p
+            class="whitespace-normal max-h-20 leading-tight truncate line-clamp-3"
+            [ngClass]="{
+            '!max-h-none min-h-0 shrink  w-full line-clamp-none': isVertical,
+          }"
+          >
             <small>
               <small>
                 {{ ogDescription || this.openGraphMetadata.requestUrl }}
@@ -65,14 +76,17 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
         </div>
 
         <div
-          class="dropdown text-sm dropdown-left dropdown-bottom w-full"
+          class="dropdown text-sm dropdown-left dropdown-bottom"
+          [ngClass]="{
+            'w-full ': isVertical
+          }"
           (click)="$event.stopPropagation()"
         >
           <div
             tabindex="0"
             role="button"
             [ngClass]="{
-          'flex w-full justify-end': context.getters.currentItem.direction === 'vertical',
+          'flex w-full justify-end': isVertical,
         }"
           >
             <svg
@@ -82,12 +96,12 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="size-6 rotate-180"
+              class="size-6"
             >
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
               />
             </svg>
 
@@ -129,7 +143,12 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
         </div>
 
         } @else {
-        <div class="flex justify-center w-full">
+        <div
+          class="flex justify-center w-full"
+          [ngClass]="{
+          'h-full': isVertical,
+          }"
+        >
           <notify-loading></notify-loading>
         </div>
         }
@@ -156,6 +175,13 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
     }
 
     return normalized;
+  }
+
+  public get isVertical() {
+    return (
+      this.context.getters.currentItem.direction ===
+      EnumNotifyAPDirections.Vertical
+    );
   }
 
   public get ogTitle() {

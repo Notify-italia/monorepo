@@ -124,6 +124,8 @@ export interface INotifyAPIFrameItem
   direction: EnumNotifyAPDirections;
   url: string;
   openInNotify: boolean;
+  imgFit: EnumNotifyAPObjectFit;
+  boxHeight: number;
 }
 
 export interface INotifyAPLabelItem

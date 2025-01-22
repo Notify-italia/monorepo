@@ -138,7 +138,6 @@ export class ProfileViewComponent implements OnInit, OnChanges {
   }
 
   private async _setMockupThemeColor() {
-    console.log('this.mockup', this.data);
     if (!this.data) {
       this.mockupThemeColor = 'white';
       return;

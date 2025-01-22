@@ -1,6 +1,7 @@
 import {
   EnumNotifyAdvancedProfileItems,
   EnumNotifyAPDirections,
+  EnumNotifyAPObjectFit,
   INotifyAPIFrameItem,
 } from '@notify/interfaces';
 import {
@@ -30,6 +31,8 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPIFrameItem> = {
     url: '',
     openInNotify: true,
     direction: EnumNotifyAPDirections.Vertical,
+    imgFit: EnumNotifyAPObjectFit.Cover,
+    boxHeight: 128,
   },
 };
 

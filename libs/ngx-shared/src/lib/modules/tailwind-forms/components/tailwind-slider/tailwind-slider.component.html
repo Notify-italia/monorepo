@@ -62,7 +62,10 @@
     </output>
   </button>
 
-  <div class="w-full flex justify-between text-xs px-2" *ngIf="step">
+  <div
+    class="w-full flex justify-between text-xs px-2"
+    *ngIf="step !== infinity"
+  >
     @for (item of stepsIterable; track $index) {
     <span class="even:text-[0.4rem]">|</span>
 
