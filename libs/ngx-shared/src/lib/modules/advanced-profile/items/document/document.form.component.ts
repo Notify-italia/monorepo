@@ -49,9 +49,9 @@ import {
     <notify-tailwind-input
       [parent]="$any(form.controls.button)"
       name="caption"
-      label="testo"
+      label="testo pulsante"
       class="w-full"
-      placeholder="Lead Salesman"
+      placeholder="Il mio documento"
       [showClearInput]="true"
       [compact]="true"
     >
