@@ -26,7 +26,8 @@ export type NotifyAdvancedProfileItem =
   | INotifyAPDividerItem
   | INotifyAPLabelItem
   | INoitfyAPLeadItem
-  | INotifyAPVideoItem;
+  | INotifyAPVideoItem
+  | INotifyAPDocumentItem;
 
 export type NotifyAdvancedProfileItemTypes =
   | NotifyAdvancedProfileItem['type']
@@ -93,6 +94,14 @@ export interface INotifyAPPhotoItem
   dimension: number;
   align: EnumNotifyAPAlign;
   redirectUrl: string;
+}
+
+export interface INotifyAPDocumentItem
+  extends INotifyAdvancedProfileItem<EnumNotifyAdvancedProfileItems.Document> {
+  docSrc: string;
+  showInline: boolean;
+  button: INotifyAPBaseButton;
+  boxHeight: number;
 }
 
 //note
@@ -261,6 +270,7 @@ export enum EnumNotifyAdvancedProfileItems {
   Label = 'label',
   Lead = 'lead',
   Video = 'video',
+  Document = 'document',
 }
 
 export const NOTIFY_AP_FONTS = {

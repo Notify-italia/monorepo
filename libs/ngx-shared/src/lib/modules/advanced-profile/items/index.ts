@@ -1,6 +1,7 @@
 export * from './avatar/avatar.manifest';
 export * from './contacts/contacts.manifest';
 export * from './divider/divider.manifest';
+export * from './document/document.manifest';
 export * from './feedback/feedback.manifest';
 export * from './iframe/iframe.manifest';
 export * from './item.manifest';

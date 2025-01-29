@@ -91,3 +91,7 @@
 .mockup-responsive {
   @apply scale-[.4] sm:scale-[.6] md:scale-75 lg:scale-75 2xl:scale-100;
 }
+
+object {
+  @apply size-full rounded-xl;
+}

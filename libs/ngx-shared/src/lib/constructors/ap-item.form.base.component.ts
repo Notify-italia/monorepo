@@ -117,6 +117,7 @@ export class AdvancedProfileItemFormBaseComponent<
         profile: this.profile,
         formChanged: this.form.valueChanges.pipe(takeUntil(this._destroy$)),
         manifest: this.manifest,
+        componentDestroyed$: this._destroy$,
       },
       statics: {
         buttonStyles: EnumNotifyAPContainerStyles,
