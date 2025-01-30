@@ -79,6 +79,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public profileColors?: INotifyProfile['colors'];
   public footer: SafeHtml = '';
 
+  public isMobile = this._utils.isMobile;
+
   private _destroy$ = new Subject<void>();
 
   public get socketId(): string {
@@ -131,13 +133,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
         return of(null as unknown as INotifyProfile);
       }),
-      tap((profile) => {
+      tap(async (profile) => {
         if (!profile) {
           return;
         }
 
         this._setMeta(profile);
-        this.profileColors = profile.colors;
+        this.profileColors = {
+          ...profile.colors,
+          background: [await this._profileService.getThemeColor(profile)],
+        };
         this._socket.connect(profile._id);
         this.footer = this._profileService.getProfileFooter(this.socketId);
       }),

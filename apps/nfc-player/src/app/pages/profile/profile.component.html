@@ -1,5 +1,6 @@
 <div
-  class="bg-black lg:bg-base-200 h-[100svh] size-full flex flex-col justify-center items-center relative font-work overflow-hidden"
+  class="h-[100svh] size-full flex flex-col justify-center items-center relative font-work overflow-hidden"
+  [ngStyle]="{ 'background-color': profileColors?.background }"
 >
   @if (profile$ | async; as p) {
 
@@ -35,7 +36,7 @@
     class="pointer-events-none smooth opacity-0"
     [offsets]="{
       bottom: '1.75rem',
-      right: '9rem'
+      right: !isMobile ? '14rem' : '9rem'
     }"
     [small]="true"
     [iconRenderingMode]="'stroke'"
@@ -43,7 +44,7 @@
   ></notify-floating-button>
 
   @if (isAgent(p)) {
-  <div class="content-container">
+  <div class="content-container backdrop-brightness-90">
     <!-- PLAYER OUTLET -->
     <ng-container
       [ngTemplateOutlet]="PlayerContent"
@@ -54,7 +55,7 @@
   </div>
   } @else {
   <!-- if the profile belongs to a company then we don't need notifyGestures -->
-  <div class="content-container">
+  <div class="content-container backdrop-brightness-90">
     <ng-container
       [ngTemplateOutlet]="PlayerContent"
       [ngTemplateOutletContext]="{
@@ -63,30 +64,7 @@
     ></ng-container>
   </div>
 
-  }
-
-  <div
-    class="footer pointer-events-none"
-    [ngClass]="{
-      'hidden lg:flex': p.advancedProfile?.enabled
-    }"
-  >
-    <div
-      class="flex flex-col w-full lg:!text-current"
-      [style.color]="p.colors.elements"
-    >
-      <div>
-        Condivisione files: <span class="font-bold">{{ socketId }}</span>
-      </div>
-      <div>
-        <a href="https://notifyapp.it" target="_blank">
-          Provided by <span class="font-bold">Notify</span>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  } @else {
+  } } @else {
   <!-- shows the loading component when no data is available yet -->
   <div class="h-screen">
     <notify-loading></notify-loading>
@@ -103,7 +81,7 @@
       filter: 'blur(' + (100 - profileScale * 100) + 'px)'
     }"
     [ngClass]="{
-      'max-h-screen fixed': companyIsVisible
+      'max-h-screen  fixed': companyIsVisible
     }"
   >
     <notify-profile-view
@@ -114,17 +92,16 @@
       [footer]="footer"
       [environment]="environment"
       [isRunningOnPlayer]="true"
-      [mockup]="['lg', 'xl', '2xl'].includes(currentBreakpoint)"
     ></notify-profile-view>
   </div>
 
   <!-- MOBILE COMPANY PLAYER -->
   <div
     *ngIf="p?.company as pCompany"
-    class="top-0 left-0 smooth z-50 w-full !ease-linear !duration-100 player-responsive lg:hidden will-change-transform !h-full"
+    class="top-0 left-0 smooth z-50 w-full !ease-linear !duration-100 player-responsive will-change-transform"
     [ngStyle]="{ transform: 'translateX(' + companyProfileX + 'vw)' }"
     [ngClass]="{
-      absolute: !companyIsVisible,
+      absolute: !companyIsVisible ,
     }"
   >
     <notify-profile-view
@@ -132,40 +109,6 @@
       [data]="pCompany"
       [isRunningOnPlayer]="true"
       [footer]="footer"
-    ></notify-profile-view>
-  </div>
-
-  <!-- DESKTOP RELATIONSHIP ICON -->
-  <div class="flex-col justify-center hidden lg:flex" *ngIf="isAgent(p)">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="w-12 h-12"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
-      />
-    </svg>
-  </div>
-
-  <!-- DESKTOP COMPANY PLAYER -->
-  <div
-    *ngIf="p?.company as pCompany"
-    class="player-responsive hidden lg:block mockup-scale"
-  >
-    <notify-profile-view
-      (integrationClicked)="handleIntegrationClicked($event, pCompany)"
-      [data]="pCompany"
-      [mockup]="true"
-      [isRunningOnPlayer]="true"
-      [ngClass]="{
-        'iphone-15-pro': ['lg', 'xl', '2xl'].includes(currentBreakpoint)
-      }"
     ></notify-profile-view>
   </div>
 </ng-template>

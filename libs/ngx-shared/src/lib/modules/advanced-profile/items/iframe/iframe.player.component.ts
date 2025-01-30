@@ -43,7 +43,10 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
           [src]="imageUrl"
           class=" w-24 h-24 rounded-lg shrink-0"
           [ngStyle]="{
-            'object-fit': context.getters.currentItem.imgFit || 'cover'
+            'object-fit':
+              context.getters.currentItem.direction === 'horizontal'
+                ? 'cover'
+                : context.getters.currentItem.imgFit || 'cover'
           }"
           [ngClass]="{
           'w-full h-36 object-fill': isVertical,

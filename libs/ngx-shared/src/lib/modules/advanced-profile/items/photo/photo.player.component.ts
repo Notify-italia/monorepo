@@ -23,8 +23,8 @@ import {
         [src]="context.getters.currentItem.imgSrc"
         class="w-full rounded-lg pointer-events-none object-center"
         [ngClass]="{
-          '!pointer-events-auto !cursor-pointer': !context.getters.currentItem.showCompanyOnClick && context.getters.currentItem.redirectUrl?.length,
-        'cursor-pointer active:scale-95 smooth pointer-events-auto': context.getters.currentItem.showCompanyOnClick && ['none', 'sm', 'md'].includes(context.services.utils.currentTailwindMediaQuery()),
+          '!pointer-events-auto !cursor-pointer': !context.getters.currentItem.showCompanyOnClick || context.getters.currentItem.redirectUrl?.length,
+        'cursor-pointer active:scale-95 smooth pointer-events-auto': context.getters.currentItem.showCompanyOnClick,
       }"
         [ngStyle]="fitNgStyle"
       />

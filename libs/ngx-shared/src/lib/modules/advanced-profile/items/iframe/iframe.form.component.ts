@@ -49,6 +49,9 @@ import {
         [options]="context.components.select.directions"
       ></notify-tailwind-select>
       <notify-tailwind-select
+        *ngIf="
+          form.controls.direction.value === context.statics.directions.Vertical
+        "
         [parent]="form"
         name="imgFit"
         [compact]="true"
