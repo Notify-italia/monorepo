@@ -30,6 +30,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPDocumentItem> = {
     docSrc: '',
     showInline: true,
     boxHeight: 200,
+    showFilename: true,
     button: {
       icon: '',
       url: '',

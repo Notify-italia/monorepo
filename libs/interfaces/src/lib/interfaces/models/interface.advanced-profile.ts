@@ -102,6 +102,7 @@ export interface INotifyAPDocumentItem
   showInline: boolean;
   button: INotifyAPBaseButton;
   boxHeight: number;
+  showFilename: boolean;
 }
 
 //note

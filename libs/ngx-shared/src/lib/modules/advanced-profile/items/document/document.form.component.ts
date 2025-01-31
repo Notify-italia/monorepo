@@ -31,6 +31,12 @@ import {
     <div class="divider"></div>
 
     @if(form.value.showInline) {
+    <notify-tailwind-checkbox
+      [parent]="form"
+      [compact]="true"
+      name="showFilename"
+      label="Mostra il nome del file"
+    ></notify-tailwind-checkbox>
     <notify-tailwind-slider
       *ngIf="form.value.showInline"
       [parent]="form"

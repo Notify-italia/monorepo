@@ -42,6 +42,7 @@ import { IAdvancedProfileItemEvent } from '../../services/advanced-profile-item-
         class="absolute  h-full z-10 bottom-0 w-full rounded-b-lg flex flex-col justify-end p-2 space-y-2 "
       >
         <p
+          *ngIf="context.getters.currentItem.showFilename"
           [ngStyle]="{
             color: this.context.services.utils.getContrastingColor(
               this.context.getters.textColor || '#000000'
