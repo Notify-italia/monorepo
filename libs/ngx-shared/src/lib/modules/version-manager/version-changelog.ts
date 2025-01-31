@@ -79,6 +79,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
     message:
       'Risolto un bug che impediva la chiusura del menu di inserimento di un nuovo blocco su app iOS e Android',
   },
+  {
+    type: 'new',
+    message:
+      'Un nuovo look per la visualizzazione del tuo biglietto da visita digitale su desktop, con un design più pulito e moderno',
+  },
 ];
 
 export const agentChangelog: INotifyVersionInfo = {

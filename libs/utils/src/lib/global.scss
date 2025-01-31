@@ -150,7 +150,7 @@
 }
 
 .floating-button {
-  @apply btn rounded-2xl w-fit btn-ghost backdrop-blur backdrop-brightness-75 text-gray-50 flex flex-row justify-around  items-center flex-nowrap h-16 shadow-lg  lg:backdrop-brightness-125 px-4;
+  @apply btn rounded-2xl w-fit btn-ghost backdrop-blur backdrop-brightness-75 text-gray-50 flex flex-row justify-around  items-center flex-nowrap h-16 shadow-lg  px-4;
 
   &.fb-small {
     @apply w-12 h-12 mask mask-squircle;

@@ -17,7 +17,7 @@ import { IAdvancedProfileItemEvent } from '../../services/advanced-profile-item-
   styleUrl: '../../advanced-profile.styles.scss',
   template: `
     <div
-      class="flex flex-col rounded-full relative"
+      class="flex flex-col rounded-lg relative overflow-hidden"
       *ngIf="this.context.getters.container as container"
       [class]="container.class"
       [ngStyle]="container.ngStyle"
@@ -30,6 +30,8 @@ import { IAdvancedProfileItemEvent } from '../../services/advanced-profile-item-
         [ngStyle]="{
             height: context.getters.currentItem.boxHeight + 'px',
           }"
+        frameborder="0"
+        style="scale: 1.02"
         type="application/pdf"
       ></object>
 
