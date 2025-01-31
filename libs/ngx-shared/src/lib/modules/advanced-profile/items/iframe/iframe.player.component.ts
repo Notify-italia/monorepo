@@ -25,7 +25,7 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
       [ngClass]="container.ngClass"
     >
       <button
-        class="flex space-x-2 items-center justify-evenly overflow-hidden rounded-xl  text-start p-2 pr-4 w-full active:scale-95 smooth smooth-fast"
+        class="flex space-x-2 items-center justify-evenly rounded-xl  text-start p-2 pr-4 w-full active:scale-95 smooth smooth-fast"
         ontouchstart
         (click)="handleClick()"
         [ngClass]="{
@@ -79,19 +79,13 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
         </div>
 
         <div
-          class="dropdown text-sm dropdown-left dropdown-bottom"
+          class="dropdown text-sm dropdown-left dropdown-bottom "
           [ngClass]="{
-            'w-full ': isVertical
+            'dropdown-start dropdown-top': isVertical
           }"
           (click)="$event.stopPropagation()"
         >
-          <div
-            tabindex="0"
-            role="button"
-            [ngClass]="{
-          'flex w-full justify-end': isVertical,
-        }"
-          >
+          <div tabindex="0" role="button">
             <svg
               *ngIf="context.getters.currentItem.direction === 'vertical'"
               xmlns="http://www.w3.org/2000/svg"
@@ -126,11 +120,11 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
           </div>
           <ul
             tabindex="0"
-            class="dropdown-content z-[1] menu-xs p-2 rounded-lg w-52 shadow-md text-xs gap-5"
+            class="dropdown-content border z-[1] menu-xs p-2 rounded-lg w-52 shadow-md text-xs gap-5"
             [ngStyle]="{
               'background-color': context.services.utils.changeColorBrightness(
                 context.getters.textColor,
-                95
+                105
               ),
               color: context.services.utils.getContrastingColor(
                 context.getters.textColor
