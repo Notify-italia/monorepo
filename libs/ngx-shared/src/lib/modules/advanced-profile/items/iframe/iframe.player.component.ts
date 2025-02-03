@@ -25,11 +25,12 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
       [ngClass]="container.ngClass"
     >
       <button
-        class="flex space-x-2 items-center justify-evenly rounded-xl  text-start p-2 pr-4 w-full active:scale-95 smooth smooth-fast"
+        class="flex space-x-2 items-center justify-evenly rounded-xl text-start p-2 pr-4 w-full active:scale-95 smooth smooth-fast"
         ontouchstart
         (click)="handleClick()"
         [ngClass]="{
           'flex-col !space-x-0 space-y-2 !pr-2 !justify-between ': isVertical,
+          
         }"
         [ngStyle]="{
           'background-color': context.getters.textColor,
@@ -41,7 +42,7 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
         <img
           *ngIf="imageUrl"
           [src]="imageUrl"
-          class=" w-24 h-24 rounded-lg shrink-0"
+          class=" w-24 h-24 rounded-lg shrink-0 "
           [ngStyle]="{
             'object-fit':
               context.getters.currentItem.direction === 'horizontal'
@@ -49,7 +50,7 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
                 : context.getters.currentItem.imgFit || 'cover'
           }"
           [ngClass]="{
-          'w-full h-36 object-fill': isVertical,
+          'w-full max-h-36 h-full object-fill min-h-0': isVertical,
         }"
         />
         <div
@@ -124,7 +125,7 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
             [ngStyle]="{
               'background-color': context.services.utils.changeColorBrightness(
                 context.getters.textColor,
-                105
+                95
               ),
               color: context.services.utils.getContrastingColor(
                 context.getters.textColor

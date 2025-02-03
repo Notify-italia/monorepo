@@ -22,6 +22,11 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
     type: 'improvement',
     message:
+      'Aggiunta la possibilità di inserire un link a photo.glass nel profilo',
+  },
+  {
+    type: 'improvement',
+    message:
       "Adesso, attivando l'opzione 'personalizza stile', viene usato come base lo stile corrente del profilo",
   },
   {
