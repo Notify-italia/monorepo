@@ -1,5 +1,6 @@
 import {
   EnumNotifyAdvancedProfileItems,
+  EnumNotifyAPContainerStyles,
   INotifyAPDocumentItem,
 } from '@notify/interfaces';
 import {
@@ -31,6 +32,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPDocumentItem> = {
     showInline: true,
     boxHeight: 200,
     showFilename: true,
+    buttonStyle: EnumNotifyAPContainerStyles.Filled,
     button: {
       icon: '',
       url: '',

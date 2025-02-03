@@ -87,7 +87,7 @@ import { IAdvancedProfileItemEvent } from '../../services/advanced-profile-item-
       } @else {
       <notify-player-base-button
         [direction]="context.statics.directions.Vertical"
-        [style]="context.statics.buttonStyles.Filled"
+        [style]="context.getters.currentItem.buttonStyle"
         [button]="context.getters.currentItem.button"
         [icon]="buttonIcon"
         [context]="context"

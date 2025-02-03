@@ -23,7 +23,7 @@ import {
     <notify-tailwind-slider
       [parent]="form"
       name="height"
-      label="Altezza"
+      label="Altezza blocco"
       [compact]="true"
       [steps]="20"
       [min]="1"

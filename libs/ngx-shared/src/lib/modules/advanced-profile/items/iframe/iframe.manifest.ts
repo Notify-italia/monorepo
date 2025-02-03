@@ -16,7 +16,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPIFrameItem> = {
   type: EnumNotifyAdvancedProfileItems.IFrame,
   formComponent: IFrameFormComponent,
   playerComponent: IFramePlayerComponent,
-  localizedName: 'Sito Web',
+  localizedName: 'Sito web incorporato',
   formOptions: {
     hideTextSettings: false,
   },

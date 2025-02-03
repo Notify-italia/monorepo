@@ -16,7 +16,7 @@ import {
     <notify-upload
       [file]="context.components.upload.fileData"
       acceptedFiles="application/pdf"
-      uploadLabel="Trascina un documento o clicca per caricarla"
+      uploadLabel="Trascina un documento o clicca per caricarlo"
       class="h-48"
       (fileChanged)="handleFileChanged($event)"
     ></notify-upload>
@@ -41,7 +41,7 @@ import {
       *ngIf="form.value.showInline"
       [parent]="form"
       name="boxHeight"
-      label="Altezza"
+      label="Altezza blocco"
       [steps]="20"
       [min]="100"
       [max]="400"
@@ -52,6 +52,15 @@ import {
     ></notify-tailwind-slider>
 
     } @else {
+    <notify-tailwind-select
+      [parent]="form"
+      name="buttonStyle"
+      label="Stile Pulsante"
+      [options]="context.components.select.buttonStyles"
+      class="w-full"
+      [compact]="true"
+    ></notify-tailwind-select>
+
     <notify-tailwind-input
       [parent]="$any(form.controls.button)"
       name="caption"

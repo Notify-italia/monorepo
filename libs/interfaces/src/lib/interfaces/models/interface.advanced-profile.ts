@@ -103,6 +103,7 @@ export interface INotifyAPDocumentItem
   button: INotifyAPBaseButton;
   boxHeight: number;
   showFilename: boolean;
+  buttonStyle: EnumNotifyAPContainerStyles;
 }
 
 //note

@@ -64,7 +64,7 @@ import {
         "
         [parent]="form"
         name="boxHeight"
-        label="Altezza"
+        label="Altezza blocco"
         [steps]="20"
         [min]="100"
         [max]="400"

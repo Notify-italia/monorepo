@@ -84,7 +84,7 @@ const CHECKBOX_TOGGLE_LOOP = {
     <notify-tailwind-slider
       [parent]="form"
       name="height"
-      label="Altezza"
+      label="Altezza blocco"
       [compact]="true"
       [steps]="0"
       [min]="180"
