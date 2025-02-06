@@ -6,14 +6,19 @@ const _getVersionArt = (tag: string) => {
 
 const _sharedTag = 'v1.4.0';
 const _sharedDate = '2024-12-15';
-const _sharedTitle = 'Stabilità e performance (3)';
-const _sharedDescription = `Piccole ma importanti correzioni e miglioramenti per garantire che il tuo biglietto da visita digitale sia sempre al top!`;
+const _sharedTitle = 'Video Youtube, Documenti e Stili';
+const _sharedDescription = `Questa versione di Notify porta la personalizzazione del tuo profilo ad un nuovo livello, con l'introduzione di nuovi blocchi e funzionalità per mostrare ai tuoi contatti le tue passioni e i tuoi interessi.`;
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
   {
     type: 'new',
     message:
       "Inserito un nuovo blocco sull'editor del tuo profilo: 'Video Youtube', per mostrare ai tuoi contatti i tuoi video preferiti",
+  },
+  {
+    type: 'new',
+    message:
+      "Inserito un nuovo blocco sull'editor del tuo profilo: 'Documenti', per mostrare ai tuoi contatti un documento pdf di tuo interesse",
   },
   {
     type: 'improvement',
