@@ -30,7 +30,7 @@ const manifest: INotifyAdvancedProfileManifest<INotifyAPIFrameItem> = {
     ...itemManifest.definitions,
     url: '',
     openInNotify: true,
-    direction: EnumNotifyAPDirections.Vertical,
+    direction: EnumNotifyAPDirections.Horizontal,
     imgFit: EnumNotifyAPObjectFit.Cover,
     boxHeight: 128,
   },
