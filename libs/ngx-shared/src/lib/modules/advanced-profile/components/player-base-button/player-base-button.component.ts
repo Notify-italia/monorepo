@@ -4,7 +4,7 @@ import {
   EnumNotifyAPContainerStyles,
   EnumNotifyAPDirections,
   INotifyAPBaseButton,
-  NotifyAdvancedProfileItem,
+  UnknownType,
 } from '@notify/interfaces';
 import { AdvancedProfileItemPlayerBaseComponent } from '../../../../constructors/ap-item.player.base.component';
 import { SvgBoxIcon } from '../../../../services';
@@ -53,7 +53,7 @@ export class PlayerBaseButtonComponent {
   @Input({ required: true }) public button!: INotifyAPBaseButton;
   @Input({ required: true }) public icon!: SvgBoxIcon;
   @Input({ required: true })
-  public context!: AdvancedProfileItemPlayerBaseComponent<NotifyAdvancedProfileItem>['context'];
+  public context!: AdvancedProfileItemPlayerBaseComponent<UnknownType>['context'];
 
   @Output() public buttonClicked = new EventEmitter<INotifyAPBaseButton>();
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { INotifyAPDocumentItem, INotifyAPLinkItem } from '@notify/interfaces';
 
+import { debounceTime, tap } from 'rxjs';
 import {
   AdvancedItemPlayerBaseImports,
   AdvancedItemPlayerBaseProviders,
@@ -20,20 +21,20 @@ import { IAdvancedProfileItemEvent } from '../../services/advanced-profile-item-
       class="flex flex-col rounded-lg relative overflow-hidden"
       *ngIf="this.context.getters.container as container"
       [class]="container.class"
-      [ngStyle]="container.ngStyle"
+      [ngStyle]="itemNgStyle"
       [ngClass]="container.ngClass"
+      style="transition: max-height;"
     >
       @if(context.getters.currentItem.docSrc) {
       @if(context.getters.currentItem.showInline) {
       <object
         [data]="safeSrc"
-        [ngStyle]="{
-            height: context.getters.currentItem.boxHeight + 'px',
-          }"
         frameborder="0"
-        style="scale: 1.02"
+        style="scale: 1.02; height: 100%; width: 100%;"
         type="application/pdf"
-      ></object>
+      >
+        PDF not loaded
+      </object>
 
       <div
         style="background-image: linear-gradient(transparent, {{
@@ -114,6 +115,16 @@ export class DocumentPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
   };
   public safeSrc?: SafeResourceUrl;
 
+  public get itemNgStyle() {
+    if (!this.context.getters.currentItem.showInline) {
+      return this.context.getters.container?.ngStyle;
+    }
+    return {
+      ...this.context.getters.container?.ngStyle,
+      height: this.context.getters.currentItem.boxHeight + 'px',
+    };
+  }
+
   public get documentFilename() {
     return this.context.getters.currentItem.docSrc
       ?.split('/')
@@ -124,7 +135,18 @@ export class DocumentPlayerComponent extends AdvancedProfileItemPlayerBaseCompon
   public override componentReady(): void {
     this._setSafePdf();
 
-    this.context.getters.componentChanged$.subscribe(() => this._setSafePdf());
+    this.context.getters.componentChanged$
+      .pipe(
+        debounceTime(250),
+        tap((c) => {
+          if (c?.some((v) => v.key !== 'docSrc')) {
+            return;
+          }
+
+          this._setSafePdf();
+        })
+      )
+      .subscribe();
   }
 
   private _setSafePdf() {

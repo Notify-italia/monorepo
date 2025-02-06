@@ -18,6 +18,7 @@ import {
   EnumNotifyUserType,
   INotifyProfile,
   NotifyAdvancedProfileItem,
+  UnknownType,
 } from '@notify/interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
@@ -44,6 +45,11 @@ export interface INotifyCustomTableValueBase {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   transformer?: (value: any) => string;
 }
+
+export type INotifyAdvancedProfileChangedProperties<T> = {
+  key: keyof T;
+  value: UnknownType;
+}[];
 
 export const AdvancedItemPlayerBaseImports = [
   CommonModule,
@@ -80,7 +86,9 @@ export class AdvancedProfileItemPlayerBaseComponent<
   @Input() private isRunningOnPlayer = false;
   @Input() private environment: Record<string, unknown> = {};
 
-  private _componentChanged$ = new Subject<void>();
+  private _componentChanged$ = new Subject<
+    INotifyAdvancedProfileChangedProperties<T> | undefined
+  >();
   private _componentDestroyed$ = new Subject<void>();
 
   public get context() {
@@ -211,23 +219,29 @@ export class AdvancedProfileItemPlayerBaseComponent<
   }
 
   public ngOnChanges(changes: SimpleChanges) {
-    const updatedItem = JSON.stringify(
-      (
-        changes['profile'].currentValue as INotifyProfile
-      )?.advancedProfile?.items.find((i) => i._id === this.currentItem._id)
-    );
+    const _newItem = (
+      changes['profile'].currentValue as INotifyProfile
+    )?.advancedProfile?.items.find((i) => i._id === this.currentItem._id);
 
-    const currentItem = JSON.stringify(
-      (
-        changes['profile'].previousValue as INotifyProfile
-      )?.advancedProfile?.items.find((i) => i._id === this.currentItem._id)
-    );
+    const _currentItem = (
+      changes['profile'].previousValue as INotifyProfile
+    )?.advancedProfile?.items.find((i) => i._id === this.currentItem._id);
 
-    if (updatedItem === currentItem) {
+    if (!_newItem || !_currentItem) {
       return;
     }
 
-    this._componentChanged$.next();
+    if (JSON.stringify(_currentItem) === JSON.stringify(_newItem)) {
+      return;
+    }
+
+    const _changedProperties: INotifyAdvancedProfileChangedProperties<T> = (
+      Object.keys(_newItem) as Array<keyof NotifyAdvancedProfileItem>
+    )
+      .filter((key) => _newItem[key] !== _currentItem[key])
+      .map((key) => ({ key, value: _newItem[key] }));
+
+    this._componentChanged$.next(_changedProperties);
   }
 
   public ngOnDestroy() {
