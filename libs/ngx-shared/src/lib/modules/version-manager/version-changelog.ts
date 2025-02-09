@@ -5,8 +5,8 @@ const _getVersionArt = (tag: string) => {
 };
 
 const _sharedTag = 'v1.4.0';
-const _sharedDate = '2024-12-15';
-const _sharedTitle = 'Video Youtube, Documenti e Stili';
+const _sharedDate = '2025-02-27';
+const _sharedTitle = 'Video Youtube, documenti e (nuovi) stili';
 const _sharedDescription = `Questa versione di Notify porta la personalizzazione del tuo profilo ad un nuovo livello, con l'introduzione di nuovi blocchi e funzionalità per mostrare ai tuoi contatti le tue passioni e i tuoi interessi.`;
 
 const _sharedChanges: INotifyVersionInfo['changes'] = [
@@ -50,7 +50,7 @@ const _sharedChanges: INotifyVersionInfo['changes'] = [
       'Risolto un bug che causava clipping del testo in alcuni blocchi del profilo, in particolari condizioni',
   },
   {
-    type: 'improvement',
+    type: 'new',
     message:
       'Aggiunti 2 nuovi stili per i pulsanti del profilo: "Circolare (Riempito)" e "Circolare (Tracciato)"',
   },
