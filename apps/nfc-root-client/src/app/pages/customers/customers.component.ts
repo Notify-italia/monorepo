@@ -23,7 +23,7 @@ export class CustomersComponent {
 
   public customers$ = this._rootService.getCustomers({
     page: 1,
-    items: 100,
+    items: 999,
   }) as unknown as Observable<INotifyUser[]>;
   public tableConfig: IAccountsTableConfig = {
     allowedActions: [],
@@ -57,5 +57,15 @@ export class CustomersComponent {
 
   public inspectCustomer(id: string) {
     this._router.navigate(['/pages/customer'], { queryParams: { id } });
+  }
+
+  public extractEmails() {
+    this.customers$.subscribe((customers) => {
+      const emails = customers
+        .map((customer) => customer.email)
+        .filter((v) => !v.includes('notifyapp.it'));
+
+      navigator.clipboard.writeText(emails.join(', '));
+    });
   }
 }

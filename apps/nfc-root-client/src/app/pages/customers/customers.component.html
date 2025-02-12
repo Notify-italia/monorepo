@@ -1,6 +1,13 @@
-<notify-accounts-table
-  [users$]="customers$"
-  [config]="tableConfig"
-  (rowClicked)="inspectCustomer($event._id)"
-  [additionalColumns]="customersColumns"
-></notify-accounts-table>
+<div class="flex flex-col mt-2">
+  <div class="flex">
+    <button class="btn btn-primary" (click)="extractEmails()">
+      Ottieni emails clienti
+    </button>
+  </div>
+  <notify-accounts-table
+    [users$]="customers$"
+    [config]="tableConfig"
+    (rowClicked)="inspectCustomer($event._id)"
+    [additionalColumns]="customersColumns"
+  ></notify-accounts-table>
+</div>

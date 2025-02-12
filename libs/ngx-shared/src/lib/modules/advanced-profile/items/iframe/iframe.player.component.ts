@@ -35,7 +35,7 @@ import { IFrameModalNavbarStyle, iframeFactory } from '../../../modals';
         [ngStyle]="{
           'background-color': context.getters.textColor,
           color: ogMetadataTextColor,
-          height: context.getters.currentItem.boxHeight + 'px',
+          height: boxHeightPx,
         }"
       >
         @if(openGraphMetadata) {
@@ -173,6 +173,10 @@ export class IFramePlayerComponent extends AdvancedProfileItemPlayerBaseComponen
     }
 
     return normalized;
+  }
+
+  public get boxHeightPx() {
+    return `${this.context.getters.currentItem.boxHeight || 128}px`;
   }
 
   public get isVertical() {
