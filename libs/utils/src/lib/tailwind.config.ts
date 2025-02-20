@@ -50,6 +50,11 @@ const tailwindConfig = {
         ],
       },
       colors: {
+        ocra: {
+          accent: '#E89B14',
+          primary: '#05444A',
+          background: '#FFF',
+        },
         primary: {
           DEFAULT: '#3ABA8F',
           50: '#C0EBDD',

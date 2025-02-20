@@ -1,0 +1,35 @@
+.instruction-box {
+  @apply flex flex-col justify-around space-x-0 items-center h-96 2xl:h-[30rem] w-auto z-10 p-4 rounded-lg aspect-square  intersect:animate-fade-left bg-ocra-primary/80 backdrop-blur text-white;
+
+  .box-title {
+    @apply font-ebGaramond text-center text-[14vh]  text-ocra-accent  intersect:animate-fade-right animate-ease-out;
+  }
+
+  .box-body {
+    @apply animate-ease-out opacity-0 intersect:opacity-100  h-full space-y-4 text-center;
+  }
+
+  &.box-transparent {
+    @apply bg-transparent backdrop-blur-0 border-0 text-current;
+  }
+}
+
+section {
+  @apply space-y-10 min-h-[150vh] lg:min-h-[65vh] flex flex-col w-11/12 mx-auto mt-10;
+}
+
+.confirm-lead-button {
+  @apply w-full font-bold p-4 rounded-2xl backdrop-blur-xl bg-slate-200/50 flex justify-center  space-x-4 items-center text-secondary-500 text-lg active:scale-90  border-opacity-0 hover:border-opacity-100 border border-slate-400 disabled:pointer-events-none disabled:opacity-75 disabled:border-opacity-75 disabled:bg-slate-300/80 disabled:text-slate-500;
+}
+
+.feature-list {
+  @apply w-full space-y-10 relative lg:w-7/12;
+
+  li {
+    @apply flex space-x-4;
+  }
+
+  li > a {
+    @apply size-8 shrink-0 p-2 rounded-full bg-transparent border justify-center items-center  border-ocra-primary grow-0 flex pointer-events-none;
+  }
+}

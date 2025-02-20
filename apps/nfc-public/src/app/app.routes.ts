@@ -96,7 +96,11 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./pages/try-it/try-it.component').then((m) => m.TryItComponent),
   },
-
+  {
+    path: 'ocra',
+    loadComponent: () =>
+      import('./pages/ocra/ocra.component').then((m) => m.OcraComponent),
+  },
   {
     path: '**',
     pathMatch: 'full',

@@ -26,11 +26,19 @@ html {
   @apply flex flex-col items-center;
 
   .section-title {
-    @apply text-[2.3rem] lg:text-[4rem] font-extrabold text-center font-outfit  leading-[2.5rem] lg:leading-[4rem] whitespace-pre-wrap z-10  text-accent-color;
+    @apply text-[3rem] lg:text-[4rem] font-extrabold text-center font-outfit leading-[3rem] lg:leading-[4rem] whitespace-pre-wrap z-10  text-accent-color;
+
+    &.title-current {
+      @apply text-current;
+    }
   }
 
   .section-subtitle {
     @apply font-medium text-center text-slate-900/60 px-3 mt-2 text-sm lg:text-base z-10;
+
+    &.subtitle-current {
+      color: currentColor;
+    }
   }
 }
 
