@@ -23,7 +23,7 @@ export class OcraComponent extends SSRBaseComponent {
   private _meta = inject(Meta);
 
   public inputElementsCss =
-    'bg-gray-100 focus:ring-2 ring-accent-color rounded-2xl pl-4 py-6 !outline-none ring-offset-2 w-full smooth hover:brightness-90 backdrop-blur';
+    'bg-ocra-secondary  focus:ring-2 ring-ocra-accent rounded-2xl pl-4 py-6 !outline-none ring-offset-2 w-full smooth hover:brightness-90 backdrop-blur';
 
   public leadForm = new FormGroup({
     name: new FormControl(''),

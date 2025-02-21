@@ -1,3 +1,17 @@
+:host ::ng-deep notify-footer {
+  footer {
+    @apply text-white bg-ocra-secondary border-none;
+  }
+
+  a {
+    @apply border-ocra-accent hover:bg-ocra-accent/50;
+
+    svg {
+      @apply text-ocra-accent;
+    }
+  }
+}
+
 .instruction-box {
   @apply flex flex-col justify-around space-x-0 items-center h-96 2xl:h-[30rem] w-auto z-10 p-4 rounded-lg aspect-square  intersect:animate-fade-left bg-ocra-accent backdrop-blur text-ocra-primary;
 
@@ -23,7 +37,7 @@ section {
 }
 
 .confirm-lead-button {
-  @apply w-full font-bold p-4 rounded-2xl backdrop-blur-xl bg-ocra-secondary flex justify-center  space-x-4 items-center text-ocra-accent text-lg active:scale-90  border-opacity-0 hover:border-opacity-100 border border-slate-400 disabled:pointer-events-none disabled:opacity-75 disabled:border-opacity-75 disabled:bg-slate-300/80 disabled:text-slate-500;
+  @apply w-full font-bold p-4 rounded-2xl backdrop-blur-xl bg-ocra-secondary flex justify-center  space-x-4 items-center text-ocra-primary text-lg active:scale-90  border-opacity-0 hover:border-opacity-100 border border-ocra-accent disabled:pointer-events-none disabled:opacity-75 disabled:border-opacity-75 disabled:bg-slate-300/80 disabled:text-slate-500;
 }
 
 .feature-list {
