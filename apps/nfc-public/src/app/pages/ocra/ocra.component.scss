@@ -13,7 +13,7 @@
 }
 
 .page-root::before {
-  --size: 50px;
+  --size: 60px;
   --line: color-mix(in hsl, canvasText, transparent 90%);
   content: '';
   height: 100vh;
