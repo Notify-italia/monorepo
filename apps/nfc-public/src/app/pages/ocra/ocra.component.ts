@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
-import { TailwindFormsModule } from '@notify/ngx-shared';
+import { SSRBaseComponent, TailwindFormsModule } from '@notify/ngx-shared';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { FundedByComponent } from '../../sections/funded-by/funded-by.component';
 
@@ -18,7 +18,7 @@ import { FundedByComponent } from '../../sections/funded-by/funded-by.component'
   templateUrl: './ocra.component.html',
   styleUrl: './ocra.component.scss',
 })
-export class OcraComponent {
+export class OcraComponent extends SSRBaseComponent {
   private _title = inject(Title);
   private _meta = inject(Meta);
 
@@ -31,6 +31,12 @@ export class OcraComponent {
   });
 
   constructor() {
+    super();
+    this.preloadImages([
+      '/assets/ocra/ocra.webp',
+      '/assets/ocra/mockup-dark.svg',
+      '/assets/ocra/mockup-dark-mobile.svg',
+    ]);
     this._title.setTitle('ocr.a (by Notify)');
     this._meta.updateTag({
       name: 'description',
