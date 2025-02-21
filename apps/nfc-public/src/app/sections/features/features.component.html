@@ -117,9 +117,9 @@
         <div class="flex justify-center items-center -m-10 mt-10 lg:m-0">
           <div
             *ngIf="f.phoneImage as phoneImage"
-            class="mockup-phone iphone-15-pro scale-[0.65] lg:scale-75 2xl:scale-75 shadow-lg lg:absolute lg:mt-0 -right-32 lg:-bottom-24"
+            class="mockup-phone iphone-15-pro no-status-bar scale-[0.65] lg:scale-75 2xl:scale-75 shadow-lg lg:absolute lg:mt-0 -right-32 lg:-bottom-24"
           >
-            <notify-mockup-fill></notify-mockup-fill>
+            <div class="h-[1.5rem]"></div>
             <div class="display">
               <img [src]="phoneImage" alt="Notify Features" class="size-full" />
             </div>
