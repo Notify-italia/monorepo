@@ -196,60 +196,6 @@
           </div>
         </section>
 
-        <!-- per chi è pensato -->
-        <section class="w-full flex flex-col justify-center items-center">
-          <h2
-            class="section-title title-current mb-2 intersect-animation intersect-once intersect:animate-fade-down"
-          >
-            Per chi è pensato?
-          </h2>
-          <ul
-            class="flex flex-col lg:inline-grid grid-cols-2 grid-rows-2 gap-4 justify-center items-center"
-          >
-            <li
-              class="instruction-box box-transparent intersect-animation intersect-once intersect:animate-fade-down"
-            >
-              <span class="box-title">💼</span>
-              <span class="box-body">
-                <strong class="">Professionisti e imprenditori</strong>
-                <br />
-                Networking senza pensieri: salva i contatti al volo e usali
-                quando servono.
-              </span>
-            </li>
-            <li
-              class="instruction-box box-transparent intersect-animation intersect-once intersect:animate-fade-down"
-            >
-              <span class="box-title">📢</span>
-              <span class="box-body">
-                <strong>Freelancer e creativi</strong> <br />Ogni connessione è
-                un’opportunità, non rischiare di perderne nemmeno una.
-              </span>
-            </li>
-            <li
-              class="instruction-box box-transparent intersect-animation intersect-once intersect:animate-fade-down"
-            >
-              <span class="box-title">🎯</span>
-              <span class="box-body">
-                <strong>Commerciali e venditori</strong> <br />Organizza
-                facilmente i contatti acquisiti durante eventi, fiere o meeting.
-              </span>
-            </li>
-
-            <li
-              class="instruction-box box-transparent intersect-animation intersect-once intersect:animate-fade-down"
-            >
-              <span class="box-title">🔍</span>
-
-              <span class="box-body">
-                <strong>Chiunque collezioni biglietti da visita.</strong>
-                <br />
-                Perché la memoria non basta, ma <b> ocr.a</b> sì.
-              </span>
-            </li>
-          </ul>
-        </section>
-
         <!-- come funziona -->
         <section class="relative bg-transparent">
           <h2
@@ -305,8 +251,62 @@
           </div>
         </section>
 
+        <!-- per chi è pensato -->
+        <section class="w-full flex flex-col justify-center items-center">
+          <h2
+            class="section-title title-current mb-2 intersect-animation intersect-once intersect:animate-fade-down"
+          >
+            Per chi è pensato?
+          </h2>
+          <ul
+            class="flex flex-col lg:inline-grid grid-cols-2 grid-rows-2 gap-4 justify-center items-center"
+          >
+            <li
+              class="instruction-box box-transparent intersect-animation intersect-once intersect:animate-fade-down"
+            >
+              <span class="box-title">💼</span>
+              <span class="box-body">
+                <strong class="">Professionisti e imprenditori</strong>
+                <br />
+                Networking senza pensieri: salva i contatti al volo e usali
+                quando servono.
+              </span>
+            </li>
+            <li
+              class="instruction-box box-transparent intersect-animation intersect-once intersect:animate-fade-down"
+            >
+              <span class="box-title">📢</span>
+              <span class="box-body">
+                <strong>Freelancer e creativi</strong> <br />Ogni connessione è
+                un’opportunità, non rischiare di perderne nemmeno una.
+              </span>
+            </li>
+            <li
+              class="instruction-box box-transparent intersect-animation intersect-once intersect:animate-fade-down"
+            >
+              <span class="box-title">🎯</span>
+              <span class="box-body">
+                <strong>Commerciali e venditori</strong> <br />Organizza
+                facilmente i contatti acquisiti durante eventi, fiere o meeting.
+              </span>
+            </li>
+
+            <li
+              class="instruction-box box-transparent intersect-animation intersect-once intersect:animate-fade-down"
+            >
+              <span class="box-title">🔍</span>
+
+              <span class="box-body">
+                <strong>Chiunque collezioni biglietti da visita.</strong>
+                <br />
+                Perché la memoria non basta, ma <b> ocr.a</b> sì.
+              </span>
+            </li>
+          </ul>
+        </section>
+
         <!-- prova ocr.a -->
-        <div class="w-full website-section">
+        <section class="w-full website-section !min-h-[90vh] justify-center">
           <h2
             class="section-title title-current mb-2 intersect-animation intersect-once intersect:animate-fade-down"
           >
@@ -351,13 +351,13 @@
             ></notify-tailwind-input>
 
             <button
-              class="confirm-lead-button smooth"
+              class="confirm-lead-button smooth !mt-5"
               [disabled]="!leadForm.value.email || !leadForm.value.name"
             >
               <p>Inizia ad usare <b>ocr.a</b></p>
             </button>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   </div>
