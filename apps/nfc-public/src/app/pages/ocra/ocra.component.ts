@@ -29,12 +29,29 @@ export class OcraComponent {
     name: new FormControl(''),
     email: new FormControl(''),
   });
+
   constructor() {
     this._title.setTitle('ocr.a (by Notify)');
     this._meta.updateTag({
       name: 'description',
       content:
         'ocr.a è l’app definitiva per digitalizzare i tuoi biglietti da visita in pochi secondi. Grazie alla tecnologia OCR avanzata, estrai automaticamente nomi, numeri, email e dettagli importanti con una semplice foto. Organizza i contatti in modo smart e ritrovali facilmente quando ne hai bisogno. Dì addio ai biglietti di carta persi: con OCRA, il networking è più semplice, veloce ed efficace. Prova OCRA in anteprima e non perdere mai più un contatto!',
+    });
+
+    this._meta.updateTag({
+      name: 'og:title',
+      content: 'ocr.a (by Notify)',
+    });
+
+    this._meta.updateTag({
+      name: 'og:description',
+      content:
+        'ocr.a è l’app definitiva per digitalizzare i tuoi biglietti da visita in pochi secondi. Grazie alla tecnologia OCR avanzata, estrai automaticamente nomi, numeri, email e dettagli importanti con una semplice foto. Organizza i contatti in modo smart e ritrovali facilmente quando ne hai bisogno. Dì addio ai biglietti di carta persi: con OCRA, il networking è più semplice, veloce ed efficace. Prova OCRA in anteprima e non perdere mai più un contatto!',
+    });
+
+    this._meta.updateTag({
+      name: 'og:image',
+      content: '/assets/ocra/ocra.webp',
     });
   }
 }

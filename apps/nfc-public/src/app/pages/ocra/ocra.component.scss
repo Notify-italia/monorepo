@@ -1,5 +1,5 @@
 .instruction-box {
-  @apply flex flex-col justify-around space-x-0 items-center h-96 2xl:h-[30rem] w-auto z-10 p-4 rounded-lg aspect-square  intersect:animate-fade-left bg-ocra-primary/80 backdrop-blur text-white;
+  @apply flex flex-col justify-around space-x-0 items-center h-96 2xl:h-[30rem] w-auto z-10 p-4 rounded-lg aspect-square  intersect:animate-fade-left bg-ocra-accent backdrop-blur text-ocra-primary;
 
   .box-title {
     @apply font-ebGaramond text-center text-[14vh]  text-ocra-accent  intersect:animate-fade-right animate-ease-out;
@@ -14,12 +14,16 @@
   }
 }
 
+.intersect-animation {
+  @apply animate-delay-300;
+}
+
 section {
   @apply space-y-10 min-h-[150vh] lg:min-h-[65vh] flex flex-col w-11/12 mx-auto mt-10;
 }
 
 .confirm-lead-button {
-  @apply w-full font-bold p-4 rounded-2xl backdrop-blur-xl bg-slate-200/50 flex justify-center  space-x-4 items-center text-secondary-500 text-lg active:scale-90  border-opacity-0 hover:border-opacity-100 border border-slate-400 disabled:pointer-events-none disabled:opacity-75 disabled:border-opacity-75 disabled:bg-slate-300/80 disabled:text-slate-500;
+  @apply w-full font-bold p-4 rounded-2xl backdrop-blur-xl bg-ocra-secondary flex justify-center  space-x-4 items-center text-ocra-accent text-lg active:scale-90  border-opacity-0 hover:border-opacity-100 border border-slate-400 disabled:pointer-events-none disabled:opacity-75 disabled:border-opacity-75 disabled:bg-slate-300/80 disabled:text-slate-500;
 }
 
 .feature-list {

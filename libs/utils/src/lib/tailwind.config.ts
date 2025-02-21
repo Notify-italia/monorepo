@@ -51,9 +51,10 @@ const tailwindConfig = {
       },
       colors: {
         ocra: {
-          accent: '#E89B14',
-          primary: '#05444A',
-          background: '#FFF',
+          accent: '#D65448',
+          primary: '#fff',
+          secondary: '#615e5e',
+          background: '#121212',
         },
         primary: {
           DEFAULT: '#3ABA8F',
