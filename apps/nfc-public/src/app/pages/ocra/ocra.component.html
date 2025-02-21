@@ -4,12 +4,12 @@
   <div class="max-content-width mb-10">
     <div class="website-section space-y-10">
       <div
-        class="flex flex-col lg:flex-row justify-center lg:justify-around z-10 items-center h-full flex-wrap lg:flex-nowrap min-h-[90vh] lg:space-x-10"
+        class="flex flex-col lg:flex-row justify-center lg:justify-around z-10 items-center h-full flex-wrap lg:flex-nowrap min-h-[150vh] lg:min-h-[90vh] space-y-10 lg:space-y-0 lg:space-x-10"
       >
         <div class="flex flex-col items-center flex-wrap">
           <img
             src="/assets/ocra/ocra.svg"
-            class="size-72 mb-5 smooth intersect-animation intersect-once intersect:animate-fade-down pointer-events-none"
+            class="size-52 lg:size-72 mb-5 smooth intersect-animation intersect-once intersect:animate-fade-down pointer-events-none"
           />
           <h1
             class="section-title title-current intersect-animation intersect-once intersect:animate-fade-down !animate-delay-150"
@@ -40,7 +40,7 @@
           />
           <img
             src="/assets/ocra/mockup-dark-mobile.svg"
-            class="size-11/12 object-contain lg:hidden"
+            class="size-full object-contain lg:hidden"
             alt=""
           />
         </div>
@@ -153,7 +153,7 @@
             class="intersect-animation intersect-once intersect:animate-fade-down"
           >
             <h2 class="section-title title-current mb-2">
-              I biglietti da visita restano un simbolo...
+              restano però un simbolo...
             </h2>
             <p class="section-subtitle subtitle-current">
               ma oggi c’è un modo più intelligente per gestire i tuoi contatti.
@@ -321,7 +321,9 @@
             o costo.
           </p>
 
-          <div
+          <form
+            [formGroup]="leadForm"
+            (submit)="submitLead()"
             class="flex flex-col space-y-4 w-10/12 mx-auto lg:w-96 mt-8 intersect-animation intersect-once intersect:animate-fade-down"
           >
             <notify-tailwind-input
@@ -356,7 +358,7 @@
             >
               <p>Inizia ad usare <b>ocr.a</b></p>
             </button>
-          </div>
+          </form>
         </section>
       </div>
     </div>

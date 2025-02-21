@@ -169,3 +169,26 @@ html {
     z-index: 10 !important;
   }
 }
+
+.page-grid::before {
+  --size: 60px;
+  --line: color-mix(in hsl, canvasText, transparent 90%);
+  content: '';
+  height: 100vh;
+  @apply w-screen lg:w-[90vw];
+
+  position: absolute;
+  background: linear-gradient(
+        90deg,
+        var(--line) 1px,
+        transparent 1px var(--size)
+      )
+      50% 50% / var(--size) var(--size),
+    linear-gradient(var(--line) 1px, transparent 1px var(--size)) 50% 50% /
+      var(--size) var(--size);
+  mask: linear-gradient(-20deg, transparent 50%, white);
+  top: 0;
+  transform-style: flat;
+  pointer-events: none;
+  z-index: 10;
+}

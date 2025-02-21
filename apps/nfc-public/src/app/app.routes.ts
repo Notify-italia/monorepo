@@ -98,8 +98,20 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'ocra',
-    loadComponent: () =>
-      import('./pages/ocra/ocra.component').then((m) => m.OcraComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./pages/ocra/ocra.component').then((m) => m.OcraComponent),
+      },
+      {
+        path: 'success',
+        loadComponent: () =>
+          import('./pages/ocra-success/ocra-success.component').then(
+            (m) => m.OcraSuccessComponent
+          ),
+      },
+    ],
   },
   {
     path: '**',

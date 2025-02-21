@@ -19,6 +19,7 @@ router.post(
   body('email'),
   body('phone'),
   body('role'),
+  body('message'),
   requestHandler(async (req, res) => {
     const body = JSON.parse(
       Buffer.from(req.body.d, 'base64').toString('utf-8')
@@ -48,12 +49,12 @@ router.post(
     const lead = LeadModel.build({
       name: name,
       surname: surname || '',
-      emails: [body.email],
-      phoneNumbers: [body.phone],
+      emails: body.email ? [body.email] : [],
+      phoneNumbers: body.phone ? [body.phone] : [],
       role: body.role,
       createdBy: user._id as unknown as Schema.Types.ObjectId,
       sharedBy: [user._id as unknown as Schema.Types.ObjectId],
-      acceptanceMessage: 'Ottenuto tramite sito web Notify',
+      acceptanceMessage: body.message || 'Ottenuto tramite sito web Notify',
     });
 
     await createNotification(
