@@ -2,14 +2,6 @@
   @apply font-medium text-center text-slate-900/60 px-3 text-sm lg:text-base;
 }
 
-.splash-cta {
-  @apply p-3 rounded-xl w-full whitespace-nowrap text-center shadow text-white flex justify-center items-center bg-[#01396D] lg:hover:scale-105 font-bold lg:text-lg active:scale-100 space-x-2 hover:shadow-lg  font-sans active:scale-100;
-
-  &.cta-secondary {
-    @apply bg-white border text-[#01396D];
-  }
-}
-
 .bounce-arrow {
   animation: bounce 2s infinite;
 }

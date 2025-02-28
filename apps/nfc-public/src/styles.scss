@@ -164,6 +164,14 @@ html {
   @apply animate-fade-up animate-once animate-delay-200 animate-ease-out;
 }
 
+.splash-cta {
+  @apply p-3 rounded-xl w-full whitespace-nowrap text-center shadow text-white flex justify-center items-center bg-[#01396D] lg:hover:scale-105 font-bold lg:text-lg active:scale-100 space-x-2 hover:shadow-lg  font-sans active:scale-100;
+
+  &.cta-secondary {
+    @apply bg-white border text-[#01396D];
+  }
+}
+
 .iubenda-default-z-index {
   button[class='iubenda-tp-btn iubenda-cs-preferences-link'] {
     z-index: 10 !important;

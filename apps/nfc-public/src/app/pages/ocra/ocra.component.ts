@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import {
@@ -34,8 +39,8 @@ export class OcraComponent extends SSRBaseComponent {
     'bg-ocra-secondary  focus:ring-2 ring-ocra-accent rounded-2xl pl-4 py-6 !outline-none ring-offset-2 w-full smooth hover:brightness-90 backdrop-blur';
 
   public leadForm = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.email, Validators.required]),
     message: new FormControl('Ottenuto tramite sito web di ocr.a'),
   });
 

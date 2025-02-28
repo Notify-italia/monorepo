@@ -23,9 +23,18 @@
             Nel portafoglio? Nella borsa? Persi per sempre? Con <b> ocr.a</b>,
             una foto e sono sempre con te.
           </h2>
-
           <div
-            class="w-10/12 mt-10 lg:self-center intersect-animation intersect-once intersect:animate-fade-down !animate-delay-500"
+            class="w-full intersect-animation intersect-once intersect:animate-fade-down !animate-delay-[400ms] mt-10 px-2"
+          >
+            <a
+              href="/ocra/#download"
+              class="w-full bg-ocra-accent text-lg smooth-fastest smooth-linear font-poppins font-bold splash-cta smooth-linear smooth-fast smooth border border-ocra-secondary"
+            >
+              Scarica l'app in anteprima
+            </a>
+          </div>
+          <div
+            class="w-full lg:w-10/12 mt-10 lg:self-center intersect-animation intersect-once intersect:animate-fade-down !animate-delay-500"
           >
             <notify-funded-by class="contrast-50"></notify-funded-by>
           </div>
@@ -306,20 +315,24 @@
         </section>
 
         <!-- prova ocr.a -->
-        <section class="w-full website-section !min-h-[90vh] justify-center">
-          <h2
-            class="section-title title-current mb-2 intersect-animation intersect-once intersect:animate-fade-down"
-          >
-            <p>Prova <b> ocr.a</b> in anteprima!</p>
-          </h2>
-          <p
-            class="text-center intersect-animation intersect-once intersect:animate-fade-down"
-          >
-            <strong>Posti limitati per i primi tester.</strong> Non perdere
-            l’occasione di provare <b> ocr.a</b> prima del lancio ufficiale,
-            Inserisci un recapito e inizia subito ad usarlo, senza alcun impegno
-            o costo.
-          </p>
+        <section
+          class="w-full website-section !min-h-[90vh] justify-center"
+          id="download"
+        >
+          <div>
+            <h2
+              class="section-title title-current mb-2 intersect-animation intersect-once intersect:animate-fade-down"
+            >
+              Prova <b> ocr.a</b> in anteprima
+            </h2>
+            <p
+              class="text-center intersect-animation intersect-once intersect:animate-fade-down"
+            >
+              Inserisci il tuo indirizzo email per ricevere un invito esclusivo
+              ad usare
+              <b> ocr.a</b> gratuitamente.
+            </p>
+          </div>
 
           <form
             [formGroup]="leadForm"
@@ -348,13 +361,14 @@
               [compact]="true"
               [parent]="leadForm"
               [validationErrors]="{
-                required: ' '
+                required: ' ',
+                email: ' '
               }"
             ></notify-tailwind-input>
 
             <button
               class="confirm-lead-button smooth !mt-5"
-              [disabled]="!leadForm.value.email || !leadForm.value.name"
+              [disabled]="leadForm.invalid"
             >
               <p>Inizia ad usare <b>ocr.a</b></p>
             </button>
