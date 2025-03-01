@@ -75,13 +75,13 @@
 <ng-template #PlayerContent let-p="profile">
   <!-- MAIN PLAYER -->
   <div
-    class="smooth h-full w-full !ease-linear !duration-100 player-responsive will-change-transform"
+    class="smooth h-full w-full min-h-0 shrink !ease-linear !duration-100 player-responsive will-change-transform"
     [ngStyle]="{
       transform: 'translate(0%, 0%) scale(' + profileScale + ')',
       filter: 'blur(' + (100 - profileScale * 100) + 'px)'
     }"
     [ngClass]="{
-      'max-h-screen  fixed': companyIsVisible
+      'max-h-screen fixed': companyIsVisible
     }"
   >
     <notify-profile-view
@@ -101,7 +101,7 @@
     class="top-0 left-0 smooth z-50 w-full !ease-linear !duration-100 player-responsive will-change-transform"
     [ngStyle]="{ transform: 'translateX(' + companyProfileX + 'vw)' }"
     [ngClass]="{
-      absolute: !companyIsVisible ,
+      'absolute h-0': !companyIsVisible
     }"
   >
     <notify-profile-view
