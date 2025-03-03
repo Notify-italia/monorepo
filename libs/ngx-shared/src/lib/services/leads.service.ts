@@ -52,10 +52,10 @@ export class LeadsService {
 
   private _exportCSV(leads: INotifyLead[]) {
     const rows = leads.map((lead) => {
-      return `${lead.name};${lead.surname};${lead.role};${lead.phoneNumbers};${lead.emails};${lead.company}`;
+      return `${lead.name};${lead.surname};${lead.role};${lead.phoneNumbers};${lead.emails};${lead.company};${lead.createdAt}`;
     });
 
-    const csv = `Name;Surname;Role;Phone Numbers;Emails;Company\n${rows.join(
+    const csv = `Name;Surname;Role;Phone Numbers;Emails;Company;Created\n${rows.join(
       '\n'
     )}`;
 

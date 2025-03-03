@@ -96,4 +96,13 @@ export class OcraComponent extends SSRBaseComponent {
         this.leadForm.reset();
       });
   }
+
+  public goToForm() {
+    const element = document.getElementById('download');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    return;
+  }
 }

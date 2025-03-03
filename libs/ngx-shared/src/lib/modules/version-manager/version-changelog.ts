@@ -111,5 +111,12 @@ export const companyChangelog: INotifyVersionInfo = {
   description: _sharedDescription,
   title: _sharedTitle,
   artPath: _getVersionArt(_sharedTag),
-  changes: [..._sharedChanges],
+  changes: [
+    ..._sharedChanges,
+    {
+      type: 'improvement',
+      message:
+        "L'export CSV dei tuoi contatti adesso include la data di creazione del contatto",
+    },
+  ],
 };
