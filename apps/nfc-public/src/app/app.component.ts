@@ -46,7 +46,15 @@ export class AppComponent {
         }
         gtag('js', new Date());
 
+        
         gtag('config', '${this.googleTagId}');
+
+        gtag('consent', 'update', {
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted',
+    'ad_storage': 'granted',
+    'analytics_storage': 'granted'
+  });
       `);
         this.renderer.appendChild(script2, scriptBody);
         this.renderer.appendChild(this.el.nativeElement, script2);

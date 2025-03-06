@@ -38,8 +38,15 @@ export class OcraSuccessComponent {
       }
       gtag('js', new Date());
 
+      gtag('consent', 'update', {
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted',
+    'ad_storage': 'granted',
+    'analytics_storage': 'granted'
+  });
+
       gtag('event', 'conversion', {
-            send_to: 'AW-16462555562/iP_7CMGbtqUaEKrT-qk9',
+            'send_to': 'AW-16462555562/iP_7CMGbtqUaEKrT-qk9',
             value: 1.0,
             currency: 'EUR',
           });

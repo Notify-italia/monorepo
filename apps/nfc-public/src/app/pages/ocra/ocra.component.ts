@@ -92,7 +92,9 @@ export class OcraComponent extends SSRBaseComponent {
         {}
       )
       .subscribe(() => {
-        this._router.navigate(['/ocra/success']);
+        this._router.navigate(['/ocra/success'], {
+          queryParamsHandling: 'merge',
+        });
         this.leadForm.reset();
       });
   }
