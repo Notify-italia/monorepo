@@ -34,7 +34,7 @@ export class LicenseFormFullComponent
 {
   private _formsService = inject(FormsService);
 
-  @Input() license!: INotifyPopulatedLicense;
+  @Input() license!: INotifyPopulatedLicense & { quantity: number };
 
   public form!: FormGroup;
   public deleteLicense = new Subject<string>();
@@ -59,6 +59,9 @@ export class LicenseFormFullComponent
 
   override onInit(): void {
     this.form = new FormGroup({
+      quantity: new FormControl(this.license?.quantity ?? 1, [
+        Validators.required,
+      ]),
       expirationDate: new FormControl(this.license?.expirationDate || null, []),
       enabled: new FormControl(this.license?.enabled ?? true, []),
       allowedAgents: new FormControl(this.license?.allowedAgents ?? 0, [

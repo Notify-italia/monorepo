@@ -98,7 +98,7 @@ export class RootService {
   }
 
   public postLicense(data: Partial<INotifyLicense>) {
-    return this.httpService.post<Partial<INotifyLicense>, INotifyLicense>(
+    return this.httpService.post<Partial<INotifyLicense>, INotifyLicense[]>(
       `/v1/license`,
       { ...data }
     );

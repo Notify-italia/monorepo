@@ -59,8 +59,10 @@ export class LicensesComponent implements OnInit {
               )
             : this._rootService.postLicense(v).pipe(
                 tap((v) => {
-                  navigator.clipboard.writeText(v.publicKey);
-                  this._toastr.success('Chiave copiata negli appunti');
+                  navigator.clipboard.writeText(
+                    v.map((l) => l.publicKey).join('\n')
+                  );
+                  this._toastr.success('Chiavi copiate negli appunti');
                 })
               )
         ),

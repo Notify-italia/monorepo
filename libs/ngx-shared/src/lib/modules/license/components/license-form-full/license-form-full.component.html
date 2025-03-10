@@ -125,6 +125,16 @@
           >
             Conferma
           </button>
+
+          <notify-tailwind-input
+            *ngIf="!license"
+            [compact]="true"
+            [parent]="form"
+            name="quantity"
+            label="Numero Licenze"
+            type="number"
+            placeholder="1"
+          ></notify-tailwind-input>
         </div>
       </form>
     </div>

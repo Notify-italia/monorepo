@@ -10,7 +10,7 @@ import {
   LicenseDocument,
   LicenseModel,
 } from '../models';
-import { mLog } from '../services';
+import { asyncForEach, mLog } from '../services';
 
 export class LicenseManager {
   public get value(): LicenseDocument {
@@ -173,17 +173,21 @@ export class LicenseManager {
   }
 
   public static async generate(
-    conf: Partial<License>
-  ): Promise<LicenseManager> {
-    const l = (await LicenseModel.build({
+    conf: Partial<License>,
+    quantity: number = 1
+  ): Promise<LicenseManager[]> {
+    const _licenses = Array.from({ length: quantity }, () => ({
       ...conf,
       enabled: true,
       publicKey: this._generatePublicKey(),
-    })) as LicenseDocument;
+    }));
+    const l = (await LicenseModel.insertMany(_licenses)) as LicenseDocument[];
 
-    await l.save();
+    asyncForEach(l, async (_l) => {
+      await _l.save();
+    });
 
-    return new LicenseManager(l);
+    return l.map((_l) => new LicenseManager(_l));
   }
 
   private static _generatePublicKey(): string {
