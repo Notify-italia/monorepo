@@ -92,6 +92,13 @@ export class ProfileService {
 
     const type = ps.backgroundType;
 
+    if (
+      profile.advancedProfile.pageSettings.useCompanyTheme &&
+      profile.company
+    ) {
+      return this.getThemeColor(profile.company);
+    }
+
     switch (type) {
       case EnumNotifyAPBackgroundTypes.Fill:
         return ps.fill;
